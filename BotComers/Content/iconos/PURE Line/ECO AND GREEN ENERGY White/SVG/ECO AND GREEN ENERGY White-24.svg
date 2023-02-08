@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Generator: Adobe Illustrator 16.0.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 width="169.998px" height="169.999px" viewBox="0 0 169.998 169.999" enable-background="new 0 0 169.998 169.999"
+	 xml:space="preserve">
+<g id="Background">
+</g>
+<g id="Circle">
+	<g>
+		<path fill="#282D33" d="M85,169.999c-46.869,0-85-38.131-85-85S38.131,0,85,0s84.998,38.13,84.998,84.999
+			S131.869,169.999,85,169.999z"/>
+	</g>
+</g>
+<g id="TEXT">
+</g>
+<g id="Icons">
+	<g>
+		<circle fill="none" stroke="#FFFFFF" stroke-width="4" cx="54.771" cy="91.546" r="18.138"/>
+		<circle fill="none" stroke="#FFFFFF" stroke-width="4" cx="112.969" cy="91.546" r="18.137"/>
+		<polygon fill="none" stroke="#FFFFFF" stroke-width="4" points="69.207,60.757 96.888,60.757 111.791,91.638 84.11,91.638 		"/>
+		<polyline fill="none" stroke="#FFFFFF" stroke-width="4" points="80.058,49.816 72.36,49.816 53.124,92.138 		"/>
+		<line fill="none" stroke="#FFFFFF" stroke-width="4" x1="92.007" y1="54.639" x2="101.353" y2="54.639"/>
+		<line fill="none" stroke="#FFFFFF" stroke-width="4" x1="95.993" y1="61.633" x2="84.038" y2="90.898"/>
+	</g>
+</g>
+</svg>

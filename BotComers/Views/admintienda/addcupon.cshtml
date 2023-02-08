@@ -1,0 +1,153 @@
+﻿
+@{
+    ViewBag.Title = "addcupon";
+    Layout = "~/Views/Shared/_LayoutApp.cshtml";
+}
+
+<link href="@Url.Content("~/Content/cssKendo/kendo.common.min.css")" rel="stylesheet" />
+<link href="@Url.Content("~/Content/cssKendo/kendo.dataviz.default.min.css")" rel="stylesheet" />
+<link href="@Url.Content("~/Content/cssKendo/kendo.dataviz.min.css")" rel="stylesheet" />
+<link href="@Url.Content("~/Content/cssKendo/kendo.default.min.css")" rel="stylesheet" />
+
+
+<div class="slim-mainpanel">
+    <div class="container">
+        <div class="slim-pageheader">
+            <ol class="breadcrumb slim-breadcrumb">
+                <li class="breadcrumb-item"><a href="@Url.Action("cupones","admintienda")">Cupones</a></li>
+                <li class="breadcrumb-item active" aria-current="page">agregar</li>
+            </ol>
+            <h6 class="slim-pagetitle">Nuevo cupón</h6>
+        </div><!-- slim-pageheader -->
+        <div class="section-wrapper">
+            <div class="form-layout">
+                <div class="row mg-b-25">
+                    <div class="col-lg-3">
+                        <div class="form-group">
+                            <label for="txtCupon_CodigoCupon" class="form-control-label">Codigo Cupón:</label>
+                            <input id="txtCupon_CodigoCupon" class="form-control form-control-sm" type="text" name="" value="" placeholder="">
+                        </div>
+                    </div><!-- col-4 -->
+                    <div class="col-lg-3">
+                        <div class="form-group">
+                            <label for="txtCupon_Tipo" class="form-control-label">Tipo: </label>
+                            <select id="txtCupon_Tipo" class="form-control form-control-sm" data-placeholder="">
+                                <option value="1">Porcentaje (%)</option>
+                                <option value="2" selected>Valor (S/.)</option>
+                            </select>
+                        </div>
+                    </div><!-- col-4 -->
+                    <div class="col-lg-3">
+                        <div class="form-group">
+                            <label for="txtCupon_Valor" class="form-control-label">Valor: </label>
+                            <input id="txtCupon_Valor" class="form-control form-control-sm" type="text" name="" value="" placeholder="">
+                        </div>
+                    </div><!-- col-4 -->
+                    <div class="col-lg-3">
+
+                    </div><!-- col-4 -->
+                    <div class="col-lg-3">
+                        <div class="form-group">
+                            <label for="txtCupon_FechaInicio" class="form-control-label">Fecha Inicio: </label>
+                            <input id="txtCupon_FechaInicio" class="form-control form-control-sm" type="text" name="" value="" placeholder="">
+                        </div>
+                    </div><!-- col-4 -->
+                    <div class="col-lg-3">
+                        <div class="form-group">
+                            <label for="txtCupon_FechaCaducidad" class="form-control-label">Fecha Vencimiento: </label>
+                            <input id="txtCupon_FechaCaducidad" class="form-control form-control-sm" type="text" name="" value="" placeholder="">
+                        </div>
+                    </div><!-- col-4 -->
+
+                </div><!-- row -->
+
+                <div class="form-layout-footer">
+                    <button class="btn btn-primary bd-0" onclick="javascript:RegistrarCupon();">Guardar</button>
+                    <a href="@Url.Action("cupones","admintienda")"><button class="btn btn-secondary bd-0">Cancelar</button></a>
+                </div><!-- form-layout-footer -->
+            </div><!-- form-layout -->
+        </div><!-- section-wrapper -->
+
+    </div><!-- container -->
+
+    <div class="slim-footer mg-t-0">
+        <div class="container-fluid">
+            <p>Copyright 2020 &copy; All Rights Reserved.</p>
+
+        </div><!-- container-fluid -->
+    </div><!-- slim-footer -->
+</div><!-- slim-mainpanel -->
+
+@section Scripts {
+    @System.Web.Optimization.Scripts.Render("~/Scripts/plugins/jsKendo/angular.min.js")
+    @System.Web.Optimization.Scripts.Render("~/Scripts/plugins/jsKendo/kendo.all.min.js")
+
+    @System.Web.Optimization.Scripts.Render("~/Scripts/plugins/jquery-ui/jquery-ui.js")
+    @System.Web.Optimization.Scripts.Render("~/Scripts/plugins/jquery-ui/jquery-ui.min.js")
+
+    @System.Web.Optimization.Scripts.Render("~/Resource/UserControl.Helper.js")
+
+    @System.Web.Optimization.Scripts.Render("~/Scripts/bootstrap-notify-master/bootstrap-notify.js")
+    @System.Web.Optimization.Scripts.Render("~/Scripts/bootstrap-notify-master/bootstrap-notify.min.js")
+    @System.Web.Optimization.Scripts.Render("~/Scripts/jsBootstrap/jquery.bootstrap-growl.js")
+    <script type="text/javascript">
+        $(document).ready(function () {
+            var todayDate = new Date();
+
+            $('input[id="txtCupon_FechaInicio"]').kendoDatePicker();
+            $('input[id="txtCupon_FechaInicio"]').data("kendoDatePicker").value(todayDate);
+
+            $('input[id="txtCupon_FechaCaducidad"]').kendoDatePicker();
+            var ultimoDia = new Date(todayDate.getFullYear(), todayDate.getMonth() + 1, 0);
+            $('input[id="txtCupon_FechaCaducidad"]').data("kendoDatePicker").value(ultimoDia);
+
+        });
+
+        function RegistrarCupon() {
+
+            var Accion = "N";
+
+            var entidad = {};
+            entidad.CodigoPromocion = $('input[id="txtCupon_CodigoCupon"]').val();
+            entidad.TipoCupon = ConvertToStringFromObject($('select[id="txtCupon_Tipo"] option:selected').val());
+            entidad.Valor = ConvertToStringFromObject($('input[id="txtCupon_Valor"]').val());
+            entidad.FechaInicio = kendo.toString($("#txtCupon_FechaInicio").data('kendoDatePicker').value(), 'MM/dd/yyyy');
+            entidad.FechaFin = kendo.toString($("#txtCupon_FechaCaducidad").data('kendoDatePicker').value(), 'MM/dd/yyyy');
+            entidad.Accion = Accion;
+
+            if (IsUndefinedOrNullOrEmpty(entidad.CodigoPromocion)) {
+                $.bootstrapGrowl("Falta ingresar el codigo de cupón.", { type: 'danger', width: 'auto' });
+                return;
+            }
+            else if ($('input[id="txtCupon_Valor"]').val() == '') {
+                $.bootstrapGrowl("Falta ingresar el valor de cupón.", { type: 'danger', width: 'auto' });
+                return;
+            }
+
+            $('button').attr('disabled', 'disabled');
+            var metodoCorrecto = function (msg) {
+                
+                if (msg) {
+                    $('button').removeAttr('disabled');
+                    $.bootstrapGrowl("El cupón se ha registrado correctamente.", { type: 'success', width: 'auto' });
+
+                    $('input[id="txtCupon_CodigoCupon"]').val('');
+                    $('input[id="txtCupon_Valor"]').val('');             
+                }
+                else {
+                    $.bootstrapGrowl("Error, vuelva a intentar nuevamente!", { type: 'danger', width: 'auto' });                    
+                }
+            };
+            var metodoError = function (msg) {
+                alert(msg);
+            };
+            var request = {
+                request: entidad
+            };
+            LlamarAJAX("/admintienda/ecommerce_uspRegistrar_Cupones", request, metodoCorrecto, metodoError);
+
+        }
+
+    </script>
+
+}

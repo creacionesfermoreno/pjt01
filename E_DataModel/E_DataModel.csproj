@@ -1,0 +1,180 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{88B4A97A-F5F4-4848-AC04-B90642CEE6C5}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>E_DataModel</RootNamespace>
+    <AssemblyName>E_DataModel</AssemblyName>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <Deterministic>true</Deterministic>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="AlmacenesDTO.cs" />
+    <Compile Include="AspNetUsersDireccionesEntregaDTO.cs" />
+    <Compile Include="Base\AuditoriaDTO.cs" />
+    <Compile Include="Base\Request.cs" />
+    <Compile Include="Base\Response.cs" />
+    <Compile Include="CategoriasDTO.cs" />
+    <Compile Include="CentroEntrenamiento\CentroEntrenamiento_AspNetUsersDTO.cs" />
+    <Compile Include="CentroEntrenamiento\CentroEntrenamiento_EditorPaginaWebDetalleDTO.cs" />
+    <Compile Include="CentroEntrenamiento\CentroEntrenamiento_EditorPaginaWebDTO.cs" />
+    <Compile Include="CentroEntrenamiento\CentroEntrenamiento_GaleriaFitnessDTO.cs" />
+    <Compile Include="CentroEntrenamiento\CentroEntrenamiento_MenuPlantillaDTO.cs" />
+    <Compile Include="CentroEntrenamiento\CentroEntrenamiento_Presencial_ConfiguracionSalaFitnessDTO.cs" />
+    <Compile Include="CentroEntrenamiento\CentroEntrenamiento_Presencial_DisciplinaSalaDTO.cs" />
+    <Compile Include="CentroEntrenamiento\CentroEntrenamiento_Presencial_HorarioClasesAsistenciasDTO.cs" />
+    <Compile Include="CentroEntrenamiento\CentroEntrenamiento_Presencial_HorarioClasesConfiguracionDTO.cs" />
+    <Compile Include="CentroEntrenamiento\CentroEntrenamiento_Presencial_SalaDTO.cs" />
+    <Compile Include="CentroEntrenamiento\CentroEntrenamiento_ProfesorDTO.cs" />
+    <Compile Include="CentroEntrenamiento\gimnasio_crm_1_embudosventaplantillaDTO.cs" />
+    <Compile Include="CentroEntrenamiento\gimnasio_crm_2_etapasplantillaDTO.cs" />
+    <Compile Include="CentroEntrenamiento\gimnasio_crm_3_tratosprospectoDTO.cs" />
+    <Compile Include="ClientesDTO.cs" />
+    <Compile Include="Common\Enum.cs" />
+    <Compile Include="Common\Mensaje.cs" />
+    <Compile Include="Common\Paging.cs" />
+    <Compile Include="ComprobanteDetalleDTO.cs" />
+    <Compile Include="ComprobanteDTO.cs" />
+    <Compile Include="ComprobantePagoDTO.cs" />
+    <Compile Include="Configuracion\AspNetUsersDTO.cs" />
+    <Compile Include="Corporativo\EmpresaDTO.cs" />
+    <Compile Include="CuponesDTO.cs" />
+    <Compile Include="EnvioGratisDTO.cs" />
+    <Compile Include="FECabeceraDTO.cs" />
+    <Compile Include="FEDetalleDTO.cs" />
+    <Compile Include="Gimnasio\AdFitnessAtencionAlClienteDTO.cs" />
+    <Compile Include="Gimnasio\AgendaNutricionalDTO.cs" />
+    <Compile Include="Gimnasio\AgendaPostVentaDTO.cs" />
+    <Compile Include="Gimnasio\AgendaSeguimientoDTO.cs" />
+    <Compile Include="Gimnasio\AsistenciaDTO.cs" />
+    <Compile Include="Gimnasio\AsistenciaInvitadosDTO.cs" />
+    <Compile Include="Gimnasio\AyudaPreguntasFrecuentesDTO.cs" />
+    <Compile Include="Gimnasio\CajaAperturaCierreDTO.cs" />
+    <Compile Include="Gimnasio\CategoriaDTO.cs" />
+    <Compile Include="Gimnasio\CategoriaSuplementoDTO.cs" />
+    <Compile Include="Gimnasio\ClientesDTO.cs" />
+    <Compile Include="Gimnasio\ComprasDetalleDTO.cs" />
+    <Compile Include="Gimnasio\ComprasDTO.cs" />
+    <Compile Include="Gimnasio\ComprasRopasDTO.cs" />
+    <Compile Include="Gimnasio\ComprasSuplementosDTO.cs" />
+    <Compile Include="Gimnasio\ConfiguracionDTO.cs" />
+    <Compile Include="Gimnasio\ConfiguracionEstadosDelSocioDTO.cs" />
+    <Compile Include="Gimnasio\ConfiguracionGastoAperturaDTO.cs" />
+    <Compile Include="Gimnasio\ConfiguracionTraspasoDTO.cs" />
+    <Compile Include="Gimnasio\ContratoCuotaDTO.cs" />
+    <Compile Include="Gimnasio\ContratoDTO.cs" />
+    <Compile Include="Gimnasio\ContratoFolioDTO.cs" />
+    <Compile Include="Gimnasio\ContratoMensajeDTO.cs" />
+    <Compile Include="Gimnasio\ControlMedidasDTO.cs" />
+    <Compile Include="Gimnasio\ControlSalidaFormaPagoDTO.cs" />
+    <Compile Include="Gimnasio\EncuestaNuevo1DTO.cs" />
+    <Compile Include="Gimnasio\EnvioCorreoBienvenidaDTO.cs" />
+    <Compile Include="Gimnasio\EnvioCorreoDTO.cs" />
+    <Compile Include="Gimnasio\EnvioMensajeGPDTO.cs" />
+    <Compile Include="Gimnasio\ExportarExcelDTO.cs" />
+    <Compile Include="Gimnasio\GastosDTO.cs" />
+    <Compile Include="Gimnasio\HistorialCongelamientoDTO.cs" />
+    <Compile Include="Gimnasio\HorarioClasesConfiguracionDTO.cs" />
+    <Compile Include="Gimnasio\HorarioClasesDetalleDTO.cs" />
+    <Compile Include="Gimnasio\HorarioClasesDTO.cs" />
+    <Compile Include="Gimnasio\HorarioPaqueteDetalleDTO.cs" />
+    <Compile Include="Gimnasio\HorarioPaqueteDTO.cs" />
+    <Compile Include="Gimnasio\HorarioPersonalEventualsDTO.cs" />
+    <Compile Include="Gimnasio\HotelDTO.cs" />
+    <Compile Include="Gimnasio\InformesDTO.cs" />
+    <Compile Include="Gimnasio\IngresoAjustesCajaDTO.cs" />
+    <Compile Include="Gimnasio\IngresosDiariosDTO.cs" />
+    <Compile Include="Gimnasio\InteresProspectosDTO.cs" />
+    <Compile Include="Gimnasio\InvitadosDTO.cs" />
+    <Compile Include="Gimnasio\LlamadaEntranteDTO.cs" />
+    <Compile Include="Gimnasio\MenuDTO.cs" />
+    <Compile Include="Gimnasio\MetasDetalleDTO.cs" />
+    <Compile Include="Gimnasio\MetasDTO.cs" />
+    <Compile Include="Gimnasio\NotificacionDTO.cs" />
+    <Compile Include="Gimnasio\PagosContratoDTO.cs" />
+    <Compile Include="Gimnasio\PagosRopasDTO.cs" />
+    <Compile Include="Gimnasio\PagosSuplementosDTO.cs" />
+    <Compile Include="Gimnasio\PedidosDTO.cs" />
+    <Compile Include="Gimnasio\PerfilDTO.cs" />
+    <Compile Include="Gimnasio\PerfilMenuDTO.cs" />
+    <Compile Include="Gimnasio\PersonalAdministrativoDTO.cs" />
+    <Compile Include="Gimnasio\PersonalAsistenciaConfiguracionDTO.cs" />
+    <Compile Include="Gimnasio\PersonalAsistenciaDTO.cs" />
+    <Compile Include="Gimnasio\PersonalAsistenciaNotaDTO.cs" />
+    <Compile Include="Gimnasio\PlanesDTO.cs" />
+    <Compile Include="Gimnasio\ProductoDTO.cs" />
+    <Compile Include="Gimnasio\ProductoElaboradoDTO.cs" />
+    <Compile Include="Gimnasio\ProfesionalFitnessDTO.cs" />
+    <Compile Include="Gimnasio\ProspectosTablaDTO.cs" />
+    <Compile Include="Gimnasio\RedesSocialesDTO.cs" />
+    <Compile Include="Gimnasio\ReferidoDTO.cs" />
+    <Compile Include="Gimnasio\RopasDTO.cs" />
+    <Compile Include="Gimnasio\SalaDTO.cs" />
+    <Compile Include="Gimnasio\SalaHorarioDTO.cs" />
+    <Compile Include="Gimnasio\SeriesContratoDTO.cs" />
+    <Compile Include="Gimnasio\SeriesDTO.cs" />
+    <Compile Include="Gimnasio\SociosFichaSaludMasterDTO.cs" />
+    <Compile Include="Gimnasio\SubTipoDocumentoDTO.cs" />
+    <Compile Include="Gimnasio\SuplementosDTO.cs" />
+    <Compile Include="Gimnasio\TiempoMembresiaDTO.cs" />
+    <Compile Include="Gimnasio\TipoAgendaClienteDTO.cs" />
+    <Compile Include="Gimnasio\TipoContratoDTO.cs" />
+    <Compile Include="Gimnasio\TipoDocumentoDTO.cs" />
+    <Compile Include="Gimnasio\TipoEgresoDTO.cs" />
+    <Compile Include="Gimnasio\TipoIngresoDTO.cs" />
+    <Compile Include="Gimnasio\TipoPaqueteDTO.cs" />
+    <Compile Include="Gimnasio\TipoResponsableDTO.cs" />
+    <Compile Include="Gimnasio\TurnosEmpresaDTO.cs" />
+    <Compile Include="Gimnasio\UbigeoDTO.cs" />
+    <Compile Include="Gimnasio\UsuarioDTO.cs" />
+    <Compile Include="Gimnasio\UsuariosIngresosDTO.cs" />
+    <Compile Include="Gimnasio\VentasDetalleDTO.cs" />
+    <Compile Include="Gimnasio\VentasDTO.cs" />
+    <Compile Include="Gimnasio\WhatsappConfigDTO.cs" />
+    <Compile Include="ItemsVentaAjusteInventarioDetalleDTO.cs" />
+    <Compile Include="ItemsVentaAjusteInventarioDTO.cs" />
+    <Compile Include="ItemsVentaDTO.cs" />
+    <Compile Include="ItemsVentaIncluidosKitDTO.cs" />
+    <Compile Include="ItemsVentaInventarioDTO.cs" />
+    <Compile Include="MaestroDTO.cs" />
+    <Compile Include="PasarelaEmpresaDTO.cs" />
+    <Compile Include="PlantillaFormaPagoDTO.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="TarifasEnvioDTO.cs" />
+    <Compile Include="TipoComprobanteDTO.cs" />
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>

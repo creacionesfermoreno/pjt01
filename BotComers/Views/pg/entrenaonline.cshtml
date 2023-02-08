@@ -1,0 +1,275 @@
+﻿
+@{
+    ViewBag.Title = "ENTRENA ONLINE";
+    Layout = "~/Views/Shared/_LayoutAppfitVideoteca.cshtml";
+}
+
+<header style="background-color:#000;">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-xs-3">
+                <a href="index.html" id="logo">                    
+                    <img src="~/Content/appInicio/images/logogymdigital.png" width="95" height="27" alt="" data-retina="true" class="logo_normal">
+                </a>
+            </div>
+            <nav class="col-xs-9">
+                <ul id="access_top">
+                    <li>
+                        <a href="@Url.Action("login","pg",new {id= HttpContext.Current.Request.Cookies["_SubDominio_PersonaFit"].Value})" style="color: white;background-color: #f23849;font-size: 20px;border-radius: 0px;" class="hidden-xs">
+                            <div class="icon icon-man-people-streamline-user">Iniciar sesión</div>
+                        </a>
+                    </li>
+                </ul>
+                <a class="cmn-toggle-switch cmn-toggle-switch__htx open_close" href="javascript:void(0);"><span>Menu mobile</span></a>
+                <div class="main-menu">
+                    <div id="header_menu">
+                        <img src="~/Content/videoteca/img/logo.png" width="95" height="27" alt="Lovefit" data-retina="true">
+                    </div>
+                    <a href="#" class="open_close" id="close_in"><i class="icon_close"></i></a>
+                    <ul>
+                        <li>
+                            <a href="@Url.Action("inicio","pg",new {id= HttpContext.Current.Request.Cookies["_SubDominio_PersonaFit"].Value})">INICIO</a>
+                        </li>
+                        <li>
+                            <a href="@Url.Action("entrenaonline","pg",new {id= HttpContext.Current.Request.Cookies["_SubDominio_PersonaFit"].Value})">ENTRENA ONLINE</a>
+                        </li>
+                        <li>
+                            <a href="@Url.Action("videoteca","pg",new {id= HttpContext.Current.Request.Cookies["_SubDominio_PersonaFit"].Value})">GIMNASIO TV</a>
+                        </li>
+                        <li>
+                            <a href="@Url.Action("tienda","pg",new {id= HttpContext.Current.Request.Cookies["_SubDominio_PersonaFit"].Value})">TIENDA</a>
+                        </li>
+                    </ul>
+                </div>
+                <!-- End main-menu -->
+            </nav>
+        </div>
+        <!-- End row -->
+    </div>
+    <!-- End container -->
+</header>
+
+<!-- SubHeader =============================================== -->
+<section class="header-video">
+    <div id="hero_video">
+        <div id="sub_content">
+            <div class="mobile_fix">
+                <h1>ENTRENA <strong></strong> ONLINE</h1>
+                <p>
+                    DESAFÍA TUS LIMITES DE MANERA VIRTUAL
+                </p>
+            </div>
+        </div>
+        <!-- End sub_content -->
+    </div>
+    <img src="~/Content/videoteca/img/video_fix.png" alt="" class="header-video--media" data-video-src="video/intro" data-teaser-source="video/intro" data-provider="" data-video-width="1920" data-video-height="960">
+    <div id="count" class="hidden-xs">
+        <ul>
+            <li><span class="number">653</span> Rutinas de ejercicios</li>
+            <li><span class="number">1246</span> Personas servidas</li>
+            <li><span class="number">2343</span> Usuarios registrados</li>
+        </ul>
+    </div>
+
+</section>
+<!-- End Header video -->
+
+<section class="list-benefits" style="background-color:#000;">
+    <div class="container">
+
+        <div class="section-title text-center">
+            <h2 style="color:#fff;">SERVICIOS <span class="text-highlight" style="color:#f23849;"> ESPECIALIZADOS</span> </h2>
+            <h3 style="color:#fff;" class="subline">Ofrecemos 3 servicios de entrenamiento online los cuales fueron especialmente diseñados para tí.</h3>
+            <hr style="border-color:#f23849;">
+        </div>
+
+        <div class="benefits">
+
+            <div class="row">
+
+                <div class="col-sm-4">
+                    <div class="benefit-item">
+                        <div class="benefit-icon"><i style="color:#f23849;" class="icon icon-camera-streamline-video"> </i></div>
+                        <h6 class="benefit-title" style="color:#fff;">CLASES EN VIVO</h6>
+                        <p style="color:#fff;">Si te gustan las clases grupales, la intensidad, y entrenar frente a un entrenador escuchando buena musica en vivo, ¡esto es para ti!</p>
+                    </div>
+                </div>
+                <!-- // end .col -->
+                <div class="col-sm-4">
+                    <div class="benefit-item">
+                        <div class="benefit-icon"><i style="color:#f23849;" class="icon icon-computer-imac-2"> </i></div>
+                        <h6 class="benefit-title" style="color:#fff;">VIDEOTECA</h6>
+                        <p style="color:#fff;">Te gustan nuestras clases en vivo, pero también quisieras flexibilidad en el horario de entrenamiento, esta plataforma tiene todos los videos que necesitas.</p>
+                    </div>
+                </div>
+                <!-- // end .col -->
+                <div class="col-sm-4">
+
+                    <div class="benefit-item">
+                        <div class="benefit-icon"> <i style="color:#f23849;" class="icon icon-speech-streamline-talk-user"> </i></div>
+                        <h6 class="benefit-title" style="color:#fff;">Personalizado</h6>
+                        <p style="color:#fff;">Ideal para quienes quieren un super nivel.</p>
+                    </div>
+                </div>
+                <!-- // end .col -->
+
+            </div>
+            <!-- // end .row -->
+
+        </div>
+
+    </div>
+    <!-- end .container -->
+</section>
+
+<section class="appointment top-space" id="register">
+    <div class="container">
+
+        <div class="row">
+
+            <div class="col-sm-6 col-md-7">
+
+                <div class="section-title left-aligned">
+                    <h2>POR QUÉ LA  <span class="text-highlight" style="color:#f23849;">SALUD</span> ES IMPORTANTE</h2>
+                    <h3 class="subline">Entrena con más de 900 personas en vivo.</h3>
+                    <hr style="border-color:#f23849;">
+                </div>
+                
+                <img src="~/Content/appInicio/images/sesionlandingvivo.jpg" class="img-responsive" alt="Yoga Pose">
+
+            </div>
+            <!-- // end .col -->
+
+            <div class="col-sm-6 col-md-5">
+
+                <div class="appointment-form top-space-lg">
+
+                    <div class="form-header" style="background-color:#f23849;border: 1px #e93646 solid;">
+                        <h4>ENTRENA EN VIVO</h4>
+                        <a href="tel:8003456789">Llama: (001) 345 6789</a>
+
+                        <div class="or_icon">O</div>
+                    </div>
+
+                    <form action="php/contact.php" id="phpcontactform" method="POST">
+
+                        <div class="form-group">
+                            <label>Nombre completo</label>
+                            <input type="text" class="form-control" name="name" style="border: 1px solid #caced1" required title="Your full name please">
+                        </div>
+                        <div class="form-group">
+                            <label>Correo</label>
+                            <input type="email" class="form-control" name="email" style="border: 1px solid #caced1" required title="We need your email address">
+                        </div>
+                        <div class="form-group">
+                            <label>Celular</label>
+                            <input type="text" class="form-control" name="phone" style="border: 1px solid #caced1" required title="Please enter your phone number">
+                        </div>
+
+                        <div class="text-center top-space" style="background-color:#f23849;">
+                            <button type="submit" style="background-color:#f23849;border: 1px #e93646 solid;" class="btn btn-success btn-block btn-xl" id="js-contact-btn">Enviar datos</button>
+                        </div>
+
+                    </form>
+                </div>
+
+            </div>
+            <!-- // end .col -->
+
+        </div>
+        <!-- // end .row -->
+
+    </div>
+    <!-- end .container -->
+</section>
+
+<section class="pricing" id="pricing">
+    <div class="container">
+
+        <div class="section-title text-center">
+            <h2 style="color:#000;">PLANES <span style="color:#f23849;" class="text-highlight">ONLINE</span></h2>
+            <h3 class="subline">Elija un plan de precios que se ajuste a usted.</h3>
+            <hr style="border-color:#f23849;" >
+        </div>
+
+        <div class="row">
+            <div class="col-md-4">
+                <div class="pricing-item" data-wow-duration="2s">
+                    <div class="plan-name">SILVER</div>
+                    <div class="price"> <span class="curr">S/</span>26</div>
+                    <ul class="plan-features">
+                        <li> Fitness básico </li>
+                        <li> Refresco gratis</li>
+                        <li> Tiempo flexible</li>
+                        <li> Certificado</li>
+                    </ul>
+                    <a class="btn btn-outline btn-lg" href="#">COMPRAR</a>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="pricing-item highlighted-plan" data-wow-delay="0.3s" data-wow-duration="2s">
+                    <div class="plan-name" style="color:#f23849;">GOLD</div>
+                    <div style="color:#f23849;" class="price"> <span class="curr" >S/</span>79</div>
+                    <ul class="plan-features">
+                        <li> Fitness avanzado </li>
+                        <li> Refresco gratis</li>
+                        <li> Recursos de entrenamiento gratis</li>
+                        <li> Atención personal</li>
+                    </ul>
+                    <a style="background-color:#f23849;color:#fff;" class="btn btn-lg" href="#">COMPRAR</a>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="pricing-item" data-wow-delay="0.6s" data-wow-duration="2s">
+                    <div class="plan-name">PLATINUM</div>
+                    <div class="price"> <span class="curr">S/</span>169</div>
+                    <ul class="plan-features">
+                        <li> Fitness experto </li>
+                        <li> Pase de competencia</li>
+                        <li> Activos Gratis / Refresco</li>
+                        <li> Nutrición mensual de alimentos</li>
+                    </ul>
+                    <a class="btn btn-outline btn-lg" href="#">COMPRAR</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="call-to-action" style="background-color:#000;">
+    <div class="container">
+        <div class="section-title text-center">
+            <h2 style="color:#fff;"><span style="color:#f23849;" class="text-highlight">ENTRENA GRATIS</span> POR LOS PRIMEROS 7 DÍAS</h2>
+            <h3 class="subline" style="color:#fff;">Únete antes de que sea demasiado tarde.</h3>
+            <hr style="border-color:#f23849;">
+
+        </div>
+
+        <div class="cta-button text-center vertical-space bottom-space-xl">
+            <a style="background-color:#f23849;color:#fff;" class="btn btn-xl" href="#register">LO QUIERO</a>
+            <h6 class="vertical-space"  style="color:#fff;">o llama al : <a href="tel:997999999">997999999</a></h6>
+        </div>
+
+    </div>
+</section>
+
+
+@section Scripts {
+
+    <!-- SPECIFIC SCRIPTS -->
+    @System.Web.Optimization.Scripts.Render("~/Content/videoteca/js/bootstrap-portfilter.min.js")
+    @System.Web.Optimization.Scripts.Render("~/Content/videoteca/js/video_header.js")
+
+
+    <script type="text/javascript">
+
+        HeaderVideo.init({
+            container: $('.header-video'),
+            header: $('.header-video--media'),
+            videoTrigger: $("#video-trigger"),
+            autoPlayVideo: true
+        });
+
+    </script>
+
+}

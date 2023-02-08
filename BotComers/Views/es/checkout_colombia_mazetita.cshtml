@@ -1,0 +1,100 @@
+﻿
+@{
+    ViewBag.Title = "checkout_colombia_mazetita";
+    Layout = "~/Views/Shared/_LayoutPaginaWebAppsfit1.cshtml";
+}
+
+
+<main class="main-content">
+    <section class="small-paddings">
+        <div class="row" style="padding:12px;">
+            <!--begin col-md-12 -->
+            <div class="col-md-12 text-center padding-top-20 padding-bottom-40">
+
+                <div id="smart-button-container">
+                    <div style="text-align: center;">
+                        <div class="text-center p-4" style="background-color: #fff; border-radius: 10px;">
+                            <br />
+                            <img src="~/Content/appsfit_img/logoappsfitweb.jpg" class="img-fluid" alt="img" style="height:80px;">
+                            <h3 class="fw-normal my-0 price-title">PLAN MAZETITA</h3>
+                            <p class="mt-1">Precio en dólares americanos.</p>
+                            <h2 class="fw-medium my-4">
+                                <sup class="fw-normal fs-2 me-1">$</sup>14.00
+                            </h2>
+                        </div>
+
+                        <h5>Seleccione el medio de pago:</h5>
+                        <br />
+                        <div id="paypal-button-container"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </section>
+</main>
+
+
+@section Scripts {
+
+    @System.Web.Optimization.Scripts.Render("~/Scripts/bootstrap-notify-master/bootstrap-notify.js")
+    @System.Web.Optimization.Scripts.Render("~/Scripts/bootstrap-notify-master/bootstrap-notify.min.js")
+    @System.Web.Optimization.Scripts.Render("~/Scripts/jsBootstrap/jquery.bootstrap-growl.js")
+
+    @System.Web.Optimization.Scripts.Render("~/Scripts/jquery.min.js")
+    @System.Web.Optimization.Scripts.Render("~/Scripts/plugins/jquery-ui/jquery-ui.js")
+    @System.Web.Optimization.Scripts.Render("~/Scripts/plugins/jquery-ui/jquery-ui.min.js")
+
+    @System.Web.Optimization.Scripts.Render("~/Resource/UserControl.Helper.js")
+    <script type="text/javascript">
+
+        $(document).ready(function () {
+            fbq('trackCustom', 'CustomClickPriceColombiaAppsfit');
+        });
+
+
+    </script>
+}
+
+<script src="https://www.paypal.com/sdk/js?client-id=sb&enable-funding=venmo&currency=USD" data-sdk-integration-source="button-factory"></script>
+<script>
+    function initPayPalButton() {
+        paypal.Buttons({
+            style: {
+                shape: 'pill',
+                color: 'silver',
+                layout: 'vertical',
+                label: 'pay',
+
+            },
+
+            createOrder: function (data, actions) {
+                return actions.order.create({
+                    purchase_units: [{ "description": "PLAN MAZETITA APPSFIT COLOMBIA\ncodigo: checkout_colombia_mazetita", "amount": { "currency_code": "USD", "value": 14 } }]
+                });
+            },
+
+            onApprove: function (data, actions) {
+                return actions.order.capture().then(function (orderData) {
+
+                    // Full available details
+                    console.log('Capture result', orderData, JSON.stringify(orderData, null, 2));
+
+                    // Show a success message within this page, e.g.
+                    const element = document.getElementById('paypal-button-container');
+                    element.innerHTML = '';
+                    element.innerHTML = '<h3>Gracias por tu pago!</h3>';
+
+                    // Or go to another URL:  actions.redirect('thank_you.html');
+
+                });
+            },
+
+            onError: function (err) {
+                console.log(err);
+            }
+        }).render('#paypal-button-container');
+    }
+    initPayPalButton();
+</script>
+

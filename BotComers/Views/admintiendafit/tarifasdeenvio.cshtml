@@ -1,0 +1,173 @@
+﻿@model IEnumerable<E_DataModel.TarifasEnvioDTO>
+
+@{
+    ViewBag.Title = "tarifasdeenvio";
+    Layout = "~/Views/Shared/__LayoutAppFitPlataformaFit.cshtml";
+}
+
+<link href="@Url.Content("~/Content/app/lib/Ionicons/css/ionicons.css")" rel="stylesheet" />
+
+<br /><br /><br />
+<div class="slim-mainpanel">
+
+    <div class="slim-mainpanel">
+        <div class="container">
+            <div class="report-summary-header">
+                <div>
+                    <h4 class="tx-inverse mg-b-3">Departamentos</h4>
+                </div>
+                <div>
+                </div>
+            </div><!-- d-flex -->
+
+            <div class="card card-table mg-t-20 mg-sm-t-30">
+
+                <div class="table-responsive">
+                    <table id="gridEmpresa" class="table mg-b-0 tx-13">
+                        <thead>
+                            <tr class="tx-10">
+                                <th class="pd-y-5">
+                                    Nombres
+                                </th>
+                                <th class="pd-y-5">
+                                    Precio
+                                </th>
+                                <th class="pd-y-5">
+                                    Tiempo de entrega
+                                </th>
+                                <th class="pd-y-5">
+                                    Días/Horas
+                                </th>
+                                <th class="pd-y-5" style="background-color:#ccc;text-align:center;">
+                                    Habilitado
+                                </th>
+                                <th class="pd-y-5">
+                                    Acciones
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @{
+                                if (Model != null)
+                                {
+                                    foreach (var item in Model)
+                                    {
+
+                                        <tr>
+                                            <td style="font-size:15px;font-weight:bold;">
+                                                @item.Departamento
+                                            </td>
+                                            <td>
+                                                <input id="hdUbigeo_@item.CodigoUbigeo" type="hidden" value="@item.Ubigeo" />
+                                                <input id="hdCodigoTarifaEnvio_@item.CodigoUbigeo" type="hidden" value="@item.CodigoTarifaEnvio" />
+                                                <input id="txtPrecioEnvio_@item.CodigoUbigeo" type="text" value="@item.PrecioEnvio" />
+                                            </td>
+                                            <td>
+                                                <input id="txtTiempoEntrega_@item.CodigoUbigeo" type="text" value="@item.TiempoEntrega" />
+                                            </td>
+                                            <td>
+                                                <select id="ddlTipoTiempoEntrena_@item.CodigoUbigeo">
+                                                    <option value="1" @(item.TipoTiempoEntrega == 1 ? "selected" : "" )>Días</option>
+                                                    <option value="2" @(item.TipoTiempoEntrega == 2 ? "selected" : "" )>Horas</option>
+                                                </select>
+                                            </td>
+                                            <td style="background-color:#ccc;text-align:center;">
+                                                <center>                                                    
+                                                        @if (@item.Estado)
+                                                        {
+                                                            <input id="chkEstado_@item.CodigoUbigeo" type="checkbox" class="custom-checkbox-toggle" style="width:45px;" checked><span></span>
+                                                        }
+                                                        else
+                                                        {
+                                                            <input id="chkEstado_@item.CodigoUbigeo" type="checkbox" class="custom-checkbox-toggle" style="width:45px;"><span></span>
+                                                        }                                                   
+                                                </center>
+                                            </td>
+                                            <td>
+                                                <button class="btn btn-primary btn-sm btn-block mg-b-10" data-CodigoUbigeo="@item.CodigoUbigeo" onclick="evento_GuardarTarifaEnvio(this);">Guardar</button>
+                                            </td>
+                                        </tr>
+                                    }
+                                }
+                            }
+                        </tbody>
+                    </table>
+                </div><!-- table-responsive -->
+            </div><!-- card -->
+
+        </div><!-- slim-mainpanel -->
+
+    </div>
+
+</div>
+
+@section Scripts {
+    @System.Web.Optimization.Scripts.Render("~/Scripts/plugins/jquery-ui/jquery-ui.js")
+    @System.Web.Optimization.Scripts.Render("~/Scripts/plugins/jquery-ui/jquery-ui.min.js")
+
+    @System.Web.Optimization.Scripts.Render("~/Resource/UserControl.Helper.js")
+
+    @System.Web.Optimization.Scripts.Render("~/Scripts/bootstrap-notify-master/bootstrap-notify.js")
+    @System.Web.Optimization.Scripts.Render("~/Scripts/bootstrap-notify-master/bootstrap-notify.min.js")
+    @System.Web.Optimization.Scripts.Render("~/Scripts/jsBootstrap/jquery.bootstrap-growl.js")
+
+    <script type="text/javascript">
+
+        function evento_GuardarTarifaEnvio(control) {
+
+            var ID = $(control).attr('data-CodigoUbigeo');
+            var CodigoTarifaEnvio = $('#hdCodigoTarifaEnvio_' + ID).val();
+            var Ubigeo = $('#hdUbigeo_' + ID).val();
+            var CodigoUbigeo = ID;
+            var PrecioEnvio = $('#txtPrecioEnvio_' + ID).val();
+            var TiempoEntrega = $('#txtTiempoEntrega_' + ID).val();
+            var TipoTiempoEntrega = ConvertToStringFromObject($('select[id="ddlTipoTiempoEntrena_' + ID + '"] option:selected').val());
+            var Estado = $('#chkEstado_' + ID).prop('checked') == true ? 1 : 0;
+
+            var Accion = 'N';
+            var entidad = {};
+
+            entidad.CodigoTarifaEnvio = CodigoTarifaEnvio;
+            entidad.Ubigeo = Ubigeo;
+            entidad.CodigoUbigeo = CodigoUbigeo;
+            entidad.PrecioEnvio = PrecioEnvio;
+            entidad.TiempoEntrega = TiempoEntrega;
+            entidad.TipoTiempoEntrega = TipoTiempoEntrega;
+            entidad.Estado = Estado;
+            entidad.Accion = Accion;
+
+            //if (IsUndefinedOrNullOrEmpty(entidad.Nombre)) {
+            //    $('#txtItemsventa_Nombre_validation').show();
+            //    $('#txtItemsventa_Nombre_validation').delay(4000).hide(600);
+            //    return;
+            //}
+            //else if ($('input[id="txtItemsventa_PrecioVenta"]').val() == '') {
+            //    $('#txtItemsventa_PrecioVenta_validation').show();
+            //    $('#txtItemsventa_PrecioVenta_validation').delay(4000).hide(600);
+            //    return;
+            //}
+
+            $('button').attr('disabled', 'disabled');
+            var metodoCorrecto = function (msg) {
+
+                $('button').removeAttr('disabled');
+
+                if (msg) {
+                    $.bootstrapGrowl("Se ha registrado correctamente.", { type: 'success', width: 'auto' });
+                }
+                else {
+                    MostrarMensaje("Error", "vuelva a intentar nuevamente!");
+                }
+            };
+            var metodoError = function (msg) {
+                alert(msg);
+            };
+            var request = {
+                request: entidad
+            };
+            LlamarAJAX("/admintienda/ecommerce_uspRegistrarAdminTarifasEnvio", request, metodoCorrecto, metodoError);
+
+        }
+    </script>
+
+}

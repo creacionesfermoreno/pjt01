@@ -1,0 +1,264 @@
+﻿
+@{
+    ViewBag.Title = "add";
+    Layout = "~/Views/Shared/_LayoutApp.cshtml";
+}
+
+<link href="@Url.Content("~/Content/cssKendo/kendo.common.min.css")" rel="stylesheet" />
+<link href="@Url.Content("~/Content/cssKendo/kendo.dataviz.default.min.css")" rel="stylesheet" />
+<link href="@Url.Content("~/Content/cssKendo/kendo.dataviz.min.css")" rel="stylesheet" />
+<link href="@Url.Content("~/Content/cssKendo/kendo.default.min.css")" rel="stylesheet" />
+
+<input type="hidden" value="0" id="hdIDBuscadorItemsVenta" />
+<div class="slim-mainpanel">
+    <div class="container">
+        <div class="slim-pageheader">
+            <ol class="breadcrumb slim-breadcrumb">
+                <li class="breadcrumb-item"><a href="@Url.Action("index","invoice")">Comprobantes de venta</a></li>
+                <li class="breadcrumb-item active" aria-current="page">agregar</li>
+            </ol>
+            <h6 class="slim-pagetitle">
+                Nueva registro de venta
+            </h6>
+        </div><!-- slim-pageheader -->
+        <div class="section-padding mg-t-20">
+            <div class="row">
+                <div class="col-lg-2">
+                    <div class="form-group">
+                        <input type="hidden" value="5" id="hdCodigoTipoComprobante"/>
+                        <label for="txtInventarioAjuste_FechaAjusteInicio" class="form-control-label">Tipo de documento: <span class="tx-danger" id="" style="display:none;">* Ingrese fecha</span></label>
+                        <div class="btn-group btn-group-sm" role="group">
+                            <button id="btnTipoComprobanteRecibo" onclick="Click_TipoComprobante(5);" type="button" class="btn btn-outline-primary active">Recibo</button>
+                            <button id="btnTipoComprobanteFactura" onclick="Click_TipoComprobante(1);" type="button" class="btn btn-outline-primary">Factura</button>
+                            <button id="btnTipoComprobanteBoleta" onclick="Click_TipoComprobante(2);" type="button" class="btn btn-outline-primary">Boleta</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-2">
+                    <div class="form-group">
+                        <label for="txtInvoice_ddlTipoComprobante" class="form-control-label">Documento: </label>
+                        <select id="txtInvoice_ddlTipoComprobante" onselect="change_TipoComprobante()" onchange="change_TipoComprobante()" class="form-control form-control-sm" data-placeholder="" disabled></select>
+                    </div>
+                </div>
+                <div class="col-lg-2">
+                    <div class="form-group">
+                        <label for="txtInvoice_TipoMoneda" class="form-control-label">Moneda: </label>
+                        <select id="txtInvoice_TipoMoneda" class="form-control form-control-sm" data-placeholder="" disabled>
+                            <option value="1">USD - United States Dollar</option>
+                            <option value="2" selected>PEN - Perú Nuevo Sol</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-lg-2">
+                    <div class="form-group">
+                        <label for="txtInvoice_ddlAlmacenes" class="form-control-label">Almacén: </label>
+                        <select id="txtInvoice_ddlAlmacenes" class="form-control form-control-sm" data-placeholder=""></select>
+                    </div>
+                </div>
+                <div class="col-lg-4"></div>
+            </div>
+        </div>
+        <div class="card card-invoice">
+            <div class="card-body">
+                <div class="row mg-t-20">
+                    <div class="col-lg-4">
+                        <h1 class="invoice-title">Invoice</h1>
+                    </div>
+                    <div class="col-lg-4">
+                        <div class="form-group">
+                            <label for="" class="form-control-label">Empresa</label>
+                            <label>Identificación: 00000000000</label>
+                        </div>
+                    </div>
+                    <div class="col-lg-1">
+                    </div>
+                    <div class="col-lg-3">
+                       
+                        <div class="row">
+                            <h5 class="col-sm-3 form-control-label">Nro</h5>
+                            <div class="col-sm-6">
+                                <input id="txtInvoice_Correlativo" class="form-control" placeholder="Input box" type="text" value="0">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <hr class="mg-b-60">
+                <div class="row mg-t-20">
+                    <div class="col-md">
+                        <div class="row">
+                            <label class="col-sm-3 form-control-label">Cliente: <span class="tx-danger">*</span></label>
+                            <div class="col-sm-6">
+                                <input type="text" class="form-control form-control-sm" value="Cliente Varios" placeholder="Enter firstname">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <label class="col-sm-3 form-control-label">Identificación:</label>
+                            <div class="col-sm-6">
+                                <input id="txtInvoice_CodigoCliente" type="text" value="1" class="form-control form-control-sm" placeholder="" disabled>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <label class="col-sm-3 form-control-label">Dirección: <span class="tx-danger">*</span></label>
+                            <div class="col-sm-6">
+                                <input type="text" class="form-control form-control-sm" placeholder="" disabled>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <label class="col-sm-3 form-control-label">Telefono: <span class="tx-danger">*</span></label>
+                            <div class="col-sm-6">
+                                <input type="text" class="form-control form-control-sm" placeholder="" disabled>
+                            </div>
+                        </div>
+                    </div><!-- col -->
+                    <div class="col-md">
+                        <p class="invoice-info-row">
+                            <span>Fecha</span>
+                            <span>
+                                <input id="txtInvoice_FechaFactura" class="form-control form-control-sm" type="text" name="" value="" placeholder="">
+                            </span>
+                        </p>
+                        <p class="invoice-info-row">
+                            <span>Plazo de pago</span>
+                            <span>
+                                <select id="txtInvoice_PlazoPago" class="form-control form-control-sm" data-placeholder="">
+                                    <option value="1">De Contado</option>
+                                    <option value="2" selected>8 Dias</option>
+                                    <option value="3" selected>15 Dias</option>
+                                    <option value="4" selected>30 Dias</option>
+                                    <option value="5" selected>60 Dias</option>
+                                    <option value="6" selected>Vencimiento manual</option>
+                                </select>
+                            </span>
+                        </p>
+                        <p class="invoice-info-row">
+                            <span>Vencimiento:</span>
+                            <span>
+                                <input id="txtInvoice_Vencimiento" class="form-control form-control-sm" type="text" name="" value="" placeholder="">
+                            </span>
+                        </p>
+                    </div><!-- col -->
+                </div><!-- row -->
+
+                <div class="table-responsive mg-t-40">
+                    <table id="gridInvoice" class="table table-invoice">
+                        <thead>
+                            <tr>
+                                <th class="wd-45p">Ítem</th>
+                                <th class="wd-10p">Impuesto</th>
+                                <th class="wd-15p">Descripcion</th>
+                                <th class="tx-center">Precio</th>
+                                <th class="wd-10p">Desc %</th>
+                                <th class="tx-right">Cantidad</th>
+                                <th class="tx-right">Total</th>
+                                <th class="wd-5p"></th>
+                            </tr>
+                        </thead>
+                        <tbody></tbody>
+                        <tfoot>
+                            <tr class="tx-10">
+                                <th class="wd-45p">
+                                    <i class="icon ion-plus-circled tx-20" onclick='jacascript:Agregar_NuevoItem();'></i>Agregar item
+                                </th>
+                                <th class="wd-10p"></th>
+                                <th class="wd-15p"></th>
+                                <th class="tx-center"></th>
+                                <th class="wd-10p"></th>
+                                <th class="tx-right"></th>
+                                <th class="tx-right"></th>
+                                <th class="wd-5p"></th>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div><!-- table-responsive -->
+                <div class="table-responsive mg-t-40">
+                    <table class="table table-invoice">
+                        <thead>
+                            <tr>
+                                <th class="wd-35p"></th>
+                                <th class="wd-10p"></th>
+                                <th class="wd-10p"></th>
+                                <th class="wd-15p"></th>
+                                <th class="tx-center"></th>
+                                <th class="wd-10p"></th>
+                                <th class="tx-right"></th>
+                                <th class="tx-right"></th>
+                                <th class="wd-5p"></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td colspan="4" rowspan="5" class="valign-middle">
+                                    <div class="invoice-notes">
+                                        <label class="section-label-sm tx-gray-500">Notas</label>
+                                        <textarea id="txtInvoice_Notas" rows="2" class="form-control" placeholder=""></textarea>
+
+                                    </div>
+                                    <br>
+                                    <div class="invoice-notes">
+                                        <label class="section-label-sm tx-gray-500">Términos y condiciones</label>
+                                        <textarea id="txtInvoice_Terminos" rows="2" class="form-control" placeholder=""></textarea>
+                                    </div>
+                                </td>
+                                <td colspan="2" class="tx-right">Sub Total S/.</td>
+                                <td colspan="2" class="tx-right" id="tdSubTotal1">0.00</td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td colspan="2" class="tx-right">Descuento S/.</td>
+                                <td colspan="2" class="tx-right" id="tdDescuento">0.00</td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td colspan="2" class="tx-right">Sub Total S/.</td>
+                                <td colspan="2" class="tx-right" id="tdSubTotal2">0.00</td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td colspan="2" class="tx-right">IGV 18%</td>
+                                <td colspan="2" class="tx-right" id="tdIGV">0.00</td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td colspan="2" class="tx-right tx-uppercase tx-bold tx-inverse">Total S/.</td>
+                                <td colspan="2" class="tx-right"><h4 class="tx-primary tx-bold tx-lato" id="tdTotal">0.00</h4></td>
+                                <td></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div><!-- table-responsive -->
+                <hr class="mg-b-60">
+
+                <a href="" class="btn btn-primary btn-block" onclick="jacascript:RegistrarComprobante();">Emitir</a>
+
+            </div><!-- card-body -->
+        </div><!-- card -->
+
+    </div><!-- container -->
+</div><!-- slim-mainpanel -->
+
+
+@section Scripts {
+
+    @System.Web.Optimization.Scripts.Render("~/Scripts/plugins/jsKendo/angular.min.js")
+    @System.Web.Optimization.Scripts.Render("~/Scripts/plugins/jsKendo/kendo.all.min.js")
+
+    @System.Web.Optimization.Scripts.Render("~/Scripts/plugins/jquery-ui/jquery-ui.js")
+    @System.Web.Optimization.Scripts.Render("~/Scripts/plugins/jquery-ui/jquery-ui.min.js")
+
+    @System.Web.Optimization.Scripts.Render("~/Resource/UserControl.Helper.js")
+    @System.Web.Optimization.Scripts.Render("~/Resource/Comprobante.js?ssdd")
+
+    <script type="text/javascript">
+        ListarAlmacenes();
+        ListarTipoComprobante();
+        var todayDate = new Date();
+        $('input[id="txtInvoice_FechaFactura"]').kendoDatePicker();
+        $('input[id="txtInvoice_FechaFactura"]').data("kendoDatePicker").value(todayDate);
+
+        $('input[id="txtInvoice_Vencimiento"]').kendoDatePicker();
+        $('input[id="txtInvoice_Vencimiento"]').data("kendoDatePicker").value(todayDate);
+
+
+    </script>
+
+}

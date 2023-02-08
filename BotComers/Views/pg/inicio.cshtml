@@ -1,0 +1,573 @@
+﻿@model E_DataModel.CentroEntrenamiento.CentroEntrenamiento_EditorPaginaWebDTO
+
+@{
+    ViewBag.Title = "inicio";
+    Layout = "~/Views/Shared/_LayoutAppfitInicio.cshtml";
+}
+<br /><br />
+
+<header style="background-color:#000;">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-xs-3">
+                <a href="@Url.Action("inicio","pg",new {id= HttpContext.Current.Request.Cookies["_SubDominio_PersonaFit"].Value})" id="logo">
+                    @if (Model.logoPagina == string.Empty)
+                    {
+                        <img src="/Content/appInicio/images/logogymdigital.png" width="95" height="27" alt="" data-retina="true" class="logo_normal">
+                    }
+                    else
+                    {
+                        <img src="@Model.logoPagina" width="95" height="27" alt="" data-retina="true" class="logo_normal">
+                    }
+
+                </a>
+            </div>
+            <nav class="col-xs-9">
+                <ul id="access_top">
+                    <li>
+                        <a href="@Url.Action("login","pg",new {id= HttpContext.Current.Request.Cookies["_SubDominio_PersonaFit"].Value})" style="color: white;background-color: var(--colorPrincipal);font-size: 20px;border-radius: 0px;" class="hidden-xs">
+                            <div class="icon icon-man-people-streamline-user">Iniciar sesión</div>
+                        </a>
+                    </li>
+                </ul>
+                <a class="cmn-toggle-switch cmn-toggle-switch__htx open_close" href="javascript:void(0);"><span>Menu mobile</span></a>
+                <div class="main-menu">
+                    <div id="header_menu">
+                        @if (Model.logoPagina == string.Empty)
+                        {
+                            <img src="/Content/appInicio/images/logogymdigital.png" width="95" height="27" alt="Logo" data-retina="true">
+                        }
+                        else
+                        {
+                            <img src="@Model.logoPagina" width="95" height="27" alt="Logo" data-retina="true">
+                        }
+
+                    </div>
+                    <a href="#" class="open_close" id="close_in"><i class="icon_close"></i></a>
+                    <ul>
+                        <li>
+                            <a href="@Url.Action("inicio","pg",new {id= HttpContext.Current.Request.Cookies["_SubDominio_PersonaFit"].Value})">INICIO</a>
+                        </li>                     
+                        <li style="display:none;">
+                            <a href="@Url.Action("reservaonline","pg",new {id= HttpContext.Current.Request.Cookies["_SubDominio_PersonaFit"].Value})">RESERVAS</a>
+                        </li>
+                        <li style="display:none;">
+                            <a href="@Url.Action("entrenaonline","pg",new {id= HttpContext.Current.Request.Cookies["_SubDominio_PersonaFit"].Value})">ENTRENA ONLINE</a>
+                        </li>
+                        <li style="display:none;">
+                            <a href="@Url.Action("videoteca","pg",new {id= HttpContext.Current.Request.Cookies["_SubDominio_PersonaFit"].Value})">GIMNASIO TV</a>
+                        </li>
+                        <li style="display:none;">
+                            <a href="@Url.Action("tienda","pg",new {id= HttpContext.Current.Request.Cookies["_SubDominio_PersonaFit"].Value})">TIENDA</a>
+                        </li>
+                    </ul>
+                </div>
+                <!-- End main-menu -->
+            </nav>
+        </div>
+        <!-- End row -->
+    </div>
+    <!-- End container -->
+</header>
+
+<section class="call-to-action fitness_bg_reservas" style="display:@(Model.BannerReserva_Estado ? "block" : "none")">
+    <div class="container">
+        <div class="section-title text-center">
+            <h2><span class="text-highlight">@Model.BannerReserva_Titulo </span></h2>
+            <h3 class="subline">@Model.BannerReserva_Descripcion</h3>
+            <hr>
+        </div>
+        <div class="cta-button text-center vertical-space bottom-space-xl">
+            <a class="btn btn-default btn-xl" href="@Url.Action("login","pg",new {id= HttpContext.Current.Request.Cookies["_SubDominio_PersonaFit"].Value})">RESERVAR CLASE AHORA</a>
+            <h6 class="vertical-space">@Model.BannerReserva_Descripcion2</h6>
+        </div>
+    </div>
+</section>
+
+<section id="top" class="header header_menu_padding fitness_bg">
+    <div class="container">
+
+        <div class="header-content">
+            <div class="row">
+
+                <div class="col-md-6">
+                    <div class="hero-area">
+                        <h1 class="headline" style="color:#000;">@Model.BannerCentro_Titulo</h1>
+                        <p class="vertical-space" style="color:#636363;">@Model.BannerCentro_Descripcion</p>
+                    </div>
+                    <div class="benefits benefits-vertical">
+                        <div class="benefit-item">
+                            <div class="benefit-icon"><i style="color:var(--colorPrincipal);" class="fa fa-check-circle"> </i></div>
+                            <h6 class="benefit-title" style="color:#000;padding-top: 25px;">@Model.BannerCentro_Beneficio1</h6>
+
+                        </div>
+
+                        <div class="benefit-item">
+                            <div class="benefit-icon"><i style="color:var(--colorPrincipal);" class="fa fa-check-circle"> </i></div>
+                            <h6 class="benefit-title" style="color:#000;padding-top: 25px;">@Model.BannerCentro_Beneficio2</h6>
+
+                        </div>
+
+                        <div class="benefit-item">
+                            <div class="benefit-icon"> <i style="color:var(--colorPrincipal);" class="fa fa-check-circle"> </i></div>
+                            <h6 class="benefit-title" style="color:#000;padding-top: 25px;">@Model.BannerCentro_Beneficio3</h6>
+
+                        </div>
+                    </div>
+                </div>
+                <!-- // end .col -->
+
+            </div>
+            <!-- // end .row -->
+
+        </div>
+        <!-- // end .header-content -->
+
+    </div>
+    <!-- end .container -->
+</section>
+
+<section class="appointment top-space" id="register" style="display:@(Model.SesionFormulario_Estado ? "block" : "none")">
+    <div class="container">
+
+        <div class="row">
+
+            <div class="col-sm-6 col-md-7">
+                <div class="section-title left-aligned">
+                    <h2 style="color:var(--colorPrincipal);font-weight:bold;">@Model.SesionFormulario_Titulo</h2>
+                    <h3 class="subline" style="color:#636363;">@Model.SesionFormulario_Descripcion</h3>
+                    <hr>
+                </div>
+
+                <img src="@Model.SesionFormulario_Imagen" class="img-responsive" alt="Yoga Pose" />
+            </div>
+            <!-- // end .col -->
+
+            <div class="col-sm-6 col-md-5">
+
+                <div class="appointment-form top-space-lg">
+
+                    <div style="background-color:var(--colorPrincipal);border: 1px var(--colorPrincipal) solid;" class="form-header">
+                        <h4 style="font-weight:bold;">@Model.SesionFormulario_Tituloformulario</h4>
+
+                    </div>
+
+                    <div class="form-group" style="padding-left:15px;padding-right:15px;">
+                        <label style="color:#000;">Nombre completo</label>
+                        <input id="txtSesionFormulario_NombreCompleto" type="text" class="form-control" style="border: 1px solid #caced1;font-size:18px;font-weight:bold;padding-left:10px;" required title="Ingrese nombres...">
+                    </div>
+                    <div class="form-group" style="padding-left:15px;padding-right:15px;">
+                        <label style="color:#000;">¿Qué objetivo quieres lograr?</label>
+                        <select id="ddlSesionFormulario_Objetivo" class="form-control" style="border: 1px solid #caced1;">
+                            <option value="0">Seleccionar</option>
+                            <option value="1">Bajar de peso</option>
+                            <option value="2">Aumentar masa muscular</option>
+                            <option value="3">Mejorar la salud</option>
+                            <option value="4">Superar el stress</option>
+                            <option value="5">tonificar mi cuerpo</option>
+                            <option value="6">Preparación fisica</option>
+                        </select>
+                    </div>
+                    <div class="form-group" style="padding-left:15px;padding-right:15px;">
+                        <label style="color:#000;">¿En cuanto tiempo te gustaria lograrlo?</label>
+                        <select id="ddlSesionFormulario_Promocion" class="form-control" style="border: 1px solid #caced1;">
+                            <option value="0">Seleccionar</option>
+                            @{if (Model.List_Planes != null)
+                                {
+                                    foreach (var itemPlanes in Model.List_Planes)
+                                    {
+                                        <option>@itemPlanes.Titulo</option>
+                                    }
+                                }
+                            }
+                        </select>
+                    </div>
+                    <input id="txtSesionFormulario_CodigoPais" type="hidden" value="@Model.SesionFormulario_CodigoPais" />
+                    <input id="txtSesionFormulario_Whatsapp" type="hidden" value="@Model.SesionFormulario_Whatsapp" />
+                    <div class="text-center top-space" style="padding-left:15px;padding-right:15px;">
+                        <button onclick="EnviarDatos();" style="background-color:var(--colorPrincipal);color:#fff;border: 1px var(--colorPrincipal) solid;" type="submit" class="btn btn-block btn-xl" id="js-contact-btn">Enviar información</button>                        
+                        <div id="js-validacion" style="color:red;display:none;"></div>
+                    </div>
+                    <br />
+
+                </div>
+
+            </div>
+            <!-- // end .col -->
+
+        </div>
+        <!-- // end .row -->
+
+    </div>
+    <!-- end .container -->
+</section>
+
+<section class="trainer vertical-space-lg" style="display:@(Model.SesionTrainner_Estado ? "block" : "none")">
+    <div class="container">
+
+        <div class="section-title text-center">
+            <h2 style="font-weight:bold;"><span class="text-highlight">@Model.SesionTrainner_Titulo</span></h2>
+            <h3 style="color:#636363;" class="subline">@Model.SesionTrainner_Descripcion</h3>
+            <hr>
+        </div>
+
+        <div class="row">
+            @{if (Model.List_Trainners != null)
+                {
+                    foreach (var itemTrainner in Model.List_Trainners)
+                    {
+                        <div class="col-md-3">
+                            <div class="staff-member">
+                                <img src="@itemTrainner.UrlUmagen" alt="spa staff" class="img-responsive center-block" />
+                                <p>
+                                    <strong style="font-size:18px;color:#000;">@itemTrainner.Titulo</strong>
+                                    <br> <small style="font-size:15px;color:#636363">@itemTrainner.SubTitulo</small>
+                                </p>
+
+                            </div>
+                        </div>
+                    }
+                }
+                else
+                {
+                    <div class="col-md-3">
+                        <div class="staff-member">
+                            <img src="~/Content/appInicio/images/staff-1.jpg" alt="spa staff" class="img-responsive center-block" />
+                            <p>
+                                <strong style="font-size:18px;color:#000;">Madison Warren</strong>
+                                <br> <small style="font-size:15px;color:#636363">Founder of Spa</small>
+                            </p>
+
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="staff-member">
+                            <img src="~/Content/appInicio/images/staff-1.jpg" alt="spa staff" class="img-responsive center-block" />
+                            <p>
+                                <strong style="font-size:18px;color:#000;">Madison Warren</strong>
+                                <br> <small style="font-size:15px;color:#636363">Founder of Spa</small>
+                            </p>
+
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="staff-member">
+                            <img src="~/Content/appInicio/images/staff-1.jpg" alt="spa staff" class="img-responsive center-block" />
+                            <p>
+                                <strong style="font-size:18px;color:#000;">Madison Warren</strong>
+                                <br> <small style="font-size:15px;color:#636363">Founder of Spa</small>
+                            </p>
+
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="staff-member">
+                            <img src="~/Content/appInicio/images/staff-1.jpg" alt="spa staff" class="img-responsive center-block" />
+                            <p>
+                                <strong style="font-size:18px;color:#000;">Madison Warren</strong>
+                                <br> <small style="font-size:15px;color:#636363">Founder of Spa</small>
+                            </p>
+
+                        </div>
+                    </div>
+                }
+            }
+
+        </div>
+
+    </div>
+    <!-- // end .container -->
+
+</section>
+
+<section class="highlight top-space-lg" style="display:@(Model.SesionServicio_Estado ? "block" : "none")">
+
+    <div class="container">
+
+        <div class="section-title text-center">
+            <h2 style="font-weight:bold;"><span class="text-highlight" style="color:var(--colorPrincipal);">@Model.SesionServicio_Titulo</span></h2>
+            <h3 style="color:#636363;" class="subline">@Model.SesionServicio_Descripcion</h3>
+            <hr>
+        </div>
+
+        <div class="row">
+
+            @{if (Model.List_Servicios != null)
+                {
+                    foreach (var itemServicio in Model.List_Servicios)
+                    {
+                        <div class="col-sm-6 col-md-3">
+                            <div class="thumbnail">
+                                <img src="@itemServicio.UrlUmagen">
+                                <div class="caption">
+                                    <h6 class="caption-title text-dark">@itemServicio.Titulo</h6>
+                                    <p class="caption-text">@itemServicio.SubTitulo</p>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                }
+                else
+                {
+
+                    <div class="col-sm-6 col-md-3">
+                        <div class="thumbnail">
+                            <img src="~/Content/appInicio/images/beneficio1.jpg" alt="Atholl Palace Hotel">
+                            <div class="caption">
+                                <h6 class="caption-title text-dark">LEVANTAMIENTO DE PESAS</h6>
+                                <p class="caption-text">La mejor manera de ganar músculos. Bueno para todas las partes del cuerpo. Practica diariamente o semanalmente.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-6 col-md-3">
+                        <div class="thumbnail">
+                            <img src="~/Content/appInicio/images/beneficio2.jpg" alt="The Four Seasons Hotel">
+                            <div class="caption">
+                                <h6 class="caption-title text-dark">ENTRENAMIENTO PERSONALIZADO</h6>
+                                <p class="caption-text">Nuestro programa especialmente diseñado para ayudar a los novatos. El entrenador personal te guiará.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="clearfix visible-sm"></div>
+
+                    <div class="col-sm-6 col-md-3">
+                        <div class="thumbnail">
+                            <img src="~/Content/appInicio/images/beneficio3.jpg" alt="The Gleneagles Hotel">
+                            <div class="caption">
+                                <h6 class="caption-title text-dark">FUNCIONAMIENTO INTERIOR</h6>
+                                <p class="caption-text">La forma fácil de hacer ejercicio. La cinta de correr importada te ayuda a ponerte en forma fácilmente.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-sm-6 col-md-3">
+                        <div class="thumbnail">
+                            <img src="~/Content/appInicio/images/beneficio4.jpg" alt="The Four Seasons Hotel">
+                            <div class="caption">
+                                <h6 class="caption-title text-dark">MUJERES FITNESS</h6>
+                                <p class="caption-text">WeTenemos un entrenamiento exclusivo solo para mujeres. Su objetivo es la autoprotección y la forma física.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                }
+
+            }
+        </div>
+
+    </div>
+    <!-- // end .container -->
+
+</section>
+
+<section class="pricing" id="pricing" style="display:@(Model.SesionPlan_Estado ? "block" : "none")">
+    <div class="container">
+
+        <div class="section-title text-center">
+            <h2 style="font-weight:bold;"><span class="text-highlight" style="color:var(--colorPrincipal);">@Model.SesionPlan_Titulo</span></h2>
+            <h3 style="color:#636363;" class="subline">@Model.SesionPlan_Descripcion</h3>
+            <hr>
+        </div>
+
+        <div class="row">
+            @{if (Model.List_Planes != null)
+                {
+                    foreach (var itemPlanes in Model.List_Planes)
+                    {
+                        <div class="col-md-4">
+                            <div class="pricing-item" data-wow-duration="2s">
+                                <div style="color:#000;" class="plan-name">@itemPlanes.Titulo</div>
+                                <div style="color:#000;" class="price"> <span class="curr">S/</span>@itemPlanes.SubTitulo</div>
+                                <br />
+                                @if (itemPlanes.LinkPago == string.Empty)
+                                {
+                                    <a style="border:1px solid var(--colorPrincipal);background-color:var(--colorPrincipal);color:#fff" class="btn btn-outline btn-lg" href="#register">LO QUIERO</a>
+                                }
+                                else
+                                {
+                                    <a style="border:1px solid var(--colorPrincipal);background-color:var(--colorPrincipal);color:#fff" class="btn btn-outline btn-lg" href="@itemPlanes.LinkPago">COMPRAR AHORA</a>
+                                }
+                            </div>
+                        </div>
+                    }
+                }
+                else
+                {
+                    <div class="col-md-4">
+                        <div class="pricing-item" data-wow-duration="2s">
+                            <div style="color:#000;" class="plan-name">SEMANAL</div>
+                            <div style="color:#000;" class="price"> <span class="curr">S/</span>900.00</div>
+                            <br />
+                            <a class="btn btn-outline btn-lg" href="#register">LO QUIERO</a>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="pricing-item highlighted-plan" data-wow-delay="0.3s" data-wow-duration="2s">
+                            <div class="plan-name" style="color:var(--colorPrincipal);">2 MESES</div>
+                            <div style="color:var(--colorPrincipal);" class="price"> <span class="curr" style="color:var(--colorPrincipal);">S/</span>550.00</div>
+                            <br />
+                            <a style="background-color:var(--colorPrincipal);color:#fff" class="btn btn-lg" href="#register">LO QUIERO</a>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="pricing-item" data-wow-delay="0.6s" data-wow-duration="2s">
+                            <div style="color:#000;" class="plan-name">1 MES</div>
+                            <div style="color:#000;" class="price"> <span class="curr">S/</span>150.00</div>
+                            <a class="btn btn-outline btn-lg" href="#register"> LO QUIERO</a>
+                        </div>
+                    </div>
+                }
+
+            }
+
+
+        </div>
+    </div>
+</section>
+
+<section class="watch_video" style="background-color:#000;display:none;">
+    <div class="container">
+
+        <div class="section-title text-center">
+            <h2 style="font-weight:bold;"><span class="text-highlight" style="color:var(--colorPrincipal);">@Model.SesionVideo_Titulo</span></h2>
+            <h3 style="color:#fff;" class="subline">@Model.SesionVideo_Descripcion</h3>
+            <hr>
+        </div>
+
+        <div class="row">
+            <div class="col-md-8 col-md-offset-2">
+                <div class="embed-responsive embed-responsive-16by9">
+                    <iframe width="560" height="315" src="@Model.SesionVideo_Linkvideo" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                </div>
+            </div>
+
+        </div>
+        <br /><br />
+    </div>
+    <!-- end .container -->
+</section>
+
+<section class="call-to-action" style="background-color:#000;">
+    <div class="container">
+        <div class="section-title text-center">
+            <h2 style="font-weight:bold;"><span class="text-highlight" style="color:var(--colorPrincipal);">@Model.SesionFreepass_Titulo </span></h2>
+            <h3 style="color:#fff;" class="subline">@Model.SesionFreepass_Descripcion</h3>
+            <hr>
+
+        </div>
+
+        <div class="cta-button text-center vertical-space bottom-space-xl">
+            <a style="background-color:var(--colorPrincipal);color:#fff;" class="btn btn-xl" href="#register">INICIAR EL CAMBIO AHORA</a>
+        </div>
+
+    </div>
+</section>
+
+<div class="highlight contact">
+    <div class="container">
+
+        <div class="row">
+            <div class="col-sm-4">
+                <p style="color:#000;">
+                    <span class="text-highlight"><strong style="color:var(--colorPrincipal);">Nuestra dirección</strong></span>
+                    <br>@Model.SesionInformacion_Direccion1
+                    <br>@Model.SesionInformacion_Direccion2
+                </p>
+            </div>
+            <!-- // end .col -->
+
+            <div class="col-sm-4">
+                <p style="color:#000;">
+                    <span class="text-highlight"><strong style="color:var(--colorPrincipal);">Contáctenos</strong></span>
+                    <br>@Model.SesionInformacion_Contactanos1
+                    <br>@Model.SesionInformacion_Contactanos2
+                </p>
+            </div>
+            <!-- // end .col -->
+
+            <div class="col-sm-4">
+                <p style="color:#000;">
+                    <span class="text-highlight"><strong style="color:var(--colorPrincipal);">Horario</strong></span>
+                    <br>@Model.SesionInformacion_Horario1
+                    <br>@Model.SesionInformacion_Horario2
+                </p>
+            </div>
+            <!-- // end .col -->
+
+        </div>
+        <!-- // end .row -->
+
+    </div>
+</div>
+
+<div class="google-map">
+    <iframe src="https://maps.google.com/maps?q=@Model.SesionInformacion_LatitudMapa,@Model.SesionInformacion_LongitudMapa&hl=en&z=17&amp;output=embed"></iframe>
+</div>
+<!-- end Google Map -->
+
+
+
+@section Scripts {
+
+    @System.Web.Optimization.Scripts.Render("~/Scripts/bootstrap-notify-master/bootstrap-notify.js")
+    @System.Web.Optimization.Scripts.Render("~/Scripts/bootstrap-notify-master/bootstrap-notify.min.js")
+    @System.Web.Optimization.Scripts.Render("~/Scripts/jsBootstrap/jquery.bootstrap-growl.js")
+
+    @System.Web.Optimization.Scripts.Render("~/Scripts/jquery.min.js")
+    @System.Web.Optimization.Scripts.Render("~/Scripts/plugins/jquery-ui/jquery-ui.js")
+    @System.Web.Optimization.Scripts.Render("~/Scripts/plugins/jquery-ui/jquery-ui.min.js")
+
+    @System.Web.Optimization.Scripts.Render("~/Resource/UserControl.Helper.js")
+    <script type="text/javascript">
+       
+        var expiry = new Date();
+        expiry.setTime(expiry.getTime() - 3600);
+        //document.cookie = "_CodigoUnidadNegocio_PersonaFit=; expires=" + expiry.toGMTString() + "; path=/";    
+
+        $(document).ready(function () {
+           
+        });
+
+        function EnviarDatos() {
+            var nombres = $('#txtSesionFormulario_NombreCompleto').val();
+            var objetivo = $('select[id="ddlSesionFormulario_Objetivo"] option:selected').text();
+            var tiempo = $('select[id="ddlSesionFormulario_Promocion"] option:selected').text();           
+            var numero = $('#txtSesionFormulario_Whatsapp').val();
+            var pais = $('#txtSesionFormulario_CodigoPais').val();
+
+            if (nombres == '') {
+                $('#js-validacion').html('Falta ingresar nombres y apellidos');
+                document.getElementById("js-validacion").style.display = 'block';
+                return;
+            } else if (objetivo == 'Seleccionar') {
+                $('#js-validacion').html('Falta seleccionar su objetivo');
+                document.getElementById("js-validacion").style.display = 'block';
+                return;
+            } else if (tiempo == 'Seleccionar') {
+                $('#js-validacion').html('Falta seleccionar el tiempo');
+                document.getElementById("js-validacion").style.display = 'block';
+                return;
+            } else if (numero == '') {
+                $('#js-validacion').html('Falta configurar el número de destino, consulta con el administrador del Centro de entrenamiento');
+                document.getElementById("js-validacion").style.display = 'block';
+                return;
+            }
+
+            document.getElementById("js-validacion").style.display = 'none';
+
+            nombres = nombres.replace(' ', '%20').replace(' ', '%20').replace(' ', '%20');
+            objetivo = objetivo.replace(' ', '%20').replace(' ', '%20').replace(' ', '%20');
+            tiempo = tiempo.replace(' ', '%20').replace(' ', '%20').replace(' ', '%20');
+            //alert("nombres: " + nombres);
+            //alert("objetivo: " + objetivo);
+            //alert("tiempo: " + tiempo);            
+            //alert("numero: " + numero);
+
+            var Link = "https://api.whatsapp.com/send?phone=" + pais + numero + "&text=👍%20Hola,%20mi%20nombre%20es%20" + nombres + ",%20😉%20me%20interesa%20" + objetivo + "%20en%20" + tiempo + "%20💪";
+            window.open(Link, '_blank');
+
+        }
+
+    </script>
+}

@@ -1,0 +1,119 @@
+﻿@model IEnumerable<BotComers.ViewModels.EmpresaViewEditModel>
+
+@{
+    Layout = null;
+}
+
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+
+    <title>Iniciar sesión</title>
+
+    <!-- vendor css -->
+    <link href="@Url.Content("~/Content/app/lib/font-awesome/css/font-awesome.css")" rel="stylesheet" />
+    <link href="@Url.Content("~/Content/app/lib/Ionicons/css/ionicons.css")" rel="stylesheet" />
+
+    <!-- Slim CSS -->
+    <link href="@Url.Content("~/Content/app/css/slim.css")" rel="stylesheet" />
+
+</head>
+<body>
+
+    <div class="signin-wrapper">
+
+        <form id="frmSeguridad" action="/access/ingresartiendaonline" method="post">
+            <div class="signin-box">
+                <h2 class="slim-logo"><a href="" >Botcomers<span>.</span></a></h2>
+                <div id="divMensajeBienvenida">
+                    <h2 class="signin-title-primary">Bienvenido!</h2>
+                    <h3 class="signin-title-secondary">Inicia sesión para continuar.</h3>
+                </div>
+                <div id="divMensajeClaveIncorrecta" style="display:none;" class="form-group">
+                    <div class="alert alert-outline alert-danger mg-b-0" role="alert">
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">×</span>
+                        </button>
+                        <strong>Contraseña incorrecta!</strong> Vuelve a intentarlo.
+                    </div>
+                </div>
+                <div class="form-group">
+                    <select id="txtUsuario_CodigoSede" class="form-control select2" name="SelectedValue">
+                        @foreach (var item in Model)
+                        {
+                            <option value="@item.CodigoSede">@item.NombreComercialEmpresa</option>
+                        }
+                    </select>
+                </div><!-- form-group -->
+                <div class="form-group">
+                    <label for="txtusuario" class="form-control-label">usuario: <span class="tx-danger" id="txtusuario_validation" style="display:none;">* Ingrese usuario</span></label>
+                    <input id="txtusuario" type="text" value="" name="user" class="form-control" placeholder="Ingrese su correo">
+                </div><!-- form-group -->
+                <div class="form-group mg-b-50">
+                    <label for="txtclave" class="form-control-label">contraseña: <span class="tx-danger" id="txtclave_validation" style="display:none;">* Ingrese contraseña</span></label>
+                    <input id="txtclave" type="password" value="" name="password" class="form-control" placeholder="Ingrese su contraseña">
+                </div><!-- form-group -->
+                <button id="btnIngresar" type="submit" class="btn btn-primary btn-block btn-signin" >Ingresar</button>
+            </div><!-- signin-box -->
+        </form>
+    </div><!-- signin-wrapper -->
+
+    @System.Web.Optimization.Scripts.Render("~/Content/app/lib/popper.js/js/popper.js")
+    @System.Web.Optimization.Scripts.Render("~/Content/app/lib/bootstrap/js/bootstrap.js")
+    @System.Web.Optimization.Scripts.Render("~/Content/app/js/slim.js")
+
+    @System.Web.Optimization.Scripts.Render("~/Scripts/default/jquery-1.10.2.min.js")
+    @System.Web.Optimization.Scripts.Render("~/Scripts/jquery-2.1.1.min.js")
+
+    <script type="text/javascript">
+
+        $(document).ready(function () {
+
+            $('#frmSeguridad').on('submit', function (event) {
+                event.preventDefault(); // or return false, your choice
+
+                if ($('#txtusuario').val() == "") {
+                    document.getElementById("txtusuario_validation").style.display = '';
+                    return false;
+                } else {
+                    document.getElementById("txtusuario_validation").style.display = 'none';
+                }
+
+                if ($('#txtclave').val() == "") {
+                    document.getElementById("txtclave_validation").style.display = '';
+                    return false;
+                } else {
+                    document.getElementById("txtclave_validation").style.display = 'none';
+                }
+
+                $.ajax({
+                    url: $(this).attr('action'),
+                    type: 'post',
+                    data: $(this).serialize(),
+                    success: function (data, textStatus, jqXHR) {
+
+                        if (textStatus === 'success') {
+                            if (data == 0) {
+                                document.getElementById("divMensajeBienvenida").style.display = 'none';
+                                document.getElementById("divMensajeClaveIncorrecta").style.display = '';
+                            } else {
+                                window.location.href = data;
+                            }
+                        }
+                    }
+                }).fail(function (jqXHR, textStatus, errorThrown) {
+                    //if (jqXHR.status == 0 || jqXHR == 302) {
+                    //    alert('Your session has ended due to inactivity after 10 minutes.\nPlease refresh this page, or close this window and log back in to system.');
+                    //} else {
+                    //    alert('Unknown error returned while saving' + (typeof errorThrown == 'string' && errorThrown.trim().length > 0 ? ':\n' + errorThrown : ''));
+                    //}
+                });
+            });
+
+        });
+
+    </script>
+
+</body>
+</html>

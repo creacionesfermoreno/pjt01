@@ -1,0 +1,137 @@
+﻿@model IEnumerable<BotComers.ViewModels.Inventario.ItemsVentaViewModel>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_LayoutApp.cshtml";
+}
+
+<div class="slim-mainpanel">
+
+    <div class="slim-mainpanel">
+        <div class="container">
+            <input type="hidden" value="0" id="hdCodigoItemVenta" />
+            <div class="report-summary-header">
+                <div>
+                    <h4 class="tx-inverse mg-b-3">Productos</h4>
+                </div>
+                <div>
+                    <a href="@Url.Action("add","itemsventa")" class="btn btn-primary"><i class="icon ion-plus-circled tx-22"></i>Nuevo producto</a>
+                </div>
+            </div><!-- d-flex -->
+            <div class="row mg-b-15">
+                <div class="col-lg-4">
+                    <div class="form-group">
+                        <label for="txtItemsVenta_Buscador" class="form-control-label">Buscador: <span class="tx-danger" id="" style="display:none;">* Ingrese fecha</span></label>
+                        <input id="txtItemsVenta_Buscador" onchange="ListarItemsVenta();" class="form-control form-control-sm" type="text" name="" value="" placeholder="">
+                    </div>
+                </div>               
+                <div class="col-lg-7"></div>
+            </div>
+
+            <div class="card card-table mg-t-20 mg-sm-t-30">
+
+                <div class="table-responsive">
+                    <table id="gridEmpresa" class="table mg-b-0 tx-13">
+                        <thead>
+                            <tr class="tx-10">
+                                <th class="pd-y-5">
+                                    Codigo
+                                </th>
+                                <th class="pd-y-5">
+
+                                </th>
+                                <th class="pd-y-5">
+                                    Nombre
+                                </th>
+                                <th class="pd-y-5">
+                                    Referencia
+                                </th>
+                                <th class="pd-y-5">
+                                    Precio
+                                </th>
+                                <th class="pd-y-5">
+                                    Descripcion
+                                </th>
+                                <th class="pd-y-5">
+                                    Acciones
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model)
+                            {
+                                if (item != null)
+                                {
+                            <tr>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.CodigoItemVenta)
+                                </td>
+                                <td>
+                                    <img src="@item.UrlImagen" style="width:40px;" alt="">
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Nombre)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Referencia)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.PrecioVenta)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Descripcion)
+                                </td>
+                                <td>
+                                    <i class="fa fa-eye tx-18" style="cursor:pointer;"></i>
+                                    <a href="@Url.Action("edit","itemsventa", new {id= item.CodigoItemVenta})"><i class="fa fa-pencil tx-18" style="cursor:pointer;"></i></a>
+                                    <i class="fa fa-plug tx-18" style="cursor:pointer;"></i>
+                                    <a href="" data-toggle="modal" data-target="#modalConfirmarEliminacion" onclick="SeleccionarFilaItemsVenta(@item.CodigoItemVenta);"><i class="fa fa-close tx-18" style="cursor:pointer;"></i></a>
+                                </td>
+                            </tr>
+                                }
+                            }
+                        </tbody>
+                    </table>
+                </div><!-- table-responsive -->               
+            </div><!-- card -->
+
+        </div><!-- slim-mainpanel -->
+
+    </div>
+
+</div>
+
+<div id="modalConfirmarEliminacion" class="modal fade">
+    <div class="modal-dialog modal-sm" role="document">
+        <div class="modal-content bd-0 tx-14">
+            <div class="modal-header pd-x-20">
+                <h6 class="tx-14 mg-b-0 tx-uppercase tx-inverse tx-bold">Confirmar</h6>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body pd-20">
+                <p class="mg-b-5">¿Esta seguro de eliminar este item?</p>
+            </div>
+            <div class="modal-footer justify-content-center">
+                <button type="button" class="btn btn-primary" onclick="javascript: EliminarItemsVenta();">Si</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+            </div>
+        </div>
+    </div><!-- modal-dialog -->
+</div>
+
+
+@section Scripts {
+
+    @System.Web.Optimization.Scripts.Render("~/Resource/UserControl.Helper.js")
+    @System.Web.Optimization.Scripts.Render("~/Resource/Inventario.js?cttttd")
+
+    <script type="text/javascript">
+       
+
+    </script>
+
+}
+
+

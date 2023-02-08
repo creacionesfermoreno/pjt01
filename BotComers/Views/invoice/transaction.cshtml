@@ -1,0 +1,171 @@
+﻿@model IEnumerable<BotComers.ViewModels.Ingresos.ComprobanteViewModel>
+
+@{
+    ViewBag.Title = "transaction";
+    Layout = "~/Views/Shared/_LayoutApp.cshtml";
+}
+
+
+<link href="@Url.Content("~/Content/cssKendo/kendo.common.min.css")" rel="stylesheet" />
+<link href="@Url.Content("~/Content/cssKendo/kendo.dataviz.default.min.css")" rel="stylesheet" />
+<link href="@Url.Content("~/Content/cssKendo/kendo.dataviz.min.css")" rel="stylesheet" />
+<link href="@Url.Content("~/Content/cssKendo/kendo.default.min.css")" rel="stylesheet" />
+
+
+<div class="slim-mainpanel">
+
+    <div class="slim-mainpanel">
+        <div class="container">
+            <div class="slim-pageheader">
+                <ol class="breadcrumb slim-breadcrumb">
+                    <li class="breadcrumb-item"><a href="@Url.Action("index","invoice")">Facturas de venta</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">Nuevo ingreso</li>
+                </ol>
+                <h6 class="slim-pagetitle">
+                    Nuevo ingreso
+                </h6>
+            </div>
+
+            <div class="section-wrapper">
+                <div class="row">
+                    <div class="col-lg-4">
+                        <div class="form-group">
+                            <label for="txtTransaction_BuscadorCliente" class="form-control-label">Cliente: </label>
+                            <input id="txtTransaction_BuscadorCliente" class="form-control form-control-sm" type="text" name="" value="" placeholder="" style="width:100%;">
+                            <input id="txtTransaction_hdCodigoCliente" type="hidden" value="">
+                        </div>
+                        <div class="form-group">
+                            <label for="txtTransaction_CodigoCliente" class="form-control-label">Codigo Cliente: </label>
+                            <input id="txtTransaction_CodigoCliente" class="form-control form-control-sm" type="text" name="" value=" " placeholder="" disabled>
+                        </div>
+                        <div class="form-group">
+                            <label for="txtTransaction_TipoMoneda" class="form-control-label">Moneda: </label>
+                            <select id="txtTransaction_TipoMoneda" class="form-control form-control-sm" data-placeholder="" disabled>
+                                <option value="1">USD - United States Dollar</option>
+                                <option value="2" selected>PEN - Perú Nuevo Sol</option>
+                            </select>
+                        </div>
+                    </div><!-- col-4 -->
+                    <div class="col-lg-4">
+                        <div class="form-group">
+                            <label for="txtTransaction_FechaPago" class="form-control-label">Fecha: </label>
+                            <input id="txtTransaction_FechaPago" style="width:100%" class="form-control form-control-sm" type="text" name="" value="" placeholder="">
+                        </div>
+                        <div class="form-group">
+                            <label for="txtTransaction_MetodoPago" class="form-control-label">Método de pago: </label>
+                            <select id="txtTransaction_MetodoPago" class="form-control form-control-sm" data-placeholder="">
+                                <option value="1" selected>EFECTIVO</option>
+                                <option value="2">TARJETA DEBITO</option>
+                                <option value="3">TRJETA CREDITO</option>
+                                <option value="4">TRANSFERENCIA</option>
+                                <option value="5">WEB</option>
+                                <option value="6">CONTRA ENTREGA</option>
+                                <option value="7">YAPE</option>                                
+                            </select>
+                        </div>
+                    </div><!-- col-4 -->
+                    <div class="col-lg-4">
+                        <div class="form-group">
+                            <label for="txtItemsventa_Descripcion" class="form-control-label">Notas del recibo: </label>
+                            <textarea id="txtItemsventa_Descripcion" rows="2" class="form-control" placeholder=""></textarea>
+                        </div>
+                    </div><!-- col-4 -->
+                </div><!-- row -->
+                <p class="mg-b-20 mg-sm-b-40">Facturas Pendientes</p>
+                <div class="row">
+                    <div class="table-responsive">
+                        <table id="gridComprobantes" class="table table-invoice">
+                            <thead>
+                                <tr>
+                                    <th class="wd-10p">
+                                        Correlativo
+                                    </th>
+                                    <th class="wd-10p">
+                                        Total
+                                    </th>
+                                    <th class="wd-10p">
+                                        Cobrado
+                                    </th>
+                                    <th class="wd-10p">
+                                        Por Cobrar
+                                    </th>
+                                    <th class="wd-10p">
+                                        Valor Recibido
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @{
+                                    int indice = 1;
+                                    foreach (var item in Model) {
+
+                                        <div style="display:none;">
+                                                @(ViewBag.NombresCliente = item.NombresCliente);
+                                        </div>
+                                        <tr id="rowdi_@indice" style="background-color:@(item.CodigoComprobante == Convert.ToInt32(ViewBag.idcomprobante) ? "#f2f9ff" : "#fff" );" > 
+                                            <td>
+                                                <input id="rowdi_CodigoComprobante_@indice" type="hidden" value="@item.CodigoComprobante">
+                                                <input id="rowdi_Correlativo_@indice" type="text" value="@item.Correlativo" style="border:0px;" disabled>
+                                            </td>
+                                            <td>
+                                                <input id="rowdi_Total_@indice" type="text" value="@item.Total" style="border:0px;" disabled>
+                                            </td>
+                                            <td>
+                                                <input id="rowdi_TotalCobrado_@indice" type="text" value="@item.TotalCobrado" style="border:0px;" disabled>
+                                            </td>
+                                            <td>
+                                                <input id="rowdi_TotalPorCobrar_@indice" type="text" value="@item.TotalPorCobrar" style="border:0px;color:@item.ColorEstado;" disabled>
+                                            </td>
+                                            <td>
+                                                <input id="rowdi_Monto_@indice" class="form-control form-control-sm " type="text" name="" value="" @(item.TotalPorCobrar == 0 ? "disabled" : ""  ) >
+                                            </td>
+                                        </tr>
+                                        indice++;
+                                    }
+                                }
+                            </tbody>
+
+                        </table>
+                    </div>
+                </div>
+                <hr class="mg-b-60">
+                <a href="" class="btn btn-primary btn-block" onclick="jacascript:RegistrarComprobantePago();">Guardar</a>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+@section Scripts {
+    
+    @System.Web.Optimization.Scripts.Render("~/Scripts/plugins/jsKendo/angular.min.js")
+    @System.Web.Optimization.Scripts.Render("~/Scripts/plugins/jsKendo/kendo.all.min.js")
+
+    @System.Web.Optimization.Scripts.Render("~/Scripts/plugins/jquery-ui/jquery-ui.js")
+    @System.Web.Optimization.Scripts.Render("~/Scripts/plugins/jquery-ui/jquery-ui.min.js")
+
+    @System.Web.Optimization.Scripts.Render("~/Resource/UserControl.Helper.js")
+    @System.Web.Optimization.Scripts.Render("~/Resource/Transaction.js?ssdd")
+
+    <script type="text/javascript">
+        $('input[id="txtTransaction_CodigoCliente"]').val($(location).attr('href').split('?')[1].split('&')[0].split('=')[1]);
+        $('input[id="txtTransaction_hdCodigoCliente"]').val($(location).attr('href').split('?')[1].split('&')[0].split('=')[1]);
+
+        var todayDate = new Date();
+        $('input[id="txtTransaction_FechaPago"]').kendoDatePicker();
+        $('input[id="txtTransaction_FechaPago"]').data("kendoDatePicker").value(todayDate);
+
+        BuscadorClientes();
+        
+        var NombresCliente = @(Html.Raw(Json.Encode(ViewBag.NombresCliente)))
+        $('#txtTransaction_BuscadorCliente').val(NombresCliente);
+        
+    </script>
+
+}
+
+

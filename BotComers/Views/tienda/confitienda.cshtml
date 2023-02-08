@@ -1,0 +1,267 @@
+﻿
+@{
+    ViewBag.Title = "confitienda";
+    Layout = "~/Views/Shared/_LayoutApp.cshtml";
+}
+
+<link href="@Url.Content("~/Content/cssKendo/kendo.common.min.css")" rel="stylesheet" />
+<link href="@Url.Content("~/Content/cssKendo/kendo.dataviz.default.min.css")" rel="stylesheet" />
+<link href="@Url.Content("~/Content/cssKendo/kendo.dataviz.min.css")" rel="stylesheet" />
+<link href="@Url.Content("~/Content/cssKendo/kendo.default.min.css")" rel="stylesheet" />
+
+<input type="hidden" value="" id="hdCodigoImagen" />
+<input type="hidden" value="" id="hdCodigoItemVenta" />
+<div class="slim-mainpanel">
+    <div class="container">
+        <div class="row mg-b-25">
+            <div class="col-lg-12 mg-t-1">
+                <div class="row row-xs">
+                    <button id="btnBuscarPorNombre" style="border-radius: 0%;" class="btn btn-secondary botonActivado"><i class="fa fa-search"></i></button>
+                    <input id="txtBuscadorInventario" onchange="ListarValorInventario_PuntoVenta();" style="border-radius: 0%;width: 80%;" type="text" class="form-control" placeholder="Buscar productos">
+                </div>
+                <div class="manager-right">
+                    <div class="form-group" style="display:none;">
+                        <label for="txtInvoice_ddlAlmacenes" class="form-control-label">Almacén: </label>
+                        <select id="txtInvoice_ddlAlmacenes" class="form-control form-control-sm" data-placeholder=""></select>
+                    </div>
+                    <span style="display:none;">
+                        <input id="txtInvoice_FechaFactura" class="form-control form-control-sm" type="text" name="" value="" placeholder="">
+                    </span>
+                    <span style="display:none;">
+                        <input id="txtInvoice_Vencimiento" class="form-control form-control-sm" type="text" name="" value="" placeholder="">
+                    </span>
+                    Importante las imagenes de los productos deben tener un tamaño maximo de 400x400.
+                    <div class="row row-sm" id="gridInventario">
+                       
+                    </div><!-- row -->
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="modalDetalle" class="modal fade">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content tx-sm-10-force">
+            <div class="modal-header pd-y-20 pd-x-25">
+                <h6 class="tx-14 mg-b-0 tx-uppercase tx-inverse tx-bold">Subir una foto</h6>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body pd-10">
+                <div class="card-body pd-10">
+                    <div class="form-group">
+                        <div class="row row-xs">
+                            <div class="col-lg-12">
+                                <div class="custom-file">
+                                    <input type="file" class="custom-file-input" id="buscarImagen">
+                                    <label class="custom-file-label" for="buscarImagen">Buscar imagen</label>
+                                </div><!-- custom-file -->
+                            </div><!-- col -->
+                        </div><!-- row -->
+                    </div>
+                    <div class="form-group">
+                        <div class="row row-xs">
+                            <img class="img-fluid" style="width:200px;" id="imgVistaImagen" />
+                        </div><!-- row -->
+                    </div>
+                    <div class="form-group">
+                        <div class="row row-xs">
+                            <div class="col-lg-12">
+                                <input id="txtDetalle_DescripcionImagen" type="text" name="lastname" class="form-control form-control-sm" placeholder="detalle imagen">
+                                <input type="hidden" id="hdheight_imagen" value="0" />
+                                <input type="hidden" id="hdwidth_imagen" value="0" />
+                            </div><!-- col -->
+                        </div><!-- row -->
+                    </div>
+                </div><!-- card-body -->
+            </div><!-- modal-body -->
+            <div class="modal-footer">
+                <button onclick="javascript: Uploadimage();" type="button" class="btn btn-primary">Guardar</button>
+                <button id="btnCerrarModalCliente" type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+            </div>
+        </div>
+    </div><!-- modal-dialog -->
+</div><!-- modal -->
+
+@section Scripts {
+
+    @System.Web.Optimization.Scripts.Render("~/Scripts/plugins/jsKendo/angular.min.js")
+    @System.Web.Optimization.Scripts.Render("~/Scripts/plugins/jsKendo/kendo.all.min.js")
+
+    @System.Web.Optimization.Scripts.Render("~/Scripts/plugins/jquery-ui/jquery-ui.js")
+    @System.Web.Optimization.Scripts.Render("~/Scripts/plugins/jquery-ui/jquery-ui.min.js")
+
+    @System.Web.Optimization.Scripts.Render("~/Resource/UserControl.Helper.js")
+    @System.Web.Optimization.Scripts.Render("~/Scripts/bootstrap-notify-master/bootstrap-notify.js")
+    @System.Web.Optimization.Scripts.Render("~/Scripts/bootstrap-notify-master/bootstrap-notify.min.js")
+    @System.Web.Optimization.Scripts.Render("~/Scripts/jsBootstrap/jquery.bootstrap-growl.js")
+
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+
+            $('#buscarImagen').change(function () {
+                var File = this.files;
+                if (File && File[0]) {
+                    ReadImage(File[0]);
+                }
+            });
+
+
+            ListarValorInventario_PuntoVenta();
+        });
+
+        var ReadImage = function (file) {
+
+            var reader = new FileReader;
+            var image = new Image;
+
+            reader.readAsDataURL(file);
+            reader.onload = function (_file) {
+
+                image.src = _file.target.result;
+                image.onload = function () {
+
+                    var height = this.height;
+                    var width = this.width;
+                    var type = file.type;
+                    var size = ~~(file.size / 1024) + "KB";
+
+                    $("#imgVistaImagen").attr('src', _file.target.result);
+                    $("#txtDetalle_DescripcionImagen").val("Size:" + size + ", " + height + " X " + width + ", " + type + "");
+                    $("#hdheight_imagen").val(height);
+                    $("#hdwidth_imagen").val(width);
+                    if (parseInt(height) > 400) {
+                        $.bootstrapGrowl("El alto de la imagen no puede ser mayor 400.", { type: 'danger', width: 'auto' });
+                    } else if (parseInt(width) > 400) {
+                        $.bootstrapGrowl("El ancho de la imagen no puede ser mayor 400.", { type: 'danger', width: 'auto' });
+                    }
+                    
+                }
+
+            }
+        }
+
+        var ClearPreview = function () {
+            $("#buscarImagen").val('');
+            $("#txtDetalle_DescripcionImagen").val('');
+            //$("#imgPreview").hide();
+        }
+
+        var Uploadimage = function () {
+
+            var CodigoImagen = $("#hdCodigoImagen").val();
+            var CodigoItemVenta = $("#hdCodigoItemVenta").val();
+            var file = $("#buscarImagen").get(0).files;
+
+            var height = $("#hdheight_imagen").val();
+            var width = $("#hdwidth_imagen").val();
+
+            if (parseInt(height) > 400) {
+                $.bootstrapGrowl("El alto de la imagen no puede ser mayor 400.", { type: 'danger', width: 'auto' });
+                return false;
+            } else if (parseInt(width) > 400) {
+                $.bootstrapGrowl("El ancho de la imagen no puede ser mayor 400.", { type: 'danger', width: 'auto' });
+                return false;
+            }
+            if ($('#hdCodigoImagen').val() == "") {
+                $.bootstrapGrowl("Error, no encontramos codigo de imagen!", { type: 'danger', width: 'auto' });
+                return false;
+            }
+            if ($('#hdCodigoItemVenta').val() == "") {
+                $.bootstrapGrowl("Error, no encontramos codigo de producto!", { type: 'danger', width: 'auto' });
+                return false;
+            }
+            if (file == undefined || file == null) {
+                $.bootstrapGrowl("Falta seleccionar una imagen.", { type: 'danger', width: 'auto' });
+                return false;
+            }
+
+            var data = new FormData;
+            data.append("ImageFile2", file[0]);
+            data.append("CodigoImagen", CodigoImagen);
+            data.append("CodigoItemVenta", CodigoItemVenta);
+
+            $.ajax({
+                type: "Post",
+                url: "/tienda/ImageUpload",
+                data: data,
+                contentType: false,
+                processData: false,
+                success: function (response) {
+                    $.bootstrapGrowl("La imagen "+ response +" ha sido guardada correctamente.", { type: 'success', width: 'auto' });
+                    ClearPreview();
+                    $("#modalDetalle").modal("hide");   
+                    ListarValorInventario_PuntoVenta();
+                }
+
+            })
+
+        }
+
+        function buscarProducto(control) {
+            var CodigoImagen = $(control).attr('data-CodigoImagen');
+            var CodigoItemVenta = $(control).attr('data-codigoitemventa');
+
+            $("#hdCodigoImagen").val(CodigoImagen);
+            $("#hdCodigoItemVenta").val(CodigoItemVenta);
+        }
+
+        function ListarValorInventario_PuntoVenta() {
+
+            var Buscador = $("#txtBuscadorInventario").val();
+
+            var metodoCorrecto = function (data) {
+                var content_A = new Array();
+                if (data.length > 0) {
+                    for (var i = 0; i < data.length; i++) {
+                        if (data[i].VisualizarTiendaVirtual == 1) {
+
+                            content_A.push('<div data-toggle="modal" data-target="#modalDetalle" data-CodigoImagen="' + data[i].CodigoImagen + '" data-CodigoItemVenta="' + data[i].CodigoItemVenta + '" onclick="buscarProducto(this);" class="col-sm-6 col-lg-3 mg-t-20">');
+                            content_A.push('<input id="hdCodigo_ProductoInventario_' + data[i].CodigoItemVenta + '" type="hidden" value="' + data[i].CodigoItemVenta + '" />');
+                            content_A.push('<input id="hdNombre_ProductoInventario_' + data[i].CodigoItemVenta + '" type="hidden" value="' + data[i].Nombre + '" />');
+                            content_A.push('<input id="hdPrecioVenta_ProductoInventario_' + data[i].CodigoItemVenta + '" type="hidden" value="' + data[i].PrecioVenta + '" />');
+                            content_A.push('<input id="hdCantidad_ProductoInventario_' + data[i].CodigoItemVenta + '" type="hidden" value="' + data[i].d_CantidadActual + '" />');
+                            content_A.push('<input id="hdCodigoUnidadMedida_ProductoInventario_' + data[i].CodigoItemVenta + '" type="hidden" value="' + data[i].CodigoUnidadMedida + '" />');
+                            content_A.push('<div class="card-contact pd-t-3 pd-r-3 pd-b-3 pd-l-3">');
+                            content_A.push('<div class="tx-center">');
+                            content_A.push('<img src="' + data[i].UrlImagen + '" class="card-img-top " alt="">');
+                            content_A.push('<p class="contact-item">');
+                            content_A.push('<span class="tx-12">' + data[i].Nombre + '</span>');
+                            content_A.push('<span class="tx-11">Stock: ' + data[i].d_CantidadActual + '</span>');
+                            content_A.push('</p>');
+                            content_A.push('</div>');
+                            content_A.push('</div>');
+                            content_A.push('</div>');
+
+                        }
+                        
+                    }
+                    $('#gridInventario').html(content_A.join(' '));
+                } else {
+                    $('#gridInventario').html('');
+                }
+
+            };
+
+            var metodoError = function (msg) {
+                alert(msg);
+            };
+            var request = {
+                Buscador: Buscador,
+                CodigoAlmacen: 1
+            };
+
+            LlamarAJAX('/pos/ListarValorInventario_PuntoVenta', request, metodoCorrecto, metodoError);
+        }
+
+
+
+    </script>
+
+}
+
+
+

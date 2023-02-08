@@ -1,0 +1,145 @@
+﻿@model E_DataModel.EnvioGratisDTO
+
+@{
+    ViewBag.Title = "enviogratis";
+    Layout = "~/Views/Shared/_LayoutApp.cshtml";
+}
+
+
+<link href="@Url.Content("~/Content/cssKendo/kendo.common.min.css")" rel="stylesheet" />
+<link href="@Url.Content("~/Content/cssKendo/kendo.dataviz.default.min.css")" rel="stylesheet" />
+<link href="@Url.Content("~/Content/cssKendo/kendo.dataviz.min.css")" rel="stylesheet" />
+<link href="@Url.Content("~/Content/cssKendo/kendo.default.min.css")" rel="stylesheet" />
+
+
+<div class="slim-mainpanel">
+    <div class="container">
+        <div class="slim-pageheader">
+            <ol class="breadcrumb slim-breadcrumb">
+                <li class="breadcrumb-item"><a href="@Url.Action("cupones","admintienda")">Cupones</a></li>
+                <li class="breadcrumb-item active" aria-current="page">agregar</li>
+            </ol>
+            <h6 class="slim-pagetitle">Envío gratis</h6>
+        </div><!-- slim-pageheader -->
+        <div class="section-wrapper">
+            <div class="form-layout">
+                <div class="row mg-b-25">
+
+                    <div class="col-lg-3">
+                        <div class="form-group">
+                            <label for="txtEnvioGratis_Valor" class="form-control-label">Valor mayor a: </label>
+                            <input id="txtEnvioGratis_Valor" class="form-control form-control-sm" type="text" name="" value="@Model.Valor" placeholder="">
+                        </div>
+                    </div>
+                    <div class="col-lg-3">
+                        <div class="form-group">
+                            <label for="txtEnvioGratis_FechaInicio" class="form-control-label">Fecha Inicio: </label>
+                            <input id="txtEnvioGratis_FechaInicio" class="form-control form-control-sm" type="text" name="" value="" placeholder="">
+                            <input type="hidden" id="hdFechaInicio" value="@Model.FechaInicioTexto" />
+                        </div>
+                    </div>
+                    <div class="col-lg-3">
+                        <div class="form-group">
+                            <label for="txtEnvioGratis_FechaCaducidad" class="form-control-label">Fecha Vencimiento: </label>
+                            <input id="txtEnvioGratis_FechaCaducidad" class="form-control form-control-sm" type="text" name="" value="" placeholder="">
+                            <input type="hidden" id="hdFechaFin" value="@Model.FechaFinTexto" />
+                        </div>
+                    </div>
+                    <div class="col-lg-3">
+                        <div class="form-group">
+                            <label for="txtEnvioGratis_FechaCaducidad" class="form-control-label">: </label>
+                            <label class="ckbox">
+                                <input id="txtEnvioGratis_Estado" type="checkbox" @(Model.Estado ? "checked" : "") ><span>Estado</span>
+                            </label>
+                        </div>
+                    </div>
+
+                </div><!-- row -->
+
+                <div class="form-layout-footer">
+                    <button class="btn btn-primary bd-0" onclick="javascript:RegistrarEnvioGratis();">Guardar</button>                    
+                </div><!-- form-layout-footer -->
+            </div><!-- form-layout -->
+        </div><!-- section-wrapper -->
+
+    </div><!-- container -->
+
+</div><!-- slim-mainpanel -->
+
+
+@section Scripts {
+    @System.Web.Optimization.Scripts.Render("~/Scripts/plugins/jsKendo/angular.min.js")
+    @System.Web.Optimization.Scripts.Render("~/Scripts/plugins/jsKendo/kendo.all.min.js")
+
+    @System.Web.Optimization.Scripts.Render("~/Scripts/plugins/jquery-ui/jquery-ui.js")
+    @System.Web.Optimization.Scripts.Render("~/Scripts/plugins/jquery-ui/jquery-ui.min.js")
+
+    @System.Web.Optimization.Scripts.Render("~/Resource/UserControl.Helper.js")
+
+    @System.Web.Optimization.Scripts.Render("~/Scripts/bootstrap-notify-master/bootstrap-notify.js")
+    @System.Web.Optimization.Scripts.Render("~/Scripts/bootstrap-notify-master/bootstrap-notify.min.js")
+    @System.Web.Optimization.Scripts.Render("~/Scripts/jsBootstrap/jquery.bootstrap-growl.js")
+    <script type="text/javascript">
+        $(document).ready(function () {
+            var todayDate = new Date();
+            var fechainicio = $('#hdFechaInicio').val();
+            var fechafin = $('#hdFechaFin').val();
+
+            if (fechainicio == '') {
+                $('input[id="txtEnvioGratis_FechaInicio"]').kendoDatePicker();
+                $('input[id="txtEnvioGratis_FechaInicio"]').data("kendoDatePicker").value(todayDate);
+
+                $('input[id="txtEnvioGratis_FechaCaducidad"]').kendoDatePicker();
+                var ultimoDia = new Date(todayDate.getFullYear(), todayDate.getMonth() + 1, 0);
+                $('input[id="txtEnvioGratis_FechaCaducidad"]').data("kendoDatePicker").value(ultimoDia);
+
+            } else {
+                $('input[id="txtEnvioGratis_FechaInicio"]').kendoDatePicker();
+                $('input[id="txtEnvioGratis_FechaInicio"]').data("kendoDatePicker").value(fechainicio);
+
+                $('input[id="txtEnvioGratis_FechaCaducidad"]').kendoDatePicker();
+                $('input[id="txtEnvioGratis_FechaCaducidad"]').data("kendoDatePicker").value(fechafin);
+            }
+         
+
+        });
+
+        function RegistrarEnvioGratis() {
+            
+            var entidad = {};                        
+            entidad.Valor = ConvertToStringFromObject($('input[id="txtEnvioGratis_Valor"]').val());
+            entidad.FechaInicio = kendo.toString($("#txtEnvioGratis_FechaInicio").data('kendoDatePicker').value(), 'MM/dd/yyyy');
+            entidad.FechaFin = kendo.toString($("#txtEnvioGratis_FechaCaducidad").data('kendoDatePicker').value(), 'MM/dd/yyyy');            
+            entidad.Estado = $('#txtEnvioGratis_Estado').prop('checked') == true ? 1 : 0;
+
+            if (IsUndefinedOrNullOrEmpty(entidad.Valor)) {
+                $.bootstrapGrowl("Falta ingresar el valor.", { type: 'danger', width: 'auto' });
+                return;
+            }
+
+            $('button').attr('disabled', 'disabled');
+            var metodoCorrecto = function (msg) {
+
+                if (msg) {
+                    $('button').removeAttr('disabled');
+                    $.bootstrapGrowl("Se ha registrado correctamente.", { type: 'success', width: 'auto' });
+
+                }
+                else {
+                    $.bootstrapGrowl("Error, vuelva a intentar nuevamente!", { type: 'danger', width: 'auto' });
+                }
+            };
+            var metodoError = function (msg) {
+                alert(msg);
+            };
+            var request = {
+                request: entidad
+            };
+            LlamarAJAX("/admintienda/ecommerce_uspRegistrarEnvioGratis", request, metodoCorrecto, metodoError);
+
+        }
+
+    </script>
+
+}
+

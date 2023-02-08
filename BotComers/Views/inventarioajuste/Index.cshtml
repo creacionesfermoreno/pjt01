@@ -1,0 +1,202 @@
+﻿@model IEnumerable<BotComers.ViewModels.Inventario.ItemsVentaAjusteInventarioViewModel>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_LayoutApp.cshtml";
+}
+
+
+<link href="@Url.Content("~/Content/cssKendo/kendo.common.min.css")" rel="stylesheet" />
+<link href="@Url.Content("~/Content/cssKendo/kendo.dataviz.default.min.css")" rel="stylesheet" />
+<link href="@Url.Content("~/Content/cssKendo/kendo.dataviz.min.css")" rel="stylesheet" />
+<link href="@Url.Content("~/Content/cssKendo/kendo.default.min.css")" rel="stylesheet" />
+
+<div class="slim-mainpanel">
+
+    <div class="slim-mainpanel">
+        <div class="container">
+            <input type="hidden" value="0" id="hdCodigoItemVenta" />
+            <div class="report-summary-header">
+                <div>
+                    <h4 class="tx-inverse mg-b-3">Ajustes de inventario</h4>
+                </div>
+                <div>
+                    <a href="@Url.Action("add","inventarioajuste")" class="btn btn-primary"><i class="icon ion-plus-circled tx-22"></i>Nuevo ajuste de inventario</a>
+                </div>
+            </div><!-- d-flex -->
+            <div class="row mg-b-15">
+                <div class="col-lg-2">
+                    <div class="form-group">
+                        <label for="txtInventarioAjuste_FechaAjusteInicio" class="form-control-label">Fecha inicio: <span class="tx-danger" id="" style="display:none;">* Ingrese fecha</span></label>
+                        <input id="txtInventarioAjuste_FechaAjusteInicio" class="form-control form-control-sm" type="text" name="" value="" placeholder="">
+                    </div>
+                </div>
+                <div class="col-lg-2">
+                    <div class="form-group">
+                        <label for="txtInventarioAjuste_FechaAjusteFin" class="form-control-label">Fecha fin: <span class="tx-danger" id="" style="display:none;">* Ingrese fecha</span></label>
+                        <input id="txtInventarioAjuste_FechaAjusteFin" class="form-control form-control-sm" type="text" name="" value="" placeholder="">
+                    </div>
+                </div>
+                <div class="col-lg-1">
+                    <div class="form-group">
+                        <label for="txtInventarioAjuste_FechaAjusteFin" class="form-control-label" style="color:#f0f2f7">b: <span class="tx-danger" id="" style="display:none;">* Ingrese fecha</span></label>
+                        <button class="btn btn-primary btn-sm btn-block mg-b-10" onclick="buscarHistorialAjusteInventario();">Buscar</button>
+                    </div>
+                </div>
+                <div class="col-lg-7"></div>
+            </div>
+            <!-- slim-mainpanel -->
+            <div class="card card-table mg-t-20 mg-sm-t-30">
+
+                <div class="table-responsive">
+                    <table id="gridEmpresa" class="table mg-b-0 tx-13">
+                        <thead>
+                            <tr class="tx-10">
+                                <th class="pd-y-5">
+                                    Correlativo
+                                </th>
+                                <th class="pd-y-5">
+                                    Fecha
+                                </th>
+                                <th class="pd-y-5">
+                                    Almacen
+                                </th>
+                                <th class="pd-y-5">
+                                    Total ajustado
+                                </th>
+                                <th class="pd-y-5">
+                                    Observaciones
+                                </th>
+                                <th class="pd-y-5">
+                                    Acciones
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @if (Model != null) { 
+                            foreach (var item in Model)
+                            {
+                                if (item != null)
+                                {
+                                    <tr>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.CodigoItemsVentaAjusteInventario)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.DesFechaAjuste)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.DesAlmacen)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.TotalAjuste)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.Observaciones)
+                                        </td>
+                                        <td>
+                                            <i style="display:none;cursor:pointer;" class="fa fa-eye tx-18" ></i>
+                                            <a style="display:none;cursor:pointer;" href="@Url.Action("edit","itemsventa", new {id= item.CodigoItemsVentaAjusteInventario})"><i class="fa fa-pencil tx-18" ></i></a>
+                                            <i style="display:none;cursor:pointer;" class="fa fa-plug tx-18" ></i>
+                                            <a style="display:none;cursor:pointer;" href="" data-toggle="modal" data-target="#modalConfirmarEliminacion" onclick="SeleccionarFilaItemsVenta(@item.CodigoItemsVentaAjusteInventario);"><i class="fa fa-close tx-18" ></i></a>
+                                        </td>
+                                    </tr>
+                                    }
+                                }
+                            }
+                        </tbody>
+                    </table>
+                </div><!-- table-responsive -->              
+            </div><!-- card -->
+
+
+        </div>
+
+    </div>
+</div>
+
+@section Scripts {
+
+    @System.Web.Optimization.Scripts.Render("~/Scripts/plugins/jsKendo/angular.min.js")
+    @System.Web.Optimization.Scripts.Render("~/Scripts/plugins/jsKendo/kendo.all.min.js")
+
+    @System.Web.Optimization.Scripts.Render("~/Scripts/plugins/jquery-ui/jquery-ui.js")
+    @System.Web.Optimization.Scripts.Render("~/Scripts/plugins/jquery-ui/jquery-ui.min.js")
+
+    @System.Web.Optimization.Scripts.Render("~/Resource/UserControl.Helper.js")
+  
+    <script type="text/javascript">
+
+        $(document).ready(function () {
+            var todayDate = new Date();
+
+            $('input[id="txtInventarioAjuste_FechaAjusteInicio"]').kendoDatePicker();
+            var Primerdia = new Date(todayDate.getFullYear(), todayDate.getMonth(), 1);
+            $('input[id="txtInventarioAjuste_FechaAjusteInicio"]').data("kendoDatePicker").value(Primerdia);
+
+            $('input[id="txtInventarioAjuste_FechaAjusteFin"]').kendoDatePicker();
+            var ultimoDia = new Date(todayDate.getFullYear(), todayDate.getMonth() + 1, 0);
+            $('input[id="txtInventarioAjuste_FechaAjusteFin"]').data("kendoDatePicker").value(ultimoDia);
+
+        });
+       
+        function buscarHistorialAjusteInventario() {
+
+            var b_FechaAjusteInicio = kendo.toString($("#txtInventarioAjuste_FechaAjusteInicio").data('kendoDatePicker').value(), 'MM/dd/yyyy');
+            var b_FechaAjusteFin = kendo.toString($("#txtInventarioAjuste_FechaAjusteFin").data('kendoDatePicker').value(), 'MM/dd/yyyy'); 
+            var PageNumber = 1;
+
+            var metodoCorrecto = function (data) {
+                var content_A = new Array();
+                if (data.length > 0) {
+                    for (var i = 0; i < data.length; i++) {
+
+                        content_A.push('<tr>');
+                        content_A.push('<td>');
+                        content_A.push(data[i].CodigoItemsVentaAjusteInventario);
+                        content_A.push('</td>');
+                        content_A.push('<td>');
+                        content_A.push(data[i].DesFechaAjuste);
+                        content_A.push('</td>');
+                        content_A.push('<td>');
+                        content_A.push(data[i].DesAlmacen);
+                        content_A.push('</td>');
+                        content_A.push('<td>');
+                        content_A.push(data[i].TotalAjuste);
+                        content_A.push('</td>');
+                        content_A.push('<td>');
+                        content_A.push(data[i].Observaciones);
+                        content_A.push('</td>');
+                        content_A.push('<td>');
+                        
+                        content_A.push('<i style="display:none;" class="fa fa-eye tx-18" style="cursor:pointer;"></i>');
+                        content_A.push('<a style="display:none;" href="/itemsventa/edit/' + data[i].CodigoItemsVentaAjusteInventario + '"><i class="fa fa-pencil tx-18" style="cursor:pointer;"></i></a>');
+                        content_A.push('<i style="display:none;" class="fa fa-plug tx-18" style="cursor:pointer;"></i>');
+                        content_A.push('<a style="display:none;" href="" data-toggle="modal" data-target="#modalConfirmarEliminacion" onclick="SeleccionarFilaItemsVenta(' + data[i].CodigoItemsVentaAjusteInventario +');"><i class="fa fa-close tx-18" style="cursor:pointer;"></i></a>');
+
+                        content_A.push('</td>');
+                        content_A.push('</tr>');
+
+                    }
+                    $('#gridEmpresa tbody').html(content_A.join(' '));
+                } else {
+                    $('#gridEmpresa tbody').html('');
+                }
+
+            };
+
+            var metodoError = function (msg) {
+                alert(msg);
+            };
+            var request = {
+                b_FechaAjusteInicio: b_FechaAjusteInicio,
+                b_FechaAjusteFin: b_FechaAjusteFin,
+                PageNumber: PageNumber
+            };
+
+            LlamarAJAX('/inventarioajuste/ListarItemsVentaAjusteInventario_Paginacion', request, metodoCorrecto, metodoError);
+        }
+
+    </script>
+
+}

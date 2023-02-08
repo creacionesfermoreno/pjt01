@@ -1,0 +1,1394 @@
+﻿
+@{
+    ViewBag.Title = "cobranza";
+    Layout = "~/Views/Shared/__LayoutAppFitCorporativo.cshtml";
+}
+
+<link href="@Url.Content("~/Content/cssKendo/kendo.common.min.css")" rel="stylesheet" />
+<link href="@Url.Content("~/Content/cssKendo/kendo.dataviz.default.min.css")" rel="stylesheet" />
+<link href="@Url.Content("~/Content/cssKendo/kendo.dataviz.min.css")" rel="stylesheet" />
+<link href="@Url.Content("~/Content/cssKendo/kendo.default.min.css")" rel="stylesheet" />
+<link href="@Url.Content("~/Content/cssKendo/kendo.mobile.all.min.css")" rel="stylesheet" />
+
+<link href="@Url.Content("~/Content/appsfit_crm/vendors/leaflet/leaflet.css")" rel="stylesheet" />
+<link href="@Url.Content("~/Content/appsfit_crm/vendors/leaflet.markercluster/MarkerCluster.css")" rel="stylesheet" />
+<link href="@Url.Content("~/Content/appsfit_crm/vendors/leaflet.markercluster/MarkerCluster.Default.css")" rel="stylesheet" />
+
+<link href="@Url.Content("~/Content/appsfit_crm/vendors/glightbox/glightbox.min.css")" rel="stylesheet" />
+<link href="@Url.Content("~/Content/appsfit_crm/assets/js/config.js")" rel="stylesheet" />
+<link rel="preconnect" href="https://fonts.gstatic.com">
+<link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,500,600,700%7cPoppins:300,400,500,600,700,800,900&amp;display=swap" rel="stylesheet">
+<link href="@Url.Content("~/Content/appsfit_crm/vendors/overlayscrollbars/OverlayScrollbars.min.css")" rel="stylesheet" />
+<link href="@Url.Content("~/Content/appsfit_crm/assets/css/theme-rtl.min.css")" rel="stylesheet" />
+<link href="@Url.Content("~/Content/appsfit_crm/assets/css/theme.min.css")" rel="stylesheet" />
+<link href="@Url.Content("~/Content/appsfit_crm/assets/css/user-rtl.min.css")" rel="stylesheet" />
+<link href="@Url.Content("~/Content/appsfit_crm/assets/css/user.min.css")" rel="stylesheet" />
+<link href="@Url.Content("~/Content/appsfit_crm/vendors/prism/prism-okaidia.css")" rel="stylesheet" />
+
+<style type="text/css">
+    .modal-body {
+    }
+
+    .modal-backdrop {
+        display: none;
+    }
+
+    .card-body {
+        margin-top: -5px;
+        margin-bottom: -5px;
+    }
+
+    .k-header, .k-grid-header, .k-toolbar, .k-dropdown-wrap, .k-picker-wrap, .k-numeric-wrap, .k-grouping-header, .k-pager-wrap, .k-textbox, .k-button, .k-progressbar, .k-draghandle, .k-autocomplete, .k-state-highlight, .k-tabstrip-items .k-item, .k-panelbar .k-tabstrip-items .k-item, .km-pane-wrapper > .km-pane > .km-view > .km-content {
+        background-image: url(textures/highlight.png);
+        background-image: none,-webkit-linear-gradient(top,#0075ff 0,#0075ff 100%);
+        background-image: none,-moz-linear-gradient(top,#0075ff 0,#0075ff 100%);
+        background-image: none,-o-linear-gradient(top,#0075ff 0,#0075ff 100%);
+        background-image: none,linear-gradient(to bottom,#0075ff 0,#0075ff 100%);
+        background-position: 50% 50%;
+        background-color: #e3e3e3;
+        color: #fff;
+    }
+
+        .k-header, .k-grid-header-wrap, .k-grid .k-grouping-header, .k-grid-header, .k-pager-wrap, .k-pager-wrap .k-textbox, .k-pager-wrap .k-link, .k-grouping-header .k-group-indicator, .k-gantt-toolbar .k-state-default {
+            border-color: #e8eaee;
+            background-color: #0075ff;
+            color: #fff;
+        }
+
+    .modal {
+        display: none;
+        background-color: rgba(0, 0, 0, 0.77);
+    }
+
+    .k-block, .k-header, .k-grid-header, .k-toolbar, .k-grouping-header, .k-pager-wrap, .k-button, .k-draghandle, .k-treemap-tile, html .km-pane-wrapper .k-header {
+        background-color: #0075ff;
+        color: #fff;
+    }
+
+        .k-grid-header th.k-header > .k-link {
+            display: block;
+            min-height: 18px;
+            line-height: 18px;
+            margin: -0.5em -0.6em -0.4em -0.6em;
+            padding: .1em .1em .1em .1em;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            color: #fff;
+        }
+
+        .k-grid-header table, .k-grid-content table, .k-grid-footer table, .k-grid-content-locked > table {
+            table-layout: fixed;
+        }
+
+    .k-grid tr td {
+        border-bottom: 1px solid #ada9a9;
+        border-style: dashed;
+    }
+
+    .k-grid-toolbar:first-child, .k-grouping-header + .k-grid-toolbar {
+        border-width: 0 0 1px;
+        border-radius: 0px;
+        background-color: #d7eafa;
+        height: 10px;
+    }
+
+    .k-block, .k-header, .k-grid-header, .k-toolbar, .k-grouping-header, .k-pager-wrap, .k-button, .k-draghandle, .k-treemap-tile, html .km-pane-wrapper .k-header {
+        background-color: rgba(227, 227, 227, 0);
+    }
+
+    #txtFechaInicioProcFreezing .k-header, .k-grid-header, .k-toolbar, .k-dropdown-wrap, .k-picker-wrap, .k-numeric-wrap, .k-grouping-header, .k-pager-wrap, .k-textbox, .k-button, .k-progressbar, .k-draghandle, .k-autocomplete, .k-state-highlight, .k-tabstrip-items .k-item, .k-panelbar .k-tabstrip-items .k-item, .km-pane-wrapper > .km-pane > .km-view > .km-content {
+        background-image: url(textures/highlight.png);
+        background-image: none,-webkit-linear-gradient(top,#0075ff 0,#0075ff 100%);
+        background-image: none,-moz-linear-gradient(top,#0075ff 0,#0075ff 100%);
+        background-image: none,-o-linear-gradient(top,#0075ff 0,#0075ff 100%);
+        background-image: none,linear-gradient(to bottom,#0075ff 0,#0075ff 100%);
+        background-position: 50% 50%;
+        background-color: #ffffff;
+    }
+
+    .k-state-selected {
+        color: #FFFFFF;
+        background-color: #0075ff;
+        border-color: #0075ff;
+    }
+
+    tr {
+        height: 16px;
+        font-size: 13px;
+    }
+
+    /** SPINNER CREATION **/
+    .loader {
+        position: relative;
+        text-align: center;
+        margin: 15px auto 35px auto;
+        z-index: 9999;
+        display: block;
+        width: 80px;
+        height: 80px;
+        border: 10px solid rgba(0, 0, 0, .3);
+        border-radius: 50%;
+        border-top-color: #000;
+        animation: spin 1s ease-in-out infinite;
+        -webkit-animation: spin 1s ease-in-out infinite;
+    }
+
+
+    /** MODAL STYLING **/
+    .modal-content {
+        border-radius: 0px;
+        box-shadow: 0 0 20px 8px rgba(0, 0, 0, 0.7);
+    }
+
+
+    [dir=ltr] .modal-lg, [dir=ltr] .modal-xl {
+        max-width: 950px;
+    }
+
+    a {
+        color: transparent;
+        text-decoration: none;
+    }
+
+    .b-boton-selected {
+        background-color: #f70f0f;
+        border: 2px #f70f0f solid;
+        color: #fff;
+        border-radius: 3px;
+        font-weight: bold;
+        cursor: pointer;
+        text-align: center;
+    }
+
+    .b-boton-normal {
+        background-color: #0075ff;
+        color: #fff;
+        border-radius: 3px;
+        border: 2px #0075ff solid;
+        cursor: pointer;
+        text-align: center;
+        font-weight: bold;
+    }
+
+
+    .global-container {
+        height: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background-color: #f5f5f5;
+    }
+
+    .card-title {
+        font-weight: 300;
+    }
+
+    .login-form {
+        width: 330px;
+        margin: 20px;
+    }
+
+    .sign-up {
+        text-align: center;
+        padding: 20px 0 0;
+    }
+
+    .alert {
+        margin-bottom: -30px;
+        font-size: 13px;
+        margin-top: 20px;
+    }
+</style>
+
+<div class="container-fluid" style="background-color:#e9ebee;">
+    <input type="hidden" value="" id="hdMesCobranza" />
+    <input type="hidden" value="" id="hdDiaCobranza" />
+    <div class="page__container" style="background-color:#e9ebee;">
+        <br /><br />
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="card overflow-hidden mb-3">
+                    <div class="card-header audience-chart-header p-0 bg-light scrollbar-overlay os-host os-theme-dark os-host-resize-disabled os-host-scrollbar-vertical-hidden os-host-transition os-host-scrollbar-horizontal-hidden">
+                        <div class="os-resize-observer-host observed"><div class="os-resize-observer" style="left: 0px; right: auto;"></div></div>
+
+                        <div class="os-size-auto-observer observed" style="height: calc(100% + 1px); float: left;"><div class="os-resize-observer"></div></div>
+                        <div class="os-content-glue" style="margin: 0px; height: 40px; width: 792px;"></div>
+                        <div class="os-padding">
+                            <div class="os-viewport os-viewport-native-scrollbars-invisible" style="">
+                                <div class="os-content" style="padding: 0px; height: auto; width: 100%;">
+                                    <ul class="nav nav-tabs border-0 chart-tab flex-nowrap" id="audience-chart-tab" role="tablist">
+                                        <li class="nav-item" role="presentation">
+                                            <a onclick="EventoValorMesCobranzas(1,this)" class="myMes nav-link mb-0 active" data-bs-toggle="tab" href="#" role="tab" aria-controls="users" aria-selected="true">
+                                                <div class="audience-tab-item p-2 pe-4" style="text-align:center;">
+                                                    <h6 class="text-900 fs--2 text-nowrap">ENERO</h6>
+                                                </div>
+                                            </a>
+                                        </li>
+                                        <li class="nav-item" role="presentation">
+                                            <a onclick="EventoValorMesCobranzas(2,this)" class="myMes nav-link mb-0" data-bs-toggle="tab" href="#" role="tab" aria-controls="sessions" aria-selected="false">
+                                                <div class="audience-tab-item p-2 pe-4" style="text-align:center;">
+                                                    <h6 class="text-900 fs--2 text-nowrap">FEBRERO</h6>
+                                                </div>
+                                            </a>
+                                        </li>
+                                        <li class="nav-item" role="presentation">
+                                            <a onclick="EventoValorMesCobranzas(3,this)" class="myMes nav-link mb-0" data-bs-toggle="tab" href="#" role="tab" aria-controls="rate" aria-selected="false">
+                                                <div class="audience-tab-item p-2 pe-4" style="text-align:center;">
+                                                    <h6 class="text-900 fs--2 text-nowrap">MARZO</h6>
+                                                </div>
+                                            </a>
+                                        </li>
+                                        <li class="nav-item" role="presentation">
+                                            <a onclick="EventoValorMesCobranzas(4,this)" class="myMes nav-link mb-0" data-bs-toggle="tab" href="#" role="tab" aria-controls="duration" aria-selected="false">
+                                                <div class="audience-tab-item p-2 pe-4" style="text-align:center;">
+                                                    <h6 class="text-900 fs--2 text-nowrap">ABRIL</h6>
+                                                </div>
+                                            </a>
+                                        </li>
+                                        <li class="nav-item" role="presentation">
+                                            <a onclick="EventoValorMesCobranzas(5,this)" class="myMes nav-link mb-0" data-bs-toggle="tab" href="#" role="tab" aria-controls="duration" aria-selected="false">
+                                                <div class="audience-tab-item p-2 pe-4" style="text-align:center;">
+                                                    <h6 class="text-900 fs--2 text-nowrap">MAYO</h6>
+                                                </div>
+                                            </a>
+                                        </li>
+                                        <li class="nav-item" role="presentation">
+                                            <a onclick="EventoValorMesCobranzas(6,this)" class="myMes nav-link mb-0" data-bs-toggle="tab" href="#" role="tab" aria-controls="duration" aria-selected="false">
+                                                <div class="audience-tab-item p-2 pe-4" style="text-align:center;">
+                                                    <h6 class="text-900 fs--2 text-nowrap">JUNIO</h6>
+
+                                                </div>
+                                            </a>
+                                        </li>
+                                        <li class="nav-item" role="presentation">
+                                            <a onclick="EventoValorMesCobranzas(7,this)" class="myMes nav-link mb-0" data-bs-toggle="tab" href="#" role="tab" aria-controls="duration" aria-selected="false">
+                                                <div class="audience-tab-item p-2 pe-4" style="text-align:center;">
+                                                    <h6 class="text-900 fs--2 text-nowrap">JULIO</h6>
+
+                                                </div>
+                                            </a>
+                                        </li>
+                                        <li class="nav-item" role="presentation">
+                                            <a onclick="EventoValorMesCobranzas(8,this)" class="myMes nav-link mb-0" data-bs-toggle="tab" href="#" role="tab" aria-controls="duration" aria-selected="false">
+                                                <div class="audience-tab-item p-2 pe-4" style="text-align:center;">
+                                                    <h6 class="text-900 fs--2 text-nowrap">AGOSTO</h6>
+
+                                                </div>
+                                            </a>
+                                        </li>
+                                        <li class="nav-item" role="presentation">
+                                            <a onclick="EventoValorMesCobranzas(9,this)" class="myMes nav-link mb-0" data-bs-toggle="tab" href="#" role="tab" aria-controls="duration" aria-selected="false">
+                                                <div class="audience-tab-item p-2 pe-4" style="text-align:center;">
+                                                    <h6 class="text-900 fs--2 text-nowrap">SETIEMBRE</h6>
+
+                                                </div>
+                                            </a>
+                                        </li>
+                                        <li class="nav-item" role="presentation">
+                                            <a onclick="EventoValorMesCobranzas(10,this)" class="myMes nav-link mb-0" data-bs-toggle="tab" href="#" role="tab" aria-controls="duration" aria-selected="false">
+                                                <div class="audience-tab-item p-2 pe-4" style="text-align:center;">
+                                                    <h6 class="text-900 fs--2 text-nowrap">OCTUBRE</h6>
+
+                                                </div>
+                                            </a>
+                                        </li>
+                                        <li class="nav-item" role="presentation">
+                                            <a onclick="EventoValorMesCobranzas(11,this)" class="myMes nav-link mb-0" data-bs-toggle="tab" href="#" role="tab" aria-controls="duration" aria-selected="false">
+                                                <div class="audience-tab-item p-2 pe-4" style="text-align:center;">
+                                                    <h6 class="text-900 fs--2 text-nowrap">NOVIEMBRE</h6>
+
+                                                </div>
+                                            </a>
+                                        </li>
+                                        <li class="nav-item" role="presentation">
+                                            <a onclick="EventoValorMesCobranzas(12,this)" class="myMes nav-link mb-0" data-bs-toggle="tab" href="#" role="tab" aria-controls="duration" aria-selected="false">
+                                                <div class="audience-tab-item p-2 pe-4" style="text-align:center;">
+                                                    <h6 class="text-900 fs--2 text-nowrap">DICIEMBRE</h6>
+
+                                                </div>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div><div class="os-scrollbar os-scrollbar-horizontal os-scrollbar-unusable os-scrollbar-auto-hidden"><div class="os-scrollbar-track os-scrollbar-track-off"><div class="os-scrollbar-handle" style="width: 100%; transform: translate(0px, 0px);"></div></div></div><div class="os-scrollbar os-scrollbar-vertical os-scrollbar-unusable os-scrollbar-auto-hidden"><div class="os-scrollbar-track os-scrollbar-track-off"><div class="os-scrollbar-handle" style="height: 100%; transform: translate(0px, 0px);"></div></div></div><div class="os-scrollbar-corner"></div>
+                    </div>
+                    <div class="card-body">
+                        <div class="tab-content">
+                            <div class="tab-pane active" role="tabpanel" aria-labelledby="users-tab">
+
+                                <div class="card-header " style="background-color: #fff;">
+                                    <div class="row flex-between-center">
+                                        <div class="col-lg-1 col-sm-1 col-xs-2">
+                                            <select id="ddlAnioCobranza" class="selectpicker" data-style="btn-danger" style="font-size:19px;width:100%">
+                                                <option value="2019">AÑO 2019</option>
+                                                <option value="2020">AÑO 2020</option>
+                                                <option value="2021">AÑO  2021</option>
+                                                <option value="2022">AÑO 2022</option>
+                                                <option value="2023" selected>AÑO 2023</option>
+                                                <option value="2024">AÑO 2024</option>
+                                                <option value="2025">AÑO 2025</option>
+                                                <option value="2026">AÑO 2026</option>
+                                                <option value="2027">AÑO 2027</option>
+                                                <option value="2028">AÑO 2028</option>
+                                                <option value="2029">AÑO 2029</option>
+                                                <option value="2030">AÑO 2030</option>
+                                            </select>
+                                        </div>
+                                        <div class="col-lg-8 col-sm-8 col-xs-8">
+                                            <input id="txtBuscadorGymCobranza" type="text" class="k-textbox" style="width:100%;font-size:15px;" placeHolder="Busca por nombres ..." />
+                                        </div>
+                                        <div class="col-lg-1 col-sm-1 col-xs-2">
+                                            <button id="btnFiltroBusquedaCobranza" type="button" class="btn btn-primary btn-sm" style="background-color: #f70f0f; border: 1px #f70f0f solid;width:100%;"><i class="fa-solid fa-magnifying-glass"></i>&nbsp;Buscar</button>
+                                        </div>
+                                        <div class="col-lg-1 col-sm-1 col-xs-1">
+                                            <button type="button" class="btn btn-primary btn-sm" style="background-color: #478405; border: 1px #478405 solid; width: 100%;" onclick="ExportarVentasByteFit();"><i class="fa-regular fa-file-excel"></i>&nbsp; Exportar Ventas</button>
+                                        </div>
+                                        <div class="col-lg-1 col-sm-1 col-xs-1">
+                                            <select id="ddlPaginacionGymCobranza" style="width:60px;width:100%"></select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <br />
+                                <div class="row g-3 mb-3">
+                                    <div class="col-md-2">
+                                        <div class="card h-100">
+                                            <div class="card-body">
+                                                <div class="row flex-between-center g-0">
+                                                    <div class="col-6 d-lg-block flex-between-center">
+                                                        &nbsp;<input type="radio" name="groupRadiosCobranza" value="1" checked>
+                                                        <h6 class="mb-2 text-900"><span class="dot bg-danger"></span>&nbsp; DEBEN </h6>
+                                                        <h4 class="fs-3 fw-normal text-700 mb-0" id="lblTotalDeudaCobranza">0</h4>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <div class="card h-100">
+                                            <div class="card-body">
+                                                <div class="row flex-between-center g-0">
+                                                    <div class="col-6 d-lg-block flex-between-center">
+                                                        &nbsp;<input type="radio" name="groupRadiosCobranza" value="2">
+                                                        <h6 class="mb-2 text-900"><span class="dot bg-success"></span>&nbsp; PAGARON </h6>
+                                                        <h4 class="fs-3 fw-normal text-700 mb-0" id="lblTotalPagaronCobranza">0</h4>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <div class="card h-100">
+                                            <div class="card-body">
+                                                <div class="row flex-between-center g-0">
+                                                    <div class="col-6 d-lg-block flex-between-center">
+                                                        <br />
+                                                        <h6 class="mb-2 text-900">MATRICULAS</h6>
+                                                        <h4 class="fs-3 fw-normal text-700 mb-0" id="lblTotalMatriculas">0</h4>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <div class="card h-100">
+                                            <div class="card-body">
+                                                <div class="row flex-between-center g-0">
+                                                    <div class="col-6 d-lg-block flex-between-center">
+                                                        <br />
+                                                        <h6 class="mb-2 text-900">GASTOS</h6>
+                                                        <h4 class="fs-3 fw-normal text-700 mb-0" id="lblTotalGastos">0</h4>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <div class="card h-100">
+                                            <div class="card-body">
+                                                <div class="row flex-between-center g-0">
+                                                    <div class="col-6 d-lg-block flex-between-center">
+                                                        <br />
+                                                        <h6 class="mb-2 text-900">TOTAL</h6>
+                                                        <h4 class="fs-3 fw-normal text-700 mb-0" id="lblTotalCobrarCobranza">0</h4>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <div class="card h-100">
+                                            <div class="card-body">
+                                                <div class="row flex-between-center g-0">
+                                                    <div class="col-6 d-lg-block flex-between-center">
+                                                        <br />
+                                                        <h6 class="mb-2 text-900">CANTIDAD</h6>
+                                                        <h4 class="fs-3 fw-normal text-700 mb-0" id="lblCantidadCobranza">0</h4>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="table-responsive scrollbar" style="width:100%;user-select:none;">
+                                    <table class="table table-dashboard mb-0 table-borderless fs--1 border-200">
+                                        <thead class="bg-light">
+                                            <tr class="text-900">
+                                                <th class="pe-1 align-middle white-space-nowrap" style="background-color: #0075ff;color: #FFF;"></th>
+                                                <th class="pe-1 align-middle white-space-nowrap" style="background-color: #0075ff;color: #FFF;"></th>
+                                                <th class="pe-1 align-middle white-space-nowrap" style="background-color: #0075ff;color: #FFF;"></th>
+                                                <th class="pe-1 align-middle white-space-nowrap" style="background-color: #0075ff;color: #FFF;">UN</th>
+                                                <th class="pe-1 align-middle white-space-nowrap" style="background-color: #0075ff;color: #FFF;">SEDE</th>
+                                                <th class="pe-1 align-middle white-space-nowrap" style="background-color: #0075ff;color: #FFF;">PAIS</th>
+                                                <th class="pe-1 align-middle white-space-nowrap" style="background-color: #0075ff;color: #FFF;"></th>
+                                                <th class="pe-1 align-middle white-space-nowrap" style="background-color: #0075ff;color: #FFF;">CLIENTE</th>
+
+                                                <th class="pe-1 align-middle white-space-nowrap" style="background-color: #0075ff;color: #FFF;">TODOS</th>
+                                                <th class="pe-1 align-middle white-space-nowrap" style="background-color: #0075ff;color: #FFF;">ACTIVOS</th>
+                                                <th class="pe-1 align-middle white-space-nowrap" style="background-color: #0075ff;color: #FFF;">DIA</th>
+                                                <th class="pe-1 align-middle white-space-nowrap" style="background-color: #0075ff;color: #FFF;">MONEDA</th>
+                                                <th class="pe-1 align-middle white-space-nowrap" style="background-color: #0075ff;color: #FFF;">MONTO</th>
+                                                <th class="pe-1 align-middle white-space-nowrap" style="background-color: #0075ff;color: #FFF;">A CUENTA</th>
+                                                <th class="pe-1 align-middle white-space-nowrap" style="background-color: #0075ff;color: #FFF;">CONTACTO COBRANZA</th>
+
+                                                <th class="pe-1 align-middle white-space-nowrap" style="background-color: #0075ff;color: #FFF;">CORREO</th>
+                                                <th class="pe-1 align-middle white-space-nowrap" style="background-color: #0075ff;color: #FFF;">RUC/DNI/</th>
+                                                <th class="pe-1 align-middle white-space-nowrap" style="background-color: #0075ff;color: #FFF;">NRO OPERA</th>
+
+                                            </tr>
+                                        </thead>
+                                        <tbody id="gridCobranza">
+                                        </tbody>
+                                    </table>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-12">
+                                        <div id=""></div>
+                                    </div>
+                                </div>
+
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-footer bg-light py-2">
+                        <div class="row flex-between-center g-0">
+                            <div class="col-auto">
+
+                            </div>
+                            <div class="col-auto">
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+</div>
+
+<div id="myModalIngresoPagos" class="modal">
+    <div class="modal-dialog" style="width:25%;text-align:left;">
+        <div class="modal-content" style="border: 0px solid #fff;border-radius: 7px;background-color:#fff;">
+            <div id="DivCerrarmyModalIngresoPagos" style="background-color:rgba(221, 221, 221, 0.66);-webkit-border-radius: 3px 3px 0 0;color: #141823;line-height: 13px;padding: 10px 12px;height: 26px;">
+                <button type="button" class="close" style="margin-top:-10px;" data-dismiss="modal" aria-hidden="true">×</button>
+                <label class="modal-title" style="color:#000;font-size:13px;margin-top: -3px;">Ingresar Pago</label>
+            </div>
+            <div class="modal-body" style="padding:8px;">
+                <input type="hidden" value="" id="hdMontoMesCobranza" />
+                <input type="hidden" value="" id="hdUNCobranza" />
+                <input type="hidden" value="" id="hdSedeCobranza" />
+                <input type="hidden" value="" id="hdCodigoPago" />
+                <center><label id="lblMesActual" style="color:red;font-size:22px;font-weight:bold;"></label></center>
+                <br />
+                <center>
+                    <img id="imgLogoSedeCobranza" style="height:135px;width:135px;border-radius: 100px;" src="https://sistema.bytefit.pe/Imagenes/Configuracion/Logo/olimpogymcentro.png" alt="Logo" />
+                </center>
+                <br />
+                <table style="width:100%;">
+                    <tr>
+                        <td>Monto</td>
+                        <td><input id="txtMontoAcuentaCobranza" disabled class="k-textbox" placeHolder="0.00" style="height:21px;font-size: 11px;font-weight:bold;width:99%;" onkeydown="return validarNumeros(event)" /></td>
+                    </tr>
+                    <tr>
+                        <td>Nro Operación</td>
+                        <td><input id="txtNroOperacionCobranza" class="k-textbox" placeHolder="0000" style="height:21px;font-size: 11px;font-weight:bold;width:99%;" onkeydown="return validarNumeros(event)" /></td>
+                    </tr>
+                    <tr>
+                        <td>Nro Cuenta</td>
+                        <td><input id="ddlNroCuentaCobranza" style="font-size: 11px;font-weight:bold;width:99%;" /></td>
+                    </tr>
+                </table>
+                <br />
+            </div>
+            <div class="modal-footer" style="background-color: rgba(221, 221, 221, 0.66);color: #141823;font-weight: bold;padding: 3px 3px 3px 3px;">
+                <button style="background-color:red;border:1px red solid;" type="button" class="btn btn-primary btn-xs" id="btnGuardarCobranza" title="Pagar" onclick="uspRegistrarConfiguracionPagosMensualidades();">Guardar Pago</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="myModalIngresoMatricula" class="modal">
+    <div class="modal-dialog" style="width:55%;text-align:left;">
+        <div class="modal-content" style="border: 0px solid #fff;border-radius: 7px;background-color:#fff;">
+            <div id="DivCerrarmyModalIngresoMatricula" style="background-color:rgba(221, 221, 221, 0.66);-webkit-border-radius: 3px 3px 0 0;color: #141823;line-height: 13px;padding: 10px 12px;height: 26px;">
+                <button type="button" class="close" style="margin-top:-10px;" data-dismiss="modal" aria-hidden="true">×</button>
+                <label class="modal-title" style="color:#000;font-size:13px;margin-top: -3px;">Ingresar Matricula</label>
+            </div>
+            <div class="modal-body" style="padding:8px;">
+                <center><label id="lblMesActualMatricula" style="color:red;font-size:22px;font-weight:bold;"></label></center>
+                <br />
+                <table style="width:100%;">
+                    <tr>
+                        <td>Descripción</td>
+                        <td><input id="txtDescripcionMatricula" class="k-textbox" placeHolder="Nombre de la empresa" style="height:21px;font-size: 11px;font-weight:bold;width:99%;" /></td>
+                    </tr>
+                    <tr>
+                        <td>Monto</td>
+                        <td><input id="txtMontoMatricula" class="k-textbox" placeHolder="0.00" style="height:21px;font-size: 11px;font-weight:bold;width:99%;" onkeydown="return validarNumeros(event)" /></td>
+                    </tr>
+                    <tr>
+                        <td>Nro Operación</td>
+                        <td><input id="txtNroOperacionMatricula" class="k-textbox" placeHolder="0000" style="height:21px;font-size: 11px;font-weight:bold;width:99%;" onkeydown="return validarNumeros(event)" /></td>
+                    </tr>
+                </table>
+                <br />
+                <div id="gridMatriculas"></div>
+            </div>
+            <div class="modal-footer" style="background-color: rgba(221, 221, 221, 0.66);color: #141823;font-weight: bold;padding: 3px 3px 3px 3px;">
+                <button style="background-color:red;border:1px red solid;" type="button" class="btn btn-primary btn-xs" id="btnGuardarMatricula" title="Pagar" onclick="uspRegistrarConfiguracionMatriculas();">Guardar Matricula</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="myModalIngresoGastos" class="modal">
+    <div class="modal-dialog" style="width:55%;text-align:left;">
+        <div class="modal-content" style="border: 0px solid #fff;border-radius: 7px;background-color:#fff;">
+            <div id="DivCerrarmyModalIngresoGastos" style="background-color:rgba(221, 221, 221, 0.66);-webkit-border-radius: 3px 3px 0 0;color: #141823;line-height: 13px;padding: 10px 12px;height: 26px;">
+                <button type="button" class="close" style="margin-top:-10px;" data-dismiss="modal" aria-hidden="true">×</button>
+                <label class="modal-title" style="color:#000;font-size:13px;margin-top: -3px;">Ingresar Gasto</label>
+            </div>
+            <div class="modal-body" style="padding:8px;">
+                <center><label id="lblMesActualGasto" style="color:red;font-size:22px;font-weight:bold;"></label></center>
+                <br />
+                <table style="width:100%;">
+                    <tr>
+                        <td>Descripción</td>
+                        <td><input id="txtDescripcionGasto" class="k-textbox" placeHolder="Nombre de la empresa" style="height:21px;font-size: 11px;font-weight:bold;width:99%;" /></td>
+                    </tr>
+                    <tr>
+                        <td>Monto</td>
+                        <td><input id="txtMontoGasto" class="k-textbox" placeHolder="0.00" style="height:21px;font-size: 11px;font-weight:bold;width:99%;" onkeydown="return validarNumeros(event)" /></td>
+                    </tr>
+                    <tr>
+                        <td>Nro Operación</td>
+                        <td><input id="txtNroOperacionGasto" class="k-textbox" placeHolder="0000" style="height:21px;font-size: 11px;font-weight:bold;width:99%;" onkeydown="return validarNumeros(event)" /></td>
+                    </tr>
+                </table>
+                <br />
+                <div id="gridGastos"></div>
+            </div>
+            <div class="modal-footer" style="background-color: rgba(221, 221, 221, 0.66);color: #141823;font-weight: bold;padding: 3px 3px 3px 3px;">
+                <button style="background-color:red;border:1px red solid;" type="button" class="btn btn-primary btn-xs" id="btnGuardarGasto" title="Pagar" onclick="uspRegistrarConfiguracionGastos();">Guardar Gasto</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="myModalEmicionRecibo" class="modal">
+    <div class="modal-dialog" style="width:15%;text-align:left;">
+        <div class="modal-content" style="border: 0px solid #fff;border-radius: 7px;background-color:#fff;">
+            <div id="DivCerrarmyModalEmicionRecibo" style="background-color:rgba(221, 221, 221, 0.66);-webkit-border-radius: 3px 3px 0 0;color: #141823;line-height: 13px;padding: 10px 12px;height: 26px;">
+                <button type="button" class="close" style="margin-top:-10px;" data-dismiss="modal" aria-hidden="true">×</button>
+                <label class="modal-title" style="color:#000;font-size:13px;margin-top: -3px;">Subir recibo</label>
+            </div>
+            <div class="modal-body" style="padding:8px;">
+                <center><label id="lblMesActualEmitirRecibo" style="color:red;font-size:22px;font-weight:bold;"></label></center>
+                <br />
+                <center>
+
+                    <div id="divEstadoPlataformakaisen" style="width:110px;height:110px;background-color:#000;border-radius:50%;">
+                        <img src="../binfit-imagenes/plataformakaisen/iconpdf.png" onclick="$('#foto_imgplataformakaisen').click()" style="width:65px;height:65px;margin:21px;" />
+                    </div>
+
+                </center>
+
+                <input type="file" id="foto_imgplataformakaisen" name="foto_imgplataformakaisen" style="display: none;" />
+            </div>
+            <div class="modal-footer" style="background-color: rgba(221, 221, 221, 0.66);color: #141823;font-weight: bold;padding: 3px 3px 3px 3px;">
+                <button style="background-color:red;border:1px red solid;display:none;" type="button" class="btn btn-primary btn-xs" id="btnGuardarRecibo" title="Pagar" onclick="evento_GuardarReciboMensual();">Guardar Recibo</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="modal fade" id="loadMe" tabindex="-1" role="dialog" aria-labelledby="loadMeLabel">
+    <div class="modal-dialog modal-sm" role="document">
+        <div class="modal-content">
+            <div class="modal-body text-center">
+                <img src="~/Content/appsfit_img/logoappsfitweb.png" style="width:255px;height:125px;" />
+                <div class="loader"></div>
+                <div clas="loader-txt">
+                    <p>Cargando... <br><br><small>Espere por favor, este proceso puede tardar unos minutos</small></p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@section Scripts {
+
+    @System.Web.Optimization.Scripts.Render("~/Scripts/jquery.min.js")
+    @System.Web.Optimization.Scripts.Render("~/Scripts/plugins/jsKendo/angular.min.js")
+    @System.Web.Optimization.Scripts.Render("~/Scripts/plugins/jsKendo/kendo.all.min.js")
+
+    @System.Web.Optimization.Scripts.Render("~/Scripts/plugins/jquery-ui/jquery-ui.js")
+    @System.Web.Optimization.Scripts.Render("~/Scripts/plugins/jquery-ui/jquery-ui.min.js")
+
+    @System.Web.Optimization.Scripts.Render("~/Resource/UserControl.Helper.js")
+
+    @System.Web.Optimization.Scripts.Render("~/Scripts/bootstrap-notify-master/bootstrap-notify.js")
+    @System.Web.Optimization.Scripts.Render("~/Scripts/bootstrap-notify-master/bootstrap-notify.min.js")
+    @System.Web.Optimization.Scripts.Render("~/Scripts/jsBootstrap/jquery.bootstrap-growl.js")
+    @System.Web.Optimization.Scripts.Render("~/Scripts/maskedinput.js")
+
+    <script src="https://kit.fontawesome.com/1e97400d15.js" crossorigin="anonymous"></script>
+    <script type="text/javascript">
+
+        $(document).ready(function (e) {
+
+            uspListarConfiguracionCuentas();
+
+            $('#DivCerrarmyModalIngresoPagos').click(function () {
+                $('#myModalIngresoPagos').hide('fast');
+            });
+        });
+
+
+        function EventoValorMesCobranzas(mes, control) {
+            $('.myMes').css('background-color', '#fff');
+            $('.myMes').css('color', '#000');
+            $('#hdMesCobranza').val(mes);
+            $('#lblMesActual').html($(control).html());
+            $('#lblMesActualMatricula').html($(control).html());
+            $('#lblMesActualGasto').html($(control).html());
+            $('#lblMesActualEmitirRecibo').html($(control).html());
+            $(control).css('color', '#fff');
+            $(control).css('background-color', '#ff0200');
+            uspListarConfiguracion_Cobranzas_Paginacion();
+            //uspListarConfiguracionCuentas();
+        }
+
+        function uspListarConfiguracionCuentas() {
+
+            $("#ddlNroCuentaCobranza").kendoDropDownList({
+                optionLabel: "Seleccione",
+                dataTextField: "ResponsableCuenta",
+                dataValueField: "CodigoNroCuenta",
+                dataSource: {
+                    serverFiltering: true,
+                    transport: {
+                        read: function (options) {
+                            $.ajax({
+                                type: "POST",
+                                url: "/corporativo/uspListarConfiguracionCuentas",
+                                contentType: "application/json; charset=utf-8",
+                                dataType: "json",
+                                success: function (msg) {
+                                    options.success(msg);
+                                }
+                            });
+                        }
+                    }
+                }
+            });
+
+        }
+
+        function uspListarConfiguracion_Cobranzas_Paginacion() {
+
+            var filtro = $("#txtBuscadorGymCobranza").val();
+            var Anio = $("#ddlAnioCobranza").val();
+            var Mes = $('#hdMesCobranza').val();
+            var Tipo = $('input:radio[name=groupRadiosCobranza]:checked').val();
+
+            $.ajax({
+                data: '{"Anio":"' + Anio + '","Mes":"' + Mes + '","Tipo":"' + Tipo + '","PageNumber":"' + 1 + '","filtro":"' + filtro + '"}',
+                type: "POST",
+                url: "/corporativo/uspListarConfiguracion_Cobranzas_Paginacion",
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function (msg) {
+                    //options.success(msg);
+
+                    var control = new Array();
+                    for (var i = 0; i < msg.length; i++) {
+                        control.push('<tr class="border-bottom border-200">');                        
+
+                        control.push("<td class='align-middle white-space-nowrap'><a id='btnVerDatosUnidadNegocio_" + msg[i].CodigoUnidadNegocio + msg[i].Codigo + " style='display:none;' href='/corporativo/Empresas_edit?idUN=" + msg[i].CodigoUnidadNegocio + "&idSede=" + msg[i].Codigo + "' ><button type='button' class='btn btn-sm btn-light' >Editar</button></a></td>");
+                        control.push("<td class='align-middle white-space-nowrap'><button type='button' class='btn btn-sm btn-light' data-url='" + msg[i].Logo + "' onclick='myModalAbrirCobranza(" + msg[i].CodigoUnidadNegocio + "," + msg[i].Codigo + "," + msg[i].MontoMensualidad + "," + msg[i].DiaPago + ",this)' >Pagar</button></td>");
+                        control.push('<td class="align-middle white-space-nowrap"><center><div style="background-color:' + msg[i].DesEstado + ';width: 20px;height: 20px;border-radius:25px;"></div></center></td>');
+                        control.push('<td class="align-middle white-space-nowrap">' + msg[i].CodigoUnidadNegocio + '</td>');
+                        control.push('<td class="align-middle white-space-nowrap">' + msg[i].Codigo + '</td>');
+                        control.push('<td class="align-middle white-space-nowrap">' + msg[i].Pais + '</td>');
+                        control.push('<td class="align-middle white-space-nowrap"><img style="height:55px;width:55px;border-radius: 50%;" src="' + msg[i].Logo + '" alt="Logo"></td>');
+                        control.push('<td class="align-middle white-space-nowrap">' + msg[i].RazonSocial + '</td>');
+                        
+                        control.push('<td class="align-middle white-space-nowrap">' + msg[i].CantTotal + '</td>');
+                        control.push('<td class="align-middle white-space-nowrap">' + msg[i].CantidadActivosSocios + '</td>');
+                        control.push('<td class="align-middle white-space-nowrap">' + msg[i].DiaPago + '</td>');
+                        control.push('<td class="align-middle white-space-nowrap">' + msg[i].TipoMoneda + '</td>');
+                        control.push('<td class="align-middle white-space-nowrap">' + msg[i].MontoMensualidad + '</td>');
+                        control.push('<td class="align-middle white-space-nowrap">' + msg[i].MontoAcuenta + '</td>');
+                        control.push('<td class="align-middle white-space-nowrap">' + msg[i].ContactoCobranza + '</td>');
+                        control.push('<td class="align-middle white-space-nowrap"><input type="text" class="k-textbox" style="width: 220px;font-size:12px;" value="' + msg[i].Correo + '"></td>');
+                        control.push('<td class="align-middle white-space-nowrap">' + msg[i].RUC + '</td>');
+                        control.push('<td class="align-middle white-space-nowrap">' + msg[i].NroOperacion + '</td>');
+
+                        control.push('</tr>');
+                    }
+                    $('#gridCobranza').html(control.join(' '));
+
+                }, complete: function () {
+                    uspListarConfiguracion_Cobranzas_NumeroRegistros();
+                }
+            });
+
+            return;
+
+            //$("#gridCobranza").empty();
+            //$("#gridCobranza").kendoGrid({
+            //    dataSource: {
+            //        type: "json",
+            //        transport: {
+            //            read: function (options) {
+            //                $.ajax({
+            //                    data: '{"Anio":"' + Anio + '","Mes":"' + Mes + '","Tipo":"' + Tipo + '","PageNumber":"' + 1 + '","filtro":"' + filtro + '"}',
+            //                    type: "POST",
+            //                    url: "/corporativo/uspListarConfiguracion_Cobranzas_Paginacion",
+            //                    contentType: "application/json; charset=utf-8",
+            //                    dataType: "json",
+            //                    success: function (msg) {
+            //                        options.success(msg);
+            //                    }, complete: function () {
+            //                        uspListarConfiguracion_Cobranzas_NumeroRegistros();
+            //                    }
+            //                });
+            //            }
+            //        }
+            //    },
+            //    selectable: "row",
+            //    sortable: true,
+            //    height: 715,
+            //    columns: [
+            //        {
+            //            template: '<center><div style="background-color:#: DesEstado #;width: 13px;height: 13px;border-radius:25px;"></div></center>',
+            //            title: "",
+            //            width: 2
+            //        }, {
+            //            field: "CodigoUnidadNegocio",
+            //            title: "<center>UN</center>",
+            //            width: 3,
+            //            attributes: {
+            //                style: "font-size:11px;text-align:center;"
+            //            }
+            //        }, {
+            //            field: "Codigo",
+            //            title: "<center>Sede</center>",
+            //            width: 3,
+            //            attributes: {
+            //                style: "font-size:11px;text-align:center;"
+            //            }
+            //        }, {
+            //            field: "RazonSocial",
+            //            title: "<center>CLIENTE</center>",
+            //            width: 15,
+            //            attributes: {
+            //                style: "font-size:11px;text-align:center;"
+            //            }
+            //        }, {
+            //            field: "CantTotal",
+            //            title: "<center>TODOS</center>",
+            //            width: 4,
+            //            attributes: {
+            //                style: "font-size:11px;text-align:center;"
+            //            }
+            //        }, {
+            //            field: "CantidadActivosSocios",
+            //            title: "<center>ACTIVOS</center>",
+            //            width: 4,
+            //            attributes: {
+            //                style: "font-size:11px;text-align:center;"
+            //            }
+            //        }, {
+            //            field: "RUC",
+            //            title: "<center>RUC/DNI CLIENTE</center>",
+            //            width: 8,
+            //            attributes: {
+            //                style: "font-size:11px;text-align:center;"
+            //            }
+            //        }, {
+            //            field: "DiaPago",
+            //            title: "<center>Dia</center>",
+            //            width: 3,
+            //            attributes: {
+            //                style: "font-size:10px;text-align:center;"
+            //            }
+            //        }, {
+            //            field: "Pais",
+            //            title: "<center>PAIS</center>",
+            //            width: 5,
+            //            attributes: {
+            //                style: "font-size:11px;text-align:center;"
+            //            }
+            //        }, {
+            //            field: "TipoMoneda",
+            //            title: "<center>Moneda</center>",
+            //            width: 3,
+            //            attributes: {
+            //                style: "font-size:11px;text-align:center;"
+            //            }
+            //        }, {
+            //            field: "MontoMensualidad",
+            //            title: "<center>Monto</center>",
+            //            width: 4,
+            //            attributes: {
+            //                style: "font-size:11px;text-align:center;color:black;font-weight:bold;"
+            //            }
+            //        }, {
+            //            field: "MontoAcuenta",
+            //            title: "<center>A Cuenta</center>",
+            //            width: 4,
+            //            attributes: {
+            //                style: "font-size:11px;text-align:center;"
+            //            }
+            //        }, {
+            //            field: "NroOperacion",
+            //            title: "<center>Nro Ope.</center>",
+            //            width: 5,
+            //            attributes: {
+            //                style: "font-size:11px;text-align:center;"
+            //            }
+            //        }, {
+            //            template: '<center><div style="font-size:8px;display:#: flafEstadoRecibo #;" onclick="eventoAbrirModalSubirRecibo();">#: DesEstadoRecibo #</div></center>',
+            //            field: "DesEstadoRecibo",
+            //            title: "<center>Recibo</center>",
+            //            width: 4,
+            //            attributes: {
+            //                style: "font-size:9px;text-align:center;text-decoration:underline;cursor:pointer;"
+            //            }
+            //        }, {
+            //            field: "ResponsableCuenta",
+            //            title: "<center>Responsable</center>",
+            //            width: 10,
+            //            attributes: {
+            //                style: "font-size:10px;text-align:center;text-overflow: ellipsis;"
+            //            }
+            //        }, {
+            //            field: "RUCSunat",
+            //            title: "<center>RUCSunat</center>",
+            //            width: 7,
+            //            attributes: {
+            //                style: "font-size:10px;text-align:center;"
+            //            }
+            //        }, {
+            //            field: "USUARIO",
+            //            title: "<center>USUARIO</center>",
+            //            width: 7,
+            //            attributes: {
+            //                style: "font-size:10px;text-align:center;"
+            //            }
+            //        }, {
+            //            field: "CLAVE",
+            //            title: "<center>CLAVE</center>",
+            //            width: 7,
+            //            attributes: {
+            //                style: "font-size:10px;text-align:center;"
+            //            }
+            //        }, {
+            //            template: "<button type='button' id='btnmyModalAbrirCobranza_#: CodigoUnidadNegocio ##: Codigo #' class='btn btn-default btn-sm' style='background-color:black;border:0px solid black;color:white;display:none' onclick='myModalAbrirCobranza()'>Pagar</button>",
+            //            title: "",
+            //            width: 4
+            //        }],
+            //    dataBound: function (e) {
+            //        var grid = $("#gridCobranza").data("kendoGrid");
+            //        this.element.find('tbody tr:first').addClass('k-state-selected')
+            //        this.select(this.tbody.find('>tr:first'));
+            //    }
+            //    ,
+            //    change: function () {
+            //        var text = "";
+            //        var grid = this;
+            //        grid.select().each(function () {
+            //            var dataItem = grid.dataItem($(this));
+            //            $('#hdMontoMesCobranza').val(dataItem.MontoMensualidad);
+            //            $('#hdUNCobranza').val(dataItem.CodigoUnidadNegocio);
+            //            $('#hdSedeCobranza').val(dataItem.Codigo);
+            //            $('#hdCodigoPago').val(dataItem.CodigoPago);
+
+            //            $('#hdDiaCobranza').val(dataItem.DiaPago);
+            //            $('#txtMontoAcuentaCobranza').val(dataItem.MontoMensualidad);
+
+            //            $('#imgLogoSedeCobranza').attr('src', dataItem.Logo);
+
+            //            $("[id*=btnmyModalAbrirCobranza_]").hide('fast');
+            //            if (Tipo == 1) {
+            //                $('#btnmyModalAbrirCobranza_' + dataItem.CodigoUnidadNegocio + '' + dataItem.Codigo).show('fast');
+            //            }
+
+            //            $('#DivCerrarmyModalIngresoPagos').click(function () {
+            //                $('#myModalIngresoPagos').hide('fast');
+            //            });
+
+            //        });
+            //    }
+            //});
+        }
+
+        function uspListarConfiguracion_Cobranzas_NumeroRegistros() {
+            var filtro = $("#txtBuscadorGymCobranza").val();
+            var Anio = $("#ddlAnioCobranza").val();
+            var Mes = $('#hdMesCobranza').val();
+            var Tipo = $('input:radio[name=groupRadiosCobranza]:checked').val();
+
+            $.ajax({
+                type: "POST",
+                data: '{"Anio":"' + Anio + '","Mes":"' + Mes + '","Tipo":"' + Tipo + '","filtro":"' + filtro + '"}',
+                url: "/corporativo/uspListarConfiguracion_Cobranzas_NumeroRegistros",
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function (msg) {
+                    $('#lblCantidadCobranza').html(msg.CantTotal);
+                    $('#lblTotalDeudaCobranza').html(msg.SumaTotalDeuda);
+                    $('#lblTotalPagaronCobranza').html(msg.SumaTotalAcuenta);
+                    $('#lblTotalCobrarCobranza').html(msg.TotalCobrar);
+                    $('#lblTotalMatriculas').html(msg.SumaMatricula);
+                    $('#lblTotalGastos').html(msg.SumaGasto);
+                    //$('#lblTotalUtilidad').html('Utilidad: ' + msg.Utilidad);
+
+                    //ddlPaginacionuspListarConfiguracion_Cobranzas_Paginacion(msg.CantTotal, msg.TamanioPagina);
+
+                }, complete: function () {
+
+                }
+            });
+        }
+
+        function ddlPaginacionuspListarConfiguracion_Cobranzas_Paginacion(CantidadTotalFilas, TamanioPagina) {
+            var CantidadPaginas = parseInt(CantidadTotalFilas / TamanioPagina) + 1;
+            var htmlOpcion = "";
+            for (var i = 1; i <= CantidadPaginas; i++) {
+                htmlOpcion += "<option value='" + i + "'>Pagina " + i + " </option>";
+            }
+
+            $('#ddlPaginacionGymCobranza').html(htmlOpcion);
+            $("#ddlPaginacionGymCobranza").kendoDropDownList({
+                change: function () {
+                    var nroPagina = $("#ddlPaginacionGymCobranza").data("kendoDropDownList").value();
+                    uspListarConfiguracion_Cobranzas_Paginacion_ChanguePage(nroPagina);
+                }
+            });
+        }
+
+        function uspListarConfiguracion_Cobranzas_Paginacion_ChanguePage(PageNumber) {
+            var filtro = $("#txtBuscadorGymCobranza").val();
+            var Anio = $("#ddlAnioCobranza").val();
+            var Mes = $('#hdMesCobranza').val();
+            var Tipo = $('input:radio[name=groupRadiosCobranza]:checked').val();
+
+            $("#gridCobranza").empty();
+            $("#gridCobranza").kendoGrid({
+                dataSource: {
+                    type: "json",
+                    transport: {
+                        read: function (options) {
+                            $.ajax({
+                                data: '{"Anio":"' + Anio + '","Mes":"' + Mes + '","Tipo":"' + Tipo + '","PageNumber":"' + PageNumber + '","filtro":"' + filtro + '"}',
+                                type: "POST",
+                                url: "/corporativo/uspListarConfiguracion_Cobranzas_Paginacion",
+                                contentType: "application/json; charset=utf-8",
+                                dataType: "json",
+                                success: function (msg) {
+                                    options.success(msg);
+
+                                }, complete: function () {
+
+                                }
+                            });
+                        }
+                    }
+                },
+                selectable: "row",
+                sortable: true,
+                height: 715,
+                columns: [
+                    {
+                        template: '<center><div style="background-color:#: DesEstado #;width: 13px;height: 13px;border-radius:25px;"></div></center>',
+                        title: "",
+                        width: 2
+                    }, {
+                        field: "CodigoUnidadNegocio",
+                        title: "<center>UN</center>",
+                        width: 3,
+                        attributes: {
+                            style: "font-size:11px;text-align:center;"
+                        }
+                    }, {
+                        field: "Codigo",
+                        title: "<center>Sede</center>",
+                        width: 3,
+                        attributes: {
+                            style: "font-size:11px;text-align:center;"
+                        }
+                    }, {
+                        field: "RazonSocial",
+                        title: "<center>CLIENTE</center>",
+                        width: 15,
+                        attributes: {
+                            style: "font-size:11px;text-align:center;"
+                        }
+                    }, {
+                        field: "CantTotal",
+                        title: "<center>TODOS</center>",
+                        width: 4,
+                        attributes: {
+                            style: "font-size:11px;text-align:center;"
+                        }
+                    }, {
+                        field: "CantidadActivosSocios",
+                        title: "<center>ACTIVOS</center>",
+                        width: 4,
+                        attributes: {
+                            style: "font-size:11px;text-align:center;"
+                        }
+                    }, {
+                        field: "RUC",
+                        title: "<center>RUC/DNI CLIENTE</center>",
+                        width: 8,
+                        attributes: {
+                            style: "font-size:11px;text-align:center;"
+                        }
+                    }, {
+                        field: "DiaPago",
+                        title: "<center>Dia</center>",
+                        width: 3,
+                        attributes: {
+                            style: "font-size:10px;text-align:center;"
+                        }
+                    }, {
+                        field: "Pais",
+                        title: "<center>PAIS</center>",
+                        width: 5,
+                        attributes: {
+                            style: "font-size:11px;text-align:center;"
+                        }
+                    }, {
+                        field: "TipoMoneda",
+                        title: "<center>Moneda</center>",
+                        width: 3,
+                        attributes: {
+                            style: "font-size:11px;text-align:center;"
+                        }
+                    }, {
+                        field: "MontoMensualidad",
+                        title: "<center>Monto</center>",
+                        width: 4,
+                        attributes: {
+                            style: "font-size:11px;text-align:center;color:black;font-weight:bold;"
+                        }
+                    }, {
+                        field: "MontoAcuenta",
+                        title: "<center>A Cuenta</center>",
+                        width: 4,
+                        attributes: {
+                            style: "font-size:11px;text-align:center;"
+                        }
+                    }, {
+                        field: "NroOperacion",
+                        title: "<center>Nro Ope.</center>",
+                        width: 5,
+                        attributes: {
+                            style: "font-size:11px;text-align:center;"
+                        }
+                    }, {
+                        template: '<center><div style="font-size:8px;display:#: flafEstadoRecibo #;" onclick="eventoAbrirModalSubirRecibo();">#: DesEstadoRecibo #</div></center>',
+                        field: "DesEstadoRecibo",
+                        title: "<center>Recibo</center>",
+                        width: 4,
+                        attributes: {
+                            style: "font-size:9px;text-align:center;text-decoration:underline;cursor:pointer;"
+                        }
+                    }, {
+                        field: "ResponsableCuenta",
+                        title: "<center>Responsable</center>",
+                        width: 10,
+                        attributes: {
+                            style: "font-size:10px;text-align:center;text-overflow: ellipsis;"
+                        }
+                    }, {
+                        field: "RUCSunat",
+                        title: "<center>RUCSunat</center>",
+                        width: 7,
+                        attributes: {
+                            style: "font-size:10px;text-align:center;"
+                        }
+                    }, {
+                        field: "USUARIO",
+                        title: "<center>USUARIO</center>",
+                        width: 7,
+                        attributes: {
+                            style: "font-size:10px;text-align:center;"
+                        }
+                    }, {
+                        field: "CLAVE",
+                        title: "<center>CLAVE</center>",
+                        width: 7,
+                        attributes: {
+                            style: "font-size:10px;text-align:center;"
+                        }
+                    }, {
+                        template: "<button type='button' id='btnmyModalAbrirCobranza_#: CodigoUnidadNegocio ##: Codigo #' class='btn btn-default btn-sm' style='background-color:black;border:0px solid black;color:white;display:none' onclick='myModalAbrirCobranza()'>Pagar</button>",
+                        title: "",
+                        width: 4
+                    }],
+                dataBound: function (e) {
+                    var grid = $("#gridCobranza").data("kendoGrid");
+                    this.element.find('tbody tr:first').addClass('k-state-selected')
+                    this.select(this.tbody.find('>tr:first'));
+                }
+                ,
+                change: function () {
+                    var text = "";
+                    var grid = this;
+                    grid.select().each(function () {
+                        var dataItem = grid.dataItem($(this));
+
+                        $('#hdMontoMesCobranza').val(dataItem.MontoMensualidad);
+                        $('#hdUNCobranza').val(dataItem.CodigoUnidadNegocio);
+                        $('#hdSedeCobranza').val(dataItem.Codigo);
+                        $('#hdCodigoPago').val(dataItem.CodigoPago);
+
+                        $('#hdDiaCobranza').val(dataItem.DiaPago);
+                        $('#txtMontoAcuentaCobranza').val(dataItem.MontoMensualidad);
+                        $('#imgLogoSedeCobranza').attr('src', dataItem.Logo);
+
+                        $("[id*=btnmyModalAbrirCobranza_]").hide('fast');
+                        if (Tipo == 1) {
+                            $('#btnmyModalAbrirCobranza_' + dataItem.CodigoUnidadNegocio + '' + dataItem.Codigo).show('fast');
+
+                        }
+
+                    });
+                }
+            });
+        }
+
+        function myModalAbrirCobranza(CodigoUnidadNegocio, CodigoSede, Monto, Dia, Control) {
+
+            var url = $(Control).attr('data-url');
+          
+            $("#hdUNCobranza").val(CodigoUnidadNegocio);
+            $("#hdSedeCobranza").val(CodigoSede);
+            $('#hdMontoMesCobranza').val(Monto);
+            $('#txtMontoAcuentaCobranza').val(Monto);
+            $('#imgLogoSedeCobranza').attr('src', url);
+            $('#hdDiaCobranza').val(Dia);
+
+            $('#myModalIngresoPagos').show('fast');
+            $('#txtNroOperacionCobranza').focus();
+            $('#txtNroOperacionCobranza').select();
+            $('#ddlNroCuentaCobranza').data("kendoDropDownList").select(0);
+        }
+
+        function uspRegistrarConfiguracionPagosMensualidades() {
+
+            if ($("#ddlNroCuentaCobranza").data("kendoDropDownList").value() == '') {
+                $.bootstrapGrowl("Seleccione el nro de cuenta.", { type: 'danger', width: 'auto' });
+            } else if ($('#txtNroOperacionCobranza').val() == '') {
+                $.bootstrapGrowl("Ingrese el nro de operación.", { type: 'danger', width: 'auto' });
+            } else {
+                var CodigoUnidadNegocio = $("#hdUNCobranza").val();
+                var CodigoSede = $("#hdSedeCobranza").val();
+
+                var Anio = $("#ddlAnioCobranza").val();
+                var Mes = $('#hdMesCobranza').val();
+                var Dia = $('#hdDiaCobranza').val();
+
+                var MontoMes = $('#hdMontoMesCobranza').val();
+                var MontoAcuenta = $('#txtMontoAcuentaCobranza').val();
+                var NroOperacion = $('#txtNroOperacionCobranza').val();
+                var CodigoNroCuenta = $("#ddlNroCuentaCobranza").data("kendoDropDownList").value();
+
+                var UsuarioCreacion = "Appsfit";// $('#hdUsuarioConfiguracionUsuario').val();
+
+                //alert("CodigoUnidadNegocio: " + CodigoUnidadNegocio);
+                //alert("CodigoSede: " + CodigoSede);
+
+                //alert("Anio: " + Anio);
+                //alert("Mes: " + Mes);
+                //alert("Dia: " + Dia);
+
+                //alert("MontoMes: " + MontoMes);
+                //alert("MontoAcuenta: " + MontoAcuenta);
+                //alert("NroOperacion: " + NroOperacion);
+                //alert("CodigoNroCuenta: " + CodigoNroCuenta);
+                //alert(UsuarioCreacion);
+
+                $('button[type="button"]').attr("disabled", true);
+
+                $.ajax({
+                    type: "POST",
+                    data: '{"CodigoUnidadNegocio":"' + CodigoUnidadNegocio + '","CodigoSede":"' + CodigoSede + '","Anio":"' + Anio + '","Mes":"' + Mes + '","Dia":"' + Dia + '","MontoMes":"' + MontoMes + '","MontoAcuenta":"' + MontoAcuenta + '","NroOperacion":"' + NroOperacion + '","CodigoNroCuenta":"' + CodigoNroCuenta + '","UsuarioCreacion":"' + UsuarioCreacion + '"}',
+                    url: "/corporativo/uspRegistrarConfiguracionPagosMensualidades",
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "json",
+                    success: function (msg) {
+                        $.bootstrapGrowl("Se guardo el dato correctamente.", { type: 'success', width: 'auto' });
+                    }, complete: function () {
+                        $('button[type="button"]').attr("disabled", false);
+                        $('#myModalIngresoPagos').hide('fast');
+                        uspListarConfiguracion_Cobranzas_Paginacion();
+
+                        $('#txtNroOperacionCobranza').val('');
+
+                    }
+                });
+            }
+
+        }
+
+        function uspRegistrarConfiguracionMatriculas() {
+
+            var Descripcion = $('#txtDescripcionMatricula').val();
+            var MontoMatricula = $('#txtMontoMatricula').val();
+            var NroOperacion = $('#txtNroOperacionMatricula').val();
+            var UsuarioCreacion = $('#hdUsuarioConfiguracionUsuario').val();
+
+            $('button[type="button"]').attr("disabled", true);
+
+            $.ajax({
+                type: "POST",
+                data: '{"Descripcion":"' + Descripcion + '","MontoMatricula":"' + MontoMatricula + '","NroOperacion":"' + NroOperacion + '","UsuarioCreacion":"' + UsuarioCreacion + '"}',
+                url: "/corporativo/uspRegistrarConfiguracionMatriculas",
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function (msg) {
+                    $.bootstrapGrowl("Se guardo el dato correctamente.", { type: 'success', width: 'auto' });
+                }, complete: function () {
+                    $('button[type="button"]').attr("disabled", false);
+                    $('#myModalIngresoMatricula').hide('fast');
+                    uspListarConfiguracion_Cobranzas_Paginacion();
+                }
+            });
+        }
+
+        function myModalAbrirMatricula() {
+            $('#myModalIngresoMatricula').show('fast');
+            $('#txtDescripcionMatricula').focus();
+            $('#txtDescripcionMatricula').select();
+
+            $('#txtDescripcionMatricula').val('');
+            $('#txtMontoMatricula').val('');
+            $('#txtNroOperacionMatricula').val('');
+
+            $('#DivCerrarmyModalIngresoMatricula').click(function () {
+                $('#myModalIngresoMatricula').hide();
+            });
+
+            uspListarConfiguracionMatriculas();
+        }
+
+        function uspListarConfiguracionMatriculas() {
+            var Anio = $("#ddlAnioCobranza").val();
+            var Mes = $('#hdMesCobranza').val();
+
+            $("#gridMatriculas").empty();
+            $("#gridMatriculas").kendoGrid({
+                dataSource: {
+                    type: "json",
+                    transport: {
+                        read: function (options) {
+                            $.ajax({
+                                data: '{"Anio":"' + Anio + '","Mes":"' + Mes + '"}',
+                                type: "POST",
+                                url: "/corporativo/uspListarConfiguracionMatriculas",
+                                contentType: "application/json; charset=utf-8",
+                                dataType: "json",
+                                success: function (msg) {
+                                    options.success(msg);
+                                }, complete: function () {
+                                }
+                            });
+                        }
+                    }
+                },
+                selectable: "row",
+                sortable: true,
+                height: 250,
+                columns: [
+                    {
+                        field: "FechaCreacion",
+                        title: "<center style='color:#fff;'><b>Inscripcion</b></center>",
+                        template: "#= kendo.toString(kendo.parseDate(FechaCreacion, 'yyyy-MM-dd'), 'dd/MM/yyyy') #",
+                        width: 5,
+                        attributes: {
+                            style: "font-size:10px;text-align:center;"
+                        }
+                    }, {
+                        field: "Descripcion",
+                        title: "<center>Descripcion</center>",
+                        width: 10,
+                        attributes: {
+                            style: "font-size:10px;text-align:center;"
+                        }
+                    }, {
+                        field: "MontoMatricula",
+                        title: "<center>Monto</center>",
+                        width: 3,
+                        attributes: {
+                            style: "font-size:10px;text-align:center;"
+                        }
+                    }, {
+                        field: "NroOperacion",
+                        title: "<center>Nro Operación</center>",
+                        width: 5,
+                        attributes: {
+                            style: "font-size:11px;text-align:center;"
+                        }
+                    }, {
+                        field: "UsuarioCreacion",
+                        title: "<center>Responsable</center>",
+                        width: 5,
+                        attributes: {
+                            style: "font-size:11px;text-align:center;"
+                        }
+                    }],
+                dataBound: function (e) {
+                    var grid = $("#gridMatriculas").data("kendoGrid");
+                    this.element.find('tbody tr:first').addClass('k-state-selected')
+                    this.select(this.tbody.find('>tr:first'));
+                }
+                ,
+                change: function () {
+                    var text = "";
+                    var grid = this;
+                    grid.select().each(function () {
+                        var dataItem = grid.dataItem($(this));
+
+
+                    });
+                }
+            });
+        }
+
+
+    </script>
+
+}

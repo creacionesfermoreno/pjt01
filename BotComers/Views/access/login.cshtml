@@ -1,0 +1,252 @@
+﻿@model IEnumerable<BotComers.ViewModels.EmpresaViewEditModel>
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html lang="es">
+<head>
+    <meta name="author" content="GYM">
+    <meta name="description" content="🔓🚀¡Controla y Automatiza tu Centro!📱💻AppsFit el Software Inteligente 📊💪">
+    <title>Iniciar Sesión</title>
+    <link rel="apple-touch-icon" sizes="180x180" href="~/Content/appsfitfavicon/blanco150x150.jpg">
+    <link rel="icon" type="image/png" sizes="32x32" href="~/Content/appsfitfavicon/blanco32x32.jpg">
+    <link rel="icon" type="image/png" sizes="16x16" href="~/Content/appsfitfavicon/blanco16x16.jpg">
+    
+    
+    @System.Web.Optimization.Scripts.Render("~/Content/appsfit_crm/assets/js/config.js")
+    @System.Web.Optimization.Scripts.Render("~/Content/appsfit_crm/vendors/overlayscrollbars/OverlayScrollbars.min.js")
+
+    <link href="@Url.Content("~/Content/appsfit_crm/vendors/glightbox/glightbox.min.css")" rel="stylesheet" />
+
+    <link href="@Url.Content("~/Content/appsfit_crm/assets/js/config.js")" rel="stylesheet" />
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,500,600,700%7cPoppins:300,400,500,600,700,800,900&amp;display=swap" rel="stylesheet">
+    <link href="@Url.Content("~/Content/appsfit_crm/vendors/overlayscrollbars/OverlayScrollbars.min.css")" rel="stylesheet" />
+    <link href="@Url.Content("~/Content/appsfit_crm/assets/css/theme-rtl.min.css")" rel="stylesheet" />
+    <link href="@Url.Content("~/Content/appsfit_crm/assets/css/theme.min.css")" rel="stylesheet" />
+    <link href="@Url.Content("~/Content/appsfit_crm/assets/css/user-rtl.min.css")" rel="stylesheet" />
+    <link href="@Url.Content("~/Content/appsfit_crm/assets/css/user.min.css")" rel="stylesheet" />
+    <link href="@Url.Content("~/Content/appsfit_crm/vendors/prism/prism-okaidia.css")" rel="stylesheet" />
+
+
+    <link href="@Url.Content("~/Content/applogin1/iofrm-style.css")" rel="stylesheet" />
+    <link href="@Url.Content("~/Content/applogin1/iofrm-theme3.css")" rel="stylesheet" />
+
+
+    <link href="@Url.Content("~/Content/applogin1/fontawesome-all.min.css")" rel="stylesheet" />
+
+</head>
+<body style="background-color:#fff;">
+
+    <!-- ===============================================-->
+    <!--    Main Content-->
+    <!-- ===============================================-->
+    <main class="main" id="top">
+        <div class="container-fluid">
+            <script>
+                var isFluid = JSON.parse(localStorage.getItem('isFluid'));
+                if (isFluid) {
+                    var container = document.querySelector('[data-layout]');
+                    container.classList.remove('container');
+                    container.classList.add('container-fluid');
+                }
+            </script>
+            <div class="row min-vh-100" style="background-color:#fff;">
+                <div class="col-6 d-none d-lg-block position-relative">
+                    <!--<div class="img-holder">-->
+                    @*<div class="bg"></div>*@
+
+                    <!--</div>-->
+                    
+                    <img src="~/Content/appsfit_img/fondoAppsfit1.png" style="width: 100%; height: 100%;" />
+                    @*<div style="background-image: url(~/Content/appsfit_img/14.jpg);width:100%;height:100%;">
+
+        </div>*@
+                </div>
+                <div class="col-sm-10 col-md-6 px-sm-0 align-self-center mx-auto py-5">
+                    <div class="row justify-content-center g-0">
+                        <div class="col-lg-9 col-xl-8 col-xxl-6">
+                            <div class="card">
+                                <div class="card-body p-4">
+
+                                    <div class="mb-3" style="text-align:center;">
+                                        <img id="imgLogoSede" style="width:138px;height:138px;border-radius:50%;" src="https://contenidosappsfit.blob.core.windows.net/empresas/35001.png" alt="Appsfit" />
+                                    </div><!-- form-group -->
+                                    <div class="mb-3">
+                                        <div class="col-auto" style="color:#000;">
+                                            <b style="color:#000;">Bienvenido!</b>
+                                            Inicia sesión para continuar.
+                                        </div>
+                                    </div>
+                                    <form id="frmSeguridad" action="/access/ingresar" method="post">
+                                        <div class="mb-3">
+                                            <select id="txtUsuario_CodigoSede" class="form-select" name="SelectedValue" style="font-weight:bold;font-size:18px;">
+                                                @foreach (var item in Model)
+                                                {
+                                                    <option value="@item.CodigoSede">@item.NombreComercialEmpresa</option>
+                                                }
+                                            </select>
+                                        </div><!-- form-group -->
+                                        <div id="txMensaje_validation" style="display:none;width: 100%;" class="alert alert-warning border-2 align-items-center" role="alert">
+                                            <div class="bg-warning me-3 icon-item"><span class="fas fa-exclamation-circle text-white fs-3"></span></div>
+                                            <p class="mb-0 flex-1">Por favor complete el siguiente formulario con sus datos!</p>
+                                        </div>
+                                        <div class="mb-3">
+                                            <input id="txtusuario" type="text" style="color:#000;font-weight:bold;" value="" name="user" class="form-control" placeholder="Ingrese su usuario" />
+                                        </div>
+                                        <div class="mb-3">
+                                            <input id="txtclave" type="password" style="color:#000;font-weight:bold;" value="" name="password" class="form-control" placeholder="Ingrese su contraseña" />
+                                        </div>
+
+                                        <div class="mb-3">
+                                            <button id="btnIngresar" type="submit" class="btn btn-primary btn-block btn-signin" style=" border: 1px #ff9323 solid;width: 100%; background-image: linear-gradient(to right, #ff0200 85%, #ffab28 100%);">Iniciar sesión</button>
+                                            <br />
+                                            <br />
+                                            <div id="divMensajeClaveIncorrecta" style="display: none;" class="form-group">
+                                                <div class="alert alert-outline alert-danger mg-b-0" role="alert">
+                                                    <p>
+
+                                                        <strong>Contraseña incorrecta!</strong> Vuelve a intentarlo.
+                                                    </p>
+
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </form>
+
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+    <!-- ===============================================-->
+    <!--    End of Main Content-->
+    <!-- ===============================================-->
+
+
+    @System.Web.Optimization.Scripts.Render("~/Content/app/lib/popper.js/js/popper.js")
+    @System.Web.Optimization.Scripts.Render("~/Content/app/lib/bootstrap/js/bootstrap.js")
+    @*@System.Web.Optimization.Scripts.Render("~/Content/app/js/slim.js")*@
+
+    @System.Web.Optimization.Scripts.Render("~/Scripts/default/jquery-1.10.2.min.js")
+    @System.Web.Optimization.Scripts.Render("~/Scripts/jquery-2.1.1.min.js")
+    @System.Web.Optimization.Scripts.Render("~/Content/applogin1/main.js")
+
+
+    @System.Web.Optimization.Scripts.Render("~/Content/appsfit_crm/vendors/popper/popper.min.js")
+    @System.Web.Optimization.Scripts.Render("~/Content/appsfit_crm/vendors/bootstrap/bootstrap.min.js")
+    @System.Web.Optimization.Scripts.Render("~/Content/appsfit_crm/vendors/anchorjs/anchor.min.js")
+    @System.Web.Optimization.Scripts.Render("~/Content/appsfit_crm/vendors/is/is.min.js")
+    @System.Web.Optimization.Scripts.Render("~/Content/appsfit_crm/vendors/fontawesome/all.min.js")
+    @System.Web.Optimization.Scripts.Render("~/Content/appsfit_crm/vendors/lodash/lodash.min.js")
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=window.scroll"></script>
+    @System.Web.Optimization.Scripts.Render("~/Content/appsfit_crm/vendors/list.js/list.min.js")
+    @System.Web.Optimization.Scripts.Render("~/Content/appsfit_crm/assets/js/theme.js")
+
+
+    <script type="text/javascript">
+
+        $(document).ready(function () {
+
+            var expiry = new Date();
+            expiry.setTime(expiry.getTime() - 3600);
+            document.cookie = "_CodigoSede_Business=; expires=" + expiry.toGMTString() + "; path=/";
+            document.cookie = "_CodigoPerfil_Business=; expires=" + expiry.toGMTString() + "; path=/";
+            document.cookie = "_Usuario_Business=; expires=" + expiry.toGMTString() + "; path=/";
+
+            document.cookie = "_CodigoUnidadNegocio_PersonaFit=; expires=" + expiry.toGMTString() + "; path=/";
+            document.cookie = "_CodigoSede_PersonaFit=; expires=" + expiry.toGMTString() + "; path=/";
+            document.cookie = "_SubDominio_PersonaFit=; expires=" + expiry.toGMTString() + "; path=/";
+
+            document.cookie = "_urlCorporativo_PlanEmpresa=; expires=" + expiry.toGMTString() + "; path=/";
+            document.cookie = "_urlCorporativo_EstadoEmpresa=; expires=" + expiry.toGMTString() + "; path=/";
+
+            ObtenerUnidadNegocio();
+
+            $('#frmSeguridad').on('submit', function (event) {
+                event.preventDefault(); // or return false, your choice
+
+                if ($('#txtusuario').val() == "") {
+                    document.getElementById("txMensaje_validation").style.display = '';
+                    $('#txMensaje_validation').html('Falta ingresar su usuario.');
+                    return false;
+
+                } else {
+                    document.getElementById("txMensaje_validation").style.display = 'none';
+                    $('#txMensaje_validation').html('');
+                    if ($('#txtclave').val() == "") {
+                        document.getElementById("txMensaje_validation").style.display = '';
+                        $('#txMensaje_validation').html('Falta ingresar su contraseña.');
+                        return false;
+                    } else {
+                        document.getElementById("txMensaje_validation").style.display = 'none';
+                        $('#txMensaje_validation').html('');
+                    }
+
+                }
+
+                $('button[type="submit"]').attr("disabled", true);
+
+                $.ajax({
+                    url: $(this).attr('action'),
+                    type: 'post',
+                    data: $(this).serialize(),
+                    success: function (data, textStatus, jqXHR) {
+
+                        if (textStatus === 'success') {
+
+                            if (data == 0) {
+                                $('button[type="submit"]').attr("disabled", false);
+                                document.getElementById("divMensajeClaveIncorrecta").style.display = '';
+                            } else {
+                                document.getElementById("divMensajeClaveIncorrecta").style.display = 'none';
+                                window.location.href = data;
+                            }
+                        }
+                    }
+                }).fail(function (jqXHR, textStatus, errorThrown) {
+                    //if (jqXHR.status == 0 || jqXHR == 302) {
+                    //    alert('Your session has ended due to inactivity after 10 minutes.\nPlease refresh this page, or close this window and log back in to system.');
+                    //} else {
+                    //    alert('Unknown error returned while saving' + (typeof errorThrown == 'string' && errorThrown.trim().length > 0 ? ':\n' + errorThrown : ''));
+                    //}
+                });
+            });
+
+        });
+
+        function ObtenerUnidadNegocio() {
+
+            var SubDominio = $(location).attr('href').split('/')[5].replace('#', ' ').replace('%C3%B1', 'ñ').replace('%C3%91', 'Ñ').replace('%C3%A1', 'á').replace('%C3%81', 'Á').replace('%C3%A9', 'é').replace('%C3%89', 'É').replace('%C3%AD', 'í').replace('%C3%8D', 'Í').replace('%C3%B3', 'ó').replace('%C3%93', 'Ó').replace('%C3%BA', 'ú').replace('%C3%9A', 'Ú');
+
+            $.ajax({
+                data: '{"SubDominio":"' + SubDominio + '"}',
+                type: "POST",
+                url: "/access/uspSeguridadObtenerUnidadNegocio",
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function (msg) {
+                    if (msg.CodigoUnidadNegocio == null) {
+                        alert("Comuniquese con Centro de Ayuda");
+                    } else {
+
+                        $('#imgLogoSede').attr('src', msg.Logo);
+                    }
+                }
+            });
+
+        }
+
+
+    </script>
+
+</body>
+</html>

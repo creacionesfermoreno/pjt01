@@ -1,0 +1,498 @@
+﻿
+@{
+    ViewBag.Title = "index";
+    Layout = "~/Views/Shared/_LayoutAppfitTienda2.cshtml";
+}
+<link href="@Url.Content("~/Content/tienda2/css/about.css")" rel="stylesheet" />
+
+<link href="@Url.Content("~/Content/cssKendo/kendo.common.min.css")" rel="stylesheet" />
+<link href="@Url.Content("~/Content/cssKendo/kendo.dataviz.default.min.css")" rel="stylesheet" />
+<link href="@Url.Content("~/Content/cssKendo/kendo.dataviz.min.css")" rel="stylesheet" />
+<link href="@Url.Content("~/Content/cssKendo/kendo.default.min.css")" rel="stylesheet" />
+
+<style>
+    #txtbuscadorgeneraltienda {
+        padding: 0px;
+        font-size: 14px;
+        margin-left: 20px;
+    }
+
+    .k-header {
+        width: 100%;
+        height: 100%;
+    }
+
+    .k-state-hover {
+        background-color: #fff;
+    }
+
+    .k-autocomplete.k-state-default, .k-picker-wrap.k-state-default, .k-numeric-wrap.k-state-default, .k-dropdown-wrap.k-state-default {
+        background-color: #fff;
+    }
+</style>
+
+<main>
+    <div class="top_banner version_2">
+        <div class="opacity-mask d-flex align-items-center" data-opacity-mask="rgba(0, 0, 0, 0)">
+            <div class="container">
+                <div class="d-flex justify-content-center"><h1>Shoes - Grid listing</h1></div>
+            </div>
+        </div>
+        <img src="/Content/tienda2/img/bg_cat_shoes.jpg" class="img-fluid" alt="">
+    </div>
+    <!-- /top_banner -->
+
+    <div id="stick_here"></div>
+   
+    <!-- /toolbox -->
+    <div class="container margin_30">
+        <div class="row small-gutters">
+            <div class="col-6 col-md-4 col-xl-3">
+                <div class="grid_item">
+                    <span class="ribbon off">-30%</span>
+                    <figure>                     
+                        <a href="@Url.Action("cat_trotadoras","tienda",new {id= HttpContext.Current.Request.Cookies["_SubDominio_PersonaTiendaVirtual"].Value})" >
+                            <img class="img-fluid lazy" src="/Content/tienda2/img/products/product_placeholder_square_medium.jpg" data-src="/Content/tienda2/img/products/product_placeholder_square_medium.jpg" alt="">
+                        </a>                       
+                        <div data-countdown="2021/02/14" class="countdown"></div>
+                    </figure>
+                    <a href="@Url.Action("cat_trotadoras","tienda",new {id= HttpContext.Current.Request.Cookies["_SubDominio_PersonaTiendaVirtual"].Value})">
+                        <h3>TROTADORAS</h3>
+                    </a>
+
+                </div>
+                <!-- /grid_item -->
+            </div>
+            <!-- /col -->
+
+            <div class="col-6 col-md-4 col-xl-3">
+                <div class="grid_item">
+                    <span class="ribbon off">-30%</span>
+                    <figure>
+                        <a href="product-detail-1.html">
+                            <img class="img-fluid lazy" src="/Content/tienda2/img/products/product_placeholder_square_medium.jpg" data-src="/Content/tienda2/img/products/product_placeholder_square_medium.jpg" alt="">
+                        </a>
+                        <div data-countdown="2021/02/14" class="countdown"></div>
+                    </figure>
+                    <a href="product-detail-1.html">
+                        <h3>BICICLETAS</h3>
+                    </a>
+                </div>
+                <!-- /grid_item -->
+            </div>
+            <!-- /col -->
+
+            <div class="col-6 col-md-4 col-xl-3">
+                <div class="grid_item">
+                    <span class="ribbon off">-30%</span>
+                    <figure>
+                        <a href="product-detail-1.html">
+                            <img class="img-fluid lazy" src="/Content/tienda2/img/products/product_placeholder_square_medium.jpg" data-src="/Content/tienda2/img/products/product_placeholder_square_medium.jpg" alt="">
+                        </a>
+                        <div data-countdown="2021/02/14" class="countdown"></div>
+                    </figure>
+                    <a href="product-detail-1.html">
+                        <h3>ELIPTICAS</h3>
+                    </a>
+                </div>
+                <!-- /grid_item -->
+            </div>
+            <!-- /col -->
+
+            <div class="col-6 col-md-4 col-xl-3">
+                <div class="grid_item">
+                    <span class="ribbon off">-30%</span>
+                    <figure>
+                        <a href="product-detail-1.html">
+                            <img class="img-fluid lazy" src="/Content/tienda2/img/products/product_placeholder_square_medium.jpg" data-src="/Content/tienda2/img/products/product_placeholder_square_medium.jpg" alt="">
+                        </a>
+                        <div data-countdown="2021/02/14" class="countdown"></div>
+                    </figure>
+                    <a href="product-detail-1.html">
+                        <h3>MINIGIMNASIO - HOME GYM</h3>
+                    </a>
+                </div>
+                <!-- /grid_item -->
+            </div>
+            <!-- /col -->
+
+            <div class="col-6 col-md-4 col-xl-3">
+                <div class="grid_item">
+                    <span class="ribbon off">-30%</span>
+                    <figure>
+                        <a href="product-detail-1.html">
+                            <img class="img-fluid lazy" src="/Content/tienda2/img/products/product_placeholder_square_medium.jpg" data-src="/Content/tienda2/img/products/product_placeholder_square_medium.jpg" alt="">
+                        </a>
+                        <div data-countdown="2021/02/14" class="countdown"></div>
+                    </figure>
+                    <a href="product-detail-1.html">
+                        <h3>BANCOS MULTI-AJUSTABLES</h3>
+                    </a>
+                </div>
+                <!-- /grid_item -->
+            </div>
+            <!-- /col -->
+
+            <div class="col-6 col-md-4 col-xl-3">
+                <div class="grid_item">
+                    <span class="ribbon off">-30%</span>
+                    <figure>
+                        <a href="product-detail-1.html">
+                            <img class="img-fluid lazy" src="/Content/tienda2/img/products/product_placeholder_square_medium.jpg" data-src="/Content/tienda2/img/products/product_placeholder_square_medium.jpg" alt="">
+                        </a>
+                        <div data-countdown="2021/02/14" class="countdown"></div>
+                    </figure>
+                    <a href="product-detail-1.html">
+                        <h3>RACKS Y JAULAS</h3>
+                    </a>
+                </div>
+                <!-- /grid_item -->
+            </div>
+            <!-- /col -->
+
+            <div class="col-6 col-md-4 col-xl-3">
+                <div class="grid_item">
+                    <span class="ribbon off">-30%</span>
+                    <figure>
+                        <a href="product-detail-1.html">
+                            <img class="img-fluid lazy" src="/Content/tienda2/img/products/product_placeholder_square_medium.jpg" data-src="/Content/tienda2/img/products/product_placeholder_square_medium.jpg" alt="">
+                        </a>
+                        <div data-countdown="2021/02/14" class="countdown"></div>
+                    </figure>
+                    <a href="product-detail-1.html">
+                        <h3>BARRAS - DISCOS Y MANCUERNAS</h3>
+                    </a>
+                </div>
+                <!-- /grid_item -->
+            </div>
+            <!-- /col -->
+
+            <div class="col-6 col-md-4 col-xl-3">
+                <div class="grid_item">
+                    <span class="ribbon off">-30%</span>
+                    <figure>
+                        <a href="product-detail-1.html">
+                            <img class="img-fluid lazy" src="/Content/tienda2/img/products/product_placeholder_square_medium.jpg" data-src="/Content/tienda2/img/products/product_placeholder_square_medium.jpg" alt="">
+                        </a>
+                        <div data-countdown="2021/02/14" class="countdown"></div>
+                    </figure>
+                    <a href="product-detail-1.html">
+                        <h3>PISOS DE CAUCHO</h3>
+                    </a>
+                </div>
+                <!-- /grid_item -->
+            </div>
+            <!-- /col -->
+
+            <div class="col-6 col-md-4 col-xl-3">
+                <div class="grid_item">
+                    <span class="ribbon off">-30%</span>
+                    <figure>
+                        <a href="product-detail-1.html">
+                            <img class="img-fluid lazy" src="/Content/tienda2/img/products/product_placeholder_square_medium.jpg" data-src="/Content/tienda2/img/products/product_placeholder_square_medium.jpg" alt="">
+                        </a>
+                        <div data-countdown="2021/02/14" class="countdown"></div>
+                    </figure>
+                    <a href="product-detail-1.html">
+                        <h3>FUNCIONAL - CROSSFIT</h3>
+                    </a>
+                </div>
+                <!-- /grid_item -->
+            </div>
+            <!-- /col -->
+
+            <div class="col-6 col-md-4 col-xl-3">
+                <div class="grid_item">
+                    <span class="ribbon off">-30%</span>
+                    <figure>
+                        <a href="product-detail-1.html">
+                            <img class="img-fluid lazy" src="/Content/tienda2/img/products/product_placeholder_square_medium.jpg" data-src="/Content/tienda2/img/products/product_placeholder_square_medium.jpg" alt="">
+                        </a>
+                        <div data-countdown="2021/02/14" class="countdown"></div>
+                    </figure>
+                    <a href="product-detail-1.html">
+                        <h3>BANDAS ELÁSTICAS</h3>
+                    </a>
+                </div>
+                <!-- /grid_item -->
+            </div>
+            <!-- /col -->
+            <div class="col-6 col-md-4 col-xl-3">
+                <div class="grid_item">
+                    <span class="ribbon off">-30%</span>
+                    <figure>
+                        <a href="product-detail-1.html">
+                            <img class="img-fluid lazy" src="/Content/tienda2/img/products/product_placeholder_square_medium.jpg" data-src="/Content/tienda2/img/products/product_placeholder_square_medium.jpg" alt="">
+                        </a>
+                        <div data-countdown="2021/02/14" class="countdown"></div>
+                    </figure>
+                    <a href="product-detail-1.html">
+                        <h3>MAQUINAS</h3>
+                    </a>
+                </div>
+                <!-- /grid_item -->
+            </div>
+            <!-- /col -->
+            <div class="col-6 col-md-4 col-xl-3">
+                <div class="grid_item">
+                    <span class="ribbon off">-30%</span>
+                    <figure>
+                        <a href="product-detail-1.html">
+                            <img class="img-fluid lazy" src="/Content/tienda2/img/products/product_placeholder_square_medium.jpg" data-src="/Content/tienda2/img/products/product_placeholder_square_medium.jpg" alt="">
+                        </a>
+                        <div data-countdown="2021/02/14" class="countdown"></div>
+                    </figure>
+                    <a href="product-detail-1.html">
+                        <h3>COLCHONETAS</h3>
+                    </a>
+                </div>
+                <!-- /grid_item -->
+            </div>
+            <!-- /col -->
+            <div class="col-6 col-md-4 col-xl-3">
+                <div class="grid_item">
+                    <span class="ribbon off">-30%</span>
+                    <figure>
+                        <a href="product-detail-1.html">
+                            <img class="img-fluid lazy" src="/Content/tienda2/img/products/product_placeholder_square_medium.jpg" data-src="/Content/tienda2/img/products/product_placeholder_square_medium.jpg" alt="">
+                        </a>
+                        <div data-countdown="2021/02/14" class="countdown"></div>
+                    </figure>
+                    <a href="product-detail-1.html">
+                        <h3>STEP DE EJERCICIOS</h3>
+                    </a>
+                </div>
+                <!-- /grid_item -->
+            </div>
+            <!-- /col -->
+
+            <div class="col-6 col-md-4 col-xl-3">
+                <div class="grid_item">
+                    <span class="ribbon off">-30%</span>
+                    <figure>
+                        <a href="product-detail-1.html">
+                            <img class="img-fluid lazy" src="/Content/tienda2/img/products/product_placeholder_square_medium.jpg" data-src="/Content/tienda2/img/products/product_placeholder_square_medium.jpg" alt="">
+                        </a>
+                        <div data-countdown="2021/02/14" class="countdown"></div>
+                    </figure>
+                    <a href="product-detail-1.html">
+                        <h3>MULTIESTACIONES PARA GIMNASIO</h3>
+                    </a>
+                </div>
+                <!-- /grid_item -->
+            </div>
+            <!-- /col -->
+
+        </div>
+        <!-- /row -->
+
+    </div>
+    <!-- /container -->
+</main>
+
+@section Scripts {
+
+   
+
+    @System.Web.Optimization.Scripts.Render("~/Scripts/plugins/jquery-ui/jquery-ui.js")
+    @System.Web.Optimization.Scripts.Render("~/Scripts/plugins/jquery-ui/jquery-ui.min.js")
+
+    @System.Web.Optimization.Scripts.Render("~/Resource/UserControl.Helper.js")
+
+    @System.Web.Optimization.Scripts.Render("~/Scripts/jquery.min.js")
+    @System.Web.Optimization.Scripts.Render("~/Scripts/plugins/jsKendo/angular.min.js")
+    @System.Web.Optimization.Scripts.Render("~/Scripts/plugins/jsKendo/kendo.all.min.js")
+
+    <script type="text/javascript">
+
+        $(document).ready(function () {
+
+            //ecommerce_uspListarCategorias();
+            //BuscadorProductos();
+        });
+
+        //NO SE ESTA USANDO
+        function ecommerce_uspListarItemsVenta_PorCategoriaPaginacion(control) {
+            $('#imgBannerCategoria').attr('src', $(control).attr('data-UrlImagen'));
+            //$('#lblNombreCategoria').html($(control).attr('data-text'));
+            var codigoImagen = $(control).attr('data-codigoImagen');
+            var entidad = {};
+            entidad.CodigoImagen = codigoImagen;
+
+            var metodoCorrecto = function (data) {
+
+                var content_productos = new Array();
+
+                for (var i = 0; i < data.length; i++) {
+
+                    var url = '/tienda/detalle/' + getCookie('_SubDominio_PersonaTiendaVirtual') + '?Idproducto=' + data[i].CodigoImagen;
+
+                    content_productos.push('<div class="col-6 col-md-4 col-xl-3">');
+                    content_productos.push('    <div class="grid_item">');
+                    content_productos.push('        <figure>');
+                    content_productos.push('            <a href="' + url + '">');
+                    content_productos.push('                <img class="img-fluid lazy" src="' + data[i].UrlImagen + '" data-src="' + data[i].UrlImagen + '" alt="">');
+                    content_productos.push('            </a>');
+                    content_productos.push('        </figure>');
+                    content_productos.push('            <a href="product-detail-1.html">');
+                    content_productos.push('                <h3>' + data[i].Nombre + '</h3>');
+                    content_productos.push('            </a>');
+                    content_productos.push('            <div class="price_box">');
+                    content_productos.push('                <span class="new_price">' + parseFloat(data[i].PrecioVenta).toFixed(2) + '</span>');
+                    content_productos.push('            </div>');
+                    content_productos.push('            <ul>');
+                    //content_productos.push('                <li><a href="#0" class="tooltip-1" data-toggle="tooltip" data-placement="left" title="Add to favorites"><i class="ti-heart"></i><span>Add to favorites</span></a></li>');
+                    //content_productos.push('                <li><a href="#0" class="tooltip-1" data-toggle="tooltip" data-placement="left" title="Add to compare"><i class="ti-control-shuffle"></i><span>Add to compare</span></a></li>');
+                    content_productos.push('                <li><a href="#0" class="tooltip-1 agregar-carrito" data-toggle="tooltip" data-placement="left" title="agregar al carrito" data-imagen="' + data[i].UrlImagen + '" data-titulo="' + data[i].Nombre + '" data-precio="' + parseFloat(data[i].PrecioVenta).toFixed(2) + '" data-id="' + data[i].CodigoImagen + '" onclick="comprarProducto(this)" ><i class="ti-shopping-cart"></i><span>Add to cart</span></a></li>');
+                    content_productos.push('            </ul>');
+                    content_productos.push('    </div>');
+                    content_productos.push('</div>');
+
+                }
+
+                $('#seccionproductos').html(content_productos.join(' '));
+
+            };
+
+            var metodoError = function (msg) {
+                alert(msg);
+            };
+            var request = {
+                request: entidad
+            };
+
+            LlamarAJAX('/tienda/ecommerce_uspListarItemsVenta_PorCategoriaPaginacion', request, metodoCorrecto, metodoError);
+
+        }
+
+        function ecommerce_uspListarCategorias() {
+            eliminarlocalStoragexkey('menu');
+
+            var metodoCorrecto = function (data) {
+                var content_Catgorias = new Array();
+
+                //PADRE
+                for (var i = 0; i < data.length; i++) {
+                    if (data[i].CodigoMenuSuperior == 0) {
+
+                        content_Catgorias.push('<li class="megamenu submenu">');
+                        content_Catgorias.push('    <a href="javascript:void(0);" class="show-submenu-mega">' + data[i].Descripcion + '</a>');
+                        content_Catgorias.push('    <div class="menu-wrapper">');
+                        content_Catgorias.push('        <div class="row small-gutters">');
+                        //HIJO
+                        for (var e = 0; e < data.length; e++) {
+                            if (data[i].CodigoMenu == data[e].CodigoMenuSuperior) {
+
+                                var url = '/tienda/categoria/' + getCookie('_SubDominio_PersonaTiendaVirtual') + '?Idcat=' + data[e].CodigoImagenPortada;
+
+                                content_Catgorias.push('<div class="col-lg-3">');
+                                content_Catgorias.push('    <h3 style="cursor:pointer;" ><a href="' + url + '">' + data[e].Descripcion + '</a></h3>');
+                                content_Catgorias.push('</div>');
+                            }
+                        }
+
+                        content_Catgorias.push('        </div>');
+                        content_Catgorias.push('   </div>');
+                        content_Catgorias.push('</li>');
+
+                    }
+                }
+
+                $('#ulCategorias').html(content_Catgorias.join(' '));
+
+                for (var i = 0; i < data.length; i++) {
+                    leerDatosMenu(data[i].CodigoMenu, data[i].CodigoMenuSuperior, data[i].Descripcion, data[i].CodigoImagenPortada, data[i].UrlImagen);
+                }
+
+                //PADRE MENU
+                var content_menu = new Array();
+                content_menu.push('<ul>');
+                for (var i = 0; i < data.length; i++) {
+                    if (data[i].CodigoMenuSuperior == 0) {
+
+                        content_menu.push('<li>');
+                        content_menu.push('    <span><a href="#0">' + data[i].Descripcion + '</a></span>');
+                        content_menu.push('    <ul>');
+                        //HIJO
+                        for (var e = 0; e < data.length; e++) {
+                            if (data[i].CodigoMenu == data[e].CodigoMenuSuperior) {
+                                var url = '/tienda/categoria/' + getCookie('_SubDominio_PersonaTiendaVirtual') + '?Idcat=' + data[e].CodigoImagenPortada;
+
+                                content_menu.push('        <li><a href="' + url + '">' + data[e].Descripcion + '</a></li>');
+                            }
+                        }
+
+                        content_menu.push('    </ul>');
+                        content_menu.push('</li>');
+
+                    }
+                }
+                content_menu.push('</ul>');
+
+                $('#menu').html(content_menu.join(' '));
+
+            };
+
+            var metodoError = function (msg) {
+                alert(msg);
+            };
+            var request = {
+            };
+
+            LlamarAJAX('/tienda/ecommerce_uspListarCategorias', request, metodoCorrecto, metodoError);
+        }
+
+        function getCookie(cname) {
+            var name = cname + "=";
+            var ca = document.cookie.split(';');
+            for (var i = 0; i < ca.length; i++) {
+                var c = ca[i].trim();
+                if (c.indexOf(name) == 0) return c.substring(name.length, c.length);
+            }
+            return "";
+        }
+
+        function BuscadorProductos() {
+
+            var ddlPaqueteContrato = $("#txtbuscadorgeneraltienda,#txtbuscadorgeneraltiendamobil").kendoAutoComplete({
+                filter: "startswith",
+                dataTextField: "Descripcion",
+                dataValueField: "CodigoItemVenta",
+                template: '<div class="row" ><a href="/tienda/detalle/@HttpContext.Current.Request.Cookies["_SubDominio_PersonaTiendaVirtual"].Value?Idproducto=#: data.CodigoImagen #">' +
+                    '<span class="k-state-default" style="margin-left: 26px;margin-top: 9px;">' +
+                        '<img src="#: data.UrlImagen #" alt="" width="55" height="55" class="img-fluid lazy">' +
+                    '</span>' +
+                    '<span class="k-state-default" style="margin-top: 20px;margin-left: 20px;">' +
+                        '#: data.Nombre #' +
+                    '</span>' +
+                    '</a></div>',
+                valueTemplate: '<div style="font-size:12px;text-transform:uppercase;"> #:data.Descripcion# </div>',
+                dataSource: {
+                    serverFiltering: true,
+                    transport: {
+                        read: function (options) {
+                            var flag = ddlPaqueteContrato.value();
+                            $.ajax({
+                                data: '{"buscador":"' + flag + '"}',
+                                type: "POST",
+                                url: "/tienda/uspBuscadorItemsVentaInventariable",
+                                contentType: "application/json; charset=utf-8",
+                                dataType: "json",
+                                success: function (msg) {
+                                    options.success(msg);
+                                    if (msg == "") {
+                                        alert("No hemos encontrado ningún producto."); 
+                                    }
+                                }
+                            });
+                        }
+                    }, height: 600
+                }, change: function () {
+
+                }
+
+            }).data("kendoAutoComplete");
+        }
+
+    </script>
+}

@@ -1,0 +1,178 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{65778D74-2D63-44BB-8593-6CAD30A810C5}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>E_BusinessLayer</RootNamespace>
+    <AssemblyName>E_BusinessLayer</AssemblyName>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <Deterministic>true</Deterministic>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Transactions" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="AlmacenesLogic.cs" />
+    <Compile Include="AspNetUsersDireccionesEntregaLogic.cs" />
+    <Compile Include="CategoriasLogic.cs" />
+    <Compile Include="CentroEntrenamiento\CentroEntrenamiento_AspNetUsersLogic.cs" />
+    <Compile Include="CentroEntrenamiento\CentroEntrenamiento_EditorPaginaWebDetalleLogic.cs" />
+    <Compile Include="CentroEntrenamiento\CentroEntrenamiento_EditorPaginaWebLogic.cs" />
+    <Compile Include="CentroEntrenamiento\CentroEntrenamiento_GaleriaFitnessLogic.cs" />
+    <Compile Include="CentroEntrenamiento\CentroEntrenamiento_MenuPlantillaLogic.cs" />
+    <Compile Include="CentroEntrenamiento\CentroEntrenamiento_Presencial_ConfiguracionSalaFitnessLogic.cs" />
+    <Compile Include="CentroEntrenamiento\CentroEntrenamiento_Presencial_DisciplinaSalaLogic.cs" />
+    <Compile Include="CentroEntrenamiento\CentroEntrenamiento_Presencial_HorarioClasesAsistenciasLogic.cs" />
+    <Compile Include="CentroEntrenamiento\CentroEntrenamiento_Presencial_HorarioClasesConfiguracionLogic.cs" />
+    <Compile Include="CentroEntrenamiento\CentroEntrenamiento_Presencial_SalaLogic.cs" />
+    <Compile Include="CentroEntrenamiento\CentroEntrenamiento_ProfesorLogic.cs" />
+    <Compile Include="CentroEntrenamiento\gimnasio_crm_1_embudosventaplantillaLogic.cs" />
+    <Compile Include="CentroEntrenamiento\gimnasio_crm_2_etapasplantillaLogic.cs" />
+    <Compile Include="CentroEntrenamiento\gimnasio_crm_3_tratosprospectoLogic.cs" />
+    <Compile Include="ClientesLogic.cs" />
+    <Compile Include="ComprobanteDetalleLogic.cs" />
+    <Compile Include="ComprobanteLogic.cs" />
+    <Compile Include="ComprobantePagoLogic.cs" />
+    <Compile Include="Configuracion\AspNetUsersLogic.cs" />
+    <Compile Include="Corporativo\EmpresaLogic.cs" />
+    <Compile Include="CuponesLogic.cs" />
+    <Compile Include="EnvioGratisLogic.cs" />
+    <Compile Include="Gimnasio\AdFitnessAtencionAlClienteLogic.cs" />
+    <Compile Include="Gimnasio\AgendaNutricionalLogic.cs" />
+    <Compile Include="Gimnasio\AgendaPostVentaLogic.cs" />
+    <Compile Include="Gimnasio\AgendaSeguimientoLogic.cs" />
+    <Compile Include="Gimnasio\AsistenciaInvitadosLogic.cs" />
+    <Compile Include="Gimnasio\AsistenciaLogic.cs" />
+    <Compile Include="Gimnasio\AyudaPreguntasFrecuentesLogic.cs" />
+    <Compile Include="Gimnasio\CajaAperturaCierreLogic.cs" />
+    <Compile Include="Gimnasio\CategoriaLogic.cs" />
+    <Compile Include="Gimnasio\CategoriaSuplementoLogic.cs" />
+    <Compile Include="Gimnasio\ClientesLogic.cs" />
+    <Compile Include="Gimnasio\ComprasDetalleLogic.cs" />
+    <Compile Include="Gimnasio\ComprasLogic.cs" />
+    <Compile Include="Gimnasio\ComprasRopasLogic.cs" />
+    <Compile Include="Gimnasio\ComprasSuplementosLogic.cs" />
+    <Compile Include="Gimnasio\ConfiguracionEstadosDelSocioLogic.cs" />
+    <Compile Include="Gimnasio\ConfiguracionGastoAperturaLogic.cs" />
+    <Compile Include="Gimnasio\ConfiguracionLogic.cs" />
+    <Compile Include="Gimnasio\ConfiguracionTraspasoLogic.cs" />
+    <Compile Include="Gimnasio\ContratoCuotaLogic.cs" />
+    <Compile Include="Gimnasio\ContratoFolioLogic.cs" />
+    <Compile Include="Gimnasio\ContratoLogic.cs" />
+    <Compile Include="Gimnasio\ContratoMensajeLogic.cs" />
+    <Compile Include="Gimnasio\ControlMedidasLogic.cs" />
+    <Compile Include="Gimnasio\ControlSalidaFormaPagoLogic.cs" />
+    <Compile Include="Gimnasio\EncuestaNuevo1Logic.cs" />
+    <Compile Include="Gimnasio\EnvioCorreoBienvenidaLogic.cs" />
+    <Compile Include="Gimnasio\EnvioCorreoLogic.cs" />
+    <Compile Include="Gimnasio\GastosLogic.cs" />
+    <Compile Include="Gimnasio\HistorialCongelamientoLogic.cs" />
+    <Compile Include="Gimnasio\HorarioClasesConfiguracionLogic.cs" />
+    <Compile Include="Gimnasio\HorarioClasesDetalleLogic.cs" />
+    <Compile Include="Gimnasio\HorarioClasesLogic.cs" />
+    <Compile Include="Gimnasio\HorarioPaqueteDetalleLogic.cs" />
+    <Compile Include="Gimnasio\HorarioPaqueteLogic.cs" />
+    <Compile Include="Gimnasio\HorarioPersonalEventualsLogic.cs" />
+    <Compile Include="Gimnasio\IngresoAjustesCajaLogic.cs" />
+    <Compile Include="Gimnasio\InteresProspectosLogic.cs" />
+    <Compile Include="Gimnasio\InvitadosLogic.cs" />
+    <Compile Include="Gimnasio\LlamadaEntranteLogic.cs" />
+    <Compile Include="Gimnasio\MenuLogic.cs" />
+    <Compile Include="Gimnasio\MetasDetalleLogic.cs" />
+    <Compile Include="Gimnasio\MetasLogic.cs" />
+    <Compile Include="Gimnasio\NotificacionappLogic.cs" />
+    <Compile Include="Gimnasio\NotificacionesLogic.cs" />
+    <Compile Include="Gimnasio\PagosContratoLogic.cs" />
+    <Compile Include="Gimnasio\PagosRopasLogic.cs" />
+    <Compile Include="Gimnasio\PagosSuplementosLogic.cs" />
+    <Compile Include="Gimnasio\PedidosLogic.cs" />
+    <Compile Include="Gimnasio\PerfilLogic.cs" />
+    <Compile Include="Gimnasio\PerfilMenuLogic.cs" />
+    <Compile Include="Gimnasio\PersonalAdministrativoLogic.cs" />
+    <Compile Include="Gimnasio\PersonalAsistenciaConfiguracionLogic.cs" />
+    <Compile Include="Gimnasio\PersonalAsistenciaLogic.cs" />
+    <Compile Include="Gimnasio\PersonalAsistenciaNotaLogic.cs" />
+    <Compile Include="Gimnasio\PlanesLogic.cs" />
+    <Compile Include="Gimnasio\ProductoElaboradoLogic.cs" />
+    <Compile Include="Gimnasio\ProductoLogic.cs" />
+    <Compile Include="Gimnasio\ProfesionalFitnessLogic.cs" />
+    <Compile Include="Gimnasio\ProspectosLogic.cs" />
+    <Compile Include="Gimnasio\RedesSocialesLogic.cs" />
+    <Compile Include="Gimnasio\ReferidoLogic.cs" />
+    <Compile Include="Gimnasio\RopasLogic.cs" />
+    <Compile Include="Gimnasio\SalaHorarioLogic.cs" />
+    <Compile Include="Gimnasio\SalaLogic.cs" />
+    <Compile Include="Gimnasio\SeriesContratoLogic.cs" />
+    <Compile Include="Gimnasio\SeriesLogic.cs" />
+    <Compile Include="Gimnasio\SociosFichaSaludMasterLogic.cs" />
+    <Compile Include="Gimnasio\SubTipoDocumentoLogic.cs" />
+    <Compile Include="Gimnasio\SuplementosLogic.cs" />
+    <Compile Include="Gimnasio\TiempoMembresiaLogic.cs" />
+    <Compile Include="Gimnasio\TipoAgendaClienteLogic.cs" />
+    <Compile Include="Gimnasio\TipoContratoLogic.cs" />
+    <Compile Include="Gimnasio\TipoDocumentoLogic.cs" />
+    <Compile Include="Gimnasio\TipoEgresoLogic.cs" />
+    <Compile Include="Gimnasio\TipoIngresoLogic.cs" />
+    <Compile Include="Gimnasio\TipoPaqueteLogic.cs" />
+    <Compile Include="Gimnasio\TipoResponsableLogic.cs" />
+    <Compile Include="Gimnasio\TurnosEmpresaLogic.cs" />
+    <Compile Include="Gimnasio\UbigeoLogic.cs" />
+    <Compile Include="Gimnasio\UsuarioLogic.cs" />
+    <Compile Include="Gimnasio\UsuariosIngresosLogic.cs" />
+    <Compile Include="Gimnasio\VentasDetalleLogic.cs" />
+    <Compile Include="Gimnasio\VentasLogic.cs" />
+    <Compile Include="Gimnasio\WhatsappConfigLogic.cs" />
+    <Compile Include="ItemsVentaAjusteInventarioDetalleLogic.cs" />
+    <Compile Include="ItemsVentaAjusteInventarioLogic.cs" />
+    <Compile Include="ItemsVentaInventarioLogic.cs" />
+    <Compile Include="ItemsVentaLogic.cs" />
+    <Compile Include="MaestroLogic.cs" />
+    <Compile Include="PasarelaEmpresaLogic.cs" />
+    <Compile Include="PlantillaFormaPagoLogic.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="TarifasEnvioLogic.cs" />
+    <Compile Include="TipoComprobanteLogic.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\E_DataLayer\E_DataLayer.csproj">
+      <Project>{c99ff5b0-fa73-4ee5-b511-e89e04bd079f}</Project>
+      <Name>E_DataLayer</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\E_DataModel\E_DataModel.csproj">
+      <Project>{88b4a97a-f5f4-4848-ac04-b90642cee6c5}</Project>
+      <Name>E_DataModel</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>

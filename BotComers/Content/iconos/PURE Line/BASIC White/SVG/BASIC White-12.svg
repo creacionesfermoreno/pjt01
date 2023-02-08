@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Generator: Adobe Illustrator 16.0.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="170px"
+	 height="170px" viewBox="0 0 170 170" enable-background="new 0 0 170 170" xml:space="preserve">
+<g id="Background">
+</g>
+<g id="Circle">
+	<g>
+		<path fill="#282D33" d="M85,170c-46.869,0-85-38.131-85-85S38.131,0,85,0s85,38.131,85,85S131.869,170,85,170z"/>
+	</g>
+</g>
+<g id="TEXT">
+</g>
+<g id="Icons">
+	<g>
+		<path fill="none" stroke="#FFFFFF" stroke-width="4" d="M86.814,44.36c2.515-1.28,4.241-3.887,4.241-6.903
+			c0-4.279-3.471-7.75-7.75-7.75c-4.28,0-7.75,3.471-7.75,7.75c0,3.017,1.726,5.623,4.24,6.903
+			c-22.382,1.789-39.99,20.506-39.99,43.347c0,24.025,19.475,43.5,43.5,43.5c24.023,0,43.5-19.475,43.5-43.5
+			C126.806,64.866,109.196,46.149,86.814,44.36z"/>
+		<path fill="#FFFFFF" d="M83.306,35.207c-1.243,0-2.25,1.008-2.25,2.25c0,1.244,1.007,2.25,2.25,2.25c1.242,0,2.25-1.006,2.25-2.25
+			C85.556,36.215,84.548,35.207,83.306,35.207L83.306,35.207z"/>
+		<circle fill="none" stroke="#FFFFFF" stroke-width="4" cx="83.306" cy="87.707" r="36"/>
+		<g>
+			<line fill="none" stroke="#FFFFFF" stroke-width="4" x1="83.306" y1="55.375" x2="83.306" y2="61.375"/>
+			<line fill="none" stroke="#FFFFFF" stroke-width="4" x1="83.306" y1="114.041" x2="83.306" y2="120.041"/>
+			<line fill="none" stroke="#FFFFFF" stroke-width="4" x1="115.638" y1="87.707" x2="109.638" y2="87.707"/>
+			<line fill="none" stroke="#FFFFFF" stroke-width="4" x1="56.972" y1="87.707" x2="50.972" y2="87.707"/>
+			<line fill="none" stroke="#FFFFFF" stroke-width="4" x1="106.169" y1="64.846" x2="101.925" y2="69.087"/>
+			<line fill="none" stroke="#FFFFFF" stroke-width="4" x1="64.685" y1="106.328" x2="60.441" y2="110.57"/>
+			<line fill="none" stroke="#FFFFFF" stroke-width="4" x1="106.169" y1="110.57" x2="101.926" y2="106.328"/>
+			<line fill="none" stroke="#FFFFFF" stroke-width="4" x1="64.685" y1="69.087" x2="60.441" y2="64.846"/>
+		</g>
+		<g>
+			<polygon fill="none" stroke="#FFFFFF" stroke-width="4" stroke-linejoin="bevel" points="98.595,72.418 93.355,82.689 
+				88.118,92.959 83.085,87.928 78.054,82.895 88.323,77.657 			"/>
+			<polygon fill="none" stroke="#FFFFFF" stroke-width="4" stroke-linejoin="bevel" points="68.015,102.998 73.255,92.727 
+				78.492,82.455 83.524,87.486 88.557,92.52 78.286,97.758 			"/>
+		</g>
+	</g>
+</g>
+</svg>

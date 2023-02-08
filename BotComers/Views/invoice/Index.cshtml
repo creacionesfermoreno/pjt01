@@ -1,0 +1,212 @@
+﻿@model IEnumerable<BotComers.ViewModels.Ingresos.ComprobanteViewModel>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_LayoutApp.cshtml";
+}
+
+<link href="@Url.Content("~/Content/cssKendo/kendo.common.min.css")" rel="stylesheet" />
+<link href="@Url.Content("~/Content/cssKendo/kendo.dataviz.default.min.css")" rel="stylesheet" />
+<link href="@Url.Content("~/Content/cssKendo/kendo.dataviz.min.css")" rel="stylesheet" />
+<link href="@Url.Content("~/Content/cssKendo/kendo.default.min.css")" rel="stylesheet" />
+
+<div class="slim-mainpanel">
+
+    <div class="slim-mainpanel">
+        <div class="container">
+            <input type="hidden" value="0" id="hdCodigoItemVenta" />
+            <div class="report-summary-header">
+                <div>
+                    <h4 class="tx-inverse mg-b-3">Comprobantes de venta</h4>
+                </div>
+                <div>
+                    <a href="@Url.Action("add", "invoice")" class="btn btn-primary"><i class="icon ion-plus-circled tx-22"></i>Nuevo registro de venta</a>
+                </div>
+            </div><!-- d-flex -->
+            <div class="row mg-b-15">
+                <div class="col-lg-2">
+                    <div class="form-group">
+                        <label for="ddlEstadoEntrega" class="form-control-label">Entrega: </label>
+                        <select id="ddlEstadoEntrega">
+                            <option value="0">TODOS</option>
+                            <option value="1">REALIZADO</option>
+                            <option value="2">PENDIENTE</option>
+                            <option value="3">RECHAZADO</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-lg-2">
+                    <div class="form-group">
+                        <label for="txtInvoice_FechaInicio" class="form-control-label">Fecha inicio: <span class="tx-danger" id="" style="display:none;">* Ingrese fecha</span></label>
+                        <input id="txtInvoice_FechaInicio" class="form-control form-control-sm" type="text" name="" value="" placeholder="">
+                    </div>
+                </div>
+                <div class="col-lg-2">
+                    <div class="form-group">
+                        <label for="txtInvoice_FechaFin" class="form-control-label">Fecha fin: <span class="tx-danger" id="" style="display:none;">* Ingrese fecha</span></label>
+                        <input id="txtInvoice_FechaFin" class="form-control form-control-sm" type="text" name="" value="" placeholder="">
+                    </div>
+                </div>
+                <div class="col-lg-2">
+                    <div class="form-group">
+                        <label for="txtInventarioAjuste_FechaAjusteFin" class="form-control-label" style="color:#f0f2f7">b: <span class="tx-danger" id="" style="display:none;">* Ingrese fecha</span></label>
+                        <button class="btn btn-primary btn-sm btn-block mg-b-10" onclick="buscarHistorialInvoice();">Buscar</button>
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                  
+                </div>
+            </div>
+            <div class="card card-table mg-t-20 mg-sm-t-30">
+                <div class="table-responsive">
+                    <table id="gridInvoice" class="table mg-b-0 tx-13">
+                        <thead>
+                            <tr class="tx-10">
+                                <th class="pd-y-4">
+                                    Correlativo
+                                </th>
+                                <th class="pd-y-5">
+                                    Cliente
+                                </th>
+                                <th class="pd-y-5">
+                                    Celular
+                                </th>
+                                <th class="pd-y-5">
+                                    Creación
+                                </th>
+                                <th class="pd-y-5">
+                                    Total
+                                </th>
+                                <th class="pd-y-5">
+                                    Cobrado
+                                </th>
+                                <th class="pd-y-5">
+                                    Por Cobrar
+                                </th>
+                                <th class="pd-y-5">
+                                    Estado
+                                </th>
+                                <th class="pd-y-5">
+                                    Pedido
+                                </th>
+                                <th class="pd-y-15">
+                                    Acciones
+                                </th>
+                            </tr>
+                        </thead>
+                        @{ var Total = 0.0M;
+                            var Cobrado = 0.0M;
+                            var PorCobrar = 0.0M;}
+                            <tbody>
+                                @{ if (Model != null)
+                                    {
+                                       
+                                        foreach (var item in Model)
+                                        {
+                                <tr>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Correlativo)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.NombresCliente)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Celular)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.FechaEmision)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Total)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.TotalCobrado)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.TotalPorCobrar)
+                                    </td>
+                                    <td style="color:@item.ColorEstado">
+                                        @Html.DisplayFor(modelItem => item.DesEstado)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.DesEstadoEntrega)
+                                    </td>
+                                    <td>
+                                        <i class="fa fa-eye tx-18" style="cursor:pointer;"></i>
+                                        <o style="display:@(item.Estado == 4 ? "block" : "none");">
+                                            <i class="icon ion-unlocked tx-18" style="cursor:pointer;" title="Facturar y emitir"></i>
+                                        </o>
+                                        <o style="display:@(item.TotalPorCobrar > 0 ? "block" : "none");">
+                                            <a href="@Url.Action("transaction", "invoice", new { idc = item.CodigoCliente, idco = item.CodigoComprobante })" title="Pagar"><i class="fa fa-money tx-18" style="cursor:pointer;"></i></a>
+                                        </o>
+                                        <o style="display:@(item.Estado == 1 ? "block" : "none");">
+                                            <a href="" data-toggle="modal" data-target="#modalConfirmarEliminacion" title="Anular Factura" onclick="SeleccionarFilaItemsVenta(@item.CodigoComprobante);"><i class="fa fa-close tx-18" style="cursor:pointer;"></i></a>
+                                        </o>
+                                        <o style="display:@(item.Estado == 4 ? "block" : "none");">
+                                            <a href="" data-toggle="modal" data-target="#modalConfirmarEliminacion" title="Eliminar" onclick="SeleccionarFilaItemsVenta(@item.CodigoComprobante);"><i class="icon ion-trash-a tx-18" style="cursor:pointer;"></i></a>
+                                        </o>
+                                    </td>
+                                </tr>
+                                            Total += item.Total;
+                                            Cobrado += item.TotalCobrado;
+                                            PorCobrar += item.TotalPorCobrar;
+                                        }
+                                    }
+                                }
+                            </tbody>
+                            <tfoot>
+                                <tr>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td style="text-align:right;">Totales:</td>
+                                    <td>@Total</td>
+                                    <td>@Cobrado</td>
+                                    <td>@PorCobrar</td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                </tr>
+                            </tfoot>
+                        </table>
+                </div><!-- table-responsive -->             
+            </div><!-- card -->
+
+        </div><!-- slim-mainpanel -->
+
+    </div>
+
+</div>
+
+
+@section Scripts {
+
+    @System.Web.Optimization.Scripts.Render("~/Scripts/plugins/jsKendo/angular.min.js")
+    @System.Web.Optimization.Scripts.Render("~/Scripts/plugins/jsKendo/kendo.all.min.js")
+
+    @System.Web.Optimization.Scripts.Render("~/Scripts/plugins/jquery-ui/jquery-ui.js")
+    @System.Web.Optimization.Scripts.Render("~/Scripts/plugins/jquery-ui/jquery-ui.min.js")
+
+    @System.Web.Optimization.Scripts.Render("~/Resource/UserControl.Helper.js")
+    @System.Web.Optimization.Scripts.Render("~/Resource/Comprobante.js?s34ertfdd")
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            var todayDate = new Date();
+
+            $('input[id="txtInvoice_FechaInicio"]').kendoDatePicker();
+            var Primerdia = new Date(todayDate.getFullYear(), todayDate.getMonth(), 1);            
+            $('input[id="txtInvoice_FechaInicio"]').data("kendoDatePicker").value(Primerdia);
+
+            $('input[id="txtInvoice_FechaFin"]').kendoDatePicker();
+            var ultimoDia = new Date(todayDate.getFullYear(), todayDate.getMonth() + 1, 0);
+            $('input[id="txtInvoice_FechaFin"]').data("kendoDatePicker").value(ultimoDia);
+            
+        });
+
+
+
+    </script>
+
+}
+

@@ -1,0 +1,2505 @@
+﻿
+@{
+    ViewBag.Title = "marketing";
+    Layout = "~/Views/Shared/__LayoutAppFitPlataformaFit.cshtml";
+}
+
+
+
+
+<link href="@Url.Content("~/Content/cssKendo/kendo.common.min.css")" rel="stylesheet" />
+<link href="@Url.Content("~/Content/cssKendo/kendo.dataviz.default.min.css")" rel="stylesheet" />
+<link href="@Url.Content("~/Content/cssKendo/kendo.dataviz.min.css")" rel="stylesheet" />
+<link href="@Url.Content("~/Content/cssKendo/kendo.default.min.css")" rel="stylesheet" />
+<link href="@Url.Content("~/Content/apiwhatsapp_css/campana.css")" rel="stylesheet" />
+<link href="@Url.Content("~/Content/apiwhatsapp_css/template.css")" rel="stylesheet" />
+<link href="@Url.Content("~/Content/apiwhatsapp_css/campana_desing.css")" rel="stylesheet" />
+
+
+<link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+<script src="https://cdn.tailwindcss.com"></script>
+
+
+<div class=" inv_loader_custom" style="display:none" data-wordLoad="Por favor espera">
+    <div class="container-loading-custom"> <div class="lds-dual-ring"></div></div>
+</div>
+<div id="result-id"></div>
+
+
+@* modal register whatsapp config *@
+<div class="container-fluid">
+    <div class="modal fade pr-0" id="modalAddWConfig" data-keyboard="false" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg modal-dialog-center" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close" id="closeModalWhatsapconfig" onclick="cancelWhatsappConfig()">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="">
+                        <form class="p-2">
+                            <div class="d-md-flex">
+                                <div class="form-group col-md-6">
+                                    <label for="whconfig_idapp">Identificador de la app</label>
+                                    <input type="text" class="form-control" id="whconfig_idapp" placeholder="">
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <label for="whconfig_number">Número de teléfono</label>
+                                    <input type="text" class="form-control" id="whconfig_number" placeholder="">
+                                </div>
+
+                            </div>
+                            <div class="d-md-flex">
+                                <div class="form-group col-md-6">
+                                    <label for="whconfig_idphone">Identificador de número de teléfono</label>
+                                    <input type="text" class="form-control" id="whconfig_idphone" placeholder="">
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <label for="whconfig_idAccount">Identificador de la cuenta de WhatsApp Business</label>
+                                    <input type="text" class="form-control" id="whconfig_idAccount" placeholder="">
+                                </div>
+                            </div>
+                            <div class="d-md-flex">
+                                <div class="form-group col-md-12">
+                                    <label for="whconfig_token">Token</label>
+                                    <input type="text" class="form-control" id="whconfig_token" placeholder="">
+                                </div>
+                            </div>
+                            <div class="p-3 row">
+                                <div class="form-group col-md-12 d-flex align-content-center">
+                                    <button type="button" onclick="registerWhatsappConfig(this)" id="registerWhatsappConfigBtn" class="btn btn-primary"><i class="fa fa-floppy-o mr-1" aria-hidden="true"></i> Guardar</button>
+                                    <button type="button" onclick="updateWhatsappConfig(this)" style="display: none; align-items: center" id="updateWhatsappConfigBtn" class="btn btn-primary mt-1 mx-2">
+
+                                        <i class="fa fa-floppy-o mr-1" aria-hidden="true"></i> Actualizar
+                                        <div class="spinner-border text-white align-self-center ml-1" id="loadingupd_configw" style="height:20px;width:20px;display:none" role="status">
+                                            <span class="sr-only">Loading...</span>
+                                        </div>
+
+                                    </button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+@*<button type="button" onclick="abcd()" class="btn btn-primary" data-toggle="modal" data-target="#ModalAddTemplateWs">
+        Launch demo modal
+    </button>*@
+@* modal add template ws *@
+<div class="container-fluid">
+    <div class="modal fade pr-0" id="ModalAddTemplateWs" data-keyboard="false" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-xl modal-dialog-center modal-dialog-scrollable" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="text-center">Nueva plantilla</h5>
+                    <button type="button" id="closeModalTemplate" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body body-modal_">
+                    <div class="">
+                        <form class="">
+                            <div class="row justify-content-between">
+                                <div class="col-12">
+                                    <div class="card mb-2">
+                                        <div class="card-body">
+                                            <div class="card-header card-header_">
+                                                <div class="row p-2">
+                                                    <div class="col-12 p-0"> <strong>PASO 1:</strong><strong> Ingrese nombre, selecione idioma y categoria</strong></div>
+                                                </div>
+                                            </div>
+                                            <div class="row p-2">
+                                                <div class="form-group col-md-4">
+                                                    <label for="template_name">Nombre de plantilla</label>
+                                                    <div>
+                                                        <span class="field-icon">60</span>
+                                                        <input type="text" class="form-control" id="template_name" placeholder="">
+                                                    </div>
+                                                </div>
+                                                <div class="form-group col-md-4">
+                                                    <label for="whconfig_idphone">Idioma</label>
+                                                    <div class="select">
+                                                        <select id="template_languaje">
+                                                            <option value="">Selecione un idioma</option>
+                                                            <option value="es">Español</option>
+                                                            <option value="en">Ingles</option>
+                                                        </select>
+                                                        <div class="select_arrow">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group col-md-4">
+                                                    <label for="whconfig_idphone">Categoria</label>
+                                                    <div class="select">
+                                                        <select id="template_category">
+                                                            <option value="">Selecione una categoria</option>
+                                                            <option value="TRANSACTIONAL">TRANSACTIONAL</option>
+                                                            <option value="OTP">OTP</option>
+                                                            <option value="MARKETING">MARKETING</option>
+                                                        </select>
+                                                        <div class="select_arrow">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+
+                            <div class="row justify-content-between">
+                                <div class="col-md-7">
+                                    <div class="card mb-2">
+                                        <div class="card-header card-header_">
+                                            <div class="row p-1">
+                                                <div class="col-12 "><strong>PASO 2: Selecciona el tipo de plantilla</strong>  </div>
+                                            </div>
+
+                                        </div>
+                                        <div class="card-body">
+                                            <div class="row p-1">
+                                                <div class="col-6">
+                                                    <div class="select">
+                                                        <select id="template_typeHeader">
+                                                            <option value="0">Mensaje de texto</option>
+                                                            <option value="1">Mensaje de texto con cabezera</option>
+                                                            <option value="2">Mensaje de multimedia</option>
+                                                        </select>
+                                                        <div class="select_arrow">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="dheaderTextTemplate" id="dheaderTextTemplate" style="display:none">
+                                                <div class="row p-1">
+                                                    <div class="col-12">
+                                                        <small>
+                                                            Agrega un título que usarás en el encabezado.
+                                                        </small>
+
+                                                    </div>
+                                                </div>
+                                                <div>
+                                                    <span class="field-icon">60</span>
+                                                    <input class="form-control" id="txt_header_template" placeholder="Escribe un texto para la cabezera" />
+                                                </div>
+                                            </div>
+                                            <div class="dheaderMediosTemplate" id="dheaderMediosTemplate" style="display:none">
+                                                <div class="row ps-2">
+                                                    <div class="w-150 justify-content-start text-center dradio_custom">
+                                                        <label for="medio_header_template_imagen">
+                                                            <div> <input type="radio" onchange="selectForPreviewTypeHeader(1)" class="radio-20" name="medio_header_template" value="image" id="medio_header_template_imagen" /></div>
+                                                            <div>
+                                                                <i class="fa fa-picture-o fa-5x icon_color" aria-hidden="true"></i>
+                                                            </div>
+                                                            <div>Imagen</div>
+                                                        </label>
+                                                    </div>
+                                                    <div class="w-150 justify-content-start text-center dradio_custom">
+                                                        <label for="medio_header_template_video">
+                                                            <div> <input type="radio" onchange="selectForPreviewTypeHeader(2)" class="radio-20" name="medio_header_template" value="video" id="medio_header_template_video" /></div>
+                                                            <div>
+                                                                <i class="fa fa-play-circle fa-5x icon_color" aria-hidden="true"></i>
+                                                            </div>
+                                                            <div>Video</div>
+                                                        </label>
+                                                    </div>
+                                                    <div class="w-150 justify-content-start text-center dradio_custom">
+                                                        <label for="medio_header_template_document">
+                                                            <div> <input type="radio" onchange="selectForPreviewTypeHeader(3)" class="radio-20" name="medio_header_template" value="document" id="medio_header_template_document" /></div>
+                                                            <div>
+                                                                <i class="fa fa-file-text fa-5x icon_color" aria-hidden="true"></i>
+                                                            </div>
+                                                            <div>Documento</div>
+                                                        </label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="card mb-2">
+                                        <div class="card-header card-header_">
+                                            <strong>PASO 3: </strong> <strong>Crea el contenido de tu plantilla</strong>
+
+                                        </div>
+                                        <div class="">
+                                            <div class="card-header card-header_">
+                                                <div class="row p-1">
+                                                    <div class="col-12">
+                                                        <strong>Texto</strong>
+                                                    </div>
+                                                    <div class="col-12"> <small>Ingresa el texto del mensaje en el idioma que seleccionaste.</small></div>
+                                                    <div class="col-12">
+                                                        <small>
+                                                            Puedes añadir parámetros escribiendo {{}} y colocando un número que indique el orden.
+                                                            Por ejemplo: Hola {{1}}, gracias por contactarnos {{2}}
+                                                        </small>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="card-body">
+                                                <div class="row p-1">
+                                                    <div class="col-12">
+                                                        <span class="field-icon triger_btn cursor-pointer">😁</span>
+                                                        <span class=" field-icon-b">1024</span>
+                                                        <textarea style="height:100px" class="text_area_custom form-control text_area_custom_body" id="text_body_template" placeholder="Escribir texto"></textarea>
+                                                    </div>
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="line-divider my-2"></div>
+                                        <div class="">
+                                            <div class="card-header card-header_">
+                                                <div class="row p-1">
+                                                    <div class="col-12 "><strong>Pie de página</strong> <span class="ml-3 badge badge-blue rounded-2">Opcional</span> </div>
+                                                    <div class="col-12"><small>Agrega una breve línea de texto en la parte inferior de la plantilla del mensaje.</small></div>
+                                                </div>
+                                            </div>
+                                            <div class="card-body">
+                                                <div class="row p-1">
+                                                    <div class="col-12">
+                                                        <span class="field-icon">60</span>
+                                                        <input class="text_area_custom form-control" id="text_footer_template" placeholder="Escribir texto" />
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="line-divider my-2"></div>
+
+                                        <div class="">
+                                            <div class="card-header card-header_">
+                                                <div class="row p-1">
+                                                    <div class="col-12 "><strong>Botones</strong> <span class="ml-3 badge badge-blue rounded-2">Opcional</span> </div>
+                                                    <div class="col-12">
+                                                        <small>
+                                                            Crea botones que les permitan a los clientes responder a tu mensaje o realizar cualquier acción.
+                                                        </small>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="card-body">
+                                                <div class="row p-1">
+                                                    <div class="col-6">
+                                                        <div class="select">
+                                                            <select id="template_typeBottom">
+                                                                <option value="0">Ninguna</option>
+                                                                <option value="1">Llamada de acción</option>
+                                                                <option value="2">Respuesta rápida</option>
+                                                            </select>
+                                                            <div class="select_arrow">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div id="dcallaccion" class="daccion" style="display:none">
+                                                    <div class="row px-3 py-2">
+                                                        <div class="col-4">
+                                                            <div class="form-group">
+                                                                <label for="exampleInputEmail1">Tipo de acción</label>
+                                                                <span class="form-control">Llamar al número teféfonico</span>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-3">
+                                                            <div class="form-group">
+                                                                <label for="exampleInputEmail1">Texto del boton</label>
+                                                                <div>
+                                                                    <span class="field-icon">25</span>
+                                                                    <input class="form-control" id="txt_button_accion" />
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-2">
+                                                            <label for="exampleInputEmail1">País</label>
+                                                            <div class="select">
+                                                                <select id="txt_button_accion_call_code">
+                                                                    <option value="+51">PE +51</option>
+                                                                    <option value="+593">EC +593</option>
+                                                                    <option value="+54">AR +54</option>
+                                                                    <option value="+58">VE +58</option>
+                                                                </select>
+                                                                <div class="select_arrow">
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col">
+                                                            <div class="form-group">
+                                                                <label for="exampleInputEmail1">Número de teléfono</label>
+                                                                <div>
+                                                                    <span class="field-icon">20</span>
+                                                                    <input class="form-control" id="txt_button_accion_call_number" />
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row px-3 py-2">
+                                                        <div class="col-4">
+                                                            <div class="form-group">
+                                                                <label for="exampleInputEmail1">Tipo de acción</label>
+                                                                <span class="form-control">Ir al sitio web</span>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-3">
+                                                            <div class="form-group">
+                                                                <label for="exampleInputEmail1">Texto del boton</label>
+                                                                <div>
+                                                                    <span class="field-icon">25</span>
+                                                                    <input class="form-control" id="txt_button_accion_web" />
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-2">
+                                                            <label for="exampleInputEmail1">
+                                                                Tipo de URL
+                                                            </label>
+                                                            <div class="select">
+                                                                <select id="txt_button_accion_type_url">
+                                                                    <option value="0">Estatática</option>
+                                                                    @*<option value="1">Dinámica</option*@>
+                                                                </select>
+                                                                <div class="select_arrow">
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col">
+                                                            <div class="form-group">
+                                                                <label for="exampleInputEmail1">URL del sitio web</label>
+                                                                <div>
+                                                                    <span class="field-icon">2000</span>
+                                                                    <input class="form-control" id="txt_button_accion_call_url" />
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div id="dfastAnswer" style="display:none">
+                                                    <div class="row">
+                                                        <div class="col-6">
+                                                            <div class="form-group">
+                                                                <label for="exampleInputEmail1">
+                                                                    Texto del botón
+                                                                </label>
+                                                                <div>
+                                                                    <span class="field-icon">25</span>
+                                                                    <input class="form-control" name="txt_fastAnswer" id="txt_fastAnswerOne" oninput="maxLengh(this,25)" />
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div id="contentButtons">
+                                                        <div class="row" id="dtxt_fastAnswerTwo" style="display:none">
+                                                            <div class="col-6">
+                                                                <div class="form-group">
+                                                                    <label for="exampleInputEmail1">
+                                                                        Texto del botón
+                                                                    </label>
+                                                                    <div>
+                                                                        <span class="field-icon">25</span>
+                                                                        <input class="form-control" name="txt_fastAnswer" id="txt_fastAnswerTwo" oninput="maxLengh(this,25)" />
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-1 align-self-center">
+                                                                <i class="fa fa-times cursor-pointer" onclick="removeRowButtonQreplies(2)"></i>
+                                                            </div>
+                                                        </div>
+                                                        <div class="row" id="dtxt_fastAnswerTree" style="display:none">
+                                                            <div class="col-6">
+                                                                <div class="form-group">
+                                                                    <label for="exampleInputEmail1">
+                                                                        Texto del botón
+                                                                    </label>
+                                                                    <div>
+                                                                        <span class="field-icon">25</span>
+                                                                        <input class="form-control" name="txt_fastAnswer" id="txt_fastAnswerTree" oninput="maxLengh(this,25)" />
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-1 align-self-center">
+                                                                <i class="fa fa-times cursor-pointer" onclick="removeRowButtonQreplies(3)"></i>
+                                                            </div>
+                                                        </div>
+
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-6">
+                                                            <button type="button" class="btn btn-light text-secondary" id="moreBtnAnswer" onclick="generateButtons(this)">
+                                                                <i class="fa fa-plus" aria-hidden="true"></i>
+                                                                <span class="text-secondary">Agregar otro botón</span>
+                                                            </button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-4 mr-3 bg-prev-whatsapp ">
+                                    <div class="previewAddTemplate mt-3 p-1">
+                                        <div class="row">
+                                            <span style="font-weight:600;color:#282727">
+                                                Vista previa
+                                            </span>
+                                        </div>
+                                        <div class="talk-bubble tri-right left-top">
+                                            <div class="talktext ">
+                                                <div id="dheaderPreview">
+                                                    <strong id="previewText" style="font-size: 16px;font-weight:600;"></strong>
+                                                    <div id="previewVideo" style="display:none" class="dpreview_">
+                                                        <i class="fa fa-play-circle fa-5x " aria-hidden="true"></i>
+                                                    </div>
+                                                    <div id="previewImagen" style="display:none" class="dpreview_">
+                                                        <i class="fa fa-picture-o fa-5x " aria-hidden="true"></i>
+                                                    </div>
+                                                    <div id="previewDocument" style="display:none" class="dpreview_">
+                                                        <i class="fa fa-file-text fa-5x " aria-hidden="true"></i>
+                                                    </div>
+                                                </div>
+                                                <div id="previewBody" class="previewBody_em" style=" font-size: 15px;margin-top:2px; color: #362d2d"></div>
+                                                <small id="previewFooter" style="color: #a7a4a4"></small>
+                                                <div class="line-divider"></div>
+                                                <div id="previewAcction" style="margin-top: 5px; display: none">
+                                                    <div class="" style="text-align:center;display:none" id="dcallTextPreview">
+                                                        <i class="fa fa-phone" style="color: #2383f5" aria-hidden="true"></i>
+                                                        <span id="callTextPreview" style="color: #0493f9"></span>
+                                                    </div>
+                                                    <div class="" style="text-align: center; display: none" id="dlinkTextPreview">
+                                                        <i class="fa fa-external-link" style="color: #2383f5" aria-hidden="true"></i>
+                                                        <span id="linkTextPreview" style="color: #0493f9"></span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="talk-qreply" id="dqrepliespreview" style="display:none">
+                                            <div class="row justify-content-around m-1">
+                                                <div class="col-12 mb-2 btn-qreplies " id="previewFirtButtonQreplies_one" style="display:none"></div>
+                                                <div class="col-12 mb-2 btn-qreplies " id="previewFirtButtonQreplies_two" style="display:none"></div>
+                                                <div class="col-12 mb-2 btn-qreplies " id="previewFirtButtonQreplies_tree" style="display:none"></div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+                <div class="modal-footer">
+                    <div class="row justify-content-between align-items-center mt-2">
+                        <div class="col-10">
+
+                            <strong>Nota:</strong><small>
+                                Una vez guardado, se enviará la plantilla a revisión. Podrás ver el estado de tu plantilla. Una vez que se haya aprobado tu plantilla, puedes comenzar a usarlo en las campañas
+                            </small>
+                        </div>
+                        <div class="col-2">
+                            <button type="button" onclick="registerTemplate(this)" class="btn-custom btn-custom-primary">Guardar plantilla</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<!-- Modal template for seleted -->
+<div class="modal fade" id="modaltemplatesSelected" data-backdrop="static" data-keyboard="false" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog  modal-dialog-scrollable modal-xl" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Selecionar una platilla</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close" onclick="closeModalSelectedTemplateDis()">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="row justify-content-between" id="template_canpana_select_content">
+
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn-custom btn-custom-secondary" data-dismiss="modal" onclick="closeModalSelectedTemplateDis()" id="btnclose_template_selected_footer">Cancelar</button>
+                <button type="button" class="btn-custom btn-custom-primary" onclick="setTemplateSelected()">Elegir seleccion</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<!-- Modal campaign-->
+<div class="modal fade" id="modalCampanaWh" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog modal-xl modal-dialog-scrollable">
+        <div class="modal-content">
+            @* values *@
+            <input id="cam_type_header" type="hidden" />
+            <input id="cam_type_header_value" type="hidden" />
+            <input id="url_execel_campana" type="hidden" />
+            <input id="header_is_param" type="hidden" />
+            <input id="key_campaign_" type="hidden" />
+            <input id="language_template" type="hidden" />
+            @* values *@
+            <div class="modal-header">
+                <h5 id="TituloTextCampaign"></h5>
+                <button type="button" class="close" data-dismiss="modal" id="btnCloseModalCampaign" aria-label="Close" onclick="closeModalCampaign()">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="container my-1">
+                    <ul id="progressbar" class="text-center row justify-content-center">
+                        <li class="active step-item" id="step1"><div class="d-none d-md-block mt-2 step_text">Datos generales</div></li>
+                        <li class="step-item" id="step2"><div class="d-none d-md-block mt-2 step_text">Plantilla</div></li>
+                        <li class="step-item" id="step3"><div class="d-none d-md-block mt-2 step_text">Subida de contactos</div></li>
+                        <li class="step-item" id="step4"><div class="d-none d-md-block mt-2 step_text">Opciones envio</div></li>
+                    </ul>
+
+
+                    <div class="row mt-5 justify-content-between">
+
+                        <div class="col-md-7">
+                            <div id="step_one" class="step-contents">
+                                <div class="row p-1">
+                                    <p><strong>Datos generales de la campaña</strong></p>
+                                    <p class="p-custom-text">
+                                        Completa todos los campos e importa tu campaña. Recuerda enviar
+                                        plantillas a contactos que ha <strong>aceptado recibir información</strong> de tu negocio. Si tienes dudas de como hacerlo revisa nuestro docs.
+                                    </p>
+                                    <div class="col-md-7">
+                                        <label class="label-custom-input"><span class="error-color">*</span> Ingrese nombre de la campaña</label>
+                                        <div>
+                                            <span class="field-icon">60</span>
+                                            <input id="name_campana" class="form-control" />
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-7 mt-3">
+                                        <label class="label-custom-input"><span class="error-color">*</span> Cola de destino</label>
+                                        <div class="select">
+                                            <select id="canpana_select_cola">
+                                                <option value="0">--selecionar--</option>
+                                                <option value="3">Trainer</option>
+                                                <option value="4">Recepción</option>
+                                                <option value="5">Ventas</option>
+                                                <option value="15">Nutricionista</option>
+                                            </select>
+                                            <div class="select_arrow"></div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-7 mt-3">
+                                        <label class="label-custom-input"><span class="error-color">*</span> Selecciona el tiempo máximo de respuesta</label>
+                                        <div class="select">
+                                            <select id="canpana_select_weather">
+                                                <option value="0">--selecionar--</option>
+                                                <option value="24">24 Horas</option>
+                                                <option value="48">48 Horas</option>
+                                                <option value="72">72 Horas</option>
+                                            </select>
+                                            <div class="select_arrow"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div id="step_two" class="step-contents" style="display:none">
+                                <div class="row p-1">
+                                    <p><strong>Datos generales de la plantilla</strong></p>
+                                    <p class="p-custom-text">
+                                        Completa todos los campos e importa tu campaña. Recuerda enviar
+                                        plantillas a contactos que ha <strong>aceptado recibir información</strong> de tu negocio. Si tienes dudas de como hacerlo revisa nuestro docs.
+                                    </p>
+                                    <div class="mt-3">
+                                        <label class="label-custom-input"><span class="error-color">*</span> Selecione un plantilla</label>
+
+                                        <div>
+                                            <button type="button" id="btnselectedtemplate_new" class="btn-custom btn-custom-primary mt-2" data-toggle="modal" data-target="#modaltemplatesSelected" onclick="showModalTemplatesSelectes()">Selecionar plantilla</button>
+                                            <input id="template_seleted_value" hidden />
+                                            <span id="text_select_template" style="font-size:14px;font-weight:600">sin platilla</span>
+                                        </div>
+                                    </div>
+
+                                    <div>
+                                        <div id="dHeader" style="display:none" class="mt-3">
+                                            @*<div><strong>Encabezado</strong></div>*@
+                                            <div id="dheader_text">
+                                                <small id="txt_header_text" style="color: #837d7d"></small>
+                                                <div id="d_params_texts" class="mb-2">
+
+                                                </div>
+                                            </div>
+
+
+                                            <div id="dheader_Image" style="display:none">
+                                                <label class="label-custom-input"><span class="error-color">*</span> Archivo adjunto</label>
+                                                <div class="drop-file">
+                                                    <input type="file" id="image_file_campana" hidden
+                                                           onchange="uploadfileImage(this)" accept=".png, .jpg" />
+                                                    <label for="image_file_campana" style="width:100%">
+                                                        <div><i class="fa fa-cloud-upload fa-2x" aria-hidden="true"></i></div>
+                                                        <div><span class="drop-file-title">Sube aquí tu archivo </span></div>
+                                                        <div><span class="drop-file-sub">Solo se acepta JPG, JPEG, PNG </span></div>
+                                                        <div class="drop-file-sub">2MB tamaño máximo</div>
+                                                    </label>
+                                                </div>
+                                                <label class="label-custom-input"><small class="file-chosen" id="smallimage_file_campana"></small><span id="smallimage_file_campana_icon"></span></label>
+                                            </div>
+                                            <div id="dheader_Video" style="display:none">
+                                                <label class="label-custom-input"><span class="error-color">*</span> Archivo adjunto</label>
+                                                <div class="drop-file">
+                                                    <input type="file" id="video_file_campana" hidden accept="video/mp4"
+                                                           onchange="uploadfileVideo(this)" />
+                                                    <label for="video_file_campana" style="width:100%">
+                                                        <div><i class="fa fa-cloud-upload fa-2x" aria-hidden="true"></i></div>
+                                                        <div><span class="drop-file-title">Sube aquí tu archivo </span></div>
+                                                        <div><span class="drop-file-sub">Solo se acepta MP4 </span></div>
+                                                        <div class="drop-file-sub">5MB tamaño máximo</div>
+                                                    </label>
+                                                </div>
+                                                <label class="label-custom-input"><small class="file-chosen" id="smallvideo_file_campana"></small><span id="smallvideo_file_campana_icon"></span></label>
+
+                                            </div>
+                                            <div id="dheader_Document" style="display:none">
+                                                <label class="label-custom-input"><span class="error-color">*</span> Archivo adjunto</label>
+                                                <div class="drop-file">
+                                                    <input type="file" id="doc_file_campana" accept=".pdf" hidden
+                                                           onchange="uploadfilePDF(this)" />
+                                                    <label for="doc_file_campana" style="width:100%">
+                                                        <div><i class="fa fa-cloud-upload fa-2x" aria-hidden="true"></i></div>
+                                                        <div><span class="drop-file-title">Sube aquí tu archivo </span></div>
+                                                        <div><span class="drop-file-sub">Solo se acepta PDF </span></div>
+                                                        <div class="drop-file-sub">2MB tamaño máximo</div>
+                                                    </label>
+                                                </div>
+                                                <label class="label-custom-input"><small class="file-chosen" id="smalldoc_file_campana"></small><span id="smalldoc_file_campana_icon"></span></label>
+
+                                            </div>
+                                        </div>
+                                        <div id="dBodyCamp" style="display:none" class="mt-3">
+                                            <div><strong>Texto</strong></div>
+                                            <small id="txt_body_camp" style="color: #837d7d"></small>
+                                            <div id="d_params_body" class="mt-2"></div>
+                                        </div>
+                                        <div id="dFooterCamp" class="mt-3" style="display:none">
+                                            <div><strong>Pie de página</strong></div>
+                                            <small id="txt_footer_camp" style="color: #837d7d"></small>
+                                        </div>
+                                    </div>
+
+
+                                </div>
+                            </div>
+                            <div id="step_tree" class="step-contents" style="display:none">
+                                <div class="row p-1">
+                                    <p><strong>Datos generales de la plantilla</strong></p>
+                                    <p class="p-custom-text">
+                                        Completa todos los campos e importa tu campaña. Recuerda enviar
+                                        plantillas a contactos que ha <strong>aceptado recibir información</strong> de tu negocio. Si tienes dudas de como hacerlo revisa nuestro docs.
+                                    </p>
+
+                                    <div class="mt-2">
+                                        <div><span style="font-size: 14px;font-weight: 600;">Formato para campaña</span></div>
+                                        <div class="mt-1">
+                                            <a href="~/Content/apiwhatsapp_doc/template_envio.xlsx"
+                                               download="template_envio" class="">
+                                                <span style="color: #1890FF;font-size: 14px;">Click para descargar formato.csv</span>
+                                            </a>
+                                        </div>
+                                    </div>
+                                    <div class="mt-2">
+                                        <div class="my-2">
+                                            <span style="font-size: 14px;font-weight: 600;">Sube tu formato con los datos completos</span>
+                                        </div>
+                                        <div>
+                                            <span class="p-custom-text">Tienes un envio máximo a 1000 contactos y recuerda que el tiempo de envió es 5 segundo por contacto</span>
+                                        </div>
+                                        <div class="drop-file mt-2">
+                                            <input type="file" id="execel_file_campana" hidden
+                                                   accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel"
+                                                   onchange="uploadfileExecel(this)" />
+                                            <label for="execel_file_campana" style="width:100%">
+                                                <div><i class="fa fa-cloud-upload fa-2x" aria-hidden="true"></i></div>
+                                                <div><span class="drop-file-title">Sube aquí tu archivo </span></div>
+                                                <div><span class="drop-file-sub">Solo se acepta archivos .csv </span></div>
+                                            </label>
+                                        </div>
+                                        <label class="label-custom-input"><small class="file-chosen" id="smallexecel_file_campana"></small><span id="execeltext_cam"></span></label>
+
+                                    </div>
+                                    <div style="overflow:auto;height:120px;" class="mt-3">
+                                        <ul class="list-group list-group-flush" id="errors_excel_validate"> </ul>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div id="step_for" class="step-contents" style="display:none">
+                                <div class="row p-1 align-content-center justify-content-start">
+                                    <p><strong>Datos generales de la plantilla</strong></p>
+                                    <p class="p-custom-text">
+                                        Completa todos los campos e importa tu campaña. Recuerda enviar
+                                        plantillas a contactos que ha <strong>aceptado recibir información</strong> de tu negocio. Si tienes dudas de como hacerlo revisa nuestro docs.
+                                    </p>
+
+                                    <div class="mt-2">
+                                        <label class="label-custom-input"><span class="error-color">*</span> opciones de programacion</label>
+                                    </div>
+                                    <div class="mt-2">
+                                        <div class="content-option-p-3">
+                                            <input type="hidden" id="type_programtion_selected" value="0" />
+                                            <div class="item-option-prog item-option-prog-active"
+                                                 onclick="showOptionProgramacion(this,0)">Guardar pendiente</div>
+                                            <div class="item-option-prog" onclick="showOptionProgramacion(this,1)">
+                                                Enviar ahora
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                    <div class="mt-3" id="dcontent_programation" style="display:none">
+                                        <div class="row p-1">
+                                            <div class="col-md-12">
+                                                <label>Fecha de envio</label>
+                                                <input id="date_campana" type="date" class="form-control" />
+                                            </div>
+                                            <div class="col-md-6 ">
+                                                <label>Hora de envio</label>
+                                                <input id="hour_campana" type="time" class="form-control" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-4 bg-prev-whatsapp">
+                            <div class="previewAddTemplate mt-3 p-1">
+                                <div class="row">
+                                    <span style="font-weight:600;color:#282727">
+                                        Vista previa
+                                    </span>
+                                </div>
+                                <div class="talk-bubble tri-right left-top">
+                                    <div class="talktext_ ">
+                                        <div id="dprevHeaderText" class="prev-title-custom">
+
+                                        </div>
+                                        <div id="dprevHeaderImage" style="display:none" class="">
+                                            <img id="imgprevHeaderImage" />
+                                            @*<i class="fa fa-picture-o fa-5x iconprevHeaderImage" id="iconprevHeaderImage" aria-hidden="true"></i>*@
+                                        </div>
+                                        <div id="dprevHeaderVideo" style="display:none" class="">
+                                            <video width="480" height="360" controls id="videoprevHeaderVideo">
+                                            </video>
+                                            @*<i class="fa fa-play-circle fa-5x " id="iconvideoprevHeaderVideo" aria-hidden="true"></i>*@
+                                        </div>
+                                        <div id="dprevHeaderDoc" style="display:none" class="">
+                                            @*<i class="fa fa-file-text fa-5x " aria-hidden="true"></i>*@
+                                            <embed src="" id="embedprevHeaderDoc" type="application/pdf" width="100%" />
+                                        </div>
+                                        <div id="dprevCampbodyText" class="mt-2 prev-text-body-custom" style="display:none">
+                                            <div id="prevCampbodyText" class="prev-text-body-custom"></div>
+                                        </div>
+                                        <small id="prevCampFooterText" class="prev-text-footer-custom " style="display:none">
+                                        </small>
+
+                                        <div style="text-align: center; display: none;" id="dacctionprevcam">
+                                            <div class="line-divider"></div>
+                                            <div class="" style="text-align: center; display: none;" id="dcallTextPreviewcam">
+                                                <i class="fa fa-phone" style="color: #2383f5" aria-hidden="true"></i>
+                                                <span id="callTextPreviewcam" style="color: #0493f9">aa</span>
+                                            </div>
+                                            <div class="" style="text-align: center; display: none;" id="dlinkTextPreviewcam">
+                                                <i class="fa fa-external-link" style="color: #2383f5" aria-hidden="true"></i>
+                                                <span id="linkTextPreviewcam" style="color: #0493f9">aaa</span>
+                                            </div>
+                                        </div>
+
+                                    </div>
+
+                                </div>
+                                <div class="talk-qreply" id="dqrepliespreviewcom" style="">
+                                    <div class="row justify-content-around m-1" id="rowdqrepliespreviewcom">
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" hidden class="btn btn-secondary" data-dismiss="modal" id="btncloseModalCampaign_close">Close</button>
+                <div id="mfooter_one">
+                    <button type="button" class="btn-custom btn-custom-primary" onclick="nextStep(2)">Siguente</button>
+                </div>
+                <div id="mfooter_two" style="display:none">
+                    <button type="button" class="btn-custom btn-custom-secondary" onclick="prevStep(1)">Atras</button>
+                    <button type="button" class="btn-custom btn-custom-primary" onclick="nextStep(3)">Siguente</button>
+                </div>
+                <div id="mfooter_tree" style="display:none">
+                    <button type="button" class="btn-custom btn-custom-secondary" onclick="prevStep(2)">Atras</button>
+                    <button type="button" class="btn-custom btn-custom-primary" onclick="nextStep(4)">Siguente</button>
+                </div>
+
+
+
+
+
+                <div class="row p-1 justify-content-end text-end" style="display:none" id="mfooter_for">
+                    <div class="col-12">
+                        <button type="button" class="btn-custom btn-custom-secondary" onclick="prevStep(3)">Atras</button>
+                        <button type="button" id="BtnRegistrarCampaigns" onclick="RegistrarCampaigns(this)"
+                                class="btn-custom btn-custom-primary">
+                            Guardar
+                        </button>
+                        <button type="button" id="BtnUpdateCampaigns" style="display:none"
+                                onclick="UpdateCampaigns(this)" class="btn-custom btn-custom-primary">
+                            Guardar
+                        </button>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+
+</div>
+
+
+
+<div class="container-fluid">
+    <!-- The modal detail campaig -->
+    <div class="modal fade pr-0" id="modalDetailCampaign" data-keyboard="false" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg modal-dialog-center modal-dialog-scrollable" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5>Detalle enviados</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div>
+                        <table class="table">
+                            <thead class="">
+                                <tr>
+                                    <th scope="col" style=" background: #eee;color: #444141;"  class="p-3 font-bold uppercase  border border-gray-500">#</th>
+                                    <th scope="col" style=" background: #eee;color: #444141;"  class="p-3 font-bold uppercase  border border-gray-500">Destinario</th>
+                                    <th scope="col" style=" background: #eee;color: #444141;"  class="p-3 font-bold uppercase  border border-gray-500">Numero</th>
+                                    <th scope="col" style=" background: #eee;color: #444141;"  class="p-3 font-bold uppercase  border border-gray-500">Estado</th>
+                                    <th scope="col" style=" background: #eee;color: #444141;"  class="p-3 font-bold uppercase  border border-gray-500">Fecha</th>
+                                </tr>
+                            </thead>
+                            <tbody id="body_campaign_detail">
+                            </tbody>
+                        </table>
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+<div class="page__header page__header-nav mb-0">
+    <div class="container-fluid page__container">
+        <div class="navbar navbar-secondary navbar-light navbar-expand-sm p-0 d-none d-md-flex" id="secondaryNavbar">
+            <ul class="nav navbar-nav">
+                <li class="nav-item">
+                    <button style="color: #ffffff;background-color: #ff0200;font-size: 1.0rem;border: 0px #ff0200 solid;height: 33px;padding: 5px;cursor:pointer;" class="navbar-toggler navbar-toggler-custom d-flex mr-navbar" type="button" data-toggle="sidebar">
+                        Operaciones
+                    </button>
+                </li>
+                <li class="nav-item" data-controlmodulo="45833cdd-55db-4a67-a879-f1ae9353f8bf">
+                    <a href="@Url.Action("checking","gestionce",new {id= HttpContext.Current.Request.Cookies["_SubDominio_Business"].Value})" class="nav-link">Clientes</a>
+                </li>
+                <li class="nav-item" data-controlmodulo="9e69cfd8-b063-44df-a7f2-a3a10d1eb899" style="display:none;">
+                    <a class="nav-link" href="@Url.Action("posfitness","pos",new {id= HttpContext.Current.Request.Cookies["_SubDominio_Business"].Value})">Punto de venta</a>
+                </li>
+                <li class="nav-item" data-controlmodulo="7611dfbe-186f-4abe-8e2e-e64ad7281728" style="display:none;">
+                    <a class="nav-link" href="@Url.Action("caja","gestionce",new {id= HttpContext.Current.Request.Cookies["_SubDominio_Business"].Value})">Caja</a>
+                </li>
+                <li class="nav-item" data-controlmodulo="93c0d848-83aa-45eb-a83a-ded00a6b6e23" style="display:none;">
+                    <a class="nav-link" href="@Url.Action("nutricion","gestionce",new {id= HttpContext.Current.Request.Cookies["_SubDominio_Business"].Value})">Medidas y Nutrición</a>
+                </li>
+                <li class="nav-item" data-controlmodulo="947dc11f-3e14-4fe7-bedc-ae3d81219bee" style="display:none;">
+                    <a class="nav-link" href="@Url.Action("Index","inventariofit",new {id= HttpContext.Current.Request.Cookies["_SubDominio_Business"].Value})">Inventario</a>
+                </li>
+
+                <li class="nav-item" data-controlmodulo="39497bd3-94ab-4236-a1d4-4623d854f91e" style="display:none;">
+                    <a href="@Url.Action("agendacomercial","gestionce",new {id= HttpContext.Current.Request.Cookies["_SubDominio_Business"].Value})" class="nav-link">Agenda Comercial</a>
+                </li>
+                <li class="nav-item" data-controlmodulo="bbc035e6-68ea-4885-917f-005ad3fcfb66" style="display:none;">
+                    <a href="@Url.Action("metascomerciales","gestionce",new {id= HttpContext.Current.Request.Cookies["_SubDominio_Business"].Value})" class="nav-link">Metas</a>
+                </li>
+                <li class="nav-item active" data-controlmodulo="bd61dc23-54d9-4901-9c35-b8d228b3a924" style="display:none;">
+                    <a href="@Url.Action("marketing","gestionce",new {id= HttpContext.Current.Request.Cookies["_SubDominio_Business"].Value})" class="nav-link active">Marketing</a>
+                </li>
+                <li class="nav-item" data-controlmodulo="e1eadd0d-39b3-498d-b09b-9b3b28610b9b" style="display:none;">
+                    <a href="@Url.Action("informesfit","gestionce",new {id= HttpContext.Current.Request.Cookies["_SubDominio_Business"].Value})" class="nav-link">Informes</a>
+                </li>
+                <li class="nav-item" data-controlmodulo="600dabf4-7dc3-4dc0-a0ba-74b782955e52" style="display:none;">
+                    <a class="nav-link" href="@Url.Action("pagospersonal","gestionce",new {id= HttpContext.Current.Request.Cookies["_SubDominio_Business"].Value})">Pagos</a>
+                </li>
+
+                <li class="nav-item" data-controlmodulo="b1f65597-fd27-46ca-90d0-a0f2f1039ef7" style="display:none;">
+                    <a class="nav-link" href="@Url.Action("finanzas","gestionce",new {id= HttpContext.Current.Request.Cookies["_SubDominio_Business"].Value})">Finanzas</a>
+                </li>
+
+                <li class="nav-item" data-controlmodulo="4c01e8de-9440-4927-a2f2-d6241d925c39" style="display:none;">
+                    <a class="nav-link" href="@Url.Action("estadisticas","gestionce",new {id= HttpContext.Current.Request.Cookies["_SubDominio_Business"].Value})">Estadísticas</a>
+                </li>
+
+
+            </ul>
+        </div>
+    </div>
+</div>
+
+<br />
+<input type="hidden" id="_idwhconfig" />
+<input type="hidden" id="CodigoWhatsappConfiguracion" />
+
+
+
+<div class="container-fluid page__container" style="z-index:auto">
+
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="card">
+                <div class="card-header card-header-tabs-basic nav" role="tablist" style="background-color:#fff">
+                    <a style="" href="#divContentCorreos" class="active" data-toggle="tab" role="tab" aria-selected="true">&nbsp;Correos</a>
+                    <a style="" href="#divWhatsapp" data-toggle="tab" role="tab" aria-selected="false">&nbsp;Whatsapp</a>
+                    <a style="" href="#divNotificationsApp" data-toggle="tab" role="tab" aria-selected="false">&nbsp;Notificaciones App</a>
+                </div>
+                <div class="card-body tab-content" style="background-color: #f5f5f5;">
+                    <div class="tab-pane active show fade" id="divContentCorreos">
+                        <div class="row">
+                            <div class="col-lg-12">
+                                @*tab correos*@
+                                <div class="container-fluid page__container">
+                                    <div class="row">
+                                        <div class="col-lg-3">
+                                            <div class="d-flex flex-column align-items-stretch flex-shrink-0 bg-white">
+
+                                                <div class="list-group list-group-flush border-bottom scrollarea">
+                                                    <a id="liConfiguracion_comprobantes" onclick="evemt_changeMenu(this,1);" href="#" class="list-group-item list-group-item-action active py-3 lh-tight item_menu_sd" aria-current="true">
+                                                        <div class="d-flex w-100 align-items-center justify-content-between">
+                                                            <strong class="mb-1">Envio de correos masivos</strong>
+                                                            <small></small>
+                                                        </div>
+                                                    </a>
+                                                </div>
+                                                <div class="list-group list-group-flush border-bottom scrollarea">
+                                                    <a id="liConfiguracion_comprobantes" onclick="evemt_changeMenu(this,2);" href="#" class="list-group-item list-group-item-action  py-3 lh-tight item_menu_sd" aria-current="true">
+                                                        <div class="d-flex w-100 align-items-center justify-content-between">
+                                                            <strong class="mb-1">Configuración</strong>
+                                                            <small></small>
+                                                        </div>
+                                                    </a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-9">
+                                            <div id="Configuracion_EnvioCorreos" style="">
+                                                <div class="card">
+                                                    <div class="card-header bg-light">
+                                                        <h5 class="mb-0">Nuevo mensaje</h5>
+                                                    </div>
+                                                    <div class="card-body p-0">
+
+                                                        <div class="border border-top-0 border-200" style="padding:10px;">
+
+                                                            <div class="form-check form-check-inline">
+                                                                <input class="form-check-input" id="group_to_personas100" checked="true" type="radio" name="emailgroup_to_personas" value="100" onclick="event_clicktipocliente(100)" />
+                                                                <label class="form-check-label" for="group_to_personas100">Prueba</label>
+                                                            </div>
+
+                                                            <div class="form-check form-check-inline">
+                                                                <input class="form-check-input" id="group_to_personas1" type="radio" name="emailgroup_to_personas" value="1" onclick="event_clicktipocliente(1)" />
+                                                                <label class="form-check-label" for="group_to_personas1">Clientes activos</label>
+                                                            </div>
+                                                            <div class="form-check form-check-inline">
+                                                                <input class="form-check-input" id="group_to_personas2" type="radio" name="emailgroup_to_personas" value="2" onclick="event_clicktipocliente(2)" />
+                                                                <label class="form-check-label" for="group_to_personas2">Clientes por vencer</label>
+                                                            </div>
+                                                            <div class="form-check form-check-inline">
+                                                                <input class="form-check-input" id="group_to_personas3" type="radio" name="emailgroup_to_personas" value="3" onclick="event_clicktipocliente(3)" />
+                                                                <label class="form-check-label" for="group_to_personas3">Clientes vencidos</label>
+                                                            </div>
+
+
+                                                            <div style="display: flex; flex-direction: row;flex-wrap:wrap;display:none" id="dfiltersEmail">
+                                                                <div class="form-check form-check-inline">
+                                                                    <input class="form-check-input" id="genderM" type="checkbox" name="gender" value="M" />
+                                                                    <label class="form-check-label" for="genderM">Hombres</label>
+                                                                </div>
+                                                                <div class="form-check form-check-inline">
+                                                                    <input class="form-check-input" id="genderF" type="checkbox" name="gender" value="F" />
+                                                                    <label class="form-check-label" for="genderF">Mujeres</label>
+                                                                </div>
+                                                                <div class="">
+                                                                    <h style="font-size:11px;color: #000;">Desde:</h>
+                                                                    <input type="text" id="txtFechaInicioFiltro" placeHolder="Escriba Fecha" style="width:100px;font-size:11px;" class="k-datetime" />
+                                                                </div>
+                                                                <div class="ml-3  ">
+                                                                    <h style="font-size:11px;color: #000;">Hasta:</h>
+                                                                    <input type="text" id="txtFechaFinFiltro" placeHolder="Escriba Fecha" style="width:100px;font-size:11px;" class="k-datetime" />
+                                                                </div>
+
+                                                            </div>
+
+
+                                                        </div>
+                                                        <div class="border border-y-0 border-200" id="Daddressee">
+                                                            <input class="form-control border-0 rounded-0 outline-none px-card" id="addressee" type="text" aria-describedby="email-subject" placeholder="Destinatario:" />
+                                                        </div>
+                                                        <div class="border border-y-0 border-200">
+                                                            <input class="form-control border-0 rounded-0 outline-none px-card" id="email_asunto" type="text" aria-describedby="email-subject" placeholder="Asunto:" />
+                                                        </div>
+                                                        <div class="min-vh-50">
+                                                            <textarea id="email_mensajecorreo" rows="10" cols="30" style="width:100%; height:500px" aria-label="editor">
+                                &lt;br /&gt;
+                                &lt;p style="text-align:center;"&gt;
+                                &lt;span style="font-family:Verdana, Geneva, sans-serif;font-size:large;"&gt;&lt;strong&gt;One of the Most Beautiful Islands on Earth - Tenerife&lt;/strong&gt;
+                                &lt;/span&gt;
+                                &lt;/p&gt;
+                                &lt;p&gt;
+                                &lt;span style="font-family:Verdana, Geneva, sans-serif;font-size:medium;"&gt;&lt;strong&gt;Overview&lt;/strong&gt;
+                                &lt;/span&gt;
+                                &lt;/p&gt;
+                                &lt;p style="font-size: small;"&gt;
+                                &lt;strong&gt;Tenerife &lt;/strong&gt;is the largest and most populated island of the eight &lt;a href="https://en.wikipedia.org/wiki/Canary_Islands" target="_blank"&gt;Canary Islands&lt;/a&gt;. It is also the most populated island of &lt;strong&gt;Spain&lt;/strong&gt;, with a land area of 2,034.38 square kilometers (785 sq mi) and 904,713 inhabitants, 43% of the total population of the &lt;strong&gt;Canary Islands&lt;/strong&gt;.&amp;nbsp;The archipelago's beaches, climate, and important natural attractions make it a major tourist destination with over 12 million visitors per year.
+                                &lt;/p&gt;
+                                &lt;br /&gt;
+                                &lt;img src="../content/web/editor/tenerife.png" style="float: right;" alt="" width="350" height="206" /&gt;
+
+                                &lt;p&gt;&lt;span style="font-family:Verdana, Geneva, sans-serif;font-size:medium;"&gt;
+                                &lt;strong&gt;Trip Highlights in Tenerife&lt;/strong&gt;&lt;/span&gt;&lt;/p&gt;&lt;span style="white-space:pre;"&gt;&lt;/span&gt;
+                                &lt;ul&gt;
+                                &lt;li&gt;
+                                &lt;strong style="color: rgb(0,80,5);"&gt;Trip to Loro Parque &lt;/strong&gt; &lt;br /&gt; Our top tip is to visit the famous &lt;em&gt;Loro Parque&lt;/em&gt; or 'Loro Park. It is a 13.5-hectare zoo on the outskirts of Puerto de la Cruz in Tenerife, Spain where it houses an extensive and diverse reserve of animal and plant species. 
+                                &lt;br /&gt;
+                                &lt;br /&gt;
+                                &lt;/li&gt;
+                                &lt;li&gt;
+                                &lt;strong&gt;&lt;span style="color: rgb(46,125,50);"&gt;Whale and Dolphin Watching Tour&amp;nbsp;&lt;br /&gt;&lt;/span&gt;&lt;/strong&gt; Another great option is to take boat excursion with almost guaranteed sightings of whales and dolphins. This is a day-long trip that includes lunch, island visits, fishing, and amazing views of ocean sceneries.
+                                &lt;br /&gt;
+                                &lt;br /&gt;
+                                &lt;/li&gt;
+                                &lt;li&gt;
+                                &lt;strong&gt;&lt;span style="color: rgb(96,173,94);"&gt;Teide National Park Stargazing&lt;/span&gt;&lt;/strong&gt;&lt;br /&gt;Last, but not least you can take a stargazing trip to Teide National Park, the 3rd best place in the world to view stars and described by NASA as a window to the universe.
+                                &lt;br /&gt;
+                                &lt;/li&gt;
+                                &lt;/ul&gt;
+                                &lt;br /&gt;
+                                &lt;p&gt;
+                                &lt;span style="font-family:Verdana, Geneva, sans-serif;font-size:medium;"&gt;&lt;strong&gt;Climate&lt;/strong&gt;&lt;/span&gt;
+                                &lt;/p&gt;
+          
+                                &lt;table style="width:100%;height:225px;text-align:center;"&gt;
+                                &lt;tbody&gt;
+                                &lt;tr style="height:20%;background-color: rgb(96,173,94);"&gt;
+                                &lt;td style="width:473px;text-align:center; font-size:medium; color: rgb(255,255,255);" colspan="14"&gt;&lt;strong&gt;Climate Data for &lt;a href="https://en.wikipedia.org/wiki/Santa_Cruz_de_Tenerife" target="_blank"&gt;Santa Cruz de Tenerife&lt;/a&gt;&lt;/strong&gt; 
+                                &lt;/td&gt;
+                                &lt;/tr&gt;
+                                &lt;tr style="height:9.33333%;"&gt;
+                                &lt;td style="width:230px;"&gt;
+                                &lt;span style="font-size:small; color: rgb(46,125,50);"&gt;
+                                &lt;strong&gt;Month&lt;/strong&gt;
+                                &lt;/span&gt;
+                                &lt;/td&gt;
+                                &lt;td&gt;&lt;strong&gt;&lt;span style="color: rgb(0,80,5);"&gt;Jan&lt;/span&gt;&lt;/strong&gt;&lt;/td&gt;
+                                &lt;td&gt;&lt;strong&gt;&lt;span style="color: rgb(0,80,5);"&gt;Feb&lt;/span&gt;&lt;/strong&gt;&lt;/td&gt;
+                                &lt;td&gt;&lt;strong&gt;&lt;span style="color: rgb(0,80,5);"&gt;Mar&lt;/span&gt;&lt;/strong&gt;&lt;/td&gt;
+                                &lt;td&gt;&lt;strong&gt;&lt;span style="color: rgb(0,80,5);"&gt;Apr&lt;/span&gt;&lt;/strong&gt;&lt;/td&gt;
+                                &lt;td&gt;&lt;strong&gt;&lt;span style="color: rgb(0,80,5);"&gt;May&lt;/span&gt;&lt;/strong&gt;&lt;/td&gt;
+                                &lt;td&gt;&lt;strong&gt;&lt;span style="color: rgb(0,80,5);"&gt;Jun&lt;/span&gt;&lt;/strong&gt;&lt;/td&gt;
+                                &lt;td&gt;&lt;strong&gt;&lt;span style="color: rgb(0,80,5);"&gt;Jul&lt;/span&gt;&lt;/strong&gt;&lt;/td&gt;
+                                &lt;td&gt;&lt;strong&gt;&lt;span style="color: rgb(0,80,5);"&gt;Aug&lt;/span&gt;&lt;/strong&gt;&lt;/td&gt;
+                                &lt;td&gt;&lt;strong&gt;&lt;span style="color: rgb(0,80,5);"&gt;Sep&lt;/span&gt;&lt;/strong&gt;&lt;/td&gt;
+                                &lt;td&gt;&lt;strong&gt;&lt;span style="color: rgb(0,80,5);"&gt;Oct&lt;/span&gt;&lt;/strong&gt;&lt;/td&gt;
+                                &lt;td&gt;&lt;strong&gt;&lt;span style="color: rgb(0,80,5);"&gt;Nov&lt;/span&gt;&lt;/strong&gt;&lt;/td&gt;
+                                &lt;td&gt;&lt;strong&gt;&lt;span style="color: rgb(0,80,5);"&gt;Dec&lt;/span&gt;&lt;/strong&gt;&lt;/td&gt;
+                                &lt;td&gt;&lt;strong&gt;&lt;span style="color: rgb(0,80,5);"&gt;Year&lt;/span&gt;&lt;/strong&gt;&lt;/td&gt;
+                                &lt;/tr&gt;
+                                &lt;tr style="height:23%;"&gt;
+                                &lt;td style="width:230px; color: rgb(46,125,50);"&gt;&lt;strong&gtDaily mean &amp;deg;C (&amp;deg;F)&lt;/strong&gt&lt;/td&gt;
+                                &lt;td style=""&gt;18.2&lt;br /&gt;(64.8)&lt;br /&gt;&lt;/td&gt;
+                                &lt;td style=""&gt;18.3&lt;br /&gt;(64.9)&lt;br /&gt;&lt;/td&gt;
+                                &lt;td style=""&gt;19.0&lt;br /&gt;(66.2)&lt;br /&gt;&lt;/td&gt;
+                                &lt;td style=""&gt;19.7&lt;br /&gt;(67.5)&lt;br /&gt;&lt;/td&gt;
+                                &lt;td style=""&gt;21.0&lt;br /&gt;(69.8)&lt;br /&gt;&lt;/td&gt;
+                                &lt;td style=""&gt;22.9&lt;br /&gt;(73.2)&lt;br /&gt;&lt;/td&gt;
+                                &lt;td style=""&gt;25.0&lt;br /&gt;(77.0)&lt;br /&gt;&lt;/td&gt;
+                                &lt;td style=""&gt;25.5&lt;br /&gt;(77.9)&lt;br /&gt;&lt;/td&gt;
+                                &lt;td style=""&gt;24.9&lt;br /&gt;(76.8)&lt;br /&gt;&lt;/td&gt;
+                                &lt;td style=""&gt;23.4&lt;br /&gt;(74.1)&lt;br /&gt;&lt;/td&gt;
+                                &lt;td style=""&gt;21.3&lt;br /&gt;(70.3)&lt;br /&gt;&lt;/td&gt;
+                                &lt;td style=""&gt;19.4&lt;br /&gt;(66.9)&lt;br /&gt;&lt;/td&gt;
+                                &lt;td style=""&gt;21.5&lt;br /&gt;(70.7)&lt;br /&gt;&lt;/td&gt;
+                                &lt;/tr&gt;
+                                &lt;tr style="height:23%;"&gt;
+                                &lt;td style="width:230px; color: rgb(46,125,50);"&gt;&lt;strong&gtAverage rainy days (&amp;ge; 1.0 mm)&lt;/strong&gt&lt;/td&gt;
+                                &lt;td style=""&gt;8.0&lt;/td&gt;
+                                &lt;td style=""&gt;7.2&lt;/td&gt;
+                                &lt;td style=""&gt;6.9&lt;/td&gt;
+                                &lt;td style=""&gt;5.5 &lt;/td&gt;
+                                &lt;td style=""&gt;2.9&lt;/td&gt;
+                                &lt;td style=""&gt;0.9&lt;/td&gt;
+                                &lt;td style=""&gt;0.2&lt;/td&gt;
+                                &lt;td style=""&gt;0.8 &lt;/td&gt;
+                                &lt;td style=""&gt;2.7&lt;/td&gt;
+                                &lt;td style=""&gt;6.1&lt;/td&gt;
+                                &lt;td style=""&gt;8.8&lt;/td&gt;
+                                &lt;td style=""&gt;9.4&lt;/td&gt;
+                                &lt;td style=""&gt;59.4&lt;/td&gt;
+                                &lt;/tr&gt;
+                                &lt;tr style="height:23%;"&gt;
+                                &lt;td style="width:230px; color: rgb(46,125,50);"&gt;&lt;strong&gtMean monthly &lt;a href="https://en.wikipedia.org/wiki/Sunshine_duration" target="_blank"&gt;sunshine hours&lt;/strong&gt&lt;/a&gt;&lt;br /&gt;&lt;/td&gt;
+                                &lt;td style=""&gt;178&lt;/td&gt;
+                                &lt;td style=""&gt;186&lt;/td&gt;
+                                &lt;td style=""&gt;221&lt;/td&gt;
+                                &lt;td style=""&gt;237&lt;/td&gt;
+                                &lt;td style=""&gt;282&lt;/td&gt;
+                                &lt;td style=""&gt;306&lt;/td&gt;
+                                &lt;td style=""&gt;337&lt;/td&gt;
+                                &lt;td style=""&gt;319&lt;/td&gt;
+                                &lt;td style=""&gt;253&lt;/td&gt;
+                                &lt;td style=""&gt;222&lt;/td&gt;
+                                &lt;td style=""&gt;178&lt;/td&gt;
+                                &lt;td style=""&gt;168&lt;/td&gt;
+                                &lt;td style=""&gt;2,887&lt;/td&gt;
+                                &lt;/tr&gt;
+                                &lt;/tbody&gt;
+                                &lt;/table&gt;
+                                &lt;p&gt;
+                                &lt;em&gt;* The data used in this demo is taken from &lt;a href="https://wikipedia.com" target="_blank"&gt;wikipedia.com&lt;/a&gt;.&lt;/em&gt;&lt;br /&gt;
+                                &lt;em&gt;** The displayed photos are sourced from &lt;a href="https://pixabay.com" target="_blank"&gt;pixabay.com&lt;/a&gt;&lt;/em&gt;
+                                &lt;/p&gt;
+
+                            </textarea>
+                                                        </div>
+
+                                                        <div class="bg-light px-card py-3">
+                                                            <div class="d-inline-flex flex-column" id="contentItemsFiles">
+                                                                @*<div class="border px-2 rounded-3 d-flex flex-between-center bg-white dark__bg-1000 my-1 fs--1"><span class="fs-1 far fa-image"></span><span class="ms-2">winter.jpg (873kb)</span><a class="text-300 p-1 ms-6" href="#!" data-bs-toggle="tooltip" data-bs-placement="right" title="Detach"><span class="fas fa-times"></span></a></div>*@
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="card-footer border-top border-200 d-flex flex-between-center">
+                                                        <div class="d-flex align-items-center">
+                                                            <button class="btn btn-primary btn-sm px-5 me-2" onclick="javascript:enviarcorreo();">Enviar correo</button>
+                                                            <input class="d-none" id="email-attachment" type="file" />
+                                                            <label class="me-2 d-none btn btn-light btn-sm mb-0 cursor-pointer" for="email-attachment" data-bs-toggle="tooltip" data-bs-placement="top" title="Attach files"><span class="fas fa-paperclip fs-1" data-fa-transform="down-2"></span></label>
+                                                            <input class="d-none" id="email-image" onchange="addFile(this)" type="file" accept="image/*" />
+                                                            <label class="btn btn-light btn-sm mb-0 cursor-pointer" for="email-image" data-bs-toggle="tooltip" data-bs-placement="top" title="Attach images"><span class="fas fa-paperclip fs-1" data-fa-transform="down-2"></span></label>
+                                                        </div>
+                                                        <div class="d-flex align-items-center">
+                                                            <div class="dropdown font-sans-serif me-2 btn-reveal-trigger">
+                                                                <button class="btn btn-link text-600 btn-sm dropdown-toggle btn-reveal dropdown-caret-none" id="email-options" type="button" data-bs-toggle="dropdown" data-boundary="viewport" aria-haspopup="true" aria-expanded="false"><span class="fas fa-ellipsis-v" data-fa-transform="down-2"></span></button>
+                                                                <div class="dropdown-menu dropdown-menu-end border py-2" aria-labelledby="email-options">
+                                                                    <a class="dropdown-item" href="#!">Print</a><a class="dropdown-item" href="#!">Check spelling</a><a class="dropdown-item" href="#!">Plain text mode</a>
+                                                                    <div class="dropdown-divider"></div><a class="dropdown-item" href="#!">Archive</a>
+                                                                </div>
+                                                            </div>
+                                                            <button class="btn btn-light btn-sm" type="button" data-bs-toggle="tooltip" data-bs-placement="top" title="Delete"> <span class="fas fa-trash"></span></button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                            @*div configuracion*@
+                                            <div id="Dconfiguration" style="display:none">
+                                                <div class="card">
+                                                    <div class="card-body">
+                                                        <form class="p-2">
+                                                            <div class="d-md-flex">
+                                                                <div class="form-group col-md-6">
+                                                                    <label for="exampleInputEmail1">Host</label>
+                                                                    <input type="text" class="form-control" id="host" placeholder="">
+                                                                </div>
+                                                                <div class="form-group col-md-6">
+                                                                    <label for="exampleInputPassword1">Puerto</label>
+                                                                    <input type="text" class="form-control" id="port" placeholder="">
+                                                                </div>
+                                                            </div>
+                                                            <div class="d-md-flex">
+                                                                <div class="form-group col-md-6">
+                                                                    <label for="exampleInputEmail1">Usuario</label>
+                                                                    <input type="text" class="form-control" id="user_host" placeholder="">
+                                                                </div>
+                                                                <div class="form-group col-md-6">
+                                                                    <label for="exampleInputPassword1">Contraseña</label>
+                                                                    <input type="text" class="form-control" id="pass_host" placeholder="">
+                                                                </div>
+                                                            </div>
+                                                            <div class="p-3">
+                                                                <button type="button" onclick="sendConfigHost()" class="btn btn-primary">Guardar</button>
+                                                            </div>
+                                                        </form>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                @*tab correos end*@
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tab-pane fade" id="divNotificationsApp">
+                        <div class="row">
+                            <div class="col-lg-12">
+                                @* notifications app start*@
+                                <div class="container-fluid page__container">
+                                    <div class="row">
+                                        <div class="col-lg-3">
+                                            <div class="d-flex flex-column align-items-stretch flex-shrink-0 bg-white">
+                                                <div class="list-group list-group-flush border-bottom scrollarea">
+                                                    <a id="dregistrodenotificacionhref" onclick="evemt_changeApp(this,1);" class="list-group-item list-group-item-action active py-3 lh-tight item_menu_sd" aria-current="true">
+                                                        <div class="d-flex w-100 align-items-center justify-content-between">
+                                                            <strong class="mb-1">Registro</strong>
+                                                            <small></small>
+                                                        </div>
+                                                    </a>
+                                                </div>
+                                                <div class="list-group list-group-flush border-bottom scrollarea">
+                                                    <a id="dlistadodenotificacionhref" onclick="evemt_changeApp(this,2);" class="list-group-item list-group-item-action  py-3 lh-tight item_menu_sd" aria-current="true">
+                                                        <div class="d-flex w-100 align-items-center justify-content-between">
+                                                            <strong class="mb-1">Configuraciones</strong>
+                                                            <small></small>
+                                                        </div>
+                                                    </a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-9">
+                                            <div id="dregistrodenotificacion" style="">
+                                                sdfsdf
+                                            </div>
+
+                                            <div id="dlistadodenotificacion" style="display:none">
+                                                @*configuraciones*@
+
+                                                <div id="" class="card mr-10" style="padding: 15px;">
+                                                    <div class="row">
+                                                        <div class="col-lg-6">
+                                                            <h4 class="mb-3 text-center">Registro de notificacion</h4>
+                                                            <hr class="my-4">
+                                                            <div class="row">
+                                                                <div class="col-lg-12">
+                                                                    <input id="TxtCodigoNotificacionesApp" type="hidden" />
+
+                                                                    <div class="row mb-3">
+                                                                        <div class="col-lg-12">
+                                                                            <label for="" class="form-label">Tipo envio</label>
+                                                                            <div class="row mt-1">
+                                                                                <div class="col">
+                                                                                    <input type="radio" name="tipoenvioNoti" value="1" id="option1" checked> App
+                                                                                </div>
+                                                                                <div class="col">
+                                                                                    <input type="radio" name="tipoenvioNoti" value="2" id="option2"> Correo
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+
+
+                                                                    <div class="row mb-3">
+                                                                        <div class="col-lg-12">
+                                                                            <label for="" class="form-label">Grupo de clientes</label>
+                                                                            <div class="row mt-1">
+                                                                                <div class="col">
+                                                                                    <input type="radio" name="grupo_customer_notiapp" value="1" id="" checked> Clientes activos
+                                                                                </div>
+                                                                                <div class="col">
+                                                                                    <input type="radio" name="grupo_customer_notiapp" value="2" id=""> Clientes inactivos
+                                                                                </div>
+
+                                                                                <div class="col">
+                                                                                    <input type="radio" name="grupo_customer_notiapp" value="3" id=""> Clientes por vencer
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+
+
+                                                                    <div class="row mb-3">
+                                                                        <div class="col-lg-12">
+                                                                            <label for="txtAsuntoNoti" class="form-label">Asunto</label>
+                                                                            <input id="txtAsuntoNoti" type="text" class="form-control" placeholder="Ingrese asunto">
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="row mb-3">
+                                                                        <div class="col-lg-12">
+                                                                            <label for="" class="form-label">Fecha y Hora</label>
+                                                                            <div class="row">
+                                                                                <div class="col-6"><input id="txtDateNoti" type="date" class="form-control" placeholder="Ingrese descripción"></div>
+                                                                                <div class="col-6"><input id="txtHourNoti" type="time" class="form-control" placeholder="Ingrese descripción"></div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="row mb-3">
+                                                                        <div class="col-lg-12">
+                                                                            <label for="txtMensajeNoti" class="form-label">Mensaje</label>
+                                                                            <textarea id="txtMensajeNoti" type="text" class="form-control" placeholder="Ingrese mensaje"></textarea>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="row mb-3">
+                                                                        <div class="col-lg-12">
+                                                                            <label for="txtRecurrenteNoti" class="form-label">Recurrente</label>
+                                                                            <div class="row">
+                                                                                <div class="col">
+                                                                                    <input id="txtRecurrenteNoti" type="checkbox">
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="row mb-3" id="rowEstadoNoti" style="display:none">
+                                                                        <div class="col-lg-12">
+                                                                            <label for="txtEstadoNoti" class="form-label">Estado</label>
+                                                                            <div class="row">
+                                                                                <div class="col">
+                                                                                    <input id="txtEstadoNoti" type="checkbox">
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+
+                                                                    <br>
+                                                                    <button onclick="RegisterNotificacionApp(this)" id="registerNotiBtn" class="w-100 btn btn-primary btn-lg" type="button">Guardar</button>
+                                                                    <button onclick="ActualizarNotificacionApp(this)" id="updateNotiBtn" style="display:none" class="w-100 btn btn-primary btn-lg" type="button">Guardar</button>
+                                                                    <button onclick="CancelarNotificacionApp()" id="cancelNotiBtn" style="display:none;background:#5b636a" class="w-100 btn btn-default mt-1 btn-lg text-white" type="button">Cancelar</button>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-lg-6">
+                                                            <h4 class="mb-3 text-center">Listado</h4>
+                                                            <hr class="my-4">
+
+                                                            <div class="row">
+                                                                <div class="col-lg-12">
+                                                                    <div class="table-responsive scrollbar" style="width:100%;user-select:none;height:400px">
+                                                                        <table class="table table-dashboard mb-0 table-borderless fs--1 border-200">
+                                                                            <thead class="bg-light">
+                                                                                <tr class="text-900">
+                                                                                    <th class="pe-1 align-middle white-space-nowrap" style="background-color: #0075ff;color: #FFF;">#</th>
+                                                                                    <th class="pe-1 align-middle white-space-nowrap" style="background-color: #0075ff;color: #FFF;">ASUNTO</th>
+                                                                                    <th class="pe-1 align-middle white-space-nowrap" style="background-color: #0075ff;color: #FFF;">FECHA Y HORA</th>
+                                                                                    <th class="pe-1 align-middle white-space-nowrap" style="background-color: #0075ff;color: #FFF;">ACCIONES</th>
+                                                                                </tr>
+                                                                            </thead>
+                                                                            <tbody id="notitbodyList">
+                                                                            </tbody>
+                                                                        </table>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                @*configuraciones end*@
+
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                @* notifications app end *@
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="tab-pane fade" id="divWhatsapp">
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="row p-1">
+
+                                    <div><span style="font-weight: 500; color: #5c5a5a;font-size:14px">Seleccione un número para ver las opciones asociadas</span></div>
+                                    <div class="col-12  px-3 mt-2">
+                                        <div class="d_account_content_ " id="d_account_content_">
+                                        </div>
+                                    </div>
+
+                                </div>
+
+                                <div class="row mt-3" id="content_menus_by_acountphone" style="display:none">
+                                    <div class="col-lg-2">
+                                        <div class="d-flex flex-column align-items-stretch flex-shrink-0 bg-white">
+                                            <div id="contentOptionsWDevices" style="display:none;background:white;border:2px solid #eee;padding:2px">
+
+                                                <div class="list-group list-group-flush border-bottom scrollarea">
+                                                    <a id="li_campanawts" onclick="evemt_changeWhat(this,1);" class="list-group-item list-group-item-action tab_item_custom  py-2 lh-tight item_menu_sd" aria-current="true">
+                                                        <div class="d-flex w-100 align-items-center justify-content-between">
+                                                            <strong class="mb-1"><i class="fa-solid fa-calendar-week"></i> Campañas whatsapp</strong>
+                                                            <small></small>
+                                                        </div>
+                                                    </a>
+                                                </div>
+                                                <div class="list-group list-group-flush border-bottom scrollarea">
+                                                    <a id="" onclick="evemt_changeWhat(this,3);" class="list-group-item list-group-item-action tab_item_custom  py-2 lh-tight item_menu_sd" aria-current="true">
+                                                        <div class="d-flex w-100 align-items-center justify-content-between">
+                                                            <strong class="mb-1"><i class="fa-regular fa-file"></i> Plantillas</strong>
+                                                            <small></small>
+                                                        </div>
+                                                    </a>
+                                                </div>
+                                                <div class="list-group list-group-flush border-bottom scrollarea">
+                                                    <a id="" onclick="evemt_changeWhat(this,4);" class="list-group-item list-group-item-action tab_item_custom active py-2 lh-tight item_menu_sd" aria-current="true">
+                                                        <div class="d-flex w-100 align-items-center justify-content-between">
+                                                            <strong class="mb-1"><i class="fa-regular fa-message"></i>  Mensaje único</strong>
+                                                            <small></small>
+                                                        </div>
+                                                    </a>
+                                                </div>
+
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-10">
+                                        <div class="card p-3" id="contentCampanaW" style="display:none">
+                                            <div class="card-body">
+                                                <div class="row">
+                                                    <div class="col-12">
+                                                        <span class="sub-tile-contents">Seleccione o agregue campañas</span>
+                                                    </div>
+                                                </div>
+                                                <div class="row justify-content-end">
+
+                                                    <div class="col-6 text-end">
+                                                        <button data-toggle="modal" id="BtnModalAddCampanaWs" data-target="#modalCampanaWh" class="btn-custom btn-custom-primary " style="color:none" onclick="ModalBackdropRemove()">
+                                                            <i class="fa fa-plus" aria-hidden="true"></i> Crear campaña
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                                <div class="row mt-3 align-items-center">
+                                                    <div class="col-md-5">
+                                                        <label>Fecha desde</label>
+                                                        <div>
+                                                            <input type="date" id="filter_date_start_camp" class="form-control" value="@ViewBag.firtsDay" />
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-5">
+                                                        <label>Fecha hasta</label>
+                                                        <div>
+                                                            <input type="date" id="filter_date_end_camp" class="form-control" value="
+                                        @ViewBag.lastDay" />
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-2 text-end">
+                                                        <label></label>
+                                                        <div>
+                                                            <button class="btn-custom btn-custom-secondary" style="color:none" onclick="getCampaigns()">
+                                                                <i class="fa fa-search" aria-hidden="true"></i> Filtrar
+                                                            </button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div id="kgrid_whatsapp_campanas_body" class="kgrid_whatsapp_campanas_body mt-3"></div>
+                                            </div>
+
+                                        </div>
+
+                                        <div class="" id="contentTemplatesW" style="display:none">
+
+                                            <div class="card p-3">
+                                                <div class="card-body">
+                                                    <div class="row">
+                                                        <div class="col-12">
+                                                            <span class="sub-tile-contents">Seleccione o agregue plantilla</span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row justify-content-end">
+
+                                                        <div class="col-6 text-end">
+                                                            <button class="btn-custom btn-custom-refresh mr-1" style="color:none" onclick="getTemplates()">
+                                                                <i class="fa fa-refresh" aria-hidden="true"></i> Refrescar
+                                                            </button>
+                                                            <button data-toggle="modal" id="BtnModalAddTemplateWs" data-target="#ModalAddTemplateWs" class="btn-custom btn-custom-primary" style="color:none" onclick="showModalConfigW()">
+                                                                <i class="fa fa-plus" aria-hidden="true"></i> Nueva plantilla
+                                                            </button>
+                                                        </div>
+                                                    </div>
+
+
+                                                    <div class="row mt-4 justify-content-around" id="content_list_template_prev">
+
+                                                    </div>
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="" id="contentTestIndividualW" style="display:none">
+                                            <div class="card">
+                                                <div class="card-body">
+
+                                                    <div class="row p-1">
+                                                        <div class="form-check form-check-inline">
+                                                            <input class="form-check-input" id="wh_unit_template" type="radio" checked name="wh_unit_type" value="1" />
+                                                            <label class="form-check-label" for="wh_unit_template">Template</label>
+                                                        </div>
+
+                                                        <div class="form-check form-check-inline">
+                                                            <input class="form-check-input" id="wh_unit_direct" type="radio" name="wh_unit_type" value="2" />
+                                                            <label class="form-check-label" for="wh_unit_direct">Directo</label>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row  p-1 mt-3">
+                                                        <div class="form-group col-md-6">
+                                                            <label for="wh_unit_phone">Número de teléfono del destinatario</label>
+                                                            <input type="text" class="form-control" id="wh_unit_phone" value="51941840858" placeholder="">
+                                                        </div>
+
+                                                    </div>
+                                                    <div class="row  p-1">
+                                                        <div class="form-group col-md-6">
+                                                            <label for="wh_unit_message">Mensaje</label>
+                                                            <textarea type="text" class="form-control" id="wh_unit_message" placeholder=""></textarea>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row p-1">
+                                                        <div>
+                                                            <button type="button" onclick="sendUnitWhatsapp(this)" class="btn-custom btn-custom-primary"><i class="fa fa-paper-plane" aria-hidden="true"></i> Enviar</button>
+                                                        </div>
+                                                    </div>
+
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+
+
+                            </div>
+
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="modal fade" id="loadMe" tabindex="-1" role="dialog" aria-labelledby="loadMeLabel">
+        <br /><br /><br /><br />
+        <div class="modal-dialog modal-sm" role="document">
+            <div class="modal-content">
+                <div class="modal-body text-center">
+                    <img src="~/Content/appsfit_img/logoappsfitweb.png" style="width:255px;height:125px;" />
+                    <div class="row justify-content-center">
+                        <div class="loader"></div>
+                        <div clas="loader-txt">
+                            <p class="mt-4">Cargando... <br><br><small>Espere por favor, este proceso puede tardar unos minutos</small></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    @section Scripts {
+
+        @System.Web.Optimization.Scripts.Render("~/Scripts/jquery.min.js")
+        @System.Web.Optimization.Scripts.Render("~/Scripts/plugins/jsKendo/angular.min.js")
+        @System.Web.Optimization.Scripts.Render("~/Scripts/plugins/jsKendo/kendo.all.min.js")
+
+        @System.Web.Optimization.Scripts.Render("~/Scripts/plugins/jquery-ui/jquery-ui.js")
+        @System.Web.Optimization.Scripts.Render("~/Scripts/plugins/jquery-ui/jquery-ui.min.js")
+
+        @System.Web.Optimization.Scripts.Render("~/Resource/UserControl.Helper.js")
+
+        @System.Web.Optimization.Scripts.Render("~/Scripts/jsChart/Chart.bundle.min.js")
+        @System.Web.Optimization.Scripts.Render("~/Scripts/jsChart/Chart.min.js")
+
+        @System.Web.Optimization.Scripts.Render("~/Scripts/bootstrap-notify-master/bootstrap-notify.js")
+        @System.Web.Optimization.Scripts.Render("~/Scripts/bootstrap-notify-master/bootstrap-notify.min.js")
+        @System.Web.Optimization.Scripts.Render("~/Scripts/jsBootstrap/jquery.bootstrap-growl.js")
+
+
+        <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.16.2/xlsx.full.min.js"></script>
+
+        <script src="https://cdn.jsdelivr.net/npm/picmo@latest/dist/umd/index.js"></script>
+
+
+        @System.Web.Optimization.Scripts.Render("~/Resource/whatsapp/ConfigWhatsapp.js")
+        @System.Web.Optimization.Scripts.Render("~/Resource/whatsapp/vanillaEmojiPicker.js")
+        @System.Web.Optimization.Scripts.Render("~/Resource/whatsapp/templates.js")
+        @System.Web.Optimization.Scripts.Render("~/Resource/whatsapp/Campana.js")
+
+        <script type="text/javascript">
+            /*menu*/
+            function evemt_changeMenu(e, num) {
+                switch (num) {
+                    case 1:
+                        var d = document.getElementById("Configuracion_EnvioCorreos");
+                        d.style.display = 'block';
+
+                        document.querySelectorAll(".item_menu_sd").forEach((item, index) => {
+                            item.classList.remove("active")
+                        })
+                        e.classList.add("active");
+                        document.getElementById("Dconfiguration").style.display = 'none';
+                        break;
+                    case 2:
+                        var d = document.getElementById("Dconfiguration");
+                        d.style.display = 'block';
+                        document.querySelectorAll(".item_menu_sd").forEach((item, index) => {
+                            item.classList.remove("active")
+                        })
+                        e.classList.add("active");
+                        document.getElementById("Configuracion_EnvioCorreos").style.display = 'none'
+                        break;
+                    default:
+                        break;
+                }
+
+
+            }
+
+            function sendConfigHost() {
+
+                var host = document.getElementById("host").value;
+                var port = document.getElementById("port").value;
+                var user = document.getElementById("user_host").value;
+                var pass = document.getElementById("pass_host").value;
+
+
+                var errors = [];
+                //if (host.trim().length < 1 || host == '') {
+                //    errors.push("host requerido")
+                //}
+                //if (port.trim().length < 1 || port == '') {
+                //    errors.push("puerto requerido")
+                //}
+                //if (user.trim().length < 1 || user == '') {
+                //    errors.push("usuario requerido")
+                //}
+                //if (pass.trim().length < 1 || pass == '') {
+                //    errors.push("contraseña  requerido")
+                //}
+
+                if (errors.length == 0) {
+                    let data = {
+                        host: host,
+                        port: port,
+                        user: user,
+                        pass: pass
+                    }
+                    $.ajax({
+                        data: JSON.stringify(data),
+                        type: "POST",
+                        url: "/gestionce/actualizarConfigHostEmail",
+                        contentType: "application/json; charset=utf-8",
+                        dataType: "json",
+
+                        success: function (msg) {
+                            console.log(msg)
+
+                        }
+                    });
+                } else {
+                    html = ''
+                    errors.forEach((item, index) => {
+                        html += item + '\n'
+                    })
+                    alert(html)
+                }
+            }
+
+            $(document).ready(function (e) {
+                SEGListarPerfilMenu();
+
+
+                //get config
+
+                function getConfig() {
+                    $.ajax({
+                        type: "POST",
+                        url: "/operacionesfit/BuscarConfiguracion",
+                        contentType: "application/json; charset=utf-8",
+                        dataType: "json",
+                        success: function (msg) {
+                            console.log(msg)
+                            document.getElementById("host").value = msg.EmailHost;
+                            document.getElementById("port").value = msg.EmailPort;
+                            document.getElementById("user_host").value = msg.EmailUser;
+                            document.getElementById("pass_host").value = msg.EmailKey;
+                        }
+                    });
+                }
+                getConfig()
+
+                $('#txtFechaInicioFiltro').kendoDatePicker({
+                    value: new Date(2012, 0, 1),
+                    change: function () {
+                        var fechaInicioFiltro = $("#txtFechaInicioFiltro").data('kendoDatePicker').value();
+                        var mmfechaInicioFiltro = fechaInicioFiltro.getMonth() + 1;
+                        var yyyyfechaInicioFiltro = fechaInicioFiltro.getFullYear();
+
+                        var hoy = new Date();
+                        var mm = hoy.getMonth() + 1;
+                        var yyyy = hoy.getFullYear();
+
+                        var TipoCliente = "";
+                        $('input[name="orderBox[]"]:checked').each(function () {
+                            TipoCliente += $(this).val();
+                        });
+
+                        if (TipoCliente == 4) {
+                            if (mmfechaInicioFiltro < mm && yyyyfechaInicioFiltro <= yyyy) {
+                                var Primerdia = new Date(todayDate.getFullYear(), todayDate.getMonth(), 1);
+                                $('#txtFechaInicioFiltro').data("kendoDatePicker").value(Primerdia);
+                                $.bootstrapGrowl("Renovaciones: la fecha inicio del buscador no puede ser menor a la primera fecha de este mes.", { type: 'danger', width: 'auto' });
+                            }
+                        } else if (TipoCliente == 3) {
+                            //var FechaMesAntes = hoy.getMonth();
+                            //if (mmfechaInicioFiltro > FechaMesAntes || yyyyfechaInicioFiltro > yyyy) {
+                            //    var PrimerdiaAntes = new Date(todayDate.getFullYear(), todayDate.getMonth() - 1, 1);
+                            //    $('#txtFechaInicioFiltro').data("kendoDatePicker").value(PrimerdiaAntes);
+                            //    $.bootstrapGrowl("La fecha no puede ser mayor e igual al mes actual.", { type: 'primary', width: 'auto' });
+                            //}
+                        }
+                    }
+                });
+
+                $('#txtFechaFinFiltro').kendoDatePicker({
+                    value: new Date(2099, 0, 1),
+                    change: function () {
+                        var fechaFiltro = $("#txtFechaFinFiltro").data('kendoDatePicker').value();
+                        var mmfechaFiltro = fechaFiltro.getMonth() + 1;
+                        var yyyyfechaFiltro = fechaFiltro.getFullYear();
+
+                        var hoy = new Date();
+                        var mm = hoy.getMonth() + 1;
+                        var yyyy = hoy.getFullYear();
+
+                        var TipoCliente = "";
+                        $('input[name="orderBox[]"]:checked').each(function () {
+                            TipoCliente += $(this).val();
+                        });
+
+                        if (TipoCliente == 4) {
+                            //alert("HOLA!");
+                            //if (mmfechaFiltro > mm || yyyyfechaFiltro > yyyy) {
+                            //    var ultimoDia = new Date(todayDate.getFullYear(), todayDate.getMonth() + 1, 0);
+                            //    $('#txtFechaFinFiltro').data("kendoDatePicker").value(ultimoDia);
+                            //    $.bootstrapGrowl("La fecha no puede ser mayor al mes actual.", { type: 'primary', width: 'auto' });
+                            //}
+                        } else if (TipoCliente == 3) {
+
+                            var FechaMesAntes = hoy.getMonth();
+                            if (mmfechaFiltro > FechaMesAntes && yyyyfechaFiltro >= yyyy) {
+                                var ultimoDiaMesAnterior = new Date(todayDate.getFullYear(), (todayDate.getMonth() - 1) + 1, 0);
+                                $('#txtFechaFinFiltro').data("kendoDatePicker").value(ultimoDiaMesAnterior);
+                                $.bootstrapGrowl("Inactivos: La fecha fin de busqueda no puede ser mayor e igual al mes actual.", { type: 'primary', width: 'auto' });
+                            }
+                        }
+
+                    }
+                });
+
+
+
+                var editor = $("#email_mensajecorreo").kendoEditor({
+                    stylesheets: [
+                        "../content/shared/styles/editor.css",
+                    ], imageBrowser: {
+                        messages: {
+                            dropFilesHere: "Drop files here"
+                        },
+                        transport: {
+                            read: "~/Content/appsfit_img/",
+                            destroy: {
+                                url: "/kendo-ui/service/ImageBrowser/Destroy",
+                                type: "POST"
+                            },
+                            create: {
+                                url: "/kendo-ui/service/ImageBrowser/Create",
+                                type: "POST"
+                            },
+                            thumbnailUrl: "/kendo-ui/service/ImageBrowser/Thumbnail",
+                            uploadUrl: "/kendo-ui/service/ImageBrowser/Upload",
+                            imageUrl: "/kendo-ui/service/ImageBrowser/Image?path={0}"
+                        }
+                    },
+                    tools: [
+                        "bold",
+                        "italic",
+                        "underline",
+                        "undo",
+                        "redo",
+                        "strikethrough",
+                        "justifyLeft",
+                        "justifyCenter",
+                        "justifyRight",
+                        "justifyFull",
+                        "insertUnorderedList",
+                        "insertOrderedList",
+                        "insertUpperRomanList",
+                        "insertLowerRomanList",
+                        "indent",
+                        "outdent",
+                        "createLink",
+                        "unlink",
+                        "insertImage",
+                        "insertFile",
+                        "subscript",
+                        "superscript",
+                        "tableWizard",
+                        "createTable",
+                        "addRowAbove",
+                        "addRowBelow",
+                        "addColumnLeft",
+                        "addColumnRight",
+                        "deleteRow",
+                        "deleteColumn",
+                        "mergeCellsHorizontally",
+                        "mergeCellsVertically",
+                        "splitCellHorizontally",
+                        "splitCellVertically",
+                        "tableAlignLeft",
+                        "tableAlignCenter",
+                        "tableAlignRight",
+                        "viewHtml",
+                        "cleanFormatting",
+                        "copyFormat",
+                        "applyFormat",
+                        "fontName",
+                        "fontSize",
+                        "foreColor",
+                        "backColor",
+                        "print",
+                        "formatting"
+                    ]
+                });
+
+            });
+            var files = [];
+
+            function addFile(e) {
+                let v = e.files[0]
+                const typesFile = ["image/png", "image/jpg", "image/jpeg", "application/pdf", "application/vnd.openxmlformats-officedocument.wordprocessingml.document"];
+                let sizePer = 5242880;
+                let sizeFile = parseInt(sizePer / 1000000);
+
+                if (v != undefined) {
+                    if (
+                        v.size < sizePer &&
+                        typesFile.includes(v.type)
+                    ) {
+                        files.push(v);
+                        console.log(files)
+                        renderFiles()
+                    } else {
+                        alert(
+                            `Tamaño de archivo max ${sizeFile} mb, ${typesFile.toString()}`
+                        );
+                    }
+                }
+            }
+
+            function removeFile(index) {
+                files = files.filter((item, ind) => ind != index);
+                renderFiles()
+            }
+
+            function renderFiles() {
+                let html = '';
+                files.forEach(function (element, index) {
+                    let kb = Number.parseFloat(element?.size * 0.000977).toFixed(2);
+                    html += ` <div class="border px-2 rounded-3 d-flex flex-between-center bg-white dark__bg-1000 my-1 fs--1">
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            <span class="fs-1 fas fa-paperclip fs-1 text-white" aria-hidden="true"></span><span class="ms-2 text-white">${element?.name} (${kb}kb)</span>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            <a class="text-300 p-1 ms-6" onClick="removeFile(${index})" data-bs-toggle="tooltip" data-bs-placement="right" title="Detach">
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                <span class="fas fa-times" aria-hidden="true"></span></a>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        </div>`;
+                });
+                document.getElementById("contentItemsFiles").innerHTML = html;
+            }
+
+
+
+            function enviarcorreo() {
+
+                document.getElementById('loadMe').style.display = 'block';
+
+                var emailgroup_to_personas = "";
+                $('input[name="emailgroup_to_personas"]:checked').each(function () {
+                    emailgroup_to_personas += $(this).val();
+                });
+
+
+                var email_asunto = $("#email_asunto").val();
+                var email_mensajecorreo = $("#email_mensajecorreo").data("kendoEditor").value();
+
+                data = {
+                    emailgroup_to_personas: emailgroup_to_personas,
+                    email_asunto: email_asunto,
+                    email_mensajecorreo: email_mensajecorreo
+                }
+
+                var formData = new FormData();
+                files.forEach(function (element, index) {
+                    formData.append(`files[${index}]`, element);
+
+                });
+
+
+                var ckH = $('#genderM').is(':checked');
+                var ckM = $('#genderF').is(':checked');
+                var Sexo = '';
+                if (ckH == true && ckM == true) {
+                    Sexo = 'MF';
+                } else if (ckH == true) {
+                    Sexo = 'M';
+                } else if (ckM == true) {
+                    Sexo = 'F';
+                } else {
+                    Sexo = 'MF';
+                }
+                var FechaInicio = kendo.toString($("#txtFechaInicioFiltro").data('kendoDatePicker').value(), 'yyyy-MM-dd');
+                var FechaFin = kendo.toString($("#txtFechaFinFiltro").data('kendoDatePicker').value(), 'yyyy-MM-dd');
+                let addressee = document.getElementById("addressee").value;
+
+                formData.append("emailgroup_to_personas", emailgroup_to_personas)
+                formData.append("email_asunto", email_asunto)
+                formData.append("email_mensajecorreo", email_mensajecorreo)
+
+                formData.append("FechaInicio", FechaInicio)
+                formData.append("FechaFin", FechaFin)
+                formData.append("gender", Sexo)
+                formData.append("addressee", addressee)
+
+                $.ajax({
+                    type: "POST",
+                    //data: JSON.stringify(data),
+                    data: formData,
+                    url: "/gestionce/marketing_enviarcorreo",
+                    //contentType: "application/json; charset=utf-8",
+
+                    dataType: 'json',
+                    contentType: false,
+                    processData: false,
+
+                    success: function (msg) {
+                        console.log(msg)
+
+                        document.getElementById('loadMe').style.display = 'none';
+                        //reset data
+                        files = [];
+                        document.getElementById("email_asunto").value = ""
+                        document.getElementById("contentItemsFiles").innerHTML = ""
+                        document.querySelectorAll('[name=emailgroup_to_personas]').forEach((item, index) => {
+                            item.checked = false;
+
+                        })
+                        document.getElementById("group_to_personas100").checked = true;
+                        document.getElementById("genderM").checked = false;
+                        document.getElementById("genderF").checked = false;
+                        document.getElementById("addressee").value = ''
+                        $.bootstrapGrowl(msg.Message1, { type: 'success', width: 'auto' });
+
+                    }, complete: function () {
+
+
+                    }, error: function () {
+                        console.log("errr")
+                    }
+                });
+            }
+
+
+
+            function event_clicktipocliente(tipo) {
+                if (tipo == 1) { //ACTIVOS
+                    showDiv(true)
+                    event_confifechas_activos();
+                } if (tipo == 2) { //por vencer
+                    showDiv(true)
+                    event_confifechas_renovaciones();
+                } if (tipo == 3) { //vencidos
+                    showDiv(true)
+                    event_confifechas_inactivos();
+                } if (tipo == 100) { //prueba
+                    showDiv(false)
+
+                }
+
+            }
+
+            function event_confifechas_activos() {
+                var todayDate = new Date();
+                var Primerdia = new Date(todayDate.getFullYear(), todayDate.getMonth(), 1);
+
+                var ultimoDia = new Date(2099, 0, 1);
+                $('#txtFechaInicioFiltro').data("kendoDatePicker").value(todayDate);
+                $('#txtFechaFinFiltro').data("kendoDatePicker").value(ultimoDia);
+                $("#txtFechaInicioFiltro").data("kendoDatePicker").enable(true);
+                $("#txtFechaFinFiltro").data("kendoDatePicker").enable(true);
+            }
+            function event_confifechas_inactivos() {
+                var todayDate = new Date();
+                var PrimerdiaAntes = new Date(2016, 0, 1);
+                var ultimoDia = new Date(todayDate.getFullYear(), (todayDate.getMonth() - 1) + 1, 0);
+                $('#txtFechaInicioFiltro').data("kendoDatePicker").value(PrimerdiaAntes);
+                $('#txtFechaFinFiltro').data("kendoDatePicker").value(ultimoDia);
+                $("#txtFechaInicioFiltro").data("kendoDatePicker").enable(true);
+                $("#txtFechaFinFiltro").data("kendoDatePicker").enable(true);
+            }
+
+            function event_confifechas_renovaciones() {
+                var todayDate = new Date();
+                var Primerdia = new Date(todayDate.getFullYear(), todayDate.getMonth(), 1);
+                var ultimoDia = new Date(todayDate.getFullYear(), todayDate.getMonth() + 1, 0);
+                $('#txtFechaInicioFiltro').data("kendoDatePicker").value(Primerdia);
+                $('#txtFechaFinFiltro').data("kendoDatePicker").value(ultimoDia);
+            }
+
+            function showDiv(show) {
+                if (show) {
+                    document.getElementById("dfiltersEmail").style.display = "flex"
+                    document.getElementById("Daddressee").style.display = "none"
+                } else {
+                    document.getElementById("dfiltersEmail").style.display = "none"
+                    document.getElementById("Daddressee").style.display = "block"
+                }
+
+
+
+            }
+
+
+            //PERMISOS
+
+            function SEGListarPerfilMenu() {
+
+                var entidad = {};
+
+                document.getElementById('loadMe').style.display = 'block';
+                $('button[type="button"]').attr("disabled", true);
+                var metodoCorrecto = function (msg) {
+
+                    $('button[type="button"]').attr("disabled", false);
+                    document.getElementById('loadMe').style.display = 'none';
+
+                    for (var i = 0; i < msg.length; i++) {
+
+                        if (msg[i].Estado) {
+                            $('[data-controlmodulo="' + msg[i].CodigoMenu + '"]').show('fast');
+
+                        }
+                    }
+
+                    uspUpdateEstadoMembresias();
+
+                };
+                var metodoError = function (msg) {
+                    alert(msg);
+                };
+                var request = {
+
+                };
+                LlamarAJAX("/gestionce/SEGListarPerfilMenu", request, metodoCorrecto, metodoError);
+
+            }
+
+
+            function evemt_changeApp(e, type) {
+                if (type == 1) {
+                    document.getElementById("dregistrodenotificacion").style.display = 'block';
+                    document.getElementById("dlistadodenotificacion").style.display = 'none';
+                    document.getElementById("dlistadodenotificacionhref").classList.remove("active");
+                    document.getElementById("dregistrodenotificacionhref").classList.add("active");
+
+                } else if (type == 2) {
+                    document.getElementById("dregistrodenotificacion").style.display = 'none';
+                    document.getElementById("dlistadodenotificacion").style.display = 'block';
+                    document.getElementById("dlistadodenotificacionhref").classList.add("active");
+                    document.getElementById("dregistrodenotificacionhref").classList.remove("active");
+                } else {
+
+                }
+
+            }
+
+            //NOTIFICACIONES
+            //REGISTER
+            function registerNoti() {
+                const tipo = document.querySelector("input[name='tipoenvioNoti']:checked").value;
+                var asunto = document.getElementById("txtAsuntoNoti").value;
+                var date = document.getElementById("txtDateNoti").value;
+                var hour = document.getElementById("txtHourNoti").value;
+                var mensaje = document.getElementById("txtMensajeNoti").value;
+                var recurrente = document.getElementById("txtRecurrenteNoti").checked;
+
+
+                var data = {
+                    tipo: 1,
+                    asunto: asunto,
+                    date: `${date} ${hour}`,
+                    mensaje: mensaje,
+                    recurrente: 0,
+                };
+            }
+
+            function listNotificacionesApp() {
+
+
+                $.ajax({
+                    data: JSON.stringify({}),
+                    type: "POST",
+                    url: "/gestionce/ListarNotificacionesApp",
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "json",
+
+                    success: function (msg) {
+                        console.log(msg)
+
+                        var html = "";
+
+                        msg?.forEach((item, index) => {
+                            html += `
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                <tr class="border-bottom border-200">
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    <td class="align-middle white-space-nowrap">`+ (index + 1) + `</td>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    <td class="align-middle white-space-nowrap">`+ item.Asunto + `</td>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    <td class="align-middle white-space-nowrap">`+ item.DesFechaHoraEnvio + `</td>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    <td class="align-middle white-space-nowrap">
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        <button class="btn btn-primary"
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            onclick="NotificacionAppByCodigo('`+ item.CodigoNotificacionesApp + `')"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></button>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        <button class="btn btn-danger" onclick="destroyNotificacionApp('`+ item.CodigoNotificacionesApp + `')"><i class="fa fa-trash text-white" aria-hidden="true"></i></button>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    </td></tr>`
+                        })
+                        document.getElementById("notitbodyList").innerHTML = html;
+
+
+
+
+                    }
+                });
+            }
+
+            function RegisterNotificacionApp(e) {
+
+                var grupo = document.querySelector('input[name="grupo_customer_notiapp"]:checked').value;
+                var tipo = document.querySelector('input[name="tipoenvioNoti"]:checked').value;
+                var asunto = document.getElementById("txtAsuntoNoti").value;
+                var date = document.getElementById("txtDateNoti").value;
+                var hora = document.getElementById("txtHourNoti").value;
+                var message = document.getElementById("txtMensajeNoti").value;
+                var recurrente = document.getElementById("txtRecurrenteNoti").checked;
+
+                var data = {
+                    tipo: tipo,
+                    asunto: asunto,
+                    date: date + " " + hora,
+                    message: message,
+                    recurrente: recurrente,
+                    grupo: grupo,
+                }
+                e.disabled = true;
+
+
+                $.ajax({
+                    data: JSON.stringify(data),
+                    type: "POST",
+                    url: "/gestionce/RegisterNotificacionApp",
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "json",
+
+                    success: function (msg) {
+                        if (msg.Status == 0) {
+                            $.bootstrapGrowl(msg?.Message1, { type: 'success', width: 'auto' });
+
+                            //document.querySelector('input[name="grupo_customer_notiapp"]:checked').value;
+                            // document.querySelector('input[name="tipoenvioNoti"]:checked').value;
+                            document.getElementById("txtAsuntoNoti").value = "";
+                            document.getElementById("txtDateNoti").value = "";
+                            document.getElementById("txtHourNoti").value = "";
+                            document.getElementById("txtMensajeNoti").value = "";
+                            document.getElementById("txtRecurrenteNoti").checked = false;
+
+                        } else {
+                            $.bootstrapGrowl(msg?.Message1, { type: 'danger', width: 'auto' });
+                        }
+                        e.disabled = false;
+                        listNotificacionesApp();
+                    }
+                });
+            }
+
+
+            function NotificacionAppByCodigo(codigo) {
+
+                console.log(codigo)
+                $.ajax({
+                    data: JSON.stringify({ codigo: codigo }),
+                    type: "POST",
+                    url: "/gestionce/NotificacionAppByCodigo",
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "json",
+
+                    success: function (msg) {
+                        console.log(msg?.Date)
+
+                        if (msg?.Status == 0) {
+
+                            document.querySelectorAll('input[name="tipoenvioNoti"]').forEach((item, index) => {
+                                if (item.value == msg?.Date?.TipoEnvio) {
+                                    item.checked = true;
+                                }
+                            });
+                            document.querySelectorAll('input[name="grupo_customer_notiapp"]').forEach((item, index) => {
+                                if (item.value == msg?.Date?.GrupoPersonas) {
+                                    item.checked = true;
+                                }
+                            });
+                            document.getElementById("TxtCodigoNotificacionesApp").value = msg?.Date?.CodigoNotificacionesApp;
+                            document.getElementById("txtAsuntoNoti").value = msg?.Date?.Asunto;
+                            var date = msg?.Date.DesFechaHoraEnvio;
+                            var dateSplit = date.split(" ");
+                            document.getElementById("txtDateNoti").value = dateSplit[0];
+                            document.getElementById("txtHourNoti").value = dateSplit[1];
+                            document.getElementById("txtMensajeNoti").value = msg?.Date?.Mensaje;
+                            document.getElementById("txtRecurrenteNoti").checked = msg?.Date?.Recurrente;
+
+                            document.getElementById("txtEstadoNoti").checked = msg?.Date?.Estado;
+
+                            document.getElementById("registerNotiBtn").style.display = 'none';
+                            document.getElementById("updateNotiBtn").style.display = 'block';
+                            document.getElementById("cancelNotiBtn").style.display = 'block';
+                            document.getElementById("rowEstadoNoti").style.display = 'block';
+                        }
+
+                    }
+                });
+            }
+
+
+            function ActualizarNotificacionApp(e) {
+                var codigo = document.getElementById("TxtCodigoNotificacionesApp").value;
+                var grupo = document.querySelector('input[name="grupo_customer_notiapp"]:checked').value;
+                var tipo = document.querySelector('input[name="tipoenvioNoti"]:checked').value;
+                var asunto = document.getElementById("txtAsuntoNoti").value;
+                var date = document.getElementById("txtDateNoti").value;
+                var hora = document.getElementById("txtHourNoti").value;
+                var message = document.getElementById("txtMensajeNoti").value;
+                var recurrente = document.getElementById("txtRecurrenteNoti").checked;
+                var estado = document.getElementById("txtEstadoNoti").checked;
+
+                var data = {
+                    codigo: codigo,
+                    tipo: tipo,
+                    asunto: asunto,
+                    date: date + " " + hora,
+                    message: message,
+                    recurrente: recurrente,
+                    grupo: grupo,
+                    estado: estado,
+                }
+                e.disabled = true;
+
+                $.ajax({
+                    data: JSON.stringify(data),
+                    type: "POST",
+                    url: "/gestionce/ActualizarNotificacionApp",
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "json",
+
+                    success: function (msg) {
+                        if (msg?.Status == 0) {
+                            $.bootstrapGrowl(msg?.Message1, { type: 'success', width: 'auto' });
+                        } else {
+
+                            $.bootstrapGrowl(msg?.Message1, { type: 'danger', width: 'auto' });
+                        }
+                        listNotificacionesApp();
+                        e.disabled = false;
+                    }
+                });
+            }
+            function CancelarNotificacionApp() {
+                document.getElementById("txtAsuntoNoti").value = '';
+                document.getElementById("txtDateNoti").value = '';
+                document.getElementById("txtHourNoti").value = '';
+                document.getElementById("txtMensajeNoti").value = '';
+                document.getElementById("txtRecurrenteNoti").checked = false;
+
+
+                document.getElementById("txtEstadoNoti").checked;
+
+
+                document.getElementById("registerNotiBtn").style.display = 'block';
+                document.getElementById("updateNotiBtn").style.display = 'none';
+                document.getElementById("cancelNotiBtn").style.display = 'none';
+                document.getElementById("rowEstadoNoti").style.display = 'none';
+            }
+
+            function destroyNotificacionApp(codigo) {
+                $.ajax({
+                    data: JSON.stringify({ codigo: codigo }),
+                    type: "POST",
+                    url: "/gestionce/DeleteNotificacionApp",
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "json",
+
+                    success: function (msg) {
+                        if (msg?.Status == 0) {
+                            $.bootstrapGrowl(msg?.Message1, { type: 'success', width: 'auto' });
+                        } else {
+
+                            $.bootstrapGrowl(msg?.Message1, { type: 'danger', width: 'auto' });
+                        }
+                        listNotificacionesApp();
+                        e.disabled = false;
+                    }
+                });
+
+            }
+
+            listNotificacionesApp();
+
+
+
+
+
+            //*************************************** gestion whatsapp *******************************
+            function evemt_changeWhat(e, num) {
+                document.querySelectorAll(".tab_item_custom").forEach((item, index) => {
+                    item.classList.remove("active")
+                })
+                switch (num) {
+                    case 0:
+                        document.getElementById("contentTestIndividualW").style.display = "none";
+                        document.getElementById("contentCampanaW").style.display = "none";
+                        document.getElementById("contentTemplatesW").style.display = "none";
+                        e.classList.add("active")
+                        break;
+                    case 1:
+                        document.getElementById("contentTestIndividualW").style.display = "none";
+                        document.getElementById("contentCampanaW").style.display = "block";
+                        document.getElementById("contentTemplatesW").style.display = "none";
+                        e.classList.add("active")
+                        break;
+                    case 2:
+                        document.getElementById("contentTestIndividualW").style.display = "none";
+                        document.getElementById("contentCampanaW").style.display = "none";
+                        document.getElementById("contentTemplatesW").style.display = "none";
+                        e.classList.add("active")
+                        break;
+                    case 3:
+                        document.getElementById("contentTestIndividualW").style.display = "none";
+                        document.getElementById("contentCampanaW").style.display = "none";
+                        document.getElementById("contentTemplatesW").style.display = "block";
+                        e.classList.add("active")
+                        break;
+                    case 4:
+                        document.getElementById("contentTestIndividualW").style.display = "block";
+                        document.getElementById("contentCampanaW").style.display = "none";
+                        document.getElementById("contentTemplatesW").style.display = "none";
+                        e.classList.add("active")
+                        break;
+                    default:
+                        break;
+                }
+
+            }
+
+            //send message individual
+            function sendUnitWhatsapp(e) {
+                e.disabled = true;
+                document.getElementById("loadMe").style.display = "block";
+                var phone = document.getElementById("wh_unit_phone").value;
+                var message = document.getElementById("wh_unit_message").value;
+                var tipo = document.querySelector('input[name="wh_unit_type"]:checked').value;
+                var codeconfig = document.getElementById("CodigoWhatsappConfiguracion").value;
+                data = {
+                    phone, message,
+                    tipo,
+                    codeconfig
+                };
+
+                if (parseInt(tipo) == 2) {
+                    if (message == null || message == "") {
+                        $.bootstrapGrowl("Campo mensaje requerido", { type: 'danger', width: 'auto' });
+                        e.disabled = false;
+                        return;
+                    }
+                }
+
+                $.ajax({
+                    data: JSON.stringify(data),
+                    type: "POST",
+                    url: "/whatsapp/sendMessage",
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "json",
+
+                    success: function (msg) {
+                        if (msg?.Status) {
+                            $.bootstrapGrowl(msg?.Message, { type: 'success', width: 'auto' });
+                        } else {
+
+                            $.bootstrapGrowl(msg?.Message, { type: 'danger', width: 'auto' });
+                        }
+
+                    },
+
+                    complete: function (data) {
+                        document.getElementById("wh_unit_phone").value;
+                        document.getElementById("wh_unit_message").value = "";
+                        e.disabled = false;
+                        document.getElementById("loadMe").style.display = "none";
+                    }
+
+                });
+
+            }
+
+            function showModalConfigW() {
+                let timer;
+                window.clearTimeout(timer);
+                timer = window.setTimeout(() => {
+                    if (document.querySelector(".modal-backdrop")) {
+                        document.querySelector(".modal-backdrop").classList.remove("modal-backdrop");
+                    }
+
+                }, 50);
+
+
+                //defaults
+                document.getElementById("text_body_template").value = "Texto de prueba";
+                document.getElementById("text_footer_template").value = "Pie de pagina prueba";
+
+                document.getElementById("previewBody").innerText = "Texto de prueba";
+                document.getElementById("previewFooter").innerText = "Pie de pagina prueba";
+            }
+            //get list config whatsapp devices
+            getListConfigWhatsapp();
+            
+        </script>
+
+    }

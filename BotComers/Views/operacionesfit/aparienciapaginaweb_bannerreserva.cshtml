@@ -1,0 +1,398 @@
+﻿
+@{
+    ViewBag.Title = "aparienciapaginaweb_bannerreserva";
+    Layout = "~/Views/Shared/__LayoutAppFitPlataformaFit.cshtml";
+}
+
+<link href="@Url.Content("~/Content/cssKendo/kendo.common.min.css")" rel="stylesheet" />
+<link href="@Url.Content("~/Content/cssKendo/kendo.dataviz.default.min.css")" rel="stylesheet" />
+<link href="@Url.Content("~/Content/cssKendo/kendo.dataviz.min.css")" rel="stylesheet" />
+<link href="@Url.Content("~/Content/cssKendo/kendo.default.min.css")" rel="stylesheet" />
+<style>
+
+    .k-block, .k-header, .k-grid-header, .k-toolbar, .k-grouping-header, .k-pager-wrap, .k-button, .k-draghandle, .k-treemap-tile, html .km-pane-wrapper .k-header {
+        background-color: rgba(227, 227, 227, 0);
+    }
+
+        .k-grid-header table, .k-grid-content table, .k-grid-footer table, .k-grid-content-locked > table {
+            table-layout: fixed;
+        }
+
+    .k-grid tr td {
+        border-bottom: 1px solid #ada9a9;
+        border-style: dashed;
+    }
+
+    .k-grid-toolbar:first-child, .k-grouping-header + .k-grid-toolbar {
+        border-width: 0 0 1px;
+        border-radius: 0px;
+        background-color: #d7eafa;
+        height: 10px;
+    }
+
+    .k-block, .k-header, .k-grid-header, .k-toolbar, .k-grouping-header, .k-pager-wrap, .k-button, .k-draghandle, .k-treemap-tile, html .km-pane-wrapper .k-header {
+        background-color: rgba(227, 227, 227, 0);
+    }
+
+    #txtFechaInicioProcFreezing .k-header, .k-grid-header, .k-toolbar, .k-dropdown-wrap, .k-picker-wrap, .k-numeric-wrap, .k-grouping-header, .k-pager-wrap, .k-textbox, .k-button, .k-progressbar, .k-draghandle, .k-autocomplete, .k-state-highlight, .k-tabstrip-items .k-item, .k-panelbar .k-tabstrip-items .k-item, .km-pane-wrapper > .km-pane > .km-view > .km-content {
+        background-image: url(textures/highlight.png);
+        background-image: none,-webkit-linear-gradient(top,rgba(255,255,255,.6) 0,rgba(255,255,255,.0) 100%);
+        background-image: none,-moz-linear-gradient(top,rgba(255,255,255,.6) 0,rgba(255,255,255,.0) 100%);
+        background-image: none,-o-linear-gradient(top,rgba(255,255,255,.6) 0,rgba(255,255,255,.0) 100%);
+        background-image: none,linear-gradient(to bottom,rgba(255,255,255,.6) 0,rgba(255,255,255,.0) 100%);
+        background-position: 50% 50%;
+        background-color: #ffffff;
+    }
+
+    .k-state-selected {
+        color: #FFFFFF;
+        background-color: #0075ff;
+        border-color: #0075ff;
+    }
+
+    tr {
+        height: 16px;
+        font-size: 13px;
+    }
+
+    /** SPINNER CREATION **/
+    .loader {
+        position: relative;
+        text-align: center;
+        margin: 15px auto 35px auto;
+        z-index: 9999;
+        display: block;
+        width: 80px;
+        height: 80px;
+        border: 10px solid rgba(0, 0, 0, .3);
+        border-radius: 50%;
+        border-top-color: #000;
+        animation: spin 1s ease-in-out infinite;
+        -webkit-animation: spin 1s ease-in-out infinite;
+    }
+</style>
+
+            <br /><br /><br />
+
+            <div class="container-fluid page__container">
+                <a class="btn btn-primary" href="@Url.Action("aparienciapaginaweb", "operacionesfit", new { id = HttpContext.Current.Request.Cookies["_SubDominio_Business"].Value })">Regresar</a>
+                <br /><br />
+                <div class="row">
+                    <div class="col-lg-5">
+                        <div class="card">
+                            <div style="background-color:#fff;" class="card-header card-header-sm d-flex align-items-center">
+                                <h4 class="card-header__title flex m-0">IMAGENES PRE-DEFINIDAS</h4>
+                            </div>
+                            <div class="card-body tab-content">
+                                <div class="form-group mg-t-2">
+                                    <div class="col-lg-12">
+                                        <select id="ddlTipo" onchange="CentroEntrenamiento_uspListarGaleriaFitness();">
+                                            <option value="1">Banner Reservas 1090x250</option>
+                                            <option value="2">Banner Centro 1090x650</option>
+                                            <option value="3">Banner Formulario 650x450</option>
+                                            <option value="4">Logo de la pagina 250x49</option>
+                                            <option value="5">Servicios 500x500</option>
+                                        </select>
+                                    </div><!-- col -->
+                                </div>
+                                <div class="tab-pane active show fade" id="activity_all">
+                                    <div id="grid"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-7">
+                        <div class="card">
+                            <div style="background-color:#fff;" class="card-header card-header-sm d-flex align-items-center">
+                                <h4 class="card-header__title flex m-0">EDICION</h4>
+                            </div>
+                            <div class="card-body tab-content">
+                                <div class="tab-pane active show fade" id="activity_all">
+                                    <div class="button-list">
+                                        <button type="button" onclick="nuevodetalle();" class="btn btn-primary btn-sm" id="btnNuevo" title="Nuevo">1. Nuevo</button>
+                                        <button type="button" onclick="CentroEntrenamiento_uspEliminarGaleriaFitness();" class="btn btn-primary btn-sm" id="btnEliminar" title="Eliminar">Eliminar</button>
+                                        <button type="button" onclick="guardardetalle();" class="btn btn-primary btn-sm" id="btnGuardar" title="Guardar">Guardar</button>
+                                        <button type="button" onclick="ActualizarImagenPredefinido()" class="btn btn-primary btn-sm" id="btnGuardarPredeterminado" title="Guardar">Elejir como predeterminado</button>
+                                    </div>
+                                    <div class="row mg-b-25">
+                                        <div class="col-lg-12">
+                                            <input type="hidden" value="" id="hdLink" />
+                                            <input type="hidden" value="" id="hdCodigo" />
+
+                                            <div class="form-group mg-t-2">
+                                                <div class="col-lg-12">
+                                                    <div class="custom-file">
+                                                        <input type="file" class="custom-file-input" style="width:100%;" id="buscarImagen">
+                                                        <label class="custom-file-label" for="buscarImagen">Buscar imagen</label>
+                                                    </div><!-- custom-file -->
+                                                </div><!-- col -->
+                                            </div>
+                                            <div class="form-group mg-t-2">
+                                                <div class="input-group input-group-sm input-group-merge">
+                                                    <input id="txtDetalle" type="text" class="form-control form-control-prepended" placeholder="detalle de la imagen." style="width:100%;font-weight:bold;" onkeypress="return validarCamposCadena(event)">
+                                                    <div class="input-group-prepend">
+                                                        <div class="input-group-text">
+                                                            Detalle foto:
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <input type="hidden" id="hdheight_imagen" value="0" />
+                                                <input type="hidden" id="hdwidth_imagen" value="0" />
+                                            </div>
+                                            <div class="form-group mg-t-2">
+
+                                                <div class="row row-xs">
+                                                    <div class="col-lg-12">
+                                                        <img class="img-fluid" style="width:100%;" id="imgVistaImagen" />
+                                                    </div><!-- col -->
+
+                                                </div><!-- row -->
+                                            </div>
+
+                                        </div><!-- col-4 -->
+
+                                    </div><!-- row -->
+
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- // end .row -->
+            </div>
+
+
+<div class="modal fade" id="loadMe" tabindex="-1" role="dialog" aria-labelledby="loadMeLabel">
+    <div class="modal-dialog modal-sm" role="document">
+        <div class="modal-content">
+            <div class="modal-body text-center">
+                <div class="loader"></div>
+                <div clas="loader-txt">
+                    <p>Cargando... <br><br><small>Espere por favor, este proceso puede tardar unos minutos</small></p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@section Scripts {
+
+    @System.Web.Optimization.Scripts.Render("~/Scripts/jquery.min.js")
+    @System.Web.Optimization.Scripts.Render("~/Scripts/plugins/jsKendo/angular.min.js")
+    @System.Web.Optimization.Scripts.Render("~/Scripts/plugins/jsKendo/kendo.all.min.js")
+
+    @System.Web.Optimization.Scripts.Render("~/Scripts/plugins/jquery-ui/jquery-ui.js")
+    @System.Web.Optimization.Scripts.Render("~/Scripts/plugins/jquery-ui/jquery-ui.min.js")
+
+    @System.Web.Optimization.Scripts.Render("~/Scripts/bootstrap-notify-master/bootstrap-notify.js")
+    @System.Web.Optimization.Scripts.Render("~/Scripts/bootstrap-notify-master/bootstrap-notify.min.js")
+    @System.Web.Optimization.Scripts.Render("~/Scripts/jsBootstrap/jquery.bootstrap-growl.js")
+    @System.Web.Optimization.Scripts.Render("~/Resource/UserControl.Helper.js")
+
+<script type="text/javascript">
+
+    $(document).ready(function () {
+
+        CentroEntrenamiento_uspListarGaleriaFitness();
+
+        $('#buscarImagen').change(function () {
+            var File = this.files;
+            if (File && File[0]) {
+                ReadImage(File[0]);
+            }
+        });
+    });
+
+    function nuevodetalle() {
+
+        $("#imgVistaImagen").attr('src', '');
+        $("#txtDetalle").val("");
+        $("#hdheight_imagen").val("");
+        $("#hdwidth_imagen").val("");
+        $("#hdCodigo").val("");
+        document.getElementById("btnGuardarPredeterminado").style.display = 'none';
+        document.getElementById("btnEliminar").style.display = 'none';
+        document.getElementById("btnGuardar").style.display = '';
+    }
+
+    var ReadImage = function (file) {
+
+        var reader = new FileReader;
+        var image = new Image;
+
+        reader.readAsDataURL(file);
+        reader.onload = function (_file) {
+
+            image.src = _file.target.result;
+            image.onload = function () {
+
+                var height = this.height;
+                var width = this.width;
+                var type = file.type;
+                var size = ~~(file.size / 1024) + "KB";
+
+                $("#imgVistaImagen").attr('src', _file.target.result);
+                $("#txtDetalle").val("Size:" + size + ", " + height + " X " + width + ", " + type + "");
+                $("#hdheight_imagen").val(height);
+                $("#hdwidth_imagen").val(width);
+                //if (parseInt(height) > 650) {
+
+                //    $.bootstrapGrowl("El alto de la imagen no puede ser mayor 650, seleccione otra imagen.", { type: 'danger', width: 'auto' });
+                //} else if (parseInt(width) > 500) {
+
+                //    $.bootstrapGrowl("El ancho de la imagen no puede ser mayor 500, seleccione otra imagen.", { type: 'danger', width: 'auto' });
+                //}
+
+            }
+
+        }
+    }
+
+    var guardardetalle = function () {
+
+        var Codigo = $("#hdCodigo").val();
+        var Tipo = $('select[id="ddlTipo"] option:selected').val();       
+        var file = $("#buscarImagen").get(0).files;
+        var detalle = $("#txtDetalle").val();
+      
+        if (Tipo == '') {
+            $.bootstrapGrowl("Falta seleccionar el tipo.", { type: 'danger', width: 'auto' });
+            return false;
+        } else if (detalle == '') {
+            $.bootstrapGrowl("Falta seleccionar una imagen.", { type: 'danger', width: 'auto' });
+            return false;
+        }
+        //else if (parseInt(height) > 650) {
+        //    $.bootstrapGrowl("El alto de la imagen no puede ser mayor 650.", { type: 'danger', width: 'auto' });
+        //    return false;
+        //} else if (parseInt(width) > 500) {
+        //    $.bootstrapGrowl("El ancho de la imagen no puede ser mayor 500.", { type: 'danger', width: 'auto' });
+        //    return false;
+        //}
+        else if (file == undefined || file == null) {
+            $.bootstrapGrowl("Falta seleccionar una imagen.", { type: 'danger', width: 'auto' });
+            return false;
+        }
+
+        var data = new FormData;
+        data.append("file", file[0]);
+        data.append("Codigo", Codigo);
+        data.append("Tipo", Tipo);        
+        document.getElementById('loadMe').style.display = 'block';
+        $.ajax({
+            type: "Post",
+            url: "/operacionesfit/CentroEntrenamiento_uspRegistrarGaleriaFitness",
+            data: data,
+            contentType: false,
+            processData: false,
+            success: function (response) {
+                $.bootstrapGrowl("La imagen ha sido guardada correctamente.", { type: 'success', width: 'auto' });
+            }, complete: function () {
+                CentroEntrenamiento_uspListarGaleriaFitness();
+                document.getElementById('loadMe').style.display = 'none';
+            }
+        })
+
+    }
+
+    function CentroEntrenamiento_uspListarGaleriaFitness() {
+        var Tipo = $('select[id="ddlTipo"] option:selected').val();       
+
+        $("#grid").empty();
+        $("#grid").kendoGrid({
+            dataSource: {
+                type: "json",
+                transport: {
+                    read: function (options) {
+                        $.ajax({
+                            data: '{"Tipo":"' + Tipo + '"}',
+                            type: "POST",
+                            url: "/operacionesfit/CentroEntrenamiento_uspListarGaleriaFitness",
+                            contentType: "application/json; charset=utf-8",
+                            dataType: "json",
+                            success: function (msg) {
+                                options.success(msg);
+                            }
+                        });
+                    }
+                }
+            },
+            selectable: "row",
+            scrollable: true,
+            height: 550,
+            columns: [
+                {
+                    template: '<center><img src="#: UrlImagen #" alt=""  style="height: 100px;width: 340px;" /></center>',
+                    title: "",
+                    width: 3
+                }
+                ],
+            dataBound: function (e) {
+
+                this.element.find('tbody tr:first').addClass('k-state-selected');
+                this.select(this.tbody.find('>tr:first'));
+            }, change: function (e) {
+
+                var grid = this;
+                grid.select().each(function () {
+                    var dataItem = grid.dataItem($(this));
+                    $("#imgVistaImagen").attr('src', dataItem.UrlImagen);
+                    
+                    $("#hdCodigo").val(dataItem.Codigo);
+                    $('select[id="ddlTipo"]').val(dataItem.Tipo);                       
+                    $("#hdLink").val(dataItem.UrlImagen);
+
+                    document.getElementById("btnGuardar").style.display = 'none';
+                    document.getElementById("btnEliminar").style.display = '';
+                    document.getElementById("btnGuardarPredeterminado").style.display = '';
+                });
+
+            }
+        });
+
+    }
+
+    function CentroEntrenamiento_uspEliminarGaleriaFitness() {
+        var Codigo = $("#hdCodigo").val();
+        document.getElementById('loadMe').style.display = 'block';
+        $.ajax({
+            data: '{"Codigo":"' + Codigo + '"}',
+            type: "POST",
+            url: "/operacionesfit/CentroEntrenamiento_uspEliminarGaleriaFitness",
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            success: function (msg) {
+               
+            }, complete: function () {
+                document.getElementById('loadMe').style.display = 'none';
+                $.bootstrapgrowl("La imagen se elimino correctamente", { type: 'success', width: 'auto' });
+                CentroEntrenamiento_uspListarGaleriaFitness();
+            }
+        });
+    }
+
+    function ActualizarImagenPredefinido() {
+        var Codigo = $("#hdCodigo").val();
+        var TipoFoto = $('select[id="ddlTipo"]').val();
+        var UrlImagen = $("#hdLink").val();
+        document.getElementById('loadMe').style.display = 'block';
+        $.ajax({
+            data: '{"Codigo":"' + Codigo + '","TipoFoto":"' + TipoFoto + '","UrlImagen":"' + UrlImagen + '"}',
+            type: "POST",
+            url: "/operacionesfit/CentroEntrenamiento_uspActualizarEdicionPaginaWeb_Foto",
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            success: function (msg) {
+
+            }, complete: function () {
+                document.getElementById('loadMe').style.display = 'none';
+                $.bootstrapgrowl("La imagen se actualizo correctamente", { type: 'success', width: 'auto' });
+            }
+        });
+    }
+
+</script>
+
+}

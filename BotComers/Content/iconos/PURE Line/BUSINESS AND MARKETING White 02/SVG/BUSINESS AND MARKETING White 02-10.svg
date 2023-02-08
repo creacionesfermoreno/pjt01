@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Generator: Adobe Illustrator 16.0.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="170px"
+	 height="170px" viewBox="0 0 170 170" enable-background="new 0 0 170 170" xml:space="preserve">
+<g id="Background">
+</g>
+<g id="Circle">
+	<g>
+		<path fill="#282D33" d="M85,170c-46.869,0-85-38.131-85-85S38.131,0,85,0s85,38.131,85,85S131.869,170,85,170z"/>
+	</g>
+</g>
+<g id="TEXT">
+</g>
+<g id="Icons">
+	<g>
+		<g>
+			<polyline fill="none" stroke="#FFFFFF" stroke-width="4" points="116.633,88.477 116.633,117.271 39.58,117.271 39.58,65.762 
+				47.447,65.762 			"/>
+			<g>
+				<line fill="none" stroke="#FFFFFF" stroke-width="4" x1="62.914" y1="92.488" x2="39.895" y2="117.859"/>
+				<line fill="none" stroke="#FFFFFF" stroke-width="4" x1="116.32" y1="117.859" x2="93.301" y2="92.488"/>
+			</g>
+			<polyline fill="none" stroke="#FFFFFF" stroke-width="4" stroke-linejoin="bevel" points="116.624,68.965 116.633,68.957 
+				116.624,68.957 			"/>
+			<path fill="none" stroke="#FFFFFF" stroke-width="4" stroke-linejoin="bevel" d="M84.111,65.762h-44.6v3.195h-0.018l0.018,0.018
+				v0.018h0.018l9.604,9.881l6.766,6.961c0.794,0.813,1.836,1.885,2.878,2.961l9.005,9.258l7.402,7.617
+				c1.584,1.625,4.178,1.625,5.759,0l7.403-7.617l9.004-9.258c1.043-1.076,2.084-2.148,2.876-2.961l4.226-4.348"/>
+		</g>
+		<path fill="none" stroke="#FFFFFF" stroke-width="4" d="M112.533,37.451c-12.606,0-22.83,10.221-22.83,22.828
+			c0,0.418,0.015,0.832,0.035,1.242l-0.035,10.234v13.752l7.834-8.021c4.012,3.498,9.254,5.623,14.996,5.623
+			c12.608,0,22.828-10.221,22.828-22.83C135.361,47.672,125.142,37.451,112.533,37.451z"/>
+		<g>
+			<path fill="none" stroke="#FFFFFF" stroke-width="4" d="M122.271,63.063l0.732-0.732c2.662-2.66,2.662-6.977,0-9.639l-0.1-0.1
+				c-2.662-2.662-6.978-2.662-9.639,0l-0.732,0.732l-0.732-0.732c-2.662-2.662-6.978-2.662-9.639,0l-0.103,0.1
+				c-2.659,2.662-2.659,6.979,0,9.639l0.732,0.732l9.741,9.74L122.271,63.063z"/>
+		</g>
+	</g>
+</g>
+</svg>

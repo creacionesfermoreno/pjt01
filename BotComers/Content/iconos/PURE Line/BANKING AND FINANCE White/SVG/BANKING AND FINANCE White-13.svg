@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Generator: Adobe Illustrator 16.0.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="170px"
+	 height="170px" viewBox="0 0 170 170" enable-background="new 0 0 170 170" xml:space="preserve">
+<g id="Background">
+</g>
+<g id="Circle">
+	<g>
+		<path fill="#282D33" d="M85,170c-46.869,0-85-38.131-85-85S38.131,0,85,0s85,38.131,85,85S131.869,170,85,170z"/>
+	</g>
+</g>
+<g id="TEXT">
+</g>
+<g id="Icons">
+	<g>
+		<polyline fill="none" stroke="#FFFFFF" stroke-width="4" points="78.937,118.417 78.937,127.529 66.437,127.529 66.437,118.417 		
+			"/>
+		<polyline fill="none" stroke="#FFFFFF" stroke-width="4" points="111.437,115.029 111.437,127.529 98.937,127.529 98.937,118.029 
+					"/>
+		<path fill="none" stroke="#FFFFFF" stroke-width="4" d="M64.496,54.743c-2.693-2.899-6.54-4.714-10.809-4.714
+			c-0.085,0-0.167,0.012-0.25,0.013v16.375"/>
+		<path fill="none" stroke="#FFFFFF" stroke-width="4" stroke-linejoin="bevel" d="M64.425,59.923
+			c-8.609,3.222-15.342,10.287-18.113,19.106h-7.875v17.5h5.171l-1.116,5.396h5.376c3.578,7.496,10.166,13.28,18.204,15.77
+			c2.801,0.867,5.778,1.334,8.866,1.334h3.644h18.356c0.807,0,1.606-0.032,2.397-0.095c2.189-0.173,4.312-0.581,6.343-1.198
+			c2.12-0.645,4.141-1.519,6.033-2.591c9.092-5.153,15.227-14.918,15.227-26.116v-1c0-9.617-4.525-18.177-11.563-23.667"/>
+		<path fill="none" stroke="#FFFFFF" stroke-width="4" stroke-linejoin="bevel" d="M87.519,65.923h8.417
+			c0.807,0,1.606,0.032,2.397,0.095c2.189,0.173,4.312,0.581,6.343,1.198c2.12,0.645,4.141,1.519,6.033,2.591"/>
+		<line fill="none" stroke="#FFFFFF" stroke-width="4" stroke-linejoin="bevel" x1="86.581" y1="58.029" x2="77.581" y2="58.029"/>
+		<path fill="none" stroke="#FFFFFF" stroke-width="4" stroke-linejoin="bevel" d="M51.937,85.529c0-2.485,2.015-4.5,4.5-4.5
+			s4.5,2.015,4.5,4.5"/>
+		<path fill="none" stroke="#FFFFFF" stroke-width="4" d="M64.687,50.029c-0.085,0-0.167,0.012-0.25,0.013v22.987h3.5h8.979
+			c1.592-2.354,2.521-5.194,2.521-8.25C79.437,56.633,72.832,50.029,64.687,50.029z"/>
+		<line fill="none" stroke="#FFFFFF" stroke-width="4" stroke-linejoin="bevel" x1="79.937" y1="32.029" x2="79.937" y2="44.529"/>
+		<line fill="none" stroke="#FFFFFF" stroke-width="4" stroke-linejoin="bevel" x1="86.187" y1="38.279" x2="73.687" y2="38.279"/>
+		<g>
+			<circle fill="none" stroke="#FFFFFF" stroke-width="4" stroke-linejoin="bevel" cx="102.334" cy="55.411" r="10.836"/>
+			
+				<line fill="none" stroke="#FFFFFF" stroke-width="4" stroke-linejoin="bevel" x1="102.334" y1="59.036" x2="102.334" y2="51.786"/>
+		</g>
+	</g>
+</g>
+</svg>

@@ -1,0 +1,174 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="robots" content="noindex">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <title>💪 @ViewBag.NombreComercial 💪</title>
+
+    <!-- GOOGLE WEB FONT -->
+    <link href="https://fonts.googleapis.com/css?family=Poppins:400,300,500,600,700|Kalam:400,700" rel="stylesheet">
+
+    @if (IsSectionDefined("Styles"))
+    {@RenderSection("Styles", required: false)}
+
+    <link href="@Url.Content("~/Content/appfitplataformapersonafit/assets/vendor/perfect-scrollbar.css")" rel="stylesheet" />
+    <link href="@Url.Content("~/Content/appfitplataformapersonafit/assets/css/app.css")" rel="stylesheet" />
+    <link href="@Url.Content("~/Content/appfitplataformapersonafit/assets/css/app.rtl.css")" rel="stylesheet" />
+    <link href="@Url.Content("~/Content/appfitplataformapersonafit/assets/css/vendor-material-icons.css")" rel="stylesheet" />
+    <link href="@Url.Content("~/Content/appfitplataformapersonafit/assets/css/vendor-material-icons.rtl.css")" rel="stylesheet" />
+    <link href="@Url.Content("~/Content/appfitplataformapersonafit/assets/css/vendor-fontawesome-free.css")" rel="stylesheet" />
+    <link href="@Url.Content("~/Content/appfitplataformapersonafit/assets/css/vendor-fontawesome-free.rtl.css")" rel="stylesheet" />
+    <link href="@Url.Content("~/Content/appfitplataformapersonafit/assets/css/vendor-ion-rangeslider.css")" rel="stylesheet" />
+    <link href="@Url.Content("~/Content/appfitplataformapersonafit/assets/css/vendor-ion-rangeslider.rtl.css")" rel="stylesheet" />
+    <style>
+        .bg-primary {
+            background-image: linear-gradient(to right, #000 35%, #000 100%);
+        }
+        .modal {
+            position: fixed;
+            top: -51px;
+            left: 0;
+            z-index: 1050;
+            display: none;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            outline: 0;
+            background-color: #000000d1;
+        }
+    </style>
+</head>
+<body class="layout-fluid layout-sticky-subnav" id="inicio">
+
+    <div class="preloader"></div>
+    <!-- Header Layout -->
+    <div class="mdk-header-layout js-mdk-header-layout">
+        <!-- Header -->
+        <div id="header" class="mdk-header bg-danger js-mdk-header m-0" data-fixed data-effects="waterfall">
+            <div class="mdk-header__content">
+                <div class="navbar navbar-expand-sm navbar-main navbar-dark bg-primary pr-0 pl-md-0 pr-0" id="navbar" data-primary>
+                    <div class="container-fluid pr-0 ">
+                        <!-- Navbar toggler -->
+                        <button class="navbar-toggler navbar-toggler-custom d-lg-none d-flex mr-navbar" type="button" data-toggle="sidebar">
+                            <span class="material-icons">short_text</span>
+                        </button>
+
+                        <div class="d-flex sidebar-account flex-shrink-0 mr-auto mr-lg-0">
+                            <a href="@Url.Action("miperfil","pg",new {id= HttpContext.Current.Request.Cookies["_SubDominio_PersonaFit"].Value})" class="flex d-flex align-items-center text-underline-0">
+                                <span class="flex d-flex flex-column text-white">
+                                    <strong class="sidebar-brand">
+                                        <img src="@ViewBag.logoPagina" width="145" height="27" alt="" data-retina="true" class="logo_normal">
+                                    </strong>
+                                </span>
+                            </a>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- // END Header -->
+        <div class="mdk-header-layout__content">
+
+            <div class="mdk-drawer-layout__content page" style="transform: translate3d(0px, 0px, 0px);">
+                @RenderBody()
+
+            </div>
+            <!-- // END drawer-layout__content -->
+        </div>
+
+    </div>
+    <!-- // END Header Layout -->
+    <div class="mdk-drawer  js-mdk-drawer" id="default-drawer" data-align="">
+        <div class="mdk-drawer__content">
+            <div class="sidebar sidebar-light sidebar-left bg-white" data-perfect-scrollbar>
+             
+                <div class="sidebar-block p-0">
+
+                    <div class="sidebar-heading">Menú</div>
+
+                    <ul class="sidebar-menu mt-0">
+
+                        <li class="sidebar-menu-item" style="display:none;">
+                            <a class="sidebar-menu-button" href="@Url.Action("inicio","pg",new {id= HttpContext.Current.Request.Cookies["_SubDominio_PersonaFit"].Value})">
+
+                                <span class="sidebar-menu-text">Inicio</span>
+                            </a>
+                        </li>
+                        <li class="sidebar-menu-item">
+                            <a class="sidebar-menu-button" href="@Url.Action("miperfil","pg",new {id= HttpContext.Current.Request.Cookies["_SubDominio_PersonaFit"].Value})">
+
+                                <span class="sidebar-menu-text">Perfil</span>
+                            </a>
+                        </li>
+                        <li class="sidebar-menu-item">
+                            <a class="sidebar-menu-button" href="@Url.Action("progreso","pg",new {id= HttpContext.Current.Request.Cookies["_SubDominio_PersonaFit"].Value})">
+
+                                <span class="sidebar-menu-text">Progreso</span>
+                            </a>
+                        </li>
+                        <li class="sidebar-menu-item">
+                            <a class="sidebar-menu-button" onclick="javascript:return validarSelect_Membresia2();" href="@Url.Action("reservaonline","pg", new {id= HttpContext.Current.Request.Cookies["_SubDominio_PersonaFit"].Value})">
+                                <span class="sidebar-menu-text">Reservar Clase</span>
+                            </a>
+                        </li>
+
+                        <li class="sidebar-menu-item">
+                            <a class="sidebar-menu-button" href="@Url.Action("login","pg",new {id= HttpContext.Current.Request.Cookies["_SubDominio_PersonaFit"].Value})">
+                                <span class="sidebar-menu-text" style="color:red;">Cerrar sesión</span>
+                            </a>
+                        </li>
+
+
+
+                    </ul>
+                 
+                </div>
+
+               
+            </div>
+        </div>
+    </div>
+   
+    <!-- App Settings FAB -->
+    <div id="app-settings" style="display:none;">
+        <app-settings layout-active="fixed" :layout-location="{
+      'default': 'index.html',
+      'fixed': 'fixed-index.html',
+      'fluid': 'fluid-index.html',
+      'mini': 'mini-index.html'
+    }"></app-settings>
+    </div>
+
+    @System.Web.Optimization.Scripts.Render("~/Content/appfitplataformapersonafit/assets/vendor/jquery.min.js")
+    @System.Web.Optimization.Scripts.Render("~/Content/appfitplataformapersonafit/assets/vendor/popper.min.js")
+
+    @System.Web.Optimization.Scripts.Render("~/Content/appfitplataformapersonafit/assets/vendor/bootstrap.min.js")
+    @System.Web.Optimization.Scripts.Render("~/Content/appfitplataformapersonafit/assets/vendor/perfect-scrollbar.min.js")
+
+    @System.Web.Optimization.Scripts.Render("~/Content/appfitplataformapersonafit/assets/vendor/dom-factory.js")
+    @System.Web.Optimization.Scripts.Render("~/Content/appfitplataformapersonafit/assets/vendor/material-design-kit.js")
+    @System.Web.Optimization.Scripts.Render("~/Content/appfitplataformapersonafit/assets/vendor/ion.rangeSlider.min.js")
+
+    @System.Web.Optimization.Scripts.Render("~/Content/appfitplataformapersonafit/assets/js/ion-rangeslider.js")
+    @System.Web.Optimization.Scripts.Render("~/Content/appfitplataformapersonafit/assets/js/toggle-check-all.js")
+    @System.Web.Optimization.Scripts.Render("~/Content/appfitplataformapersonafit/assets/js/check-selected-row.js")
+    @System.Web.Optimization.Scripts.Render("~/Content/appfitplataformapersonafit/assets/js/dropdown.js")
+
+    @System.Web.Optimization.Scripts.Render("~/Content/appfitplataformapersonafit/assets/js/sidebar-mini.js")
+    @System.Web.Optimization.Scripts.Render("~/Content/appfitplataformapersonafit/assets/js/app.js")
+    @System.Web.Optimization.Scripts.Render("~/Content/appfitplataformapersonafit/assets/js/app-settings.js")
+
+
+    @RenderSection("scripts", required: false)
+</body>
+</html>

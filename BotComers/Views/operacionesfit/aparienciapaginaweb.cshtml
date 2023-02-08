@@ -1,0 +1,819 @@
+﻿@model E_DataModel.CentroEntrenamiento.CentroEntrenamiento_EditorPaginaWebDTO
+
+@{
+    ViewBag.Title = "Editor pagina web";
+    Layout = "~/Views/Shared/_LayoutAppfitInicio.cshtml";
+}
+
+<nav class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+        <div class="navbar-header mobile-center">
+            <b style="color:#000000;">ESTAS EN MODO EDICIÓN</b>
+            <a href="@Url.Action("inicio", "pg", new { id = HttpContext.Current.Request.Cookies["_SubDominio_Business"].Value })" target="_blank" style="color:red;font-weight:bold;">
+                VER PAGINA
+            </a>
+            <a style="font-weight:bold;color:red;" href="@Url.Action("aparienciapaginaweb_trainners", "operacionesfit", new { id = HttpContext.Current.Request.Cookies["_SubDominio_Business"].Value })">,CAMBIAR TRAINNERS</a>
+            <a style="font-weight:bold;color:red;" href="@Url.Action("aparienciapaginaweb_servicios", "operacionesfit", new { id = HttpContext.Current.Request.Cookies["_SubDominio_Business"].Value })"> ,CAMBIAR SERVICIOS</a>
+            <a style="font-weight:bold;color:red;" href="@Url.Action("aparienciapaginaweb_planes", "operacionesfit", new { id = HttpContext.Current.Request.Cookies["_SubDominio_Business"].Value })"> ,CAMBIAR PLANES</a>
+        </div>
+    </div>
+</nav>
+<br /><br />
+
+<section class="call-to-action">
+    <div class="container">
+
+        <div class="section-title text-center">
+            <b style="color:#000;font-size:18px;">Color principal: </b> <input id="txtColorPrincipalPagina" type="color" value="@Model.ColorPrincipalPagina" style="height:40px;width:200px;" />
+        </div>
+
+    </div>
+</section>
+
+<section class="call-to-action fitness_bg_reservas" >
+    <div class="container">
+        <input type="hidden" id="hdCodigoPagina" value="@Model.CodigoPagina" />
+        <input type="hidden" id="hdlogoPagina" value="@Model.logoPagina" />
+        <input type="hidden" id="hdBannerReserva_FondoImagen" value="@Model.BannerReserva_FondoImagen" />
+        <div class="section-title text-center">
+            <a class="btn btn-success btn-xs" href="@Url.Action("aparienciapaginaweb_bannerreserva", "operacionesfit", new { id = HttpContext.Current.Request.Cookies["_SubDominio_Business"].Value })">Cambiar imagenes de fondo 1090x250</a>
+            <button class="btn btn-success btn-xs" onclick="uspActualizarEdicionPaginaWeb();">Guardar cambios</button>
+            <div class="custom-control custom-checkbox-toggle custom-control-inline mr-1">
+                @if (Model.BannerReserva_Estado)
+                {
+                    <input checked type="checkbox" id="chkBannerReserva_Estado" class="custom-control-input" style="height:25px;width:25px;">
+                }
+                else
+                {
+                    <input type="checkbox" id="chkBannerReserva_Estado" class="custom-control-input" style="height:25px;width:25px;">
+                }
+                <label class="custom-control-label" for="chkBannerReserva_Estado">Mostrar Banner Reserva</label>
+            </div>
+            <h2><input type="text" id="txtBannerReserva_Titulo" value="@Model.BannerReserva_Titulo" class="text-highlight" style="text-align:center;background-color:transparent;height:50px;width:600px;border: 1px solid #caced1;font-size:35px;font-weight:bold;padding-left:10px;"></h2>
+            <h3 class="subline"><input type="text" id="txtBannerReserva_Descripcion" value="@Model.BannerReserva_Descripcion" style="text-align:center;background-color:transparent;height:50px;width:750px;border: 1px solid #caced1;font-size:28px;font-weight:bold;padding-left:10px;"></h3>
+            <hr>
+        </div>
+        <div class="cta-button text-center vertical-space bottom-space-xl">
+            <a class="btn btn-default btn-xl" href="#">RESERVAR CLASE AHORA</a>
+            <h6 class="vertical-space"><input type="text" id="txtBannerReserva_Descripcion2" value="@Model.BannerReserva_Descripcion2" style="text-align:center;background-color:transparent;height:50px;width:750px;border: 1px solid #caced1;font-size:20px;padding-left:10px;"></h6>
+        </div>
+    </div>
+</section>
+
+<section id="top" class="header header_menu_padding fitness_bg" >
+    <div class="container">
+        <input type="hidden" id="hdBannerCentro_FondoImagen" value="@Model.BannerCentro_FondoImagen" />
+        <a class="btn btn-success btn-xs" href="@Url.Action("aparienciapaginaweb_bannerreserva", "operacionesfit", new { id = HttpContext.Current.Request.Cookies["_SubDominio_Business"].Value })">Cambiar imagenes de fondo 1090x632</a>
+        <button class="btn btn-success btn-xs" onclick="uspActualizarEdicionPaginaWeb();">Guardar cambios</button>
+        <div class="header-content">
+            <div class="row">
+
+                <div class="col-md-6">
+
+                    <div class="hero-area">
+                        <h1 class="headline" style="color:#000;"><input type="text" id="txtBannerCentro_Titulo" value="@Model.BannerCentro_Titulo" class="" style="text-align:center;background-color:transparent;height:50px;width:600px;border: 1px solid #caced1;font-size:35px;font-weight:bold;padding-left:10px;"></h1>
+
+                        <p class="vertical-space" style="color:#636363;"><input type="text" id="txtBannerCentro_Descripcion" value="@Model.BannerCentro_Descripcion" class="" style="text-align:center;background-color:transparent;height:50px;width:600px;border: 1px solid #caced1;font-size:15px;padding-left:10px;"></p>
+                    </div>
+                    <div class="benefits benefits-vertical">
+                        <div class="benefit-item">
+                            <div class="benefit-icon"><i style="color:var(--colorPrincipal);" class="fa fa-check-circle"> </i></div>
+                            <h6 class="benefit-title" style="color:#000;padding-top: 25px;"><input type="text" id="txtBannerCentro_Beneficio1" value="@Model.BannerCentro_Beneficio1" class="" style="text-align:center;background-color:transparent;height:50px;width:400px;border: 1px solid #caced1;font-size:35px;font-weight:bold;padding-left:10px;"></h6>
+                        </div>
+
+                        <div class="benefit-item">
+                            <div class="benefit-icon"><i style="color:var(--colorPrincipal);" class="fa fa-check-circle"> </i></div>
+                            <h6 class="benefit-title" style="color:#000;padding-top: 25px;"><input type="text" id="txtBannerCentro_Beneficio2" value="@Model.BannerCentro_Beneficio2" class="" style="text-align:center;background-color:transparent;height:50px;width:400px;border: 1px solid #caced1;font-size:35px;font-weight:bold;padding-left:10px;"></h6>
+                        </div>
+
+                        <div class="benefit-item">
+                            <div class="benefit-icon"> <i style="color:var(--colorPrincipal);" class="fa fa-check-circle"> </i></div>
+                            <h6 class="benefit-title" style="color:#000;padding-top: 25px;"><input type="text" id="txtBannerCentro_Beneficio3" value="@Model.BannerCentro_Beneficio3" class="" style="text-align:center;background-color:transparent;height:50px;width:400px;border: 1px solid #caced1;font-size:35px;font-weight:bold;padding-left:10px;"></h6>
+                        </div>
+                    </div>
+                </div>
+                <!-- // end .col -->
+
+            </div>
+            <!-- // end .row -->
+
+        </div>
+        <!-- // end .header-content -->
+
+    </div>
+    <!-- end .container -->
+</section>
+
+<section class="appointment top-space" id="register">
+    <div class="container">
+
+        <div class="row">
+            <input type="hidden" id="hdSesionFormulario_Imagen" value="@Model.SesionFormulario_Imagen" />
+            <div class="col-sm-6 col-md-7">
+                <div class="section-title left-aligned">
+                    <h2 style="color:var(--colorPrincipal);"><input type="text" id="txtSesionFormulario_Titulo" value="@Model.SesionFormulario_Titulo" class="" style="text-align:center;background-color:transparent;height:50px;width:600px;border: 1px solid #caced1;font-size:35px;font-weight:bold;padding-left:10px;"></h2>
+                    <h3 class="subline" style="color:#636363;"><input type="text" id="txtSesionFormulario_Descripcion" value="@Model.SesionFormulario_Descripcion" class="" style="text-align:center;background-color:transparent;height:50px;width:600px;border: 1px solid #caced1;font-size:35px;font-weight:bold;padding-left:10px;"></h3>
+                    <hr>
+                </div>
+                <a class="btn btn-success btn-xs" href="@Url.Action("aparienciapaginaweb_bannerreserva", "operacionesfit", new { id = HttpContext.Current.Request.Cookies["_SubDominio_Business"].Value })">Cambiar imagenes de fondo 653x435</a>
+                <button class="btn btn-success btn-xs" onclick="uspActualizarEdicionPaginaWeb();">Guardar cambios</button>
+                <div class="custom-control custom-checkbox-toggle custom-control-inline mr-1">
+                    @if (Model.SesionFormulario_Estado)
+                    {
+                        <input checked type="checkbox" id="chkSesionFormulario_Estado" class="custom-control-input" style="height:25px;width:25px;">
+                    }
+                    else
+                    {
+                        <input type="checkbox" id="chkSesionFormulario_Estado" class="custom-control-input" style="height:25px;width:25px;">
+                    }
+                    <label class="custom-control-label" for="chkSesionFormulario_Estado" style="color:#000;">Mostrar Sesión Formulario</label>
+                </div>
+
+                <img src="@Model.SesionFormulario_Imagen" class="img-responsive" alt="" />
+
+            </div>
+            <!-- // end .col -->
+
+            <div class="col-sm-6 col-md-5">
+
+                <div class="appointment-form top-space-lg">
+
+                        <div style="background-color:var(--colorPrincipal);border: 1px var(--colorPrincipal) solid;" class="form-header">
+                            <h4><input type="text" id="txtSesionFormulario_Tituloformulario" value="@Model.SesionFormulario_Tituloformulario" class="" style="text-align:center;background-color:transparent;height:50px;width:400px;border: 1px solid #caced1;font-size:25px;padding-left:10px;font-weight:bold;"></h4>
+                        </div>
+
+                        <div class="form-group" style="padding-left:15px;padding-right:15px;">
+                            <label style="color:#000;">Nombre completo</label>
+                            <input id="txtSesionFormulario_NombreCompleto" type="text" class="form-control" style="border: 1px solid #caced1;font-size:18px;font-weight:bold;padding-left:10px;" required title="Ingrese nombres...">
+                        </div>
+                        <div class="form-group" style="padding-left:15px;padding-right:15px;">
+                            <label style="color:#000;">¿Qué objetivo quieres lograr?</label>
+                            <select id="ddlSesionFormulario_Objetivo" class="form-control" style="border: 1px solid #caced1;">
+                                <option value="0">Seleccionar</option>
+                                <option value="1" >Bajar de peso</option>
+                                <option value="2" >Aumentar masa muscular</option>
+                                <option value="3" >Mejorar la salud</option>
+                                <option value="4" >Superar el stress</option>
+                                <option value="5" >tonificar mi cuerpo</option>
+                                <option value="6" >Preparación fisica</option>
+                            </select>                            
+                        </div>
+                        <div class="form-group" style="padding-left:15px;padding-right:15px;">
+                                <label style="color:#000;">¿En cuanto tiempo te gustaria lograrlo?</label>
+                                <select id="ddlSesionFormulario_Promocion" class="form-control" style="border: 1px solid #caced1;">
+                                    <option value="0">Seleccionar</option>
+                                    @{if (Model.List_Planes != null)
+                                        {
+                                            foreach (var itemPlanes in Model.List_Planes)
+                                            {
+                                                <option >@itemPlanes.Titulo</option>                                     
+                                            }
+                                        }
+                                    }
+                                </select>                                                           
+                        </div>
+                        <div class="text-center top-space" style="padding-left:15px;padding-right:15px;">
+                            <button onclick="EnviarDatos();" style="background-color:var(--colorPrincipal);color:#fff;border: 1px var(--colorPrincipal) solid;" type="submit" class="btn btn-block btn-xl" id="js-contact-btn">Enviar información</button>                            
+                            <div id="js-validacion" style="color:red;display:none;"></div>
+                        </div>
+                        <br />
+                        <div class="form-group" style="padding-left:15px;padding-right:15px;">
+                            <div class="col-4">
+                                Seleccionar país de destino
+                                <select id="ddlSesionFormulario_Pais" class="form-control select2">
+                                    <option value="0">Selecconar</option>
+                                    <option value="51" selected="selected">Perú (+51)</option>
+                                    <option value="593">Ecuador (+593)</option>
+                                </select>
+                            </div>
+                            <div class="col-8" style="color:#000;">
+                                Ingrese número de whatsapp de destino
+                                <input id="txtSesionFormulario_Whatsapp" value="@Model.SesionFormulario_Whatsapp" type="text" class="form-control" style="border: 1px solid #caced1;font-size:18px;font-weight:bold;padding-left:10px;" placeholder="los datos seran enviados a este nro whatsapp...">
+                            </div>
+                        </div>
+
+                </div>
+
+            </div>
+            <!-- // end .col -->
+
+        </div>
+        <!-- // end .row -->
+
+    </div>
+    <!-- end .container -->
+</section>
+
+<section class="trainer vertical-space-lg">
+    <div class="container">
+
+        <div class="section-title text-center">
+
+            <button class="btn btn-success btn-xs" onclick="uspActualizarEdicionPaginaWeb();">Guardar cambios</button>
+            <a class="btn btn-success btn-xs" href="@Url.Action("aparienciapaginaweb_trainners", "operacionesfit", new { id = HttpContext.Current.Request.Cookies["_SubDominio_Business"].Value })">Editar trainners</a>
+            <div class="custom-control custom-checkbox-toggle custom-control-inline mr-1">
+                @if (Model.SesionTrainner_Estado)
+                {
+                    <input checked type="checkbox" id="chkSesionTrainner_Estado" class="custom-control-input" style="height:25px;width:25px;">
+                }
+                else
+                {
+                    <input type="checkbox" id="chkSesionTrainner_Estado" class="custom-control-input" style="height:25px;width:25px;">
+                }
+                <label class="custom-control-label" for="chkSesionTrainner_Estado"  style="color:#000;">Mostrar Sesión Trainners</label>
+            </div>
+            <h2 style="color:var(--colorPrincipal)"><input type="text" id="txtSesionTrainner_Titulo" value="@Model.SesionTrainner_Titulo" class="" style="text-align:center;background-color:transparent;height:50px;width:600px;border: 1px solid #caced1;font-size:35px;font-weight:bold;padding-left:10px;"></h2>
+            <h3 style="color:#636363;" class="subline"><input type="text" id="txtSesionTrainner_Descripcion" value="@Model.SesionTrainner_Descripcion" class="" style="text-align:center;background-color:transparent;height:50px;width:800px;border: 1px solid #caced1;font-size:30px;padding-left:10px;"></h3>
+            <hr>
+        </div>
+
+        <div class="row">
+            @{if (Model.List_Trainners != null)
+                {
+                    foreach (var itemTrainner in Model.List_Trainners)
+                    {
+                        <div class="col-md-3">
+                            <div class="staff-member">
+                                <img src="@itemTrainner.UrlUmagen" class="img-responsive center-block" />
+                                <p>
+                                    <strong style="font-size:18px;color:#000;">@itemTrainner.Titulo</strong>
+                                    <br> <small style="font-size:15px;color:#636363">@itemTrainner.SubTitulo</small>
+                                </p>
+
+                            </div>
+                        </div>
+                    }
+                }
+                else
+                {
+                    <div class="col-md-3">
+                        <div class="staff-member">
+                            <img src="~/Content/appInicio/images/staff-1.jpg" alt="spa staff" class="img-responsive center-block" />
+                            <p>
+                                <strong style="font-size:18px;color:#000;">Madison Warren</strong>
+                                <br> <small style="font-size:15px;color:#636363">Founder of Spa</small>
+                            </p>
+
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="staff-member">
+                            <img src="~/Content/appInicio/images/staff-1.jpg" alt="spa staff" class="img-responsive center-block" />
+                            <p>
+                                <strong style="font-size:18px;color:#000;">Madison Warren</strong>
+                                <br> <small style="font-size:15px;color:#636363">Founder of Spa</small>
+                            </p>
+
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="staff-member">
+                            <img src="~/Content/appInicio/images/staff-1.jpg" alt="spa staff" class="img-responsive center-block" />
+                            <p>
+                                <strong style="font-size:18px;color:#000;">Madison Warren</strong>
+                                <br> <small style="font-size:15px;color:#636363">Founder of Spa</small>
+                            </p>
+
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="staff-member">
+                            <img src="~/Content/appInicio/images/staff-1.jpg" alt="spa staff" class="img-responsive center-block" />
+                            <p>
+                                <strong style="font-size:18px;color:#000;">Madison Warren</strong>
+                                <br> <small style="font-size:15px;color:#636363">Founder of Spa</small>
+                            </p>
+
+                        </div>
+                    </div>
+                }
+            }
+
+        </div>
+    
+
+    </div>
+    <!-- // end .container -->
+
+</section>
+
+<section class="highlight top-space-lg">
+
+    <div class="container">
+
+        <div class="section-title text-center">
+            <button class="btn btn-success btn-xs" onclick="uspActualizarEdicionPaginaWeb();">Guardar cambios</button>
+            <a class="btn btn-success btn-xs" href="@Url.Action("aparienciapaginaweb_servicios", "operacionesfit", new { id = HttpContext.Current.Request.Cookies["_SubDominio_Business"].Value })">Editar Servicios</a>
+            <div class="custom-control custom-checkbox-toggle custom-control-inline mr-1">
+                @if (Model.SesionServicio_Estado)
+                {
+                    <input checked type="checkbox" id="chkSesionServicio_Estado" class="custom-control-input" style="height:25px;width:25px;">
+                }
+                else
+                {
+                    <input type="checkbox" id="chkSesionServicio_Estado" class="custom-control-input" style="height:25px;width:25px;">
+                }
+                <label class="custom-control-label" for="chkSesionServicio_Estado" style="color:#000;" >Mostrar Sesión Servicios</label>
+            </div>
+
+            <h2 style="color:var(--colorPrincipal);"><input type="text" id="txtSesionServicio_Titulo" value="@Model.SesionServicio_Titulo" class="" style="text-align:center;background-color:transparent;height:50px;width:600px;border: 1px solid #caced1;font-size:35px;font-weight:bold;padding-left:10px;"></h2>
+            <h3 style="color:#636363;" class="subline"><input type="text" id="txtSesionServicio_Descripcion" value="@Model.SesionServicio_Descripcion" class="" style="text-align:center;background-color:transparent;height:50px;width:800px;border: 1px solid #caced1;font-size:30px;padding-left:10px;"></h3>
+            <hr>
+        </div>
+
+        <div class="row">
+
+            @{if (Model.List_Servicios != null)
+                {
+                    foreach (var itemServicio in Model.List_Servicios)
+                    {
+                        <div class="col-sm-6 col-md-3">
+                            <div class="thumbnail">
+                                <img src="@itemServicio.UrlUmagen" >
+                                <div class="caption">
+                                    <h6 class="caption-title text-dark">@itemServicio.Titulo</h6>
+                                    <p class="caption-text">@itemServicio.SubTitulo</p>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                }
+                else
+                {
+
+                    <div class="col-sm-6 col-md-3">
+                        <div class="thumbnail">
+                            <img src="~/Content/appInicio/images/beneficio1.jpg" alt="Atholl Palace Hotel">
+                            <div class="caption">
+                                <h6 class="caption-title text-dark">LEVANTAMIENTO DE PESAS</h6>
+                                <p class="caption-text">La mejor manera de ganar músculos. Bueno para todas las partes del cuerpo. Practica diariamente o semanalmente.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-6 col-md-3">
+                        <div class="thumbnail">
+                            <img src="~/Content/appInicio/images/beneficio2.jpg" alt="The Four Seasons Hotel">
+                            <div class="caption">
+                                <h6 class="caption-title text-dark">ENTRENAMIENTO PERSONALIZADO</h6>
+                                <p class="caption-text">Nuestro programa especialmente diseñado para ayudar a los novatos. El entrenador personal te guiará.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="clearfix visible-sm"></div>
+
+                    <div class="col-sm-6 col-md-3">
+                        <div class="thumbnail">
+                            <img src="~/Content/appInicio/images/beneficio3.jpg" alt="The Gleneagles Hotel">
+                            <div class="caption">
+                                <h6 class="caption-title text-dark">FUNCIONAMIENTO INTERIOR</h6>
+                                <p class="caption-text">La forma fácil de hacer ejercicio. La cinta de correr importada te ayuda a ponerte en forma fácilmente.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-sm-6 col-md-3">
+                        <div class="thumbnail">
+                            <img src="~/Content/appInicio/images/beneficio4.jpg" alt="The Four Seasons Hotel">
+                            <div class="caption">
+                                <h6 class="caption-title text-dark">MUJERES FITNESS</h6>
+                                <p class="caption-text">WeTenemos un entrenamiento exclusivo solo para mujeres. Su objetivo es la autoprotección y la forma física.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                }
+
+            }
+        </div>
+        <!-- // end .row -->
+    </div>
+    <!-- // end .container -->
+
+</section>
+
+<section class="pricing" id="pricing">
+    <div class="container">
+
+        <div class="section-title text-center">
+            <a class="btn btn-success btn-xs" href="#">Guardar cambios</a>
+            <a class="btn btn-success btn-xs" href="@Url.Action("aparienciapaginaweb_planes", "operacionesfit", new { id = HttpContext.Current.Request.Cookies["_SubDominio_Business"].Value })">Editar Planes</a>
+
+            <div class="custom-control custom-checkbox-toggle custom-control-inline mr-1">
+                @if (Model.SesionPlan_Estado)
+                {
+                    <input checked type="checkbox" id="chkSesionPlan_Estado" class="custom-control-input" style="height:25px;width:25px;">
+                }
+                else
+                {
+                    <input type="checkbox" id="chkSesionPlan_Estado" class="custom-control-input" style="height:25px;width:25px;">
+                }
+                <label class="custom-control-label" for="chkSesionPlan_Estado" style="color:#000;">Mostrar Sesión Precios</label>
+            </div>
+
+            <h2 style="color:var(--colorPrincipal);"><input type="text" id="txtSesionPlan_Titulo" value="@Model.SesionPlan_Titulo" class="" style="text-align:center;background-color:transparent;height:50px;width:600px;border: 1px solid #caced1;font-size:35px;font-weight:bold;padding-left:10px;"></h2>
+            <h3 style="color:#636363;" class="subline"><input type="text" id="txtSesionPlan_Descripcion" value="@Model.SesionPlan_Descripcion" class="" style="text-align:center;background-color:transparent;height:50px;width:800px;border: 1px solid #caced1;font-size:30px;padding-left:10px;"></h3>
+            <hr>
+        </div>
+
+        <div class="row">
+            @{if (Model.List_Planes != null)
+                {
+                    foreach (var itemPlanes in Model.List_Planes)
+                    {
+                        <div class="col-md-4">
+                            <div class="pricing-item" data-wow-duration="2s">
+                                <div style="color:#000;" class="plan-name">@itemPlanes.Titulo</div>
+                                <div style="color:#000;" class="price"> <span class="curr">S/</span>@itemPlanes.SubTitulo</div>
+                                <br />
+                                @if (itemPlanes.LinkPago == string.Empty)
+                                {
+                                    <a style="border:1px solid var(--colorPrincipal);background-color:var(--colorPrincipal);color:#fff" class="btn btn-outline btn-lg" href="#register">LO QUIERO</a>
+                                }
+                                else
+                                {
+                                    <a style="border:1px solid var(--colorPrincipal);background-color:var(--colorPrincipal);color:#fff" class="btn btn-outline btn-lg" href="@itemPlanes.LinkPago">COMPRAR AHORA</a>
+                                }
+                            </div>
+                        </div>
+                    }
+                }
+                else
+                {
+                    <div class="col-md-4">
+                        <div class="pricing-item" data-wow-duration="2s">
+                            <div style="color:#000;" class="plan-name">SEMANAL</div>
+                            <div style="color:#000;" class="price"> <span class="curr">S/</span>900.00</div>
+                            <br />
+                            <a class="btn btn-outline btn-lg" href="#register">LO QUIERO</a>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="pricing-item highlighted-plan" data-wow-delay="0.3s" data-wow-duration="2s">
+                            <div class="plan-name" style="color:var(--colorPrincipal);">2 MESES</div>
+                            <div style="color:var(--colorPrincipal);" class="price"> <span class="curr" style="color:var(--colorPrincipal);">S/</span>550.00</div>
+                            <br />
+                            <a style="background-color:var(--colorPrincipal);color:#fff" class="btn btn-lg" href="#register">LO QUIERO</a>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="pricing-item" data-wow-delay="0.6s" data-wow-duration="2s">
+                            <div style="color:#000;" class="plan-name">1 MES</div>
+                            <div style="color:#000;" class="price"> <span class="curr">S/</span>150.00</div>
+                            <a class="btn btn-outline btn-lg" href="#register"> LO QUIERO</a>
+                        </div>
+                    </div>
+                }
+
+            }
+
+
+        </div>
+    </div>
+</section>
+
+<section class="watch_video" style="background-color:#000;display:none;">
+    <div class="container">
+
+        <div class="section-title text-center">
+            <button class="btn btn-success btn-xs" onclick="uspActualizarEdicionPaginaWeb();">Guardar cambios</button>
+            <a class="btn btn-success btn-xs" href="#">Cambiar video</a>
+
+            <h2 style="color:var(--colorPrincipal);"><input type="text" id="txtSesionVideo_Titulo" value="@Model.SesionVideo_Titulo" class="" style="text-align:center;background-color:transparent;height:50px;width:600px;border: 1px solid #caced1;font-size:35px;font-weight:bold;padding-left:10px;"> </h2>
+            <h3 style="color:#fff;" class="subline"><input type="text" id="txtSesionVideo_Descripcion" value="@Model.SesionVideo_Descripcion" class="" style="text-align:center;background-color:transparent;height:50px;width:800px;border: 1px solid #caced1;font-size:30px;padding-left:10px;"></h3>
+            <hr>
+            <label style="color:#000;">Link video:</label>
+            <input type="text" id="txtSesionVideo_Linkvideo" value="@Model.SesionVideo_Linkvideo" class="" style="text-align:center;background-color:transparent;height:50px;width:800px;border: 1px solid #caced1;font-size:15px;padding-left:10px;color:#fff;">
+        </div>
+
+        <div class="row">
+            <div class="col-md-8 col-md-offset-2">
+                <div class="embed-responsive embed-responsive-16by9">
+                    <div class="video-responsive">
+                        <iframe width="560" height="315" src="@Model.SesionVideo_Linkvideo" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <br /><br />
+    </div>
+    <!-- end .container -->
+</section>
+
+<section class="call-to-action" style="background-color:#000;">
+    <div class="container">
+
+        <div class="section-title text-center">
+            <button class="btn btn-success btn-xs" onclick="uspActualizarEdicionPaginaWeb();">Guardar cambios</button>
+            <h2 style="color:var(--colorPrincipal);"><input type="text" id="txtSesionFreepass_Titulo" value="@Model.SesionFreepass_Titulo" class="" style="text-align:center;background-color:transparent;height:50px;width:600px;border: 1px solid #caced1;font-size:35px;font-weight:bold;padding-left:10px;"></h2>
+            <h3 style="color:#fff;" class="subline"><input type="text" id="txtSesionFreepass_Descripcion" value="@Model.SesionFreepass_Descripcion" class="" style="text-align:center;background-color:transparent;height:50px;width:800px;border: 1px solid #caced1;font-size:30px;padding-left:10px;"></h3>
+            <hr>
+
+        </div>
+        <div class="cta-button text-center vertical-space bottom-space-xl">
+            <a style="background-color:var(--colorPrincipal);color:#fff;" class="btn btn-xl" href="#register">INICIAR EL CAMBIO AHORA</a>
+        </div>
+
+    </div>
+</section>
+
+<div class="highlight contact">
+    <div class="container">
+
+        <div class="row">
+            <div class="col-sm-4">
+                <p style="color:#000;">
+                    <span class="text-highlight"><strong style="color:var(--colorPrincipal);">Nuestra dirección</strong></span>
+                    <br><input type="text" id="txtSesionInformacion_Direccion1" value="@Model.SesionInformacion_Direccion1" class="" style="text-align:center;background-color:transparent;height:30px;width:290px;border: 1px solid #caced1;font-size:15px;padding-left:10px;">
+                    <br><input type="text" id="txtSesionInformacion_Direccion2" value="@Model.SesionInformacion_Direccion2" class="" style="text-align:center;background-color:transparent;height:30px;width:290px;border: 1px solid #caced1;font-size:15px;padding-left:10px;">
+                </p>
+            </div>
+            <!-- // end .col -->
+
+            <div class="col-sm-4">
+                <p style="color:#000;">
+                    <span class="text-highlight"><strong style="color:var(--colorPrincipal);">Contáctenos</strong></span>
+                    <br><input type="text" id="txtSesionInformacion_Contactanos1" value="@Model.SesionInformacion_Contactanos1" class="" style="text-align:center;background-color:transparent;height:30px;width:290px;border: 1px solid #caced1;font-size:15px;padding-left:10px;">
+                    <br><input type="text" id="txtSesionInformacion_Contactanos2" value="@Model.SesionInformacion_Contactanos2" class="" style="text-align:center;background-color:transparent;height:30px;width:290px;border: 1px solid #caced1;font-size:15px;padding-left:10px;">
+                </p>
+            </div>
+            <!-- // end .col -->
+
+            <div class="col-sm-4">
+                <p style="color:#000;">
+                    <span class="text-highlight"><strong style="color:var(--colorPrincipal);">Horario</strong></span>
+                    <br><input type="text" id="txtSesionInformacion_Horario1" value="@Model.SesionInformacion_Horario1" class="" style="text-align:center;background-color:transparent;height:30px;width:290px;border: 1px solid #caced1;font-size:15px;padding-left:10px;">
+                    <br><input type="text" id="txtSesionInformacion_Horario2" value="@Model.SesionInformacion_Horario2" class="" style="text-align:center;background-color:transparent;height:30px;width:290px;border: 1px solid #caced1;font-size:15px;padding-left:10px;">
+                </p>
+            </div>
+            <!-- // end .col -->
+
+        </div>
+        <!-- // end .row -->
+
+    </div>
+</div>
+
+<center>
+    <a class="btn btn-success btn-xs" target="_blank" href="https://www.maps.ie/coordinates.html">Obtener cordenadas</a>
+    <input type="text" id="txtSesionInformacion_LatitudMapa" value="@Model.SesionInformacion_LatitudMapa" class="" style="text-align:center;background-color:transparent;height:30px;width:290px;border: 1px solid #caced1;font-size:15px;padding-left:10px;color:#000;">
+    <input type="text" id="txtSesionInformacion_LongitudMapa" value="@Model.SesionInformacion_LongitudMapa" class="" style="text-align:center;background-color:transparent;height:30px;width:290px;border: 1px solid #caced1;font-size:15px;padding-left:10px;color:#000;">
+    <button class="btn btn-success btn-xs" onclick="uspActualizarEdicionPaginaWeb();">Guardar cambios</button>
+</center>
+<div class="google-map">
+    <iframe src="https://maps.google.com/maps?q=@Model.SesionInformacion_LatitudMapa,@Model.SesionInformacion_LongitudMapa&hl=en&z=17&amp;output=embed"></iframe>
+</div>
+
+
+
+
+
+@section Scripts {
+
+    @System.Web.Optimization.Scripts.Render("~/Scripts/bootstrap-notify-master/bootstrap-notify.js")
+    @System.Web.Optimization.Scripts.Render("~/Scripts/bootstrap-notify-master/bootstrap-notify.min.js")
+    @System.Web.Optimization.Scripts.Render("~/Scripts/jsBootstrap/jquery.bootstrap-growl.js")
+
+    @System.Web.Optimization.Scripts.Render("~/Scripts/jquery.min.js")
+    @System.Web.Optimization.Scripts.Render("~/Scripts/plugins/jquery-ui/jquery-ui.js")
+    @System.Web.Optimization.Scripts.Render("~/Scripts/plugins/jquery-ui/jquery-ui.min.js")
+
+    @System.Web.Optimization.Scripts.Render("~/Resource/UserControl.Helper.js")
+
+    <script type="text/javascript">
+
+        $(document).ready(function () {
+           
+        });
+        
+
+        function uspActualizarEdicionPaginaWeb() {
+
+            var entidad = {};
+            entidad.CodigoPagina = $('input[id="hdCodigoPagina"]').val();
+            entidad.logoPagina = $('input[id="hdlogoPagina"]').val();
+            entidad.ColorPrincipalPagina = $('input[id="txtColorPrincipalPagina"]').val();
+            entidad.BannerReserva_Titulo = ConvertToStringFromObject($('input[id="txtBannerReserva_Titulo"]').val());
+            entidad.BannerReserva_Descripcion = ConvertToStringFromObject($('input[id="txtBannerReserva_Descripcion"]').val());
+            entidad.BannerReserva_Descripcion2 = ConvertToStringFromObject($('input[id="txtBannerReserva_Descripcion2"]').val());
+            //entidad.BannerReserva_FondoImagen = ConvertToStringFromObject($('input[id="hdBannerReserva_FondoImagen"]').val());
+            entidad.BannerReserva_Estado = $('#chkBannerReserva_Estado').prop('checked');
+
+            entidad.BannerCentro_Titulo = ConvertToStringFromObject($('input[id="txtBannerCentro_Titulo"]').val());
+            entidad.BannerCentro_Descripcion = ConvertToStringFromObject($('input[id="txtBannerCentro_Descripcion"]').val());
+            entidad.BannerCentro_Beneficio1 = ConvertToStringFromObject($('input[id="txtBannerCentro_Beneficio1"]').val());
+            entidad.BannerCentro_Beneficio2 = ConvertToStringFromObject($('input[id="txtBannerCentro_Beneficio2"]').val());
+            entidad.BannerCentro_Beneficio3 = ConvertToStringFromObject($('input[id="txtBannerCentro_Beneficio3"]').val());
+            //entidad.BannerCentro_FondoImagen = ConvertToStringFromObject($('input[id="hdBannerCentro_FondoImagen"]').val());
+            entidad.BannerCentro_Estado = true;
+
+            entidad.SesionFormulario_Titulo = ConvertToStringFromObject($('input[id="txtSesionFormulario_Titulo"]').val());
+            entidad.SesionFormulario_Descripcion = ConvertToStringFromObject($('input[id="txtSesionFormulario_Descripcion"]').val());
+            entidad.SesionFormulario_Tituloformulario = ConvertToStringFromObject($('input[id="txtSesionFormulario_Tituloformulario"]').val());
+            var pais = $('select[id="ddlSesionFormulario_Pais"] option:selected').val();
+            var numero = $('#txtSesionFormulario_Whatsapp').val();
+            entidad.SesionFormulario_Whatsapp = numero;
+            entidad.SesionFormulario_Estado = $('#chkSesionFormulario_Estado').prop('checked');
+
+            entidad.SesionTrainner_Titulo = ConvertToStringFromObject($('input[id="txtSesionTrainner_Titulo"]').val());
+            entidad.SesionTrainner_Descripcion = ConvertToStringFromObject($('input[id="txtSesionTrainner_Descripcion"]').val());
+            entidad.SesionTrainner_Estado = $('#chkSesionTrainner_Estado').prop('checked'); 
+
+            entidad.SesionServicio_Titulo = ConvertToStringFromObject($('input[id="txtSesionServicio_Titulo"]').val());
+            entidad.SesionServicio_Descripcion = ConvertToStringFromObject($('input[id="txtSesionServicio_Descripcion"]').val());
+            entidad.SesionServicio_Estado = $('#chkSesionServicio_Estado').prop('checked'); 
+
+            entidad.SesionPlan_Titulo = ConvertToStringFromObject($('input[id="txtSesionPlan_Titulo"]').val());
+            entidad.SesionPlan_Descripcion = ConvertToStringFromObject($('input[id="txtSesionPlan_Descripcion"]').val());
+            entidad.SesionPlan_Estado = $('#chkSesionPlan_Estado').prop('checked');
+
+            entidad.SesionVideo_Titulo = "";//ConvertToStringFromObject($('input[id="txtSesionVideo_Titulo"]').val());
+            entidad.SesionVideo_Descripcion = "";//ConvertToStringFromObject($('input[id="txtSesionVideo_Descripcion"]').val());
+            entidad.SesionVideo_Linkvideo = "";//ConvertToStringFromObject($('input[id="txtSesionVideo_Linkvideo"]').val());
+            entidad.SesionVideo_Estado = true;
+
+            entidad.SesionFreepass_Titulo = ConvertToStringFromObject($('input[id="txtSesionFreepass_Titulo"]').val());
+            entidad.SesionFreepass_Descripcion = ConvertToStringFromObject($('input[id="txtSesionFreepass_Descripcion"]').val());
+            entidad.SesionFreepass_Estado = true;
+
+            entidad.SesionInformacion_Direccion1 = ConvertToStringFromObject($('input[id="txtSesionInformacion_Direccion1"]').val());
+            entidad.SesionInformacion_Direccion2 = ConvertToStringFromObject($('input[id="txtSesionInformacion_Direccion2"]').val());
+            entidad.SesionInformacion_Contactanos1 = ConvertToStringFromObject($('input[id="txtSesionInformacion_Contactanos1"]').val());
+            entidad.SesionInformacion_Contactanos2 = ConvertToStringFromObject($('input[id="txtSesionInformacion_Contactanos2"]').val());
+            entidad.SesionInformacion_Horario1 = ConvertToStringFromObject($('input[id="txtSesionInformacion_Horario1"]').val());
+            entidad.SesionInformacion_Horario2 = ConvertToStringFromObject($('input[id="txtSesionInformacion_Horario2"]').val());
+            entidad.SesionInformacion_LatitudMapa = ConvertToStringFromObject($('input[id="txtSesionInformacion_LatitudMapa"]').val());
+            entidad.SesionInformacion_LongitudMapa = ConvertToStringFromObject($('input[id="txtSesionInformacion_LongitudMapa"]').val());
+            entidad.SesionInformacion_Estado = true;
+            
+            if (IsUndefinedOrNullOrEmpty(entidad.BannerReserva_Titulo)) {
+                alert("Falta ingresar titulo del baner de reserva.");                               
+                return;
+            } else if (IsUndefinedOrNullOrEmpty(entidad.BannerReserva_Descripcion)) {
+                alert("Falta ingresar la descripción del baner de reserva.");                              
+                return;
+            } else if (IsUndefinedOrNullOrEmpty(entidad.BannerReserva_Descripcion2)) {
+                alert("Falta ingresar la descripción 2 del baner de reserva.");                
+                return;
+            } else if (IsUndefinedOrNullOrEmpty(entidad.BannerCentro_Titulo)) {
+                alert("Falta ingresar el titulo del baner del centro.");                
+                return;
+            } else if (IsUndefinedOrNullOrEmpty(entidad.BannerCentro_Descripcion)) {
+                alert("Falta ingresar la descripción del baner del centro.");                
+                return;
+            } else if (IsUndefinedOrNullOrEmpty(entidad.BannerCentro_Beneficio1)) {
+                alert("Falta ingresar el beneficio 1 del baner del centro.");                
+                return;
+            } else if (IsUndefinedOrNullOrEmpty(entidad.BannerCentro_Beneficio2)) {
+                alert("Falta ingresar el beneficio 2 del baner del centro.");                
+                return;
+            } else if (IsUndefinedOrNullOrEmpty(entidad.BannerCentro_Beneficio3)) {
+                alert("Falta ingresar el beneficio 3 del baner del centro.");               
+                return;
+            } else if (IsUndefinedOrNullOrEmpty(entidad.SesionFormulario_Titulo)) {
+                alert("Falta ingresar el titulo de la sesión del formulario.");                 
+                return;
+            } else if (IsUndefinedOrNullOrEmpty(entidad.SesionFormulario_Descripcion)) {
+                alert("Falta ingresar la descripcion de la sesión del formulario.");                
+                return;
+            } else if (IsUndefinedOrNullOrEmpty(entidad.SesionFormulario_Tituloformulario)) {
+                alert("Falta ingresar el titulo de la landing de la sesión del formulario.");                
+                return;
+            } else if (pais == 'Seleccionar') {
+                alert("Falta configurar el pais de destino");
+                return;
+            } else if (numero == '') {
+                alert("Falta configurar el número de destino");
+                return;
+            }else if (IsUndefinedOrNullOrEmpty(entidad.SesionTrainner_Titulo)) {
+                alert("Falta ingresar el titulo de la sesión del trainner.");                
+                return;
+            } else if (IsUndefinedOrNullOrEmpty(entidad.SesionTrainner_Descripcion)) {
+                alert("Falta ingresar la descripcion de la sesión del trainner.");                
+                return;
+            } else if (IsUndefinedOrNullOrEmpty(entidad.SesionServicio_Titulo)) {
+                alert("Falta ingresar el titulo de la sesión de servicio.");  
+                return;
+            } else if (IsUndefinedOrNullOrEmpty(entidad.SesionServicio_Descripcion)) {
+                alert("Falta ingresar la descripcion de la sesión de servicio.");                
+                return;
+            } else if (IsUndefinedOrNullOrEmpty(entidad.SesionPlan_Titulo)) {
+                alert("Falta ingresar el titulo de la sesión del plan.");                  
+                return;
+            } else if (IsUndefinedOrNullOrEmpty(entidad.SesionPlan_Descripcion)) {
+                alert("Falta ingresar la descripcion de la sesión del plan.");                  
+                return;
+            }  else if (IsUndefinedOrNullOrEmpty(entidad.SesionFreepass_Titulo)) {
+                alert("Falta ingresar el titulo de la sesión del free pass.");                
+                return;
+            } else if (IsUndefinedOrNullOrEmpty(entidad.SesionFreepass_Descripcion)) {
+                alert("Falta ingresar la descripcion de la sesión del free pass.");
+                return;
+            } else if (IsUndefinedOrNullOrEmpty(entidad.SesionInformacion_Direccion1)) {
+                alert("Falta ingresar la Direccion1 de la sesión de información.");                
+                return;
+            } else if (IsUndefinedOrNullOrEmpty(entidad.SesionInformacion_Direccion2)) {
+                alert("Falta ingresar la Direccion2 de la sesión de información.");               
+                return;
+            } else if (IsUndefinedOrNullOrEmpty(entidad.SesionInformacion_Contactanos1)) {
+                alert("Falta ingresar el Contacto1 de la sesión de información.");                
+                return;
+            } else if (IsUndefinedOrNullOrEmpty(entidad.SesionInformacion_Contactanos2)) {
+                alert("Falta ingresar el Contacto2 de la sesión de información.");                                
+                return;
+            } else if (IsUndefinedOrNullOrEmpty(entidad.SesionInformacion_Horario1)) {
+                alert("Falta ingresar el Horario1 de la sesión de información.");                                
+                return;
+            } else if (IsUndefinedOrNullOrEmpty(entidad.SesionInformacion_Horario2)) {
+                alert("Falta ingresar el Horario2 de la sesión de información.");                
+                return;
+            } else if (IsUndefinedOrNullOrEmpty(entidad.SesionInformacion_LatitudMapa)) {
+                alert("Falta ingresar la Latitud de la sesión del mapa.");  
+                return;
+            } else if (IsUndefinedOrNullOrEmpty(entidad.SesionInformacion_LongitudMapa)) {
+                alert("Falta ingresar la Longitud de la sesión del mapa.");  
+                return;
+            }
+
+
+            ////else if (IsUndefinedOrNullOrEmpty(entidad.SesionVideo_Titulo)) {
+            ////    alert("Falta ingresar el titulo de la sesión del video.");
+            ////    return;
+            ////} else if (IsUndefinedOrNullOrEmpty(entidad.SesionVideo_Descripcion)) {
+            ////    alert("Falta ingresar la descripcion de la sesión del video.");
+            ////    return;
+            ////} else if (IsUndefinedOrNullOrEmpty(entidad.SesionVideo_Linkvideo)) {
+            ////    alert("Falta ingresar el link de la sesión del video.");
+            ////    return;
+            ////}
+
+
+            $('button').attr('disabled', 'disabled');
+            var metodoCorrecto = function (msg) {
+
+                if (msg) {
+                    $('button').removeAttr('disabled');
+                    alert("Los datos se guardaron correctamente");                    
+                }
+                else {
+
+                }
+            };
+            var metodoError = function (msg) {
+                alert(msg);
+            };
+            var request = {
+                request: entidad
+            };
+            LlamarAJAX("/operacionesfit/CentroEntrenamiento_uspActualizarEdicionPaginaWeb", request, metodoCorrecto, metodoError);
+        }
+
+        function EnviarDatos() {
+            var nombres = $('#txtSesionFormulario_NombreCompleto').val();
+            var objetivo = $('select[id="ddlSesionFormulario_Objetivo"] option:selected').text();
+            var tiempo = $('select[id="ddlSesionFormulario_Promocion"] option:selected').text();
+            var pais = $('select[id="ddlSesionFormulario_Pais"] option:selected').val();
+            var numero = $('#txtSesionFormulario_Whatsapp').val();
+
+            if (nombres == '') {
+                $('#js-validacion').html('Falta ingresar nombres y apellidos');
+                document.getElementById("js-validacion").style.display = 'block';
+                return;
+            } else if (objetivo == 'Seleccionar') {
+                $('#js-validacion').html('Falta seleccionar su objetivo');
+                document.getElementById("js-validacion").style.display = 'block';
+                return;
+            } else if (tiempo == 'Seleccionar') {
+                $('#js-validacion').html('Falta seleccionar el tiempo');
+                document.getElementById("js-validacion").style.display = 'block';
+                return;
+            } else if (pais == 'Seleccionar') {
+                $('#js-validacion').html('Falta seleccionar el pais de destino');
+                document.getElementById("js-validacion").style.display = 'block';
+                return;
+            } else if (numero == '') {
+                $('#js-validacion').html('Falta configurar el número de destino');
+                document.getElementById("js-validacion").style.display = 'block';
+                return;
+            }
+
+            document.getElementById("js-validacion").style.display = 'none';
+
+            nombres = nombres.replace(' ', '%20').replace(' ', '%20').replace(' ', '%20');
+            objetivo = objetivo.replace(' ', '%20').replace(' ', '%20').replace(' ', '%20');
+            tiempo = tiempo.replace(' ', '%20').replace(' ', '%20').replace(' ', '%20');
+            //alert("nombres: " + nombres);
+            //alert("objetivo: " + objetivo);
+            //alert("tiempo: " + tiempo);
+            //alert("pais: " + pais);
+            //alert("numero: " + numero);
+
+            var Link = "https://api.whatsapp.com/send?phone=" + pais + numero + "&text=👍%20Hola,%20mi%20nombre%20es%20" + nombres + ",%20😉%20me%20interesa%20" + objetivo + "%20en%20" + tiempo +"%20💪";
+            window.open(Link, '_blank');
+            
+        }
+
+    </script>
+
+
+}

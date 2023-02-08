@@ -1,0 +1,134 @@
+﻿@model E_DataModel.PlantillaFormaPagoDTO
+
+@{
+    ViewBag.Title = "contraentrega";
+    Layout = "~/Views/Shared/_LayoutApp.cshtml";
+}
+
+
+<div class="slim-mainpanel">
+    <div class="container">
+        <div class="slim-pageheader">
+            <ol class="breadcrumb slim-breadcrumb">
+                <li class="breadcrumb-item"><a href="@Url.Action("formasdepago","admintienda")">Formas de pago</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Mercado de pago</li>
+            </ol>
+            <h6 class="slim-pagetitle">Yape</h6>
+        </div><!-- slim-pageheader -->
+
+        <div class="section-wrapper">
+            <div class="form-layout">
+                <div class="row mg-b-25">
+                    <div class="card">
+                        <div class="card-header" role="tab" id="headingOne">
+                            <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne" class="tx-gray-800 transition">
+                                Ayuda
+                            </a>
+                        </div>
+                        <div id="collapseOne" class="collapse show" role="tabpanel" aria-labelledby="headingOne">
+                            <div class="card-body">
+                                <p>
+                                    Te ofrecemos la posibilidad de solicitar <b>pagos contra entrega.</b> Al activar esta forma de pago el carrito de compras generará una orden de pedido incluyendo información de contacto para que se coordine la transacción. No tenemos forma automática para registrar estos pagos en nuestro sistema, por lo que deberás registrarlos manualmente.
+                                </p>
+                                <p>
+                                    Por favor completa el siguiente formulario para comenzar a aceptar pagos contra entrega.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row mg-b-25">
+                    <div class="col-lg-12">
+                        <div class="form-group">
+                            <label for="txtContraEntrega_Instrucciones" class="form-control-label"><b>Instrucciones:</b></label>
+                            <p>
+                                Escribe las instrucciones para este medio de pago que aparecerán en el carrito de compras, la pantalla de confirmación y el mensaje que se le enviará a tu cliente por correo electrónico. Te recomendamos incluir información de contacto, horarios, compra mínima y otros datos importantes.
+                            </p>
+                            <textarea id="txtContraEntrega_Instrucciones" rows="4" class="form-control" placeholder="">@Model.ContraEntrega_InstruccionesCorreo</textarea>
+
+                        </div>
+                    </div><!-- col-4 -->
+                    <div class="col-lg-12">
+                        <div class="form-group">
+                            <label for="txtContraEntrega_InstruccionesCheckout" class="form-control-label"><b>Instrucciones en el Checkout:</b></label>
+                            <p>
+                                Texto opcional que se muestrará al cliente al momento de seleccionar este metódo de pago
+                            </p>
+                            <textarea id="txtContraEntrega_InstruccionesCheckout" rows="4" class="form-control" placeholder="">@Model.ContraEntrega_InstruccionesCheckout</textarea>                            
+                        </div>
+                    </div><!-- col-4 -->
+                </div><!-- row -->
+                <br /><br />
+                <div class="form-layout-footer">
+                    <button class="btn btn-primary bd-0" onclick="javascript:uspRegistrarFormaPago_ContraEntrega();">Guardar</button>
+                    <a href="@Url.Action("formasdepago","admintienda")"><button class="btn btn-secondary bd-0">Cancelar</button></a>
+                </div><!-- form-layout-footer -->
+            </div><!-- form-layout -->
+        </div><!-- section-wrapper -->
+
+    </div><!-- container -->
+
+</div><!-- slim-mainpanel -->
+
+
+@section Scripts {
+
+    @System.Web.Optimization.Scripts.Render("~/Scripts/plugins/jquery-ui/jquery-ui.js")
+    @System.Web.Optimization.Scripts.Render("~/Scripts/plugins/jquery-ui/jquery-ui.min.js")
+
+    @System.Web.Optimization.Scripts.Render("~/Content/app/lib/popper.js/js/popper.js")
+    @System.Web.Optimization.Scripts.Render("~/Content/app/lib/bootstrap/js/bootstrap.js")
+
+    @System.Web.Optimization.Scripts.Render("~/Scripts/bootstrap-notify-master/bootstrap-notify.js")
+    @System.Web.Optimization.Scripts.Render("~/Scripts/bootstrap-notify-master/bootstrap-notify.min.js")
+    @System.Web.Optimization.Scripts.Render("~/Scripts/jsBootstrap/jquery.bootstrap-growl.js")
+
+    @System.Web.Optimization.Scripts.Render("~/Resource/UserControl.Helper.js")
+    
+    <script type="text/javascript">
+
+        $(document).ready(function () {
+            
+        });
+        
+        function uspRegistrarFormaPago_ContraEntrega() {
+
+            var entidad = {};
+
+            entidad.ContraEntrega_InstruccionesCorreo = ConvertToStringFromObject($('textarea[id="txtContraEntrega_Instrucciones"]').val());
+            entidad.ContraEntrega_InstruccionesCheckout = ConvertToStringFromObject($('textarea[id="txtContraEntrega_InstruccionesCheckout"]').val());
+            entidad.ContraEntrega_Estado = true;
+
+            if (IsUndefinedOrNullOrEmpty(entidad.ContraEntrega_InstruccionesCorreo)) {
+                $.bootstrapGrowl("Falta ingresar Instrucciones para el correo.", { type: 'danger', width: 'auto' });
+                return;
+            }
+            else if (IsUndefinedOrNullOrEmpty(entidad.ContraEntrega_InstruccionesCheckout)) {
+                $.bootstrapGrowl("Falta ingresar Instrucciones para el Checkout.", { type: 'danger', width: 'auto' });
+                return;
+            }
+            
+            $('button').attr('disabled', 'disabled');
+            var metodoCorrecto = function (msg) {
+
+                $('button').removeAttr('disabled');
+                if (msg) {
+                    $.bootstrapGrowl("Se guardo correctamente.", { type: 'success', width: 'auto' });
+                }
+                else {
+                    $.bootstrapGrowl("Error, no se guardo correctamente.", { type: 'danger', width: 'auto' });
+                }
+            };
+            var metodoError = function (msg) {
+                alert(msg);
+            };
+            var request = {
+                request: entidad
+            };
+            LlamarAJAX("/admintienda/ecommerce_uspRegistrarFormaPago_ContraEntrega", request, metodoCorrecto, metodoError);
+        }
+
+    </script>
+
+}

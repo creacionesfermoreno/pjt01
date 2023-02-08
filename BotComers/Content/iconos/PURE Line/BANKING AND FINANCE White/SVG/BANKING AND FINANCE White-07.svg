@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Generator: Adobe Illustrator 16.0.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="170px"
+	 height="170px" viewBox="0 0 170 170" enable-background="new 0 0 170 170" xml:space="preserve">
+<g id="Background">
+</g>
+<g id="Circle">
+	<g>
+		<path fill="#282D33" d="M85,170c-46.869,0-85-38.131-85-85S38.131,0,85,0s85,38.131,85,85S131.869,170,85,170z"/>
+	</g>
+</g>
+<g id="TEXT">
+</g>
+<g id="Icons">
+	<g>
+		<g>
+			<path fill="none" stroke="#FFFFFF" stroke-width="4" stroke-dasharray="4.0585,4.0585" d="M110.335,96.805
+				c0,13.555-10.99,24.553-24.555,24.553c-13.563,0-24.552-10.998-24.552-24.553c0-13.554,10.989-24.55,24.552-24.55
+				C99.345,72.255,110.335,83.251,110.335,96.805z"/>
+		</g>
+		<path fill="none" stroke="#FFFFFF" stroke-width="4" stroke-linejoin="round" d="M61.229,96.805"/>
+		<path fill="none" stroke="#FFFFFF" stroke-width="4" stroke-linejoin="round" d="M110.335,96.805
+			c0,13.555-10.99,24.553-24.555,24.553"/>
+		<g>
+			<path fill="none" stroke="#FFFFFF" stroke-width="4" d="M90.858,90.674v-1.176c0-2.041-1.654-3.693-3.691-3.693h-2.966
+				c-2.038,0-3.692,1.652-3.692,3.693v2.515c0,1.167,0.902,2.126,2.089,2.88l5.63,2.154"/>
+			<path fill="none" stroke="#FFFFFF" stroke-width="4" d="M80.508,101.522v1.176c0,2.04,1.654,3.692,3.692,3.692h2.966
+				c2.037,0,3.691-1.652,3.691-3.692v-2.517c0-1.166-0.962-2.185-2.152-2.939l-5.371-2.068"/>
+			<line fill="none" stroke="#FFFFFF" stroke-width="4" x1="85.908" y1="80.748" x2="85.908" y2="86.265"/>
+			<line fill="none" stroke="#FFFFFF" stroke-width="4" x1="85.908" y1="105.498" x2="85.908" y2="111.015"/>
+		</g>
+		<g>
+			<path fill="none" stroke="#FFFFFF" stroke-width="4" d="M93.319,64.2V47.077h2.176V35.299h-2.176H78.377h-2.176v11.778h2.176
+				V64.2c-14.879,3.396-25.984,16.7-25.984,32.61c0,18.479,14.977,33.454,33.453,33.454s33.461-14.976,33.461-33.454
+				C119.307,80.9,108.195,67.596,93.319,64.2z"/>
+		</g>
+		<line fill="none" stroke="#FFFFFF" stroke-width="4" x1="78.016" y1="46.643" x2="87.683" y2="46.643"/>
+		<g>
+			<g>
+				<line fill="none" stroke="#FFFFFF" stroke-width="4" x1="115.518" y1="35.089" x2="115.518" y2="38.9"/>
+			</g>
+			<g>
+				<line fill="none" stroke="#FFFFFF" stroke-width="4" x1="106.215" y1="40.267" x2="109.516" y2="42.173"/>
+			</g>
+			<g>
+				<line fill="none" stroke="#FFFFFF" stroke-width="4" x1="106.048" y1="50.912" x2="109.35" y2="49.007"/>
+			</g>
+			<g>
+				<line fill="none" stroke="#FFFFFF" stroke-width="4" x1="115.183" y1="56.379" x2="115.184" y2="52.567"/>
+			</g>
+			<g>
+				<line fill="none" stroke="#FFFFFF" stroke-width="4" x1="124.486" y1="51.201" x2="121.186" y2="49.295"/>
+			</g>
+			<g>
+				<line fill="none" stroke="#FFFFFF" stroke-width="4" x1="124.653" y1="40.557" x2="121.352" y2="42.461"/>
+			</g>
+		</g>
+		<g>
+			<line fill="none" stroke="#FFFFFF" stroke-width="4" x1="64.906" y1="50.178" x2="57.744" y2="57.341"/>
+			<line fill="none" stroke="#FFFFFF" stroke-width="4" x1="64.906" y1="57.341" x2="57.744" y2="50.178"/>
+		</g>
+	</g>
+</g>
+</svg>

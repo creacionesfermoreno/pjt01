@@ -1,0 +1,1466 @@
+﻿
+@{
+    ViewBag.Title = "checkout";
+    Layout = "~/Views/Shared/_LayoutAppfitTienda2.cshtml";
+}
+
+<link href="@Url.Content("~/Content/tienda2/css/checkout.css")" rel="stylesheet" />
+
+<link href="@Url.Content("~/Content/cssKendo/kendo.common.min.css")" rel="stylesheet" />
+<link href="@Url.Content("~/Content/cssKendo/kendo.dataviz.default.min.css")" rel="stylesheet" />
+<link href="@Url.Content("~/Content/cssKendo/kendo.dataviz.min.css")" rel="stylesheet" />
+<link href="@Url.Content("~/Content/cssKendo/kendo.default.min.css")" rel="stylesheet" />
+
+<style>
+
+    .modal-backdrop {
+        display: none;
+    }
+
+    .modal-content {
+        margin-top: 150px;
+    }
+
+    .modal {
+        display: none;
+        background-color: rgba(0, 0, 0, 0.77);
+    }
+
+    .input-icono {
+        background-image: url('../../Content/iconos/tarjeta.png');
+        background-repeat: no-repeat;
+        background-position: 4px center;
+        background-size: 20px;
+        display: flex;
+        align-items: center;
+        width: 100%;
+        padding-left: 28px;
+        height: 35px;
+        border: 1px solid #dddddd;
+        border-radius: 3px;
+    }
+
+        .input-icono input {
+            width: 100%;
+            font-size: 15px;
+            border: none;
+        }
+
+            .input-icono input:focus {
+                outline: none;
+            }
+
+
+    #txtbuscadorgeneraltienda {
+        padding: 0px;
+        font-size: 14px;
+        margin-left: 20px;
+    }
+
+    .k-header {
+        width: 100%;
+        height: 100%;
+    }
+
+    .k-state-hover {
+        background-color: #fff;
+    }
+
+    .k-autocomplete.k-state-default, .k-picker-wrap.k-state-default, .k-numeric-wrap.k-state-default, .k-dropdown-wrap.k-state-default {
+        background-color: #fff;
+    }
+</style>
+
+<main class="bg_gray">
+
+    <div class="container margin_30">
+        <div class="page_header">
+            <div class="breadcrumbs">
+                <ul>
+                    <li><a href="@Url.Action("Index","tienda",new {id= HttpContext.Current.Request.Cookies["_SubDominio_PersonaTiendaVirtual"].Value})">Tienda</a></li>
+                    <li><a href="@Url.Action("carrito","tienda",new {id= HttpContext.Current.Request.Cookies["_SubDominio_PersonaTiendaVirtual"].Value})">Carrito</a></li>
+                    <li>checkout</li>
+                </ul>
+            </div>
+            <h1>checkout</h1>
+
+        </div>
+        <!-- /page_header -->
+        <div class="row">
+
+            <div class="col-lg-4 col-md-6">
+                <div class="step first">
+                    <h3>1. Dirección de envío y cupón de descuento</h3>
+                    <ul class="nav nav-tabs" id="tab_checkout" role="tablist">
+                        <li class="nav-item">
+                            <a class="nav-link active" id="home-tab" data-toggle="tab" href="#tab_1" role="tab" aria-controls="tab_1" aria-selected="true">Seleccionar Dirección</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" id="profile-tab" data-toggle="tab" href="#tab_2" role="tab" aria-controls="tab_2" aria-selected="false">Nueva Dirección</a>
+                        </li>
+                    </ul>
+                    <div class="tab-content checkout">
+                        <div class="tab-pane fade show active" id="tab_1" role="tabpanel" aria-labelledby="tab_1">
+                            <div class="step middle payments">
+                                <ul id="liDireccionEntrega_checkout"></ul>
+                            </div>
+                            <div class="col-sm-12">
+                                <div class="apply-coupon">
+                                    <div class="form-group form-inline">
+                                        <input id="txtCodigoPromocion" type="text" value="" placeholder="Ingresa aquí el código del cupón de descuento" class="form-control" style="width:100%;">
+                                    </div>
+                                </div>
+                                <div class="apply-coupon">
+                                    <div class="form-group form-inline">
+                                        <button type="button" class="btn_1 outline" onclick="evento_AplicarCupo();" style="width:100%;">Aplicar Cupón</button>
+                                    </div>
+                                </div>
+                                <div class="apply-coupon">
+                                    <div class="form-group form-inline">
+                                        <input disabled id="txtDetalleDescuento" type="text" value="" placeholder="" class="form-control" style="width:100%;">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- /tab_1 -->
+                        <div class="tab-pane fade" id="tab_2" role="tabpanel" aria-labelledby="tab_2">
+                            <div class="row no-gutters">
+                                <div class="col-6 form-group pr-1">
+                                    <input type="text" class="form-control" id="txtnewdireccion_Nombres" name="request.Nombres" placeholder="Nombre">
+                                </div>
+                                <div class="col-6 form-group pl-1">
+                                    <input type="text" class="form-control" id="txtnewdireccion_Apellidos" name="request.Apellidos" placeholder="Apellidos">
+                                </div>
+                            </div>
+                            <div class="row no-gutters">
+                                <div class="col-6 form-group pr-1">
+                                    <input type="text" class="form-control" id="txtnewdireccion_Celular" name="request.Celular" placeholder="Celular">
+                                </div>
+                                <div class="col-6 form-group pl-1">
+                                    <input type="text" class="form-control" id="txtnewdireccion_Telefono" name="request.Telefono" placeholder="Otro Teléfono (opcional)">
+                                </div>
+                            </div>
+                            <div class="row no-gutters">
+                                <div class="col-6 form-group pr-1">
+                                    <input type="text" class="form-control" id="txtnewdireccion_Email" name="request.Email" placeholder="Correo actual">
+                                </div>
+                                <div class="col-6 form-group pl-1">
+                                    <div class="custom-select-form">
+                                        <select class="wide add_bottom_15" id="txtnewdireccion_TipoDireccion" name="request.TipoDireccion">
+                                            <option value="" selected>Tipo de Dirección</option>
+                                            <option value="1">Casa</option>
+                                            <option value="2">Departamento</option>
+                                            <option value="3">Condominio</option>
+                                            <option value="4">Residencial</option>
+                                            <option value="5">Officina</option>
+                                            <option value="6">Local</option>
+                                            <option value="7">Centro</option>
+                                            <option value="8">Mercado</option>
+                                            <option value="9">Galería</option>
+                                            <option value="10">Otro</option>
+                                        </select>
+                                    </div>
+
+                                </div>
+                            </div>
+                            <div class="row no-gutters">
+                                <div class="col-6 form-group pr-1">
+                                    <input type="text" class="form-control" id="txtnewdireccion_Direccion" name="request.Direccion" placeholder="Dirección">
+                                </div>
+                                <div class="col-6 form-group pl-1">
+                                    <input type="text" class="form-control" id="txtnewdireccion_NroLote" name="request.NroLote" placeholder="Nro/Lote">
+                                </div>
+                            </div>
+                            <div class="row no-gutters">
+                                <div class="col-6 form-group pr-1">
+                                    <input type="text" class="form-control" id="txtnewdireccion_DeptoInt" name="request.DeptoInt" placeholder="Depto./Int (opcional)">
+                                </div>
+                                <div class="col-6 form-group pl-1">
+                                    <input type="text" class="form-control" id="txtnewdireccion_Urbanizacion" name="request.Urbanizacion" placeholder="Urbanización (opcional)">
+                                </div>
+                            </div>
+                            <div class="row no-gutters">
+                                <div class="col-6 form-group pr-1">
+                                    <input type="text" class="form-control" id="txtnewdireccion_Referencia" name="request.Referencia" placeholder="Referencia (opcional)">
+                                </div>
+                                <div class="col-6 form-group pl-1">
+                                    <div class="custom-select-form" id="divDepartamento_checkout">
+
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row no-gutters">
+                                <div class="col-6 form-group pr-1">
+                                    <div class="custom-select-form" id="divProvincia_checkout">
+
+                                    </div>
+                                </div>
+                                <div class="col-6 form-group pl-1">
+                                    <div class="custom-select-form" id="divDistrito_checkout">
+
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="container_check">
+                                    Usar como dirección predeterminada
+                                    <input type="checkbox" id="txtnewdireccion_predeterminada">
+                                    <span class="checkmark"></span>
+                                </label>
+                            </div>
+                            <input type="hidden" id="txtnewdireccion_Ubicaciones" value="" name="request.Ubigeo" />
+                            <hr>
+                            <button onclick="RegistrarDireccionUsuario();" class="btn_1 full-width">Guardar Dirección</button>
+                        </div>
+                        <!-- /tab_2 -->
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="col-lg-4 col-md-6">
+                <div class="step middle ">
+                    <h3>2. Resumen del pedido</h3>
+                    <div class="box_general summary">
+                        <ul id="ulCarrito_checkout"></ul>
+                        <ul>
+                            <li class="clearfix"><em><strong>SUB TOTAL</strong></em>  <span id="lblSubTotal_checkout">S/ 0.00</span></li>
+                            <li class="clearfix"><em><strong>ENVÍO</strong></em> <span id="lblCostoEnvio_checkout">S/ 0.00</span></li>
+                            <li class="clearfix"><em><strong>DESCUENTO</strong></em> <span id="lblDescuento_checkout">S/ 0.00</span></li>
+                        </ul>
+                        <div class="total clearfix">TOTAL <span id="lblTotal__checkout">S/ 0.00</span></div>
+                        <div class="form-group" id="divEnviogratis" style="display:none;">
+                            <b>envíos gratis por compras mayor a <a href="#0" id="lblEnviogratis"> 0.00 </a></b>
+                        </div>
+                        <div class="form-group" style="display:none;">
+                            <label class="container_check">
+                                Recibe noticias de nuestros productos
+                                <input type="checkbox" checked>
+                                <span class="checkmark"></span>
+                            </label>
+                        </div>
+
+                    </div>
+                    <!-- /box_general -->
+                </div>
+                <!-- /step -->
+            </div>
+
+            <div class="col-lg-4 col-md-6">
+                <div class="step last middle payments">
+                    <h3>3. Método de pago</h3>
+                    <ul>
+                        <li>
+                            <label class="container_radio">
+                                Pago contra entrega<a href="#0" class="info" data-toggle="modal" data-target="#payments_method"></a>
+                                <input type="radio" name="payment" value="6" checked onclick="mostrarInformacionFormaPago(6);">
+                                <span class="checkmark"></span>
+                            </label>
+                        </li>
+                        <li>
+                            <label class="container_radio">
+                                Yape<a href="#0" class="info" data-toggle="modal" data-target="#payments_method"></a>
+                                <input type="radio" name="payment" value="7" onclick="mostrarInformacionFormaPago(7);">
+                                <span class="checkmark"></span>
+                            </label>
+
+                        </li>
+                        <li style="display:none;">
+                            <label class="container_radio">
+                                Tarjeta de débito<a href="#0" class="info" data-toggle="modal" data-target="#payments_method"></a>
+                                <input type="radio" name="payment" value="2" onclick="mostrarInformacionFormaPago(2);">
+                                <span class="checkmark"></span>
+                            </label>
+                        </li>
+                        <li style="display:none;">
+                            <label class="container_radio">
+                                Tarjeta de credito<a href="#0" class="info" data-toggle="modal" data-target="#payments_method"></a>
+                                <input type="radio" name="payment" value="3" onclick="mostrarInformacionFormaPago(2);">
+                                <span class="checkmark"></span>
+                            </label>
+                        </li>
+                    </ul>
+                    <div id="divinfocontraentrega" style="display:none;">
+                        <div class="col-lg-12">
+                            <div class="form-group">
+                                <label for="txtContraEntrega_InstruccionesCheckout" class="form-control-label">Instrucciones:</label>
+                                <textarea id="txtContraEntrega_InstruccionesCheckout" rows="4" class="form-control" placeholder="" disabled></textarea>
+                            </div>
+                        </div><!-- col-4 -->
+                    </div>
+                    <div id="divinfoyape" style="display:none;">
+                        <div class="col-lg-12">
+                            <div class="form-group">
+                                <label for="txtYape_NroCelular" class="form-control-label">Yapea a este nro de celular y envía un pantallaso y el código de pago al whatsapp, también puedes escanear el código qr para enviar un mensaje por whatsapp.</label>
+                                <input id="txtYape_NroCelular" class="form-control form-control-sm" type="text" value="" placeholder="" disabled>
+                                <input id="txtYape_CodigoQR" style="display:none;" class="form-control form-control-sm" type="text" value="" placeholder="" disabled>
+                            </div>
+                        </div><!-- col-4 -->
+                        <div class="col-lg-12">
+                            <div class="form-group">
+                                <div id="qrcode" style="width:100px; height:100px; margin-top:15px;">
+
+                                </div>
+                            </div>
+                        </div><!-- col-4 -->
+                        <br />
+                    </div>
+                    <div id="divinfomercadopago" style="display:none;">
+                        <form action="/tienda/process_payment" method="post" id="paymentForm">
+                            <h3>3.1 Detalles del comprador</h3>
+                            <div class="form-group">
+                                <input id="email" name="email" type="text" value="" class="form-control" placeholder="Ingrese correo">
+                            </div>
+                            <div class="row no-gutters">
+                                <div class="col-4 form-group pr-1">
+                                    <div class="custom-select-form">
+                                        <select id="docType" name="docType" data-checkout="docType" style="display: none;" class="wide add_bottom_15">
+                                            <option value="DNI">DNI</option>
+                                            <option value="C.E">C.E</option>
+                                            <option value="RUC">RUC</option>
+                                            <option value="Otro">Otro</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-8 form-group pl-1">
+                                    <input id="docNumber" name="docNumber" data-checkout="docNumber" type="text" class="form-control" placeholder="ingrese Número de documento">
+                                </div>
+                            </div>
+                            <h3>3.2 Detalles de la tarjeta</h3>
+
+                            <div class="form-group">
+                                <label for="cardholderName">Titular de la tarjeta</label>
+                                <input id="cardholderName" data-checkout="cardholderName" type="text" class="form-control" placeholder="Ingrese nombre y apellidos del Titular">
+                            </div>
+                            <div class="form-group">
+                                <label for="cardNumber">Número de la tarjeta</label>
+                                <div class="input-icono">
+                                    <input type="text" id="cardNumber" data-checkout="cardNumber"
+                                           onselectstart="return false" onpaste="return false"
+                                           oncopy="return false" oncut="return false"
+                                           ondrag="return false" ondrop="return false" autocomplete=off placeholder="Ingrese Titular de la tarjeta">
+
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="cardExpirationMonth">Fecha de vencimiento</label>
+                                <div class="row no-gutters">
+                                    <div class="col-2 form-group pr-1">
+                                        <input type="text" placeholder="MM" id="cardExpirationMonth" data-checkout="cardExpirationMonth"
+                                               onselectstart="return false" onpaste="return false"
+                                               oncopy="return false" oncut="return false"
+                                               ondrag="return false" ondrop="return false" autocomplete=off class="form-control">
+                                    </div>
+                                    <div class="col-2 form-group pl-1">
+                                        <input type="text" placeholder="YY" id="cardExpirationYear" data-checkout="cardExpirationYear"
+                                               onselectstart="return false" onpaste="return false"
+                                               oncopy="return false" oncut="return false"
+                                               ondrag="return false" ondrop="return false" autocomplete=off class="form-control">
+                                    </div>
+                                    <div class="col-4 form-group pr-1">
+
+                                    </div>
+                                    <div class="col-2 form-group pr-1">
+                                        <input id="securityCode" data-checkout="securityCode" type="text"
+                                               onselectstart="return false" onpaste="return false"
+                                               oncopy="return false" oncut="return false"
+                                               ondrag="return false" ondrop="return false" autocomplete=off class="form-control" placeholder="CVV">
+                                    </div>
+                                    <div class="col-2 form-group pr-1">
+                                        <div class="form-group" style="padding: 6px;">
+                                            <img src="~/Content/iconos/cvv.png" />
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group" style="display:none;">
+                                <div class="row no-gutters">
+                                    <div class="col-6 form-group pl-1">
+                                        <div class="custom-select-form">
+                                            <div id="issuerInput">
+                                                <label for="issuer">Banco emisor</label>
+                                                <select id="issuer" name="issuer" data-checkout="issuer" class="wide add_bottom_15"></select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <input type="hidden" name="transactionAmount" id="transactionAmount" value="100" />
+                                <input type="hidden" name="paymentMethodId" id="paymentMethodId" />
+                                <input type="hidden" name="description" id="description" />
+                                <button id="btnPagarMercadoPago" type="submit" class="btn_1 full-width" style="display:none;">Confirmar y pagar</button>
+                            </div>
+                        </form>
+                    </div>
+                    <br />
+                    <button id="btnPagarNormal" onclick="RegistrarComprobante();" class="btn_1 full-width">Confirmar y pagar</button>
+                </div>
+                <!-- /step -->
+            </div>
+
+
+
+        </div>
+        <!-- /row -->
+    </div>
+    <!-- /container -->
+
+</main>
+<!--/main-->
+
+<div id="modalAvisoCheckout" class="popup_wrapper" style="display:none;">
+    <div class="popup_content" style="text-align:center;padding: 54px;">
+        <span class="popup_close" onclick="event_cerrarmodalAvisoCheckout();">Cerrar</span>
+        <div class="row no-gutters">
+            <div class="content">
+                <div class="wrapper">
+                    <h3 id="lblMensajeErrorCheckout"></h3>
+                </div>
+            </div>
+        </div>
+        <!-- row -->
+    </div>
+</div>
+
+<div id="modalAvisoDireccion" class="popup_wrapper" style="display:none;">
+    <div class="popup_content" style="text-align:center;padding: 54px;">
+        <span class="popup_close" onclick="event_cerrarmodalAvisoCheckout();" style="background-color:#25c125;color:#fff;">Cerrar</span>
+        <div class="row no-gutters">
+            <div class="content">
+                <div class="wrapper">
+                    <h3 id="lblMensajeDireccion"></h3>
+                </div>
+            </div>
+        </div>
+        <!-- row -->
+    </div>
+</div>
+
+@section Scripts {
+
+
+    @System.Web.Optimization.Scripts.Render("~/Scripts/jquery.min.js")
+    @System.Web.Optimization.Scripts.Render("~/Scripts/plugins/jsKendo/angular.min.js")
+    @System.Web.Optimization.Scripts.Render("~/Scripts/plugins/jsKendo/kendo.all.min.js")
+
+    @System.Web.Optimization.Scripts.Render("~/Scripts/plugins/jquery-ui/jquery-ui.js")
+    @System.Web.Optimization.Scripts.Render("~/Scripts/plugins/jquery-ui/jquery-ui.min.js")
+
+    @System.Web.Optimization.Scripts.Render("~/Content/app/lib/popper.js/js/popper.js")
+    @System.Web.Optimization.Scripts.Render("~/Content/app/lib/bootstrap/js/bootstrap.js")
+
+    @System.Web.Optimization.Scripts.Render("~/Scripts/bootstrap-notify-master/bootstrap-notify.js")
+    @System.Web.Optimization.Scripts.Render("~/Scripts/bootstrap-notify-master/bootstrap-notify.min.js")
+    @System.Web.Optimization.Scripts.Render("~/Scripts/jsBootstrap/jquery.bootstrap-growl.js")
+
+    @System.Web.Optimization.Scripts.Render("~/Resource/UserControl.Helper.js")
+
+    @System.Web.Optimization.Scripts.Render("~/Scripts/jsQRcode/qr-code-styling.js")
+    <script src="https://secure.mlstatic.com/sdk/javascript/v1/mercadopago.js"></script>
+
+    <script type="text/javascript">
+
+
+        $(document).ready(function () {
+
+            $('#other_addr input').on("change", function () {
+                if (this.checked)
+                    $('#other_addr_c').fadeIn('fast');
+                else
+                    $('#other_addr_c').fadeOut('fast');
+            });
+
+            leerMenu();
+            leerMenu2();
+            leerCarrito_LocalStorage();
+
+            listarDepartamento();
+            ecommerce_uspListarAspNetUsers_DireccionesEntrega();
+
+            uspBuscarFormaPago_Yape();
+            uspBuscarFormaPago_ContraEntrega();
+            mostrarInformacionFormaPago(6);
+            uspBuscarEnvioGratis();
+
+            let descuentoLS;
+            descuentoLS = obtenerDescuentoLocalStorage();
+            if (descuentoLS != '' && descuentoLS != undefined) {
+                var nrocupon = descuentoLS.nrocupon;
+                var valor = parseInt(descuentoLS.valor);
+                var tipo = descuentoLS.tipo;
+                var destipo = '';
+                if (tipo == 1) {
+                    destipo = "%";
+                } else {
+                    destipo = "S/.";
+                }
+                $('input[id="txtCodigoPromocion"]').val(nrocupon);
+                $('input[id="txtDetalleDescuento"]').val(valor + " " + destipo);
+            }
+
+            BuscadorProductos();
+        });
+
+        //CARGAR MERCADO DE PAGO
+
+        function iniciarMercadoPago() {
+
+            window.Mercadopago.setPublishableKey("TEST-d1854f4b-96a1-4a01-af06-1fc21bc361ba");
+            document.getElementById('cardNumber').addEventListener('change', guessPaymentMethod);
+            //  5. Crea el token de la tarjeta
+            doSubmit = false;
+            document.getElementById('paymentForm').addEventListener('submit', getCardToken);
+
+        }
+
+        //Obtener método de pago de la tarjeta
+        function guessPaymentMethod(event) {
+            let cardnumber = document.getElementById("cardNumber").value;
+            if (cardnumber.length >= 6) {
+                let bin = cardnumber.substring(0, 6);
+                window.Mercadopago.getPaymentMethod({
+                    "bin": bin
+                }, setPaymentMethod);
+            } else {
+                $('.input-icono').css('background-image', "url('../../Content/iconos/tarjeta.png')");
+            }
+        };
+
+        function setPaymentMethod(status, response) {
+
+            if (status == 200) {
+                let paymentMethod = response[0];
+                document.getElementById('paymentMethodId').value = paymentMethod.id;
+
+                if (paymentMethod.id == 'visa') {
+                    $('.input-icono').css('background-image', "url('../../Content/iconos/visa.png')");
+                } else if (paymentMethod.id == 'master') {
+                    $('.input-icono').css('background-image', "url('../../Content/iconos/tarjeta-maestra.png')");
+                } else if (paymentMethod.id == 'amex') {
+                    $('.input-icono').css('background-image', "url('../../Content/iconos/american-express.png')");
+                }
+
+                if (paymentMethod.additional_info_needed.includes("issuer_id")) {
+                    getIssuers(paymentMethod.id);
+                } else {
+
+                }
+            } else {
+                $('.input-icono').css('background-image', "url('../../Content/iconos/tarjeta.png')");
+                alert(`payment method info error: ${response}`);
+            }
+        }
+        // Obtener banco emisor
+        function getIssuers(paymentMethodId) {
+            window.Mercadopago.getIssuers(
+                paymentMethodId,
+                setIssuers
+            );
+        }
+
+        function setIssuers(status, response) {
+
+            if (status == 200) {
+                let issuerSelect = document.getElementById('issuer');
+                response.forEach(issuer => {
+                    let opt = document.createElement('option');
+                    opt.text = issuer.name;
+                    opt.value = issuer.id;
+
+                    issuerSelect.appendChild(opt);
+                });
+
+            } else {
+                alert(`issuers method info error: ${response}`);
+            }
+        }
+
+        //  5. Crea el token de la tarjeta
+        function getCardToken(event) {
+            event.preventDefault();
+            if (!doSubmit) {
+                let $form = document.getElementById('paymentForm');
+                window.Mercadopago.createToken($form, setCardTokenAndPay);
+                return false;
+            }
+        };
+
+        function setCardTokenAndPay(status, response) {
+            if (status == 200 || status == 201) {
+                let form = document.getElementById('paymentForm');
+                let card = document.createElement('input');
+                card.setAttribute('name', 'token');
+                card.setAttribute('type', 'hidden');
+                card.setAttribute('value', response.id);
+                form.appendChild(card);
+                doSubmit = true;
+                form.submit();
+            } else {
+                alert("Verify filled data!\n" + JSON.stringify(response, null, 4));
+            }
+        };
+
+        //END MERCADO PAGO
+
+        function mostrarInformacionFormaPago(formapago) {
+
+            if (formapago == 2) {
+                document.getElementById("divinfomercadopago").style.display = '';
+                document.getElementById("divinfoyape").style.display = 'none';
+                document.getElementById("divinfocontraentrega").style.display = 'none';
+
+                document.getElementById("btnPagarMercadoPago").style.display = '';
+                document.getElementById("btnPagarNormal").style.display = 'none';
+
+
+                iniciarMercadoPago();
+
+            } else if (formapago == 6) {
+                document.getElementById("divinfomercadopago").style.display = 'none';
+                document.getElementById("divinfoyape").style.display = 'none';
+                document.getElementById("divinfocontraentrega").style.display = '';
+
+                document.getElementById("btnPagarMercadoPago").style.display = 'none';
+                document.getElementById("btnPagarNormal").style.display = '';
+            } else if (formapago == 7) {
+                document.getElementById("divinfomercadopago").style.display = 'none';
+                document.getElementById("divinfoyape").style.display = '';
+                document.getElementById("divinfocontraentrega").style.display = 'none';
+
+                document.getElementById("btnPagarMercadoPago").style.display = 'none';
+                document.getElementById("btnPagarNormal").style.display = '';
+            }
+        }
+
+        function leerCarrito_LocalStorage() {
+            const listaProductos = document.querySelector('#ulCarrito_checkout');
+            $('#ulCarrito_checkout').empty();
+            let productosLS;
+            productosLS = obtenerProductosLocalStorage();
+            productosLS.forEach(function (producto) {
+                //Construir plantilla
+                const row = document.createElement('li');
+                row.className = "clearfix";
+                //row.dataset['imagen'] = producto.imagen;
+                //row.dataset['titulo'] = producto.titulo;
+                //row.dataset['precio'] = parseFloat(producto.precio).toFixed(2);
+                //row.dataset['id'] = producto.id;
+
+                row.innerHTML = `
+                                        <em>x${producto.cantidad} ${producto.titulo}</em>  <span>S/ ${producto.precio}</span>`;
+
+                listaProductos.appendChild(row);
+            });
+            //$('#lblCantidadCarrito').html(cantidad);
+        }
+
+        function Carrito_calcularTotal() {
+            let productosLS;
+            let descuentoLS;
+            let envioLS;
+            let enviogratisLS;
+            let total = 0;
+            let igv = 0;
+            let valordescuento = 0;
+            let tipodescuento = 0;
+            let costoenvio = 0;
+            let enviogratis = 0;
+            let descuentototal;
+            productosLS = obtenerProductosLocalStorage();
+            for (let i = 0; i < productosLS.length; i++) {
+                let element = Number(productosLS[i].precio * productosLS[i].cantidad);
+                total = total + element;
+
+            }
+            descuentoLS = obtenerDescuentoLocalStorage();
+
+            if (descuentoLS != '' && descuentoLS != undefined) {
+                valordescuento = descuentoLS.valor == undefined ? 0 : parseInt(descuentoLS.valor);
+                tipodescuento = descuentoLS.tipo == undefined ? 0 : descuentoLS.tipo;
+            }
+
+            if (tipodescuento == 1) { //%
+                descuentototal = (parseFloat(total * valordescuento).toFixed(2)) / 100;
+            } else if (tipodescuento == 2) { //Soles
+                descuentototal = valordescuento;
+            } else if (tipodescuento == 0) { //ningun descuento
+                descuentototal = 0;
+            }
+
+            envioLS = obtenerEnvioLocalStorage();
+            if (envioLS != '' && envioLS != undefined) {
+                costoenvio = envioLS.costoenvio == undefined ? 0 : parseFloat(envioLS.costoenvio);
+            }
+
+            enviogratisLS = obtenerEnvioGratisLocalStorage();
+            if (enviogratisLS != '' && enviogratisLS != undefined) {
+                enviogratis = enviogratisLS.valor == undefined ? 0 : parseFloat(enviogratisLS.valor);
+            }
+
+            $('#lblEnviogratis').html('S/' + parseFloat(enviogratis).toFixed(2));
+            if (enviogratis > 0) {
+                if (parseFloat(total) > parseFloat(enviogratis)) {
+                    costoenvio = 0;
+                }
+                document.getElementById("divEnviogratis").style.display = '';
+            } else {
+                document.getElementById("divEnviogratis").style.display = 'none';
+            }
+
+            igv = parseFloat(total * 0.18).toFixed(2);
+            subtotal = parseFloat(total - igv).toFixed(2);
+
+            document.getElementById('lblSubTotal_checkout').innerHTML = "S/. " + total.toFixed(2);
+            document.getElementById('lblCostoEnvio_checkout').innerHTML = "S/. " + costoenvio.toFixed(2);
+            document.getElementById('lblDescuento_checkout').innerHTML = "S/. " + descuentototal.toFixed(2);
+
+            var totalgeneral = (parseFloat(total) + parseFloat(costoenvio)) - parseFloat(descuentototal);
+            document.getElementById('lblTotal__checkout').innerHTML = "S/. " + totalgeneral.toFixed(2);
+
+        }
+
+        function Obtener_calcularTotal() {
+            let productosLS;
+            let total = 0, igv = 0, subtotal = 0;
+            productosLS = obtenerProductosLocalStorage();
+            for (let i = 0; i < productosLS.length; i++) {
+                let element = Number(productosLS[i].precio * productosLS[i].cantidad);
+                total = total + element;
+
+            }
+
+            igv = parseFloat(total * 0.18).toFixed(2);
+            subtotal = parseFloat(total - igv).toFixed(2);
+
+            return total;
+
+        }
+
+        function listarDepartamento() {
+
+            var entidad = {};
+            entidad.Tipo = 2;
+            entidad.Ubicaciones = "0010000";
+            entidad.Buscador = '';
+
+            var metodoCorrecto = function (data) {
+
+                var content_Departamento = new Array();
+                content_Departamento.push('<select id="ddlDepartamento_checkout" onchange="event_change_listarDepartamento()" class="wide add_bottom_15" style="display:none;" >');
+                content_Departamento.push('        <option value="" selected >Seleccione Departamento</option> ');
+                for (var i = 0; i < data.length; i++) {
+                    content_Departamento.push('    <option value="' + data[i].Ubicaciones + '">' + data[i].Departamento + '</option>');
+                }
+                content_Departamento.push('</select>');
+                content_Departamento.push('<div class="nice-select wide add_bottom_15" tabindex="0">');
+                content_Departamento.push('    <span class="current">Seleccione Departamento</span>');
+
+                content_Departamento.push('   <ul class="list">');
+                for (var i = 0; i < data.length; i++) {
+                    content_Departamento.push('  <li data-value="' + data[i].Ubicaciones + '" class="option">' + data[i].Departamento + '</li>');
+                }
+                content_Departamento.push('   </ul>');
+                content_Departamento.push('</div>');
+
+
+                $('#divDepartamento_checkout').html(content_Departamento.join(' '));
+                //listarProvincia(ddlDepartamento.value());
+
+            };
+            var metodoError = function (msg) {
+                alert(msg);
+            };
+            var request = {
+                model: entidad
+            };
+            LlamarAJAX("/tienda/ListarUbicaciones", request, metodoCorrecto, metodoError);
+
+        }
+
+        function event_change_listarDepartamento() {
+
+            var valor = ConvertToStringFromObject($('select[id="ddlDepartamento_checkout"] option:selected').val());
+            listarProvincia(valor);
+
+        }
+
+        function listarProvincia(departamento, provinciaDefoult) {
+
+            var entidad = {};
+            entidad.Tipo = 3;
+            entidad.Ubicaciones = departamento;
+            entidad.Buscador = '';
+
+            var metodoCorrecto = function (data) {
+
+                var content_Departamento = new Array();
+                content_Departamento.push('<select id="ddlProvincia_checkout" onchange="event_change_listarProvincia()" class="wide add_bottom_15" style="display:none;" >');
+                content_Departamento.push('        <option value="" selected >Seleccione Departamento</option> ');
+                for (var i = 0; i < data.length; i++) {
+                    content_Departamento.push('    <option value="' + data[i].Ubicaciones + '">' + data[i].Provincia + '</option>');
+                }
+                content_Departamento.push('</select>');
+                content_Departamento.push('<div class="nice-select wide add_bottom_15" tabindex="0">');
+                content_Departamento.push('    <span class="current">Seleccione Departamento</span>');
+
+                content_Departamento.push('   <ul class="list">');
+                for (var i = 0; i < data.length; i++) {
+                    content_Departamento.push('  <li data-value="' + data[i].Ubicaciones + '" class="option">' + data[i].Provincia + '</li>');
+                }
+                content_Departamento.push('   </ul>');
+                content_Departamento.push('</div>');
+
+
+                $('#divProvincia_checkout').html(content_Departamento.join(' '));
+                //listarProvincia(ddlDepartamento.value());
+
+            };
+            var metodoError = function (msg) {
+                alert(msg);
+            };
+            var request = {
+                model: entidad
+            };
+            LlamarAJAX("/tienda/ListarUbicaciones", request, metodoCorrecto, metodoError);
+
+        }
+
+        function event_change_listarProvincia() {
+
+            var valor = ConvertToStringFromObject($('select[id="ddlProvincia_checkout"] option:selected').val());
+            listarDistrito(valor);
+        }
+
+        function listarDistrito(provincia, DistritoDefoult) {
+
+            var entidad = {};
+            entidad.Tipo = 4;
+            entidad.Ubicaciones = provincia;
+            entidad.Buscador = '';
+
+            var metodoCorrecto = function (data) {
+
+                var content_Departamento = new Array();
+                content_Departamento.push('<select id="ddlDistrito_checkout" onchange="event_change_listarDistrito()" class="wide add_bottom_15" style="display:none;" >');
+                content_Departamento.push('        <option value="" selected >Seleccione Departamento</option> ');
+                for (var i = 0; i < data.length; i++) {
+                    content_Departamento.push('    <option value="' + data[i].Ubicaciones + '">' + data[i].Distrito + '</option>');
+                }
+                content_Departamento.push('</select>');
+                content_Departamento.push('<div class="nice-select wide add_bottom_15" tabindex="0">');
+                content_Departamento.push('    <span class="current">Seleccione Departamento</span>');
+
+                content_Departamento.push('   <ul class="list">');
+                for (var i = 0; i < data.length; i++) {
+                    content_Departamento.push('  <li data-value="' + data[i].Ubicaciones + '" class="option">' + data[i].Distrito + '</li>');
+                }
+                content_Departamento.push('   </ul>');
+                content_Departamento.push('</div>');
+
+
+                $('#divDistrito_checkout').html(content_Departamento.join(' '));
+
+
+            };
+            var metodoError = function (msg) {
+                alert(msg);
+            };
+            var request = {
+                model: entidad
+            };
+            LlamarAJAX("/tienda/ListarUbicaciones", request, metodoCorrecto, metodoError);
+
+        }
+
+        function event_change_listarDistrito() {
+
+            var valor = ConvertToStringFromObject($('select[id="ddlDistrito_checkout"] option:selected').val());
+            $('#txtnewdireccion_Ubicaciones').val(valor);
+        }
+
+        function RegistrarDireccionUsuario() {
+
+            var Accion = 'N';
+            var entidad = {};
+
+            entidad.IdUser = "";
+            entidad.Email = ConvertToStringFromObject($('input[id="txtnewdireccion_Email"]').val());
+            entidad.Nombres = ConvertToStringFromObject($('input[id="txtnewdireccion_Nombres"]').val());
+            entidad.Apellidos = ConvertToStringFromObject($('input[id="txtnewdireccion_Apellidos"]').val());
+            entidad.Celular = ConvertToStringFromObject($('input[id="txtnewdireccion_Celular"]').val());
+            entidad.Telefono = ConvertToStringFromObject($('input[id="txtnewdireccion_Telefono"]').val());
+            entidad.TipoDireccion = ConvertToStringFromObject($('select[id="txtnewdireccion_TipoDireccion"] option:selected').val());
+            entidad.Direccion = ConvertToStringFromObject($('input[id="txtnewdireccion_Direccion"]').val());
+            entidad.NroLote = ConvertToStringFromObject($('input[id="txtnewdireccion_NroLote"]').val());
+            entidad.DeptoInt = ConvertToStringFromObject($('input[id="txtnewdireccion_DeptoInt"]').val());
+            entidad.Urbanizacion = ConvertToStringFromObject($('input[id="txtnewdireccion_Urbanizacion"]').val());
+            entidad.Referencia = ConvertToStringFromObject($('input[id="txtnewdireccion_Referencia"]').val());
+            entidad.Ubigeo = ConvertToStringFromObject($('input[id="txtnewdireccion_Ubicaciones"]').val());
+            entidad.DireccionDefault = $('#txtnewdireccion_predeterminada').prop('checked') == true ? 1 : 0;
+
+            entidad.Accion = Accion;
+
+            if (IsUndefinedOrNullOrEmpty($('input[id="txtnewdireccion_Nombres"]').val())) {
+                $('#modalAvisoDireccion').modal('show');
+                $('#lblMensajeDireccion').html("Error, Falta ingresar su nombre!");
+                return;
+            } if (IsUndefinedOrNullOrEmpty($('input[id="txtnewdireccion_Apellidos"]').val())) {
+                $('#modalAvisoDireccion').modal('show');
+                $('#lblMensajeDireccion').html("Error, Falta ingresar sus apellidos!");
+                return;
+            } else if (IsUndefinedOrNullOrEmpty(entidad.Celular)) {
+                $('#modalAvisoDireccion').modal('show');
+                $('#lblMensajeDireccion').html("Error, Falta ingresar su Celular!");
+                return;
+            } else if (IsUndefinedOrNullOrEmpty(entidad.Email)) {
+                $('#modalAvisoDireccion').modal('show');
+                $('#lblMensajeDireccion').html("Error, Falta ingresar su correo actual!");
+                return;
+            } else if (entidad.TipoDireccion == '') {
+                $('#modalAvisoDireccion').modal('show');
+                $('#lblMensajeDireccion').html("Error, Falta seleccionar el tipo de dirección!");
+                return;
+            } else if (IsUndefinedOrNullOrEmpty(entidad.Direccion)) {
+                $('#modalAvisoDireccion').modal('show');
+                $('#lblMensajeDireccion').html("Error, Falta ingresar su dirección!");
+                return;
+            } else if (IsUndefinedOrNullOrEmpty(entidad.Ubigeo)) {
+                $('#modalAvisoDireccion').modal('show');
+                $('#lblMensajeDireccion').html("Error, Falta seleccionar Departamento, provincia y distrito!");
+                return;
+            }
+
+            $('button').attr('disabled', 'disabled');
+            var metodoCorrecto = function (msg) {
+
+                if (msg == '') {
+                    $('#modalAvisoCheckout').modal('show');
+                    $('#lblMensajeErrorCheckout').html("Error, Tenemos problemas en la validación del correo del usuario!");
+                } else if (msg != '') {
+
+                    $('#modalAvisoDireccion').modal('show');
+                    $('#lblMensajeDireccion').html("La ubicación se guardo correctamente.");
+
+                    ecommerce_uspListarAspNetUsers_DireccionesEntrega();
+                    limpiarCRUDDireccionUsuario();
+                }
+            };
+            var metodoError = function (msg) {
+                alert(msg);
+            };
+            var request = {
+                request: entidad
+            };
+            LlamarAJAX("/tienda/ecommerce_uspRegistrarAspNetUsersDireccionesEntrega", request, metodoCorrecto, metodoError);
+
+        }
+
+        function limpiarCRUDDireccionUsuario() {
+            $('input[id="txtnewdireccion_Email"]').val('');
+            $('input[id="txtnewdireccion_Nombres"]').val('');
+            $('input[id="txtnewdireccion_Apellidos"]').val('');
+            $('input[id="txtnewdireccion_Celular"]').val('');
+            $('input[id="txtnewdireccion_Telefono"]').val('');
+            $('#txtnewdireccion_TipoDireccion').val("");
+            $('input[id="txtnewdireccion_Direccion"]').val('');
+            $('input[id="txtnewdireccion_NroLote"]').val('');
+            $('input[id="txtnewdireccion_DeptoInt"]').val('');
+            $('input[id="txtnewdireccion_Urbanizacion"]').val('');
+            $('input[id="txtnewdireccion_Referencia"]').val('');
+            $('input[id="txtnewdireccion_Ubicaciones"]').val('');
+            $('#txtnewdireccion_predeterminada').prop('checked', 0);
+            $('#home-tab').click();
+        }
+
+        function ecommerce_uspListarAspNetUsers_DireccionesEntrega() {
+            var entidad = {};
+
+            var metodoCorrecto = function (data) {
+                var content_Direcciones = new Array();
+
+                for (var i = 0; i < data.length; i++) {
+
+                    content_Direcciones.push('<li>');
+                    content_Direcciones.push('    <label class="container_radio">');
+                    content_Direcciones.push('        ' + data[i].Nombres + ' ' + data[i].Apellidos + ' ');
+                    content_Direcciones.push('        ' + data[i].Email + ' ');
+                    content_Direcciones.push('        ' + data[i].DesTipoDireccion + ' ');
+                    content_Direcciones.push('        ' + data[i].Direccion + ' ');
+                    content_Direcciones.push('        ' + data[i].NroLote + ' ');
+                    content_Direcciones.push('        ' + data[i].Referencia + ' ');
+                    content_Direcciones.push('        ' + data[i].Departamento + ', ' + data[i].Provincia + ', ' + data[i].Distrito + ' ');
+                    content_Direcciones.push('        Telefono: ' + data[i].Telefono + ' Celular: ' + data[i].Celular + ' ');
+
+                    if (data[i].DireccionDefault) {
+                        content_Direcciones.push('        <input onclick="evento_capturar(this);" data-PrecioEnvio="' + data[i].PrecioEnvio + '" data-TipoTiempoEntrega="' + data[i].TipoTiempoEntrega + '" data-TiempoEntrega="' + data[i].TiempoEntrega + '" type="radio" name="DireccionEntrega" checked value="' + data[i].CodigoDireccion + '" > ');
+                        leerDatosEnvio(data[i].PrecioEnvio, data[i].TipoTiempoEntrega, data[i].TiempoEntrega);
+                        Carrito_calcularTotal();
+                    } else {
+                        content_Direcciones.push('        <input onclick="evento_capturar(this);" data-PrecioEnvio="' + data[i].PrecioEnvio + '" data-TipoTiempoEntrega="' + data[i].TipoTiempoEntrega + '" data-TiempoEntrega="' + data[i].TiempoEntrega + '" type="radio" name="DireccionEntrega" value="' + data[i].CodigoDireccion + '" > ');
+                    }
+
+                    content_Direcciones.push('    <span class="checkmark"></span>');
+                    content_Direcciones.push('    </label>');
+                    content_Direcciones.push('</li>');
+
+                }
+                $('#liDireccionEntrega_checkout').html(content_Direcciones.join(' '));
+            };
+
+            var metodoError = function (msg) {
+                alert(msg);
+            };
+            var request = {
+                request: entidad
+            };
+
+            LlamarAJAX('/tienda/ecommerce_uspListarAspNetUsers_DireccionesEntrega', request, metodoCorrecto, metodoError);
+        }
+
+        function RegistrarComprobante() {
+
+            var Accion = 'N';
+            var entidad = {};
+            //ENVIO
+            let envioLS;
+            let costoenvio = 0;
+            envioLS = obtenerEnvioLocalStorage();
+            if (envioLS != null) {
+                costoenvio = envioLS.costoenvio == undefined ? 0 : parseFloat(envioLS.costoenvio);
+            }
+
+            //DESCUENTO
+            let descuentoLS;
+            let valordescuento = 0;
+            let tipodescuento = 0;
+            let codigocupon = '';
+            let descuentototal;
+            descuentoLS = obtenerDescuentoLocalStorage();
+            if (descuentoLS != null) {
+
+                valordescuento = descuentoLS.valor == undefined ? 0 : parseInt(descuentoLS.valor);
+                tipodescuento = descuentoLS.tipo == undefined ? 0 : descuentoLS.tipo;
+                codigocupon = descuentoLS.codigo == undefined ? '' : descuentoLS.codigo;
+            }
+
+            //<option value="1">EFECTIVO</option>
+            //<option value="2">TARJETA DEBITO</option>
+            //<option value="3">TARJETA CREDITO</option>
+            //<option value="4">TRANSFERENCIA</option>
+            //<option value="5">WEB</option>
+            //<option value="6">CONTRA ENTREGA</option>
+            //<option value="7">YAPE</option>
+            var formaPago = $('input:radio[name=payment]:checked').val();
+            if (formaPago == 6) { //PAGO CONTRA ENTREGA
+                entidad.CodigoTipoComprobante = 7; //COTIZACION
+            } else if (formaPago == 2) { //PAGO CONTRA ENTREGA
+                entidad.CodigoTipoComprobante = 5; //Recibo de caja
+            } else if (formaPago == 3) { //TRJETA CREDITO
+                entidad.CodigoTipoComprobante = 5; //Recibo de caja
+            }
+
+            entidad.TipoMoneda = 2;
+            entidad.CodigoAlmacen = 1; // ALMACEN PRINCIPAL
+            entidad.Correlativo = '';
+            //entidad.CodigoCliente = 0;
+            entidad.CodigoVendedor = 0;
+            //entidad.FechaEmision = '';
+            entidad.CodigoPlazoPago = 6;
+            //entidad.FechaVencimiento = '';
+            entidad.TerminosCondiciones = "";
+            entidad.Notas = "";
+            entidad.Comentarios = "";
+            entidad.SubTotal = Obtener_calcularTotal();
+            //DESCUENTO
+            if (tipodescuento == 1) { //%
+                descuentototal = (parseFloat(entidad.SubTotal * valordescuento).toFixed(2)) / 100;
+            } else if (tipodescuento == 2) { //Soles
+                descuentototal = valordescuento;
+            } else if (tipodescuento == 0) { //ningun descuento
+                descuentototal = 0;
+            }
+
+            //ENVIO GRATIS
+            let enviogratisLS;
+            let enviogratis = 0;
+            enviogratisLS = obtenerEnvioGratisLocalStorage();
+            if (enviogratisLS != '' && enviogratisLS != undefined) {
+                enviogratis = parseFloat(enviogratisLS.valor);
+            }
+
+            if (enviogratis > 0) {
+                if (parseFloat(entidad.SubTotal) > parseFloat(enviogratis)) {
+                    costoenvio = 0;
+                }
+            }
+
+            entidad.Envio = costoenvio;
+            entidad.SubTotal2 = (parseFloat(entidad.SubTotal) + parseFloat(entidad.Envio));
+            entidad.Descuento = parseFloat(descuentototal);
+            entidad.SubTotal3 = (parseFloat(entidad.SubTotal2) - parseFloat(entidad.Descuento));
+            entidad.IGV = 0;
+            entidad.Total = (parseFloat(entidad.IGV) + parseFloat(entidad.SubTotal3));
+            entidad.Estado = 1;
+            entidad.Accion = Accion;
+            entidad.CodigoDireccion = $('input:radio[name=DireccionEntrega]:checked').val();
+            entidad.CodigoCupon = codigocupon;
+            //Recorrer el detalle del comprobante
+            entidad.listaDetalle = new Array();
+
+            let productosLS;
+            productosLS = obtenerProductosLocalStorage();
+            productosLS.forEach(function (producto) {
+                //Construir plantilla
+                var detalleproducto = {};
+                detalleproducto.CodigoImagen = producto.id
+                detalleproducto.CodigoItemsVenta = 0;
+                detalleproducto.Referencia = "";
+                detalleproducto.Precio = producto.precio;
+                detalleproducto.Descuento = 0;
+                detalleproducto.CodigoTipoImpuesto = 1;
+                detalleproducto.Descripcion = "";
+                detalleproducto.Cantidad = producto.cantidad;
+                detalleproducto.Total = (parseFloat(producto.precio) * parseFloat(producto.cantidad));
+
+                entidad.listaDetalle.push(detalleproducto);
+            });
+
+            if (Validar_RegistrarComprobante(entidad)) {
+
+                $('button').attr('disabled', 'disabled');
+                var metodoCorrecto = function (msg) {
+
+                    if (msg > 0) {
+                        $('button').removeAttr('disabled');
+                        var dominio = getCookie("_SubDominio_PersonaTiendaVirtual");
+                        window.location.href = "/tienda/confirmacion/" + dominio;
+                    }
+                    else {
+
+                    }
+                };
+                var metodoError = function (msg) {
+                    alert(msg);
+                };
+                var request = {
+                    request: entidad
+                };
+                LlamarAJAX("/tienda/RegistrarComprobanteTiendaVirtual", request, metodoCorrecto, metodoError);
+
+            }
+            //armar los pagos
+            //if ($('input[id="txtMontoPago"]').val() != '') {
+            //    if (parseFloat($('input[id="txtMontoPago"]').val()) > 0) {
+            //        entidad.listaDetallePago = new Array();
+            //        var detallePago = {};
+
+            //        detallePago.CodigoComprobantePago = 0;
+            //        detallePago.CodigoComprobante = 0;
+            //        detallePago.CodigoCuentaBancaria = 0;
+            //        detallePago.CodigoMetodoPago = $('#hdCodigoFormaPago').val();
+            //        detallePago.TipoMoneda = 2;
+            //        detallePago.Monto = $('input[id="txtMontoPago"]').val();
+            //        detallePago.Nota = document.getElementById("txtInvoice_Notas").value;
+            //        detallePago.Estado = 1;
+            //        detallePago.Accion = 'N';
+            //        entidad.listaDetallePago.push(detallePago);
+            //    }
+
+            //}
+
+        }
+
+        function Validar_RegistrarComprobante(entidad) {
+
+            var validar = true;
+            if (entidad.Envio == undefined) {
+                $('#modalAvisoCheckout').modal('show');
+                $('#lblMensajeErrorCheckout').html('Tenemos problemas en la propiedad envío.');
+                validar = false;
+                return;
+            } else if (entidad.SubTotal == 0 || entidad.SubTotal == '') {
+                $('#modalAvisoCheckout').modal('show');
+                $('#lblMensajeErrorCheckout').html('El carrito de compras esta vacío, elija al menos 1 producto.');
+                validar = false;
+                return;
+            } else if (entidad.Total <= 0 || entidad.Total == undefined || entidad.Total == NaN) {
+                $('#modalAvisoCheckout').modal('show');
+                $('#lblMensajeErrorCheckout').html('El total no puede ser menos a 0.');
+                validar = false;
+                return;
+            } else if (entidad.CodigoDireccion == '' || entidad.CodigoDireccion == undefined || entidad.CodigoDireccion == 0) {
+                $('#modalAvisoCheckout').modal('show');
+                $('#lblMensajeErrorCheckout').html('Falta seleccionar o agregar una dirección para el envío de la compra.');
+                validar = false;
+                return;
+            } else if (entidad.CodigoCupon == undefined || entidad.CodigoCupon == NaN) {
+                $('#modalAvisoCheckout').modal('show');
+                $('#lblMensajeErrorCheckout').html('Tenemos problemas en la propiedad codigo cupón.');
+                validar = false;
+                return;
+            } else if (entidad.listaDetalle.length == 0 || entidad.listaDetalle == undefined) {
+                $('#modalAvisoCheckout').modal('show');
+                $('#lblMensajeErrorCheckout').html('Tenemos problemas en la lista de productos del carrito, parece que esta vacío.');
+                validar = false;
+                return;
+            } else if (entidad.CodigoTipoComprobante == 0 || entidad.CodigoTipoComprobante == undefined) {
+                $('#modalAvisoCheckout').modal('show');
+                $('#lblMensajeErrorCheckout').html('Falta seleccionar un método de pago.');
+                validar = false;
+                return;
+            }
+
+            return validar;
+        }
+
+        function event_cerrarmodalAvisoCheckout() {
+            $('#modalAvisoCheckout').modal('hide');
+            $('#modalAvisoDireccion').modal('hide');
+        }
+
+        function getCookie(cname) {
+            var name = cname + "=";
+            var ca = document.cookie.split(';');
+            for (var i = 0; i < ca.length; i++) {
+                var c = ca[i].trim();
+                if (c.indexOf(name) == 0) return c.substring(name.length, c.length);
+            }
+            return "";
+        }
+
+        function leerMenu() {
+
+            var content_Catgorias = new Array();
+
+            let menuLS;
+            menuLS = obtenerMenuLocalStorage();
+            menuLS.forEach(function (menu) {
+
+                if (menu.CodigoMenuSuperior == 0) {
+                    content_Catgorias.push('<li class="megamenu submenu">');
+                    content_Catgorias.push('    <a href="javascript:void(0);" class="show-submenu-mega">' + menu.Descripcion + '</a>');
+                    content_Catgorias.push('    <div class="menu-wrapper">');
+                    content_Catgorias.push('        <div class="row small-gutters">');
+
+                    menuLS.forEach(function (menuhijo) {
+                        if (menu.CodigoMenu == menuhijo.CodigoMenuSuperior) {
+                            var url = '/tienda/categoria/' + getCookie('_SubDominio_PersonaTiendaVirtual') + '?Idcat=' + menuhijo.CodigoImagen;
+                            content_Catgorias.push('<div class="col-lg-3">');
+                            content_Catgorias.push('    <h3 style="cursor:pointer;" ><a href="' + url + '">' + menuhijo.Descripcion + '</a></h3>');
+                            content_Catgorias.push('</div>');
+                        }
+                    });
+
+                    content_Catgorias.push('        </div>');
+                    content_Catgorias.push('   </div>');
+                    content_Catgorias.push('</li>');
+                }
+
+            });
+
+            $('#ulCategorias').html(content_Catgorias.join(' '));
+        }
+
+        function leerMenu2() {
+            //PADRE MENU
+            var content_menu = new Array();
+            content_menu.push('<ul>');
+
+            let menuLS;
+            menuLS = obtenerMenuLocalStorage();
+            menuLS.forEach(function (menu) {
+
+                if (menu.CodigoMenuSuperior == 0) {
+                    content_menu.push('<li>');
+                    content_menu.push('    <span><a href="#0">' + menu.Descripcion + '</a></span>');
+                    content_menu.push('    <ul>');
+
+                    menuLS.forEach(function (menuhijo) {
+                        if (menu.CodigoMenu == menuhijo.CodigoMenuSuperior) {
+                            var url = '/tienda/categoria/' + getCookie('_SubDominio_PersonaTiendaVirtual') + '?Idcat=' + menuhijo.CodigoImagen;
+                            content_menu.push('        <li><a href="' + url + '">' + menuhijo.Descripcion + '</a></li>');
+                        }
+                    });
+
+                    content_menu.push('    </ul>');
+                    content_menu.push('</li>');
+                }
+
+            });
+
+            content_menu.push('</ul>');
+
+            $('#menu').html(content_menu.join(' '));
+        }
+
+        function evento_capturar(control) {
+            var PrecioEnvio = $(control).attr('data-PrecioEnvio');
+            var TipoTiempoEntrega = $(control).attr('data-TipoTiempoEntrega');
+            var TiempoEntrega = $(control).attr('data-TiempoEntrega');
+            leerDatosEnvio(PrecioEnvio, TipoTiempoEntrega, TiempoEntrega);
+            Carrito_calcularTotal();
+        }
+
+        function makeCode() {
+
+            var qrCode = new QRCodeStyling({
+                width: 150,
+                height: 150,
+                data: document.getElementById("txtYape_CodigoQR").value,
+                image: "/Content/iconos/logo-whatsapp.png",
+                dotsOptions: {
+                    color: "#30bf39",
+                    type: "rounded"
+                },
+                backgroundOptions: {
+                    color: "#e9ebee",
+                },
+                imageOptions: {
+                    crossOrigin: "anonymous"
+                }
+            });
+
+            qrCode.append(document.getElementById("qrcode"));
+        }
+
+        function uspBuscarFormaPago_Yape() {
+
+            var metodoCorrecto = function (data) {
+                document.getElementById("txtYape_CodigoQR").value = data.Yape_CodigoQR;
+                document.getElementById("txtYape_NroCelular").value = data.Yape_NroCelular;
+
+                makeCode();
+            };
+            var metodoError = function (msg) {
+                alert(msg);
+            };
+            var request = {
+            };
+            LlamarAJAX("/tienda/ecommerce_uspBuscarFormaPago_Yape_TiendaVirtual", request, metodoCorrecto, metodoError);
+
+        }
+
+        function uspBuscarFormaPago_ContraEntrega() {
+
+            var metodoCorrecto = function (data) {
+                document.getElementById("txtContraEntrega_InstruccionesCheckout").value = data.ContraEntrega_InstruccionesCheckout;
+            };
+            var metodoError = function (msg) {
+                alert(msg);
+            };
+            var request = {
+            };
+            LlamarAJAX("/tienda/ecommerce_uspBuscarFormaPago_ContraEntrega_TiendaVitual", request, metodoCorrecto, metodoError);
+
+        }
+
+        function uspBuscarEnvioGratis() {
+
+            var metodoCorrecto = function (data) {
+                document.getElementById("divEnviogratis").style.display = '';
+                leerDatosEnvioGratis(data.Valor);
+                Carrito_calcularTotal()
+            };
+            var metodoError = function (msg) {
+                alert(msg);
+            };
+            var request = {
+            };
+            LlamarAJAX("/tienda/ecommerce_uspBuscarEnvioGratisXtiendaVirtual", request, metodoCorrecto, metodoError);
+        }
+
+        function evento_AplicarCupo() {
+
+            var entidad = {};
+            entidad.CodigoPromocion = $('input[id="txtCodigoPromocion"]').val();
+
+            var metodoCorrecto = function (data) {
+
+                if (data != "sin resultados") {
+                    var valor = data.split('|')[0];
+                    var tipo = data.split('|')[1];
+                    var codigo = data.split('|')[2];
+                    var destipo = '';
+
+                    if (tipo == 1) {
+                        destipo = "%";
+                    } else {
+                        destipo = "S/.";
+                    }
+
+                    $('input[id="txtDetalleDescuento"]').val(valor + " " + destipo);
+                    calcularDescuento(valor, tipo, codigo, entidad.CodigoPromocion);
+                } else {
+                    $('input[id="txtDetalleDescuento"]').val(data);
+                    $('input[id="txtCodigoPromocion"]').val('');
+                    localStorage.removeItem('descuento');
+                    Carrito_calcularTotal();
+                    $('#modalAvisoCheckout').modal('show');
+                    $('#lblMensajeCupon').html("El nro de cupón no es valido ó ya expiró.");
+                    
+                }
+            };
+
+            var metodoError = function (msg) {
+                alert(msg);
+            };
+            var request = {
+                request: entidad
+            };
+
+            LlamarAJAX('/tienda/ecommerce_uspBuscar_CuponesXCodigoPromocion_TiendaVirtual', request, metodoCorrecto, metodoError);
+        }
+
+        function calcularDescuento(valor, tipo, codigo, nrocupon) {
+            leerDatosDescuento(valor, tipo, codigo, nrocupon);
+            Carrito_calcularTotal();
+        }
+
+
+        function BuscadorProductos() {
+
+            var ddlPaqueteContrato = $("#txtbuscadorgeneraltienda,#txtbuscadorgeneraltiendamobil").kendoAutoComplete({
+                filter: "startswith",
+                dataTextField: "Descripcion",
+                dataValueField: "CodigoItemVenta",
+                template: '<div class="row" ><a href="/tienda/detalle/@HttpContext.Current.Request.Cookies["_SubDominio_PersonaTiendaVirtual"].Value?Idproducto=#: data.CodigoImagen #">' +
+                    '<span class="k-state-default" style="margin-left: 26px;margin-top: 9px;">' +
+                        '<img src="#: data.UrlImagen #" alt="" width="55" height="55" class="img-fluid lazy">' +
+                    '</span>' +
+                    '<span class="k-state-default" style="margin-top: 20px;margin-left: 20px;">' +
+                        '#: data.Nombre #' +
+                    '</span>' +
+                    '</a></div>',
+                valueTemplate: '<div style="font-size:12px;text-transform:uppercase;"> #:data.Descripcion# </div>',
+                dataSource: {
+                    serverFiltering: true,
+                    transport: {
+                        read: function (options) {
+                            var flag = ddlPaqueteContrato.value();
+                            $.ajax({
+                                data: '{"buscador":"' + flag + '"}',
+                                type: "POST",
+                                url: "/tienda/uspBuscadorItemsVentaInventariable",
+                                contentType: "application/json; charset=utf-8",
+                                dataType: "json",
+                                success: function (msg) {
+                                    options.success(msg);
+                                    if (msg == "") {
+                                        alert("No hemos encontrado ningún producto.");       
+                                    }
+                                }
+                            });
+                        }
+                    }, height: 600
+                }, change: function () {
+
+                }
+
+            }).data("kendoAutoComplete");
+        }
+
+    </script>
+
+}

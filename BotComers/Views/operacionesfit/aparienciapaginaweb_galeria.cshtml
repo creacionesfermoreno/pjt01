@@ -1,0 +1,320 @@
+﻿
+@{
+    ViewBag.Title = "aparienciapaginaweb_galeria";
+    Layout = "~/Views/Shared/__LayoutAppFitPlataformaFit.cshtml";
+}
+
+<style>
+
+
+
+    /** SPINNER CREATION **/
+    .loader {
+        position: relative;
+        text-align: center;
+        margin: 15px auto 35px auto;
+        z-index: 9999;
+        display: block;
+        width: 80px;
+        height: 80px;
+        border: 10px solid rgba(0, 0, 0, .3);
+        border-radius: 50%;
+        border-top-color: #000;
+        animation: spin 1s ease-in-out infinite;
+        -webkit-animation: spin 1s ease-in-out infinite;
+    }
+</style>
+
+
+<br /><br /><br />
+<div class="container-fluid page__container">
+
+    <div class="row">
+        <div class="col-lg-5">
+            <div class="card">
+                <div style="background-color:#fff;" class="card-header card-header-sm d-flex align-items-center">
+                    <h4 class="card-header__title flex m-0">FOTOS</h4>
+                </div>
+                <div class="card-body tab-content">
+                    <div class="tab-pane active show fade" id="activity_all">
+                        <div id="grid"></div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-7">
+            <div class="card">
+                <div style="background-color:#fff;" class="card-header card-header-sm d-flex align-items-center">
+                    <h4 class="card-header__title flex m-0">EDICION</h4>
+                </div>
+                <div class="card-body tab-content">
+                    <div class="tab-pane active show fade" id="activity_all">
+                        <div class="button-list">
+                            <button type="button" onclick="nuevodetalle();" class="btn btn-primary btn-sm" id="btnNuevo" title="Nuevo">1. Nueva trainner</button>
+                            <button type="button" class="btn btn-primary btn-sm" id="btnEliminar" title="Eliminar" data-toggle="modal" data-target="#myModalConfirmContrato">Eliminar trainner</button>
+                            <button type="button" onclick="guardardetalle();" class="btn btn-primary btn-sm" id="btnGuardar" title="Guardar">Guardar</button>
+                            <button type="button" onclick="guardardetalle();" class="btn btn-primary btn-sm" id="btnGuardarPredeterminado" title="Guardar predeterminado">Guardar como predeterminado</button>
+                        </div>
+                        <div class="row mg-b-25">
+                            <div class="col-lg-12">
+                                <input type="hidden" value="" id="hdLink" />
+                                <input type="hidden" value="" id="hdCodigo" />
+                                <div class="form-group mg-t-2">
+                                    <div class="col-lg-12">
+                                        <div class="custom-file">
+                                            <select id="ddlTipo">
+                                                <option value="1">Banner reserva</option>
+                                                <option value="2">Banner centro</option>
+                                                <option value="3">imagen landing</option>
+                                            </select>
+                                        </div><!-- custom-file -->
+                                    </div><!-- col -->
+                                </div>
+                                <div class="form-group mg-t-2">
+                                    <div class="col-lg-12">
+                                        <div class="custom-file">
+                                            <input type="file" class="custom-file-input" style="width:100%;" id="buscarImagen">
+                                            <label class="custom-file-label" for="buscarImagen">Buscar imagen, Reservas 1090x250, Banner centro 1090x632 , baner landing 653x435</label>
+                                        </div><!-- custom-file -->
+                                    </div><!-- col -->
+                                </div>
+                                <div class="form-group mg-t-2">
+                                    <div class="input-group input-group-sm input-group-merge">
+                                        <input id="txtDetalle" type="text" class="form-control form-control-prepended" placeholder="" style="width:100%;font-weight:bold;" onkeypress="return validarCamposCadena(event)">
+                                        <div class="input-group-prepend">
+                                            <div class="input-group-text">
+                                                Detalle foto:
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <input type="hidden" id="hdheight_imagen" value="0" />
+                                    <input type="hidden" id="hdwidth_imagen" value="0" />
+                                </div>
+                                <div class="form-group mg-t-2">
+                                    <div class="row row-xs">
+                                        <img class="img-fluid" style="width:200px;" id="imgVistaImagen" />
+                                    </div><!-- row -->
+                                </div>
+
+                            </div><!-- col-4 -->
+
+                        </div><!-- row -->
+
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- // end .row -->
+</div>
+
+<div class="modal fade" id="loadMe" tabindex="-1" role="dialog" aria-labelledby="loadMeLabel">
+    <div class="modal-dialog modal-sm" role="document">
+        <div class="modal-content">
+            <div class="modal-body text-center">
+                <div class="loader"></div>
+                <div clas="loader-txt">
+                    <p>Cargando... <br><br><small>Espere por favor, este proceso puede tardar unos minutos</small></p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@section Scripts {
+
+    @System.Web.Optimization.Scripts.Render("~/Scripts/jquery.min.js")
+    @System.Web.Optimization.Scripts.Render("~/Scripts/plugins/jsKendo/angular.min.js")
+    @System.Web.Optimization.Scripts.Render("~/Scripts/plugins/jsKendo/kendo.all.min.js")
+
+    @System.Web.Optimization.Scripts.Render("~/Scripts/plugins/jquery-ui/jquery-ui.js")
+    @System.Web.Optimization.Scripts.Render("~/Scripts/plugins/jquery-ui/jquery-ui.min.js")
+
+    @System.Web.Optimization.Scripts.Render("~/Scripts/bootstrap-notify-master/bootstrap-notify.js")
+    @System.Web.Optimization.Scripts.Render("~/Scripts/bootstrap-notify-master/bootstrap-notify.min.js")
+    @System.Web.Optimization.Scripts.Render("~/Scripts/jsBootstrap/jquery.bootstrap-growl.js")
+    @System.Web.Optimization.Scripts.Render("~/Resource/UserControl.Helper.js")
+
+    <script type="text/javascript">
+
+        $(document).ready(function () {
+
+            //ecommerce_uspListarEdicionPaginaWebDetalle_Trinner();
+
+            $('#buscarImagen').change(function () {
+                var File = this.files;
+                if (File && File[0]) {
+                    ReadImage(File[0]);
+                }
+            });
+        });
+
+        function nuevodetalle() {
+
+            $("#imgVistaImagen").attr('src', '');
+            $("#txtDetalle").val("");
+            $("#hdheight_imagen").val("");
+            $("#hdwidth_imagen").val("");
+            $("#hdCodigo").val("");
+            $("#hdLink").val("");
+
+            document.getElementById("btnEliminar").style.display = 'none';
+        }
+
+        var ReadImage = function (file) {
+
+            var reader = new FileReader;
+            var image = new Image;
+
+            reader.readAsDataURL(file);
+            reader.onload = function (_file) {
+
+                image.src = _file.target.result;
+                image.onload = function () {
+
+                    var height = this.height;
+                    var width = this.width;
+                    var type = file.type;
+                    var size = ~~(file.size / 1024) + "KB";
+
+                    $("#imgVistaImagen").attr('src', _file.target.result);
+                    $("#txtDetalle").val("Size:" + size + ", " + height + " X " + width + ", " + type + "");
+                    $("#hdheight_imagen").val(height);
+                    $("#hdwidth_imagen").val(width);
+                    //if (parseInt(height) > 400) {
+
+                    //    $("#imgVistaImagen").attr('src', '');
+                    //    $("#txtDetalle").val("");
+                    //    $("#hdheight_imagen").val("");
+                    //    $("#hdwidth_imagen").val("");
+
+                    //    $.bootstrapGrowl("El alto de la imagen no puede ser mayor 400, seleccione otra imagen.", { type: 'danger', width: 'auto' });
+                    //} else if (parseInt(width) > 400) {
+
+                    //    $("#imgVistaImagen").attr('src', '');
+                    //    $("#txtDetalle").val("");
+                    //    $("#hdheight_imagen").val("");
+                    //    $("#hdwidth_imagen").val("");
+                    //    $.bootstrapGrowl("El ancho de la imagen no puede ser mayor 400, seleccione otra imagen.", { type: 'danger', width: 'auto' });
+                    //}
+
+                }
+
+            }
+        }
+
+        var guardardetalle = function () {
+
+            //var Codigo = $("#hdCodigo").val();
+            var Tipo = $('select[id="ddlTipo"] option:selected').val();          
+            var file = $("#buscarImagen").get(0).files;  
+            var detalle = $("#txtDetalle").val();
+            //var height = $("#hdheight_imagen").val();
+            //var width = $("#hdwidth_imagen").val();
+
+            if (Tipo == '') {
+                $.bootstrapGrowl("Falta ingresar el nombre del trainner.", { type: 'danger', width: 'auto' });
+                return false;
+            } else if (detalle == '') {
+                $.bootstrapGrowl("Falta seleccionar una imagen.", { type: 'danger', width: 'auto' });
+                return false;
+            }
+
+            //else if (parseInt(height) > 400) {
+            //    $.bootstrapGrowl("El alto de la imagen no puede ser mayor 400.", { type: 'danger', width: 'auto' });
+            //    return false;
+            //} else if (parseInt(width) > 400) {
+            //    $.bootstrapGrowl("El ancho de la imagen no puede ser mayor 400.", { type: 'danger', width: 'auto' });
+            //    return false;
+            //} else if (file == undefined || file == null) {
+            //    $.bootstrapGrowl("Falta seleccionar una imagen.", { type: 'danger', width: 'auto' });
+            //    return false;
+            //}
+
+            var data = new FormData;
+            data.append("file", file[0]);
+            data.append("Tipo", Tipo);
+           
+            document.getElementById('loadMe').style.display = 'block';
+            $.ajax({
+                type: "Post",
+                url: "/operacionesfit/CentroEntrenamiento_uspRegistrarGaleriaFitness",
+                data: data,
+                contentType: false,
+                processData: false,
+                success: function (response) {
+                    $.bootstrapGrowl("La imagen ha sido guardada correctamente.", { type: 'success', width: 'auto' });
+                }, complete: function () {
+                    CentroEntrenamiento_uspListarGaleriaFitness();
+                    document.getElementById('loadMe').style.display = 'none';
+                }
+            })
+
+        }
+
+        function CentroEntrenamiento_uspListarGaleriaFitness() {
+
+            $("#grid").empty();
+            $("#grid").kendoGrid({
+                dataSource: {
+                    type: "json",
+                    transport: {
+                        read: function (options) {
+                            $.ajax({
+                                type: "POST",
+                                url: "/operacionesfit/ecommerce_uspListarEdicionPaginaWebDetalle_Trinner",
+                                contentType: "application/json; charset=utf-8",
+                                dataType: "json",
+                                success: function (msg) {
+                                    options.success(msg);
+                                }
+                            });
+                        }
+                    }
+                },
+                selectable: "row",
+                scrollable: true,
+                height: 550,
+                columns: [
+                    {
+                        field: "Titulo",
+                        title: "<center style='color:black;'><b>Nombres</b></center>",
+                        width: 9,
+                        attributes: {
+                            style: "font-size:13px;text-align:center;"
+                        }
+                    }, {
+                        field: "SubTitulo",
+                        title: "<center style='color:black;'><b>Cargo</b></center>",
+                        width: 9,
+                        attributes: {
+                            style: "font-size:13px;text-align:center;"
+                        }
+                    }],
+                dataBound: function (e) {
+                    this.element.find('tbody tr:first').addClass('k-state-selected');
+                    this.select(this.tbody.find('>tr:first'));
+                }, change: function (e) {
+
+                    var grid = this;
+                    grid.select().each(function () {
+                        var dataItem = grid.dataItem($(this));
+
+                        $("#hdCodigo").val(dataItem.Codigo);
+                        $("#txtTitulo").val(dataItem.Titulo);
+                        $("#txtSubTitulo").val(dataItem.SubTitulo);
+                        $("#imgVistaImagen").attr('src', dataItem.UrlUmagen);
+                        document.getElementById("btnEliminar").style.display = '';
+                    });
+
+                }
+            });
+
+        }
+
+    </script>
+
+}

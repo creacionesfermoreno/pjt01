@@ -1,0 +1,663 @@
+﻿@model BotComers.ViewModels.EmpresaViewModel
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_LayoutCorporativo.cshtml";
+}
+
+<link href="@Url.Content("~/Content/plugins/datapicker/datepicker3.css")" rel="stylesheet" />
+<style>
+    #gridEmpresa thead tr {
+        font-size: 12px;
+    }
+
+    #gridEmpresa tbody tr {
+        font-size: 11px;
+    }
+
+        #gridEmpresa tbody tr:hover {
+            background-color: #1b84e7;
+            color: #fff;
+        }
+
+    #table_CategoriaPrimero tr {
+        font-size: 11px;
+    }
+
+        #table_CategoriaPrimero tr:hover {
+            background-color: #1b84e7;
+            color: #fff;
+        }
+
+    #table_CategoriaSecundario tr {
+        font-size: 11px;
+    }
+
+        #table_CategoriaSecundario tr:hover {
+            background-color: #1b84e7;
+            color: #fff;
+        }
+
+    #table_CategoriaTercero tr {
+        font-size: 11px;
+    }
+
+        #table_CategoriaTercero tr:hover {
+            background-color: #1b84e7;
+            color: #fff;
+        }
+
+    #table_CategoriaCuarto tr {
+        font-size: 11px;
+    }
+
+        #table_CategoriaCuarto tr:hover {
+            background-color: #1b84e7;
+            color: #fff;
+        }
+
+    .selectedrowGrid {
+        background-color: #1b84e7;
+        background-image: linear-gradient(to right, #1b84e7 0%, #1515af 100%);
+        background-repeat: repeat-x;
+        border-width: 0;
+        color: #fff;
+    }
+
+    .contenedor {
+        margin: 2rem auto;
+        max-width: 700px;
+        overflow: auto;
+        padding: 0 1rem;
+    }
+
+        .contenedor::-webkit-scrollbar {
+            -webkit-appearance: none;
+        }
+
+            .contenedor::-webkit-scrollbar:vertical {
+                width: 20px;
+            }
+
+        .contenedor::-webkit-scrollbar-button:increment, .contenedor::-webkit-scrollbar-button {
+            display: none;
+        }
+
+        .contenedor::-webkit-scrollbar:horizontal {
+            height: 10px;
+        }
+
+        .contenedor::-webkit-scrollbar-thumb {
+            background-color: #797979;
+            border-radius: 20px;
+            border: 2px solid #f1f2f3;
+        }
+
+        .contenedor::-webkit-scrollbar-track {
+            border-radius: 10px;
+        }
+</style>
+
+<div class="slim-mainpanel">
+
+    <div class="slim-mainpanel">
+        <div class="container">
+
+            <div class="report-summary-header">
+                <div>
+                    <h4 class="tx-inverse mg-b-3">Historial de Empresas</h4>
+                    <p class="mg-b-0"><i class="icon ion-calendar mg-r-3"></i> January 01, 2018 - January 31, 2018</p>
+                </div>
+                <div>
+                    <a onclick='javascript:NuevaEmpresa();' href="" class="btn btn-primary" data-toggle="modal" data-target="#modalEmpresa"><i class="icon ion-plus-circled tx-22"></i>Nueva Empresa</a>
+                    <a id="btnEditarEmpresa" style="display:none;" href="" class="btn btn-primary btn-block mg-b-10" data-toggle="modal" data-target="#modalEmpresa"><i class="icon ion-ios-gear-outline tx-24"></i>Editar Empresa</a>
+                </div>
+            </div><!-- d-flex -->
+            <div class="card card-table mg-t-20 mg-sm-t-30">
+                <div class="card-header">
+                    <h6 class="slim-card-title">Empresas</h6>
+                    <nav class="nav">
+
+                    </nav>
+                </div><!-- card-header -->
+                <div class="table-responsive">
+                    <table id="gridEmpresa" class="table mg-b-0 tx-13">
+                        <thead>
+                            <tr class="tx-10">
+                                <th class="pd-y-5">
+                                    Nro Documento
+                                </th>
+                                <th class="pd-y-5">
+                                    Razon Social
+                                </th>
+                                <th class="pd-y-5">
+                                    Nombre Comercial
+                                </th>
+                                <th class="pd-y-5">
+                                    Telefono
+                                </th>
+                                <th class="pd-y-5">
+                                    Correo
+                                </th>
+                                <th class="pd-y-5">
+                                    Sub Dominio
+                                </th>
+                                <th class="pd-y-5">
+                                    Estado
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model.loadEmpresa.listGridEmpresa)
+                            {
+                                <tr onclick='javascript:SeleccionarEmpresa(this,@item.CodigoUnidadNegocio,@item.CodigoSede);' ondblclick='javascript: BuscarEmpresa(@item.CodigoUnidadNegocio,@item.CodigoSede);'>
+                                    <td class="valign-middle">
+                                        @Html.DisplayFor(modelItem => item.NroDocumentoEmpresa)
+                                    </td>
+                                    <td class="valign-middle">
+                                        @Html.DisplayFor(modelItem => item.RazonSocialEmpresa)
+                                    </td>
+                                    <td class="valign-middle">
+                                        @Html.DisplayFor(modelItem => item.NombreComercialEmpresa)
+                                    </td>
+                                    <td class="valign-middle">
+                                        @Html.DisplayFor(modelItem => item.TelefonoEmpresa)
+                                    </td>
+                                    <td class="valign-middle">
+                                        @Html.DisplayFor(modelItem => item.CorreoEmpresa)
+                                    </td>
+                                    <td class="valign-middle">
+                                        @Html.DisplayFor(modelItem => item.SubDominio)
+                                    </td>
+                                    <td class="valign-middle">
+                                        @Html.DisplayFor(modelItem => item.DesEstado)
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div><!-- table-responsive -->
+
+            </div><!-- card -->
+            <div class="report-summary-header">
+                <div>
+                    <h4 class="tx-inverse mg-b-3">Configuración de Categorias:</h4>
+                    <p class="mg-b-0"><i class="icon ion-calendar mg-r-3"></i> January 01, 2018 - January 31, 2018</p>
+                </div>
+                <div>
+                    <a onclick='javascript:NuevaCategoria(1);' id="" href="" class="btn btn-primary" data-toggle="modal" data-target="#modalCategorias"><i class="icon ion-plus-circled tx-22"></i>Nueva Principal</a>
+                    <a onclick='javascript:NuevaCategoria(2);' id="" href="" class="btn btn-primary" data-toggle="modal" data-target="#modalCategorias"><i class="icon ion-plus-circled tx-22"></i>Nueva Secundario</a>
+                    <a onclick='javascript:NuevaCategoria(3);' id="" href="" class="btn btn-primary" data-toggle="modal" data-target="#modalCategorias"><i class="icon ion-plus-circled tx-24"></i>Nueva Terciario</a>
+                    <a onclick='javascript:NuevaCategoria(4);' id="" href="" class="btn btn-primary" data-toggle="modal" data-target="#modalCategorias"><i class="icon ion-plus-circled tx-24"></i>Nueva Cuarta</a>
+                </div>
+            </div><!-- d-flex -->
+            <div class="row row-sm mg-t-20">
+                <div class="col-lg-4">
+                    <div class="card card-sales">
+                        <h6 class="slim-card-title tx-primary">Categoria principal</h6>
+                        <div class="table-responsive">
+                            <table class="table mg-b-0 tx-12">
+                                <thead>
+                                    <tr class="tx-10">
+                                        <th class="wd-10p pd-y-5">Icono</th>
+                                        <th class="wd-10p pd-y-5">Orden</th>
+                                        <th class="pd-y-5">Descripción</th>
+                                        <th class="wd-10p pd-y-5">Accion</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="table_CategoriaPrimero"></tbody>
+                            </table>
+                        </div><!-- table-responsive -->
+                    </div><!-- card -->
+                </div><!-- col-4 -->
+                <div class="col-lg-4 mg-t-20 mg-lg-t-0">
+                    <div class="card card-sales">
+                        <h6 class="slim-card-title tx-success">Categoria Secundaria </h6>
+                        <div class="table-responsive">
+                            <table class="table mg-b-0 tx-12">
+                                <thead>
+                                    <tr class="tx-10">
+                                        <th class="wd-10p pd-y-5">Icono</th>
+                                        <th class="wd-10p pd-y-5">Orden</th>
+                                        <th class="pd-y-5">Descripción</th>
+                                        <th class="wd-10p pd-y-5">Accion</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="table_CategoriaSecundario"></tbody>
+                            </table>
+                        </div><!-- table-responsive -->
+                    </div><!-- card -->
+                </div><!-- col-4 -->
+                <div class="col-lg-4 mg-t-20 mg-lg-t-0">
+                    <div class="card card-sales">
+                        <h6 class="slim-card-title tx-danger">Categoria Tercero</h6>
+                        <div class="table-responsive">
+                            <table class="table mg-b-0 tx-12">
+                                <thead>
+                                    <tr class="tx-10">
+                                        <th class="wd-10p pd-y-5">Icono</th>
+                                        <th class="wd-10p pd-y-5">Orden</th>
+                                        <th class="pd-y-5">Descripción</th>
+                                        <th class="wd-10p pd-y-5">Accion</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="table_CategoriaTercero"></tbody>
+                            </table>
+                        </div><!-- table-responsive -->
+                    </div><!-- card -->
+                </div><!-- col-4 -->
+            </div><!-- row -->
+            <div class="row row-sm mg-t-20">
+                <div class="col-lg-4">
+                    <div class="card card-sales">
+                        <h6 class="slim-card-title tx-primary">Categoria Cuarta</h6>
+                        <div class="table-responsive">
+                            <table class="table mg-b-0 tx-12">
+                                <thead>
+                                    <tr class="tx-10">
+                                        <th class="wd-10p pd-y-5">Icono</th>
+                                        <th class="wd-10p pd-y-5">Orden</th>
+                                        <th class="pd-y-5">Descripción</th>
+                                        <th class="wd-10p pd-y-5">Accion</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="table_CategoriaCuarto"></tbody>
+                            </table>
+                        </div><!-- table-responsive -->
+                    </div><!-- card -->
+                </div><!-- col-4 -->
+
+            </div><!-- container -->
+        </div><!-- slim-mainpanel -->
+
+    </div>
+
+    <div id="modalEmpresa" class="modal fade effect-newspaper">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content tx-size-sm">
+                <input type="hidden" id="hdAccionEmpresaCorporativo" value="N" />
+                <input type="hidden" id="hdCodigoUnidadNegocioEmpresa" value="0" />
+                <input type="hidden" id="hdCodigoSedeEmpresa" value="0" />
+                <div class="modal-header pd-x-20">
+                    <h6 class="tx-14 mg-b-0 tx-uppercase tx-inverse tx-bold">Empresa</h6>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body pd-20">
+                    <div class="contenedor" style="height:380px;overflow-y:auto;overflow-x:hidden;padding:3px;">
+                        <input id="Empresa_hdIdEmpresa" type="hidden" value="" />
+                        <label class="section-title">Datos del dueño</label>
+                        <div class="form-layout">
+                            <div class="row mg-b-25">
+                                <div class="col-lg-4">
+                                    <div class="form-group">
+                                        <label class="form-control-label">Nombres: <span class="tx-danger">*</span></label>
+                                        <input id="Empresa_txtNombresDuenio" class="form-control" type="text" name="firstname" value="" placeholder="ingrese nombres">
+                                    </div>
+                                </div><!-- col-4 -->
+                                <div class="col-lg-4">
+                                    <div class="form-group">
+                                        <label class="form-control-label">Apellidos: <span class="tx-danger">*</span></label>
+                                        <input id="Empresa_txtApellidosDuenio" class="form-control" type="text" name="lastname" value="" placeholder="ingrese apellidos">
+                                    </div>
+                                </div><!-- col-4 -->
+                                <div class="col-lg-4">
+                                    <div class="form-group">
+                                        <label class="form-control-label">Correo: <span class="tx-danger">*</span></label>
+                                        <input id="Empresa_txtCorreoDuenio" class="form-control" type="text" name="email" value="" placeholder="ingrese correo">
+                                    </div>
+                                </div><!-- col-4 -->
+                                <div class="col-lg-4">
+                                    <div class="form-group mg-b-10-force">
+                                        <label class="form-control-label">Pais: <span class="tx-danger">*</span></label>
+                                        <select id="Empresa_ddlPaisDuenio" class="form-control select2" data-placeholder="Pais">
+                                            <option value="0">Selecconar</option>
+                                            @foreach (var item in Model.loadEmpresa.listPaisEmpresa)
+                                            {
+
+                                                if (item.valor == "51")
+                                                {
+                                                    <option value="@item.Codigo" selected="selected">@item.Descripcion</option>
+                                                }
+                                                else
+                                                {
+                                                    <option value="@item.Codigo">@item.Descripcion</option>
+                                                }
+
+
+                                            }
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-lg-4">
+                                    <div class="form-group mg-b-10-force">
+                                        <label class="form-control-label">Celular: <span class="tx-danger">*</span></label>
+                                        <input id="Empresa_txtCelularDuenio" class="form-control" type="text" name="phone" value="" placeholder="ingrese celular">
+                                    </div>
+                                </div>
+                                <div class="col-lg-4">
+                                    <div class="form-group mg-b-10-force">
+                                        <label class="form-control-label">Estado: <span class="tx-danger">*</span></label>
+                                        <select id="Empresa_ddlEstadoEmpresa" class="form-control select2" data-placeholder="Pais">
+                                            <option value="0">Selecconar</option>
+                                            @foreach (var item in Model.loadEmpresa.listEstadoEmpresa)
+                                            {
+                                                <option value="@item.Codigo">@item.Descripcion</option>
+                                            }
+                                        </select>
+                                    </div>
+                                </div>
+                            </div><!-- row -->
+                        </div><!-- form-layout -->
+                        <label class="section-title">Datos de la empresa</label>
+                        <div class="form-layout">
+                            <div class="row mg-b-25">
+                                <div class="col-lg-4">
+                                    <div class="form-group mg-b-10-force">
+                                        <label class="form-control-label">Tipo Doc: <span class="tx-danger">*</span></label>
+                                        <select id="Empresa_ddlTipoDocumentoEmpresa" class="form-control select2" data-placeholder="Choose country">
+                                            <option value="0">Selecconar</option>
+                                            @foreach (var item in Model.loadEmpresa.listTipoDocumentoEmpresa)
+                                            {
+                                                if (item.Codigo == 1)
+                                                {
+                                                    <option value="@item.Codigo" selected="selected">@item.Descripcion</option>
+                                                }
+                                                else
+                                                {
+                                                    <option value="@item.Codigo">@item.Descripcion</option>
+                                                }
+
+                                            }
+                                        </select>
+                                    </div>
+                                </div><!-- col-4 -->
+                                <div class="col-lg-4">
+                                    <div class="form-group">
+                                        <label class="form-control-label">Nro Doc: <span class="tx-danger">*</span></label>
+                                        <input id="Empresa_txtNroDocumentoEmpresa" class="form-control" type="text" name="txtNroDocumentoEmpresa" value="" placeholder="ingrese nro documento">
+                                    </div>
+                                </div><!-- col-4 -->
+                                <div class="col-lg-4">
+                                    <div class="form-group">
+                                        <label class="form-control-label">Razon Social: <span class="tx-danger">*</span></label>
+                                        <input id="Empresa_txtRazonSocialEmpresa" class="form-control" type="text" name="txtRazonSocialEmpresa" value="" placeholder="ingrese razon social">
+                                    </div>
+                                </div><!-- col-4 -->
+                                <div class="col-lg-4">
+                                    <div class="form-group">
+                                        <label class="form-control-label">Direccion: <span class="tx-danger">*</span></label>
+                                        <input id="Empresa_txtDireccionEmpresa" class="form-control" type="text" name="txtDireccionEmpresa" value="" placeholder="ingrese direccion">
+                                    </div>
+                                </div>
+                                <div class="col-lg-4">
+                                    <div class="form-group">
+                                        <label class="form-control-label">Nombre Comercial: <span class="tx-danger">*</span></label>
+                                        <input id="Empresa_txtNombreComercialEmpresa" class="form-control" type="text" name="txtNombreComercialEmpresa" value="" placeholder="ingrese nombre comercial">
+                                    </div>
+                                </div>
+                                <div class="col-lg-4">
+                                    <div class="form-group">
+                                        <label class="form-control-label">Telefono: <span class="tx-danger">*</span></label>
+                                        <input id="Empresa_txtTelefonoEmpresa" class="form-control" type="text" name="telefono" value="" placeholder="ingrese telefono">
+                                    </div>
+                                </div>
+                                <div class="col-lg-4">
+                                    <div class="form-group">
+                                        <label class="form-control-label">Aniversario: <span class="tx-danger">*</span></label>
+
+                                        <input type="text" id="Empresa_txtAniversario" class="form-control fc-datepicker" placeholder="fecha aniversario" style="padding-left:30px;"></input>
+                                    </div>
+                                </div>
+                                <div class="col-lg-4">
+                                    <div class="form-group">
+                                        <label class="form-control-label">Correo: <span class="tx-danger">*</span></label>
+                                        <input id="Empresa_txtCorreoEmpresa" class="form-control" type="text" name="email" value="" placeholder="ingrese correo">
+                                    </div>
+                                </div>
+                                <div class="col-lg-4">
+                                    <div class="form-group">
+                                        <label class="form-control-label">Dominio: <span class="tx-danger">*</span></label>
+                                        <input id="Empresa_txtSubDominioEmpresa" class="form-control" type="text" name="dominio" value="" placeholder="ingrese dominio">
+                                    </div>
+                                </div>
+
+                            </div><!-- row -->
+                        </div><!-- form-layout -->
+                        <label class="section-title">Diseño de la empresa</label>
+                        <div class="form-layout">
+                            <div class="row mg-b-25">
+                                <div class="col-lg-4">
+                                    <div class="form-group">
+                                        <label class="form-control-label">Color: <span class="tx-danger">*</span></label>
+                                        <input id="Empresa_txtColorEmpresa" class="form-control" style="height:50px;" type="color" name="color" value="">
+                                    </div>
+                                </div>
+                                <div class="col-lg-4">
+                                    <div class="form-group">
+                                        <label class="form-control-label">Selecciona imagen:</label>
+                                        <div class="custom-file">
+
+                                            <input type="file" class="custom-file-input" id="buscarLogo">
+                                            <label class="custom-file-label" for="buscarImagen">Buscar imagen</label>
+                                        </div><!-- custom-file -->
+                                    </div>
+                                </div>
+                                <div class="col-lg-4">
+                                    <div class="form-group">
+                                        <label class="form-control-label">Detalle imagen: <span class="tx-danger">*</span></label>
+                                        <input id="Empresa_txtDescripcionImagen" type="text" name="link" class="form-control" placeholder="detalle imagen">
+                                    </div>
+                                </div>
+                                <div class="col-lg-4">
+                                    <div class="form-group">
+                                        <img class="img-fluid" style="width:200px;" id="imgVistaLogo" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div><!-- modal-body -->
+                <div class="modal-footer">
+                    <button id="Empresa_BtnGuardarEmpresa" type="button" class="btn btn-primary" onclick="GuardarEmpresa(0);">Guardar</button>
+                    <button id="closeModalEmpresaCorporativo" type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                </div>
+            </div>
+        </div><!-- modal-dialog -->
+    </div><!-- modal -->
+
+    <div id="modalCategorias" class="modal fade effect-newspaper">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content tx-size-sm">
+                <input type="hidden" id="hdAccionCategorias" value="N" />
+                <input type="hidden" id="hdNivelCategorias" value="N" />
+                <input type="hidden" id="hdCodigoMenuSuperiorActualizar" value="0" />
+                <input type="hidden" id="hdCodigoMenuActualizar" value="0" />
+
+                <input type="hidden" id="hdCodigoMenuSuperior" value="0" />
+                <input type="hidden" id="hdCodigoMenuSuperiorSecundario" value="0" />
+                <input type="hidden" id="hdCodigoMenuSuperiorTercero" value="0" />
+                <input type="hidden" id="hdCodigoMenu" value="0" />
+                <div class="modal-header pd-x-20">
+                    <h6 class="tx-14 mg-b-0 tx-uppercase tx-inverse tx-bold">Categorias</h6>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body pd-20">
+                    <div class="form-layout">
+                        <div class="row mg-b-25">
+                            <div class="col-lg-2">
+                                <div class="form-group">
+                                    <label class="form-control-label">Orden: <span class="tx-danger">*</span></label>
+                                    <input id="Categorias_txtOrden" class="form-control" type="text" name="Categorias_txtOrden" value="" placeholder="ingrese nro orden">
+                                </div>
+                            </div><!-- col-4 -->
+                            <div class="col-lg-4">
+                                <div class="form-group">
+                                    <label class="form-control-label">Descripción: <span class="tx-danger">*</span></label>
+                                    <input id="Categorias_txtDescripcion" class="form-control" type="text" name="Categorias_txtDescripcion" value="" placeholder="ingrese descripcion">
+                                </div>
+                            </div><!-- col-4 -->
+                            <div class="col-lg-2">
+                                <div class="form-group">
+                                    <label class="form-control-label">Url Ubicación: <span class="tx-danger">*</span></label>
+                                    <input id="Categorias_txtUrlDireccion" class="form-control" type="text" name="email" value="" placeholder="ingrese url ubicación">
+                                </div>
+                            </div><!-- col-4 -->
+                            <div class="col-lg-4">
+                                <div class="form-group mg-b-10-force">
+                                    <label class="form-control-label">Tipo: <span class="tx-danger">*</span></label>
+                                    <select id="Categorias_ddlTipoIcono" onchange='javascript:CargarDetalleIconos();' class="form-control select2" data-placeholder="iconos">
+                                        <option value="0">Selecconar</option>
+                                        <option value="BANKING AND FINANCE Black">BANKING AND FINANCE Black</option>
+                                        <option value="BANKING AND FINANCE White">BANKING AND FINANCE White</option>
+                                        <option value="BASIC Black">BASIC Black</option>
+                                        <option value="BASIC Black 02">BASIC Black 02</option>
+                                        <option value="BASIC White">BASIC White</option>
+                                        <option value="BASIC White 02">BASIC White 02</option>
+                                        <option value="BUSINESS AND MARKETING Black">BUSINESS AND MARKETING Black</option>
+
+                                        <option value="BUSINESS AND MARKETING Black 02">BUSINESS AND MARKETING Black 02</option>
+                                        <option value="BUSINESS AND MARKETING White">BUSINESS AND MARKETING White</option>
+                                        <option value="BUSINESS AND MARKETING White 02">BUSINESS AND MARKETING White 02</option>
+                                        <option value="CREATIVE CONCEPT Black">CREATIVE CONCEPT Black</option>
+                                        <option value="CREATIVE CONCEPT White">CREATIVE CONCEPT White</option>
+                                        <option value="DENTAL CARE Black">DENTAL CARE Black</option>
+                                        <option value="DENTAL CARE White">DENTAL CARE White</option>
+
+                                        <option value="DESIGN AND DEVELOPMENT Black">DESIGN AND DEVELOPMENT Black</option>
+                                        <option value="DESIGN AND DEVELOPMENT White">DESIGN AND DEVELOPMENT White</option>
+                                        <option value="DESIGN Black">DESIGN Black</option>
+                                        <option value="DESIGN White">DESIGN White</option>
+                                        <option value="ECO AND GREEN ENERGY Black">ECO AND GREEN ENERGY Black</option>
+                                        <option value="ECO AND GREEN ENERGY White">ECO AND GREEN ENERGY White</option>
+                                        <option value="E-COMMERCE Black">E-COMMERCE Black</option>
+                                        <option value="E-COMMERCE White">E-COMMERCE White</option>
+                                        <option value="EDUCATION Black">EDUCATION Black</option>
+                                        <option value="EDUCATION White">EDUCATION White</option>
+                                        <option value="E-LEARNING Black">E-LEARNING Black</option>
+
+                                        <option value="E-LEARNING White">E-LEARNING White</option>
+                                        <option value="HEALTHCARE AND MEDICINE Black">HEALTHCARE AND MEDICINE Black</option>
+                                        <option value="HEALTHCARE AND MEDICINE Black 02">HEALTHCARE AND MEDICINE Black 02</option>
+                                        <option value="HEALTHCARE AND MEDICINE White">HEALTHCARE AND MEDICINE White</option>
+                                        <option value="HEALTHCARE AND MEDICINE White 02">HEALTHCARE AND MEDICINE White 02</option>
+                                        <option value="HOTEL SERVICES Black">HOTEL SERVICES Black</option>
+                                        <option value="HOTEL SERVICES White">HOTEL SERVICES White</option>
+                                        <option value="HUMAN BRAIN PROCESS Black">HUMAN BRAIN PROCESS Black</option>
+                                        <option value="HUMAN BRAIN PROCESS White">HUMAN BRAIN PROCESS White</option>
+                                        <option value="LEGAL, LAW AND JUSTICE Black">LEGAL, LAW AND JUSTICE Black</option>
+                                        <option value="LEGAL, LAW AND JUSTICE White">LEGAL, LAW AND JUSTICE White</option>
+                                        <option value="MANAGEMENT AND FINANCE Black">MANAGEMENT AND FINANCE Black</option>
+                                        <option value="MANAGEMENT AND FINANCE White">MANAGEMENT AND FINANCE White</option>
+                                        <option value="PEOPLE AVATARS Black">PEOPLE AVATARS Black</option>
+                                        <option value="PEOPLE AVATARS White">PEOPLE AVATARS White</option>
+                                        <option value="RECYCLING AND ENVIRONMENT Black">RECYCLING AND ENVIRONMENT Black</option>
+                                        <option value="RECYCLING AND ENVIRONMENT White">RECYCLING AND ENVIRONMENT White</option>
+                                        <option value="SEO AND DEVELOPMENT Black">SEO AND DEVELOPMENT Black</option>
+                                        <option value="SEO AND DEVELOPMENT White">SEO AND DEVELOPMENT White</option>
+                                        <option value="SHOPPING Black">SHOPPING Black</option>
+                                        <option value="SHOPPING White">SHOPPING White</option>
+                                        <option value="TRAVEL AND TOURISM Black">TRAVEL AND TOURISM Black</option>
+                                        <option value="TRAVEL AND TOURISM White">TRAVEL AND TOURISM White</option>
+                                    </select>
+                                </div>
+                            </div><!-- col-4 -->
+                        </div><!-- row -->
+                        <div class="row mg-b-25">
+                            <div class="col-lg-12">
+                                <div class="table-responsive contenedor" style="height:180px;overflow-y:auto;overflow-x:hidden;width:100%;">
+                                    <table class="table mg-b-0 tx-12" style="width:100%;">
+                                        <thead>
+                                            <tr class="tx-10">
+                                                <th class="wd-10p pd-y-5">Icono</th>
+                                                <th class="pd-y-5">Descripción</th>
+                                                <th class="wd-10p pd-y-5">Elejir</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="Categorias_ddlDetalleIcono"></tbody>
+                                    </table>
+                                </div><!-- table-responsive -->
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button id="Categorias_BtnEliminarCategorias" type="button" class="btn btn-danger active" onclick="EliminarCategorias();" style="display:none;">Eliminar</button>
+                        <button id="Categorias_BtnGuardarCategorias" type="button" class="btn btn-primary" onclick="GuardarCategorias();">Guardar</button>
+                        <button id="closeModalCategorias" type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                    </div>
+                </div>
+            </div><!-- modal-dialog -->
+        </div><!-- modal -->
+    </div><!-- modal -->
+
+</div>
+
+@section Styles {
+    @Styles.Render("~/Content/corporativo/lib/datatables/css/jquery.dataTables.css")
+    @Styles.Render("~/Content/corporativo/lib/select2/css/select2.min.css")
+}
+
+@section Scripts {
+
+    @System.Web.Optimization.Scripts.Render("~/Content/corporativo/lib/datatables/js/jquery.dataTables.js")
+    @System.Web.Optimization.Scripts.Render("~/Content/corporativo/lib/datatables-responsive/js/dataTables.responsive.js")
+    @System.Web.Optimization.Scripts.Render("~/Content/corporativo/lib/select2/js/select2.min.js")
+    @System.Web.Optimization.Scripts.Render("~/Scripts/plugins/datapicker/bootstrap-datepicker.js")
+    @System.Web.Optimization.Scripts.Render("~/Resource/UserControl.Helper.js")
+
+    @System.Web.Optimization.Scripts.Render("~/Resource/corporativo/Empresa.js?bbbbb")
+    <script type="text/javascript">
+
+        $(document).ready(function () {
+
+            $('#buscarLogo').change(function () {
+                var File = this.files;
+                if (File && File[0]) {
+                    ReadImage(File[0]);
+                }
+            });
+
+        });
+
+        var ReadImage = function (file) {
+
+            var reader = new FileReader;
+            var image = new Image;
+
+            reader.readAsDataURL(file);
+            reader.onload = function (_file) {
+
+                image.src = _file.target.result;
+                image.onload = function () {
+
+                    var height = this.height;
+                    var width = this.width;
+                    var type = file.type;
+                    var size = ~~(file.size / 1024) + "KB";
+
+                    $("#imgVistaLogo").attr('src', _file.target.result);
+                    $("#Empresa_txtDescripcionImagen").val("Size:" + size + ", " + height + " X " + width + ", " + type + "");
+
+                }
+
+            }
+        }
+
+        var ClearPreview = function () {
+            $("#buscarLogo").val('');
+            $("#Empresa_txtDescripcionImagen").val('');
+        }
+    </script>
+
+
+
+}
+
+
+
+
+

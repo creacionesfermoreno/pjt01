@@ -1,0 +1,449 @@
+﻿@model BotComers.ViewModels.Inventario.ItemsVentaViewModel
+
+@{
+    ViewBag.Title = "edit";
+    Layout = "~/Views/Shared/_LayoutApp.cshtml";
+}
+
+<div class="slim-mainpanel">
+    <div class="container">
+        <div class="slim-pageheader">
+            <ol class="breadcrumb slim-breadcrumb">
+                <li class="breadcrumb-item"><a href="@Url.Action("index", "itemsventa")">Productos</a></li>
+                <li class="breadcrumb-item active" aria-current="page">editar</li>
+            </ol>
+            <h6 class="slim-pagetitle">Nuevo producto</h6>
+        </div><!-- slim-pageheader -->
+        <div class="section-wrapper">
+            <div class="form-layout">
+                <input type="hidden" value="@Model.CodigoItemVenta" id="hdCodigoItemVenta" />
+                <input type="hidden" value="E" id="hdAccionItemVenta" />
+                <div style="display:none;" class="alert alert-solid alert-success" role="alert">
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                    <strong>Excelente!</strong> Registro Guardado Correctamente.
+                </div>
+                <div class="row mg-b-25">
+                    <div class="col-lg-4">
+                        <div class="form-group">
+                            <label for="txtItemsventa_Nombre" class="form-control-label">Nombre: <span class="tx-danger" id="txtItemsventa_Nombre_validation" style="display:none;">* Ingrese nombre</span></label>
+                            <input id="txtItemsventa_Nombre" class="form-control form-control-sm" type="text" name="" value="@Model.Nombre" placeholder="">
+                        </div>
+                        <div class="form-group">
+                            <label for="txtItemsventa_PrecioVenta" class="form-control-label">Precio venta (PEN): <span class="tx-danger" id="txtItemsventa_PrecioVenta_validation" style="display:none;">* Ingrese precio venta</span></label>
+                            <input id="txtItemsventa_PrecioVenta" class="form-control form-control-sm" type="text" name="" value="@Model.PrecioVenta" placeholder="">
+                        </div>
+                        <div class="form-group">
+                            <label for="txtItemsventa_TipoImpuesto" class="form-control-label">Impuesto: </label>
+                            <select id="txtItemsventa_TipoImpuesto" class="form-control form-control-sm" data-placeholder="" disabled>
+                                <option value="1" @(Model.CodigoTipoImpuesto == 1 ? "Selected" : string.Empty)>Ninguno-(0%)</option>
+                                <option value="2" @(Model.CodigoTipoImpuesto == 2 ? "Selected" : string.Empty)>IGV-(18%)</option>
+                                <option value="3" @(Model.CodigoTipoImpuesto == 3 ? "Selected" : string.Empty)>Exonerado-(0%)</option>
+                            </select>
+                        </div>
+                        <div class="form-group" id="div_txtItemsventa_TipoUnidadMedida" style="display: @(Model.lista_ItemsVentaInventarioDTO.Count > 0 ? "none" : "block") ">
+                            <label for="txtItemsventa_TipoUnidadMedida" class="form-control-label">Unidad de medida: </label>
+                            <select id="txtItemsventa_TipoUnidadMedida" class="form-control form-control-sm show-tick selectpicker" data-style="btn-primary" disabled>
+                                <optgroup label="Unidad">
+                                    <option value="1" @(Model.CodigoUnidadMedida == 1 ? "Selected" : string.Empty)>Unidad</option>
+                                    <option value="2" @(Model.CodigoUnidadMedida == 2 ? "Selected" : string.Empty)>Servicio</option>
+                                    <option value="3" @(Model.CodigoUnidadMedida == 3 ? "Selected" : string.Empty)>Pieza</option>
+                                    <option value="4" @(Model.CodigoUnidadMedida == 4 ? "Selected" : string.Empty)>Millar</option>
+                                    <option value="5" @(Model.CodigoUnidadMedida == 5 ? "Selected" : string.Empty)>Kit</option>
+                                </optgroup>
+                                <optgroup label="Longitud">
+                                    <option value="6" @(Model.CodigoUnidadMedida == 6 ? "Selected" : string.Empty)>Centímetro (cm)</option>
+                                    <option value="7" @(Model.CodigoUnidadMedida == 7 ? "Selected" : string.Empty)>Metro (m)</option>
+                                    <option value="8" @(Model.CodigoUnidadMedida == 8 ? "Selected" : string.Empty)>Pulgada</option>
+                                </optgroup>
+                                <optgroup label="Área">
+                                    <option value="9" @(Model.CodigoUnidadMedida == 9 ? "Selected" : string.Empty)>Centímetro cuadrado (cm2)</option>
+                                    <option value="10" @(Model.CodigoUnidadMedida == 10 ? "Selected" : string.Empty)>Metro cuadrado (m2)</option>
+                                    <option value="11" @(Model.CodigoUnidadMedida == 11 ? "Selected" : string.Empty)>Pulgada cuadrada</option>
+                                </optgroup>
+                                <optgroup label="Volumen">
+                                    <option value="12" @(Model.CodigoUnidadMedida == 12 ? "Selected" : string.Empty)>Milimetro (mL)</option>
+                                    <option value="13" @(Model.CodigoUnidadMedida == 13 ? "Selected" : string.Empty)>Litro (L)</option>
+                                    <option value="14" @(Model.CodigoUnidadMedida == 14 ? "Selected" : string.Empty)>Galón</option>
+                                </optgroup>
+                                <optgroup label="Peso">
+                                    <option value="15" @(Model.CodigoUnidadMedida == 15 ? "Selected" : string.Empty)>Gramo (g)</option>
+                                    <option value="16" @(Model.CodigoUnidadMedida == 16 ? "Selected" : string.Empty)>Kilogramo (Kg)</option>
+                                    <option value="17" @(Model.CodigoUnidadMedida == 17 ? "Selected" : string.Empty)>Tonelada</option>
+                                    <option value="18" @(Model.CodigoUnidadMedida == 18 ? "Selected" : string.Empty)>Libra</option>
+                                </optgroup>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-lg-9">
+                                    <label class="ckbox" id="lbl_ckboxVisualizarTiendaVirtual">
+                                        @if (Model.VisualizarTiendaVirtual == 1)
+                                        {
+                                            <input id="txtItemsventa_ckboxVisualizarTiendaVirtual" type="checkbox" checked><span>Visualizar en tienda virtual</span>
+                                        }
+                                        else
+                                        {
+                                            <input id="txtItemsventa_ckboxVisualizarTiendaVirtual" type="checkbox" ><span>Visualizar en tienda virtual</span>
+                                        }
+                                    </label>
+                                </div><!-- col-3 -->
+                            </div><!-- row -->
+                        </div>
+                        <div class="form-group">
+                            <label for="" class="form-control-label">Tipo de ítem: </label>
+                            <div class="row ">
+                                <div class="col-lg-6">
+                                    <label class="rdiobox">
+                                        <input name="txtItemsventa_rdioTipoItem" disabled type="radio" value="1" onchange="change_txtItemsventa_rdioTipoItem('1')" @(Model.CodigoTipoItem == 1 ? "checked" : string.Empty)>
+                                        <span>Simple</span>
+                                    </label>
+                                </div><!-- col-3 -->
+                                <div class="col-lg-6">
+                                    <label class="rdiobox" style="display:none;">
+                                        <input name="txtItemsventa_rdioTipoItem" disabled type="radio" value="2" onchange="change_txtItemsventa_rdioTipoItem('2')" @(Model.CodigoTipoItem == 2 ? "checked" : string.Empty)>
+                                        <span>kit</span>
+                                    </label>
+                                </div><!-- col-3 -->
+                            </div><!-- row -->
+                        </div>
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-lg-9">
+                                    <label class="ckbox" id="lbl_ckboxInventariable">
+                                        @if (Model.ItemInventariable == 1)
+                                        {
+                                            <input id="txtItemsventa_ckboxInventariable" type="checkbox" disabled checked onclick="click_ckboxInventariable()"><span>Ítem inventariable</span>
+                                        }
+                                        else
+                                        {
+                                            <input id="txtItemsventa_ckboxInventariable" type="checkbox" disabled onclick="click_ckboxInventariable()"><span>Ítem inventariable</span>
+                                        }
+
+                                    </label>
+                                </div><!-- col-3 -->
+                            </div><!-- row -->
+                        </div>
+                        <div class="form-group" id="div_txtItemsventa_Almacen" style="display:none;">
+                            <label for="Itemsventa_ddlAlmacenes" class="form-control-label">Almacén: </label>
+                            <select id="Itemsventa_ddlAlmacenes" class="form-control form-control-sm" data-placeholder="">
+                                @foreach (var fila in Model.ListAlmacenes)
+                                {
+                                    if (Model.CodigoAlmacen == Convert.ToInt32(fila.Value))
+                                    {
+                                        <option value="@fila.Value" selected>@fila.Text</option>
+                                    }
+                                    else
+                                    {
+                                        <option value="@fila.Value">@fila.Text</option>
+                                    }
+                                }
+                            </select>
+                        </div>
+                    </div><!-- col-4 -->
+                    <div class="col-lg-4">
+                        <div class="form-group">
+                            <label for="txtItemsventa_Referencia" class="form-control-label">Referencia: </label>
+                            <input id="txtItemsventa_Referencia" class="form-control form-control-sm" type="text" name="" value="@Model.Referencia" placeholder="">
+                        </div>
+                        <div class="form-group">
+                            <label for="txtItemsventa_CodigoCategoria" class="form-control-label">Categoría: </label>
+                            <select id="txtItemsventa_CodigoCategoria" class="form-control form-control-sm" data-placeholder="">
+                                @foreach (var fila in Model.ListCategorias)
+                                {
+                                    if (Model.CodigoCategoriaItem == Convert.ToInt32(fila.Value))
+                                    {
+                                        <option value="@fila.Value" selected>@fila.Text</option>
+                                    }
+                                    else
+                                    {
+                                        <option value="@fila.Value">@fila.Text</option>
+                                    }
+                                }
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="txtItemsventa_CodigoProductoSUNAT" class="form-control-label">Código Producto SUNAT: </label>
+                            <input id="txtItemsventa_CodigoProductoSUNAT" class="form-control form-control-sm" type="text" name="" value="@Model.CodigoProductoSUNAT" placeholder="">
+                        </div>
+                        <div class="form-group">
+                            <label for="txtItemsventa_CodigoCuentaContable" class="form-control-label">Cuenta Contable: </label>
+                            <select id="txtItemsventa_CodigoCuentaContable" class="form-control form-control-sm" data-placeholder="">
+                                <option value="1" disabled>Ingresos de actividades extraordinarias</option>
+                                <option selected value="2" disabled>Ventas</option>
+                                <option value="3" disabled>Devoluciones de ventas</option>
+                                <option value="4" disabled>Otros ingresos</option>
+                                <option value="5" disabled>Ingresos financieros</option>
+                                <option value="6" disabled>Otros ingresos diversos</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="txtItemsventa_Descripcion" class="form-control-label">Descripción: </label>
+                            <textarea id="txtItemsventa_Descripcion" rows="2" class="form-control" placeholder="">@Model.Descripcion</textarea>
+                        </div>
+                    </div><!-- col-4 -->
+                    <div class="col-lg-4">
+                        <div class="form-group">
+                            <img src="@Model.UrlImagen" class="img-fluid img-thumbnail" alt="">
+                        </div>
+                        <div class="form-group">
+                            <label for="" class="form-control-label">Precio Total </label>
+                            <div class="row ">
+                                <div class="col-lg-6">
+                                    <label style="font-size:x-large">S/0.00</label>
+                                </div><!-- col-3 -->
+                                <div class="col-lg-6">
+                                    <label style="font-size:x-large">PEN</label>
+
+                                </div><!-- col-3 -->
+                            </div><!-- row -->
+                        </div>
+                    </div><!-- col-4 -->
+                </div><!-- row -->
+
+                <div id="divDetalleInventario" style="display: @(Model.lista_ItemsVentaInventarioDTO.Count > 0 ? "block" : "none") " class="">
+                    <div class="card-header">
+                        <h6 class="slim-card-title">DETALLES DEL INVENTARIO</h6>
+                    </div><!-- card-header -->
+                    <div class="table-responsive">
+                        <table id="gridDetalleInventario" class="table mg-b-0 tx-13">
+                            <thead>
+                                <tr class="tx-10">
+                                    <th class="pd-y-3">
+                                        Unidad de medida
+                                    </th>
+                                    <th class="pd-y-3">
+                                        Costo unidad
+                                    </th>
+                                    <th class="pd-y-3">
+
+                                    </th>
+                                    <th class="pd-y-3">
+                                        Almacén
+                                    </th>
+                                    <th class="pd-y-3">
+                                        Cantidad inicial
+                                    </th>
+                                    <th class="pd-y-3">
+                                        Cantidad mínima
+                                    </th>
+                                    <th class="pd-y-3">
+                                        Cantidad máxima
+                                    </th>
+                                    <th class="pd-y-3">
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+
+                                @{
+                                    int rowfila = 1;
+                                    foreach (var item in Model.lista_ItemsVentaInventarioDTO)
+                                    {
+
+                                        if (rowfila == 1)
+                                        {
+                                            <tr id="rowdi_@rowfila">
+                                                <td>
+                                                    <select id="rowdi_ddlUnidadMedida_@rowfila" class="form-control form-control-sm show-tick selectpicker" data-style="btn-primary">
+                                                        <optgroup label="Unidad">
+                                                            <option value="1" @(Model.CodigoUnidadMedida == 1 ? "Selected" : string.Empty)>Unidad</option>
+
+                                                            <option value="2" @(Model.CodigoUnidadMedida == 2 ? "Selected" : string.Empty)>Servicio</option>
+
+                                                            <option value="3" @(Model.CodigoUnidadMedida == 3 ? "Selected" : string.Empty)>Pieza</option>
+
+                                                            <option value="4" @(Model.CodigoUnidadMedida == 4 ? "Selected" : string.Empty)>Millar</option>
+
+                                                            <option value="5" @(Model.CodigoUnidadMedida == 5 ? "Selected" : string.Empty)>Kit</option>
+
+                                                        </optgroup>
+
+                                                        <optgroup label="Longitud">
+
+                                                            <option value="6" @(Model.CodigoUnidadMedida == 6 ? "Selected" : string.Empty)>Centímetro (cm)</option>
+
+                                                            <option value="7" @(Model.CodigoUnidadMedida == 7 ? "Selected" : string.Empty)>Metro (m)</option>
+
+                                                            <option value="8" @(Model.CodigoUnidadMedida == 8 ? "Selected" : string.Empty)>Pulgada</option>
+
+                                                        </optgroup>
+
+                                                        <optgroup label="Área">
+
+                                                            <option value="9" @(Model.CodigoUnidadMedida == 9 ? "Selected" : string.Empty)>Centímetro cuadrado (cm2)</option>
+
+                                                            <option value="10" @(Model.CodigoUnidadMedida == 10 ? "Selected" : string.Empty)>Metro cuadrado (m2)</option>
+
+                                                            <option value="11" @(Model.CodigoUnidadMedida == 11 ? "Selected" : string.Empty)>Pulgada cuadrada</option>
+
+                                                        </optgroup>
+
+                                                        <optgroup label="Volumen">
+
+                                                            <option value="12" @(Model.CodigoUnidadMedida == 12 ? "Selected" : string.Empty)>Milimetro (mL)</option>
+
+                                                            <option value="13" @(Model.CodigoUnidadMedida == 13 ? "Selected" : string.Empty)>Litro (L)</option>
+
+                                                            <option value="14" @(Model.CodigoUnidadMedida == 14 ? "Selected" : string.Empty)>Galón</option>
+
+                                                        </optgroup>
+
+                                                        <optgroup label="Peso">
+
+                                                            <option value="15" @(Model.CodigoUnidadMedida == 15 ? "Selected" : string.Empty)>Gramo (g)</option>
+
+                                                            <option value="16" @(Model.CodigoUnidadMedida == 16 ? "Selected" : string.Empty)>Kilogramo (Kg)</option>
+
+                                                            <option value="17" @(Model.CodigoUnidadMedida == 17 ? "Selected" : string.Empty)>Tonelada</option>
+
+                                                            <option value="18" @(Model.CodigoUnidadMedida == 18 ? "Selected" : string.Empty)>Libra</option>
+
+                                                        </optgroup>
+
+                                                    </select>
+                                                </td>
+                                                <td>
+                                                    <input id="rowdi_txtCostoUnidad_@rowfila" class="form-control form-control-sm" type="text" name="" value="@item.CostoUnidad">
+                                                </td>
+                                                <td>
+                                                    <input id="rowdi_hdCodigoItemsVentaInventario_@rowfila" class="form-control form-control-sm" type="hidden" name="" value="@item.CodigoItemsVentaInventario">
+                                                </td>
+                                                <td>
+                                                    <input id="rowdi_ddlAlmacenes_@rowfila" class="form-control form-control-sm" type="text" name="" value="@item.DesAlmacen" disabled>
+                                                </td>
+                                                <td>
+                                                    <input id="rowdi_txtCantidadInicial_@rowfila" class="form-control form-control-sm" type="text" name="" value="@item.CantidadInicial">
+                                                </td>
+                                                <td>
+                                                    <input id="rowdi_txtCantidadMinima_@rowfila" class="form-control form-control-sm" type="text" name="" value="@item.CantidadMinima">
+                                                </td>
+                                                <td>
+                                                    <input id="rowdi_txtCantidadMaxima_@rowfila" class="form-control form-control-sm" type="text" name="" value="@item.CantidadMaxima">
+                                                </td>
+                                            </tr>
+                                        }
+                                        else
+                                        {
+                                            <tr id="rowdi_@rowfila">
+                                                <td></td>
+                                                <td></td>
+                                                <td>
+                                                    <input id="rowdi_hdCodigoItemsVentaInventario_@rowfila" class="form-control form-control-sm" type="hidden" value="@item.CodigoItemsVentaInventario">
+                                                </td>
+                                                <td>
+                                                    <input id="rowdi_ddlAlmacenes_@rowfila" class="form-control form-control-sm" type="text" value="@item.DesAlmacen" disabled>
+                                                </td>
+                                                <td>
+                                                    <input id="rowdi_txtCantidadInicial_@rowfila" class="form-control form-control-sm" type="text" value="@item.CantidadInicial">
+                                                </td>
+                                                <td>
+                                                    <input id="rowdi_txtCantidadMinima_@rowfila" class="form-control form-control-sm" type="text" value="@item.CantidadMinima">
+                                                </td>
+                                                <td>
+                                                    <input id="rowdi_txtCantidadMaxima_@rowfila" class="form-control form-control-sm" type="text" value="@item.CantidadMaxima">
+                                                </td>
+                                            </tr>
+                                        }
+                                        rowfila++;
+                                    }
+                                }
+                            </tbody>
+                        </table>
+                    </div><!-- table-responsive -->
+                    <div class="card-footer tx-12 pd-y-15 bg-transparent" onclick='jacascript:Agregar_NuevaBodega_Edit();'>
+                        <i class="icon ion-plus-circled tx-18"></i>Agregar en otra bodega
+                    </div><!-- card-footer -->
+                </div><!-- card -->
+
+                <div id="divItemsIncluidos" style="display:none;" class="">
+                    <div class="card-header">
+                        <h6 class="slim-card-title">ITEMS INCLUIDOS</h6>
+                    </div><!-- card-header -->
+                    <div class="table-responsive">
+                        <table id="" class="table mg-b-0 tx-13">
+                            <thead>
+                                <tr class="tx-10">
+                                    <th class="pd-y-3">
+                                        Items
+                                    </th>
+                                    <th class="pd-y-3">
+                                        Referencia
+                                    </th>
+                                    <th class="pd-y-3">
+                                        Descripción
+                                    </th>
+                                    <th class="pd-y-3">
+                                        Cantidad
+                                    </th>
+                                    <th class="pd-y-3">
+                                        Unidad
+                                    </th>
+                                    <th class="pd-y-3">
+                                        Costo
+                                    </th>
+                                    <th class="pd-y-3">
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>
+                                        <select id="" class="form-control form-control-sm" data-placeholder="">
+                                            <option value="1">Busca ítem facturable..</option>
+                                        </select>
+                                    </td>
+                                    <td>
+                                        <input class="form-control form-control-sm" placeholder="Referencia" type="text" value="">
+                                    </td>
+                                    <td>
+                                        <input class="form-control form-control-sm" placeholder="Descripción" type="text" value="">
+                                    </td>
+                                    <td>
+                                        <input class="form-control form-control-sm" placeholder="Cantidad" type="number">
+                                    </td>
+                                    <td></td>
+                                    <td>
+                                        $0.00
+                                    </td>
+                                    <td></td>
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div><!-- table-responsive -->
+                    <div class="card-footer tx-12 pd-y-15 bg-transparent">
+                        <a href=""><i class="icon ion-plus-circled tx-18"></i>Agregar ítem</a>
+                    </div><!-- card-footer -->
+                </div><!-- card -->
+
+                <div class="form-layout-footer">
+                    <button class="btn btn-primary bd-0" onclick="javascript:ActualizarItemsVenta();">Guardar</button>
+                    <button class="btn btn-secondary bd-0">Guardar y crear nueva</button>
+                    <a href="@Url.Action("index","itemsventa")"><button class="btn btn-secondary bd-0">Cancelar</button></a>
+                </div><!-- form-layout-footer -->
+            </div><!-- form-layout -->
+        </div><!-- section-wrapper -->
+
+    </div><!-- container -->
+
+    <div class="slim-footer mg-t-0">
+        <div class="container-fluid">
+            <p>Copyright 2018 &copy; All Rights Reserved. Slim Dashboard Template</p>
+            <p>Designed by: <a href="">ThemePixels</a></p>
+        </div><!-- container-fluid -->
+    </div><!-- slim-footer -->
+</div><!-- slim-mainpanel -->
+
+@section Scripts {
+
+    @System.Web.Optimization.Scripts.Render("~/Scripts/jquery-3.3.1.js")
+    @System.Web.Optimization.Scripts.Render("~/Resource/UserControl.Helper.js")
+    @System.Web.Optimization.Scripts.Render("~/Resource/InventarioEdit.js?tttfsdx")
+
+    <script type="text/javascript">
+        
+       
+    </script>
+}

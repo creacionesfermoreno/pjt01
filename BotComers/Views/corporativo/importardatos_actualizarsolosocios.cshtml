@@ -1,0 +1,146 @@
+﻿@model IEnumerable<E_DataModel.Gimnasio.ClientesDTO>
+
+@{
+    ViewBag.Title = "importardatos_actualizarsolosocios";
+    Layout = "~/Views/Shared/__LayoutAppFitCorporativo.cshtml";
+}
+
+
+@section Styles {
+
+    <link href="@Url.Content("~/Content/cssKendo/kendo.common.min.css")" rel="stylesheet" />
+    <link href="@Url.Content("~/Content/cssKendo/kendo.dataviz.default.min.css")" rel="stylesheet" />
+    <link href="@Url.Content("~/Content/cssKendo/kendo.dataviz.min.css")" rel="stylesheet" />
+    <link href="@Url.Content("~/Content/cssKendo/kendo.default.min.css")" rel="stylesheet" />
+
+    <style>
+
+        .modal-body {
+        }
+
+        .modal-backdrop {
+            display: none;
+        }
+
+        .card-body {
+            margin-top: -5px;
+            margin-bottom: -5px;
+        }
+
+        .k-header, .k-grid-header, .k-toolbar, .k-dropdown-wrap, .k-picker-wrap, .k-numeric-wrap, .k-grouping-header, .k-pager-wrap, .k-textbox, .k-button, .k-progressbar, .k-draghandle, .k-autocomplete, .k-state-highlight, .k-tabstrip-items .k-item, .k-panelbar .k-tabstrip-items .k-item, .km-pane-wrapper > .km-pane > .km-view > .km-content {
+            background-image: url(textures/highlight.png);
+            background-image: none,-webkit-linear-gradient(top,#0075ff 0,#0075ff 100%);
+            background-image: none,-moz-linear-gradient(top,#0075ff 0,#0075ff 100%);
+            background-image: none,-o-linear-gradient(top,#0075ff 0,#0075ff 100%);
+            background-image: none,linear-gradient(to bottom,#0075ff 0,#0075ff 100%);
+            background-position: 50% 50%;
+            background-color: #e3e3e3;
+            color: #fff;
+        }
+
+            .k-header, .k-grid-header-wrap, .k-grid .k-grouping-header, .k-grid-header, .k-pager-wrap, .k-pager-wrap .k-textbox, .k-pager-wrap .k-link, .k-grouping-header .k-group-indicator, .k-gantt-toolbar .k-state-default {
+                border-color: #e8eaee;
+                background-color: #0075ff;
+                color: #fff;
+            }
+
+        .modal {
+            display: none;
+            background-color: rgba(0, 0, 0, 0.77);
+        }
+
+        .k-block, .k-header, .k-grid-header, .k-toolbar, .k-grouping-header, .k-pager-wrap, .k-button, .k-draghandle, .k-treemap-tile, html .km-pane-wrapper .k-header {
+            background-color: #0075ff;
+            color: #fff;
+        }
+
+            .k-grid-header th.k-header > .k-link {
+                display: block;
+                min-height: 18px;
+                line-height: 18px;
+                margin: -0.5em -0.6em -0.4em -0.6em;
+                padding: .1em .1em .1em .1em;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                color: #fff;
+            }
+
+            .k-grid-header table, .k-grid-content table, .k-grid-footer table, .k-grid-content-locked > table {
+                table-layout: fixed;
+            }
+
+        .k-grid tr td {
+            border-bottom: 1px solid #ada9a9;
+            border-style: dashed;
+        }
+
+        .k-grid-toolbar:first-child, .k-grouping-header + .k-grid-toolbar {
+            border-width: 0 0 1px;
+            border-radius: 0px;
+            background-color: #d7eafa;
+            height: 10px;
+        }
+
+        .k-block, .k-header, .k-grid-header, .k-toolbar, .k-grouping-header, .k-pager-wrap, .k-button, .k-draghandle, .k-treemap-tile, html .km-pane-wrapper .k-header {
+            background-color: rgba(227, 227, 227, 0);
+        }
+
+        #txtFechaInicioProcFreezing .k-header, .k-grid-header, .k-toolbar, .k-dropdown-wrap, .k-picker-wrap, .k-numeric-wrap, .k-grouping-header, .k-pager-wrap, .k-textbox, .k-button, .k-progressbar, .k-draghandle, .k-autocomplete, .k-state-highlight, .k-tabstrip-items .k-item, .k-panelbar .k-tabstrip-items .k-item, .km-pane-wrapper > .km-pane > .km-view > .km-content {
+            background-image: url(textures/highlight.png);
+            background-image: none,-webkit-linear-gradient(top,#0075ff 0,#0075ff 100%);
+            background-image: none,-moz-linear-gradient(top,#0075ff 0,#0075ff 100%);
+            background-image: none,-o-linear-gradient(top,#0075ff 0,#0075ff 100%);
+            background-image: none,linear-gradient(to bottom,#0075ff 0,#0075ff 100%);
+            background-position: 50% 50%;
+            background-color: #ffffff;
+        }
+
+        .k-state-selected {
+            color: #FFFFFF;
+            background-color: #0075ff;
+            border-color: #0075ff;
+        }
+
+        tr {
+            height: 16px;
+            font-size: 13px;
+        }
+
+        /** SPINNER CREATION **/
+        .loader {
+            position: relative;
+            text-align: center;
+            margin: 15px auto 35px auto;
+            z-index: 9999;
+            display: block;
+            width: 80px;
+            height: 80px;
+            border: 10px solid rgba(0, 0, 0, .3);
+            border-radius: 50%;
+            border-top-color: #000;
+            animation: spin 1s ease-in-out infinite;
+            -webkit-animation: spin 1s ease-in-out infinite;
+        }
+
+
+        /** MODAL STYLING **/
+        .modal-content {
+            border-radius: 0px;
+            box-shadow: 0 0 20px 8px rgba(0, 0, 0, 0.7);
+        }
+
+
+        [dir=ltr] .modal-lg, [dir=ltr] .modal-xl {
+            max-width: 950px;
+        }
+
+        a {
+            color: transparent;
+            text-decoration: none;
+        }
+    </style>
+}
+
+
+<h1>IMPORTAR DATOS DE SOLO SOCIOS PARA ACTUALIZAR</h1>
+

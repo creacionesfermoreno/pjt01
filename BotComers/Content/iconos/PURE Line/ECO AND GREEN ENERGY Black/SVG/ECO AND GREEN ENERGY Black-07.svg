@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Generator: Adobe Illustrator 16.0.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="170px"
+	 height="170px" viewBox="0 0 170 170" enable-background="new 0 0 170 170" xml:space="preserve">
+<g id="Background">
+</g>
+<g id="Circle">
+	<g>
+		<path fill="#FFFFFF" d="M85,170c-46.869,0-85-38.131-85-85S38.131,0,85,0s85,38.131,85,85S131.869,170,85,170z"/>
+	</g>
+</g>
+<g id="TEXT">
+</g>
+<g id="Icons">
+	<g>
+		<g>
+			<line fill="none" stroke="#282D33" stroke-width="4" x1="68.142" y1="34.529" x2="72.463" y2="47.988"/>
+			<line fill="none" stroke="#282D33" stroke-width="4" x1="46.016" y1="49.244" x2="56.486" y2="58.74"/>
+			<line fill="none" stroke="#282D33" stroke-width="4" x1="34.213" y1="73.051" x2="48.027" y2="76.037"/>
+			<line fill="none" stroke="#282D33" stroke-width="4" x1="35.893" y1="99.57" x2="49.35" y2="95.252"/>
+			<line fill="none" stroke="#282D33" stroke-width="4" x1="50.608" y1="121.697" x2="60.108" y2="111.227"/>
+			<line fill="none" stroke="#282D33" stroke-width="4" x1="100.934" y1="131.82" x2="96.617" y2="118.363"/>
+			<line fill="none" stroke="#282D33" stroke-width="4" x1="123.06" y1="117.104" x2="112.592" y2="107.609"/>
+			<line fill="none" stroke="#282D33" stroke-width="4" x1="134.863" y1="93.301" x2="121.051" y2="90.309"/>
+			<line fill="none" stroke="#282D33" stroke-width="4" x1="133.184" y1="66.779" x2="119.726" y2="71.096"/>
+			<line fill="none" stroke="#282D33" stroke-width="4" x1="118.467" y1="44.652" x2="108.971" y2="55.119"/>
+		</g>
+		<path fill="none" stroke="#282D33" stroke-width="4" d="M114.295,83.172c0,16.432-13.33,29.758-29.758,29.758
+			c-16.436,0-29.758-13.326-29.758-29.758c0-16.428,13.322-29.756,29.758-29.756C100.965,53.416,114.295,66.744,114.295,83.172z"/>
+		<polygon fill="none" stroke="#282D33" stroke-width="4" stroke-miterlimit="10" points="109.951,74.961 85.549,74.961 
+			94.682,44.975 59.125,92.953 83.527,92.953 74.394,122.938 		"/>
+	</g>
+</g>
+</svg>

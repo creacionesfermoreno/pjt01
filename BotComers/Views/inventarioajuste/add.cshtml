@@ -1,0 +1,182 @@
+﻿
+@{
+    ViewBag.Title = "add";
+    Layout = "~/Views/Shared/_LayoutApp.cshtml";
+}
+
+<link href="@Url.Content("~/Content/plugins/datapicker/datepicker3.css")" rel="stylesheet" />
+<link href="@Url.Content("~/Content/plugins/select2/select2.min.css")" rel="stylesheet" />
+
+<link href="@Url.Content("~/Content/cssKendo/kendo.common.min.css")" rel="stylesheet" />
+<link href="@Url.Content("~/Content/cssKendo/kendo.dataviz.default.min.css")" rel="stylesheet" />
+<link href="@Url.Content("~/Content/cssKendo/kendo.dataviz.min.css")" rel="stylesheet" />
+<link href="@Url.Content("~/Content/cssKendo/kendo.default.min.css")" rel="stylesheet" />
+
+<div class="slim-mainpanel">
+    <div class="container">
+        <div class="slim-pageheader">
+            <ol class="breadcrumb slim-breadcrumb">
+                <li class="breadcrumb-item"><a href="@Url.Action("index","inventarioajuste")">Historial de ajuste de venta</a></li>
+                <li class="breadcrumb-item active" aria-current="page">add</li>
+            </ol>
+            <h6 class="slim-pagetitle">Nuevo ajuste de inventario</h6>
+        </div><!-- slim-pageheader -->
+        <div class="section-wrapper">
+            <div class="form-layout">
+                <input type="hidden" value="0" id="hdIDBuscadorItemsVenta" />
+                <input type="hidden" value="0" id="hdCodigoItemVenta" />
+                <input type="hidden" value="N" id="hdAccionItemVenta" />
+                <div style="display:none;" class="alert alert-solid alert-success" role="alert">
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                    <strong>Excelente!</strong> Registro Guardado Correctamente.
+                </div>
+                <div class="row mg-b-25">
+                    <div class="col-lg-3">
+                        <div class="form-group">
+                            <label for="txtInventarioAjuste_ddlAlmacenes" class="form-control-label">Almacen: <span class="tx-danger" id="txtInventarioAjuste_ddlAlmacenes_validacion" style="display:none;">* Seleccione almacen</span></label>
+                            <select id="txtInventarioAjuste_ddlAlmacenes" class="form-control form-control-sm" data-placeholder=""></select>
+                        </div>
+                        <div class="form-group">
+                            <label for="txtInventarioAjuste_FechaRealizacion" class="form-control-label">Fecha Ajuste: <span class="tx-danger" id="txtInventarioAjuste_txtFechaRealizacion_validacion" style="display:none;">* Ingrese fecha</span></label>
+                            <input id="txtInventarioAjuste_FechaRealizacion" class="form-control form-control-sm" type="text" name="" value="" placeholder="">
+                        </div>
+                      
+                    </div>
+                    <div class="col-lg-3">
+
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="form-group">
+                            <label for="txtInventarioAjuste_Observaciones" class="form-control-label">Observaciones: </label>
+                            <textarea id="txtInventarioAjuste_Observaciones" rows="2" class="form-control" placeholder=""></textarea>
+                        </div>
+                    </div>
+                </div><!-- row -->
+
+                <div class="card-header">
+                    <h6 class="slim-card-title">Items de venta</h6>
+                </div><!-- card-header -->
+                <div class="table-responsive">
+                    <table id="gridAjusteInventario" class="table mg-b-0">
+                        <thead>
+                            <tr class="tx-10">
+                                <th class="pd-y-10" style="font-size:10px;">
+                                    Item
+                                </th>
+                                <th class="pd-y-2" style="font-size:10px;">
+                                    Cantidad actual
+                                </th>
+                                <th class="pd-y-3" style="font-size:10px;">
+                                    Tipo de ajuste
+                                </th>
+                                <th class="pd-y-2" style="font-size:10px;">
+                                    Cantidad
+                                </th>
+                                <th class="pd-y-2" style="font-size:10px;">
+                                    Cantidad final
+                                </th>
+                                <th class="pd-y-2" style="font-size:10px;">
+                                    Costo unitario
+                                </th>
+                                <th class="pd-y-2" style="font-size:10px;">
+                                    Total ajustado
+                                </th>
+                                <th class="pd-y-2">
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody></tbody>
+                        <tfoot>
+                            <tr class="tx-10">
+                                <th class="pd-y-10" style="font-size:10px;">
+                                    <i class="icon ion-plus-circled tx-18" onclick='jacascript:Agregar_NuevoItem();'></i>Agregar item
+                                </th>
+                                <th class="pd-y-2" style="font-size:10px;">
+                                   
+                                </th>
+                                <th class="pd-y-3" style="font-size:10px;">
+                                  
+                                </th>
+                                <th class="pd-y-2" style="font-size:10px;">
+                                   
+                                </th>
+                                <th class="pd-y-2" style="font-size:10px;">
+                                    
+                                </th>
+                                <th class="pd-y-2" style="font-size:10px;text-align:center;">
+                                  TOTAL S/.
+                                </th>
+                                <th class="pd-y-2" style="font-size:15px;">
+                                    <label id="txtInventarioAjuste_TotalAjuste"></label>
+                                </th>
+                                <th class="pd-y-2">
+                                    
+                                </th>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div><!-- table-responsive -->
+                <div class="card-footer tx-12 pd-y-15 bg-transparent" >
+                    
+                </div><!-- card-footer -->
+
+                <div class="form-layout-footer">
+                    <button class="btn btn-primary bd-0" onclick="javascript:RegistrarAjusteInventario();">Guardar</button>
+                    <button class="btn btn-secondary bd-0">Guardar y crear nueva</button>
+                    <a href="@Url.Action("index","inventarioajuste")"><button class="btn btn-secondary bd-0">Cancelar</button></a>
+                </div><!-- form-layout-footer -->
+            </div><!-- form-layout -->
+        </div><!-- section-wrapper -->
+
+    </div><!-- container -->
+
+    <div class="slim-footer mg-t-0">
+        <div class="container-fluid">
+            <p>Copyright 2018 &copy; All Rights Reserved. Slim Dashboard Template</p>
+            <p>Designed by: <a href="">ThemePixels</a></p>
+        </div><!-- container-fluid -->
+    </div><!-- slim-footer -->
+</div><!-- slim-mainpanel -->
+
+@section Styles {
+    @Styles.Render("~/Content/corporativo/lib/datatables/css/jquery.dataTables.css")
+    @Styles.Render("~/Content/corporativo/lib/select2/css/select2.min.css")
+}
+
+@section Scripts {
+
+    @System.Web.Optimization.Scripts.Render("~/Scripts/plugins/jsKendo/angular.min.js")
+    @System.Web.Optimization.Scripts.Render("~/Scripts/plugins/jsKendo/kendo.all.min.js")
+
+    @System.Web.Optimization.Scripts.Render("~/Scripts/plugins/jquery-ui/jquery-ui.js")
+    @System.Web.Optimization.Scripts.Render("~/Scripts/plugins/jquery-ui/jquery-ui.min.js")
+
+    @System.Web.Optimization.Scripts.Render("~/Resource/UserControl.Helper.js")
+    @System.Web.Optimization.Scripts.Render("~/Scripts/plugins/datapicker/bootstrap-datepicker.js")
+    @System.Web.Optimization.Scripts.Render("~/Content/app/lib/select2/js/select2.full.min.js")
+    @System.Web.Optimization.Scripts.Render("~/Resource/AjusteInventario.js?cfdsftd")
+
+    <script type="text/javascript">
+        
+        ListarAlmacenes();
+
+        //$('input[id="txtInventarioAjuste_FechaRealizacion"]').datepicker({
+        //    todayBtn: "linked",
+        //    keyboardNavigation: false,
+        //    forceParse: false,
+        //    format: 'dd/mm/yyyy',
+        //    autoclose: true,
+        //    language: 'es'
+        //});
+        
+        //$('input[id="txtInventarioAjuste_FechaRealizacion"]').datepicker('setDate', new Date());
+        var todayDate = new Date();
+        $('input[id="txtInventarioAjuste_FechaRealizacion"]').kendoDatePicker();
+        $('input[id="txtInventarioAjuste_FechaRealizacion"]').data("kendoDatePicker").value(todayDate);
+
+        
+    </script>
+
+}

@@ -1,0 +1,240 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>Gestión</title>
+
+    @if (IsSectionDefined("Styles"))
+    {@RenderSection("Styles", required: false)}
+
+    <!-- vendor css -->
+    <link href="@Url.Content("~/Content/app/lib/font-awesome/css/font-awesome.css")" rel="stylesheet" />
+    <link href="@Url.Content("~/Content/app/lib/Ionicons/css/ionicons.css")" rel="stylesheet" />
+    <link href="@Url.Content("~/Content/app/lib/chartist/css/chartist.css")" rel="stylesheet" />
+    <link href="@Url.Content("~/Content/app/lib/perfect-scrollbar/css/perfect-scrollbar.min.css")" rel="stylesheet" />
+
+    <!-- Slim CSS -->
+    <link href="@Url.Content("~/Content/app/css/slim.css")" rel="stylesheet" />
+
+</head>
+<body>
+
+
+    <div class="slim-header with-sidebar">
+        <div class="container-fluid">
+            <div class="slim-header-left">
+                <h2 class="slim-logo"><a href="index.html">Apssfit<span>.</span></a></h2>
+                <a href="" id="slimSidebarMenu" class="slim-sidebar-menu"><span></span></a>
+                <div class="search-box">
+                    <input type="text" class="form-control" placeholder="Buscqueda de clientes">
+                    <button class="btn btn-primary"><i class="fa fa-search"></i></button>
+                </div><!-- search-box -->
+            </div><!-- slim-header-left -->
+            <div class="slim-header-right">
+                <div class="dropdown dropdown-a" data-toggle="tooltip" title="Activity Logs">
+                    <a href="" class="header-notification" data-toggle="dropdown">
+                        <i class="icon ion-ios-bolt-outline"></i>
+                    </a>
+                    <div class="dropdown-menu">
+                        <div class="dropdown-menu-header">
+                            <h6 class="dropdown-menu-title">Activity Logs</h6>
+                            <div>
+                                <a href="">Filter List</a>
+                                <a href="">Settings</a>
+                            </div>
+                        </div><!-- dropdown-menu-header -->
+                        <div class="dropdown-activity-list">
+                            <div class="activity-label">Today, December 13, 2017</div>
+                            <div class="activity-item">
+                                <div class="row no-gutters">
+                                    <div class="col-2 tx-right">10:15am</div>
+                                    <div class="col-2 tx-center"><span class="square-10 bg-success"></span></div>
+                                    <div class="col-8">Purchased christmas sale cloud storage</div>
+                                </div><!-- row -->
+                            </div><!-- activity-item -->
+                            <div class="activity-item">
+                                <div class="row no-gutters">
+                                    <div class="col-2 tx-right">9:48am</div>
+                                    <div class="col-2 tx-center"><span class="square-10 bg-danger"></span></div>
+                                    <div class="col-8">Login failure</div>
+                                </div><!-- row -->
+                            </div><!-- activity-item -->
+                            <div class="activity-item">
+                                <div class="row no-gutters">
+                                    <div class="col-2 tx-right">7:29am</div>
+                                    <div class="col-2 tx-center"><span class="square-10 bg-warning"></span></div>
+                                    <div class="col-8">(D:) Storage almost full</div>
+                                </div><!-- row -->
+                            </div><!-- activity-item -->
+                            <div class="activity-item">
+                                <div class="row no-gutters">
+                                    <div class="col-2 tx-right">3:21am</div>
+                                    <div class="col-2 tx-center"><span class="square-10 bg-success"></span></div>
+                                    <div class="col-8">1 item sold <strong>Christmas bundle</strong></div>
+                                </div><!-- row -->
+                            </div><!-- activity-item -->
+                            <div class="activity-label">Yesterday, December 12, 2017</div>
+                            <div class="activity-item">
+                                <div class="row no-gutters">
+                                    <div class="col-2 tx-right">6:57am</div>
+                                    <div class="col-2 tx-center"><span class="square-10 bg-success"></span></div>
+                                    <div class="col-8">Earn new badge <strong>Elite Author</strong></div>
+                                </div><!-- row -->
+                            </div><!-- activity-item -->
+                        </div><!-- dropdown-activity-list -->
+                        <div class="dropdown-list-footer">
+                            <a href="page-activity.html"><i class="fa fa-angle-down"></i> Show All Activities</a>
+                        </div>
+                    </div><!-- dropdown-menu-right -->
+                </div><!-- dropdown -->
+                <div class="dropdown dropdown-b" data-toggle="tooltip" title="Notifications">
+                    <a href="" class="header-notification" data-toggle="dropdown">
+                        <i class="icon ion-ios-bell-outline"></i>
+                        <span class="indicator"></span>
+                    </a>
+                    <div class="dropdown-menu">
+                        <div class="dropdown-menu-header">
+                            <h6 class="dropdown-menu-title">Notifications</h6>
+                            <div>
+                                <a href="">Mark All as Read</a>
+                                <a href="">Settings</a>
+                            </div>
+                        </div><!-- dropdown-menu-header -->
+                        <div class="dropdown-list">
+                            <!-- loop starts here -->
+                            <a href="" class="dropdown-link">
+                                <div class="media">
+                                    <img src="http://via.placeholder.com/500x500" alt="">
+                                    <div class="media-body">
+                                        <p><strong>Suzzeth Bungaos</strong> tagged you and 18 others in a post.</p>
+                                        <span>October 03, 2017 8:45am</span>
+                                    </div>
+                                </div><!-- media -->
+                            </a>
+                            <!-- loop ends here -->
+                            <a href="" class="dropdown-link">
+                                <div class="media">
+                                    <img src="http://via.placeholder.com/500x500" alt="">
+                                    <div class="media-body">
+                                        <p><strong>Mellisa Brown</strong> appreciated your work <strong>The Social Network</strong></p>
+                                        <span>October 02, 2017 12:44am</span>
+                                    </div>
+                                </div><!-- media -->
+                            </a>
+                            <a href="" class="dropdown-link read">
+                                <div class="media">
+                                    <img src="http://via.placeholder.com/500x500" alt="">
+                                    <div class="media-body">
+                                        <p>20+ new items added are for sale in your <strong>Sale Group</strong></p>
+                                        <span>October 01, 2017 10:20pm</span>
+                                    </div>
+                                </div><!-- media -->
+                            </a>
+                            <a href="" class="dropdown-link read">
+                                <div class="media">
+                                    <img src="http://via.placeholder.com/500x500" alt="">
+                                    <div class="media-body">
+                                        <p><strong>Julius Erving</strong> wants to connect with you on your conversation with <strong>Ronnie Mara</strong></p>
+                                        <span>October 01, 2017 6:08pm</span>
+                                    </div>
+                                </div><!-- media -->
+                            </a>
+                            <div class="dropdown-list-footer">
+                                <a href="page-notifications.html"><i class="fa fa-angle-down"></i> Show All Notifications</a>
+                            </div>
+                        </div><!-- dropdown-list -->
+                    </div><!-- dropdown-menu-right -->
+                </div><!-- dropdown -->
+                <div class="dropdown dropdown-c">
+                    <a href="#" class="logged-user" data-toggle="dropdown">
+                        <img src="http://via.placeholder.com/500x500" alt="">
+                        <span>Katherine</span>
+                        <i class="fa fa-angle-down"></i>
+                    </a>
+                    <div class="dropdown-menu dropdown-menu-right">
+                        <nav class="nav">
+                            <a href="page-profile.html" class="nav-link"><i class="icon ion-person"></i> View Profile</a>
+                            <a href="page-edit-profile.html" class="nav-link"><i class="icon ion-compose"></i> Edit Profile</a>
+                            <a href="page-activity.html" class="nav-link"><i class="icon ion-ios-bolt"></i> Activity Log</a>
+                            <a href="page-settings.html" class="nav-link"><i class="icon ion-ios-gear"></i> Account Settings</a>
+                            <a href="page-signin.html" class="nav-link"><i class="icon ion-forward"></i> Sign Out</a>
+                        </nav>
+                    </div><!-- dropdown-menu -->
+                </div><!-- dropdown -->
+            </div><!-- header-right -->
+        </div><!-- container-fluid -->
+    </div><!-- slim-header -->
+
+    <div class="slim-body">
+        <div class="slim-sidebar">
+            <ul class="nav nav-sidebar">
+                <li class="sidebar-nav-item">
+                    <a href="" class="sidebar-nav-link active"><i class="icon ion-ios-home-outline"></i> Estadisticas</a>
+                </li>
+                <li class="sidebar-nav-item with-sub">
+                    <a href="" class="sidebar-nav-link"><i class="icon ion-ios-book-outline"></i> VENTAS</a>
+                    <ul class="nav sidebar-nav-sub">
+                        <li class="nav-sub-item"><a href="@Url.Action("Index","invoice",new {id= HttpContext.Current.Request.Cookies["_SubDominio_Business"].Value})" class="nav-sub-link">Registrar venta</a></li>
+                        <li class="nav-sub-item"><a href="@Url.Action("Index","pos",new {id= HttpContext.Current.Request.Cookies["_SubDominio_Business"].Value})" class="nav-sub-link">Punto de venta</a></li>
+                    </ul>
+                </li>
+                <li class="sidebar-nav-item with-sub">
+                    <a href="" class="sidebar-nav-link"><i class="icon ion-ios-analytics-outline"></i> INVENTARIO</a>
+                    <ul class="nav sidebar-nav-sub">
+                        <li class="nav-sub-item"><a href="@Url.Action("Index","itemsventa",new {id= HttpContext.Current.Request.Cookies["_SubDominio_Business"].Value})" class="nav-sub-link">Productos</a></li>
+                        <li class="nav-sub-item"><a href="@Url.Action("Index","inventario",new {id= HttpContext.Current.Request.Cookies["_SubDominio_Business"].Value})" class="nav-sub-link">Valor de inventario</a></li>
+                        <li class="nav-sub-item"><a href="@Url.Action("Index","inventarioajuste",new {id= HttpContext.Current.Request.Cookies["_SubDominio_Business"].Value})" class="nav-sub-link">Actualizar inventario</a></li>
+                        @*<li class="nav-sub-item"><a href="chart-chartist.html" class="nav-sub-link">Almacenes</a></li>*@
+                        <li class="nav-sub-item"><a href="@Url.Action("Index","categorias",new {id= HttpContext.Current.Request.Cookies["_SubDominio_Business"].Value})" class="nav-sub-link">Categorías</a></li>
+                        <li class="nav-sub-item"><a href="@Url.Action("cupones","admintienda",new {id= HttpContext.Current.Request.Cookies["_SubDominio_Business"].Value})" class="nav-sub-link">Cupones</a></li>
+                    </ul>
+                </li>
+                <li class="sidebar-nav-item with-sub">
+                    <a href="" class="sidebar-nav-link"><i class="icon ion-ios-filing-outline"></i> CLIENTES</a>
+                </li>
+                <li class="sidebar-nav-item with-sub">
+                    <a href="" class="sidebar-nav-link"><i class="icon ion-ios-book-outline"></i>TU TIENDA</a>
+                    <ul class="nav sidebar-nav-sub">
+                        <li class="nav-sub-item"><a href="@Url.Action("informacion","admintienda",new {id= HttpContext.Current.Request.Cookies["_SubDominio_Business"].Value})" class="nav-sub-link">información</a></li>
+                        <li class="nav-sub-item"><a href="@Url.Action("formasdepago","admintienda",new {id= HttpContext.Current.Request.Cookies["_SubDominio_Business"].Value})" class="nav-sub-link">formas de pago</a></li>
+                        <li class="nav-sub-item"><a href="@Url.Action("tarifasdeenvio","admintienda",new {id= HttpContext.Current.Request.Cookies["_SubDominio_Business"].Value})" class="nav-sub-link">tarifas de envio</a></li>
+                        <li class="nav-sub-item"><a href="@Url.Action("enviogratis","admintienda",new {id= HttpContext.Current.Request.Cookies["_SubDominio_Business"].Value})" class="nav-sub-link">envios gratis</a></li>
+                        <li class="nav-sub-item"><a href="@Url.Action("facturaciones","admintienda",new {id= HttpContext.Current.Request.Cookies["_SubDominio_Business"].Value})" class="nav-sub-link">facturación</a></li>
+                        <li class="nav-sub-item"><a href="@Url.Action("termino","admintienda",new {id= HttpContext.Current.Request.Cookies["_SubDominio_Business"].Value})" class="nav-sub-link">legal</a></li>
+                        <li class="nav-sub-item"><a href="@Url.Action("direcciones","admintienda",new {id= HttpContext.Current.Request.Cookies["_SubDominio_Business"].Value})" class="nav-sub-link">direcciones</a></li>
+                        <li class="nav-sub-item"><a href="@Url.Action("Index","tienda",new {id= HttpContext.Current.Request.Cookies["_SubDominio_Business"].Value})" class="nav-sub-link">Ver Tienda</a></li>
+                        <li class="nav-sub-item"><a href="@Url.Action("confitienda","tienda",new {id= HttpContext.Current.Request.Cookies["_SubDominio_Business"].Value})" class="nav-sub-link">Agregar fotos</a></li>
+                    </ul>
+                </li>
+                <li class="sidebar-nav-item">
+                    <a href="widgets.html" class="sidebar-nav-link"><i class="icon ion-flag"></i> REPORTES</a>
+                </li>
+                <li class="sidebar-nav-item">
+                    <a href="@Url.Action("Index","configuracion",new {id= HttpContext.Current.Request.Cookies["_SubDominio_Business"].Value})" class="sidebar-nav-link"><i class="icon ion-gear-b"></i> CONFIGURACION</a>
+                </li>
+            </ul>
+        </div><!-- slim-sidebar -->
+        @RenderBody()
+    </div><!-- slim-body -->
+    <span id="siteseal">
+        <script async type="text/javascript" src="https://seal.godaddy.com/getSeal?sealID=yczXIlBsjioUnkieTLSS3oBBZN67lUdHRB6PCmj3J0iVye17cLMQC15AfhOk"></script>
+    </span>
+
+    @System.Web.Optimization.Scripts.Render("~/Content/app/lib/jquery/js/jquery.js")
+    @System.Web.Optimization.Scripts.Render("~/Content/app/lib/popper.js/js/popper.js")
+    @System.Web.Optimization.Scripts.Render("~/Content/app/lib/bootstrap/js/bootstrap.js")
+    @System.Web.Optimization.Scripts.Render("~/Content/app/lib/jquery.cookie/js/jquery.cookie.js")
+    @System.Web.Optimization.Scripts.Render("~/Content/corporativo/lib/jquery-ui/js/jquery-ui.js")
+
+
+    @System.Web.Optimization.Scripts.Render("~/Content/app/lib/jquery.sparkline.bower/js/jquery.sparkline.min.js")
+    @System.Web.Optimization.Scripts.Render("~/Content/app/lib/perfect-scrollbar/js/perfect-scrollbar.jquery.min.js")
+
+    @System.Web.Optimization.Scripts.Render("~/Content/app/js/ResizeSensor.js")
+    @System.Web.Optimization.Scripts.Render("~/Content/app/js/slim.js")
+
+    <!-- Handler for local scripts -->
+    @RenderSection("scripts", required: false)
+</body>
+</html>
+

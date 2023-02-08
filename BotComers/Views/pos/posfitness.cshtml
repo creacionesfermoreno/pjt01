@@ -1,0 +1,1540 @@
+﻿
+@{
+    ViewBag.Title = "posfitness";
+    Layout = "~/Views/Shared/__LayoutAppFitPlataformaFit.cshtml";
+}
+
+<!-- Slim CSS -->
+<link href="@Url.Content("~/Content/app/css/slim.css")" rel="stylesheet" />
+
+<link href="@Url.Content("~/Content/app/lib/Ionicons/css/ionicons.css")" rel="stylesheet" />
+
+<link href="@Url.Content("~/Content/cssKendo/kendo.common.min.css")" rel="stylesheet" />
+<link href="@Url.Content("~/Content/cssKendo/kendo.dataviz.default.min.css")" rel="stylesheet" />
+<link href="@Url.Content("~/Content/cssKendo/kendo.dataviz.min.css")" rel="stylesheet" />
+<link href="@Url.Content("~/Content/cssKendo/kendo.default.min.css")" rel="stylesheet" />
+
+<style>
+
+    .modal-backdrop {
+        display: none;
+    }
+
+    .botonActivado {
+        background-color: #000;
+        color: #fff;
+        border: 1px solid #000;
+    }
+
+    .botonDesactivado {
+        background-color: #ccc;
+        color: #000;
+        border: 1px solid #ccc;
+    }
+
+
+    /** SPINNER CREATION **/
+    .loader {
+        position: relative;
+        text-align: center;
+        margin: 15px auto 35px auto;
+        z-index: 9999;
+        display: block;
+        width: 80px;
+        height: 80px;
+        border: 10px solid rgba(0, 0, 0, .3);
+        border-radius: 50%;
+        border-top-color: #000;
+        animation: spin 1s ease-in-out infinite;
+        -webkit-animation: spin 1s ease-in-out infinite;
+    }
+
+
+    /** MODAL STYLING **/
+    .modal-content {
+        border-radius: 0px;
+        box-shadow: 0 0 20px 8px rgba(0, 0, 0, 0.7);
+    }
+
+    .modal-backdrop.show {
+        opacity: 0.75;
+    }
+
+    /*TICKET CSS*/
+
+
+
+    .info {
+        display: block;
+        margin-left: 0;
+    }
+</style>
+
+<div class="page__header page__header-nav mb-0">
+    <div class="container-fluid page__container">
+        <div class="navbar navbar-secondary navbar-light navbar-expand-sm p-0 d-none d-md-flex" id="secondaryNavbar">
+            <ul class="nav navbar-nav">
+                <li class="nav-item">
+                    <button style="color: #ffffff;background-color: #ff0200;font-size: 1.0rem;border: 0px #ff0200 solid;height: 33px;padding: 5px;cursor:pointer;" class="navbar-toggler navbar-toggler-custom d-flex mr-navbar" type="button" data-toggle="sidebar">
+                        Operaciones
+                    </button>
+                </li>
+                <li class="nav-item" data-controlmodulo="45833cdd-55db-4a67-a879-f1ae9353f8bf">
+                    <a href="@Url.Action("checking","gestionce",new {id= HttpContext.Current.Request.Cookies["_SubDominio_Business"].Value})" class="nav-link">Clientes</a>
+                </li>
+                <li class="nav-item active" data-controlmodulo="9e69cfd8-b063-44df-a7f2-a3a10d1eb899" style="display:none;">
+                    <a class="nav-link active" href="@Url.Action("posfitness","pos",new {id= HttpContext.Current.Request.Cookies["_SubDominio_Business"].Value})">Punto de venta</a>
+                </li>
+                <li class="nav-item" data-controlmodulo="7611dfbe-186f-4abe-8e2e-e64ad7281728" style="display:none;">
+                    <a class="nav-link" href="@Url.Action("caja","gestionce",new {id= HttpContext.Current.Request.Cookies["_SubDominio_Business"].Value})">Caja</a>
+                </li>
+                <li class="nav-item" data-controlmodulo="93c0d848-83aa-45eb-a83a-ded00a6b6e23" style="display:none;">
+                    <a class="nav-link" href="@Url.Action("nutricion","gestionce",new {id= HttpContext.Current.Request.Cookies["_SubDominio_Business"].Value})">Medidas y Nutrición</a>
+                </li>
+                <li class="nav-item" data-controlmodulo="947dc11f-3e14-4fe7-bedc-ae3d81219bee" style="display:none;">
+                    <a class="nav-link" href="@Url.Action("Index","inventariofit",new {id= HttpContext.Current.Request.Cookies["_SubDominio_Business"].Value})">Inventario</a>
+                </li>
+
+                <li class="nav-item" data-controlmodulo="39497bd3-94ab-4236-a1d4-4623d854f91e" style="display:none;">
+                    <a href="@Url.Action("agendacomercial","gestionce",new {id= HttpContext.Current.Request.Cookies["_SubDominio_Business"].Value})" class="nav-link">Agenda Comercial</a>
+                </li>
+                <li class="nav-item" data-controlmodulo="bbc035e6-68ea-4885-917f-005ad3fcfb66" style="display:none;">
+                    <a href="@Url.Action("metascomerciales","gestionce",new {id= HttpContext.Current.Request.Cookies["_SubDominio_Business"].Value})" class="nav-link">Metas</a>
+                </li>
+                <li class="nav-item" data-controlmodulo="bd61dc23-54d9-4901-9c35-b8d228b3a924" style="display:none;">
+                    <a href="@Url.Action("marketing","gestionce",new {id= HttpContext.Current.Request.Cookies["_SubDominio_Business"].Value})" class="nav-link">Marketing</a>
+                </li>
+                <li class="nav-item" data-controlmodulo="e1eadd0d-39b3-498d-b09b-9b3b28610b9b" style="display:none;">
+                    <a href="@Url.Action("informesfit","gestionce",new {id= HttpContext.Current.Request.Cookies["_SubDominio_Business"].Value})" class="nav-link">Informes</a>
+                </li>
+                <li class="nav-item" data-controlmodulo="600dabf4-7dc3-4dc0-a0ba-74b782955e52" style="display:none;">
+                    <a class="nav-link" href="@Url.Action("pagospersonal","gestionce",new {id= HttpContext.Current.Request.Cookies["_SubDominio_Business"].Value})">Pagos</a>
+                </li>
+                <li class="nav-item" data-controlmodulo="b1f65597-fd27-46ca-90d0-a0f2f1039ef7" style="display:none;">
+                    <a class="nav-link" href="@Url.Action("finanzas","gestionce",new {id= HttpContext.Current.Request.Cookies["_SubDominio_Business"].Value})">Finanzas</a>
+                </li>
+                <li class="nav-item" data-controlmodulo="4c01e8de-9440-4927-a2f2-d6241d925c39" style="display:none;">
+                    <a class="nav-link" href="@Url.Action("estadisticas","gestionce",new {id= HttpContext.Current.Request.Cookies["_SubDominio_Business"].Value})">Estadísticas</a>
+                </li>
+
+            </ul>
+        </div>
+    </div>
+</div>
+
+<div class="slim-mainpanel" id="divPaso1" style="background-color: #f7f8fa; color: #60769a;">
+    <div style="padding: 20px;">
+        <div class="row mg-b-25">
+            <div class="col-lg-9 mg-t-1">
+
+                <div class="manager-right">
+
+                    <div class="row row-xs">
+                        <div class="col-10">
+                            <input id="txtBuscadorInventario" onchange="ListarValorInventario_PuntoVenta();" style="border-radius: 0%;width: 100%;" type="text" class="form-control" placeholder="Buscar productos">
+                        </div>
+                        <div class="col-1">
+                            <button id="btnBuscarPorNombre" style="border-radius: 0%; width: 99%;" class="btn btn-secondary botonActivado"><i class="fa fa-search"></i></button>
+                        </div>
+                        <div class="col-1">
+                            <button id="btnBuscarPorCodigoBarra" style="border-radius: 0%; width: 99%;" class="btn btn-secondary botonDesactivado"><i class="fa fa-barcode"></i></button>
+                        </div>
+                    </div>
+                    <br />
+
+                    <div class="form-group" style="display:none;">
+                        <label for="txtInvoice_ddlAlmacenes" class="form-control-label">Almacén: </label>
+                        <select id="txtInvoice_ddlAlmacenes" class="form-control form-control-sm" data-placeholder=""></select>
+                    </div>
+
+                    <span style="display:none;">
+                        <input id="txtInvoice_Vencimiento" class="form-control form-control-sm" type="text" name="" value="" placeholder="">
+                    </span>
+                    <div class="row row-sm" id="gridInventario">
+
+                    </div><!-- row -->
+                </div>
+            </div>
+            <div class="col-lg-3 mg-t-1 pg-t-1">
+                <div class="section-wrapper" style="padding: 10px;">
+                    <div class="table-responsive" style="width:100%;height:370px;overflow:auto">
+                        <table id="table_Carrito" border="0" style="width:100%;" class="table table-hover mg-b-0">
+                            <thead>
+                                <tr>
+                                    <th style="width:50%;">Producto</th>
+                                    <th style="width:2%;"></th>
+                                    <th style="width:6%;"></th>
+                                    <th style="width:2%;"></th>
+                                    <th style="width:40%;">Total</th>
+                                    <th style="width:2%;"></th>
+                                </tr>
+                            </thead>
+                            <tbody></tbody>
+                        </table>
+                    </div>
+
+                    <input id="hdSubTotal1" type="hidden" value="0" />
+                    <input id="hdDescuento" type="hidden" value="0" />
+                    <input id="hdSubTotal2" type="hidden" value="0" />
+                    <input id="hdIGV" type="hidden" value="0" />
+                    <input id="hdTotalVenta" type="hidden" value="0" />
+                    <button id="btnPaso2A" class="form-control btn tx-22-force tx-lg-bold" style="background-color: #0075ff;color:#fff;border:1px solid #0075ff;">
+                        <i class="fa-solid fa-circle-arrow-right"></i> PAGO   0.00
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="slim-mainpanel" id="divPaso2A" style="display:none;background-color:#e9ebee;">
+    <div style="padding:12px;">
+        <div style="display:none;" class="alert alert-solid alert-success" role="alert">
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">×</span>
+            </button>
+            <strong>Excelente!</strong> La venta se guardado correctamente.
+        </div>
+        <div class="row">
+            <div class="col-lg-6 mg-t-3">
+                <center style="">
+                    <input id="lblNombreCompleto2" class="form-control mr-sm-2" type="search" value="" placeHolder="1. Busca clientes por sus nombres, apellidos y DNI/CE/CC." style="margin-bottom:5px;width: 100%; background-color:#f5f6f7;color:#000;font-size:20px;font-weight:bold;word-wrap: break-word;" onclick="seleccionarTextoSocio();" />
+                </center>
+            </div>
+            <div class="col-lg-2 mg-t-3">
+                <div data-controlmodulo="1a790271-4bdd-4e33-b13a-7cffaac8979f" style="display:none;">
+                    <a target="_blank" href="@Url.Action("membresiaspagos","operacionesfit",new {id= HttpContext.Current.Request.Cookies["_SubDominio_Business"].Value})" class="btn btn-primary btn-block mg-b-10 tx-20-force">
+                        NUEVO CLIENTE
+                    </a>
+                </div>
+            </div>
+            <div class="col-lg-2 mg-t-3">
+                <button id="btnClienteVarios" onclick="uspClienteVarios();" class="btn btn-primary btn-block mg-b-10 tx-20-force" style="">CLIENTE VARIOS</button>
+            </div>
+            <div class="col-lg-2 mg-t-3">
+                <button id="btnRegresar2A" class="btn btn-secondary btn-block mg-b-10 tx-20-force" style="background-color:#ffffff;color:#000;"><i class="icon ion-arrow-left-a mg-r-5 tx-20-force"></i> REGRESAR</button>
+            </div>
+
+        </div>
+        <div class="row">
+
+            <div class="col-lg-8 mg-t-1">
+
+                <div class="card bd-0">
+                    <div class="card-body bd bd-t-0">
+                        <table style="width:100%;display:none;" border="0">
+                            <tbody>
+                                <tr>
+                                    <td style="width:80%;">
+                                        <input id="txtBusqueda_IdentificacionCliente" value="" class="form-control form-control-sm" placeholder="Busca Nro Identificación" type="text" style="width:99%;font-size:11px;">
+                                    </td>
+                                    <td style="width:10%;" align="center">
+                                        <button id="btnBuscarCliente" onclick="uspBuscadorClientes();" class="btn btn-sm btn-primary">BUSCAR</button>
+                                    </td>
+                                    <td style="width:10%;" align="center">
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <div class="form-group mg-t-2">
+                                    <div class="input-group input-group-sm input-group-merge">
+                                        <input id="txtInvoice_CodigoCliente" type="text" class="form-control form-control-prepended" placeholder="Codigo" value="0" style="width:100%;font-weight:bold;background-color: #fff;" disabled>
+                                        <div class="input-group-prepend">
+                                            <div class="input-group-text">
+                                                Codigo Socio:
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-3">
+                                <div class="form-group mg-t-2">
+                                    <div class="input-group input-group-sm input-group-merge">
+                                        <input id="txtInvoice_NroIdentificacion" type="text" class="form-control form-control-prepended" placeholder="Codigo" value="0" style="width:100%;font-weight:bold;background-color: #fff;" disabled>
+                                        <div class="input-group-prepend">
+                                            <div class="input-group-text">
+                                                Nro identificación:
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="form-group mg-t-2">
+                                    <div class="input-group input-group-sm input-group-merge">
+                                        <input id="txtInvoice_NombreCompletoCliente" type="text" class="form-control form-control-prepended" placeholder="Cliente varios" value="Cliente varios" style="width:100%;font-weight:bold;background-color: #fff;" onkeypress="return validarCamposCadena(event)" disabled>
+                                        <div class="input-group-prepend">
+                                            <div class="input-group-text">
+                                                Nombres:
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+
+                    </div>
+                </div>
+
+                <div class="card bd-0">
+                    <input id="hdCodigoFormaPago" type="hidden" value="1" />
+                    <div class="card-header tx-medium bd-0 tx-white bg-black-1 tx-22-force" style="background-color:#fff;font-weight:bold;color:#000;padding-top: 15px;">
+                        2. <label class="tx-22-force" id="lblTotalPagar"> TOTAL 0.00</label>
+                    </div>
+                    <div class="card-body bd bd-t-0">
+
+                        <p class="section-label mg-t-1 mg-sm-t-1" style="color:#0075ff">SELECCIONE FECHA VENTA Y COMPROBANTE:</p>
+                        <input id="hdCodigoTipoComprobante" type="hidden" value="5" />
+                        <div class="form-group" style="display:none;">
+                            <label for="txtInvoice_ddlTipoComprobante" class="form-control-label">Documento: </label>
+                            <select id="txtInvoice_ddlTipoComprobante" onselect="change_TipoComprobante()" onchange="change_TipoComprobante()" class="form-control form-control-sm" data-placeholder="" disabled></select>
+                        </div>
+                        <div class="row row-xs">
+                            <div class="col-sm-4">
+                                <div class="form-group" style="">
+                                    <input id="txtFechaVenta" type="text" required="" class="form-control form-control-prepended" placeholder="Fecha venta" style="width:100%;font-weight:bold;border:0px;">
+                                </div>
+                            </div>
+                            <div class="col-sm-2">
+                                <label class="rdiobox">
+                                    <input name="rdio_comprobante" type="radio" checked onclick="Click_TipoComprobante(5);" value="5">
+                                    <span>RECIBO</span>
+                                </label>
+                            </div>
+                            <div class="col-sm-2">
+                                <label class="rdiobox">
+                                    <input name="rdio_comprobante" type="radio" onclick="Click_TipoComprobante(1);" value="1">
+                                    <span>FACTURA</span>
+                                </label>
+                            </div>
+                            <div class="col-sm-2">
+                                <label class="rdiobox">
+                                    <input name="rdio_comprobante" type="radio" onclick="Click_TipoComprobante(2);" value="2">
+                                    <span>BOLETA</span>
+                                </label>
+                            </div>
+                            <div class="col-sm-2">
+                                <input id="txtInvoice_Correlativo" class="form-control" placeholder="Input box" type="text" value="0">
+                            </div>
+                        </div>
+
+                        <div class="row row-xs">
+                            <div class="col-sm-2">
+                                <p class="section-label mg-t-1 mg-sm-t-1" style="color:#0075ff;">FORMA DE PAGO:</p>
+                            </div>
+                            <div class="col-sm-2">
+                                <label class="rdiobox">
+                                    <input name="rdio_formapago" type="radio" onclick="selectFormaPago(1);" checked>
+                                    <span>EFECTIVO</span>
+                                </label>
+                            </div>
+                            <div class="col-sm-2">
+                                <label class="rdiobox">
+                                    <input name="rdio_formapago" type="radio" onclick="selectFormaPago(2);">
+                                    <span>T. DEBITO</span>
+                                </label>
+                            </div>
+                            <div class="col-sm-2">
+                                <label class="rdiobox">
+                                    <input name="rdio_formapago" type="radio" onclick="selectFormaPago(3);">
+                                    <span>T. CREDITO</span>
+                                </label>
+                            </div>
+                            <div class="col-sm-2">
+                                <label class="rdiobox">
+                                    <input name="rdio_formapago" type="radio" onclick="selectFormaPago(4);">
+                                    <span>DEPOSITO</span>
+                                </label>
+                            </div>
+                            <div class="col-sm-2">
+                                <label class="rdiobox">
+                                    <input name="rdio_formapago" type="radio" onclick="selectFormaPago(5);">
+                                    <span>WEB</span>
+                                </label>
+                            </div>
+                        </div>
+
+                        <div class="row mg-t-20">
+                            <div class="col-lg-3">
+                                A cuenta:
+                                <input id="txtMontoPago" class="form-control" placeholder="ingrese el monto" type="text" value="0.00" onkeydown="return soloNumerosDecimales(event)">
+                            </div>
+                            <div class="col-lg-3">
+                                Debe:
+                                <input id="txtInvoice_Debe" class="form-control" type="text" value="0.00" disabled>
+                            </div>
+                            <div class="col-lg-6">
+                                <textarea id="txtInvoice_Notas" rows="3" style="height:93px;" class="form-control" placeholder="ingrese nota"></textarea>
+                            </div>
+                        </div>
+                    </div>
+                    <div data-controlmodulo="005d0c80-1e0a-4784-8885-ec39e85801c0" style="display:none;">
+                        <button id="btnGuardarVenta" onclick="javascript: RegistrarComprobante();" class="btn mg-b-10 tx-22-force" style="background-color:#0075ff;color:#fff;border:1px #0075ff solid;width: 100%;"><i class="fa fa-money mg-r-5 tx-20-force"></i>GUARDAR VENTA</button>
+                    </div>
+
+                </div>
+            </div>
+            <div class="col-lg-4 mg-t-1">
+
+                <div id="invoice-POS">
+                    <div id="register" style="margin: auto;">
+                        <div id="ticket" style="background: white;padding: 1em;">
+                            <br />
+                            <table style="font-family: monospace; width: 100%; border-collapse: collapse;width:100%;">
+                                <tbody>
+                                    <tr>
+                                        <td style="text-align:center;font-weight:bold;font-size:1.5em;" id="ticket_RazonSocial">
+                                            ----
+                                        </td>
+                                    </tr>
+                                </tbody>
+                                <tfoot style="border-bottom-style: solid; border-bottom-color: #000; border-bottom-width: 1px; ">
+                                    <tr>
+                                        <td style="text-align:center;font-size:1.4em;" id="ticket_RUC">RUC: ---</td>
+                                    </tr>
+                                    <tr>
+                                        <td style="text-align:center;font-size:1.4em;" id="ticket_Celular">CELULAR: ----</td>
+                                    </tr>
+                                    <tr>
+                                        <td style="text-align:center;font-size:1.4em;" id="ticket_Telefono">TELEFONO: ----</td>
+                                    </tr>
+                                    <tr>
+                                        <td style="text-align:center;font-size:1.4em;" id="ticket_Direccion">DIRECCION: -----</td>
+                                    </tr>
+                                </tfoot>
+                            </table>
+                            <br />
+                            <table style="font-family: monospace; width: 100%; border-collapse: collapse;width:100%;">
+                                <tbody>
+                                    <tr>
+                                        <td style="text-align:center;font-weight:bold;font-size:1.5em;text-transform:uppercase;" id="ticket_Cliente">
+                                            CLIENTE: NOMBRE APELLIDO1 APELLIDO2 (COD 8562)
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <br />
+                            <table style="font-family: monospace; width: 100%; border-collapse: collapse;width:100%;">
+                                <tbody>
+                                    <tr>
+                                        <td style="text-align:center;font-weight:bold;font-size:1.5em;" colspan="2" id="ticket_NroTicket">
+                                            TICKET NRO: 00-0000000
+                                        </td>
+                                    </tr>
+                                </tbody>
+                                <tfoot>
+                                    <tr>
+                                        <td style="text-align:center;font-size:1.4em;" id="ticket_Fecha">FECHA: DD/MM/AAAA</td>
+                                        <td style="text-align:center;font-size:1.4em;" id="ticket_Hora">HORA: HH:MM:SS</td>
+                                    </tr>
+                                </tfoot>
+                            </table>
+                            <br />
+                            <div id="ticket_table">
+                                <table style="font-family: monospace; width: 100%; border-collapse: collapse;width:100%;">
+                                    <colgroup>
+                                        <col span="1" style="width: 70%;">
+                                        <col span="1" style="width: 15%;">
+                                        <col span="1" style="width: 15%;">
+                                    </colgroup>
+                                    <thead style=" border-top-style: solid; border-top-color: #000; border-top-width: 1px;">
+                                        <tr>
+                                            <th style="background-color: #b6b8b9; color: #000; font-size: 1.3em; text-align: left;">Descripción</th>
+                                            <th style="background-color: #b6b8b9; color: #000; font-size: 1.3em; text-align: right;">Cant</th>
+                                            <th style="background-color: #b6b8b9; color: #000; font-size: 1.3em; text-align: right;">Importe</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td style="font-size: 1.2em;border-bottom: 1px solid #eeee;text-align:left;">Membresia</td>
+                                            <td style="font-size: 1.2em;border-bottom: 1px solid #eeee;text-align:right;">1</td>
+                                            <td style="font-size: 1.2em;border-bottom: 1px solid #eeee; text-align: right;">400.00</td>
+                                        </tr>
+                                        <tr>
+                                            <td style="font-size: 1.2em;border-bottom: 1px solid #eeee;text-align:left;">Suplemento</td>
+                                            <td style="font-size: 1.2em;border-bottom: 1px solid #eeee;text-align:right;">1</td>
+                                            <td style="font-size: 1.2em;border-bottom: 1px solid #eeee; text-align: right;">100.00</td>
+                                        </tr>
+                                    </tbody>
+                                    <tfoot style="white-space: nowrap;">
+                                        <tr>
+                                            <td></td>
+                                            <td style=" border-bottom: 1px solid #eeee; text-align: right; color: #000; font-weight: bold; font-size: 1.5em;">TOTAL</td>
+                                            <td style="border-top: 1px solid #eeee;font-weight: bold;color: #000;background: 0 0;border-bottom: 1px solid #eeee;white-space: nowrap;text-align: right;font-size: 1.5em;" id="ticket_Total">
+                                                500.00
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td></td>
+                                            <td style="background: 0 0; border-bottom: 1px solid #eeee; white-space: nowrap; text-align: right; font-size: 1.5em; color: #000;">
+                                                A CUENTA
+                                            </td>
+                                            <td style="background: 0 0; border-bottom: 1px solid #eeee; white-space: nowrap; text-align: right; font-size: 1.5em; color: #000;" id="ticket_Acuenta">
+                                                300.00
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td></td>
+                                            <td style="background: 0 0; border-bottom: 1px solid #eeee; white-space: nowrap; text-align: right; font-size: 1.5em; color: #000;">
+                                                DEBE
+                                            </td>
+                                            <td style="background: 0 0; border-bottom: 1px solid #eeee; white-space: nowrap; text-align: right; font-size: 1.5em; color: #000;" id="ticket_Debe">
+                                                200.00
+                                            </td>
+                                        </tr>
+                                    </tfoot>
+                                </table>
+                            </div>
+                            <br />
+                            <table style="font-family: monospace; width: 100%; border-collapse: collapse;width:100%;">
+                                <tbody>
+                                    <tr>
+                                        <td style="text-align:center;font-size: 1.4em;" id="ticket_Responsable">
+                                            Responsable: nazarena
+                                        </td>
+                                    </tr>
+                                </tbody>
+                                <tfoot style="border-bottom-style: solid; border-bottom-color: #000; border-bottom-width: 1px; ">
+                                    <tr>
+                                        <th style="text-align:center;font-size: 1.3em;" id="ticket_frase">GRACIAS POR SU PREFERENCIA</th>
+                                    </tr>
+                                </tfoot>
+                            </table>
+
+                        </div>
+
+                    </div>
+
+                </div><!--End Invoice-->
+
+
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<div id="modalCliente" class="modal fade" style="margin-top: 0px;background-color: #000000ad;">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content tx-sm-10-force">
+            <div class="modal-header pd-y-20 pd-x-25">
+                <h6 class="tx-14 mg-b-0 tx-uppercase tx-inverse tx-bold">Datos del cliente</h6>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <input id="hdValidadorExisteDniCliente" type="hidden" value="0" />
+            <div class="modal-body pd-10">
+                <div class="card-body pd-10">
+                    <div class="form-group">
+                        <div class="row row-xs">
+                            <div class="col-sm">
+                                <input id="txtCliente_Nombres" style="background-color:#fffa6f;" type="text" class="form-control form-control-sm" placeholder="Ingrese nombres">
+                            </div><!-- col -->
+                            <div class="col-sm">
+                                <input id="txtCliente_Direccion" type="text" class="form-control form-control-sm" placeholder="Ingrese Dirección">
+                            </div><!-- col -->
+                        </div><!-- row -->
+                    </div>
+                    <div class="form-group">
+                        <div class="row row-xs">
+                            <div class="col-sm mg-t-20 mg-sm-t-0">
+                                <input id="txtCliente_Apellidos" style="background-color:#fffa6f;" type="text" class="form-control form-control-sm" placeholder="Ingrese Apellidos">
+                            </div><!-- col -->
+                            <div class="col-sm mg-t-20 mg-sm-t-0">
+                                <input id="txtCliente_Depatamento" type="text" class="form-control form-control-sm" placeholder="Ingrese Departamento">
+                            </div><!-- col -->
+                        </div><!-- row -->
+                    </div>
+                    <div class="form-group">
+                        <div class="row row-sm">
+                            <div class="col-sm">
+                                <select id="txtCliente_CodigoIdentificacion" class="form-control form-control-sm" data-placeholder="">
+                                    <option value="1">SIN RUC - no domiciliado sin ruc</option>
+                                    <option selected value="2">DNI - Documento Nacional de Identidad</option>
+                                    <option value="3">CE - Carnet de extranjería</option>
+                                    <option value="4">RUC - Registro Único de contribuyente</option>
+                                    <option value="5">PP - Pasaporte</option>
+                                    <option value="6">CDI - Cedula Diplomática de Identidad</option>
+                                </select>
+                            </div><!-- col -->
+                            <div class="col-sm">
+                                <input id="txtCliente_Provincia" type="text" class="form-control form-control-sm" placeholder="Ingrese Provincia">
+                            </div><!-- col -->
+                        </div><!-- row -->
+                    </div>
+                    <div class="form-group">
+                        <div class="row row-sm">
+                            <div class="col-sm mg-t-20 mg-sm-t-0">
+                                <input id="txtCliente_Identificacion" style="background-color:#fffa6f;" onkeyup="ValidarClientePorIdentificacion();" type="text" class="form-control form-control-sm" placeholder="Ingrese Identificación">
+                            </div><!-- col -->
+                            <div class="col-sm mg-t-20 mg-sm-t-0">
+                                <input id="txtCliente_Distrito" type="text" class="form-control form-control-sm" placeholder="Ingrese Distrito">
+                            </div><!-- col -->
+                        </div><!-- row -->
+                    </div>
+                    <div class="form-group">
+                        <div class="row row-sm">
+                            <div class="col-sm">
+                                <input id="txtCliente_Celular" type="text" name="town" class="form-control form-control-sm" placeholder="Ingrese Celular">
+                            </div><!-- col -->
+                            <div class="col-sm">
+                                <input id="txtCliente_Urbanizacion" type="text" name="town" class="form-control form-control-sm" placeholder="Ingrese Urbanización">
+                            </div><!-- col -->
+                        </div><!-- row -->
+                    </div>
+                    <div class="form-group">
+                        <div class="row row-sm">
+                            <div class="col-sm mg-t-20 mg-sm-t-0">
+                                <input id="txtCliente_Telefono" type="text" name="state" class="form-control form-control-sm" placeholder="Ingrese Telefono">
+                            </div><!-- col -->
+                            <div class="col-sm mg-t-20 mg-sm-t-0">
+                                <input id="txtCliente_CodigoUbigeo" type="text" name="state" class="form-control form-control-sm" placeholder="Ingrese Codigo Ubigeo">
+                            </div><!-- col -->
+                        </div><!-- row -->
+                    </div>
+                    <div class="form-group">
+                        <div class="row row-sm">
+                            <div class="col-sm">
+                                <input id="txtCliente_CorreoElectronico" type="text" name="town" class="form-control form-control-sm" placeholder="Ingrese Correo Electronico">
+                            </div><!-- col -->
+                        </div><!-- row -->
+                    </div>
+
+                </div><!-- card-body -->
+            </div><!-- modal-body -->
+            <div class="modal-footer">
+                <button onclick="javascript: RegistrarClientes();" type="button" class="btn" style="background-color:#0075ff;border:1px #0075ff solid;color:#fff;">Guardar</button>
+                <button id="btnCerrarModalCliente" type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+            </div>
+        </div>
+    </div><!-- modal-dialog -->
+</div><!-- modal -->
+
+<div class="modal fade" id="loadMe" tabindex="-1" role="dialog" aria-labelledby="loadMeLabel">
+    <br /><br /><br /><br />
+    <div class="modal-dialog modal-sm" role="document">
+        <div class="modal-content">
+            <div class="modal-body text-center">
+                <img src="~/Content/appsfit_img/logoappsfitweb.png" style="width:255px;height:125px;" />
+                <div class="loader"></div>
+                <div clas="loader-txt">
+                    <p>Cargando... <br><br><small>Espere por favor, este proceso puede tardar unos minutos</small></p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<input id="FacturacionElectronicaIntegrada" type="hidden" value="@BotComers.Helpers.Commun.FacturacionElectronicaIntegrada" />
+
+@section Scripts {
+
+
+    @System.Web.Optimization.Scripts.Render("~/Scripts/jquery.min.js")
+    @System.Web.Optimization.Scripts.Render("~/Scripts/plugins/jsKendo/angular.min.js")
+    @System.Web.Optimization.Scripts.Render("~/Scripts/plugins/jsKendo/kendo.all.min.js")
+
+    @System.Web.Optimization.Scripts.Render("~/Scripts/plugins/jquery-ui/jquery-ui.js")
+    @System.Web.Optimization.Scripts.Render("~/Scripts/plugins/jquery-ui/jquery-ui.min.js")
+
+    @System.Web.Optimization.Scripts.Render("~/Resource/UserControl.Helper.js")
+
+    @System.Web.Optimization.Scripts.Render("~/Scripts/bootstrap-notify-master/bootstrap-notify.js")
+    @System.Web.Optimization.Scripts.Render("~/Scripts/bootstrap-notify-master/bootstrap-notify.min.js")
+    @System.Web.Optimization.Scripts.Render("~/Scripts/jsBootstrap/jquery.bootstrap-growl.js")
+    @System.Web.Optimization.Scripts.Render("~/Content/printjs/print.min.js")
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+
+            SEGListarPerfilMenu();
+
+            listaSocios2();
+
+            var todayDate = new Date();
+
+            $('input[id="txtInvoice_Vencimiento"]').kendoDatePicker();
+            var ultimoDia = new Date(todayDate.getFullYear(), todayDate.getMonth() + 1, 0);
+            $('input[id="txtInvoice_Vencimiento"]').data("kendoDatePicker").value(ultimoDia);
+
+            $('#btnBuscarPorNombre').click(function () {
+                $('#btnBuscarPorNombre').removeClass('botonDesactivado');
+                $('#btnBuscarPorNombre').addClass('botonActivado');
+                $('#btnBuscarPorCodigoBarra').addClass('botonDesactivado');
+            });
+            $('#btnBuscarPorCodigoBarra').click(function () {
+                $('#btnBuscarPorCodigoBarra').removeClass('botonDesactivado');
+                $('#btnBuscarPorCodigoBarra').addClass('botonActivado');
+                $('#btnBuscarPorNombre').addClass('botonDesactivado');
+            });
+
+            $('#txtFechaVenta').kendoDatePicker({
+                value: todayDate,
+                change: function () {
+                    var fechaInicioFiltro = $("#txtFechaVenta").data('kendoDatePicker').value();
+
+                    var hoy = new Date();
+                    if (hoy < fechaInicioFiltro) {
+                        $('#txtFechaVenta').data("kendoDatePicker").value(hoy);
+                        $.bootstrapGrowl("La fecha no puede ser mayor al dia actual.", { type: 'primary', width: 'auto' });
+                    }
+
+                }
+            });
+
+            $('#btnPaso2A').click(function () {
+                var Total = $('#hdTotalVenta').val();
+                var Acuenta = $('input[id="txtMontoPago"]').val();
+                if (parseFloat(Acuenta) > parseFloat(Total)) {
+                    $.bootstrapGrowl("El monto de acuenta no puede ser mayor al total.", { type: 'danger', width: 'auto' });
+                } else {
+                    var Debe = parseFloat(Total) - parseFloat(Acuenta);
+                    $('#txtInvoice_Debe').val(Debe.toFixed(2));
+                    $('#ticket_Debe').html('' + Debe.toFixed(2));
+                    $('#ticket_Acuenta').html('' + parseFloat(Acuenta).toFixed(2));
+                }
+                armarTicket();
+                document.getElementById("divPaso1").style.display = 'none';
+                document.getElementById("divPaso2A").style.display = '';
+
+            });
+            $('#btnRegresar2A').click(function () {
+                document.getElementById("divPaso1").style.display = '';
+                document.getElementById("divPaso2A").style.display = 'none';
+            });
+
+            $('input[id="txtMontoPago"]').keypress(function () {
+                var Total = $('#hdTotalVenta').val();
+                var Acuenta = $('input[id="txtMontoPago"]').val();
+                if (parseFloat(Acuenta) > parseFloat(Total)) {
+                    $.bootstrapGrowl("El monto de acuenta no puede ser mayor al total.", { type: 'danger', width: 'auto' });
+                } else {
+                    var Debe = parseFloat(Total) - parseFloat(Acuenta);
+                    $('#txtInvoice_Debe').val(Debe.toFixed(2));
+                    $('#ticket_Debe').html('' + Debe.toFixed(2));
+                    $('#ticket_Acuenta').html('' + parseFloat(Acuenta).toFixed(2));
+                }
+            });
+
+            $('input[id="txtMontoPago"]').keydown(function () {
+                var Total = $('#hdTotalVenta').val();
+                var Acuenta = $('input[id="txtMontoPago"]').val();
+                if (parseFloat(Acuenta) > parseFloat(Total)) {
+                    $.bootstrapGrowl("El monto de acuenta no puede ser mayor al total.", { type: 'danger', width: 'auto' });
+                } else {
+                    var Debe = parseFloat(Total) - parseFloat(Acuenta);
+                    $('#txtInvoice_Debe').val(Debe.toFixed(2));
+                    $('#ticket_Debe').html('' + Debe.toFixed(2));
+                    $('#ticket_Acuenta').html('' + parseFloat(Acuenta).toFixed(2));
+                }
+            });
+
+            $('input[id="txtMontoPago"]').keyup(function () {
+                var Total = $('#hdTotalVenta').val();
+                var Acuenta = $('input[id="txtMontoPago"]').val();
+                if (parseFloat(Acuenta) > parseFloat(Total)) {
+                    $.bootstrapGrowl("El monto de acuenta no puede ser mayor al total.", { type: 'danger', width: 'auto' });
+                    $('input[id="txtMontoPago"]').val('0.00');
+                } else {
+                    var Debe = parseFloat(Total) - parseFloat(Acuenta);
+                    $('#txtInvoice_Debe').val(Debe.toFixed(2));
+                    $('#ticket_Debe').html('' + Debe.toFixed(2));
+                    $('#ticket_Acuenta').html('' + parseFloat(Acuenta).toFixed(2));
+                }
+            });
+
+            ListarAlmacenes();
+            ListarTipoComprobante();
+            CentroEntrenamiento_uspBuscarEmpresa_imprimirticket();
+        });
+
+        function validarNumeros(e) { // 1
+            tecla = (document.all) ? e.keyCode : e.which; // 2
+            if (tecla == 8) return true; // backspace
+            if (e.ctrlKey && tecla == 86) { return true }; //Ctrl v
+            if (e.ctrlKey && tecla == 67) { return true }; //Ctrl c
+            if (e.ctrlKey && tecla == 88) { return true }; //Ctrl x
+            if (tecla >= 35 && tecla <= 40) { return true; } //direcionales ini-fin
+            if (tecla == 46) { return true; } //Supr
+            if (tecla >= 96 && tecla <= 106) { return true; } //numpad
+            if (tecla == 9) { return true; } //tab
+
+            patron = /[0-9]/; // patron
+            te = String.fromCharCode(tecla);
+            return patron.test(te); // prueba
+        }
+
+        function validarCamposCadena(e) { // 1
+            tecla = (document.all) ? e.keyCode : e.which; // 2
+            if (tecla == 8) return true; // 3
+            patron = /[A-Za-z.\s\w\ñ\Ñ]/; // 4
+            te = String.fromCharCode(tecla); // 5
+            return patron.test(te); // 6
+        }
+
+        function selectFormaPago(codigoForma) {
+            $('#hdCodigoFormaPago').val(codigoForma);
+
+        }
+
+        function ListarValorInventario_PuntoVenta() {
+
+            var Buscador = $("#txtBuscadorInventario").val();
+
+            var metodoCorrecto = function (data) {
+                var content_A = new Array();
+                if (data.length > 0) {
+                    for (var i = 0; i < data.length; i++) {
+
+                        content_A.push('<div onclick="AgregarCarrito(' + data[i].CodigoItemVenta + ');" class="col-xs-3 col-sm-3 col-lg-2" style="cursor:pointer;margin-bottom: 5px;">');
+                        content_A.push('<input id="hdCodigo_ProductoInventario_' + data[i].CodigoItemVenta + '" type="hidden" value="' + data[i].CodigoItemVenta + '" />');
+                        content_A.push('<input id="hdNombre_ProductoInventario_' + data[i].CodigoItemVenta + '" type="hidden" value="' + data[i].Nombre + '" />');
+                        content_A.push('<input id="hdPrecioVenta_ProductoInventario_' + data[i].CodigoItemVenta + '" type="hidden" value="' + data[i].PrecioVenta + '" />');
+                        content_A.push('<input id="hdCantidad_ProductoInventario_' + data[i].CodigoItemVenta + '" type="hidden" value="' + data[i].d_CantidadActual + '" />');
+                        content_A.push('<input id="hdCodigoUnidadMedida_ProductoInventario_' + data[i].CodigoItemVenta + '" type="hidden" value="' + data[i].CodigoUnidadMedida + '" />');
+                        content_A.push('<div class="card-contact pd-t-3 pd-r-3 pd-b-3 pd-l-3">');
+                        content_A.push('<p class="contact-item">');
+                        content_A.push('<span class="tx-12" style="font-weight: bold;">&nbsp;&nbsp;&nbsp;' + data[i].Nombre + '</span>');
+                        content_A.push('</p>');
+                        content_A.push('<div class="tx-center">');
+                        content_A.push('<img src="' + (data[i].UrlImagen == "~/Content/app/img/img0.jpg" ? "/Content/app/img/img0.jpg" : data[i].UrlImagen) + '" class="card-img-top " alt="">');
+                        content_A.push('<p class="contact-item" style="background-color: #0075ff;color: #fff;padding-right: 10px;padding-bottom: 5px;">');
+                        content_A.push('<span style="font-weight: bold;" class="tx-12">&nbsp;&nbsp;&nbsp;STOCK: ' + data[i].d_CantidadActual + '</span>');
+                        content_A.push('<span style="font-weight: bold;" class="tx-12">&nbsp;&nbsp;&nbsp;PRECIO: ' + data[i].PrecioVenta + '</span>');
+                        content_A.push('</p>');
+                        content_A.push('</div>');
+                        content_A.push('</div>');
+                        content_A.push('</div>');
+
+
+                    }
+                    $('#gridInventario').html(content_A.join(' '));
+                } else {
+                    $('#gridInventario').html('');
+                }
+
+            };
+
+            var metodoError = function (msg) {
+                alert(msg);
+            };
+            var request = {
+                Buscador: Buscador,
+                CodigoAlmacen: ConvertToStringFromObject($('select[id="txtInvoice_ddlAlmacenes"] option:selected').val())
+            };
+
+            LlamarAJAX('/pos/ListarValorInventario_PuntoVenta', request, metodoCorrecto, metodoError);
+        }
+
+        function AgregarCarrito(CodigoItemVenta) {
+
+            if (Validar_AgregarCarrito(CodigoItemVenta)) {
+                var Nombre = $('#hdNombre_ProductoInventario_' + CodigoItemVenta).val();
+                var PrecioVenta = $('#hdPrecioVenta_ProductoInventario_' + CodigoItemVenta).val();
+                var CodigoProducto = $('#hdCodigo_ProductoInventario_' + CodigoItemVenta).val();
+                var CantidadProductoActual = $('#hdCantidad_ProductoInventario_' + CodigoItemVenta).val();
+                var CodigoUnidadMedida = $('#hdCodigoUnidadMedida_ProductoInventario_' + CodigoItemVenta).val();
+
+                var contentCarrito = "";
+                contentCarrito += '<tr class="tx-12"  id="rowdi_' + CodigoItemVenta + '" >';
+                contentCarrito += '<td style="font-size:11px;font-weight:bold">' + Nombre + '</td>';
+                contentCarrito += '<td>';
+                contentCarrito += '<input id="hdCodigo_ProductoCarrito_' + CodigoItemVenta + '" type="hidden" value="' + CodigoItemVenta + '" />';
+                contentCarrito += '<input id="hdPrecioVenta_ProductoCarrito_' + CodigoItemVenta + '" type="hidden" value="' + PrecioVenta + '" />';
+                contentCarrito += '<input id="hdCantidadProductoActual_ProductoCarrito_' + CodigoItemVenta + '" type="hidden" value="' + CantidadProductoActual + '" />';
+                contentCarrito += '<input id="hdCodigoUnidadMedida_ProductoCarrito_' + CodigoItemVenta + '" type="hidden" value="' + CodigoUnidadMedida + '" />';
+                contentCarrito += '<i onclick="jacascript:DisminuirCantidad_ItemVenta(' + CodigoItemVenta + ')" class="fa fa-minus-circle fa-2x" style="color: #0075ff;cursor:pointer;"></i>';
+                contentCarrito += '</td>';
+                contentCarrito += '<td><a href="#" class="btn btn-outline-dark rounded-circle"><div id="hdCantidadVenta_ProductoCarrito_' + CodigoItemVenta + '">1</div></a></td>';
+                contentCarrito += '<td>';
+                contentCarrito += '<i onclick="jacascript:AumentarCantidad_ItemVenta(' + CodigoItemVenta + ')" class="fa fa-plus-circle fa-2x" style="color: #0075ff;cursor:pointer;"></i>';
+                contentCarrito += '</td>';
+                contentCarrito += '<td><input style="background-color: #fff;font-size: 13px;width: 72px;border:0px solid;font-weight:bold;" type="text" class="form-control" id="hdMontoTotalVenta_ProductoCarrito_' + CodigoItemVenta + '" value="' + PrecioVenta + '" disabled ></td>';
+                contentCarrito += '<td><i onclick="jacascript:Quitar_ItemVenta(' + CodigoItemVenta + ')"  class="fa fa-trash-alt fa-2x" style="color: #0075ff;cursor:pointer;"></i></td>';
+                contentCarrito += '</tr>';
+
+                $('#table_Carrito tbody').append(contentCarrito);
+            }
+
+            calcular_total();
+
+        }
+
+        function Validar_AgregarCarrito(CodigoItemVenta) {
+
+            var validador = true;
+            $('#table_Carrito tbody tr').each(function () {
+                var codigoProducto = $('#hdCodigo_ProductoCarrito_' + CodigoItemVenta).val();
+                if (parseFloat(codigoProducto) == parseFloat(CodigoItemVenta)) {
+                    validador = false;
+                }
+            });
+
+            if (!validador) {
+                var cantidadStock = $('#hdCantidadProductoActual_ProductoCarrito_' + CodigoItemVenta).val();
+                var CantidadVenta = $('#hdCantidadVenta_ProductoCarrito_' + CodigoItemVenta).html();
+                var PrecioVenta = $('#hdPrecioVenta_ProductoCarrito_' + CodigoItemVenta).val();
+                var CantidadTotal = (parseFloat(CantidadVenta) + 1);
+
+                if (parseFloat(CantidadTotal) > parseFloat(cantidadStock)) {
+                    alert("la cantidad que quieres vender supera a la cantidad del inventario");
+                } else {
+                    var MontoTotalVenta = parseFloat(PrecioVenta) * CantidadTotal;
+                    $('#hdCantidadVenta_ProductoCarrito_' + CodigoItemVenta).html(CantidadTotal);
+                    $('#hdMontoTotalVenta_ProductoCarrito_' + CodigoItemVenta).val(MontoTotalVenta.toFixed(2));
+                }
+
+            }
+
+            return validador;
+        }
+
+        function Quitar_ItemVenta(index_row_griddi) {
+            $('#rowdi_' + index_row_griddi).remove();
+            calcular_total();
+        }
+
+        function AumentarCantidad_ItemVenta(CodigoItemVenta) {
+            var cantidadStock = $('#hdCantidadProductoActual_ProductoCarrito_' + CodigoItemVenta).val();
+            var CantidadVenta = $('#hdCantidadVenta_ProductoCarrito_' + CodigoItemVenta).html();
+            var PrecioVenta = $('#hdPrecioVenta_ProductoCarrito_' + CodigoItemVenta).val();
+            var CantidadTotal = (parseFloat(CantidadVenta) + 1);
+
+            if (parseFloat(CantidadTotal) > parseFloat(cantidadStock)) {
+                alert("la cantidad que quieres vender supera a la cantidad del inventario");
+            } else {
+                var MontoTotalVenta = parseFloat(PrecioVenta) * CantidadTotal;
+                $('#hdCantidadVenta_ProductoCarrito_' + CodigoItemVenta).html(CantidadTotal);
+                $('#hdMontoTotalVenta_ProductoCarrito_' + CodigoItemVenta).val(MontoTotalVenta.toFixed(2));
+            }
+            calcular_total();
+        }
+
+        function DisminuirCantidad_ItemVenta(CodigoItemVenta) {
+            var cantidadStock = $('#hdCantidadProductoActual_ProductoCarrito_' + CodigoItemVenta).val();
+            var CantidadVenta = $('#hdCantidadVenta_ProductoCarrito_' + CodigoItemVenta).html();
+            var PrecioVenta = $('#hdPrecioVenta_ProductoCarrito_' + CodigoItemVenta).val();
+            var CantidadTotal = (parseFloat(CantidadVenta) - 1);
+
+            if (parseFloat(CantidadTotal) <= parseFloat(0)) {
+                alert("la cantidad no puede ser 0 ó menor a 0");
+            } else {
+                var MontoTotalVenta = parseFloat(PrecioVenta) * CantidadTotal;
+                $('#hdCantidadVenta_ProductoCarrito_' + CodigoItemVenta).html(CantidadTotal);
+                $('#hdMontoTotalVenta_ProductoCarrito_' + CodigoItemVenta).val(MontoTotalVenta.toFixed(2));
+            }
+            calcular_total();
+        }
+
+        function calcular_total() {
+            SubTotal1 = 0;
+            DescuentoTotal = 0;
+            SubTotal2 = 0;
+            IGV = 0;
+            Total = 0;
+            $('#table_Carrito tbody tr').each(function () {
+                var index = $(this).prop('id').split('_')[1];
+                var row_total = $('input[id="hdMontoTotalVenta_ProductoCarrito_' + index + '"]').val() == '' ? 0 : $('input[id="hdMontoTotalVenta_ProductoCarrito_' + index + '"]').val();
+                SubTotal1 = SubTotal1 + parseFloat(row_total);
+            });
+            SubTotal2 = parseFloat(SubTotal1) - parseFloat(DescuentoTotal);
+
+            Total = SubTotal2;
+            if ($('#hdCodigoTipoComprobante').val() == 1) {
+                IGV = SubTotal2 * 0.18;
+            } else {
+                IGV = 0;
+            }
+            $('#hdSubTotal1').val(parseFloat(SubTotal1).toFixed(2));
+            $('#hdDescuento').val(parseFloat(DescuentoTotal).toFixed(2));
+            $('#hdSubTotal2').val(parseFloat(SubTotal2).toFixed(2));
+            $('#hdIGV').val(parseFloat(IGV).toFixed(2));
+            $('#hdTotalVenta').val(parseFloat(Total).toFixed(2));
+
+            $('#btnPaso2A').html('<i class="fa-solid fa-circle-arrow-right"></i> PAGO ' + parseFloat(Total).toFixed(2));
+            $('#lblTotalPagar').html('TOTAL A PAGAR  ' + parseFloat(Total).toFixed(2));
+        }
+
+        function Click_TipoComprobante(valor) {
+            $('#hdCodigoTipoComprobante').val(valor);
+            ListarTipoComprobante();
+        }
+
+        function ListarAlmacenes() {
+
+            var metodoCorrecto = function (data) {
+                var content_Almacenes = new Array();
+
+                for (var i = 0; i < data.length; i++) {
+                    content_Almacenes.push('<option value="' + data[i].CodigoAlmacen + '">' + data[i].Descripcion + '</option>');
+                }
+                $('#txtInvoice_ddlAlmacenes').html(content_Almacenes.join(' '));
+
+
+                ListarValorInventario_PuntoVenta();
+            };
+
+            var metodoError = function (msg) {
+                alert(msg);
+            };
+            var request = {
+            };
+
+            LlamarAJAX('/pos/ListarAlmacenes', request, metodoCorrecto, metodoError);
+        }
+
+        function ListarTipoComprobante() {
+
+            var entidad = {};
+            entidad.CodigoTipoDocumentoEmpresa = $('#hdCodigoTipoComprobante').val();
+
+            var metodoCorrecto = function (data) {
+                var content_TipoComprobante = new Array();
+
+                for (var i = 0; i < data.length; i++) {
+                    if (i == 0) {
+                        $('#txtInvoice_Correlativo').val(data[i].Serie.split('_')[1]);
+                    }
+                    content_TipoComprobante.push('<option value="' + data[i].Serie + '">' + data[i].Nombre + '</option>');
+                }
+                $('#txtInvoice_ddlTipoComprobante').html(content_TipoComprobante.join(' '));
+
+                var tipoComprobante = $('#hdCodigoTipoComprobante').val();
+
+                if (tipoComprobante == 5) {
+                    $('#ticket_NroTicket').html('Nro Ticket: ' + $('#txtInvoice_Correlativo').val());
+                } else if (tipoComprobante == 1) {
+                    $('#ticket_NroTicket').html('Nro Fac: ' + $('#txtInvoice_Correlativo').val());
+                } else if (tipoComprobante == 2) {
+                    $('#ticket_NroTicket').html('Nro Bol: ' + $('#txtInvoice_Correlativo').val());
+                }
+            };
+
+            var metodoError = function (msg) {
+                alert(msg);
+            };
+            var request = {
+                request: entidad
+            };
+
+            LlamarAJAX('/pos/ListarTipoComprobante', request, metodoCorrecto, metodoError);
+        }
+
+        function change_TipoComprobante() {
+            var serie = $('select[id="txtInvoice_ddlTipoComprobante"] option:selected').val().split('_')[1];
+            $('#txtInvoice_Correlativo').val(serie);
+        }
+
+        function armarTicket() {
+            var ticket_total = 0;
+            $('#ticket_table tbody').html('');
+            $('#table_Carrito tbody tr').each(function () {
+                var index = $(this).prop('id').split('_')[1];
+                var row_Descripcion = $(this).find("td").eq(0).html();
+                var row_Cantidad = $('div[id="hdCantidadVenta_ProductoCarrito_' + index + '"]').html();
+                var row_SubTotal = $('input[id="hdMontoTotalVenta_ProductoCarrito_' + index + '"]').val();
+                ticket_total = ticket_total + parseFloat(row_SubTotal);
+
+                var contentCarrito = "";
+                contentCarrito += '<tr style="border-bottom: 1px solid #eeee;">';
+                contentCarrito += '    <td style=" text-justify: inter-word;line-height: normal;font-size: 1.2em;text-align:left;">' + row_Descripcion + '</td>';
+                contentCarrito += '    <td style=" text-justify: inter-word;line-height: normal;font-size: 1.2em;text-align:right;">' + row_Cantidad + '</td>';
+                contentCarrito += '    <td style=" text-justify: inter-word;line-height: normal;font-size: 1.2em;text-align:right;">' + row_SubTotal + '</td>';
+                contentCarrito += '</tr>';
+
+                $('#ticket_table tbody').append(contentCarrito);
+
+            });
+            $('#ticket_Total').html(parseFloat(ticket_total).toFixed(2));
+
+            $('#ticket_Cliente').html('CLIENTE: ' + $('input[id="txtInvoice_NombreCompletoCliente"]').val());
+
+
+        }
+
+        function RegistrarComprobante() {
+
+
+            //VALIDACION
+            var Total = $('#hdTotalVenta').val() == '' ? 0 : $('#hdTotalVenta').val();
+
+            if (parseFloat(Total) == 0) {
+                $.bootstrapGrowl("Falta agregar productos al carrito.", { type: 'danger', width: 'auto' });
+                return;
+            }
+
+            if ($('#txtInvoice_CodigoCliente').val() != '0') {
+
+                if ($('input[id="txtInvoice_NroIdentificacion"]').val() == '') {
+                    alert('Este cliente no tiene nro identificación, te recomendamos que pases a actualizar su nro de identificación para continuar con la venta.');
+                    return;
+                }
+
+            } else {
+
+                //VALIDAR SI ES UNA VENTA A CLIENTE VARIOS
+                //TOTAL CARRITO
+
+                var Debe = $('#txtInvoice_Debe').val();
+                if (parseFloat(Debe) > 0) {
+                    alert('Si la venta es a un cliente varios, la deuda no puede ser mayor a 0');
+                    return;
+                }
+            }
+
+            $('button').attr('disabled', 'disabled');
+            document.getElementById('loadMe').style.display = 'block';
+            var currentdate = new Date();
+            var datetime = currentdate.getDate() + "/" + (currentdate.getMonth() + 1) + "/" + currentdate.getFullYear() + " " + currentdate.getHours() + ":" + currentdate.getMinutes();
+            $('#ticket_Fecha').html("Fecha: " + datetime);
+
+            var Accion = 'N';//$('input[id="hdAccionItemVenta"]').val();
+            var entidad = {};
+
+            entidad.CodigoTipoComprobante = $('select[id="txtInvoice_ddlTipoComprobante"] option:selected').val().split('_')[0];
+
+            entidad.TipoMoneda = 2;
+            entidad.CodigoAlmacen = ConvertToStringFromObject($('select[id="txtInvoice_ddlAlmacenes"] option:selected').val());
+            entidad.Correlativo = $('#txtInvoice_Correlativo').val();
+            entidad.CodigoCliente = $('#txtInvoice_CodigoCliente').val();
+            entidad.NroIdentificacion = $('input[id="txtInvoice_NroIdentificacion"]').val();
+
+            entidad.CodigoVendedor = 0;
+            entidad.FechaEmision = kendo.toString($("#txtFechaVenta").data('kendoDatePicker').value(), 'MM/dd/yyyy hh:mm:ss tt');
+            entidad.CodigoPlazoPago = 6;
+            entidad.FechaVencimiento = kendo.toString($("#txtInvoice_Vencimiento").data('kendoDatePicker').value(), 'MM/dd/yyyy hh:mm:ss tt');
+            entidad.TerminosCondiciones = "";
+            entidad.Notas = document.getElementById("txtInvoice_Notas").value;
+            entidad.Comentarios = "";
+
+            entidad.SubTotal = $('#hdSubTotal1').val();
+            entidad.Descuento = $('#hdDescuento').val();
+            entidad.SubTotal2 = $('#hdSubTotal2').val();
+            entidad.IGV = $('#hdIGV').val();
+            entidad.Total = $('#hdTotalVenta').val();
+            entidad.Estado = 1;
+            entidad.Accion = Accion;
+
+            //Recorrer el detalle del comprobante
+            entidad.listaDetalle = new Array();
+            $('#table_Carrito tbody tr').each(function () {
+                var index = $(this).prop('id').split('_')[1];
+                var detalleAjuste = {};
+
+                detalleAjuste.CodigoItemsVenta = $('input[id="hdCodigo_ProductoCarrito_' + index + '"]').val();
+                detalleAjuste.Referencia = "";//$('input[id="rowdi_txtReferencia_' + index + '"]').val();
+                detalleAjuste.Precio = $('input[id="hdPrecioVenta_ProductoCarrito_' + index + '"]').val();
+                detalleAjuste.Descuento = 0;
+                detalleAjuste.CodigoTipoImpuesto = 1;
+                detalleAjuste.Descripcion = $(this).find("td").eq(0).html();
+                detalleAjuste.Cantidad = parseInt($('div[id="hdCantidadVenta_ProductoCarrito_' + index + '"]').html());
+                detalleAjuste.Total = $('input[id="hdMontoTotalVenta_ProductoCarrito_' + index + '"]').val();
+
+                entidad.listaDetalle.push(detalleAjuste);
+            });
+
+            //armar los pagos
+            if ($('input[id="txtMontoPago"]').val() != '' || $('input[id="txtMontoPago"]').val() != '0') {
+                if (parseFloat($('input[id="txtMontoPago"]').val()) > 0) {
+                    entidad.listaDetallePago = new Array();
+                    var detallePago = {};
+
+                    detallePago.CodigoComprobantePago = 0;
+                    detallePago.CodigoComprobante = 0;
+                    detallePago.CodigoCuentaBancaria = 0;
+                    detallePago.CodigoMetodoPago = $('#hdCodigoFormaPago').val();
+                    detallePago.TipoMoneda = 2;
+                    detallePago.Monto = $('input[id="txtMontoPago"]').val();
+                    detallePago.Nota = document.getElementById("txtInvoice_Notas").value;
+                    detallePago.Estado = 1;
+                    detallePago.Accion = 'N';
+                    entidad.listaDetallePago.push(detallePago);
+                }
+            }
+
+            var metodoCorrecto = function (msg) {
+                if (msg) {
+                    debugger;
+                    var resp = msg.split('|');
+                    if (resp.length > 1) {
+                        var imprimir = resp[1];
+                        ImprimirPDFJs(imprimir);
+                        document.getElementById('loadMe').style.display = 'none';
+                        $('#ticket_Cliente').html('CLIENTE: ' + $('input[id="txtInvoice_NombreCompletoCliente"]').val());
+                        limpiarVenta();
+                        $('button').removeAttr('disabled');
+                        $('.alert-success').show();
+                        $('.alert-success').delay(3000).hide(600);
+                    }
+                    else {
+                        document.getElementById('loadMe').style.display = 'none';
+                        $('#ticket_Cliente').html('CLIENTE: ' + $('input[id="txtInvoice_NombreCompletoCliente"]').val());
+                        ImprimeTicket();
+                        limpiarVenta();
+                        $('button').removeAttr('disabled');
+                        $('.alert-success').show();
+                        $('.alert-success').delay(3000).hide(600);
+                    }
+                }
+                else {
+                    $.bootstrapGrowl("Error, no se pudo guardar la información.", { type: 'danger', width: 'auto' });
+                }
+            };
+            var metodoError = function (msg) {
+                alert(msg);
+            };
+            var request = {
+                request: entidad
+            };
+            LlamarAJAX("/pos/RegistrarComprobante", request, metodoCorrecto, metodoError);
+
+        }
+
+        function RegistrarClientes() {
+
+            var Accion = 'N';
+            var entidad = {};
+            entidad.CodigoCliente = 0;
+            entidad.Nombres = $('input[id="txtCliente_Nombres"]').val();
+            entidad.Apellidos = $('input[id="txtCliente_Apellidos"]').val();
+            entidad.CodigoTipoIdentificacion = $('select[id="txtCliente_CodigoIdentificacion"] option:selected').val();
+            entidad.Identificacion = $('input[id="txtCliente_Identificacion"]').val();
+            entidad.Direccion = $('input[id="txtCliente_Direccion"]').val();
+            entidad.Departamento = $('input[id="txtCliente_Depatamento"]').val();
+            entidad.provincia = $('input[id="txtCliente_Provincia"]').val();
+            entidad.Distrito = $('input[id="txtCliente_Distrito"]').val();
+            entidad.Urbanizacion = $('input[id="txtCliente_Urbanizacion"]').val();
+            entidad.CodigoUbigeo = $('input[id="txtCliente_CodigoUbigeo"]').val();
+            entidad.CorreoElectronico = $('input[id="txtCliente_CorreoElectronico"]').val();
+            entidad.Telefono = $('input[id="txtCliente_Telefono"]').val();
+            entidad.Celular = $('input[id="txtCliente_Celular"]').val();
+            entidad.CodigoVendedor = 0;
+            entidad.DireccionDelivery = '';//$('input[id="txtCliente_DireccionDelivery"]').val();
+            entidad.Accion = Accion;
+
+            if ($('input[id="txtCliente_Identificacion"]').val() != '') {
+                if ($('input[id="hdValidadorExisteDniCliente"]').val() != '0') {
+                    $.bootstrapGrowl("Este Nro Identificación ya esta siendo usado por otro cliente, ingrese otro nro.", { type: 'danger', width: 'auto' });
+                    return;
+                }
+            } else if (IsUndefinedOrNullOrEmpty(entidad.Nombres)) {
+                $.bootstrapgrowl("Falta ingresar nombres.", { type: 'danger', width: 'auto' });
+                return;
+            } else if (IsUndefinedOrNullOrEmpty(entidad.Apellidos)) {
+                $.bootstrapgrowl("Falta ingresar apellidos.", { type: 'danger', width: 'auto' });
+                return;
+            }
+
+            document.getElementById('loadMe').style.display = 'block';
+            $('button').attr('disabled', 'disabled');
+
+            var metodoCorrecto = function (msg) {
+
+                if (msg) {
+
+                    $('input[id="txtInvoice_NombreCompletoCliente"]').val(entidad.Nombres + ' ' + entidad.Apellidos);
+                    $('input[id="txtInvoice_CodigoCliente"]').val(msg);
+
+                    document.getElementById('loadMe').style.display = 'none';
+                    $('button').removeAttr('disabled');
+                    document.getElementById('modalCliente').style.display = 'none';
+
+                }
+                else {
+                    $.bootstrapgrowl("Error, vuelva a intentar nuevamente!", { type: 'danger', width: 'auto' });
+                }
+
+
+            };
+            var metodoError = function (msg) {
+                alert(msg);
+            };
+            var request = {
+                request: entidad
+            };
+            LlamarAJAX("/pos/RegistrarClientes", request, metodoCorrecto, metodoError);
+
+        }
+
+        function uspClienteVarios() {
+            $('input[id="txtInvoice_NombreCompletoCliente"]').val('Cliente varios');
+
+            $('input[id="txtInvoice_NroIdentificacion"]').val('0');
+            $('input[id="txtInvoice_CodigoCliente"]').val('0');
+        }
+
+        function uspBuscadorClientes() {
+
+            if ($('input[id="txtBusqueda_IdentificacionCliente"]').val() != '') {
+                document.getElementById('loadMe').style.display = 'block';
+                var entidad = {};
+                entidad.Nombres = $('input[id="txtBusqueda_IdentificacionCliente"]').val();
+
+                var metodoCorrecto = function (data) {
+
+                    if (data.length > 0) {
+
+                        $('input[id="txtInvoice_NombreCompletoCliente"]').val(data[0].Nombres + ' ' + data[0].Apellidos);
+                        $('input[id="txtInvoice_CodigoCliente"]').val(data[0].CodigoCliente);
+
+
+                    } else {
+                        $.bootstrapGrowl("No se encontro ningun cliente.", { type: 'danger', width: 'auto' });
+                    }
+
+                    document.getElementById('loadMe').style.display = 'none';
+                };
+
+                var metodoError = function (msg) {
+                    alert(msg);
+                };
+                var request = {
+                    request: entidad
+                };
+
+                LlamarAJAX('/pos/uspBuscadorClientes', request, metodoCorrecto, metodoError);
+            } else {
+                $.bootstrapGrowl("Falta ingresar un Nro de identificación.", { type: 'danger', width: 'auto' });
+            }
+
+        }
+
+        function ValidarClientePorIdentificacion() {
+
+            if ($('input[id="txtCliente_Identificacion"]').val() != '') {
+                var entidad = {};
+                entidad.Identificacion = $('input[id="txtCliente_Identificacion"]').val();
+
+                var metodoCorrecto = function (data) {
+
+                    if (data.CodigoCliente == 0) {
+                        $('input[id="hdValidadorExisteDniCliente"]').val('0');
+                        $.bootstrapGrowl("Este Nro Identificación es valido para usar.", { type: 'success', width: 'auto' });
+                    } else {
+                        $.bootstrapGrowl("Este Nro Identificación ya esta siendo usado por otro cliente, ingrese otro nro.", { type: 'danger', width: 'auto' });
+                        $('input[id="hdValidadorExisteDniCliente"]').val(data.CodigoCliente);
+                    }
+                };
+
+                var metodoError = function (msg) {
+                    alert(msg);
+                };
+                var request = {
+                    request: entidad
+                };
+
+                LlamarAJAX('/pos/BuscadorClientesPorIdentificacion', request, metodoCorrecto, metodoError);
+            } else {
+                $('input[id="hdValidadorExisteDniCliente"]').val('0');
+            }
+
+        }
+
+        function CentroEntrenamiento_uspBuscarEmpresa_imprimirticket() {
+
+            var metodoCorrecto = function (data) {
+                $('#ticket_RazonSocial').html(data.RazonSocial);
+                $('#ticket_RUC').html('RUC: ' + data.Ruc);
+                $('#ticket_Direccion').html('Dirección: ' + data.Direccion);
+                $('#ticket_Celular').html('Celular: ' + data.Ticket_Celular);
+                $('#ticket_Telefono').html('Telefono: ' + data.Telefono);
+                $('#ticket_frase').html(data.Frase);
+                $('#ticket_Cliente').html('CLIENTE: ' + $('#txtInvoice_NombreCompletoCliente').val());
+                $('#ticket_NroTicket').html('NRO TICKET: ' + $('#txtInvoice_Correlativo').val());
+                var currentdate = new Date();
+                $('#ticket_Fecha').html("FECHA: " + currentdate.getDate() + "/" + (currentdate.getMonth() + 1) + "/" + currentdate.getFullYear());
+                $('#ticket_Hora').html("HORA: " + currentdate.getHours() + ":" + currentdate.getMinutes());
+                var User = getCookie('_Usuario_Business');
+                $('#ticket_Responsable').html('RESPONSABLE: ' + User.toString().toUpperCase());
+
+            };
+
+            var metodoError = function (msg) {
+                alert(msg);
+            };
+            var request = {
+            };
+
+            LlamarAJAX('/pos/CentroEntrenamiento_uspBuscarEmpresa_imprimirticket', request, metodoCorrecto, metodoError);
+        }
+
+        function getCookie(cname) {
+            var name = cname + "=";
+            var ca = document.cookie.split(';');
+            for (var i = 0; i < ca.length; i++) {
+                var c = ca[i].trim();
+                if (c.indexOf(name) == 0) return c.substring(name.length, c.length);
+            }
+            return "";
+        }
+
+        function ImprimeTicket() {
+            var ancho = screen.width - 10;
+            var alto = screen.height - 75;
+            var divToPrint = document.getElementById('invoice-POS');
+            var newWin = window.open('', 'Print-Window', 'directories=no, border=0,scrollbars=yes,status=yes,toolbar=no,titlebar=no, resizable=no, menubar=no,width=' + ancho + ',height=' + alto + ',top=0,left=0');
+            newWin.document.open();
+            newWin.document.write('<html><body onload="window.print()">' + divToPrint.innerHTML + '</body></html>');
+            newWin.document.close();
+            setTimeout(function () { newWin.close(); }, 100);
+
+            //$('#gridSuplementosCarrito tbody tr').each(function () {
+            //    $(this).remove();
+            //});
+            //calcularTotalNetoSuplementos();
+        }
+
+        function limpiarVenta() {
+            ListarValorInventario_PuntoVenta();
+            Click_TipoComprobante(5);
+            $('#txtMontoPago').val('0');
+            //$('#txtBusqueda_CodigoCliente').val('');
+            //$('#txtBusqueda_IdentificacionCliente').val('0');
+            //$('#txtInvoice_NombreCompletoCliente').val('Cliente varios');
+
+            $('#table_Carrito tbody').html('');
+            calcular_total();
+
+            $('#hdTotalVenta').val('0');
+            $('input[id="txtMontoPago"]').val('0');
+            $('#txtInvoice_Debe').val('0');
+            $('#ticket_Debe').html('0.00');
+            $('#ticket_Acuenta').html('0.00');
+            armarTicket();
+            document.getElementById("divPaso1").style.display = '';
+            document.getElementById("divPaso2A").style.display = 'none';
+        }
+
+        function SEGListarPerfilMenu() {
+
+            var entidad = {};
+
+            document.getElementById('loadMe').style.display = 'block';
+            $('button[type="button"]').attr("disabled", true);
+            var metodoCorrecto = function (msg) {
+
+                $('button[type="button"]').attr("disabled", false);
+                document.getElementById('loadMe').style.display = 'none';
+
+                for (var i = 0; i < msg.length; i++) {
+
+                    if (msg[i].Estado) {
+                        $('[data-controlmodulo="' + msg[i].CodigoMenu + '"]').show('fast');
+
+                        if (msg[i].CodigoMenu == '49126228-c54f-4121-864a-960a5585a6c0') {
+                            $('#txtFechaVenta').data("kendoDatePicker").enable(false);
+                        }
+
+                    }
+                }
+
+            };
+            var metodoError = function (msg) {
+                alert(msg);
+            };
+            var request = {
+
+            };
+            LlamarAJAX("/gestionce/SEGListarPerfilMenu", request, metodoCorrecto, metodoError);
+
+        }
+
+        function listaSocios2() {
+
+            $("#lblNombreCompleto2").kendoAutoComplete({
+                dataTextField: "NombreCompleto",
+                template: '<table border="0" style="width:100%;font-size: 9px;">' +
+                    '<tr>' +
+                    '<td style="width:20%;">' +
+                    '<img src=\"#:data.ImagenUrl#\" data_ruta=\"#:data.ImagenUrl#\" style="position: relative;width:40px;height:40px;cursor:pointer" class="img-circle img-focus" />' +
+                    '</td>' +
+                    '<td style="width:80%;>' +
+                    '<span class="k-state-default" >' +
+                    '<div style="font-weight: bold;font-size: 13px;"> ' +
+                    'Cod:#:data.CodigoSocio# - #:data.Nombres# #:data.Apellidos# Sede: #:data.DescSede#' +
+                    '</div>' +
+                    '</span>' +
+                    '<img src="../Imagenes/fitness/velita.png" style="width:22px;display:#:data.flagCumpleanios#;" class="img-rounded" title="Feliz Cumpleaños"  />' +
+                    '</td>' +
+                    '</tr>' +
+                    '</table>',
+                filter: "startswith",
+                minLength: 2,
+                height: 400,
+                cache: false,
+                dataSource: {
+                    serverFiltering: true,
+                    transport: {
+                        read: function (options) {
+
+                            var valor = $('#lblNombreCompleto2').data('kendoAutoComplete').value();
+                            var flag = 1;
+                            $.ajax({
+                                type: "POST",
+                                data: '{"valor":"' + valor + '","flag":"' + flag + '"}',
+                                url: "/gestionce/ListaSocios",
+                                contentType: "application/json; charset=utf-8",
+                                dataType: "json",
+                                success: function (msg) {
+                                    options.success(msg);
+                                }, complete: function () {
+
+                                    $("#lblNombreCompleto2").css('font-size', '19px');
+                                    $("#lblNombreCompleto2").css('font-weight', 'bold');
+
+                                }
+                            });
+
+                        }
+                    }
+                },
+                select: function (e) {
+
+                    var dataItem = this.dataItem(e.item.index());
+                    $('#inner-container').hide('fast');
+                    $('#primary-nav').css('width', '0px');
+                    $('#page-sidebar').css('width', '0px');
+                    $('#page-content').css('margin', '0 0 0 0px');
+
+                    $('input[id="txtInvoice_NombreCompletoCliente"]').val(dataItem.NombreApellido);
+                    $('input[id="txtInvoice_NroIdentificacion"]').val(dataItem.DNI);
+                    $('input[id="txtInvoice_CodigoCliente"]').val(dataItem.CodigoSocio);
+
+                    $('#ticket_Cliente').html('CLIENTE: ' + dataItem.NombreApellido);
+
+                    if (dataItem.DNI == '') {
+                        alert(dataItem.NombreApellido + ' no tiene nro identificación.');
+                    }
+                    //$('#txtBuscadorGeneral').val(dataItem.CodigoSocio);
+                    //$('#hdCodigo').val(dataItem.CodigoSocio);
+                    //var Filtro = dataItem.CodigoSocio;
+                    //$('#flagMarcarAsistencia').val(1);
+                    //BuscarInformacionSociosPorCodigoFiltro(Filtro);
+
+                    //event_mostrarDatosSocio();
+                    //$('#InforMembresias_Cliente').css('color', '#fff');
+
+                    e.preventDefault();
+                    return false;
+                }
+            });
+        }
+
+
+        function ImprimirPDFJs(url) {
+            printJS({
+                printable: url,
+                type: 'pdf',
+                showModal: true,
+                base64: true,
+            });
+        }
+
+    </script>
+
+}

@@ -1,0 +1,787 @@
+﻿<!DOCTYPE html>
+
+<html>
+<head>
+
+    <title>@ViewBag.Title</title>
+
+    @*@RenderSection("head", required: false)*@
+
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>BOTCOMERS - Digital Products </title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="~/Content/assets/css/BotcomersLayout.css" rel="stylesheet" />
+    <script src="~/Content/assets/js/carritobotcomers/carritobotcomers.js"></script>
+    <script src="~/Content/assets/redessociales/js/docs.js"></script>
+    <script src="~/Content/assets/redessociales/js/jquery.js"></script>
+    <link href="~/Content/assets/redessociales/bootstrap-social.css" rel="stylesheet" />
+    <link href="~/Content/assets/css/plaza-font.css" rel="stylesheet" />
+    <!-- Favicon -->
+    <link rel="shortcut icon" type="image/x-icon" href="~/Content/upload/faviconbot/favicon.png">
+    <!-- Material Design Iconic Font-V2.2.0 -->
+    <link href="~/Content/assets/css/material-design-iconic-font.min.css" rel="stylesheet" />
+    <!-- Font Awesome -->
+    <link href="~/Content/assets/css/font-awesome.min.css" rel="stylesheet" />
+    <!-- Font Awesome Stars-->
+    <link href="~/Content/assets/css/fontawesome-stars.css" rel="stylesheet" />
+    <!-- Meanmenu CSS -->
+    <link href="~/Content/assets/css/meanmenu.css" rel="stylesheet" />
+    <!-- owl carousel CSS -->
+    <link href="~/Content/assets/css/owl.carousel.min.css" rel="stylesheet" />
+    <!-- Slick Carousel CSS -->
+    <link href="~/Content/assets/css/slick.css" rel="stylesheet" />
+    <!-- Animate CSS -->
+    <link href="~/Content/assets/css/animate.css" rel="stylesheet" />
+    <!-- Jquery-ui CSS -->
+    <link href="~/Content/assets/css/jquery-ui.min.css" rel="stylesheet" />
+    <!-- Venobox CSS -->
+    <link href="~/Content/assets/css/venobox.css" rel="stylesheet" />
+    <!-- Nice Select CSS -->
+    <link href="~/Content/assets/css/nice-select.css" rel="stylesheet" />
+    <!-- Magnific Popup CSS -->
+    <link href="~/Content/assets/css/magnific-popup.css" rel="stylesheet" />
+    <!-- Bootstrap V4.1.3 Fremwork CSS -->
+    <link href="~/Content/assets/css/bootstrap.min.css" rel="stylesheet" />
+    <!-- Helper CSS -->
+    <link href="~/Content/assets/css/helper.css" rel="stylesheet" />
+    <!-- Main Style CSS -->
+    <link href="~/Content/assets/css/style.css" rel="stylesheet" />
+    <!-- Responsive CSS -->
+    <link href="~/Content/assets/css/responsive.css" rel="stylesheet" />
+    <!-- Modernizr js -->
+    <script src="~/Content/assets/js/carritobotcomers/carritobotcomers.js"></script>
+
+    <style>
+        .item-icon::before {
+            content: "\f07a";
+            position: absolute;
+            font-family: fontawesome;
+            left: 10px;
+            top: 6px;
+            display: block;
+            font-size: 20px;
+        }
+
+        .header-middle {
+            padding: 13px;
+        }
+    </style>
+
+</head>
+<body>
+    <div class="body-wrapper">
+            <!-- Begin Header Middle Area -->
+            <div class="header-middle pl-sm-0 pr-sm-0 pl-xs-0 pr-xs-0">
+                <div class="col-md-12">
+                    <div class="row">
+                        <!-- Begin Header Logo Area -->
+                        <div class="col-lg-3">
+                            <div class="logo pb-sm-30 pb-xs-30">
+                                <a href="@Url.Action("Index","BotComers")">
+                                    <img src="~/Content/upload/faviconbot/logobot.png" />
+                                </a>
+                            </div>
+
+                        </div>
+                        <div class="col-lg-9 pl-0 ml-sm-15 ml-xs-15">
+                            <!-- Begin Header Middle Searchbox Area -->
+                            <form action="#" class="hm-searchbox">
+                                <select class="nice-select select-search-category">
+                                    <option value="0">Todos</option>
+                                    <option value="10">Laptops</option>
+                                    <option value="17">- -  Prime Video</option>
+                                    <option value="20">- - - -  All Videos</option>
+                                    <option value="21">- - - -  Blouses</option>
+                                    <option value="22">- - - -  Evening Dresses</option>
+                                    <option value="23">- - - -  Summer Dresses</option>
+                                    <option value="24">- - - -  T-shirts</option>                              
+                                </select>
+                                <input type="text" placeholder="  Buscar por titulo/producto/palabra clave ...">
+                                <button class="li-btn" type="submit"><i class="fa fa-search"></i></button>
+                            </form>
+                            <!-- Header Middle Searchbox Area End Here -->
+                            <!-- Begin Header Middle Right Area -->
+                            <div id="carritobot" class="header-middle-right">
+                                <div id="lista-carrito" class="header-middle-right">
+
+                                    <ul class="hm-menu">
+                                        <li class="hm-wishlist" style="background:#ffffff;">
+                                            <a href="modal" class="account-link" data-toggle="modal" data-target="#exampleModal">
+                                                <i class="icon-users">
+                                                </i>
+                                            </a>
+                                            <!-- Modal -->
+                                            <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                <div class="modal-dialog" role="document">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header" style="text-align:center">
+                                                            <h5 class="modal-title" id="exampleModalLabel">
+                                                                @ViewBag.Iniciasesión
+                                                            </h5>
+                                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                <span aria-hidden="true">&times;</span>
+                                                            </button>
+
+                                                        </div>
+                                                        <div class="modal-body">
+                                                            <div class="col-md-12">
+                                                                <div class="checkout-form-list">
+                                                                    <label>
+                                                                        Usuario <span class="required">*</span>
+                                                                    </label>
+                                                                    <input placeholder="Ingrese su correo electronico" type="email">
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-12">
+                                                                <div class="checkout-form-list">
+                                                                    <label>
+                                                                        Contraseña<span class="required">*</span>
+                                                                    </label>
+                                                                    <input placeholder="Ingrese su Contraseña" type="password">
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-12">
+                                                                <div class="checkout-form-list">
+
+                                                                    <div class="btn btn-primary nextBtn" style="background-color: #fed700; border-color: #fed700;width:100%;"><a href="@Url.Action("Index")" class="button" style="color:#fff;">INICIAR SESION</a></div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="btn btn-link" style="display:block; margin-left: auto;margin-right: auto;">
+                                                                <a href="@Url.Action("RecuperarUsuario")" class="button">¿Olvidaste tu contraseña has Click Aqui?</a>
+                                                            </div><br />
+
+
+                                                            <div class="row">
+                                                                <div class="col-sm-6 social-buttons">
+
+
+                                                                    <a class="btn btn-block btn-social btn-facebook" style="color:#fff">
+                                                                        <span class="fa fa-facebook"></span>  Facebook
+                                                                    </a>
+                                                                </div><br />
+                                                                <div class="col-sm-6 social-buttons">
+
+                                                                    <a class="btn btn-block btn-social btn-google" style="color:#fff">
+                                                                        <span class="fa fa-google"></span> Google
+                                                                    </a>
+
+
+                                                                </div>
+                                                            </div><br />
+
+                                                            <div class="btn btn-link" style="display:block; margin-left: auto;margin-right: auto;">
+                                                                <a href="@Url.Action("Usuario")" class="button">Crea tu  cuenta  has Click Aqui</a>
+                                                            </div><br />
+
+
+                                                        </div>
+
+                                                        <div class="modal-footer">
+                                                            @*<button type="button" class="btn btn-secondary" data-dismiss="modal">!OOPS¡</button>
+                                                                <button type="button" class="btn btn-primary">Save !OOPS¡</button>*@
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </li>
+                                        <li class="hm-wishlist">
+                                            <a href="@Url.Action("Usuario")" style="background:#ffffff;">
+                                                <span class="cart-item-count wishlist-item-count">0</span>
+                                                <i class="fa fa-heart-o"></i>
+                                            </a>
+                                        </li>
+                                        <!-- Inicio de carrito de la paginacion-->
+                                        <li id="carrito" class="hm-minicart">
+                                            <div class="hm-minicart-trigger">
+                                                <span class="item-icon icono-bot"></span>
+                                                <span class="item-text">
+                                                    0.00
+                                                    <span class="cart-item-count">0</span>
+                                                </span>
+                                            </div>
+                                            @*<span class="fa fa-shopping-cart"></span>*@
+                                            <span></span>
+                                            <div class="minicart">
+                                                <ul id="ul_Listacarrito" class="minicart-product-list">
+                                                    <li>
+                                                        <a href="@Url.Action("DetalleProducto")" class="minicart-product-image">
+                                                            <img src="~/Content/upload/product/small-size/2.jpg" alt="Li's Product Image">
+                                                        </a>
+                                                        <div class="minicart-product-details">
+                                                            <h6><a href="@Url.Action("DetalleProducto")">Aenean eu tristique</a></h6>
+                                                            <span>190.00</span>
+                                                        </div>
+                                                        <button class="close" title="Remove">
+                                                            <i class="fa fa-close"></i>
+                                                        </button>
+                                                    </li>
+                                                </ul>
+                                                <p class="minicart-total">TOTAL: <span>S/1,801.98‬</span></p>
+                                                <div class="minicart-button">
+                                                    <a href="@Url.Action("Detallecarrito")" class="li-button li-button-fullwidth li-button-dark">
+                                                        <span>Ver carrito completo </span>
+                                                    </a>
+                                                    <a href="@Url.Action("ProcesoPago")" class="li-button li-button-fullwidth">
+                                                        <span>Procesar Compra</span>
+                                                    </a>
+                                                </div>
+                                            </div>
+                                        </li>
+                                        <!-- Header Mini Cart Area End Here -->
+                                    </ul>
+                                </div>
+                            </div>
+                            <!-- Header Middle Right Area End Here -->
+                        </div>
+                        <!-- Header Middle Right Area End Here -->
+                    </div>
+                </div>
+            </div>
+            <!-- Header Middle Area End Here -->
+            <!-- Begin Header Bottom Area -->
+            <div class="header-bottom header-sticky d-none d-lg-block d-xl-block">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <!-- Begin Header Bottom Menu Area -->
+                            <div class="hb-menu">
+                                <nav>
+                                    <ul>
+                                        <li class="dropdown-holder">
+                                            <a href="@Url.Action("Index")">Inicio</a>
+                                            <ul class="hb-dropdown">
+                                                <li class="active"><a href="index.html">Home One</a></li>
+                                                <li><a href="#">Home Two</a></li>
+                                                <li><a href="#">Home Three</a></li>
+                                                <li><a href="index-4.html">Home Four</a></li>
+                                            </ul>
+                                        </li>
+                                        <li class="megamenu-holder">
+                                            <a href="@Url.Action("CatalogoProducto")">Tienda</a>
+                                            <ul class="megamenu hb-megamenu">
+                                                <li>
+                                                    <a href="shop-left-sidebar.html">Televisores de alta Gama</a>
+                                                    <ul>
+                                                        <li><a href="#">Productos de Tecnologia</a></li>
+                                                        <li><a href=@Url.Action("CategoriaProducto")>Shop 4 Column</a></li>
+                                                        <li><a href=@Url.Action("CategoriaProducto")>Shop Left Sidebar</a></li>
+                                                        <li><a href="#">Shop Right Sidebar</a></li>
+                                                        <li><a href="#">Shop List</a></li>
+                                                        <li><a href="#">Shop List Left Sidebar</a></li>
+                                                        <li><a href="#">Shop List Right Sidebar</a></li>
+                                                    </ul>
+                                                </li>
+                                                <li>
+                                                    <a href="single-product-gallery-left.html">Single Product Style</a>
+                                                    <ul>
+                                                        <li><a href="#">Single Product Carousel</a></li>
+                                                    </ul>
+                                                </li>
+                                                <li>
+                                                    <a href="#">Single Products</a>
+                                                    <ul>
+                                                        <li><a href="#">Single Product</a></li>
+                                                        <li><a href="#">Single Product Sale</a></li>
+                                                        <li><a href="#">Single Product Group</a></li>
+                                                    </ul>
+                                                </li>
+                                            </ul>
+                                        </li>
+                                        <li class="dropdown-holder">
+                                            <a href="#">Empresa</a>
+                                            <ul class="hb-dropdown">
+                                                <li class="sub-dropdown-holder">
+                                                    <a href="#">Blog Grid View</a>
+                                                    <ul class="hb-dropdown hb-sub-dropdown">
+                                                        <li><a href="#">Nostros</a></li>
+                                                        <li><a href="#">Vision</a></li>
+                                                        <li><a href="#">Mision</a></li>
+                                                        <li><a href="#">Contactanos</a></li>
+                                                    </ul>
+                                                </li>
+                                                <li class="sub-dropdown-holder">
+                                                    <a href="@Url.Action("Catalogoproductos")">Paginas mas Vistas</a>
+                                                    <ul class="hb-dropdown hb-sub-dropdown">
+                                                        <li><a href="@Url.Action("Catalogoproductos")">Tecnologia</a></li>
+                                                        <li><a href="@Url.Action("Catalogoproductos")">Electronica</a></li>
+
+                                                    </ul>
+                                                </li>
+                                                <li class="sub-dropdown-holder">
+                                                    <a href="@Url.Action("Catalogoproductos")">Detalles Productos</a>
+                                                    <ul class="hb-dropdown hb-sub-dropdown">
+                                                        <li><a href="#">Tv</a></li>
+                                                        <li><a href="#">Laptos</a></li>
+                                                    </ul>
+                                                </li>
+                                                <li class="sub-dropdown-holder">
+                                                    <a href="#">Blog Format</a>
+                                                    <ul class="hb-dropdown hb-sub-dropdown">
+                                                        <li><a href="#">Blog Audio Format</a></li>
+                                                        <li><a href="#">Blog Video Format</a></li>
+                                                        <li><a href="#">Blog Gallery Format</a></li>
+                                                    </ul>
+                                                </li>
+                                            </ul>
+                                        </li>
+                                        <li class="megamenu-static-holder">
+                                            <a href="#">Productos</a>
+                                            <ul class="megamenu hb-megamenu">
+                                                <li>
+                                                    <a href="@Url.Action("CatalogoPoducto")">Computadoras</a>
+                                                    <ul>
+                                                        <li><a href="@Url.Action("CategoriaProducto")">Parlantes</a></li>
+                                                        <li><a href="@Url.Action("CategoriaProducto")">Radios</a></li>
+                                                        <li><a href="#">Laptos</a></li>
+                                                        <li><a href="#">Tables</a></li>
+                                                        <li><a href="#">Blog List</a></li>
+
+                                                    </ul>
+                                                </li>
+                                                <li>
+                                                    <a href="@Url.Action("Categoriaproducto")">Detalle Busqueda</a>
+                                                    <ul>
+                                                        <li><a href="#">Teclado</a></li>
+                                                        <li><a href="#">Guitarra</a></li>
+                                                        <li><a href="#">Arpa</a></li>
+
+                                                    </ul>
+                                                </li>
+                                                <li>
+                                                    <a href="@Url.Action("Categoriaproducto")">
+                                                        Otras páginas
+                                                    </a>
+                                                    <ul>
+                                                        <li><a href="@Url.Action("Usuario")">Mi Cuenta</a></li>
+                                                        <li><a href="#">Revisa</a></li>
+                                                        <li><a href="#">Comprar</a></li>
+
+                                                    </ul>
+                                                </li>
+                                                <li>
+                                                    <a href="@Url.Action("Categoriaproducto")">Otras Buquedas</a>
+                                                    <ul>
+                                                        <li><a href="">Contacto</a></li>
+                                                        <li><a href="#">Carear Cuenta</a></li>
+                                                        <li><a href="">FAQ</a></li>
+                                                        <li><a href="404.html">404 Error</a></li>
+                                                    </ul>
+                                                </li>
+                                            </ul>
+                                        </li>
+                                        <li><a href="#">Tecnologia</a></li>
+                                        <li><a href="#">Abarrotes</a></li>
+                                        <li><a href="#">Accesorios</a></li>
+                                        <li><a href="#">Contactanos</a></li>
+
+                                    </ul>
+                                </nav>
+                            </div>
+                            <!-- Header Bottom Menu Area End Here -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Header Bottom Area End Here -->
+            <!-- Begin Mobile Menu Area -->
+            <div class="mobile-menu-area d-lg-none d-xl-none col-12">
+                <div class="container">
+                    <div class="row">
+                        <div class="mobile-menu">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Mobile Menu Area End Here -->
+        </header>
+        @RenderBody()
+        <div class="footer">
+            <!-- Begin Footer Static Top Area -->
+            <div class="footer-static-top">
+                <div class="container">
+                    <!-- Begin Footer Shipping Area -->
+                    <div class="footer-shipping pt-60 pb-55 pb-xs-25">
+                        <div class="row">
+                            <!-- Begin Li's Shipping Inner Box Area -->
+                            <div class="col-lg-3 col-md-6 col-sm-6 pb-sm-55 pb-xs-55">
+                                <div class="li-shipping-inner-box">
+                                    <div class="shipping-icon">
+                                        <img src="~/Content/upload/shipping-icon/1.png" alt="Shipping Icon">
+                                    </div>
+                                    <div class="shipping-text">
+                                        <h2>Entrega gratis</h2>
+                                        <p>Y devoluciones gratis. Ver pago para fechas de entrega..</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Begin Li's Shipping Inner Box Area -->
+                            <div class="col-lg-3 col-md-6 col-sm-6 pb-sm-55 pb-xs-55">
+                                <div class="li-shipping-inner-box">
+                                    <div class="shipping-icon">
+                                        <img src="~/Content/upload/shipping-icon/2.png" alt="Shipping Icon">
+                                    </div>
+                                    <div class="shipping-text">
+                                        <h2>
+                                            @ViewBag.Pago seguro
+                                        </h2>
+                                        <p>Pague con los métodos de pago más populares y seguros del mundo.</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Begin Li's Shipping Inner Box Area -->
+                            <div class="col-lg-3 col-md-6 col-sm-6 pb-xs-30">
+                                <div class="li-shipping-inner-box">
+                                    <div class="shipping-icon">
+                                        <img src="~/Content/upload/shipping-icon/3.png" alt="Shipping Icon">
+                                    </div>
+                                    <div class="shipping-text">
+                                        <h2>Compra con confianza</h2>
+                                        <p>Nuestra protección del comprador cubre su compra desde el clic hasta la entrega.</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Li's Shipping Inner Box Area End Here -->
+                            <!-- Begin Li's Shipping Inner Box Area -->
+                            <div class="col-lg-3 col-md-6 col-sm-6 pb-xs-30">
+                                <div class="li-shipping-inner-box">
+                                    <div class="shipping-icon">
+                                        <img src="~/Content/upload/shipping-icon/4.png" alt="Shipping Icon">
+                                    </div>
+                                    <div class="shipping-text">
+                                        <h2>Centro de ayuda 24/7</h2>
+                                        <p> ¿Tengo una pregunta? Llame a un especialista o chatee en línea.</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Li's Shipping Inner Box Area End Here -->
+                        </div>
+                    </div>
+                    <!-- Footer Shipping Area End Here -->
+                </div>
+            </div>
+            <!-- Footer Static Top Area End Here -->
+            <!-- Begin Footer Static Middle Area -->
+            <div class="footer-static-middle">
+                <div class="container">
+                    <div class="footer-logo-wrap pt-50 pb-35">
+                        <div class="row">
+                            <!-- Begin Footer Logo Area -->
+                            <div class="col-lg-4 col-md-6">
+                                <div class="footer-logo">
+                                    <img src="~/Content/upload/faviconbot/logobot.png" alt="Footer Logo">
+                                    <p class="info">
+                                        Somos una empresa peruana creada con la finalidad de prestar servicios profesionales de Consultoría y Capacitación Empresarial,Comercio Electronico,Facturación electronica,.
+                                        Ponemos a vuestra disposición una gama de servicios especializados y cuidadosamente diseñados para apoyar la gestión empresarial y particular.
+                                    </p>
+                                </div>
+                                <ul class="des">
+                                    <li>
+                                        <span>Direccion: </span>
+                                        23334 Los Pinos Surco Lima
+                                    </li>
+                                    <li>
+                                        <span>Celluar: </span>
+                                        <a href="#">(+123) 123 321 345</a>
+                                    </li>
+                                    <li>
+                                        <span>Email: </span>
+                                        <a href="mailto://Cotizaciónbotcomers@gmail.com">Cotizaciónbotcomers@gmail.com</a>
+                                    </li>
+                                </ul>
+                            </div>
+                            <!-- Footer Logo Area End Here -->
+                            <!-- Begin Footer Block Area -->
+                            <div class="col-lg-2 col-md-3 col-sm-6">
+                                <div class="footer-block">
+                                    <h3 class="footer-block-title">Producto</h3>
+                                    <ul>
+                                        <li><a href="#">Precios Bajos</a></li>
+                                        <li><a href="#">Prodcutos Nuevos</a></li>
+                                        <li><a href="#">Mejores vendidos</a></li>
+                                        <li><a href="#">Contactenenos</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <!-- Footer Block Area End Here -->
+                            <!-- Begin Footer Block Area -->
+                            <div class="col-lg-2 col-md-3 col-sm-6">
+                                <div class="footer-block">
+                                    <h3 class="footer-block-title">Nuestra Compañia</h3>
+                                    <ul>
+                                        <li><a href="#">Entrega</a></li>
+                                        <li><a href="#">Aviso Legal</a></li>
+                                        <li><a href="#">Sobre Nosotros</a></li>
+                                        <li><a href="#">Contactenos</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <!-- Footer Block Area End Here -->
+                            <!-- Begin Footer Block Area -->
+                            <div class="col-lg-4">
+                                <div class="footer-block">
+                                    <h3 class="footer-block-title">Siganos en  Redes Sociales</h3>
+                                    <ul class="social-link">
+                                        <li class="twitter">
+                                            <a href="https://twitter.com/" data-toggle="tooltip" target="_blank" title="Twitter">
+                                                <i class="fa fa-twitter"></i>
+                                            </a>
+                                        </li>
+                                        <li class="rss">
+                                            <a href="https://rss.com/" data-toggle="tooltip" target="_blank" title="RSS">
+                                                <i class="fa fa-rss"></i>
+                                            </a>
+                                        </li>
+                                        <li class="google-plus">
+                                            <a href="https://www.plus.google.com/discover" data-toggle="tooltip" target="_blank" title="Google Plus">
+                                                <i class="fa fa-google-plus"></i>
+                                            </a>
+                                        </li>
+                                        <li class="facebook">
+                                            <a href="https://www.facebook.com/" data-toggle="tooltip" target="_blank" title="Facebook">
+                                                <i class="fa fa-facebook"></i>
+                                            </a>
+                                        </li>
+                                        <li class="youtube">
+                                            <a href="https://www.youtube.com/" data-toggle="tooltip" target="_blank" title="Youtube">
+                                                <i class="fa fa-youtube"></i>
+                                            </a>
+                                        </li>
+                                        <li class="instagram">
+                                            <a href="https://www.instagram.com/" data-toggle="tooltip" target="_blank" title="Instagram">
+                                                <i class="fa fa-instagram"></i>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <!-- Begin Footer Newsletter Area -->
+                                <div class="footer-newsletter">
+                                    <h4>Suscríbase Al Boletín</h4>
+                                    <form action="#" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="footer-subscribe-form validate" target="_blank" novalidate>
+                                        <div id="mc_embed_signup_scroll">
+                                            <div id="mc-form" class="mc-form subscribe-form form-group">
+                                                <input id="mc-email" type="email" autocomplete="off" placeholder="Introduce tu correo electrónico" />
+                                                <button class="btn" id="mc-submit">Subscribanos</button>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                                <!-- Footer Newsletter Area End Here -->
+                            </div>
+                            <!-- Footer Block Area End Here -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Footer Static Middle Area End Here -->
+            <!-- Begin Footer Static Bottom Area -->
+            <div class="footer-static-bottom pt-55 pb-55">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <!-- Begin Footer Links Area -->
+                            <div class="footer-links">
+                                <ul>
+                                    <li><a href="#">Online Shopping</a></li>
+                                    <li><a href="#">Promotions</a></li>
+                                    <li><a href="#">My Orders</a></li>
+                                    <li><a href="#">Help</a></li>
+                                    <li><a href="#">Customer Service</a></li>
+                                    <li><a href="#">Support</a></li>
+                                    <li><a href="#">Most Populars</a></li>
+                                    <li><a href="#">New Arrivals</a></li>
+                                    <li><a href="#">Special Products</a></li>
+                                    <li><a href="#">Manufacturers</a></li>
+                                    <li><a href="#">Our Stores</a></li>
+                                    <li><a href="#">Policy Shipping</a></li>
+                                </ul>
+                            </div>
+                            <!-- Footer Links Area End Here -->
+                            <!-- Begin Footer Payment Area -->
+                            <div class="copyright text-center">
+                                <a href="#">
+                                    <img src="~/Content/upload/payment/1.png" alt="">
+                                </a>
+                            </div>
+                            <!-- Footer Payment Area End Here -->
+                            <!-- Begin Copyright Area -->
+                            <div class="copyright text-center pt-25">
+                                <span>
+                                    <a target="_blank" href="https://www.templateshub.net">
+                                        BotComers ® es una marca registrada en Binz360  Limitado (LIMA-PERÚ)
+                                        Copyright © 2020 BotComers
+                                    </a>
+                                </span>
+                            </div>
+                            <!-- Copyright Area End Here -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Footer Static Bottom Area End Here -->
+        </div>
+        <!-- Footer Area End Here -->
+        <!-- Begin Quick View | Modal Area -->
+        <div class="modal fade modal-wrapper" id="exampleModalCenter">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-body">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                        <div class="modal-inner-area row">
+                            <div class="col-lg-5 col-md-6 col-sm-6">
+                                <!-- Product Details Left -->
+                                <div class="product-details-left">
+                                    <div class="product-details-images slider-navigation-1">
+                                        <div class="lg-image">
+                                            <img src="~/Content/upload/product/large-size/1.jpg" alt="product image">
+                                        </div>
+                                        <div class="lg-image">
+                                            <img src="~/Content/upload/product/large-size/2.jpg" alt="product image">
+                                        </div>
+                                        <div class="lg-image">
+                                            <img src="~/Content/upload/product/large-size/4.jpg" alt="product image">
+                                        </div>
+                                        <div class="lg-image">
+                                            <img src="~/Content/upload/product/large-size/3.jpg" alt="product image">
+                                        </div>
+                                        <div class="lg-image">
+                                            <img src="~/Content/upload/product/large-size/4.jpg" alt="product image">
+                                        </div>
+                                        <div class="lg-image">
+                                            <img src="~/Content/upload/product/large-size/5.jpg" alt="product image">
+                                        </div>
+                                    </div>
+                                    <div class="product-details-thumbs slider-thumbs-1">
+
+                                        <div class="sm-image"><img src="~/Content/upload/product/large-size/3.jpg" alt="product image thumb"></div>
+                                        <div class="sm-image"><img src="~/Content/upload/product/large-size/2.jpg" alt="product image thumb"></div>
+                                        <div class="sm-image"><img src="~/Content/upload/product/large-size/4.jpg" alt="product image thumb"></div>
+                                        <div class="sm-image"><img src="~/Content/upload/product/large-size/5.jpg" alt="product image thumb"></div>
+                                        <div class="sm-image"><img src="~/Content/upload/product/large-size/6.jpg" alt="product image thumb"></div>
+                                        <div class="sm-image"><img src="~/Content/upload/product/large-size/3.jpg" alt="product image thumb"></div>
+                                    </div>
+                                </div>
+                                <!--// Product Details Left hola mund -->
+                            </div>
+
+                            <div class="col-lg-7 col-md-6 col-sm-6">
+                                <div class="product-details-view-content pt-60">
+                                    <div class="product-info">
+                                        <h2>Televisor Pantalla Plana Plasma</h2>
+                                        <span class="product-details-ref">Producto con garantia de 1 Año</span>
+                                        <div class="rating-box pt-20">
+                                            <ul class="rating rating-with-review-item">
+                                                <li><i class="fa fa-star-o"></i></li>
+                                                <li><i class="fa fa-star-o"></i></li>
+                                                <li><i class="fa fa-star-o"></i></li>
+                                                <li class="no-star"><i class="fa fa-star-o"></i></li>
+                                                <li class="no-star"><i class="fa fa-star-o"></i></li>
+                                                <li class="review-item"><a href="#">Leer reseña</a></li>
+                                                <li class="review-item"><a href="#"> Escribir un comentario</a></li>
+                                            </ul>
+                                        </div>
+                                        <div class="price-box pt-20">
+                                            <span class="new-price new-price-2">S/1200.98</span>
+                                        </div>
+                                        <div class="product-desc">
+                                            <p>
+                                                <span>
+                                                    100% cotton double printed dress. Black and white striped top and orange high waisted skater skirt bottom. Lorem ipsum dolor sit amet, consectetur adipisicing elit. quibusdam corporis, earum facilis et nostrum dolorum accusamus similique eveniet quia pariatur.
+                                                </span>
+                                            </p>
+                                        </div>
+                                        <div class="product-variants">
+                                            <div class="produt-variants-size">
+                                                <label>Dimension</label>
+                                                <select class="nice-select">
+                                                    <option value="1" title="S" selected="selected">40x60cm</option>
+                                                    <option value="2" title="M">60x90cm</option>
+                                                    <option value="3" title="L">80x120cm</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="single-add-to-cart">
+                                            <form action="#" class="cart-quantity">
+                                                <div class="Cantidad">
+                                                    <label>Cantidad</label>
+                                                    <div class="cart-plus-minus">
+                                                        <input class="cart-plus-minus-box" value="1" type="text">
+                                                        <div class="dec qtybutton"><i class="fa fa-angle-down"></i></div>
+                                                        <div class="inc qtybutton"><i class="fa fa-angle-up"></i></div>
+                                                    </div>
+                                                </div>
+                                                <button class="add-to-cart" type="submit">Agregar Al Carrito</button>
+                                            </form>
+                                        </div>
+                                        <div class="product-additional-info pt-25">
+                                            <a class="wishlist-btn" href="wishlist.html">
+                                                <i class="fa fa-heart-o"></i>
+                                                Añadir a la lista de deseos
+                                            </a>
+                                            <div class="product-social-sharing pt-25">
+                                                <ul>
+                                                    <li class="facebook"><a href="#"><i class="fa fa-facebook"></i>Facebook</a></li>
+                                                    <li class="twitter"><a href="#"><i class="fa fa-twitter"></i>Twitter</a></li>
+                                                    <li class="instagram"><a href="#"><i class="fa fa-instagram"></i>Instagram</a></li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="~/Scripts/jquery-3.3.1.min.js"></script>
+    <script src="~/Scripts/bootstrap.min.js"></script>
+    <script src="~/Content/assets/js/vendor/modernizr-2.8.3.min.js"></script>
+    <!-- Vendor Jquery Min-->
+    <script src="~/Content/assets/js/vendor/jquery-1.12.4.min.js"></script>
+    <!-- Popper js -->
+    <script src="~/Content/assets/js/vendor/popper.min.js"></script>
+    <!-- Bootstrap V4.1.3 Fremwork js -->
+    <script src="~/Content/assets/js/bootstrap.min.js"></script>
+    <!-- Ajax Mail js -->
+    <script src="~/Content/assets/js/ajax-mail.js"></script>
+    <!-- Meanmenu js -->
+    <script src="~/Content/assets/js/jquery.meanmenu.min.js"></script>
+    <!-- Wow.min js -->
+    <script src="~/Content/assets/js/wow.min.js"></script>
+    <!-- Slick Carousel js -->
+    <script src="~/Content/assets/js/slick.min.js"></script>
+    <!-- Owl Carousel-2 js -->
+    <script src="~/Content/assets/js/owl.carousel.min.js"></script>
+    <!-- Magnific popup js -->
+    <script src="~/Content/assets/js/jquery.magnific-popup.min.js"></script>
+    <!-- Isotope js -->
+    <script src="~/Content/assets/js/isotope.pkgd.min.js"></script>
+    <!-- Imagesloaded js -->
+    <script src="~/Content/assets/js/imagesloaded.pkgd.min.js"></script>
+    <!-- Mixitup js -->
+    <script src="~/Content/assets/js/jquery.mixitup.min.js"></script>
+    <!-- Countdown -->
+    <script src="~/Content/assets/js/jquery.countdown.min.js"></script>
+    <!-- Counterup -->
+    <script src="~/Content/assets/js/jquery.counterup.min.js"></script>
+    <!-- Waypoints -->
+    <script src="~/Content/assets/js/waypoints.min.js"></script>
+    <!-- Barrating -->
+    <script src="~/Content/assets/js/jquery.barrating.min.js"></script>
+    <!-- Jquery-ui -->
+    <script src="~/Content/assets/js/jquery-ui.min.js"></script>
+    <!-- Venobox -->
+    <script src="~/Content/assets/js/venobox.min.js"></script>
+    <!-- Nice Select js -->
+    <script src="~/Content/assets/js/jquery.nice-select.min.js"></script>
+    <!-- ScrollUp js -->
+    <script src="~/Content/assets/js/scrollUp.min.js"></script>
+    <!-- Main/Activator js -->
+    <script src="~/Content/assets/js/main.js"></script>
+    <script src="~/Content/assets/js/carritobotcomers/carritobotcomers.js"></script>
+</body>
+</html>

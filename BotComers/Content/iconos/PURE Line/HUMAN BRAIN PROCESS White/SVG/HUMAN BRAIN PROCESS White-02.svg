@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Generator: Adobe Illustrator 16.0.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="170px"
+	 height="170px" viewBox="0 0 170 170" enable-background="new 0 0 170 170" xml:space="preserve">
+<g id="Background">
+</g>
+<g id="Circle">
+	<g>
+		<path fill="#282D33" d="M85,170c-46.869,0-85-38.131-85-85S38.131,0,85,0s85,38.131,85,85S131.869,170,85,170z"/>
+	</g>
+</g>
+<g id="TEXT">
+</g>
+<g id="Icons">
+	<g>
+		<g>
+			<path fill="none" stroke="#FFFFFF" stroke-width="4" d="M98.164,61.348c-7.788-7.783-20.427-7.783-28.225,0
+				c-7.792,7.792-7.779,20.428-0.004,28.212c7.802,7.792,20.437,7.798,28.229,0.005C105.958,81.775,105.951,69.14,98.164,61.348z"/>
+			<path fill="none" stroke="#FFFFFF" stroke-width="4" d="M90.466,69.046c-3.541-3.538-9.281-3.538-12.826,0
+				c-3.541,3.541-3.536,9.284-0.002,12.821c3.547,3.541,9.287,3.544,12.828,0.001C94.009,78.33,94.007,72.587,90.466,69.046z"/>
+			<g>
+				<g>
+					<polygon fill="none" stroke="#FFFFFF" stroke-width="4" points="114.223,44.346 111.803,37.088 125.511,23.377 127.931,30.64 
+											"/>
+					<polygon fill="none" stroke="#FFFFFF" stroke-width="4" points="114.223,44.346 121.48,46.765 135.188,33.057 127.931,30.64 
+											"/>
+				</g>
+				<g>
+					<polygon fill="none" stroke="#FFFFFF" stroke-width="4" points="114.223,44.346 111.803,37.088 125.511,23.377 127.931,30.64 
+											"/>
+					<polygon fill="none" stroke="#FFFFFF" stroke-width="4" points="114.223,44.346 121.48,46.765 135.188,33.057 127.931,30.64 
+											"/>
+				</g>
+				<line fill="none" stroke="#FFFFFF" stroke-width="4" x1="83.583" y1="75.062" x2="130.006" y2="28.639"/>
+			</g>
+		</g>
+		<g>
+			<path fill="none" stroke="#FFFFFF" stroke-width="4" d="M108.228,130.188V98.991c6.107-6.12,9.881-14.563,9.881-23.888
+				c0-18.674-15.137-33.819-33.817-33.819c-18.678,0-33.821,15.146-33.821,33.819c0,0.513,0.019,1.021,0.039,1.53l-4.72,8.181
+				l-6.212,10.758h7.856v13.352c0,5.036,4.08,9.121,9.117,9.121h14.443v12.143"/>
+		</g>
+	</g>
+</g>
+</svg>

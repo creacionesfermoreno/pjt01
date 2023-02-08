@@ -1,0 +1,131 @@
+﻿@model E_DataModel.PlantillaFormaPagoDTO
+
+@{
+    ViewBag.Title = "mercadopago";
+    Layout = "~/Views/Shared/__LayoutAppFitPlataformaFit.cshtml";
+}
+<br /><br /><br />
+
+<div class="slim-mainpanel">
+    <div class="container">
+        <div class="slim-pageheader">
+            <ol class="breadcrumb slim-breadcrumb">
+                <li class="breadcrumb-item"><a style="color:#0075ff;" href="@Url.Action("formasdepago","admintienda",new {id= HttpContext.Current.Request.Cookies["_SubDominio_Business"].Value})">Formas de pago</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Mercado de pago</li>
+            </ol>
+            <h6 class="slim-pagetitle">Mercado de Pagos</h6>
+        </div><!-- slim-pageheader -->
+
+        <div class="section-wrapper">
+            <div class="form-layout">
+                <div class="row mg-b-25">
+                    <div class="card">
+                        <div class="card-header" role="tab" id="headingOne">
+                            <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne" class="tx-gray-800 transition">
+                                Ayuda
+                            </a>
+                        </div>
+                        <div id="collapseOne" class="collapse show" role="tabpanel" aria-labelledby="headingOne">
+                            <div class="card-body">
+                                <b>Mercado Pago</b> es la solución de pagos de MercadoLibre que permite a vendedores recibir pagos de forma simple y rápida.
+                                <p>
+                                    La comisión por transacción exitosa es de 3,99 % + S/ 1,00 + IGV. Si solicitas el dinero en 14 días la comisión es de 3,79% + S/ 1,00 + IGV.
+                                </p>
+                                <p>
+                                    Para mayor información visita <a href="https://www.mercadopago.com.pe/" target="_blank">https://www.mercadopago.com.pe/ </a>
+                                </p>
+                                <p>
+                                    <b>Para obtener tus credenciales debes ir a: </b> <a href="https://www.mercadopago.com/mpe/account/credentials" target="_blank">https://www.mercadopago.com/mpe/account/credentials </a>
+                                    Una vez que tengas tus credenciales de integración, sólo deberás ingresarlas en el formulario de abajo para empezar a recibir pagos con esta pasarela.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row mg-b-25">
+                    <div class="col-lg-12">
+                        <div class="form-group">
+                            <label for="txtMercadoPago_Publickey" class="form-control-label">Public key:</label>
+                            <input id="txtMercadoPago_Publickey" class="form-control form-control-sm" type="text" value="@Model.MercadoPago_Publickey" placeholder="">
+
+                        </div>
+                    </div><!-- col-4 -->
+                    <div class="col-lg-12">
+                        <div class="form-group">
+                            <label for="txtMercadoPago_Accesstoken" class="form-control-label">Access token:</label>
+                            <input id="txtMercadoPago_Accesstoken" class="form-control form-control-sm" type="text" value="@Model.MercadoPago_Accesstoken" placeholder="">
+                        </div>
+                    </div><!-- col-4 -->
+                </div><!-- row -->
+                <div class="form-layout-footer">
+                    <button class="btn btn-primary bd-0" onclick="javascript:uspRegistrarFormaPago_MercadoPago();">Guardar</button>
+                    <a href="@Url.Action("formasdepago","admintiendafit",new {id= HttpContext.Current.Request.Cookies["_SubDominio_Business"].Value})"><button class="btn btn-secondary bd-0">Cancelar</button></a>
+                </div><!-- form-layout-footer -->
+
+            </div><!-- form-layout -->
+        </div><!-- section-wrapper -->
+        <br /><br />
+    </div><!-- container -->
+
+</div><!-- slim-mainpanel -->
+
+@section Scripts {
+
+    @System.Web.Optimization.Scripts.Render("~/Scripts/plugins/jquery-ui/jquery-ui.js")
+    @System.Web.Optimization.Scripts.Render("~/Scripts/plugins/jquery-ui/jquery-ui.min.js")
+
+    @System.Web.Optimization.Scripts.Render("~/Content/app/lib/popper.js/js/popper.js")
+    @System.Web.Optimization.Scripts.Render("~/Content/app/lib/bootstrap/js/bootstrap.js")
+
+    @System.Web.Optimization.Scripts.Render("~/Scripts/bootstrap-notify-master/bootstrap-notify.js")
+    @System.Web.Optimization.Scripts.Render("~/Scripts/bootstrap-notify-master/bootstrap-notify.min.js")
+    @System.Web.Optimization.Scripts.Render("~/Scripts/jsBootstrap/jquery.bootstrap-growl.js")
+
+    @System.Web.Optimization.Scripts.Render("~/Resource/UserControl.Helper.js")
+
+
+    <script type="text/javascript">
+
+        function uspRegistrarFormaPago_MercadoPago() {
+
+            var entidad = {};
+
+            entidad.MercadoPago_Publickey = ConvertToStringFromObject($('input[id="txtMercadoPago_Publickey"]').val());
+            entidad.MercadoPago_Accesstoken = ConvertToStringFromObject($('input[id="txtMercadoPago_Accesstoken"]').val());
+            entidad.MercadoPago_Estado = true;
+
+            if (IsUndefinedOrNullOrEmpty(entidad.MercadoPago_Publickey)) {
+                $.bootstrapGrowl("Falta ingresar Public key.", { type: 'danger', width: 'auto' });
+                return;
+            }
+            else if (IsUndefinedOrNullOrEmpty(entidad.MercadoPago_Accesstoken)) {
+                $.bootstrapGrowl("Falta ingresar Access token.", { type: 'danger', width: 'auto' });
+                return;
+            }
+
+            $('button').attr('disabled', 'disabled');
+            var metodoCorrecto = function (msg) {
+
+                $('button').removeAttr('disabled');
+                if (msg) {
+                    $.bootstrapGrowl("Se guardo correctamente.", { type: 'success', width: 'auto' });
+                }
+                else {
+                    $.bootstrapGrowl("Error, no se guardo correctamente.", { type: 'danger', width: 'auto' });
+                }
+            };
+            var metodoError = function (msg) {
+                alert(msg);
+            };
+            var request = {
+                request: entidad
+            };
+            LlamarAJAX("/admintienda/ecommerce_uspRegistrarFormaPago_MercadoPago", request, metodoCorrecto, metodoError);
+
+        }
+
+    </script>
+
+
+}

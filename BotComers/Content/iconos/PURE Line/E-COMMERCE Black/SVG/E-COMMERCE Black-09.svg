@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Generator: Adobe Illustrator 16.0.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="170px"
+	 height="170px" viewBox="0 0 170 170" enable-background="new 0 0 170 170" xml:space="preserve">
+<g id="Background">
+</g>
+<g id="Circle">
+	<g>
+		<path fill="#FFFFFF" d="M85,170c-46.87,0-85-38.131-85-85S38.13,0,85,0c46.869,0,85,38.131,85,85S131.869,170,85,170z"/>
+	</g>
+</g>
+<g id="TEXT">
+</g>
+<g id="Icons">
+	<g>
+		<g>
+			<g>
+				<path fill="none" stroke="#282D33" stroke-width="4" d="M126.634,60.405c2.691,0,4.895,2.203,4.895,4.896v49.773
+					c0,2.693-2.204,4.896-4.895,4.896H43.12c-2.693,0-4.897-2.203-4.897-4.896V65.302c0-2.693,2.204-4.896,4.897-4.896h26.09"/>
+				<line fill="none" stroke="#282D33" stroke-width="4" x1="44.651" y1="93.617" x2="61.223" y2="93.617"/>
+				<line fill="none" stroke="#282D33" stroke-width="4" x1="44.651" y1="104.72" x2="80.006" y2="104.72"/>
+				<line fill="none" stroke="#282D33" stroke-width="4" x1="65.399" y1="93.617" x2="81.972" y2="93.617"/>
+				<line fill="none" stroke="#282D33" stroke-width="4" x1="86.151" y1="93.617" x2="102.726" y2="93.617"/>
+				<line fill="none" stroke="#282D33" stroke-width="4" x1="106.903" y1="93.617" x2="123.475" y2="93.617"/>
+				<rect x="45.307" y="72.827" fill="none" stroke="#282D33" stroke-width="4" width="15.832" height="11.014"/>
+			</g>
+		</g>
+		<path fill="none" stroke="#282D33" stroke-width="4" d="M111.731,40.091c-5.641-1.049-10.416-3.436-13.389-6.348
+			c-2.973,2.912-7.752,5.299-13.389,6.348c-3.541,0.658-6.947,0.69-9.943,0.224v19.22c0,14.753,9.851,21.223,23.333,25.159
+			c13.482-3.937,23.332-10.406,23.332-25.159v-19.22C118.679,40.781,115.272,40.749,111.731,40.091z"/>
+		<path fill="none" stroke="#282D33" stroke-width="4" d="M98.342,77.372c-11.745-3.789-16.333-8.81-16.333-17.838v-12.01
+			c1.405-0.106,2.822-0.292,4.222-0.552c4.443-0.826,8.616-2.369,12.111-4.475c3.491,2.105,7.664,3.648,12.11,4.475
+			c1.403,0.261,2.819,0.445,4.222,0.552v12.01C114.674,68.563,110.089,73.582,98.342,77.372z"/>
+		<polyline fill="none" stroke="#282D33" stroke-width="4" points="103.015,54.458 97.378,61.521 93.673,59.129 		"/>
+	</g>
+</g>
+</svg>

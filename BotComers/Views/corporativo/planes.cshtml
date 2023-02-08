@@ -1,0 +1,438 @@
+﻿
+@{
+    ViewBag.Title = "planes";
+    Layout = "~/Views/Shared/__LayoutAppFitCorporativo.cshtml";
+}
+
+
+<link href="@Url.Content("~/Content/cssKendo/kendo.common.min.css")" rel="stylesheet" />
+<link href="@Url.Content("~/Content/cssKendo/kendo.dataviz.default.min.css")" rel="stylesheet" />
+<link href="@Url.Content("~/Content/cssKendo/kendo.dataviz.min.css")" rel="stylesheet" />
+<link href="@Url.Content("~/Content/cssKendo/kendo.default.min.css")" rel="stylesheet" />
+<link href="@Url.Content("~/Content/cssKendo/kendo.mobile.all.min.css")" rel="stylesheet" />
+
+<style type="text/css">
+    .modal-body {
+    }
+
+    .modal-backdrop {
+        display: none;
+    }
+
+    .card-body {
+        margin-top: -5px;
+        margin-bottom: -5px;
+    }
+
+    .k-header, .k-grid-header, .k-toolbar, .k-dropdown-wrap, .k-picker-wrap, .k-numeric-wrap, .k-grouping-header, .k-pager-wrap, .k-textbox, .k-button, .k-progressbar, .k-draghandle, .k-autocomplete, .k-state-highlight, .k-tabstrip-items .k-item, .k-panelbar .k-tabstrip-items .k-item, .km-pane-wrapper > .km-pane > .km-view > .km-content {
+        background-image: url(textures/highlight.png);
+        background-image: none,-webkit-linear-gradient(top,#0075ff 0,#0075ff 100%);
+        background-image: none,-moz-linear-gradient(top,#0075ff 0,#0075ff 100%);
+        background-image: none,-o-linear-gradient(top,#0075ff 0,#0075ff 100%);
+        background-image: none,linear-gradient(to bottom,#0075ff 0,#0075ff 100%);
+        background-position: 50% 50%;
+        background-color: #e3e3e3;
+        color: #fff;
+    }
+
+        .k-header, .k-grid-header-wrap, .k-grid .k-grouping-header, .k-grid-header, .k-pager-wrap, .k-pager-wrap .k-textbox, .k-pager-wrap .k-link, .k-grouping-header .k-group-indicator, .k-gantt-toolbar .k-state-default {
+            border-color: #e8eaee;
+            background-color: #0075ff;
+            color: #fff;
+        }
+
+    .modal {
+        display: none;
+        background-color: rgba(0, 0, 0, 0.77);
+    }
+
+    .k-block, .k-header, .k-grid-header, .k-toolbar, .k-grouping-header, .k-pager-wrap, .k-button, .k-draghandle, .k-treemap-tile, html .km-pane-wrapper .k-header {
+        background-color: #0075ff;
+        color: #fff;
+    }
+
+        .k-grid-header th.k-header > .k-link {
+            display: block;
+            min-height: 18px;
+            line-height: 18px;
+            margin: -0.5em -0.6em -0.4em -0.6em;
+            padding: .1em .1em .1em .1em;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            color: #fff;
+        }
+
+        .k-grid-header table, .k-grid-content table, .k-grid-footer table, .k-grid-content-locked > table {
+            table-layout: fixed;
+        }
+
+    .k-grid tr td {
+        border-bottom: 1px solid #ada9a9;
+        border-style: dashed;
+    }
+
+    .k-grid-toolbar:first-child, .k-grouping-header + .k-grid-toolbar {
+        border-width: 0 0 1px;
+        border-radius: 0px;
+        background-color: #d7eafa;
+        height: 10px;
+    }
+
+    .k-block, .k-header, .k-grid-header, .k-toolbar, .k-grouping-header, .k-pager-wrap, .k-button, .k-draghandle, .k-treemap-tile, html .km-pane-wrapper .k-header {
+        background-color: rgba(227, 227, 227, 0);
+    }
+
+    #txtFechaInicioProcFreezing .k-header, .k-grid-header, .k-toolbar, .k-dropdown-wrap, .k-picker-wrap, .k-numeric-wrap, .k-grouping-header, .k-pager-wrap, .k-textbox, .k-button, .k-progressbar, .k-draghandle, .k-autocomplete, .k-state-highlight, .k-tabstrip-items .k-item, .k-panelbar .k-tabstrip-items .k-item, .km-pane-wrapper > .km-pane > .km-view > .km-content {
+        background-image: url(textures/highlight.png);
+        background-image: none,-webkit-linear-gradient(top,#0075ff 0,#0075ff 100%);
+        background-image: none,-moz-linear-gradient(top,#0075ff 0,#0075ff 100%);
+        background-image: none,-o-linear-gradient(top,#0075ff 0,#0075ff 100%);
+        background-image: none,linear-gradient(to bottom,#0075ff 0,#0075ff 100%);
+        background-position: 50% 50%;
+        background-color: #ffffff;
+    }
+
+    .k-state-selected {
+        color: #FFFFFF;
+        background-color: #0075ff;
+        border-color: #0075ff;
+    }
+
+    tr {
+        height: 16px;
+        font-size: 13px;
+    }
+
+    /** SPINNER CREATION **/
+    .loader {
+        position: relative;
+        text-align: center;
+        margin: 15px auto 35px auto;
+        z-index: 9999;
+        display: block;
+        width: 80px;
+        height: 80px;
+        border: 10px solid rgba(0, 0, 0, .3);
+        border-radius: 50%;
+        border-top-color: #000;
+        animation: spin 1s ease-in-out infinite;
+        -webkit-animation: spin 1s ease-in-out infinite;
+    }
+
+
+    /** MODAL STYLING **/
+    .modal-content {
+        border-radius: 0px;
+        box-shadow: 0 0 20px 8px rgba(0, 0, 0, 0.7);
+    }
+
+
+    [dir=ltr] .modal-lg, [dir=ltr] .modal-xl {
+        max-width: 950px;
+    }
+
+    a {
+        color: transparent;
+        text-decoration: none;
+    }
+
+    .b-boton-selected {
+        background-color: #f70f0f;
+        border: 2px #f70f0f solid;
+        color: #fff;
+        border-radius: 3px;
+        font-weight: bold;
+        cursor: pointer;
+        text-align: center;
+    }
+
+    .b-boton-normal {
+        background-color: #0075ff;
+        color: #fff;
+        border-radius: 3px;
+        border: 2px #0075ff solid;
+        cursor: pointer;
+        text-align: center;
+        font-weight: bold;
+    }
+</style>
+
+
+<div class="container-fluid" style="background-color:#e9ebee;">
+    <br />
+    <input id="hdCodigoMenu" type="hidden" value="" />
+    <div class="row">
+        <div class="col-lg-4">
+            <div class="form-group">
+                <input id="ddlPlanes" value="0" style="width: 100%;font-weight:bold;text-align:center;font-size:15px;" />
+            </div>
+        </div>
+        <div class="col-lg-2">
+            <button onclick="event_EliminarModulosPlan();" class="btn btn-primary btn-sm">Guardar Cambios</button>
+        </div>
+        <div class="col-lg-6">
+
+        </div>
+    </div>
+
+    <div class="row" id="divModulos">
+        <div class="col-lg-3">
+            <div class="card">
+                <div class="card-header card-header-large bg-light d-flex align-items-center">
+                    <h4 class="card-header__title">Top Courses</h4>
+                </div>
+                <ul class="list-group list-group-flush mb-0" style="z-index: initial;">
+
+                    <li class="list-group-item" style="z-index: initial;">
+                        <div class="d-flex align-items-center">
+                            <div class="custom-control custom-checkbox">
+                                <input type="checkbox" class="custom-control-input" id="chkMarcadorAutomatico">
+                                <label class="custom-control-label tx-18" style="user-select:none;" for="chkMarcadorAutomatico"></label>
+                            </div>
+                            <div class="flex">
+                                <strong style="width:100%;">Basics of Social Media xxxxxxxxxxxxxxxxxx</strong>
+                                <div class="d-flex align-items-center">
+                                    <small class="text-muted">60 sales</small>
+                                </div>
+                            </div>                         
+                        </div>
+                    </li>
+
+                </ul>
+            </div>
+        </div>       
+    </div>
+</div>
+
+<div class="modal fade" id="loadMe" tabindex="-1" role="dialog" aria-labelledby="loadMeLabel">
+    <div class="modal-dialog modal-sm" role="document">
+        <div class="modal-content">
+            <div class="modal-body text-center">
+                <img src="~/Content/appsfit_img/logoappsfitweb.png" style="width:255px;height:125px;" />
+                <div class="loader"></div>
+                <div clas="loader-txt">
+                    <p>Cargando... <br><br><small>Espere por favor, este proceso puede tardar unos minutos</small></p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+
+    @System.Web.Optimization.Scripts.Render("~/Scripts/jquery.min.js")
+    @System.Web.Optimization.Scripts.Render("~/Scripts/plugins/jsKendo/angular.min.js")
+    @System.Web.Optimization.Scripts.Render("~/Scripts/plugins/jsKendo/kendo.all.min.js")
+
+    @System.Web.Optimization.Scripts.Render("~/Scripts/plugins/jquery-ui/jquery-ui.js")
+    @System.Web.Optimization.Scripts.Render("~/Scripts/plugins/jquery-ui/jquery-ui.min.js")
+
+    @System.Web.Optimization.Scripts.Render("~/Resource/UserControl.Helper.js")
+
+    @System.Web.Optimization.Scripts.Render("~/Scripts/bootstrap-notify-master/bootstrap-notify.js")
+    @System.Web.Optimization.Scripts.Render("~/Scripts/bootstrap-notify-master/bootstrap-notify.min.js")
+    @System.Web.Optimization.Scripts.Render("~/Scripts/jsBootstrap/jquery.bootstrap-growl.js")
+    @System.Web.Optimization.Scripts.Render("~/Scripts/maskedinput.js")
+
+    <script type="text/javascript">
+
+        $(document).ready(function (e) {
+
+            listaVendedoresIAgenda();
+         
+        });
+
+        function listaVendedoresIAgenda() {
+
+            $("#ddlPlanes").kendoDropDownList({
+                dataTextField: "Planes_Titulo",
+                dataValueField: "Planes_CodigoPlan",
+                dataSource: {
+                    serverFiltering: false,
+                    transport: {
+                        read: function (options) {
+                            $.ajax({
+                                type: "POST",
+                                url: "/corporativo/CentroEntrenamiento_uspListarSEG_Planes",
+                                contentType: "application/json; charset=utf-8",
+                                dataType: "json",
+                                success: function (msg) {
+                                    options.success(msg);
+                                }, complete: function () {
+                                    CentroEntrenamiento_uspListarMenuPlantilla();
+                                }
+                            });
+                        }
+                    }
+                }, change: function () {
+                 
+                    CentroEntrenamiento_uspListarMenuPlantilla();
+                }
+            }).data("kendoDropDownList");
+        }
+
+        function CentroEntrenamiento_uspListarMenuPlantilla() {
+
+            var entidad = {};
+            entidad.Planes_CodigoPlan = $("#ddlPlanes").data("kendoDropDownList").value();
+
+            document.getElementById('loadMe').style.display = 'block';
+            $('button[type="button"]').attr("disabled", true);
+            var metodoCorrecto = function (msg) {
+
+                $('button[type="button"]').attr("disabled", false);
+                document.getElementById('loadMe').style.display = 'none';
+                // alert(msg.length);
+                var content_modulo = new Array();
+                for (var i = 0; i < msg.length; i++) {
+                    
+                    if (msg[i].CodigoMenuSuperior == '') {
+
+                        content_modulo.push('<div class="col-lg-3">');
+                        content_modulo.push('<div class="card">');
+                        content_modulo.push('<div class="card-header card-header-large bg-light d-flex align-items-center">');
+
+                        content_modulo.push('<div class="custom-control custom-checkbox">');
+                        content_modulo.push('    <input onclick="event_triggerchecked(/' + msg[i].CodigoMenu +'/);"  ' + (msg[i].EstadoMenuPlan ? 'checked' : '') +' type="checkbox" class="custom-control-input" id="chkEstado' + msg[i].CodigoMenu + '">');
+                        content_modulo.push('    <label class="custom-control-label tx-18" style="user-select:none;" for="chkEstado' + msg[i].CodigoMenu + '"><h4 class="card-header__title" style="color:#0075ff;font-size:13px;">' + msg[i].Descripcion + '</h4></label>');
+                        content_modulo.push('<small class="text-muted" style="font-size:11px;" >' + msg[i].CodigoMenu + '</small>');
+                        content_modulo.push('</div>');
+                       
+                        content_modulo.push('</div>');
+                        content_modulo.push('<ul id="ul_' + msg[i].CodigoMenu + '" class="list-group list-group-flush mb-0" style="z-index: initial;height:280px;max-height: 380px;overflow: auto;">');
+                        //--INICIA Sub Menu
+                        for (var s = 0; s < msg.length; s++) {
+                            if (msg[i].CodigoMenu == msg[s].CodigoMenuSuperior) {
+                                content_modulo.push('<li class="list-group-item" style="z-index: initial;padding-top: 5px;padding-bottom: 5px;">');
+                                content_modulo.push('<div class="d-flex align-items-center">');
+                                
+                                content_modulo.push('<div class="custom-control custom-checkbox">');
+                                content_modulo.push('    <input ' + (msg[s].EstadoMenuPlan ? 'checked' : '') +' type="checkbox" class="custom-control-input" id="chkEstado' + msg[s].CodigoMenu + '">');
+                                content_modulo.push('    <label class="custom-control-label tx-18" style="user-select:none;" for="chkEstado' + msg[s].CodigoMenu + '">');
+                                
+                                content_modulo.push('<div class="flex" >');
+                                content_modulo.push('<strong style="font-size:12px;" >' + msg[s].Descripcion + '</strong>');    
+                                content_modulo.push('<div class="d-flex align-items-center">');
+                                content_modulo.push('<small class="text-muted" style="font-size:11px;">' + msg[s].CodigoMenu + '</small>');
+                                content_modulo.push('</div>');
+                                content_modulo.push('</div>');
+
+                                content_modulo.push('</label>');
+                                content_modulo.push('</div>');
+                              
+                                content_modulo.push('</div>');
+                                content_modulo.push('</li>');
+                            }
+                        }
+
+                        //FIN Sub Menu
+                        content_modulo.push('</ul>');
+                        content_modulo.push('</div>');
+                        content_modulo.push('</div>');
+                    }
+
+                    // content_modulo.push();
+                }
+                $('#divModulos').html(content_modulo.join(' '));
+
+            };
+            var metodoError = function (msg) {
+                alert(msg);
+            };
+            var request = {
+                request: entidad
+            };
+            LlamarAJAX("/corporativo/CentroEntrenamiento_uspListarMenuPlantillaPlan", request, metodoCorrecto, metodoError);
+
+        }
+
+        function event_triggerchecked(CodigoMenu) {
+            CodigoMenu = CodigoMenu.toString().replace('/', '').replace('/', '');
+
+            var valor = $('#chkEstado' + CodigoMenu).prop('checked');
+
+            $("#ul_" + CodigoMenu + " li").each(function () {
+                // $(this).text()
+                // $(this).find("input[type='checkbox']").html();               
+                $("#" + $(this).find("input[type='checkbox']").attr('id')).prop('checked', valor);
+            });
+        }
+
+        function event_EliminarModulosPlan() {
+            var Planes_CodigoPlan = $("#ddlPlanes").data("kendoDropDownList").value();
+
+            $('button[type="button"]').attr("disabled", false);
+            document.getElementById('loadMe').style.display = 'none';
+            //PASO 1. ELIMINAMOS LOS MODULOS DEL PLAN
+            $.ajax({
+                data: '{"Planes_CodigoPlan":"' + Planes_CodigoPlan + '"}',
+                type: "POST",
+                url: "/corporativo/CentroEntrenamiento_uspEliminarMenuPlantillaPlan",
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function (msg) {
+                    $('button[type="button"]').attr("disabled", false);
+                    document.getElementById('loadMe').style.display = 'none';
+                }, complete: function () {
+                    //PASO 2. REGISTRAMOS LOS MODULOS DEL PLAN                    
+                    event_RegistrarModulosDelPlan();
+                }
+            });
+
+        }
+
+        function event_RegistrarModulosDelPlan() {
+
+            document.getElementById('loadMe').style.display = 'block';
+            $('button[type="button"]').attr("disabled", true);
+            var metodoCorrecto = function (d) {
+
+                $('button[type="button"]').attr("disabled", false);
+                document.getElementById('loadMe').style.display = 'none';
+                var Planes_CodigoPlan = $("#ddlPlanes").data("kendoDropDownList").value();
+                var xmlModulo = "";
+                xmlModulo += "<ds>";
+                for (var i = 0; i < d.length; i++) {
+                   // id = "chkEstado' + msg[i].CodigoMenu + '"
+                    if ($('#chkEstado' + d[i].CodigoMenu).prop('checked')) {
+                        xmlModulo += "<d>";
+                        xmlModulo += "<a>" + Planes_CodigoPlan + "</a>";
+                        xmlModulo += "<a>" + d[i].CodigoMenu + "</a>";
+                        xmlModulo += "</d>";
+                    }
+                   
+                }
+                xmlModulo += "</ds>";
+
+                document.getElementById('loadMe').style.display = 'block';
+                $('button[type="button"]').attr("disabled", true);
+                $.ajax({
+                    data: '{"listaDetalle":"' + xmlModulo + '"}',
+                    type: "POST",
+                    url: "/corporativo/CentroEntrenamiento_uspRegistrarMenuPlantillaPlan",
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "json",
+                    success: function (msg) {
+                       
+                    }, complete: function () {
+                        $('button[type="button"]').attr("disabled", false);
+                        document.getElementById('loadMe').style.display = 'none';
+                    }
+                });
+
+            };
+            var metodoError = function (msg) {
+                alert(msg);
+            };
+            var request = {
+
+            };
+            LlamarAJAX("/corporativo/CentroEntrenamiento_uspListarMenuPlantilla", request, metodoCorrecto, metodoError);
+
+        }
+
+    </script>
+
+}
+
+

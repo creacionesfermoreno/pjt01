@@ -1,0 +1,222 @@
+﻿@model IEnumerable<BotComers.ViewModels.Inventario.ItemsVentaViewModel>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_LayoutApp.cshtml";
+}
+
+
+<link href="@Url.Content("~/Content/cssKendo/kendo.common.min.css")" rel="stylesheet" />
+<link href="@Url.Content("~/Content/cssKendo/kendo.dataviz.default.min.css")" rel="stylesheet" />
+<link href="@Url.Content("~/Content/cssKendo/kendo.dataviz.min.css")" rel="stylesheet" />
+<link href="@Url.Content("~/Content/cssKendo/kendo.default.min.css")" rel="stylesheet" />
+
+
+<div class="slim-mainpanel">
+
+    <div class="slim-mainpanel">
+        <div class="container">
+            <div class="report-summary-header">
+                <div>
+                    <h4 class="tx-inverse mg-b-3">Valor de inventario</h4>
+                    <p>Consulta el valor del inventario actual, la cantidad de items inventariables que tienes y su costo promedio</p>
+                </div>
+                <div>
+
+                </div>
+            </div><!-- d-flex -->
+            <div class="row mg-b-15">
+                <div class="col-lg-2">
+                    <div class="form-group">
+                        <label for="txtInvoice_ddlAlmacenes" class="form-control-label">Almacén: </label>
+                        <select id="txtInvoice_ddlAlmacenes" class="form-control form-control-sm" data-placeholder=""></select>
+                    </div>
+                </div>
+                <div class="col-lg-1">
+                    <div class="form-group">
+                        <label  class="form-control-label" style="color:#f0f2f7">b: <span class="tx-danger" id="" style="display:none;">* Ingrese fecha</span></label>
+                        <button class="btn btn-primary btn-sm btn-block mg-b-10" onclick="ListarValorInventario();">Buscar</button>
+                    </div>                   
+                </div>
+                <div class="col-lg-8"></div>
+            </div>
+
+            <div class="card card-table mg-t-20 mg-sm-t-30">
+
+                <div class="table-responsive">
+                    <table id="gridEmpresa" class="table mg-b-0 tx-13">
+                        <thead>
+                            <tr>
+                                <th>
+                                    
+                                </th>
+                                <th>
+                                    Item
+                                </th>
+                                <th>
+                                    Referencia
+                                </th>
+                                <th>
+                                    Descripción
+                                </th>
+                                <th>
+                                    Cantidad
+                                </th>
+                                <th>
+                                    Unidad
+                                </th>
+                                <th>
+                                    Estado
+                                </th>
+                                <th>
+                                    Costo promedio
+                                </th>
+                                <th>
+                                    Total
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model)
+                            {
+                            <tr>
+                                <td>
+                                    <img src="@item.UrlImagen" style="width:40px;" alt="">
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Nombre)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Referencia)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Descripcion)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.d_CantidadActual)
+                                </td>
+                                <td>
+                                    Unidad
+                                </td>
+                                <td>
+                                    Activo
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.d_CostoPromedio)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.d_CostoTotal)
+                                </td>
+                            </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div><!-- table-responsive -->
+            </div><!-- card -->
+
+        </div><!-- slim-mainpanel -->
+
+    </div>
+
+</div>
+
+
+
+@section Scripts {
+
+    @System.Web.Optimization.Scripts.Render("~/Scripts/plugins/jsKendo/angular.min.js")
+    @System.Web.Optimization.Scripts.Render("~/Scripts/plugins/jsKendo/kendo.all.min.js")
+
+    @System.Web.Optimization.Scripts.Render("~/Scripts/plugins/jquery-ui/jquery-ui.js")
+    @System.Web.Optimization.Scripts.Render("~/Scripts/plugins/jquery-ui/jquery-ui.min.js")
+
+    @System.Web.Optimization.Scripts.Render("~/Resource/UserControl.Helper.js")
+
+    <script type="text/javascript">
+
+        $(document).ready(function () {
+            ListarAlmacenes();
+        });
+
+        function ListarAlmacenes() {
+
+            var metodoCorrecto = function (data) {
+                var content_Almacenes = new Array();
+
+                for (var i = 0; i < data.length; i++) {
+                    content_Almacenes.push('<option value="' + data[i].CodigoAlmacen + '">' + data[i].Descripcion + '</option>');
+                }
+                $('#txtInvoice_ddlAlmacenes').html(content_Almacenes.join(' '));
+            };
+
+            var metodoError = function (msg) {
+                alert(msg);
+            };
+            var request = {
+            };
+
+            LlamarAJAX('/inventario/ListarAlmacenes', request, metodoCorrecto, metodoError);
+        }
+        
+        function ListarValorInventario() {
+
+            var CodigoAlmacen = ConvertToStringFromObject($('select[id="txtInvoice_ddlAlmacenes"] option:selected').val());
+
+            var metodoCorrecto = function (data) {
+                var content_A = new Array();
+                if (data.length > 0) {
+                    for (var i = 0; i < data.length; i++) {
+
+                        content_A.push('<tr>');
+                        content_A.push('<td>');
+                        content_A.push(data[i].Nombre);
+                        content_A.push('</td>');
+                        content_A.push('<td>');
+                        content_A.push(data[i].Referencia);
+                        content_A.push('</td>');
+                        content_A.push('<td>');
+                        content_A.push(data[i].Descripcion);
+                        content_A.push('</td>');
+                        content_A.push('<td>');
+                        content_A.push(data[i].d_CantidadActual);
+                        content_A.push('</td>');       
+                        content_A.push('<td>');
+                        content_A.push('Unidad');
+                        content_A.push('</td>');   
+                        content_A.push('<td>');
+                        content_A.push('Activo');
+                        content_A.push('</td>');   
+                        content_A.push('<td>');
+                        content_A.push(data[i].d_CostoPromedio);
+                        content_A.push('</td>');    
+                        content_A.push('<td>');
+                        content_A.push(data[i].d_CostoTotal);
+                        content_A.push('</td>');       
+                        content_A.push('</tr>');
+
+                    }
+                    $('#gridEmpresa tbody').html(content_A.join(' '));
+                } else {
+                    $('#gridEmpresa tbody').html('');
+                }
+
+            };
+
+            var metodoError = function (msg) {
+                alert(msg);
+            };
+            var request = {
+                CodigoAlmacen: CodigoAlmacen
+            };
+
+            LlamarAJAX('/inventario/ListarValorInventario', request, metodoCorrecto, metodoError);
+        }
+
+        
+    </script>
+
+}
+
+
+
+

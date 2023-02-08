@@ -1,0 +1,945 @@
+﻿
+@{
+    /**/
+
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_LayoutApp.cshtml";
+}
+
+<link href="@Url.Content("~/Content/cssKendo/kendo.common.min.css")" rel="stylesheet" />
+<link href="@Url.Content("~/Content/cssKendo/kendo.dataviz.default.min.css")" rel="stylesheet" />
+<link href="@Url.Content("~/Content/cssKendo/kendo.dataviz.min.css")" rel="stylesheet" />
+<link href="@Url.Content("~/Content/cssKendo/kendo.default.min.css")" rel="stylesheet" />
+
+<style>
+
+    .botonActivado {
+        background-color: #000;
+        color: #fff;
+        border: 1px solid #000;
+    }
+
+    .botonDesactivado {
+        background-color: #ccc;
+        color: #000;
+        border: 1px solid #ccc;
+    }
+
+</style>
+
+<div class="slim-mainpanel" id="divPaso1">
+    <div class="container">
+        <div class="row mg-b-25">
+            <div class="col-lg-7 mg-t-1">
+                <div class="row row-xs">
+                    <button id="btnBuscarPorNombre" style="border-radius: 0%;" class="btn btn-secondary botonActivado"><i class="fa fa-search"></i></button>
+                    <button id="btnBuscarPorCodigoBarra" style="border-radius: 0%;" class="btn btn-secondary botonDesactivado"><i class="fa fa-barcode"></i></button>
+                    <input id="txtBuscadorInventario" onchange="ListarValorInventario_PuntoVenta();" style="border-radius: 0%;width: 80%;" type="text" class="form-control" placeholder="Buscar productos">
+                </div>
+                <div class="manager-right">
+                    <div class="form-group" style="display:none;">
+                        <label for="txtInvoice_ddlAlmacenes" class="form-control-label">Almacén: </label>
+                        <select id="txtInvoice_ddlAlmacenes" class="form-control form-control-sm" data-placeholder=""></select>
+                    </div>
+                    <span style="display:none;">
+                        <input id="txtInvoice_FechaFactura" class="form-control form-control-sm" type="text" name="" value="" placeholder="">
+                    </span>
+                    <span style="display:none;">
+                        <input id="txtInvoice_Vencimiento" class="form-control form-control-sm" type="text" name="" value="" placeholder="">
+                    </span>
+                    <div class="row row-sm" id="gridInventario">
+                        <div class="col-sm-6 col-lg-3 mg-t-20">
+                            <div class="card-contact pd-t-3 pd-r-3 pd-b-3 pd-l-3">
+                                <div class="tx-center">
+                                    <img src="http://via.placeholder.com/500x500" class="card-img-top " alt="">
+                                    <h5 class="mg-t-10 mg-b-5 contact-name">Isidore Dilao Dilao Dilao Dilao</h5>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-6 col-lg-3 mg-t-20">
+                            <div class="card-contact pd-t-3 pd-r-3 pd-b-3 pd-l-3">
+                                <div class="tx-center">
+                                    <img src="http://via.placeholder.com/500x500" class="card-img-top " alt="">
+                                    <h5 class="mg-t-10 mg-b-5 contact-name">Isidore Dilao Dilao Dilao Dilao</h5>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-6 col-lg-3 mg-t-20">
+                            <div class="card-contact pd-t-3 pd-r-3 pd-b-3 pd-l-3">
+                                <div class="tx-center">
+                                    <img src="http://via.placeholder.com/500x500" class="card-img-top " alt="">
+                                    <h5 class="mg-t-10 mg-b-5 contact-name">Isidore Dilao Dilao Dilao Dilao</h5>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-6 col-lg-3 mg-t-20">
+                            <div class="card-contact pd-t-3 pd-r-3 pd-b-3 pd-l-3">
+                                <div class="tx-center">
+                                    <img src="http://via.placeholder.com/500x500" class="card-img-top " alt="">
+                                    <h5 class="mg-t-10 mg-b-5 contact-name">Isidore Dilao Dilao Dilao Dilao</h5>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-6 col-lg-3 mg-t-20">
+                            <div class="card-contact pd-t-3 pd-r-3 pd-b-3 pd-l-3">
+                                <div class="tx-center">
+                                    <img src="http://via.placeholder.com/500x500" class="card-img-top " alt="">
+                                    <h5 class="mg-t-10 mg-b-5 contact-name">Isidore Dilao Dilao Dilao Dilao</h5>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-6 col-lg-3 mg-t-20">
+                            <div class="card-contact pd-t-3 pd-r-3 pd-b-3 pd-l-3">
+                                <div class="tx-center">
+                                    <img src="http://via.placeholder.com/500x500" class="card-img-top " alt="">
+                                    <h5 class="mg-t-10 mg-b-5 contact-name">Isidore Dilao Dilao Dilao Dilao</h5>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-6 col-lg-3 mg-t-20">
+                            <div class="card-contact pd-t-3 pd-r-3 pd-b-3 pd-l-3">
+                                <div class="tx-center">
+                                    <img src="http://via.placeholder.com/500x500" class="card-img-top " alt="">
+                                    <h5 class="mg-t-10 mg-b-5 contact-name">Isidore Dilao Dilao Dilao Dilao</h5>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-6 col-lg-3 mg-t-20">
+                            <div class="card-contact pd-t-3 pd-r-3 pd-b-3 pd-l-3">
+                                <div class="tx-center">
+                                    <img src="http://via.placeholder.com/500x500" class="card-img-top " alt="">
+                                    <h5 class="mg-t-10 mg-b-5 contact-name">Isidore Dilao Dilao Dilao Dilao</h5>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-6 col-lg-3 mg-t-20">
+                            <div class="card-contact pd-t-3 pd-r-3 pd-b-3 pd-l-3">
+                                <div class="tx-center">
+                                    <img src="http://via.placeholder.com/500x500" class="card-img-top " alt="">
+                                    <h5 class="mg-t-10 mg-b-5 contact-name">Isidore Dilao Dilao Dilao Dilao</h5>
+                                </div>
+                            </div>
+                        </div>
+                    </div><!-- row -->
+                </div>
+            </div>
+            <div class="col-lg-5 mg-t-1 pg-t-1">
+                <div class="section-wrapper" style="padding: 10px;">
+                    <div class="row row-xs">
+                        <button id="btnModoEntregaFisico" style="border-radius:0%;width:50%;" class="form-control btn btn-secondary tx-18-force tx-lg-bold botonActivado">RETIRO EN TIENDA</button>
+                        <button id="btnModoEntregaDelivery" style="border-radius:0%;width:50%;" class="form-control btn btn-secondary tx-18-force tx-lg-bold botonDesactivado">DELIVERY</button>
+                    </div>
+                    <br />
+                    <div class="table-responsive" style="width:100%;height:370px;overflow:auto">
+                        <table id="table_Carrito" border="0" style="width:100%;" class="table table-hover mg-b-0">
+                            <thead>
+                                <tr>
+                                    <th style="width:50%;">Producto</th>
+                                    <th style="width:3%;"></th>
+                                    <th style="width:5%;"></th>
+                                    <th style="width:3%;"></th>
+                                    <th style="width:34%;">Total</th>
+                                    <th style="width:5%;"></th>
+                                </tr>
+                            </thead>
+                            <tbody></tbody>
+                        </table>
+                    </div>
+
+                    <input id="hdSubTotal1" type="hidden" value="0" />
+                    <input id="hdDescuento" type="hidden" value="0" />
+                    <input id="hdSubTotal2" type="hidden" value="0" />
+                    <input id="hdIGV" type="hidden" value="0" />
+                    <input id="hdTotalVenta" type="hidden" value="0" />
+                    <button id="btnPaso2A" class="form-control btn btn-primary tx-22-force tx-lg-bold botonActivado">
+                        VENDER  S/ 0.00
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="slim-mainpanel" id="divPaso2A" style="display:none;">
+    <div class="container">
+        <div style="display:none;" class="alert alert-solid alert-success" role="alert">
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">×</span>
+            </button>
+            <strong>Excelente!</strong> La venta se guardado correctamente.
+        </div>
+        <div class="row">
+            <div class="col-lg-6 mg-t-1">
+                <div class="card bd-0">
+                    <div class="card-header tx-medium bd-0 tx-white bg-black-1 tx-22-force" style="background-color:#000;">
+                        DATOS DEL CLIENTE
+                    </div>
+                    <div class="card-body bd bd-t-0">
+                        <p class="section-label mg-t-1 mg-sm-t-1">BÚSQUEDA:</p>
+                        <div class="row mg-t-10">
+                            <div class="col-lg-3">
+                                <input id="txtBusqueda_CodigoCliente" value="" class="form-control" placeholder="Busca por Identificacion" type="text">
+                            </div>
+                            <div class="col-lg-3">
+                                <input id="txtBusqueda_IdentificacionCliente" value="" class="form-control" placeholder="Busca por Codigo" type="text">
+                            </div>
+                            <div class="col-lg-2">
+                                <button id="btnBuscarCliente" class="btn btn-secondary btn-block mg-b-5 tx-12-force" style="background-color:#000;color:#fff;">BUSCAR</button>
+                            </div>
+                            <div class="col-lg-2">
+                                
+                            </div>
+                        </div>
+                        <div class="row mg-t-10">
+                            <div class="col-lg-2">
+                                Nombres:
+                            </div>
+                            <div class="col-lg-6">
+                                <input id="txtInvoice_NombreCompletoCliente" value="Cliente varios" class="form-control" placeholder="" type="text">
+                            </div>
+                            <div class="col-lg-2">
+                                <a href="" style="background-color:#ffffff;color:#000;" class="btn btn-secondary tx-11-force" data-toggle="modal" data-target="#modalCliente">NUEVO CLIENTE </a>
+                            </div>
+                            <div class="col-lg-2">
+                                <button id="btnEditarCliene" class="btn btn-secondary btn-block mg-b-5 tx-11-force" style="background-color:#ffffff;color:#000;">EDITAR</button>
+                            </div>
+                        </div>
+                        <div class="row mg-t-10">
+                            <div class="col-lg-2">
+                                Codigo:
+                            </div>
+                            <div class="col-lg-6">
+                                <input id="txtInvoice_CodigoCliente" value="1" class="form-control" placeholder="" type="text" disabled>
+                            </div>
+                            <div class="col-lg-4">
+
+                            </div>
+                        </div>
+                        <div class="row mg-t-10">
+                            <div class="col-lg-2">
+                                Dirección:
+                            </div>
+                            <div class="col-lg-6">
+                                <input id="txtInvoice_Direccion" class="form-control" placeholder="" type="text" disabled>
+                            </div>
+                            <div class="col-lg-4">
+
+                            </div>
+                        </div>
+                        <div class="row mg-t-10">
+                            <div class="col-lg-2">
+                                Celular:
+                            </div>
+                            <div class="col-lg-6">
+                                <input id="txtInvoice_Celular" class="form-control" placeholder="" type="text" disabled>
+                            </div>
+                            <div class="col-lg-4">
+
+                            </div>
+                        </div>
+                        <div class="row mg-t-10">
+                            <div class="col-lg-2">
+                                Dirección de entrega:
+                            </div>
+                            <div class="col-lg-6">
+                                <input id="txtInvoice_DireccionDelivery" class="form-control" placeholder="" type="text">
+                            </div>
+                            <div class="col-lg-4">
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6 mg-t-1">
+                <div class="card bd-0">
+                    <input id="hdCodigoFormaPago" type="hidden" value="1" />
+                    <div class="card-header tx-medium bd-0 tx-white bg-black-1 tx-22-force" style="background-color:#000;">
+                        <label class="tx-22-force" id="lblTotalPagar">S/ 0.00</label>
+                    </div>
+                    <div class="card-body bd bd-t-0">
+                        <p class="section-label mg-t-1 mg-sm-t-1">COMPROBANTE:</p>
+                        <input id="hdCodigoTipoComprobante" type="hidden" value="5" />
+                        <div class="form-group" style="display:none;">
+                            <label for="txtInvoice_ddlTipoComprobante" class="form-control-label">Documento: </label>
+                            <select id="txtInvoice_ddlTipoComprobante" onselect="change_TipoComprobante()" onchange="change_TipoComprobante()" class="form-control form-control-sm" data-placeholder="" disabled></select>
+                        </div>
+                        <div class="row row-xs">
+                            <div class="col-sm-6 col-lg-3">
+                                <button id="btnTipoComprobanteRecibo" onclick="Click_TipoComprobante(5);" class="btn btn-outline-secondary btn-block mg-b-10 botonActivado">RECIBO</button>
+                            </div>
+                            <div class="col-sm-6 col-lg-3">
+                                <button id="btnTipoComprobanteFactura" onclick="Click_TipoComprobante(1);" class="btn btn-outline-secondary btn-block mg-b-10">FACTURA</button>
+                            </div>
+                            <div class="col-sm-6 col-lg-3">
+                                <button id="btnTipoComprobanteBoleta" onclick="Click_TipoComprobante(2);" class="btn btn-outline-secondary btn-block mg-b-10">BOLETA</button>
+                            </div>
+                            <div class="col-sm-6 col-lg-3">
+                                <input id="txtInvoice_Correlativo" class="form-control" placeholder="Input box" type="text" value="0">
+                            </div>
+                        </div>
+                        <p class="section-label mg-t-1 mg-sm-t-1">FORMA DE PAGO</p>
+                        <div class="row row-xs">
+                            <div class="col-sm-6 col-lg-3">
+                                <button id="btnFormaPagoA_1" onclick="selectFormaPago(1);" class="btn btn-outline-secondary btn-block mg-b-10 botonActivado">EFECTIVO</button>
+                            </div>
+                            <div class="col-sm-6 col-lg-3">
+                                <button id="btnFormaPagoA_2" onclick="selectFormaPago(2);" class="btn btn-outline-secondary btn-block mg-b-10">TARJETA DEBITO</button>
+                            </div>
+                            <div class="col-sm-6 col-lg-3">
+                                <button id="btnFormaPagoA_3" onclick="selectFormaPago(3);" class="btn btn-outline-secondary btn-block mg-b-10">TARJETA CREDITO</button>
+                            </div>
+                            <div class="col-sm-6 col-lg-3">
+                                <button id="btnFormaPagoA_4" onclick="selectFormaPago(4);" class="btn btn-outline-secondary btn-block mg-b-10">TRANSFERENCIA</button>
+                            </div>
+                        </div>
+                        <div class="row row-xs">
+                            <div class="col-sm-6 col-lg-3">
+                                <button id="btnFormaPagoA_5" onclick="selectFormaPago(6);" class="btn btn-outline-secondary btn-block mg-b-10">CONTRA ENTREGA</button>
+                            </div>
+                            <div class="col-sm-6 col-lg-3">
+                                <button id="btnFormaPagoA_6" onclick="selectFormaPago(7);" class="btn btn-outline-secondary btn-block mg-b-10">YAPE</button>
+                            </div>
+                            @*<div class="col-sm-6 col-lg-3">
+                                <button id="btnFormaPagoA_7" onclick="selectFormaPago(8);" class="btn btn-outline-secondary btn-block mg-b-10">TUNKI</button>
+                            </div>
+                            <div class="col-sm-6 col-lg-3" style="display:none;">
+                                <button id="btnFormaPagoA_8" onclick="selectFormaPago(9);" class="btn btn-outline-secondary btn-block mg-b-10">COMBINADO</button>
+                            </div>*@
+                        </div>
+                        <div class="row mg-t-20">
+                            <div class="col-lg-2">
+                                Monto:
+                            </div>
+                            <div class="col-lg-6">
+                                <input id="txtMontoPago" class="form-control" placeholder="ingrese el monto" type="text" value="0.00">
+                            </div>
+                            <div class="col-lg-4">
+                                <textarea id="txtInvoice_Notas" rows="2" class="form-control" placeholder="ingrese nota"></textarea>
+                            </div>
+                        </div>
+                        <div class="row mg-t-20">
+                            <div class="col-lg-2">
+                                Debe:
+                            </div>
+                            <div class="col-lg-6">
+                                <input class="form-control" type="text" value="0.00" disabled>
+                            </div><!-- col -->
+                            <div class="col-lg-4">
+
+                            </div><!-- col -->
+                        </div><!-- row -->
+                    </div><!-- section-wrapper -->
+                </div>
+            </div>
+        </div>
+        <div class="report-summary-header mg-t-1">
+            <div>
+                <button id="btnRegresar2A" class="btn btn-secondary btn-block mg-b-10 tx-22-force" style="background-color:#ffffff;color:#000;"><i class="icon ion-arrow-left-a mg-r-5 tx-20-force"></i> REGRESAR</button>
+            </div>
+            <div>
+                <button id="btnGuardarVentaConDelivery" class="btn btn-secondary btn-block mg-b-10 tx-22-force" style="background-color:#000;display:none;"><i class="fa fa-money mg-r-5 tx-20-force"></i>GUARDAR VENTA CON DELIVERY</button>
+                <button id="btnGuardarVenta" onclick="javascript: RegistrarComprobante();" class="btn btn-secondary btn-block mg-b-10 tx-22-force" style="background-color:#000;"><i class="fa fa-money mg-r-5 tx-20-force"></i>GUARDAR VENTA</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="modalCliente" class="modal fade">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content tx-sm-10-force">
+            <div class="modal-header pd-y-20 pd-x-25">
+                <h6 class="tx-14 mg-b-0 tx-uppercase tx-inverse tx-bold">Datos del cliente</h6>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body pd-10">
+                <div class="card-body pd-10">
+                    <div class="form-group">
+                        <div class="row row-xs">
+                            <div class="col-sm">
+                                <input id="txtCliente_Nombres" type="text" name="lastname" class="form-control form-control-sm" placeholder="Ingrese nombres">
+                            </div><!-- col -->
+                            <div class="col-sm mg-t-20 mg-sm-t-0">
+                                <input id="txtCliente_Apellidos" type="text" name="lastname" class="form-control form-control-sm" placeholder="Ingrese Apellidos">
+                            </div><!-- col -->
+                        </div><!-- row -->
+                    </div>
+                    <div class="form-group">
+                        <div class="row row-xs">
+                            <div class="col-sm">
+                                <select id="txtCliente_CodigoIdentificacion" class="form-control form-control-sm" data-placeholder="">
+                                    <option value="1">SIN RUC - no domiciliado sin ruc</option>
+                                    <option selected value="2">DNI - Documento Nacional de Identidad</option>
+                                    <option value="3">CE - Carnet de extranjería</option>
+                                    <option value="4">RUC - Registro Único de contribuyente</option>
+                                    <option value="5">PP - Pasaporte</option>
+                                    <option value="6">CDI - Cedula Diplomática de Identidad</option>
+                                </select>
+                            </div><!-- col -->
+                            <div class="col-sm mg-t-20 mg-sm-t-0">
+                                <input id="txtCliente_Identificacion" type="text" name="lastname" class="form-control form-control-sm" placeholder="Ingrese Identificación">
+                            </div><!-- col -->
+                        </div><!-- row -->
+                    </div>
+                    <div class="form-group">
+                        <div class="row row-sm">
+                            <div class="col-sm">
+                                <input id="txtCliente_Direccion" type="text" name="town" class="form-control form-control-sm" placeholder="Ingrese Dirección">
+                            </div><!-- col -->
+                            <div class="col-sm mg-t-20 mg-sm-t-0">
+                                <input id="txtCliente_Depatamento" type="text" name="state" class="form-control form-control-sm" placeholder="Ingrese Departamento">
+                            </div><!-- col -->
+                        </div><!-- row -->
+                    </div>
+                    <div class="form-group">
+                        <div class="row row-sm">
+                            <div class="col-sm">
+                                <input id="txtCliente_Provincia" type="text" name="town" class="form-control form-control-sm" placeholder="Ingrese Provincia">
+                            </div><!-- col -->
+                            <div class="col-sm mg-t-20 mg-sm-t-0">
+                                <input id="txtCliente_Distrito" type="text" name="state" class="form-control form-control-sm" placeholder="Ingrese Distrito">
+                            </div><!-- col -->
+                        </div><!-- row -->
+                    </div>
+                    <div class="form-group">
+                        <div class="row row-sm">
+                            <div class="col-sm">
+                                <input id="txtCliente_Urbanizacion" type="text" name="town" class="form-control form-control-sm" placeholder="Ingrese Urbanización">
+                            </div><!-- col -->
+                            <div class="col-sm mg-t-20 mg-sm-t-0">
+                                <input id="txtCliente_CodigoUbigeo" type="text" name="state" class="form-control form-control-sm" placeholder="Ingrese Codigo Ubigeo">
+                            </div><!-- col -->
+                        </div><!-- row -->
+                    </div>
+                    <div class="form-group">
+                        <div class="row row-sm">
+                            <div class="col-sm">
+                                <input id="txtCliente_CorreoElectronico" type="text" name="town" class="form-control form-control-sm" placeholder="Ingrese Correo Electronico">
+                            </div><!-- col -->
+                            <div class="col-sm mg-t-20 mg-sm-t-0">
+                                <input id="txtCliente_Telefono" type="text" name="state" class="form-control form-control-sm" placeholder="Ingrese Telefono">
+                            </div><!-- col -->
+                        </div><!-- row -->
+                    </div>
+                    <div class="form-group">
+                        <div class="row row-sm">
+                            <div class="col-sm">
+                                <input id="txtCliente_Celular" type="text" name="town" class="form-control form-control-sm" placeholder="Ingrese Celular">
+                            </div><!-- col -->
+                            <div class="col-sm mg-t-20 mg-sm-t-0">
+                                <input id="txtCliente_DireccionDelivery" type="text" name="state" class="form-control form-control-sm" placeholder="Dirección Delivery">
+                            </div><!-- col -->
+                        </div><!-- row -->
+                    </div>
+
+                </div><!-- card-body -->
+            </div><!-- modal-body -->
+            <div class="modal-footer">
+                <button onclick="javascript: RegistrarClientes();" type="button" class="btn btn-primary">Guardar</button>
+                <button id="btnCerrarModalCliente" type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+            </div>
+        </div>
+    </div><!-- modal-dialog -->
+</div><!-- modal -->
+
+
+@section Scripts {
+
+    @System.Web.Optimization.Scripts.Render("~/Scripts/plugins/jsKendo/angular.min.js")
+    @System.Web.Optimization.Scripts.Render("~/Scripts/plugins/jsKendo/kendo.all.min.js")
+
+    @System.Web.Optimization.Scripts.Render("~/Scripts/plugins/jquery-ui/jquery-ui.js")
+    @System.Web.Optimization.Scripts.Render("~/Scripts/plugins/jquery-ui/jquery-ui.min.js")
+
+    @System.Web.Optimization.Scripts.Render("~/Resource/UserControl.Helper.js")
+
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            var todayDate = new Date();
+            $('input[id="txtInvoice_FechaFactura"]').kendoDatePicker();
+            $('input[id="txtInvoice_FechaFactura"]').data("kendoDatePicker").value(todayDate);
+
+            $('input[id="txtInvoice_Vencimiento"]').kendoDatePicker();
+            var ultimoDia = new Date(todayDate.getFullYear(), todayDate.getMonth() + 1, 0);
+            $('input[id="txtInvoice_Vencimiento"]').data("kendoDatePicker").value(ultimoDia);
+
+            $('#btnBuscarPorNombre').click(function () {
+                $('#btnBuscarPorNombre').removeClass('botonDesactivado');
+                $('#btnBuscarPorNombre').addClass('botonActivado');
+                $('#btnBuscarPorCodigoBarra').addClass('botonDesactivado');
+            });
+            $('#btnBuscarPorCodigoBarra').click(function () {
+                $('#btnBuscarPorCodigoBarra').removeClass('botonDesactivado');
+                $('#btnBuscarPorCodigoBarra').addClass('botonActivado');
+                $('#btnBuscarPorNombre').addClass('botonDesactivado');
+            });
+
+            $('#btnPaso2A').click(function () {
+                document.getElementById("divPaso1").style.display = 'none';
+                document.getElementById("divPaso2A").style.display = '';
+
+            });
+            $('#btnRegresar2A').click(function () {
+                document.getElementById("divPaso1").style.display = '';
+                document.getElementById("divPaso2A").style.display = 'none';
+
+            });
+
+            $('#btnModoEntregaFisico').click(function () {
+                $('#btnModoEntregaDelivery').removeClass('botonActivado');
+                $('#btnModoEntregaDelivery').addClass('botonDesactivado');
+                $('#btnModoEntregaFisico').addClass('botonActivado');
+                $('#btnModoEntregaFisico').removeClass('botonDesactivado');
+
+                document.getElementById("btnGuardarVentaConDelivery").style.display = 'none';
+                document.getElementById("btnGuardarVenta").style.display = '';
+
+            });
+            $('#btnModoEntregaDelivery').click(function () {
+                $('#btnModoEntregaFisico').removeClass('botonActivado');
+                $('#btnModoEntregaFisico').addClass('botonDesactivado');
+                $('#btnModoEntregaDelivery').addClass('botonActivado');
+                $('#btnModoEntregaDelivery').removeClass('botonDesactivado');
+
+                document.getElementById("btnGuardarVentaConDelivery").style.display = '';
+                document.getElementById("btnGuardarVenta").style.display = 'none';
+
+            });
+
+            ListarAlmacenes();
+
+            ListarTipoComprobante();
+
+           
+        });
+
+        function selectFormaPago(codigoForma) {
+            $('#hdCodigoFormaPago').val(codigoForma);
+
+            for (var i = 1; i <= 8; i++) {
+                if (codigoForma == i) {
+                    $('#btnFormaPagoA_' + i).removeClass("botonDesactivado");
+                    $('#btnFormaPagoA_' + i).addClass("botonActivado");
+                } else {
+                    $('#btnFormaPagoA_' + i).removeClass("botonActivado");
+                    $('#btnFormaPagoA_' + i).addClass("botonDesactivado");
+                }
+            }
+
+        }
+
+        function ListarValorInventario_PuntoVenta() {
+
+            var Buscador = $("#txtBuscadorInventario").val();
+
+            var metodoCorrecto = function (data) {
+                var content_A = new Array();
+                if (data.length > 0) {
+                    for (var i = 0; i < data.length; i++) {
+
+                        content_A.push('<div onclick="AgregarCarrito(' + data[i].CodigoItemVenta + ');" class="col-sm-6 col-lg-3 mg-t-20">');
+                        content_A.push('<input id="hdCodigo_ProductoInventario_' + data[i].CodigoItemVenta + '" type="hidden" value="' + data[i].CodigoItemVenta + '" />');
+                        content_A.push('<input id="hdNombre_ProductoInventario_' + data[i].CodigoItemVenta + '" type="hidden" value="' + data[i].Nombre + '" />');
+                        content_A.push('<input id="hdPrecioVenta_ProductoInventario_' + data[i].CodigoItemVenta + '" type="hidden" value="' + data[i].PrecioVenta + '" />');
+                        content_A.push('<input id="hdCantidad_ProductoInventario_' + data[i].CodigoItemVenta + '" type="hidden" value="' + data[i].d_CantidadActual + '" />');
+                        content_A.push('<input id="hdCodigoUnidadMedida_ProductoInventario_' + data[i].CodigoItemVenta + '" type="hidden" value="' + data[i].CodigoUnidadMedida + '" />');
+                        content_A.push('<div class="card-contact pd-t-3 pd-r-3 pd-b-3 pd-l-3">');
+                        content_A.push('<div class="tx-center">');
+                        content_A.push('<img src="' + data[i].UrlImagen + '" class="card-img-top " alt="">');
+                        content_A.push('<p class="contact-item">');
+                        content_A.push('<span class="tx-12">' + data[i].Nombre + '</span>');
+                        content_A.push('<span class="tx-11">Stock: ' + data[i].d_CantidadActual + '</span>');
+                        content_A.push('</p>');
+                        content_A.push('</div>');
+                        content_A.push('</div>');
+                        content_A.push('</div>');
+
+                    }
+                    $('#gridInventario').html(content_A.join(' '));
+                } else {
+                    $('#gridInventario').html('');
+                }
+
+            };
+
+            var metodoError = function (msg) {
+                alert(msg);
+            };
+            var request = {
+                Buscador: Buscador,
+                CodigoAlmacen: ConvertToStringFromObject($('select[id="txtInvoice_ddlAlmacenes"] option:selected').val())
+            };
+
+            LlamarAJAX('/pos/ListarValorInventario_PuntoVenta', request, metodoCorrecto, metodoError);
+        }
+
+        function AgregarCarrito(CodigoItemVenta) {
+
+            if (Validar_AgregarCarrito(CodigoItemVenta)) {
+                var Nombre = $('#hdNombre_ProductoInventario_' + CodigoItemVenta).val();
+                var PrecioVenta = $('#hdPrecioVenta_ProductoInventario_' + CodigoItemVenta).val();
+                var CodigoProducto = $('#hdCodigo_ProductoInventario_' + CodigoItemVenta).val();
+                var CantidadProductoActual = $('#hdCantidad_ProductoInventario_' + CodigoItemVenta).val();
+                var CodigoUnidadMedida = $('#hdCodigoUnidadMedida_ProductoInventario_' + CodigoItemVenta).val();
+
+                var contentCarrito = "";
+                contentCarrito += '<tr class="tx-14"  id="rowdi_' + CodigoItemVenta + '" >';
+                contentCarrito += '<td>' + Nombre + '</td>';
+                contentCarrito += '<td>';
+                contentCarrito += '<input id="hdCodigo_ProductoCarrito_' + CodigoItemVenta + '" type="hidden" value="' + CodigoItemVenta + '" />';
+                contentCarrito += '<input id="hdPrecioVenta_ProductoCarrito_' + CodigoItemVenta + '" type="hidden" value="' + PrecioVenta + '" />';
+                contentCarrito += '<input id="hdCantidadProductoActual_ProductoCarrito_' + CodigoItemVenta + '" type="hidden" value="' + CantidadProductoActual + '" />';
+                contentCarrito += '<input id="hdCodigoUnidadMedida_ProductoCarrito_' + CodigoItemVenta + '" type="hidden" value="' + CodigoUnidadMedida + '" />';
+                contentCarrito += '<a href="#" onclick="jacascript:DisminuirCantidad_ItemVenta(' + CodigoItemVenta + ')" class="btn btn-outline-dark btn-icon rounded-circle"><div><i class="icon ion-minus-circled tx-30-force"></i></div></a>';
+                contentCarrito += '</td>';
+                contentCarrito += '<td><a href="#" class="btn btn-outline-dark btn-icon rounded-circle"><div id="hdCantidadVenta_ProductoCarrito_' + CodigoItemVenta + '">1</div></a></td>';
+                contentCarrito += '<td>';
+                contentCarrito += '<a href="#" onclick="jacascript:AumentarCantidad_ItemVenta(' + CodigoItemVenta + ')" class="btn btn-outline-dark btn-icon rounded-circle"><div><i class="icon ion-plus-circled tx-30-force"></i></div></a>';
+                contentCarrito += '</td>';
+                contentCarrito += '<td><input style="width: 100%;border:0px solid" type="text" class="form-control" id="hdMontoTotalVenta_ProductoCarrito_' + CodigoItemVenta + '" value="' + PrecioVenta + '" disabled ></td>';
+                contentCarrito += '<td><a onclick="jacascript:Quitar_ItemVenta(' + CodigoItemVenta + ')" href="#" class="btn btn-outline-dark btn-icon rounded-circle"><div><i class="icon ion-trash-a tx-30-force"></i></div></a></td>';
+                contentCarrito += '</tr>';
+
+                $('#table_Carrito tbody').append(contentCarrito);
+            }
+
+            calcular_total();
+
+        }
+        
+        function Validar_AgregarCarrito(CodigoItemVenta) {
+
+            var validador = true;
+            $('#table_Carrito tbody tr').each(function () {
+                var codigoProducto = $('#hdCodigo_ProductoCarrito_' + CodigoItemVenta).val();
+                if (parseFloat(codigoProducto) == parseFloat(CodigoItemVenta)) {
+                    validador = false;
+                }
+            });
+
+            if (!validador) {
+                var cantidadStock = $('#hdCantidadProductoActual_ProductoCarrito_' + CodigoItemVenta).val();
+                var CantidadVenta = $('#hdCantidadVenta_ProductoCarrito_' + CodigoItemVenta).html();
+                var PrecioVenta = $('#hdPrecioVenta_ProductoCarrito_' + CodigoItemVenta).val();
+                var CantidadTotal = (parseFloat(CantidadVenta) + 1);
+
+                if (parseFloat(CantidadTotal) > parseFloat(cantidadStock)) {
+                    alert("la cantidad que quieres vender supera a la cantidad del inventario");
+                } else {
+                    var MontoTotalVenta = parseFloat(PrecioVenta) * CantidadTotal;
+                    $('#hdCantidadVenta_ProductoCarrito_' + CodigoItemVenta).html(CantidadTotal);
+                    $('#hdMontoTotalVenta_ProductoCarrito_' + CodigoItemVenta).val(MontoTotalVenta.toFixed(2));
+                }
+
+            }
+
+            return validador;
+        }
+
+        function Quitar_ItemVenta(index_row_griddi) {
+            $('#rowdi_' + index_row_griddi).remove();
+            calcular_total();
+        }
+
+        function AumentarCantidad_ItemVenta(CodigoItemVenta) {
+            var cantidadStock = $('#hdCantidadProductoActual_ProductoCarrito_' + CodigoItemVenta).val();
+            var CantidadVenta = $('#hdCantidadVenta_ProductoCarrito_' + CodigoItemVenta).html();
+            var PrecioVenta = $('#hdPrecioVenta_ProductoCarrito_' + CodigoItemVenta).val();
+            var CantidadTotal = (parseFloat(CantidadVenta) + 1);
+
+            if (parseFloat(CantidadTotal) > parseFloat(cantidadStock)) {
+                alert("la cantidad que quieres vender supera a la cantidad del inventario");
+            } else {
+                var MontoTotalVenta = parseFloat(PrecioVenta) * CantidadTotal;
+                $('#hdCantidadVenta_ProductoCarrito_' + CodigoItemVenta).html(CantidadTotal);
+                $('#hdMontoTotalVenta_ProductoCarrito_' + CodigoItemVenta).val(MontoTotalVenta.toFixed(2));
+            }
+            calcular_total();
+        }
+
+        function DisminuirCantidad_ItemVenta(CodigoItemVenta) {
+            var cantidadStock = $('#hdCantidadProductoActual_ProductoCarrito_' + CodigoItemVenta).val();
+            var CantidadVenta = $('#hdCantidadVenta_ProductoCarrito_' + CodigoItemVenta).html();
+            var PrecioVenta = $('#hdPrecioVenta_ProductoCarrito_' + CodigoItemVenta).val();
+            var CantidadTotal = (parseFloat(CantidadVenta) - 1);
+
+            if (parseFloat(CantidadTotal) <= parseFloat(0)) {
+                alert("la cantidad no puede ser 0 ó menor a 0");
+            } else {
+                var MontoTotalVenta = parseFloat(PrecioVenta) * CantidadTotal;
+                $('#hdCantidadVenta_ProductoCarrito_' + CodigoItemVenta).html(CantidadTotal);
+                $('#hdMontoTotalVenta_ProductoCarrito_' + CodigoItemVenta).val(MontoTotalVenta.toFixed(2));
+            }
+            calcular_total();
+        }
+
+        function calcular_total() {
+            SubTotal1 = 0;
+            DescuentoTotal = 0;
+            SubTotal2 = 0;
+            IGV = 0;
+            Total = 0;
+            $('#table_Carrito tbody tr').each(function () {
+                var index = $(this).prop('id').split('_')[1];
+                var row_total = $('input[id="hdMontoTotalVenta_ProductoCarrito_' + index + '"]').val() == '' ? 0 : $('input[id="hdMontoTotalVenta_ProductoCarrito_' + index + '"]').val();
+                SubTotal1 = SubTotal1 + parseFloat(row_total);
+            });
+            SubTotal2 = parseFloat(SubTotal1) - parseFloat(DescuentoTotal);
+
+            Total = SubTotal2;
+            if ($('#hdCodigoTipoComprobante').val() == 1) {
+                IGV = SubTotal2 * 0.18;
+            } else {
+                IGV = 0;
+            }
+            $('#hdSubTotal1').val(parseFloat(SubTotal1).toFixed(2));
+            $('#hdDescuento').val(parseFloat(DescuentoTotal).toFixed(2));
+            $('#hdSubTotal2').val(parseFloat(SubTotal2).toFixed(2));
+            $('#hdIGV').val(parseFloat(IGV).toFixed(2));
+            $('#hdTotalVenta').val(parseFloat(Total).toFixed(2));
+
+            $('#btnPaso2A').html('VENDER S/ ' + parseFloat(Total).toFixed(2));
+            $('#lblTotalPagar').html('TOTAL A PAGAR S/ ' + parseFloat(Total).toFixed(2));
+        }
+
+        function Click_TipoComprobante(valor) {
+            $('#hdCodigoTipoComprobante').val(valor);
+            if (valor == 1) {
+                $('#btnTipoComprobanteFactura').addClass('botonActivado');
+                $('#btnTipoComprobanteFactura').removeClass('botonDesactivado');
+                $('#btnTipoComprobanteBoleta').removeClass('botonActivado');
+                $('#btnTipoComprobanteRecibo').removeClass('botonActivado');
+                $('#btnTipoComprobanteBoleta').addClass('botonDesactivado');
+                $('#btnTipoComprobanteRecibo').addClass('botonDesactivado');
+
+            } else if (valor == 2) {
+                $('#btnTipoComprobanteBoleta').addClass('botonActivado');
+                $('#btnTipoComprobanteBoleta').removeClass('botonDesactivado');
+                $('#btnTipoComprobanteFactura').removeClass('botonActivado');
+                $('#btnTipoComprobanteRecibo').removeClass('botonActivado');
+                $('#btnTipoComprobanteFactura').addClass('botonDesactivado');
+                $('#btnTipoComprobanteRecibo').addClass('botonDesactivado');
+            } else if (valor == 5) {
+                $('#btnTipoComprobanteRecibo').addClass('botonActivado');
+                $('#btnTipoComprobanteRecibo').removeClass('botonDesactivado');
+                $('#btnTipoComprobanteBoleta').removeClass('botonActivado');
+                $('#btnTipoComprobanteFactura').removeClass('botonActivado');
+                $('#btnTipoComprobanteBoleta').addClass('botonDesactivado');
+                $('#btnTipoComprobanteFactura').addClass('botonDesactivado');
+            }
+
+            ListarTipoComprobante();
+        }
+
+        function ListarAlmacenes() {
+
+            var metodoCorrecto = function (data) {
+                var content_Almacenes = new Array();
+
+                for (var i = 0; i < data.length; i++) {
+                    content_Almacenes.push('<option value="' + data[i].CodigoAlmacen + '">' + data[i].Descripcion + '</option>');
+                }
+                $('#txtInvoice_ddlAlmacenes').html(content_Almacenes.join(' '));
+                
+                ListarValorInventario_PuntoVenta();
+            };
+
+            var metodoError = function (msg) {
+                alert(msg);
+            };
+            var request = {
+            };
+
+            LlamarAJAX('/pos/ListarAlmacenes', request, metodoCorrecto, metodoError);
+        }
+
+        function ListarTipoComprobante() {
+
+            var entidad = {};
+            entidad.CodigoTipoDocumentoEmpresa = $('#hdCodigoTipoComprobante').val();
+
+            var metodoCorrecto = function (data) {
+                var content_TipoComprobante = new Array();
+
+                for (var i = 0; i < data.length; i++) {
+                    if (i == 0) {
+                        $('#txtInvoice_Correlativo').val(data[i].Serie.split('_')[1]);
+                    }
+                    content_TipoComprobante.push('<option value="' + data[i].Serie + '">' + data[i].Nombre + '</option>');
+                }
+                $('#txtInvoice_ddlTipoComprobante').html(content_TipoComprobante.join(' '));
+            };
+
+            var metodoError = function (msg) {
+                alert(msg);
+            };
+            var request = {
+                request: entidad
+            };
+
+            LlamarAJAX('/pos/ListarTipoComprobante', request, metodoCorrecto, metodoError);
+        }
+
+        function change_TipoComprobante() {
+            var serie = $('select[id="txtInvoice_ddlTipoComprobante"] option:selected').val().split('_')[1];
+            $('#txtInvoice_Correlativo').val(serie);
+        }
+
+        function RegistrarComprobante() {
+
+            var Accion = 'N';//$('input[id="hdAccionItemVenta"]').val();
+            var entidad = {};
+
+            entidad.CodigoTipoComprobante = $('select[id="txtInvoice_ddlTipoComprobante"] option:selected').val().split('_')[0];
+            entidad.TipoMoneda = 2;
+            entidad.CodigoAlmacen = ConvertToStringFromObject($('select[id="txtInvoice_ddlAlmacenes"] option:selected').val());
+            entidad.Correlativo = $('#txtInvoice_Correlativo').val();
+            entidad.CodigoCliente = $('#txtInvoice_CodigoCliente').val();
+            entidad.CodigoVendedor = 0;
+            entidad.FechaEmision = kendo.toString($("#txtInvoice_FechaFactura").data('kendoDatePicker').value(), 'MM/dd/yyyy hh:mm:ss tt');
+            entidad.CodigoPlazoPago = 6;
+            entidad.FechaVencimiento = kendo.toString($("#txtInvoice_Vencimiento").data('kendoDatePicker').value(), 'MM/dd/yyyy hh:mm:ss tt');
+            entidad.TerminosCondiciones = "";
+            entidad.Notas = document.getElementById("txtInvoice_Notas").value;
+            entidad.Comentarios = "";
+            entidad.SubTotal = $('#hdSubTotal1').val();
+            entidad.Descuento = $('#hdDescuento').val();
+            entidad.SubTotal2 = $('#hdSubTotal2').val();
+            entidad.IGV = $('#hdIGV').val();
+            entidad.Total = $('#hdTotalVenta').val();
+            entidad.Estado = 1;
+            entidad.Accion = Accion;
+
+            //Recorrer el detalle del comprobante
+            entidad.listaDetalle = new Array();
+            $('#table_Carrito tbody tr').each(function () {
+                var index = $(this).prop('id').split('_')[1];
+                var detalleAjuste = {};
+
+                detalleAjuste.CodigoItemsVenta = $('input[id="hdCodigo_ProductoCarrito_' + index + '"]').val();
+                detalleAjuste.Referencia = "";//$('input[id="rowdi_txtReferencia_' + index + '"]').val();
+                detalleAjuste.Precio = $('input[id="hdPrecioVenta_ProductoCarrito_' + index + '"]').val();
+                detalleAjuste.Descuento = 0;
+                detalleAjuste.CodigoTipoImpuesto = 1;
+                detalleAjuste.Descripcion = "";
+                detalleAjuste.Cantidad = parseInt($('div[id="hdCantidadVenta_ProductoCarrito_' + index + '"]').html());
+                detalleAjuste.Total = $('input[id="hdMontoTotalVenta_ProductoCarrito_' + index + '"]').val();
+
+                entidad.listaDetalle.push(detalleAjuste);
+            });
+
+            //armar los pagos
+            if ($('input[id="txtMontoPago"]').val() != '') {
+                if (parseFloat($('input[id="txtMontoPago"]').val()) > 0) {
+                    entidad.listaDetallePago = new Array();
+                    var detallePago = {};
+
+                    detallePago.CodigoComprobantePago = 0;
+                    detallePago.CodigoComprobante = 0;
+                    detallePago.CodigoCuentaBancaria = 0;
+                    detallePago.CodigoMetodoPago = $('#hdCodigoFormaPago').val();
+                    detallePago.TipoMoneda = 2;
+                    detallePago.Monto = $('input[id="txtMontoPago"]').val();
+                    detallePago.Nota = document.getElementById("txtInvoice_Notas").value;
+                    detallePago.Estado = 1;
+                    detallePago.Accion = 'N';
+                    entidad.listaDetallePago.push(detallePago);
+                }
+
+            }
+
+            $('button').attr('disabled', 'disabled');
+            var metodoCorrecto = function (msg) {
+
+                if (msg) {
+                    $('button').removeAttr('disabled');
+                    $('.alert-success').show();
+                    $('.alert-success').delay(3000).hide(600);
+                }
+                else {
+                    MostrarMensaje("Error", "vuelva a intentar nuevamente!");
+                }
+            };
+            var metodoError = function (msg) {
+                alert(msg);
+            };
+            var request = {
+                request: entidad
+            };
+            LlamarAJAX("/pos/RegistrarComprobante", request, metodoCorrecto, metodoError);
+
+        }
+
+        function RegistrarClientes() {
+
+            var Accion = 'N';
+            var entidad = {};
+            entidad.CodigoCliente = 0;
+            entidad.Nombres = $('input[id="txtCliente_Nombres"]').val();
+            entidad.Apellidos = $('input[id="txtCliente_Apellidos"]').val();
+            entidad.CodigoTipoIdentificacion = $('select[id="txtCliente_CodigoIdentificacion"] option:selected').val();
+            entidad.Identificacion = $('input[id="txtCliente_Identificacion"]').val();
+            entidad.Direccion = $('input[id="txtCliente_Direccion"]').val();
+            entidad.Departamento = $('input[id="txtCliente_Depatamento"]').val();
+            entidad.provincia = $('input[id="txtCliente_Provincia"]').val();
+            entidad.Distrito = $('input[id="txtCliente_Distrito"]').val();
+            entidad.Urbanizacion = $('input[id="txtCliente_Urbanizacion"]').val();
+            entidad.CodigoUbigeo = $('input[id="txtCliente_CodigoUbigeo"]').val();
+            entidad.CorreoElectronico = $('input[id="txtCliente_CorreoElectronico"]').val();
+            entidad.Telefono = $('input[id="txtCliente_Telefono"]').val();
+            entidad.Celular = $('input[id="txtCliente_Celular"]').val();
+            entidad.CodigoVendedor = 0;
+            entidad.DireccionDelivery = $('input[id="txtCliente_DireccionDelivery"]').val();
+            entidad.Accion = Accion;
+
+            if (IsUndefinedOrNullOrEmpty(entidad.Nombres)) {
+                alert("falta ingresar nombres");
+                return;
+            } else if (IsUndefinedOrNullOrEmpty(entidad.Apellidos)) {
+                alert("falta ingresar Apellidos");
+                return;
+            } else if (IsUndefinedOrNullOrEmpty(entidad.Identificacion)) {
+                alert("falta ingresar Identificación");
+                return;
+            } else if (IsUndefinedOrNullOrEmpty(entidad.Celular)) {
+                alert("falta ingresar Celular");
+                return;
+            }           
+            
+            $('button').attr('disabled', 'disabled');
+            var metodoCorrecto = function (msg) {
+
+                if (msg) {
+                    alert(msg);
+                    $('input[id="txtInvoice_NombreCompletoCliente"]').val(entidad.Nombres + ' ' + entidad.Apellidos);
+                    $('input[id="txtInvoice_CodigoCliente"]').val(msg);
+                    $('input[id="txtInvoice_Direccion"]').val($('input[id="txtCliente_Direccion"]').val());
+                    $('input[id="txtInvoice_Celular"]').val($('input[id="txtCliente_Celular"]').val());
+                    $('input[id="txtInvoice_DireccionDelivery"]').val($('input[id="txtCliente_DireccionDelivery"]').val());
+
+                    $('button').removeAttr('disabled');
+                    alert("Cliente guardado correctamente");
+                    document.getElementById("btnCerrarModalCliente").click();
+                }
+                else {
+                    MostrarMensaje("Error", "vuelva a intentar nuevamente!");
+                }
+            };
+            var metodoError = function (msg) {
+                alert(msg);
+            };
+            var request = {
+                request: entidad
+            };
+            LlamarAJAX("/pos/RegistrarClientes", request, metodoCorrecto, metodoError);
+
+        }
+        
+    </script>
+
+}
+
+

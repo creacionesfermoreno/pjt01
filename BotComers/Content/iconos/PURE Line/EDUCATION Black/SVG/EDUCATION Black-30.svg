@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Generator: Adobe Illustrator 16.0.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="170px"
+	 height="170px" viewBox="0 0 170 170" enable-background="new 0 0 170 170" xml:space="preserve">
+<g id="Background">
+</g>
+<g id="Circle">
+	<g>
+		<path fill="#FFFFFF" d="M85,170c-46.869,0-85-38.131-85-85S38.131,0,85,0s85,38.131,85,85S131.869,170,85,170z"/>
+	</g>
+</g>
+<g id="TEXT">
+</g>
+<g id="Icons">
+	<g>
+		<g>
+			<g>
+				<g>
+					<path fill="none" stroke="#282D33" stroke-width="4" d="M78.572,40.155H45.297v56.048h33.275c3.259,0,5.9,2.642,5.9,5.899
+						V46.056C84.473,42.798,81.831,40.155,78.572,40.155z"/>
+					<path fill="none" stroke="#282D33" stroke-width="4" d="M90.533,40.155h33.273v56.048H90.533c-3.257,0-5.899,2.642-5.899,5.899
+						V46.056C84.634,42.798,87.276,40.155,90.533,40.155z"/>
+				</g>
+				<line fill="none" stroke="#282D33" stroke-width="4" x1="51.296" y1="49.927" x2="68.451" y2="49.927"/>
+				<line fill="none" stroke="#282D33" stroke-width="4" x1="51.296" y1="58.838" x2="78.057" y2="58.838"/>
+				<line fill="none" stroke="#282D33" stroke-width="4" x1="51.296" y1="67.749" x2="78.057" y2="67.749"/>
+				<line fill="none" stroke="#282D33" stroke-width="4" x1="51.296" y1="76.659" x2="78.057" y2="76.659"/>
+				<line fill="none" stroke="#282D33" stroke-width="4" x1="51.296" y1="85.57" x2="78.057" y2="85.57"/>
+				<line fill="none" stroke="#282D33" stroke-width="4" x1="90.156" y1="76.659" x2="116.917" y2="76.659"/>
+				<line fill="none" stroke="#282D33" stroke-width="4" x1="90.156" y1="85.57" x2="116.917" y2="85.57"/>
+				<rect x="92.243" y="49.927" fill="none" stroke="#282D33" stroke-width="4" width="22.614" height="17.822"/>
+			</g>
+		</g>
+		
+			<line fill="none" stroke="#282D33" stroke-width="4" stroke-linejoin="round" x1="84.552" y1="101.955" x2="84.552" y2="135.813"/>
+		<path fill="none" stroke="#282D33" stroke-width="4" d="M76.734,118.071c0.002-4.898-3.969-8.868-8.867-8.866h-9.288v5.911
+			c0,4.896,3.969,8.866,8.864,8.866h9.293L76.734,118.071z"/>
+		<path fill="none" stroke="#282D33" stroke-width="4" d="M92.892,118.071c-0.003-4.898,3.969-8.868,8.867-8.866h9.288v5.911
+			c0,4.896-3.969,8.866-8.865,8.866h-9.293L92.892,118.071z"/>
+	</g>
+</g>
+</svg>

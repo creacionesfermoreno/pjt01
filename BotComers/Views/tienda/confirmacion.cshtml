@@ -1,0 +1,138 @@
+﻿
+@{
+    /**/
+
+    ViewBag.Title = "confirmacion";
+    Layout = "~/Views/Shared/_LayoutAppfitTienda2.cshtml";
+}
+
+<link href="@Url.Content("~/Content/tienda2/css/checkout.css")" rel="stylesheet" />
+
+<main class="bg_gray">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-5">
+                <div id="confirm">
+                    <div class="icon icon--order-success svg add_bottom_15">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="72" height="72">
+                            <g fill="none" stroke="#8EC343" stroke-width="2">
+                                <circle cx="36" cy="36" r="35" style="stroke-dasharray:240px, 240px; stroke-dashoffset: 480px;"></circle>
+                                <path d="M17.417,37.778l9.93,9.909l25.444-25.393" style="stroke-dasharray:50px, 50px; stroke-dashoffset: 0px;"></path>
+                            </g>
+                        </svg>
+                    </div>
+                    <h2>¡Pedido completado!</h2>
+                    <p>¡Pronto recibirá un email de confirmación!</p>
+                </div>
+            </div>
+        </div>
+        <!-- /row -->
+    </div>
+    <!-- /container -->
+
+</main>
+
+@section Scripts {
+    @System.Web.Optimization.Scripts.Render("~/Scripts/plugins/jsKendo/angular.min.js")
+    @System.Web.Optimization.Scripts.Render("~/Scripts/plugins/jsKendo/kendo.all.min.js")
+
+
+    @System.Web.Optimization.Scripts.Render("~/Scripts/plugins/jquery-ui/jquery-ui.js")
+    @System.Web.Optimization.Scripts.Render("~/Scripts/plugins/jquery-ui/jquery-ui.min.js")
+
+    @System.Web.Optimization.Scripts.Render("~/Resource/UserControl.Helper.js")
+
+
+    <script type="text/javascript">
+
+        $(document).ready(function () {
+            leerMenu();
+            leerMenu2();
+
+            localStorage.removeItem('productos');
+            localStorage.removeItem('descuento');
+            localStorage.removeItem('envio');
+            localStorage.removeItem('enviogratis');
+
+            leerLocalStorage();
+            calcularTotal();
+           
+        });
+
+        function leerMenu() {
+
+            var content_Catgorias = new Array();
+
+            let menuLS;
+            menuLS = obtenerMenuLocalStorage();
+            menuLS.forEach(function (menu) {
+
+                if (menu.CodigoMenuSuperior == 0) {
+                    content_Catgorias.push('<li class="megamenu submenu">');
+                    content_Catgorias.push('    <a href="javascript:void(0);" class="show-submenu-mega">' + menu.Descripcion + '</a>');
+                    content_Catgorias.push('    <div class="menu-wrapper">');
+                    content_Catgorias.push('        <div class="row small-gutters">');
+
+                    menuLS.forEach(function (menuhijo) {
+                        if (menu.CodigoMenu == menuhijo.CodigoMenuSuperior) {
+                            var url = '/tienda/categoria/' + getCookie('_SubDominio_PersonaTiendaVirtual') + '?Idcat=' + menuhijo.CodigoImagen;
+                            content_Catgorias.push('<div class="col-lg-3">');
+                            content_Catgorias.push('    <h3 style="cursor:pointer;" ><a href="' + url + '">' + menuhijo.Descripcion + '</a></h3>');
+                            content_Catgorias.push('</div>');
+                        }
+                    });
+
+                    content_Catgorias.push('        </div>');
+                    content_Catgorias.push('   </div>');
+                    content_Catgorias.push('</li>');
+                }
+
+            });
+
+            $('#ulCategorias').html(content_Catgorias.join(' '));
+        }
+
+        function leerMenu2() {
+            //PADRE MENU
+            var content_menu = new Array();
+            content_menu.push('<ul>');
+
+            let menuLS;
+            menuLS = obtenerMenuLocalStorage();
+            menuLS.forEach(function (menu) {
+
+                if (menu.CodigoMenuSuperior == 0) {
+                    content_menu.push('<li>');
+                    content_menu.push('    <span><a href="#0">' + menu.Descripcion + '</a></span>');
+                    content_menu.push('    <ul>');
+
+                    menuLS.forEach(function (menuhijo) {
+                        if (menu.CodigoMenu == menuhijo.CodigoMenuSuperior) {
+                            var url = '/tienda/categoria/' + getCookie('_SubDominio_PersonaTiendaVirtual') + '?Idcat=' + menuhijo.CodigoImagen;
+                            content_menu.push('        <li><a href="' + url + '">' + menuhijo.Descripcion + '</a></li>');
+                        }
+                    });
+
+                    content_menu.push('    </ul>');
+                    content_menu.push('</li>');
+                }
+
+            });
+
+            content_menu.push('</ul>');
+
+            $('#menu').html(content_menu.join(' '));
+        }
+
+        function getCookie(cname) {
+            var name = cname + "=";
+            var ca = document.cookie.split(';');
+            for (var i = 0; i < ca.length; i++) {
+                var c = ca[i].trim();
+                if (c.indexOf(name) == 0) return c.substring(name.length, c.length);
+            }
+            return "";
+        }
+    </script>
+}
+

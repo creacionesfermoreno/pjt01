@@ -1,0 +1,548 @@
+﻿
+@{
+    ViewBag.Title = "Software de Gestión y Control para Gimnasios y Centros Deportivos | Appsfit";
+    Layout = "~/Views/Shared/_LayoutPaginaWebAppsfit1.cshtml";
+}
+
+<!--begin home section -->
+<section class="home-section">
+
+    <div class="home-section-overlay"></div>
+
+    <!--begin container -->
+    <div class="container" id="banner1">
+
+        <!--begin row -->
+        <div class="row">
+
+            <!--begin col-md-5-->
+            <div class="col-md-6 padding-top-120">
+
+                <h1 class="heading-6 home-hero-description-container">
+                    <font style="background-color:#7573739e;vertical-align: inherit;font-size: 48px;line-height: 56px;font-weight:bold;">
+                        ¿Quieres controlar el aforo de tu Gimnasio?
+                    </font>
+                    <span class="text-primary-color" style="background-color:#7573739e;">
+                        <br>
+                        <font style="vertical-align: inherit;font-size: 48px;line-height: 56px;font-weight:bold;color:var(--colorPrincipal)">Nosotros te ayudamos.</font>
+                    </span>
+                </h1>
+
+                <p class="hero-text" style="text-align:center;">completo, fácil y todo en uno.</p>
+
+                <!--begin popup-video-wrapper-->
+                <div class="popup-gallery-wrapper">
+
+                    <!--begin popup-video-->
+                    <div class="popup-gallery">
+
+                        <a class="popup4 video-icon" href="https://www.youtube.com/watch?v=FPfQMVf4vwQ">
+                            <i class="fas fa-play"></i>
+                        </a>
+
+                    </div>
+                    <!--end popup-video-->
+
+                    <p class="popup-video-text">Ver Video</p>
+
+                </div>
+                <!--end popup-video-wrapper-->
+
+            </div>
+            <!--end col-md-5-->
+            <!--begin col-md-2-->
+            <div class="col-md-1"></div>
+            <!--end col-md-2-->
+            <!--begin col-md-5-->
+            <div class="col-md-5 margin-top-20">
+
+                <!--begin register-form-wrapper-->
+                <div class="register-form-wrapper wow bounceIn" data-wow-delay="0.5s" style="visibility: visible; animation-delay: 0.5s; animation-name: bounceIn;">
+
+                    <h3>
+                        Solicita una prueba gratuita de 14 días
+                    </h3>
+
+                    <!--begin form-->
+                    <div>
+
+                        <!--begin success message -->
+                        <p class="register_success_box" style="display:none;">We received your message and you'll hear from us soon. Thank You!</p>
+                        <!--end success message -->
+                        <!--begin register form -->
+                        <form id="register-form" class="register-form register" action="php/register.php" method="post">
+
+
+                            <input class="register-input name-input white-input" required="" name="register_names" placeholder="Nombre del centro*" type="text">
+                            <input class="register-input name-input white-input" required="" name="register_names" placeholder="Nombre del empresario*" type="text">
+                            <input class="register-input name-input white-input" required="" name="register_names" placeholder="Telefono celular*" type="text">
+                            <input class="register-input name-email white-input" required="" name="register_email" placeholder="Correo*" type="email">
+
+                            <select class="register-input white-input" required="" name="register_ticket">
+                                <option value="0">Tipo de Centro</option>
+                                <option value="1">Gimnasio</option>
+                                <option value="2">Cadenas</option>
+                                <option value="3">CrossFit</option>
+                                <option value="4">Yoga o Pilates</option>
+                                <option value="5">Baile</option>
+                                <option value="6">Baile</option>
+                                <option value="7">Boxeo</option>
+                                <option value="8">Box</option>
+                                <option value="9">Entrenador Personal</option>
+                                <option value="10">Profesor de clases grupales</option>
+
+                            </select>
+
+                            <select class="register-input white-input" required="" name="register_ticket">
+                                <option value="0">¿Que estas buscando en Appsfit?</option>
+                                <option value="1">Controlar y organizar mi centro</option>
+                                <option value="2">Clases online y en vivo</option>
+                                <option value="3">Control de aforo y citas</option>
+                                <option value="4">Pagina web para reserva de clases</option>
+                                <option value="5">Tienda online</option>
+                                <option value="6" style="display:none;">App para reservas de clases</option>
+                                <option value="7" style="display:none;">App para rutinas y dietas de mis clientes</option>
+                                <option value="8">Otro</option>
+
+                            </select>
+
+                            <input value="Quiero probar Appsfit" class="register-submit" type="submit" style="background: linear-gradient(90deg, var(--colorPrincipal) 0%, var(--colorPrincipal) 35%, var(--colorSecundario) 100%);">
+
+                        </form>
+                        <!--end register form -->
+
+                        <p class="register-form-terms">No Credit Card &#8226; No Installation Required</p>
+
+                    </div>
+                    <!--end form-->
+
+                </div>
+                <!--end register-form-wrapper-->
+
+            </div>
+            <!--end col-md-5-->
+
+        </div>
+        <!--end row -->
+
+    </div>
+    <!--end container -->
+
+</section>
+<!--end home section -->
+<!--begin team section -->
+<section class="section-grey section-bottom-border">
+
+    <!--begin container -->
+    <div class="container padding-top-100">
+
+        <!--begin row -->
+        <div class="row">
+
+            <!--begin col-md-12 -->
+            <div class="col-md-12 text-center">
+
+                <h3 class="section-title">Más de 250 centros fit confían en Appsfit</h3>
+
+            </div>
+            <!--end col-md-12 -->
+            <!--begin col-md-12 -->
+            <div class="col-md-12 text-center" style="display:none;">
+
+                <!--begin partners-mentions -->
+                <ul class="partners-mentions">
+
+                    <li><img src="http://placehold.it/285x128" alt="CSS Awards"></li>
+
+                    <li><img src="http://placehold.it/285x128" alt="Awwwards"></li>
+
+                    <li><img src="http://placehold.it/285x128" alt="CSS Winner"></li>
+
+                    <li><img src="http://placehold.it/285x128" alt="CSS Design Awards"></li>
+                    <li><img src="http://placehold.it/285x128" alt="CSS Design Awards"></li>
+                    <li><img src="http://placehold.it/285x128" alt="CSS Design Awards"></li>
+                    <li><img src="http://placehold.it/285x128" alt="CSS Design Awards"></li>
+                    <li><img src="http://placehold.it/285x128" alt="CSS Design Awards"></li>
+                </ul>
+                <!--end partners-mentions -->
+
+            </div>
+            <!--end col-md-12 -->
+            <!--begin col-md-12 -->
+            <div class="col-md-12 text-center">
+
+                <!--begin iframe-youtube -->
+                <div class="iframe-youtube">
+
+                    <iframe width="860" height="498" src="https://www.youtube.com/embed/YMdvfZj_bv0?controls=0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
+                </div>
+                <!--end iframe-youtube -->
+
+            </div>
+            <!--end col-md-12 -->
+
+        </div>
+        <!--end row -->
+
+    </div>
+    <!--end container -->
+
+</section>
+<!--end team section-->
+
+<section class="small-paddings" style="background: linear-gradient(90deg, var(--colorPrincipal) 0%, var(--colorPrincipal) 35%, var(--colorSecundario) 100%);">
+
+    <div class="image-green-overlay"></div>
+
+    <!--begin container -->
+    <div class="container">
+
+        <!--begin row -->
+        <div class="row">
+
+            <!--begin col-md-12 -->
+            <div class="col-md-12 text-center padding-top-60 padding-bottom-40">
+                <h2 class="section-title" style="color:#ffffff;">Appsfit, la solución para tu centro fit todo en 1</h2>
+                <p class="section-subtitle" style="color:#ffffff;">Soluciones integradas diseñadas para reinventar tu centro fit.</p>
+
+            </div>
+
+        </div>
+        <!--end row -->
+
+    </div>
+    <!--end container -->
+
+</section>
+<!--end container -->
+<!--begin section-grey -->
+<section class="section-grey section-bottom-border" style="padding-bottom:10px;">
+
+
+    <!--begin container -->
+    <div class="container">
+        <!--begin row -->
+        <div class="row">
+
+            <!--begin col-md-12 -->
+            <div class="col-md-12 margin-top-20">
+
+                <div class="nav nav-pills margin-right-25" role="tablist" aria-orientation="vertical">
+
+                    <a class="nav-link active" id="v-controlgestionfit-tab" data-toggle="pill" href="#b-controlgestionfit" role="tab" aria-controls="v-pills-home" aria-selected="true">
+                        <!--begin features-second -->
+                        <div class="features-second">
+
+                            <div class="dropcaps-circle blue">
+                                <i class="pe-7s-diamond"></i>
+                            </div>
+
+                            <h4 class="margin-bottom-5">Controla y organiza tu centro.</h4>
+
+                            <p>Gana más tiempo para tus seres queridos.</p>
+
+                        </div>
+                        <!--end features-second-->
+                    </a>
+
+                    <a class="nav-link" id="v-controlaforofit-tab" data-toggle="pill" href="#b-controlaforofit" role="tab" aria-controls="v-pills-profile" aria-selected="false">
+                        <!--begin features-second-->
+                        <div class="features-second">
+
+                            <div class="dropcaps-circle green">
+                                <i class="pe-7s-note2"></i>
+                            </div>
+
+                            <h4 class="margin-bottom-5">Reservas y control de aforo online.</h4>
+
+                            <p>tener todo vinculado es ahorrar mucho tiempo.</p>
+
+                        </div>
+                        <!--end features-second-->
+                    </a>
+
+                    <a class="nav-link" id="v-paginaweb-tab" data-toggle="pill" href="#b-paginaweb" role="tab" aria-controls="v-pills-home" aria-selected="true">
+                        <!--begin features-second -->
+                        <div class="features-second">
+
+                            <div class="dropcaps-circle blue">
+                                <i class="pe-7s-diamond"></i>
+                            </div>
+
+                            <h4 class="margin-bottom-5">tu propia página web.</h4>
+
+                            <p>Tómese enserio su centro fit en linea y atrae nuevos clientes.</p>
+
+                        </div>
+                        <!--end features-second-->
+                    </a>
+
+                </div>
+
+            </div>
+            <!--end col-md-12 -->
+            <!--begin col-md-12 -->
+            <div class="col-md-12">
+
+                <div class="tab-content">
+
+                    <div class="tab-pane fade show active" id="b-controlgestionfit" role="tabpanel" aria-labelledby="v-controlgestionfit-tab">
+
+                        <div class="row">
+
+                            <div class="col-md-6">
+                                <img src="~/Content/paginaappsfit1/images/gestion.png" class="width-100" alt="pic">
+                            </div>
+
+                            <div class="col-md-6 padding-top-10">
+
+                                <h4>Controla y organiza tu centro.</h4>
+
+                                <p>Optimiza las operaciones de tu centro fit, conecta todas las áreas .</p>
+
+                                <ul class="benefits">
+                                    <li><i class="far fa-check-circle"></i> Controla asistencias e inasistencias</li>
+                                    <li><i class="far fa-check-circle"></i> Cuotas por cobrar y saldos de membresías y productos.</li>
+                                    <li><i class="far fa-check-circle"></i> Profesores, horarios y pagos.</li>
+                                </ul>
+
+                                <a href="#contact" class="btn-green small scrool">Saber más</a>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                    <div class="tab-pane fade" id="b-controlaforofit" role="tabpanel" aria-labelledby="v-controlaforofit-tab">
+
+                        <div class="row">
+
+                            <div class="col-md-6 padding-top-20">
+
+                                <h4>Reduce los costos y ten todo vinculado.</h4>
+
+                                <p>tus clientes volveran a entrenar deberás cumplir de manera estricta nuevas normas de convivencia en tu centro fit..</p>
+
+                                <ul class="benefits">
+                                    <li><i class="far fa-check-circle"></i> Reserva de asistencia en tu página web</li>
+                                    <li><i class="far fa-check-circle"></i> Selección la hora y fecha.</li>
+                                    <li><i class="far fa-check-circle"></i> Horarios en sala de máquinas y salas grupales.</li>
+                                </ul>
+
+                                <a href="#contact" class="btn-green small scrool">Saber más</a>
+
+                            </div>
+
+                            <div class="col-md-6">
+                                <img src="~/Content/paginaappsfit1/images/reservas.png" class="width-100" alt="pic">
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                    <div class="tab-pane fade" id="b-paginaweb" role="tabpanel" aria-labelledby="v-paginaweb-tab">
+
+                        <div class="row">
+
+                            <div class="col-md-6 padding-top-20">
+
+                                <h4>Tómese enserio su centro fit en linea y atrae nuevos clientes.</h4>
+
+                                <p>realza tu marca y brindale más confianza a tus clientes.</p>
+
+                                <ul class="benefits">
+                                    <li><i class="far fa-check-circle"></i> Recibe pagos con tarjeta de débito y crédito.</li>
+                                    <li><i class="far fa-check-circle"></i> Captura nuevos clientes con un formulario.</li>
+                                    <li><i class="far fa-check-circle"></i> Diseño intuitivo y amigable.</li>
+                                </ul>
+
+                                <a href="#contact" class="btn-green small scrool">Saber más</a>
+
+                            </div>
+
+                            <div class="col-md-6">
+                                <img src="~/Content/paginaappsfit1/images/paginaweb.png" class="width-100" alt="pic">
+                            </div>
+
+                        </div>
+                    </div>
+
+
+                </div>
+
+            </div>
+            <!--end col-md-12 -->
+
+        </div>
+        <!--end row -->
+    </div>
+    <!--end container -->
+    <!--begin container -->
+    <div class="container">
+        <!--begin row -->
+        <div class="row">
+
+            <!--begin col-md-12 -->
+            <div class="col-md-12 margin-top-20">
+
+                <div class="nav nav-pills margin-right-25" role="tablist" aria-orientation="vertical">
+
+                    <a class="nav-link active" id="v-tiendaonline-tab" data-toggle="pill" href="#b-tiendaonline" role="tab" aria-controls="v-pills-profile" aria-selected="false">
+                        <!--begin features-second-->
+                        <div class="features-second">
+
+                            <div class="dropcaps-circle green">
+                                <i class="pe-7s-note2"></i>
+                            </div>
+
+                            <h4 class="margin-bottom-5">Tienda online y punto de venta.</h4>
+
+                            <p>Vende las 24 horas a tus clientes.</p>
+
+                        </div>
+                        <!--end features-second-->
+                    </a>
+
+                    <a style="display:none;" class="nav-link" id="v-appclientes-tab" data-toggle="pill" href="#b-appclientes" role="tab" aria-controls="v-pills-messages" aria-selected="false">
+                        <!--begin features-second-->
+                        <div class="features-second">
+                            <div class="dropcaps-circle red">
+                                <i class="pe-7s-bell"></i>
+                            </div>
+                            <h4 class="margin-bottom-5">App para tus clientes.</h4>
+
+                            <p>Tu centro fit más cerca a ellos.</p>
+
+                        </div>
+                        <!--end features-second-->
+                    </a>
+
+                </div>
+
+            </div>
+            <!--end col-md-12 -->
+            <!--begin col-md-12 -->
+            <div class="col-md-12">
+
+                <div class="tab-content" id="b-pills-tabContent">
+
+
+                    <div class="tab-pane fade show active" id="b-tiendaonline" role="tabpanel" aria-labelledby="v-tiendaonline-tab">
+
+                        <div class="row">
+
+                            <div class="col-md-6">
+                                <img src="~/Content/paginaappsfit1/images/tienda.png" class="width-100" alt="pic">
+                            </div>
+
+                            <div class="col-md-6 padding-top-10">
+
+                                <h4>Vende las 24 horas a tus clientes.</h4>
+
+                                <p>Triplica tus ventas.</p>
+
+                                <ul class="benefits">
+                                    <li><i class="far fa-check-circle"></i> Recibe pagos con tarjeta de débito y crédito..</li>
+                                    <li><i class="far fa-check-circle"></i> carrito de compras y administrador web de tu tienda.</li>
+                                    <li><i class="far fa-check-circle"></i> Sube hasta 200 productos.</li>
+                                </ul>
+
+                                <a href="#contact" class="btn-green small scrool">Get Started</a>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                    <div class="tab-pane fade" id="b-appclientes" role="tabpanel" aria-labelledby="v-appclientes-tab">
+
+                        <div class="row">
+
+                            <div class="col-md-6">
+                                <img src="http://placehold.it/555x379" class="width-100" alt="pic">
+                            </div>
+
+                            <div class="col-md-6 padding-top-20">
+
+                                <h4>Tu centro fit más cerca a ellos.</h4>
+
+                                <p>Potencia la experiencia que ofrece tu centro.</p>
+
+                                <ul class="benefits">
+                                    <li><i class="fas fa-arrow-right"></i> Reservas de clases.</li>
+                                    <li><i class="fas fa-arrow-right"></i> Medición de progreso físico.</li>
+                                    <li><i class="fas fa-arrow-right"></i> Tienda online incluido.</li>
+                                    <li><i class="fas fa-arrow-right"></i> Clases online y en vivo incluido.</li>
+                                </ul>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+            <!--end col-md-12 -->
+
+        </div>
+        <!--end row -->
+    </div>
+    <!--end container -->
+
+</section>
+<!--end section-grey -->
+<!--begin newsletter section -->
+<section class="small-paddings" style="background: linear-gradient(90deg, var(--colorPrincipal) 0%, var(--colorPrincipal) 35%, var(--colorSecundario) 100%);">
+
+    <div class="image-green-overlay"></div>
+
+    <!--begin container -->
+    <div class="container">
+
+        <!--begin row -->
+        <div class="row">
+
+            <!--begin col-md-12 -->
+            <div class="col-md-12 text-center padding-top-60 padding-bottom-40">
+
+                <h3 class="white-text">
+                    Déjate asesorar por un equipo especializado en tecnología para centros fit.<br>
+                    Más de 250 centros fit ya disfrutan de las ventajas que ofrece Appsfit.
+                </h3>
+
+            </div>
+            <!--end col-md-12 -->
+            <!--begin col-md-12-->
+            <div class="col-md-12 padding-bottom-60">
+
+                <!--begin newsletter_form_wrapper -->
+                <div class="newsletter_form_wrapper" data-wow-delay="0.25s">
+
+                    <!--begin newsletter_form_box -->
+                    <div class="newsletter_form_box">
+
+                        <a href="#banner1" class="btn-white scrool">Empieza una prueba gratuita</a>
+
+                    </div>
+                    <!--end newsletter_form_box -->
+
+                </div>
+                <!--end newsletter_form_wrapper -->
+
+            </div>
+            <!--end col-md-12 -->
+
+        </div>
+        <!--end row -->
+
+    </div>
+    <!--end container -->
+
+</section>
+<!--end newsletter section -->

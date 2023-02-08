@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Generator: Adobe Illustrator 16.0.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="170px"
+	 height="170px" viewBox="0 0 170 170" enable-background="new 0 0 170 170" xml:space="preserve">
+<g id="Background">
+</g>
+<g id="Circle">
+	<g>
+		<path fill="#FFFFFF" d="M85,170c-46.869,0-85-38.131-85-85S38.131,0,85,0s85,38.131,85,85S131.869,170,85,170z"/>
+	</g>
+</g>
+<g id="TEXT">
+</g>
+<g id="Icons">
+	<g>
+		<circle fill="none" stroke="#282D33" stroke-width="4" cx="84.604" cy="90.271" r="44"/>
+		<circle fill="none" stroke="#282D33" stroke-width="4" cx="84.604" cy="90.271" r="34.666"/>
+		<circle fill="none" stroke="#282D33" stroke-width="4" cx="84.603" cy="90.271" r="4"/>
+		<g>
+			<line fill="none" stroke="#282D33" stroke-width="4" x1="92.146" y1="82.729" x2="104.875" y2="70"/>
+			<line fill="none" stroke="#282D33" stroke-width="4" x1="64.333" y1="110.541" x2="77.061" y2="97.814"/>
+		</g>
+		<g>
+			<line fill="none" stroke="#282D33" stroke-width="4" x1="92.146" y1="97.814" x2="104.875" y2="110.541"/>
+			<line fill="none" stroke="#282D33" stroke-width="4" x1="64.333" y1="70" x2="77.062" y2="82.729"/>
+		</g>
+		<g>
+			<line fill="none" stroke="#282D33" stroke-width="4" x1="95.271" y1="90.271" x2="105.271" y2="90.271"/>
+			<line fill="none" stroke="#282D33" stroke-width="4" x1="63.938" y1="90.271" x2="73.938" y2="90.271"/>
+		</g>
+		<g>
+			<line fill="none" stroke="#282D33" stroke-width="4" x1="84.604" y1="100.938" x2="84.604" y2="110.938"/>
+			<line fill="none" stroke="#282D33" stroke-width="4" x1="84.604" y1="69.604" x2="84.604" y2="79.605"/>
+		</g>
+		<line fill="none" stroke="#282D33" stroke-width="4" x1="84.604" y1="51.521" x2="84.604" y2="37.854"/>
+		<circle fill="none" stroke="#282D33" stroke-width="4" cx="84.604" cy="37.188" r="6.333"/>
+	</g>
+</g>
+</svg>

@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Generator: Adobe Illustrator 16.0.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="170px"
+	 height="170px" viewBox="0 0 170 170" enable-background="new 0 0 170 170" xml:space="preserve">
+<g id="Background">
+</g>
+<g id="Circle">
+	<g>
+		<path fill="#FFFFFF" d="M85,170c-46.869,0-85-38.131-85-85S38.131,0,85,0s85,38.13,85,85S131.869,170,85,170z"/>
+	</g>
+</g>
+<g id="TEXT">
+</g>
+<g id="Icons">
+	<g>
+		<line fill="none" stroke="#282D33" stroke-width="4" x1="99.185" y1="117.615" x2="68.478" y2="125.843"/>
+		<line fill="none" stroke="#282D33" stroke-width="4" x1="97.352" y1="92.615" x2="70.312" y2="100.814"/>
+		<line fill="none" stroke="#282D33" stroke-width="4" x1="70.778" y1="88.166" x2="96.886" y2="80.25"/>
+		<line fill="none" stroke="#282D33" stroke-width="4" x1="69.06" y1="113.179" x2="98.604" y2="105.264"/>
+		<g>
+			<line fill="none" stroke="#282D33" stroke-width="4" x1="97.149" y1="75.602" x2="101.007" y2="130.923"/>
+			<line fill="none" stroke="#282D33" stroke-width="4" x1="66.656" y1="130.923" x2="70.512" y2="75.602"/>
+		</g>
+		<rect x="66.656" y="64.041" fill="none" stroke="#282D33" stroke-width="4" width="34.353" height="10.993"/>
+		<rect x="72.152" y="51.673" fill="none" stroke="#282D33" stroke-width="4" width="23.36" height="12.367"/>
+		<polyline fill="none" stroke="#282D33" stroke-width="4" points="67.667,49.438 83.832,38.62 99.997,49.438 		"/>
+		<line fill="none" stroke="#282D33" stroke-width="4" x1="60.013" y1="131.144" x2="107.649" y2="131.144"/>
+		<line fill="none" stroke="#282D33" stroke-width="4" x1="83.832" y1="64.271" x2="83.832" y2="56.942"/>
+		<polyline fill="none" stroke="#282D33" stroke-width="4" stroke-linejoin="bevel" points="133.31,73.56 118.123,64.792 
+			102.937,56.025 118.123,47.257 133.309,38.49 		"/>
+		<polyline fill="none" stroke="#282D33" stroke-width="4" stroke-linejoin="bevel" points="35.437,38.491 50.623,47.258 
+			65.81,56.026 50.623,64.793 35.437,73.561 		"/>
+	</g>
+</g>
+</svg>

@@ -1,0 +1,1364 @@
+﻿
+@{
+    ViewBag.Title = "anularventas";
+    Layout = "~/Views/Shared/__LayoutAppFitPlataformaFit.cshtml";
+}
+
+
+<link href="@Url.Content("~/Content/cssKendo/kendo.common.min.css")" rel="stylesheet" />
+<link href="@Url.Content("~/Content/cssKendo/kendo.dataviz.default.min.css")" rel="stylesheet" />
+<link href="@Url.Content("~/Content/cssKendo/kendo.dataviz.min.css")" rel="stylesheet" />
+<link href="@Url.Content("~/Content/cssKendo/kendo.default.min.css")" rel="stylesheet" />
+
+
+<style>
+    .modal-body {
+    }
+
+    .modal-backdrop {
+        display: none;
+    }
+
+    .card-body {
+        margin-top: -5px;
+        margin-bottom: -5px;
+    }
+
+    .k-header, .k-grid-header, .k-toolbar, .k-dropdown-wrap, .k-picker-wrap, .k-numeric-wrap, .k-grouping-header, .k-pager-wrap, .k-textbox, .k-button, .k-progressbar, .k-draghandle, .k-autocomplete, .k-state-highlight, .k-tabstrip-items .k-item, .k-panelbar .k-tabstrip-items .k-item, .km-pane-wrapper > .km-pane > .km-view > .km-content {
+        background-image: url(textures/highlight.png);
+        background-image: none,-webkit-linear-gradient(top,#0075ff 0,#0075ff 100%);
+        background-image: none,-moz-linear-gradient(top,#0075ff 0,#0075ff 100%);
+        background-image: none,-o-linear-gradient(top,#0075ff 0,#0075ff 100%);
+        background-image: none,linear-gradient(to bottom,#0075ff 0,#0075ff 100%);
+        background-position: 50% 50%;
+        background-color: #e3e3e3;
+        color: #fff;
+    }
+
+        .k-header, .k-grid-header-wrap, .k-grid .k-grouping-header, .k-grid-header, .k-pager-wrap, .k-pager-wrap .k-textbox, .k-pager-wrap .k-link, .k-grouping-header .k-group-indicator, .k-gantt-toolbar .k-state-default {
+            border-color: #e8eaee;
+            background-color: #0075ff;
+            color: #fff;
+        }
+
+    .modal {
+        display: none;
+        background-color: rgba(0, 0, 0, 0.77);
+    }
+
+    .k-block, .k-header, .k-grid-header, .k-toolbar, .k-grouping-header, .k-pager-wrap, .k-button, .k-draghandle, .k-treemap-tile, html .km-pane-wrapper .k-header {
+        background-color: #0075ff;
+        color: #fff;
+    }
+
+        .k-grid-header th.k-header > .k-link {
+            display: block;
+            min-height: 18px;
+            line-height: 18px;
+            margin: -0.5em -0.6em -0.4em -0.6em;
+            padding: .1em .1em .1em .1em;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            color: #fff;
+        }
+
+        .k-grid-header table, .k-grid-content table, .k-grid-footer table, .k-grid-content-locked > table {
+            table-layout: fixed;
+        }
+
+    .k-grid tr td {
+        border-bottom: 1px solid #ada9a9;
+        border-style: dashed;
+    }
+
+    .k-grid-toolbar:first-child, .k-grouping-header + .k-grid-toolbar {
+        border-width: 0 0 1px;
+        border-radius: 0px;
+        background-color: #d7eafa;
+        height: 10px;
+    }
+
+    .k-block, .k-header, .k-grid-header, .k-toolbar, .k-grouping-header, .k-pager-wrap, .k-button, .k-draghandle, .k-treemap-tile, html .km-pane-wrapper .k-header {
+        background-color: rgba(227, 227, 227, 0);
+    }
+
+    #txtFechaInicioProcFreezing .k-header, .k-grid-header, .k-toolbar, .k-dropdown-wrap, .k-picker-wrap, .k-numeric-wrap, .k-grouping-header, .k-pager-wrap, .k-textbox, .k-button, .k-progressbar, .k-draghandle, .k-autocomplete, .k-state-highlight, .k-tabstrip-items .k-item, .k-panelbar .k-tabstrip-items .k-item, .km-pane-wrapper > .km-pane > .km-view > .km-content {
+        background-image: url(textures/highlight.png);
+        background-image: none,-webkit-linear-gradient(top,#0075ff 0,#0075ff 100%);
+        background-image: none,-moz-linear-gradient(top,#0075ff 0,#0075ff 100%);
+        background-image: none,-o-linear-gradient(top,#0075ff 0,#0075ff 100%);
+        background-image: none,linear-gradient(to bottom,#0075ff 0,#0075ff 100%);
+        background-position: 50% 50%;
+        background-color: #ffffff;
+    }
+
+    .k-state-selected {
+        color: #FFFFFF;
+        background-color: #0075ff;
+        border-color: #0075ff;
+    }
+
+    tr {
+        height: 16px;
+        font-size: 13px;
+    }
+
+    /** SPINNER CREATION **/
+    .loader {
+        position: relative;
+        text-align: center;
+        margin: 15px auto 35px auto;
+        z-index: 9999;
+        display: block;
+        width: 80px;
+        height: 80px;
+        border: 10px solid rgba(0, 0, 0, .3);
+        border-radius: 50%;
+        border-top-color: #000;
+        animation: spin 1s ease-in-out infinite;
+        -webkit-animation: spin 1s ease-in-out infinite;
+    }
+
+
+    /** MODAL STYLING **/
+    .modal-content {
+        border-radius: 0px;
+        box-shadow: 0 0 20px 8px rgba(0, 0, 0, 0.7);
+    }
+
+
+    [dir=ltr] .modal-lg, [dir=ltr] .modal-xl {
+        max-width: 950px;
+    }
+
+    a {
+        color: transparent;
+        text-decoration: none;
+    }
+</style>
+
+
+<div class="page__header page__header-nav mb-0">
+    <div class="container-fluid page__container">
+        <div class="navbar navbar-secondary navbar-light navbar-expand-sm p-0 d-none d-md-flex" id="secondaryNavbar">
+            <ul class="nav navbar-nav">
+                <li class="nav-item">
+                    <button style="color: #ffffff;background-color: #ff0200;font-size: 1.0rem;border: 0px #ff0200 solid;height: 33px;padding: 5px;cursor:pointer;" class="navbar-toggler navbar-toggler-custom d-flex mr-navbar" type="button" data-toggle="sidebar">
+                        Operaciones
+                    </button>
+                </li>
+                <li class="nav-item" data-controlmodulo="45833cdd-55db-4a67-a879-f1ae9353f8bf">
+                    <a href="@Url.Action("checking","gestionce",new {id= HttpContext.Current.Request.Cookies["_SubDominio_Business"].Value})" class="nav-link">Clientes</a>
+                </li>
+                <li class="nav-item" data-controlmodulo="9e69cfd8-b063-44df-a7f2-a3a10d1eb899" style="display:none;">
+                    <a class="nav-link " href="@Url.Action("posfitness","pos",new {id= HttpContext.Current.Request.Cookies["_SubDominio_Business"].Value})">Punto de venta</a>
+                </li>
+                <li class="nav-item" data-controlmodulo="7611dfbe-186f-4abe-8e2e-e64ad7281728" style="display:none;">
+                    <a class="nav-link" href="@Url.Action("caja","gestionce",new {id= HttpContext.Current.Request.Cookies["_SubDominio_Business"].Value})">Caja</a>
+                </li>
+                <li class="nav-item" data-controlmodulo="93c0d848-83aa-45eb-a83a-ded00a6b6e23" style="display:none;">
+                    <a class="nav-link" href="@Url.Action("nutricion","gestionce",new {id= HttpContext.Current.Request.Cookies["_SubDominio_Business"].Value})">Medidas y Nutrición</a>
+                </li>
+                <li class="nav-item" data-controlmodulo="947dc11f-3e14-4fe7-bedc-ae3d81219bee" style="display:none;">
+                    <a class="nav-link" href="@Url.Action("Index","inventariofit",new {id= HttpContext.Current.Request.Cookies["_SubDominio_Business"].Value})">Inventario</a>
+                </li>
+
+                <li class="nav-item" data-controlmodulo="39497bd3-94ab-4236-a1d4-4623d854f91e" style="display:none;">
+                    <a href="@Url.Action("agendacomercial","gestionce",new {id= HttpContext.Current.Request.Cookies["_SubDominio_Business"].Value})" class="nav-link">Agenda Comercial</a>
+                </li>
+                <li class="nav-item" data-controlmodulo="bbc035e6-68ea-4885-917f-005ad3fcfb66" style="display:none;">
+                    <a href="@Url.Action("metascomerciales","gestionce",new {id= HttpContext.Current.Request.Cookies["_SubDominio_Business"].Value})" class="nav-link">Metas</a>
+                </li>
+                <li class="nav-item" data-controlmodulo="bd61dc23-54d9-4901-9c35-b8d228b3a924" style="display:none;">
+                    <a href="@Url.Action("marketing","gestionce",new {id= HttpContext.Current.Request.Cookies["_SubDominio_Business"].Value})" class="nav-link">Marketing</a>
+                </li>
+                <li class="nav-item" data-controlmodulo="e1eadd0d-39b3-498d-b09b-9b3b28610b9b" style="display:none;">
+                    <a href="@Url.Action("informesfit","gestionce",new {id= HttpContext.Current.Request.Cookies["_SubDominio_Business"].Value})" class="nav-link">Informes</a>
+                </li>
+                <li class="nav-item" data-controlmodulo="600dabf4-7dc3-4dc0-a0ba-74b782955e52" style="display:none;">
+                    <a class="nav-link" href="@Url.Action("pagospersonal","gestionce",new {id= HttpContext.Current.Request.Cookies["_SubDominio_Business"].Value})">Pagos</a>
+                </li>
+                <li class="nav-item" data-controlmodulo="b1f65597-fd27-46ca-90d0-a0f2f1039ef7" style="display:none;">
+                    <a class="nav-link" href="@Url.Action("finanzas","gestionce",new {id= HttpContext.Current.Request.Cookies["_SubDominio_Business"].Value})">Finanzas</a>
+                </li>
+                <li class="nav-item" data-controlmodulo="4c01e8de-9440-4927-a2f2-d6241d925c39" style="display:none;">
+                    <a class="nav-link" href="@Url.Action("estadisticas","gestionce",new {id= HttpContext.Current.Request.Cookies["_SubDominio_Business"].Value})">Estadísticas</a>
+                </li>
+
+            </ul>
+        </div>
+    </div>
+</div>
+
+<input id="hdCodigoComprobante" type="hidden" value="0" />
+<input id="hdCodigoComprobanteVentaDiaria" type="hidden" value="0" />
+
+<div class="container-fluid page__container" style="background-color:#e9ebee;">
+    <br />
+    <div class="card-header card-header-tabs-basic nav" role="tablist" style="background-color: #fff;">
+        <a href="#DivProductos" class="active" data-toggle="tab" role="tab" aria-controls="DivProductos" aria-selected="true">Anular productos</a>
+        <a href="#DivDiarios" data-toggle="tab" role="tab" aria-controls="DivDiarios" aria-selected="false">Anular diarios</a>
+        <a href="#DivHistorialMembresias" data-toggle="tab" role="tab" aria-controls="DivHistorialMembresias" aria-selected="false">Historial membresias</a>
+    </div>
+    <div class="card-body tab-content">
+        <div id="DivProductos" class="tab-pane active show fade">
+            <div class="row">
+                <div class="col-lg-6">
+                    <div class="card">
+                        <div class="card-header card-header-sm d-flex align-items-center" style="background-color:#fff;">
+                            <h4 class="card-header__title flex m-0">PASO 1 : BUSCAR COMPROBANTE POR FECHA</h4>
+                        </div>
+                        <div class="card-body tab-content" style="height:480px">
+                            <div class="tab-pane active show fade">
+
+                                <table border="0" style="width:100%;">
+                                    <tbody>
+                                        <tr>
+                                            <td style="width: 20%;" align="left">
+                                                <input id="txtFechaVentasHechaTotales" type="text" style="width:95%;font-size:12px;" />
+                                            </td>
+                                            <td style="width:20%;" align="left">
+                                                <input id="txtFechaVentaFinTotales" type="text" style="width:95%;font-size:12px;" />
+                                            </td>
+                                            <td style="width:10%;" align="left">
+                                                <button type="button" class="btn btn-primary btn-sm" title="Buscar" onclick="ecommerce_uspListarComprobante_Paginacion();">Buscar</button>
+                                            </td>
+                                            <td style="width: 50%;" align="right"></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+
+                                <div id="gridVentas"></div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="card">
+                        <div class="card-header card-header-sm d-flex align-items-center" style="background-color:#fff;">
+                            <h4 class="card-header__title flex m-0">PASO 2 : DETALLE</h4>
+                        </div>
+                        <div class="card-body tab-content" style="height:480px">
+                            <div class="tab-pane active show fade">
+                                <div class="button-list" data-controlmodulo="6f5bda91-c844-431b-a29f-d1df3d1c5f91" style="display:none;">
+                                    <button id="btnAnularVenta" style="display:none;" type="button" class="btn btn-primary btn-sm" title="Anular" data-toggle="modal" data-target="#modalConfirmarAnularVenta">Anular venta</button>
+                                    <button type="button" class="btn btn-primary btn-sm" title="" style="display:none;">Imprimir copia</button>
+                                </div>
+                                <div id="gridVentasDetalle"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="DivDiarios" class="tab-pane fade">
+            <div class="row">
+                <div class="col-lg-7">
+                    <div class="card">
+                        <div class="card-header card-header-sm d-flex align-items-center" style="background-color:#fff;">
+                            <h4 class="card-header__title flex m-0">PASO 1 : BUSCAR COMPROBANTE POR FECHA</h4>
+                        </div>
+                        <div class="card-body tab-content" style="height:480px">
+                            <div class="tab-pane active show fade">
+
+                                <table border="0" style="width:100%;">
+                                    <tbody>
+                                        <tr>
+                                            <td style="width: 20%;" align="left">
+                                                <input id="txtDiarios_Fechainicio" type="text" style="width:95%;font-size:12px;" />
+                                            </td>
+                                            <td style="width:20%;" align="left">
+                                                <input id="txtDiarios_Fechafin" type="text" style="width:95%;font-size:12px;" />
+                                            </td>
+                                            <td style="width:10%;" align="left">
+                                                <button type="button" class="btn btn-primary btn-sm" title="Buscar" onclick="ListarVentasSinClientes();">Buscar</button>
+                                            </td>
+                                            <td style="width: 20%;" align="right"></td>
+                                            <td style="width: 20%;" align="right">
+                                                <div style="color:#0075ff;">
+                                                    Cantidad: <label id="lblCantidad_ListarVentasSinClientes">0</label>
+                                                </div>
+                                            </td>
+                                            <td style="width: 10%;" align="right">
+                                                <select id="ddlPaginacion_ListarVentasSinClientes" style="width:60px;"></select>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+
+                                <div id="gridVentaSinCliente"></div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-5">
+                    <div class="card">
+                        <div class="card-header card-header-sm d-flex align-items-center" style="background-color:#fff;">
+                            <h4 class="card-header__title flex m-0">PASO 2 : DETALLE</h4>
+                        </div>
+                        <div class="card-body tab-content" style="height:480px">
+                            <div class="tab-pane active show fade">
+                                <div class="button-list">
+                                    <button id="btnAnularVentaVentaDiaria" style="display:none;" type="button" class="btn btn-primary btn-sm" title="Anular" data-toggle="modal" data-target="#modalConfirmarAnularVentaDiaria">Anular venta</button>
+
+                                </div>
+                                <div id="gridVentasDiariosDetalle"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="DivHistorialMembresias" class="tab-pane fade">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="card">
+                        <div class="card-header card-header-sm d-flex align-items-center" style="background-color:#fff;">
+                            <h4 class="card-header__title flex m-0">BUSCAR PAGOS ANULADOS DE MEMBRESIAS POR FECHA MATRICULA</h4>
+                        </div>
+                        <div class="card-body tab-content" style="height:590px">
+                            <table border="0" style="width:100%;">
+                                <tbody>
+                                    <tr>
+                                        <td style="width: 20%;" align="left">
+                                            <input id="txtMembresiasAnuladas_Fechainicio" type="text" style="width:95%;font-size:12px;" />
+                                        </td>
+                                        <td style="width:20%;" align="left">
+                                            <input id="txtMembresiasAnuladas_Fechafin" type="text" style="width:95%;font-size:12px;" />
+                                        </td>
+                                        <td style="width:10%;" align="left">
+                                            <button type="button" class="btn btn-primary btn-sm" title="Buscar" onclick="uspListarPagoMembresia_Anulados();">Buscar</button>
+                                        </td>
+                                        <td style="width: 20%;" align="right"></td>
+                                        <td style="width: 20%;" align="right">
+                                            <div style="color:#0075ff;display:none;">
+                                                Cantidad: <label id="lblCantidad_ddlPaginacion_VentaAnuladasMembresias">0</label>
+                                            </div>
+                                        </td>
+                                        <td style="width: 10%;" align="right">
+                                            <select id="ddlPaginacion_VentaAnuladasMembresias" style="width: 60px;display: none;"></select>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+
+                            <div id="gridVentaAnuladasMembresias"></div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+
+</div>
+
+<div id="modalConfirmarAnularVenta" class="modal fade" role="dialog" aria-labelledby="modal-small-title" style="padding-right: 17px;">
+    <div class="modal-dialog modal-sm" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="modal-small-title">Mensaje AppsFit</h5>
+                <button id="btnCerrarmodalConfirmarAnularVenta" type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div> <!-- // END .modal-header -->
+            <div class="modal-body">
+                <p>¿Esta seguro de eliminar la venta?</p>
+            </div> <!-- // END .modal-body -->
+            <div class="modal-footer">
+                <button id="btnNo_AnularVenta" type="button" class="btn btn-light" data-dismiss="modal">NO</button>
+                <button id="btnSi_AnularVenta" onclick="CentroEntrenamiento_uspEliminarComprobante();" type="button" class="btn btn-primary">SI</button>
+            </div> <!-- // END .modal-footer -->
+        </div> <!-- // END .modal-content -->
+    </div> <!-- // END .modal-dialog -->
+</div>
+
+
+<div id="modalConfirmarAnularVentaDiaria" class="modal fade" role="dialog" aria-labelledby="modal-small-title" style="padding-right: 17px;">
+    <div class="modal-dialog modal-sm" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="modal-small-title">Mensaje AppsFit</h5>
+                <button onclick="event_cerrarmodalventadiaria();" type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div> <!-- // END .modal-header -->
+            <div class="modal-body">
+                <p>¿Esta seguro de eliminar la venta diaria?</p>
+            </div> <!-- // END .modal-body -->
+            <div class="modal-footer">
+                <button onclick="event_cerrarmodalventadiaria();" type="button" class="btn btn-light" data-dismiss="modal">NO</button>
+                <button onclick="event_anularventadiaria();" type="button" class="btn btn-primary">SI</button>
+            </div> <!-- // END .modal-footer -->
+        </div> <!-- // END .modal-content -->
+    </div> <!-- // END .modal-dialog -->
+</div>
+
+
+<div class="modal fade" id="loadMe" tabindex="-1" role="dialog" aria-labelledby="loadMeLabel" style="position:absolute;">
+    <br /><br /><br /><br />
+    <div class="modal-dialog modal-sm" role="document">
+        <div class="modal-content">
+            <div class="modal-body text-center">
+                <img src="~/Content/appsfit_img/logoappsfitweb.png" style="width:255px;height:125px;" />
+                <div class="loader"></div>
+                <div clas="loader-txt">
+                    <p>Cargando... <br><br><small>Espere por favor, este proceso puede tardar unos minutos</small></p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+
+    @System.Web.Optimization.Scripts.Render("~/Scripts/jquery.min.js")
+
+    @System.Web.Optimization.Scripts.Render("~/Scripts/plugins/jsKendo/jquery.min.js")
+    @System.Web.Optimization.Scripts.Render("~/Scripts/plugins/jsKendo/angular.min.js")
+    @System.Web.Optimization.Scripts.Render("~/Scripts/plugins/jsKendo/kendo.all.min.js")
+
+    @System.Web.Optimization.Scripts.Render("~/Scripts/plugins/jquery-ui/jquery-ui.js")
+    @System.Web.Optimization.Scripts.Render("~/Scripts/plugins/jquery-ui/jquery-ui.min.js")
+
+    @System.Web.Optimization.Scripts.Render("~/Resource/UserControl.Helper.js")
+    @System.Web.Optimization.Scripts.Render("~/Scripts/bootstrap-notify-master/bootstrap-notify.js")
+    @System.Web.Optimization.Scripts.Render("~/Scripts/bootstrap-notify-master/bootstrap-notify.min.js")
+    @System.Web.Optimization.Scripts.Render("~/Scripts/jsBootstrap/jquery.bootstrap-growl.js")
+    @System.Web.Optimization.Scripts.Render("~/Scripts/maskedinput.js")
+
+    <script type="text/javascript">
+
+        $(document).ready(function () {
+
+            SEGListarPerfilMenu();
+
+            var todayDate = new Date();
+
+            $('#txtFechaVentasHechaTotales').kendoDatePicker({
+                value: todayDate,
+                change: function () {
+                }
+            });
+
+            $('#txtFechaVentaFinTotales').kendoDatePicker({
+                value: todayDate,
+                change: function () {
+                }
+            });
+
+            $('#txtDiarios_Fechainicio').kendoDatePicker({
+                value: todayDate,
+                change: function () {
+                }
+            });
+
+            $('#txtDiarios_Fechafin').kendoDatePicker({
+                value: todayDate,
+                change: function () {
+                }
+            });
+
+
+            $('#txtMembresiasAnuladas_Fechainicio').kendoDatePicker({
+                value: todayDate,
+                change: function () {
+                }
+            });
+
+            $('#txtMembresiasAnuladas_Fechafin').kendoDatePicker({
+                value: todayDate,
+                change: function () {
+                }
+            });
+
+            $('#btnNo_AnularVenta').click(function () {
+                document.getElementById("modalConfirmarAnularVenta").style.display = 'none';
+            });
+
+            $('#btnCerrarmodalConfirmarAnularVenta').click(function () {
+                document.getElementById("modalConfirmarAnularVenta").style.display = 'none';
+            });
+
+            ecommerce_uspListarComprobante_Paginacion();
+
+        });
+
+
+        function uspListarPagoMembresia_Anulados() {
+
+            var FechaInicio = kendo.toString($("#txtMembresiasAnuladas_Fechainicio").data('kendoDatePicker').value(), 'MM/dd/yyyy');
+            var FechaFin = kendo.toString($("#txtMembresiasAnuladas_Fechafin").data('kendoDatePicker').value(), 'MM/dd/yyyy');
+
+            $("#gridVentaAnuladasMembresias").empty();
+            $("#gridVentaAnuladasMembresias").kendoGrid({
+                dataSource: {
+                    type: "json",
+                    transport: {
+                        read: function (options) {
+                            $.ajax({
+                                data: '{"FechaInicio":"' + FechaInicio + '","FechaFin":"' + FechaFin + '"}',
+                                type: "POST",
+                                url: "/operacionesfit/uspListarPagoMembresia_Anulados",
+                                contentType: "application/json; charset=utf-8",
+                                dataType: "json",
+                                success: function (msg) {
+                                    options.success(msg);
+                                }
+                            });
+                        }
+                    }
+
+                },
+                sortable: true,
+                height: 550,
+                columns: [
+                    {
+                        field: "DesEstado",
+                        title: "<b style='font-size:11px;color:#fff;font-weight:bold;'>Estado<b>",
+                        template: "<b style='font-size:11px;color:#: ColorEstado #;text-transform:uppercase;'>#: DesEstado #</b>",
+                        width: 6,
+                        attributes: {
+                            style: "font-size:11px;text-transform:lowercase;"
+                        }
+                    },{
+                        field: "CodigoSocio",
+                        title: "<b style='font-size:11px;color:#fff;font-weight:bold;'>Codigo<b>",
+                        width: 5,
+                        attributes: {
+                            style: "font-size:11px;"
+                        }
+                    }, {
+                        field: "Nombres",
+                        title: "<b style='font-size:11px;color:#fff;font-weight:bold;'>Nombres<b>",
+                        width: 7,
+                        attributes: {
+                            style: "font-size:11px;"
+                        }
+                    }, {
+                        field: "Apellidos",
+                        title: "<b style='font-size:11px;color:#fff;font-weight:bold;'>Apellidos<b>",
+                        width: 7,
+                        attributes: {
+                            style: "font-size:11px;"
+                        }
+                    }, {
+                        field: "DesPlan",
+                        title: "<b style='font-size:11px;color:#fff;font-weight:bold;'>Plan<b>",
+                        width: 10,
+                        attributes: {
+                            style: "font-size:11px;"
+                        }
+                    }, {
+                        field: "FechaInicio",
+                        title: "<b style='font-size:11px;color:#fff;font-weight:bold;'>Fecha Inicio<b>",
+                        template: "#= kendo.toString(kendo.parseDate(FechaInicio, 'yyyy-MM-dd'), 'dd/MM/yyyy') #",
+                        width: 6,
+                        attributes: {
+                            style: "font-size:11px;"
+                        }
+                    }, {
+                        field: "FechaFin",
+                        title: "<b style='font-size:11px;color:#fff;font-weight:bold;'>Fecha Fin<b>",
+                        template: "#= kendo.toString(kendo.parseDate(FechaFin, 'yyyy-MM-dd'), 'dd/MM/yyyy') #",
+                        width: 6,
+                        attributes: {
+                            style: "font-size:11px;"
+                        }
+                    }, {
+                        field: "FechaPago",
+                        title: "<b style='font-size:11px;color:#fff;font-weight:bold;'>Fecha Pago<b>",
+                        template: "#= kendo.toString(kendo.parseDate(FechaPago, 'yyyy-MM-dd'), 'dd/MM/yyyy hh:mm:ss tt') #",
+                        width: 8,
+                        attributes: {
+                            style: "font-size:11px;"
+                        }
+                    }, {
+                        field: "Monto",
+                        title: "<b style='font-size:11px;color:#fff;font-weight:bold;'>Monto<b>",
+                        width: 4,
+                        attributes: {
+                            style: "font-size:11px;"
+                        }
+                    }, {
+                        field: "DesFormaPago",
+                        title: "<b style='font-size:11px;color:#fff;font-weight:bold;'>F.Pago<b>",
+                        width: 6,
+                        attributes: {
+                            style: "font-size:11px;"
+                        }
+                    }, {
+                        field: "NroComprobante",
+                        title: "<b style='font-size:11px;color:#fff;font-weight:bold;'>Documento<b>",
+                        width: 7,
+                        attributes: {
+                            style: "font-size:11px;"
+                        }
+                    }, {
+                        field: "UsuarioCreacion",
+                        title: "<b style='font-size:11px;color:#fff;font-weight:bold;'>Creador<b>",
+                        width: 7,
+                        attributes: {
+                            style: "font-size:11px;"
+                        }
+                    }, {
+                        field: "UsuarioEdicion",
+                        title: "<b style='font-size:11px;color:#fff;font-weight:bold;'>Anulado<b>",
+                        width: 7,
+                        attributes: {
+                            style: "font-size:11px;"
+                        }
+                    }, {
+                        field: "FechaEdicion",
+                        title: "<b style='font-size:11px;color:#fff;font-weight:bold;'>Fecha Anulado<b>",
+                        template: "#= kendo.toString(kendo.parseDate(FechaEdicion, 'yyyy-MM-dd'), 'dd/MM/yyyy hh:mm:ss tt') #",
+                        width: 10,
+                        attributes: {
+                            style: "font-size:11px;"
+                        }
+                    }, {
+                        field: "Comentario",
+                        title: "<b style='font-size:11px;color:#fff;font-weight:bold;'>Motivo<b>",
+                        width: 11,
+                        attributes: {
+                            style: "font-size:11px;"
+                        }
+                    }
+
+                ]
+            });
+
+        }
+
+        function ecommerce_uspListarComprobante_Paginacion() {
+
+            var FechaInicio = kendo.toString($("#txtFechaVentasHechaTotales").data('kendoDatePicker').value(), 'MM/dd/yyyy');
+            var FechaFin = kendo.toString($("#txtFechaVentaFinTotales").data('kendoDatePicker').value(), 'MM/dd/yyyy');
+
+            $("#gridVentas").empty();
+            $("#gridVentas").kendoGrid({
+                dataSource: {
+                    type: "json",
+                    transport: {
+                        read: function (options) {
+                            $.ajax({
+                                data: '{"FechaInicio":"' + FechaInicio + '","FechaFin":"' + FechaFin + '"}',
+                                type: "POST",
+                                url: "/operacionesfit/ecommerce_uspListarComprobanteParaAnular",
+                                contentType: "application/json; charset=utf-8",
+                                dataType: "json",
+                                success: function (msg) {
+                                    options.success(msg);
+                                }
+                            });
+                        }
+                    }
+                },
+                height: 425,
+                selectable: "row",
+                columns: [{
+                    field: "FechaEmision",
+                    title: "<center style='color:#fff;'><b>Fecha Venta</b></center>",
+                    template: "#= kendo.toString(kendo.parseDate(FechaEmision, 'yyyy-MM-dd'), 'dd/MM/yyyy hh:mm') #",
+                    width: 15,
+                    attributes: {
+                        style: "font-size:12px;text-align:center;"
+                    }
+                }, {
+                    field: "Correlativo",
+                    title: "<div style='color:#fff;'><b>Correlativo</b></div>",
+                    width: 10,
+                    attributes: {
+                        style: "font-size:12px;"
+                    }
+                }, {
+                    field: "NombresCliente",
+                    title: "<div style='color:#fff;'><b>Cliente</b></div>",
+                    width: 30,
+                    attributes: {
+                        style: "font-size:11px;"
+                    }
+                }, {
+                    field: "Total",
+                    title: "<div style='color:#fff;'><b>Total</b></div>",
+                    width: 8,
+                    attributes: {
+                        style: "font-size:12px;"
+                    }
+                }, {
+                    field: "DesEstado",
+                    template: "<div style='color:white;background-color: #: ColorEstado #;padding: 2px;border-radius: 7px;text-align: center;'>#: DesEstado #</div>",
+                    title: "<div style='color:#fff;'><b>Estado</b></div>",
+                    width: 8,
+                    attributes: {
+                        style: "font-size:12px;"
+                    }
+                }
+                ], dataBound: function (e) {
+
+                    var count = 0;
+                    $('#gridVentas tbody tr').each(function () {
+                        count += 1;
+                    });
+
+                    if (count > 0) {
+                        this.element.find('tbody tr:first').addClass('k-state-selected');
+                        this.select(this.tbody.find('>tr:first'));
+                    } else {
+                        //document.getelementbyid('btnnuevousuario').click();
+                        //$('#txtcodigousuario').val(0);
+                        //$("#gridusuarios").empty();
+                    }
+
+                }, change: function () {
+                    var grid = this;
+                    grid.select().each(function () {
+                        var dataItem = grid.dataItem($(this));
+                        var CodigoComprobante = dataItem.CodigoComprobante;
+                        var Estado = dataItem.Estado;
+                        CentroEntrenamiento_uspListarComprobanteDetalleParaAnular(CodigoComprobante);
+                        if (Estado == 3) {
+                            document.getElementById("btnAnularVenta").style.display = 'none';
+                        } else {
+                            document.getElementById("btnAnularVenta").style.display = 'block';
+                        }
+
+                        //if (Estado == true) {
+                        //    document.getElementById("btnDesactivarUsuario").style.display = '';
+                        //    document.getElementById("btnActivarUsuario").style.display = 'none';
+                        //} else {
+                        //    document.getElementById("btnDesactivarUsuario").style.display = 'none';
+                        //    document.getElementById("btnActivarUsuario").style.display = '';
+                        //}
+
+                    });
+                }
+            });
+        }
+
+        function CentroEntrenamiento_uspListarComprobanteDetalleParaAnular(CodigoComprobante) {
+
+            $('#hdCodigoComprobante').val(CodigoComprobante);
+            document.getElementById('loadMe').style.display = 'block';
+            $("#gridVentasDetalle").empty();
+            $("#gridVentasDetalle").kendoGrid({
+                dataSource: {
+                    type: "json",
+                    transport: {
+                        read: function (options) {
+                            $.ajax({
+                                data: '{"CodigoComprobante":"' + CodigoComprobante + '"}',
+                                type: "POST",
+                                url: "/operacionesfit/CentroEntrenamiento_uspListarComprobanteDetalleParaAnular",
+                                contentType: "application/json; charset=utf-8",
+                                dataType: "json",
+                                success: function (msg) {
+                                    options.success(msg);
+                                }, complete: function () {
+                                    document.getElementById('loadMe').style.display = 'none';
+                                }
+                            });
+                        }
+                    }
+                },
+                height: 425,
+                selectable: "row",
+                columns: [{
+                    field: "CodigoItemsVenta",
+                    title: "<div style='color:#fff;'><b>Codigo</b></div>",
+                    width: 10,
+                    attributes: {
+                        style: "font-size:11px;"
+                    }
+                }, {
+                    field: "Descripcion",
+                    title: "<div style='color:#fff;'><b>Descripcion</b></div>",
+                    width: 30,
+                    attributes: {
+                        style: "font-size:12px;"
+                    }
+                }, {
+                    field: "Cantidad",
+                    title: "<div style='color:#fff;'><b>Cantidad</b></div>",
+                    width: 10,
+                    attributes: {
+                        style: "font-size:11px;"
+                    }
+                }, {
+                    field: "Precio",
+                    title: "<div style='color:#fff;'><b>Precio</b></div>",
+                    width: 10,
+                    attributes: {
+                        style: "font-size:12px;"
+                    }
+                }, {
+                    field: "Importe",
+                    title: "<div style='color:#fff;'><b>Importe</b></div>",
+                    width: 10,
+                    attributes: {
+                        style: "font-size:12px;"
+                    }
+                }
+                ],
+                dataBound: function (e) {
+
+                }, change: function () {
+                    var grid = this;
+                    grid.select().each(function () {
+                        var dataItem = grid.dataItem($(this));
+                        //var CodigoUsuario = dataItem.CodigoUsuario;
+                        //var Estado = dataItem.Estado;
+                        //buscarUsuarios(CodigoUsuario);
+                        //document.getElementById("btnActualizarUsuario").style.display = '';
+                        //document.getElementById("btnGuardarUsuario").style.display = 'none';
+                        //document.getElementById("btnCambiarClave").style.display = '';
+
+                        //if (Estado == true) {
+                        //    document.getElementById("btnDesactivarUsuario").style.display = '';
+                        //    document.getElementById("btnActivarUsuario").style.display = 'none';
+                        //} else {
+                        //    document.getElementById("btnDesactivarUsuario").style.display = 'none';
+                        //    document.getElementById("btnActivarUsuario").style.display = '';
+                        //}
+
+                    });
+                }
+            });
+        }
+
+        function CentroEntrenamiento_uspEliminarComprobante() {
+
+            $('button[type="button"]').attr("disabled", true);
+            var CodigoComprobante = $('#hdCodigoComprobante').val();
+            if (CodigoComprobante != '') {
+                $.ajax({
+                    data: '{"CodigoComprobante":"' + CodigoComprobante + '"}',
+                    type: "POST",
+                    url: "/operacionesfit/CentroEntrenamiento_uspEliminarComprobante",
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "json",
+                    success: function (msg) {
+                        $.bootstrapGrowl("Se anulo correctamente la venta.", { type: 'success', width: 'auto' });
+                        $('button[type="button"]').attr("disabled", false);
+                        document.getElementById('modalConfirmarAnularVenta').style.display = 'none';
+                    }
+                });
+            } else {
+                alert("Falta seleccionar un comprobante");
+            }
+
+        }
+
+        //ANULAR DIARIOS
+
+        function event_cerrarmodalventadiaria() {            
+            document.getElementById('modalConfirmarAnularVentaDiaria').style.display = 'none';
+        }
+
+        function ListarVentasSinClientes() {
+
+            document.getElementById('loadMe').style.display = 'block';
+
+            var FechaInicio = kendo.toString($("#txtDiarios_Fechainicio").data('kendoDatePicker').value(), 'MM/dd/yyyy');
+            var FechaFin = kendo.toString($("#txtDiarios_Fechafin").data('kendoDatePicker').value(), 'MM/dd/yyyy');
+           
+            $("#gridVentaSinCliente").empty();
+            $("#gridVentaSinCliente").kendoGrid({
+                dataSource: {
+                    type: "json",
+                    transport: {
+                        read: function (options) {
+                            $.ajax({
+                                data: '{"FechaInicio":"' + FechaInicio + '","FechaFin":"' + FechaFin + '","PageNumber":"' + 1 + '"}',
+                                type: "POST",
+                                url: "/operacionesfit/uspListarVentasRapidasAnular_Paginacion",
+                                contentType: "application/json; charset=utf-8",
+                                dataType: "json",
+                                success: function (msg) {
+                                    options.success(msg);
+                                }, complete: function () {
+                                    document.getElementById('loadMe').style.display = 'none';
+                                    var FechaInicio = kendo.toString($("#txtDiarios_Fechainicio").data('kendoDatePicker').value(), 'MM/dd/yyyy');
+                                    var FechaFin = kendo.toString($("#txtDiarios_Fechafin").data('kendoDatePicker').value(), 'MM/dd/yyyy');
+
+                                    ListarVentasRapidasAnular_NumeroRegistros(FechaInicio, FechaFin);
+                                }
+                            });
+                        }
+                    }
+                },
+                sortable: true,
+                height: 425,
+                selectable: "row",
+                columns: [{
+                    field: "RazonSocial_Sr",
+                    title: "Cliente",
+                    width: 50,
+                    attributes: {
+                        style: "font-size:9px;"
+                    }
+                }, {
+                    field: "Hora",
+                    title: "Hora",
+                    width: 25,
+                    attributes: {
+                        style: "font-size:11px;"
+                    }
+                }, {
+                    field: "NombreComprobante",
+                    title: "Comprob.",
+                    width: 25,
+                    attributes: {
+                        style: "font-size:11px;"
+                    }
+                }, {
+                    field: "NroComprobante",
+                    title: "Nro Comprob.",
+                    width: 30,
+                    attributes: {
+                        style: "font-size:11px;"
+                    }
+                }, {
+                    field: "TotalNeto",
+                    title: "Total",
+                    width: 15,
+                    attributes: {
+                        style: "font-size:11px;"
+                    }
+                }, {
+                    field: "UsuarioCreacion",
+                    title: "Responsable",
+                    width: 25,
+                    attributes: {
+                        style: "font-size:11px;"
+                    }
+                }, {
+                    field: "DesEstado",
+                    title: "Estado",
+                    width: 20,
+                    attributes: {
+                        style: "font-size:11px;"
+                    }
+                }], dataBound: function (e) {
+                    this.element.find('tbody tr:first').addClass('k-state-selected');
+                    this.select(this.tbody.find('>tr:first'));
+                    
+                }, change: function () {
+                    var grid = this;
+                    grid.select().each(function () {
+                        var dataItem = grid.dataItem($(this));
+                        var Estado = dataItem.Estado;
+
+                        $('#hdCodigoComprobanteVentaDiaria').val(dataItem.CodigoIngreso);
+                        VerDetalleVentaDiarias(dataItem.CodigoIngreso);
+                        if (!Estado) {
+                            document.getElementById("btnAnularVentaVentaDiaria").style.display = 'none';
+                        } else {
+                            document.getElementById("btnAnularVentaVentaDiaria").style.display = 'block';
+                        }
+
+
+                    });
+                }
+            });
+        }
+
+        function ListarVentasSinClientes_changuepage() {
+
+            document.getElementById('loadMe').style.display = 'block';
+
+            var FechaInicio = kendo.toString($("#txtDiarios_Fechainicio").data('kendoDatePicker').value(), 'MM/dd/yyyy');
+            var FechaFin = kendo.toString($("#txtDiarios_Fechafin").data('kendoDatePicker').value(), 'MM/dd/yyyy');
+            var PageNumber = $("#ddlPaginacion_ListarVentasSinClientes").data("kendoDropDownList").value();
+
+            $("#gridVentaSinCliente").empty();
+            $("#gridVentaSinCliente").kendoGrid({
+                dataSource: {
+                    type: "json",
+                    transport: {
+                        read: function (options) {
+                            $.ajax({
+                                data: '{"FechaInicio":"' + FechaInicio + '","FechaFin":"' + FechaFin + '","PageNumber":"' + PageNumber + '"}',
+                                type: "POST",
+                                url: "/operacionesfit/uspListarVentasRapidasAnular_Paginacion",
+                                contentType: "application/json; charset=utf-8",
+                                dataType: "json",
+                                success: function (msg) {
+                                    options.success(msg);
+                                }, complete: function () {
+                                    document.getElementById('loadMe').style.display = 'none';                                    
+                                }
+                            });
+                        }
+                    }
+                },
+                sortable: true,
+                height: 425,
+                selectable: "row",
+                columns: [{
+                    field: "RazonSocial_Sr",
+                    title: "Cliente",
+                    width: 50,
+                    attributes: {
+                        style: "font-size:9px;"
+                    }
+                }, {
+                    field: "Hora",
+                    title: "Hora",
+                    width: 25,
+                    attributes: {
+                        style: "font-size:11px;"
+                    }
+                }, {
+                    field: "NombreComprobante",
+                    title: "Comprob.",
+                    width: 25,
+                    attributes: {
+                        style: "font-size:11px;"
+                    }
+                }, {
+                    field: "NroComprobante",
+                    title: "Nro Comprob.",
+                    width: 30,
+                    attributes: {
+                        style: "font-size:11px;"
+                    }
+                }, {
+                    field: "TotalNeto",
+                    title: "Total",
+                    width: 15,
+                    attributes: {
+                        style: "font-size:11px;"
+                    }
+                }, {
+                    field: "UsuarioCreacion",
+                    title: "Responsable",
+                    width: 25,
+                    attributes: {
+                        style: "font-size:11px;"
+                    }
+                }, {
+                    field: "DesEstado",
+                    title: "Estado",
+                    width: 20,
+                    attributes: {
+                        style: "font-size:11px;"
+                    }
+                }], dataBound: function (e) {
+                    this.element.find('tbody tr:first').addClass('k-state-selected');
+                    this.select(this.tbody.find('>tr:first'));
+
+                }, change: function () {
+                    var grid = this;
+                    grid.select().each(function () {
+                        var dataItem = grid.dataItem($(this));
+                        var Estado = dataItem.Estado;
+
+                        $('#hdCodigoComprobanteVentaDiaria').val(dataItem.CodigoIngreso);
+                        VerDetalleVentaDiarias(dataItem.CodigoIngreso);
+                        if (!Estado) {
+                            document.getElementById("btnAnularVentaVentaDiaria").style.display = 'none';
+                        } else {
+                            document.getElementById("btnAnularVentaVentaDiaria").style.display = 'block';
+                        }
+
+
+                    });
+                }
+            });
+        }
+
+        function ListarVentasRapidasAnular_NumeroRegistros(FechaInicio, FechaFin) {
+          
+            document.getElementById('loadMe').style.display = 'block';
+            
+            $.ajax({
+                data: '{"FechaInicio":"' + FechaInicio + '","FechaFin":"' + FechaFin + '"}',
+                type: "POST",
+                url: "/operacionesfit/uspListarVentasRapidasAnular_NumeroRegistros",
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function (msg) {
+                  
+                    $('#lblCantidad_ListarVentasSinClientes').html(msg.Cantidad);
+                    ddlPaginacionListarVentasSinClientes(msg.Cantidad, msg.TamanioPagina);
+                }, complete: function () {
+                    document.getElementById('loadMe').style.display = 'none';
+                }
+            });
+        }
+
+        function ddlPaginacionListarVentasSinClientes(CantidadTotalFilas, TamanioPagina) {
+            var CantidadPaginas = parseInt(CantidadTotalFilas / TamanioPagina) + 1;
+            var htmlOpcion = "";
+            for (var i = 1; i <= CantidadPaginas; i++) {
+                htmlOpcion += "<option value='" + i + "'> " + i + " </option>";
+            }
+            $('#ddlPaginacion_ListarVentasSinClientes').html(htmlOpcion);
+            $("#ddlPaginacion_ListarVentasSinClientes").kendoDropDownList({
+                change: function () {
+                   ListarVentasSinClientes_changuepage();
+                }
+            });
+        }
+
+        function VerDetalleVentaDiarias(codigoSalida) {
+            document.getElementById('loadMe').style.display = 'block';
+
+            $("#gridVentasDiariosDetalle").kendoGrid({
+                dataSource: {
+                    type: "json",
+                    transport: {
+                        read: function (options) {
+                            $.ajax({
+                                data: '{"codigoSalida":"' + codigoSalida + '"}',
+                                type: "POST",
+                                url: "/operacionesfit/ListarDetalleVentas",
+                                contentType: "application/json; charset=utf-8",
+                                dataType: "json",
+                                success: function (msg) {
+                                    document.getElementById('loadMe').style.display = 'none';
+                                    options.success(msg);
+                                }
+                            });
+                        }
+                    }
+                },
+                height: 425,
+                sortable: true,
+                columns: [
+                    {
+                        field: "Cantidad",
+                        title: "Cant",
+                        width: 4,
+                        attributes: {
+                            style: "font-size:11px;"
+                        }
+                    }, {
+                        field: "Descripcion",
+                        title: "Descripcion",
+                        width: 30,
+                        attributes: {
+                            style: "font-size:11px;"
+                        }
+                    }, {
+                        field: "PrecioUnitario",
+                        title: "Precio Unit",
+                        width: 8,
+                        attributes: {
+                            style: "font-size:11px;"
+                        }
+                    }, {
+                        field: "Importe",
+                        title: "Importe",
+                        width: 8,
+                        attributes: {
+                            style: "font-size:11px;"
+                        }
+                    }]
+            });
+        }
+
+        function uspListarVentasRapidasAnular_NumeroRegistros() {
+
+            var FechaInicio = kendo.toString($("#txtDiarios_Fechainicio").data('kendoDatePicker').value(), 'MM/dd/yyyy');
+            var FechaFin = kendo.toString($("#txtDiarios_Fechafin").data('kendoDatePicker').value(), 'MM/dd/yyyy');
+
+            $.ajax({
+                data: '{"FechaInicio":"' + FechaInicio + '","FechaFin":"' + FechaFin + '"}',
+                type: "POST",
+                url: "/operacionesfit/uspListarVentasRapidasAnular_NumeroRegistros",
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function (msg) {
+                    $('#lblCantidadResgistrosVentassinClientes').html(msg.Cantidad);
+                    ddlListaPaginasgridVentaSinCliente(msg.Cantidad, msg.TamanioPagina);
+                }, complete: function () {
+                }
+            });
+        }
+
+        function ddlListaPaginasgridVentaSinCliente(CantidadTotalFilas, TamanioPagina) {
+            var CantidadPaginas = parseInt(CantidadTotalFilas / TamanioPagina) + 1;
+            var htmlOpcion = "";
+            for (var i = 1; i <= CantidadPaginas; i++) {
+                htmlOpcion += "<option value='" + i + "'> " + i + " </option>";
+            }
+            $('#ddlPaginaciondivAnularVentaSinCliente').html(htmlOpcion);
+            $("#ddlPaginaciondivAnularVentaSinCliente").kendoDropDownList({
+                change: function () {
+                    var nroPagina = $("#ddlPaginaciondivAnularVentaSinCliente").data("kendoDropDownList").value();
+                    ListarVentasSinClientes_ChanguePage(nroPagina);
+                }
+            });
+        }
+
+        function ListarVentasSinClientes_ChanguePage(PageNumber) {
+            $('#btnConsulta').addClass('disabled');
+            var fecha = $('#txtFechaAnular').val();
+            var CodSede = $('#hdCodigoSede').val();
+            var CodigoUnidadNegocio = $("#hdCodigoUnidadNegocio").val();
+            $("#gridVentaSinCliente").empty();
+            $("#gridVentaSinCliente").kendoGrid({
+                dataSource: {
+                    type: "json",
+                    transport: {
+                        read: function (options) {
+                            $.ajax({
+                                data: '{"CodigoUnidadNegocio":"' + CodigoUnidadNegocio + '","fecha":"' + fecha + '","CodSede":"' + CodSede + '","PageNumber":"' + PageNumber + '"}',
+                                type: "POST",
+                                url: "Main.aspx/uspListarVentasRapidasAnular_Paginacion",
+                                contentType: "application/json; charset=utf-8",
+                                dataType: "json",
+                                success: function (msg) {
+                                    options.success(msg.d);
+                                }, complete: function () {
+                                    $('#btnConsulta').removeClass('disabled');
+                                }
+                            });
+                        }
+                    }
+                },
+                sortable: true,
+                height: 450,
+                selectable: "row",
+                columns: [{
+                    field: "RazonSocial_Sr",
+                    title: "Cliente",
+                    width: 50,
+                    attributes: {
+                        style: "font-size:9px;"
+                    }
+                }, {
+                    field: "Hora",
+                    title: "Hora",
+                    width: 25,
+                    attributes: {
+                        style: "font-size:11px;"
+                    }
+                }, {
+                    field: "NombreComprobante",
+                    title: "Comprob.",
+                    width: 25,
+                    attributes: {
+                        style: "font-size:11px;"
+                    }
+                }, {
+                    field: "NroComprobante",
+                    title: "Nro Comprob.",
+                    width: 30,
+                    attributes: {
+                        style: "font-size:11px;"
+                    }
+                }, {
+                    field: "TotalNeto",
+                    title: "Total",
+                    width: 15,
+                    attributes: {
+                        style: "font-size:11px;"
+                    }
+                }, {
+                    field: "UsuarioCreacion",
+                    title: "Responsable",
+                    width: 25,
+                    attributes: {
+                        style: "font-size:11px;"
+                    }
+                }, {
+                    field: "DesEstado",
+                    title: "Estado",
+                    width: 20,
+                    attributes: {
+                        style: "font-size:11px;"
+                    }
+                }], dataBound: function (e) {
+                    this.element.find('tbody tr:first').addClass('k-state-selected');
+                    this.select(this.tbody.find('>tr:first'));
+
+                }, change: function () {
+                    var grid = this;
+                    grid.select().each(function () {
+                        var dataItem = grid.dataItem($(this));
+                        var Estado = dataItem.Estado;
+
+                        $('#hdCodigoComprobanteVentaDiaria').val(dataItem.CodigoIngreso);
+                        VerDetalleVentaDiarias(dataItem.CodigoIngreso);
+                        if (!Estado) {
+                            document.getElementById("btnAnularVentaVentaDiaria").style.display = 'none';
+                        } else {
+                            document.getElementById("btnAnularVentaVentaDiaria").style.display = 'block';
+                        }
+
+
+                    });
+                }
+            });
+        }
+
+        function event_anularventadiaria() {
+
+            document.getElementById('loadMe').style.display = 'block';
+            var codigoSalida = $('#hdCodigoComprobanteVentaDiaria').val();
+            
+            $.ajax({
+                data: '{"codigoSalida":"' + codigoSalida + '"}',
+                type: "POST",
+                url: "/operacionesfit/AnularVenta",
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function (msg) {
+                    document.getElementById('loadMe').style.display = 'none';
+                    document.getElementById('modalConfirmarAnularVentaDiaria').style.display = 'none';
+
+                    if (msg > 0) {
+                      
+                        $.bootstrapGrowl("La venta diaria se elimino correctamente.", { type: 'success', width: 'auto' });
+                        ListarVentasSinClientes();
+                    } else {
+                        $.bootstrapGrowl("Error, vuelve a intentarlo.", { type: 'danger', width: 'auto' });
+                    }
+                }
+            });
+        }
+
+       
+        //PERMISOS
+        function SEGListarPerfilMenu() {
+
+            var entidad = {};
+
+            document.getElementById('loadMe').style.display = 'block';
+            $('button[type="button"]').attr("disabled", true);
+            var metodoCorrecto = function (msg) {
+
+                $('button[type="button"]').attr("disabled", false);
+                document.getElementById('loadMe').style.display = 'none';
+
+                for (var i = 0; i < msg.length; i++) {
+
+                    if (msg[i].Estado) {
+
+                        $('[data-controlmodulo="' + msg[i].CodigoMenu + '"]').show('fast');
+
+                    }
+                }
+
+            };
+            var metodoError = function (msg) {
+                alert(msg);
+            };
+            var request = {
+                //request: entidad
+            };
+            LlamarAJAX("/operacionesfit/SEGListarPerfilMenu_Control", request, metodoCorrecto, metodoError);
+
+        }
+
+
+    </script>
+
+}

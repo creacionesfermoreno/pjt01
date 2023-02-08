@@ -1,0 +1,1352 @@
+﻿
+@{
+
+    ViewBag.Title = "usuarios";
+    Layout = "~/Views/Shared/__LayoutAppFitPlataformaFit.cshtml";
+}
+
+<link href="@Url.Content("~/Content/cssKendo/kendo.common.min.css")" rel="stylesheet" />
+<link href="@Url.Content("~/Content/cssKendo/kendo.dataviz.default.min.css")" rel="stylesheet" />
+<link href="@Url.Content("~/Content/cssKendo/kendo.dataviz.min.css")" rel="stylesheet" />
+<link href="@Url.Content("~/Content/cssKendo/kendo.default.min.css")" rel="stylesheet" />
+
+<style>
+    .k-block, .k-button, .k-textbox, .k-drag-clue, .k-touch-scrollbar, .k-window, .k-window-titleless .k-window-content, .k-window-action, .k-inline-block, .k-grid .k-filter-options, .k-grouping-header .k-group-indicator, .k-autocomplete, .k-multiselect, .k-combobox, .k-dropdown, .k-dropdown-wrap, .k-datepicker, .k-timepicker, .k-colorpicker, .k-datetimepicker, .k-notification, .k-numerictextbox, .k-picker-wrap, .k-numeric-wrap, .k-colorpicker, .k-list-container, .k-calendar-container, .k-calendar td, .k-calendar .k-link, .k-treeview .k-in, .k-editor-inline, .k-tooltip, .k-tile, .k-slider-track, .k-slider-selection, .k-upload {
+        border-radius: 3px;
+    }
+
+    .modal-body {
+    }
+
+    .modal-backdrop {
+        display: none;
+    }
+
+    .card-body {
+        margin-top: -5px;
+        margin-bottom: -5px;
+    }
+
+    .k-dropdown .k-input, .k-selectbox .k-input {
+        /* background: none; */
+        background-color: #fff;
+        font-weight: bold;
+    }
+
+    .k-dropdown-wrap .k-input, .k-picker-wrap .k-input, .k-numeric-wrap .k-input {
+        border-radius: 3px 0 0 3px;
+        font-weight: bold;
+    }
+
+    .k-autocomplete {
+        background-image: url(textures/highlight.png);
+        background-image: none,linear-gradient(to bottom,#e2e1e199 0,#e2e1e199 100%);
+        background-position: 50% 50%;
+        background-color: #e3e3e3;
+        border: 1px solid #cac9c9;
+        color: #fff;
+    }
+
+    .k-header, .k-grid-header, .k-toolbar, .k-dropdown-wrap, .k-picker-wrap, .k-numeric-wrap, .k-grouping-header, .k-pager-wrap, .k-textbox, .k-button, .k-progressbar, .k-draghandle, .k-state-highlight, .k-tabstrip-items .k-item, .k-panelbar .k-tabstrip-items .k-item, .km-pane-wrapper > .km-pane > .km-view > .km-content {
+        background-image: url(textures/highlight.png);
+        background-image: none,-webkit-linear-gradient(top,#0075ff 0,#0075ff 100%);
+        background-image: none,-moz-linear-gradient(top,#0075ff 0,#0075ff 100%);
+        background-image: none,-o-linear-gradient(top,#0075ff 0,#0075ff 100%);
+        background-image: none,linear-gradient(to bottom,#0075ff 0,#0075ff 100%);
+        background-position: 50% 50%;
+        background-color: #e3e3e3;
+        color: #fff;
+    }
+
+        .k-header, .k-grid-header-wrap, .k-grid .k-grouping-header, .k-grid-header, .k-pager-wrap, .k-pager-wrap .k-textbox, .k-pager-wrap .k-link, .k-grouping-header .k-group-indicator, .k-gantt-toolbar .k-state-default {
+            border-color: #e8eaee;
+            background-color: #0075ff;
+            color: #fff;
+        }
+
+    .modal {
+        display: none;
+        background-color: rgba(0, 0, 0, 0.77);
+    }
+
+    .k-block, .k-header, .k-grid-header, .k-toolbar, .k-grouping-header, .k-pager-wrap, .k-button, .k-draghandle, .k-treemap-tile, html .km-pane-wrapper .k-header {
+        background-color: #0075ff;
+        color: #fff;
+    }
+
+        .k-grid-header th.k-header > .k-link {
+            display: block;
+            min-height: 18px;
+            line-height: 18px;
+            margin: -0.5em -0.6em -0.4em -0.6em;
+            padding: .1em .1em .1em .1em;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            color: #fff;
+        }
+
+        .k-grid-header table, .k-grid-content table, .k-grid-footer table, .k-grid-content-locked > table {
+            table-layout: fixed;
+        }
+
+
+
+        .k-grid-toolbar:first-child, .k-grouping-header + .k-grid-toolbar {
+            border-width: 0 0 1px;
+            border-radius: 0px;
+            background-color: #d7eafa;
+            height: 10px;
+        }
+
+    .k-block, .k-header, .k-grid-header, .k-toolbar, .k-grouping-header, .k-pager-wrap, .k-button, .k-draghandle, .k-treemap-tile, html .km-pane-wrapper .k-header {
+        background-color: rgba(227, 227, 227, 0);
+    }
+
+    #txtFechaInicioProcFreezing .k-header, .k-grid-header, .k-toolbar, .k-dropdown-wrap, .k-picker-wrap, .k-numeric-wrap, .k-grouping-header, .k-pager-wrap, .k-textbox, .k-button, .k-progressbar, .k-draghandle, .k-autocomplete, .k-state-highlight, .k-tabstrip-items .k-item, .k-panelbar .k-tabstrip-items .k-item, .km-pane-wrapper > .km-pane > .km-view > .km-content {
+        background-image: url(textures/highlight.png);
+        background-image: none,-webkit-linear-gradient(top,#0075ff 0,#0075ff 100%);
+        background-image: none,-moz-linear-gradient(top,#0075ff 0,#0075ff 100%);
+        background-image: none,-o-linear-gradient(top,#0075ff 0,#0075ff 100%);
+        background-image: none,linear-gradient(to bottom,#0075ff 0,#0075ff 100%);
+        background-position: 50% 50%;
+        background-color: #ffffff;
+    }
+
+    .k-state-selected {
+        color: #FFFFFF;
+        background-color: #0075ff;
+        border-color: #0075ff;
+    }
+
+
+    .k-grid tr td {
+        border-bottom: 1px solid #eaeaea;
+        border-left: 1px solid #eaeaea;
+        border-style: solid;
+    }
+
+    tr {
+        height: 16px;
+        font-size: 13px;
+    }
+
+    .k-textbox, .k-autocomplete, .k-dropdown-wrap, .k-picker-wrap, .k-numeric-wrap {
+        border-width: 1px;
+        border-style: solid;
+        padding: 0 1.9em 0 0;
+        font-weight: bold;
+    }
+
+    .k-state-focused.k-state-selected, .k-list > .k-state-focused.k-state-selected, .k-listview > .k-state-focused.k-state-selected, td.k-state-focused.k-state-selected {
+        webkit-box-shadow: inset 0 0 3px 4px #0075ff;
+        box-shadow: inset 0 0 3px 4px #0075ff;
+    }
+
+    .k-state-selected, .k-state-selected:link, .k-state-selected:visited, .k-list > .k-state-selected, .k-list > .k-state-highlight, .k-panel > .k-state-selected, .k-ghost-splitbar-vertical, .k-ghost-splitbar-horizontal, .k-draghandle.k-state-selected:hover, .k-scheduler .k-scheduler-toolbar .k-state-selected, .k-scheduler .k-today.k-state-selected, .k-marquee-color {
+        color: #fff;
+        background-color: #0075ff;
+        border-color: #0075ff;
+    }
+
+    /** SPINNER CREATION **/
+    .loader {
+        position: relative;
+        text-align: center;
+        margin: 15px auto 35px auto;
+        z-index: 9999;
+        display: block;
+        width: 80px;
+        height: 80px;
+        border: 10px solid rgba(0, 0, 0, .3);
+        border-radius: 50%;
+        border-top-color: #000;
+        animation: spin 1s ease-in-out infinite;
+        -webkit-animation: spin 1s ease-in-out infinite;
+    }
+
+
+    /** MODAL STYLING **/
+    .modal-content {
+        border-radius: 0px;
+        box-shadow: 0 0 20px 8px rgba(0, 0, 0, 0.7);
+    }
+
+
+    [dir=ltr] .modal-lg, [dir=ltr] .modal-xl {
+        max-width: 950px;
+    }
+
+    a {
+        color: transparent;
+        text-decoration: none;
+    }
+</style>
+
+
+<div class="page__header page__header-nav mb-0">
+    <div class="container-fluid page__container">
+        <div class="navbar navbar-secondary navbar-light navbar-expand-sm p-0 d-none d-md-flex" id="secondaryNavbar">
+            <ul class="nav navbar-nav">
+                <li class="nav-item">
+                    <button style="color: #ffffff;background-color: #ff0200;font-size: 1.0rem;border: 0px #ff0200 solid;height: 33px;padding: 5px;cursor:pointer;" class="navbar-toggler navbar-toggler-custom d-flex mr-navbar" type="button" data-toggle="sidebar">
+                        Operaciones
+                    </button>
+                </li>
+                <li class="nav-item" data-controlmodulo="45833cdd-55db-4a67-a879-f1ae9353f8bf">
+                    <a href="@Url.Action("checking","gestionce",new {id= HttpContext.Current.Request.Cookies["_SubDominio_Business"].Value})" class="nav-link">Clientes</a>
+                </li>
+                <li class="nav-item" data-controlmodulo="9e69cfd8-b063-44df-a7f2-a3a10d1eb899" style="display:none;">
+                    <a class="nav-link " href="@Url.Action("posfitness","pos",new {id= HttpContext.Current.Request.Cookies["_SubDominio_Business"].Value})">Punto de venta</a>
+                </li>
+                <li class="nav-item" data-controlmodulo="7611dfbe-186f-4abe-8e2e-e64ad7281728" style="display:none;">
+                    <a class="nav-link" href="@Url.Action("caja","gestionce",new {id= HttpContext.Current.Request.Cookies["_SubDominio_Business"].Value})">Caja</a>
+                </li>
+                <li class="nav-item" data-controlmodulo="93c0d848-83aa-45eb-a83a-ded00a6b6e23" style="display:none;">
+                    <a class="nav-link" href="@Url.Action("nutricion","gestionce",new {id= HttpContext.Current.Request.Cookies["_SubDominio_Business"].Value})">Medidas y Nutrición</a>
+                </li>
+                <li class="nav-item" data-controlmodulo="947dc11f-3e14-4fe7-bedc-ae3d81219bee" style="display:none;">
+                    <a class="nav-link" href="@Url.Action("Index","inventariofit",new {id= HttpContext.Current.Request.Cookies["_SubDominio_Business"].Value})">Inventario</a>
+                </li>
+
+                <li class="nav-item" data-controlmodulo="39497bd3-94ab-4236-a1d4-4623d854f91e" style="display:none;">
+                    <a href="@Url.Action("agendacomercial","gestionce",new {id= HttpContext.Current.Request.Cookies["_SubDominio_Business"].Value})" class="nav-link">Agenda Comercial</a>
+                </li>
+                <li class="nav-item" data-controlmodulo="bbc035e6-68ea-4885-917f-005ad3fcfb66" style="display:none;">
+                    <a href="@Url.Action("metascomerciales","gestionce",new {id= HttpContext.Current.Request.Cookies["_SubDominio_Business"].Value})" class="nav-link">Metas</a>
+                </li>
+                <li class="nav-item" data-controlmodulo="bd61dc23-54d9-4901-9c35-b8d228b3a924" style="display:none;">
+                    <a href="@Url.Action("marketing","gestionce",new {id= HttpContext.Current.Request.Cookies["_SubDominio_Business"].Value})" class="nav-link">Marketing</a>
+                </li>
+                <li class="nav-item" data-controlmodulo="e1eadd0d-39b3-498d-b09b-9b3b28610b9b" style="display:none;">
+                    <a href="@Url.Action("informesfit","gestionce",new {id= HttpContext.Current.Request.Cookies["_SubDominio_Business"].Value})" class="nav-link">Informes</a>
+                </li>
+                <li class="nav-item" data-controlmodulo="600dabf4-7dc3-4dc0-a0ba-74b782955e52" style="display:none;">
+                    <a class="nav-link" href="@Url.Action("pagospersonal","gestionce",new {id= HttpContext.Current.Request.Cookies["_SubDominio_Business"].Value})">Pagos</a>
+                </li>
+                <li class="nav-item" data-controlmodulo="b1f65597-fd27-46ca-90d0-a0f2f1039ef7" style="display:none;">
+                    <a class="nav-link" href="@Url.Action("finanzas","gestionce",new {id= HttpContext.Current.Request.Cookies["_SubDominio_Business"].Value})">Finanzas</a>
+                </li>
+                <li class="nav-item" data-controlmodulo="4c01e8de-9440-4927-a2f2-d6241d925c39" style="display:none;">
+                    <a class="nav-link" href="@Url.Action("estadisticas","gestionce",new {id= HttpContext.Current.Request.Cookies["_SubDominio_Business"].Value})">Estadísticas</a>
+                </li>
+
+            </ul>
+        </div>
+    </div>
+</div>
+
+
+<div class="container-fluid page__container" style="background-color:#e9ebee;">
+    <br />
+    <div class="row">
+        <div class="col-lg-3">
+            <div class="card">
+                <div class="card-header card-header-sm d-flex align-items-center" style="background-color:#fff">
+                    <h4 class="card-header__title flex m-0">PASO 1 : SELECCIONAR CARGO</h4>
+                </div>
+                <div class="card-body tab-content" style="height:473px">
+                    <div class="tab-pane active show fade">
+                        <table width="99%" border="0">
+                            <tr>
+                                <td>
+                                    <div id="divBotonGerenciasModalUsuario" onclick="ClickObtenerPerfilModalUsuario(1)" style="width:98%;background-color:#0075ff;border-radius: 15px;color:#fff;cursor:pointer;text-align:center;padding:5px 5px 5px 5px;margin:5px 5px 5px 5px;text-transform:uppercase;">
+                                        Perfil Gerencia
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <div id="divBotonAdministracionModalUsuario" onclick="ClickObtenerPerfilModalUsuario(13)" style="width:98%;background-color:#0075ff;border-radius: 15px;color:#fff;cursor:pointer;text-align:center;padding:5px 5px 5px 5px;margin:5px 5px 5px 5px;text-transform:uppercase;">
+                                        Perfil Administración
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <div id="divBotonMarketingModalUsuario" onclick="ClickObtenerPerfilModalUsuario(14)" style="width:98%;background-color:#0075ff;border-radius: 15px;color:#fff;cursor:pointer;text-align:center;padding:5px 5px 5px 5px;margin:5px 5px 5px 5px;text-transform:uppercase;">
+                                        Perfil Marketing
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <div id="divBotonJefedeventasModalUsuario" onclick="ClickObtenerPerfilModalUsuario(6)" style="width:98%;background-color:#0075ff;border-radius: 15px;color:#fff;cursor:pointer;text-align:center;padding:5px 5px 5px 5px;margin:5px 5px 5px 5px;text-transform:uppercase;">
+                                        Perfil Jefe de ventas
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <div id="divBotonVendedorModalUsuario" onclick="ClickObtenerPerfilModalUsuario(5)" style="width:98%;background-color:#0075ff;border-radius: 15px;color:#fff;cursor:pointer;text-align:center;padding:5px 5px 5px 5px;margin:5px 5px 5px 5px;text-transform:uppercase;">
+                                        Perfil Vendedor
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <div id="divBotonVendedorCorporativoModalUsuario" onclick="ClickObtenerPerfilModalUsuario(7)" style="width:98%;background-color:#0075ff;border-radius: 15px;color:#fff;cursor:pointer;text-align:center;padding:5px 5px 5px 5px;margin:5px 5px 5px 5px;text-transform:uppercase;">
+                                        Perfil Vendedor corporativo
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <div id="divBotonCounterModalUsuario" onclick="ClickObtenerPerfilModalUsuario(4)" style="width:98%;background-color:#0075ff;border-radius: 15px;color:#fff;cursor:pointer;text-align:center;padding:5px 5px 5px 5px;margin:5px 5px 5px 5px;text-transform:uppercase;">
+                                        Perfil Counter
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <div id="divBotonJugueriaModalUsuario" onclick="ClickObtenerPerfilModalUsuario(16)" style="width:98%;background-color:#0075ff;border-radius: 15px;color:#fff;cursor:pointer;text-align:center;padding:5px 5px 5px 5px;margin:5px 5px 5px 5px;text-transform:uppercase;">
+                                        Perfil Jugueria
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <div id="divBotonTrainerModalUsuario" onclick="ClickObtenerPerfilModalUsuario(3)" style="width:98%;background-color:#0075ff;border-radius: 15px;color:#fff;cursor:pointer;text-align:center;padding:5px 5px 5px 5px;margin:5px 5px 5px 5px;text-transform:uppercase;">
+                                        Perfil Trainer
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <div id="divBotonInvitadoModalUsuario" onclick="ClickObtenerPerfilModalUsuario(15)" style="width:98%;background-color:#0075ff;border-radius: 15px;color:#fff;cursor:pointer;text-align:center;padding:5px 5px 5px 5px;margin:5px 5px 5px 5px;text-transform:uppercase;">
+                                        Perfil Nutrición
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr style="display:none;">
+                                <td>
+                                    <div id="divBotonAsesorBytefitModalUsuario" onclick="ClickObtenerPerfilModalUsuario(17)" style="width:98%;background-color:#777;border-radius: 15px;color:#fff;cursor:pointer;text-align:center;padding:5px 5px 5px 5px;margin:5px 5px 5px 5px;">
+                                        PERFIL Asesor Appsfit
+                                    </div>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-4">
+            <div class="card">
+                <div class="card-header card-header-sm d-flex align-items-center" style="background-color:#fff">
+                    <h4 class="card-header__title flex m-0">PASO 2 : SELECCIONAR USUARIO</h4>
+                </div>
+                <div class="card-body tab-content" style="height:473px">
+                  
+                    <table style="width:100%;" border="0">
+                        <tr>                                            
+                            <td style="width: 50%;" align="center" valign="top">
+                             
+                            </td>
+                            <td style="width: 35%;" align="center" valign="top">
+                                <select id="ddlEstadoUsuario" style="width: 100%; font-size: 11px; font-weight: bold;">
+                                    <option value="true">usuarios activos</option>
+                                    <option value="false">usuarios inactivos</option>
+                                </select>
+                            </td>
+                            <td style="width: 15%;" align="center" valign="top">
+                                <button onclick="SEGListarUsuarioPorPerfil()" title="Buscar" type="button" style="background-color: #0075ff;border-color: #0075ff;background-color: #0075ff;border-color: #0075ff;" class="btn btn-primary btn-sm">
+                                    <i class="fa-solid fa-magnifying-glass"></i>&nbsp;Buscar
+                                </button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="3" style="">
+                                <div id="gridUsuarios" style="text-align: left;user-select:none;"></div>
+                               
+                            </td>
+                        </tr>
+                    </table>
+                   
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-5">
+            <div class="card">
+                <div class="card-header card-header-sm d-flex align-items-center" style="background-color:#fff">
+                    <h4 class="card-header__title flex m-0">PASO 3 : AGREGAR O EDITAR USUARIO</h4>
+                </div>
+                <div class="card-body tab-content" style="height:473px">
+                    <div class="tab-pane active show fade">
+
+                        <input id="hdAccionUsuario" type="hidden" value="" />
+                        <input type="hidden" value="" id="hdCodigoPerfilModalUsuario" />
+                        <div class="button-list">
+                            <button data-controlmodulo="d9aae7b4-056a-44ce-9f79-189b29b5a2c5" style="display:none;" id="btnNuevoUsuario" title="Nuevo usuario" type="button" class="btn btn-primary btn-sm"><i class="fa-solid fa-plus"></i>&nbsp;Nuevo usuario</button>
+                            <button id="btnGuardarUsuario" title="Guardar usuario" type="button" style="display:none;" class="btn btn-primary btn-sm"><i class="fa-solid fa-floppy-disk"></i>&nbsp;Guardar usuario</button>
+                            <button data-controlmodulo="d0ad5cbe-455f-469f-8a97-844dfe8cb870" style="display:none;" id="btnActualizarUsuario" title="Actualizar usuario" type="button" class="btn btn-primary btn-sm"><i class="fa-solid fa-pen-to-square"></i>&nbsp;Actualizar usuario</button>
+                            <button data-controlmodulo="c26df236-f878-4dde-8ccd-4750ef96ba25" style="display:none;" id="btnDesactivarUsuario" type="button" class="btn btn-primary btn-sm"><i class="fa-solid fa-shield"></i>&nbsp;Desactivar usuario</button>
+                            <button data-controlmodulo="39829694-ee04-4317-a69f-6c5210d88166" style="display:none;" id="btnActivarUsuario" type="button" class="btn btn-primary btn-sm"><i class="fa-solid fa-badge-check"></i>&nbsp;Activar usuario</button>
+                            <button data-controlmodulo="01d2de1c-14c9-4219-9838-3b438e02a867" style="display:none;" id="btnCambiarClave" type="button" class="btn btn-primary btn-sm"><i class="fa-solid fa-lock"></i>&nbsp;Cambiar clave</button>
+                        </div>
+                        <div class="row mg-b-25">
+                            <div class="col-lg-6">
+
+                                <div class="form-group mg-t-2">
+                                    <div class="input-group input-group-sm input-group-merge">
+                                        <label style="color:#0075ff;">Datos personales:</label>
+                                        <div style="display:none;">
+                                            <input id="txtCodigoUsuario" placeHolder="Codigo" class="k-textbox" style="width:100px;" disabled />
+                                            <input id="chkEstadoUsuarios" type="checkbox" style="background-color: #009900;margin-top: 24px;" checked />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group mg-t-2">
+                                    <div class="input-group input-group-sm input-group-merge">
+                                        <input id="txtNombreUsuarios" type="text" required="" class="form-control form-control-prepended" placeholder="Escriba Nombres" style="width:100%;font-weight:bold;" onkeypress="return validarCamposCadena(event)">
+                                        <div class="input-group-prepend">
+                                            <div class="input-group-text">
+                                                Nombres:
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group mg-t-2">
+                                    <div class="input-group input-group-sm input-group-merge">
+                                        <input id="txtApellidoUsuarios" type="text" required="" class="form-control form-control-prepended" placeholder="Escriba Apellidos" style="width:100%;font-weight:bold;" onkeypress="return validarCamposCadena(event)">
+                                        <div class="input-group-prepend">
+                                            <div class="input-group-text">
+                                                Apellidos:
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group mg-t-2">
+                                    <div class="input-group input-group-sm input-group-merge">
+                                        <input id="txtDniUsuarios" type="text" required="" class="form-control form-control-prepended" placeholder="Escriba DNI" style="width:100%;font-weight:bold;" onkeypress="return validarNumeros(event)">
+                                        <div class="input-group-prepend">
+                                            <div class="input-group-text">
+                                                DNI:
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group mg-t-2">
+                                    <div class="input-group input-group-sm input-group-merge">
+                                        <input id="txtTelefonoUsuarios" type="text" required="" class="form-control form-control-prepended" placeholder="Escriba Telefono" style="width:100%;font-weight:bold;" onkeypress="return validarNumeros(event)">
+                                        <div class="input-group-prepend">
+                                            <div class="input-group-text">
+                                                Telefono:
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group mg-t-2">
+                                    <div class="input-group input-group-sm input-group-merge">
+                                        <input id="txtCorreoUsuarios" type="text" required="" class="form-control form-control-prepended" placeholder="Escriba Correo" style="width:100%;font-weight:bold;">
+                                        <div class="input-group-prepend">
+                                            <div class="input-group-text">
+                                                Correo:
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div><!-- col-4 -->
+                            <div class="col-lg-6">
+                                <div class="form-group mg-t-2">
+                                    <div class="input-group input-group-sm input-group-merge">
+                                        <label style="color:#0075ff;">Datos usuario:</label>
+                                    </div>
+                                </div>
+                                <div class="form-group mg-t-2">
+                                    <div id="validar_ddlPerfil" class="input-group input-group-sm input-group-merge">
+                                        <select id="ddlPerfilUsuarios" style="font-size: 11px;font-weight:bold;width:99%;height:21px;" class="k-dropdown" tabindex="3">
+                                            <option value="0">SELECCIONAR PERFIL</option>
+                                            <option value="1">Gerencia</option>
+                                            <option value="13">Administracion</option>
+                                            <option value="14">Marketing</option>
+                                            <option value="6">Jefe de ventas</option>
+                                            <option value="5">Vendedor</option>
+                                            <option value="4">Counter</option>
+                                            <option value="3">Trainer</option>
+                                            <option value="15">Nutricion</option>
+                                            <option value="16">Jugueria</option>
+                                            <option value="17" style="display:none;">Asesor Appsfit</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-group mg-t-2">
+                                    <div class="input-group input-group-sm input-group-merge">
+                                        <input id="txtNombreCompletoUsuarios" type="text" required="" class="form-control form-control-prepended" placeholder="Escriba usuario" style="width:100%;font-weight:bold;">
+                                        <div class="input-group-prepend">
+                                            <div class="input-group-text">
+                                                Usuario:
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div id="trContraseñas">
+                                    <div class="form-group mg-t-2">
+                                        <div class="input-group input-group-sm input-group-merge">
+                                            <input id="txtContrasenia" type="password" required="" class="form-control form-control-prepended" placeholder="Escriba clave" style="width:100%;font-weight:bold;">
+                                            <div class="input-group-prepend">
+                                                <div class="input-group-text">
+                                                    Contraseña:
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group mg-t-2">
+                                        <div class="input-group input-group-sm input-group-merge">
+                                            <input id="txtContraseniaConfirm" type="password" required="" class="form-control form-control-prepended" placeholder="Escriba clave" style="width:100%;font-weight:bold;">
+                                            <div class="input-group-prepend">
+                                                <div class="input-group-text">
+                                                    Confirmar:
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div><!-- col-4 -->
+                        </div><!-- row -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="myModalCambiarClave" class="modal">
+    <div class="modal-dialog" style="width:32%;text-align:left;">
+        <div class="modal-content">
+            <div class="modal-body">
+                <div class="form-group mg-t-2">
+                    <div class="input-group input-group-sm input-group-merge">
+                        <input id="txtContraseniaAntigua" type="Password" required="" class="form-control form-control-prepended" placeholder="Ingrese Contraseña" style="width:100%;font-weight:bold;" onkeypress="return validarCamposCadena(event)">
+                        <div class="input-group-prepend">
+                            <div class="input-group-text">
+                                Contraseña Antigua:
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group mg-t-2">
+                    <div class="input-group input-group-sm input-group-merge">
+                        <input id="txtContraseniaNueva" type="Password" required="" class="form-control form-control-prepended" placeholder="Ingrese Nueva Contraseña" style="width:100%;font-weight:bold;" onkeypress="return validarCamposCadena(event)">
+                        <div class="input-group-prepend">
+                            <div class="input-group-text">
+                                Contraseña Nueva:
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group mg-t-2">
+                    <button id="btnGuardarNuevaClave" type="button" title="Guardar" class="btn btn-primary btn-sm">Guardar</button>
+                    <button id="DivCerrarModalCambiarClave" type="button" title="Guardar" class="btn btn-light btn-sm">Cancelar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="myModalConfirmUsuario" class="modal">
+    <div class="modal-dialog" style="width:300px">
+        <div class="modal-content">
+            <div class="modal-body">
+                <div class="form-group mg-t-2">
+                    ¿Estás seguro de desactivar este usuario? <br />
+                </div>
+                <div class="form-group mg-t-2">
+                    <button id="btnNoUsuario" type="button" title="Guardar" class="btn btn-light btn-sm">No</button>
+                    <button id="btnSiDesactivarUsuario" type="button" title="Guardar" class="btn btn-primary btn-sm">Si</button>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<div id="myModalConfirmActivarUsuario" class="modal">
+    <div class="modal-dialog" style="width:300px">
+        <div class="modal-content">
+            <div class="modal-body">
+                <div class="form-group mg-t-2">
+                    ¿Estás seguro de activar este usuario? <br />
+                </div>
+                <div class="form-group mg-t-2">
+                    <button id="btnNoActivarUsuario" type="button" title="Guardar" class="btn btn-light btn-sm">No</button>
+                    <button id="btnSiActivarUsuario" type="button" title="Guardar" class="btn btn-primary btn-sm">Si</button>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="loadMe" tabindex="-1" role="dialog" aria-labelledby="loadMeLabel">
+    <br /><br /><br /><br />
+    <div class="modal-dialog modal-sm" role="document">
+        <div class="modal-content">
+            <div class="modal-body text-center">
+                <img src="~/Content/appsfit_img/logoappsfitweb.png" style="width:255px;height:125px;" />
+                <div class="loader"></div>
+                <div clas="loader-txt">
+                    <p>Cargando... <br><br><small>Espere por favor, este proceso puede tardar unos minutos</small></p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@section Scripts {
+
+    @System.Web.Optimization.Scripts.Render("~/Scripts/jquery.min.js")
+
+    @System.Web.Optimization.Scripts.Render("~/Scripts/plugins/jsKendo/jquery.min.js")
+    @System.Web.Optimization.Scripts.Render("~/Scripts/plugins/jsKendo/angular.min.js")
+    @System.Web.Optimization.Scripts.Render("~/Scripts/plugins/jsKendo/kendo.all.min.js")
+
+    @System.Web.Optimization.Scripts.Render("~/Scripts/plugins/jquery-ui/jquery-ui.js")
+    @System.Web.Optimization.Scripts.Render("~/Scripts/plugins/jquery-ui/jquery-ui.min.js")
+
+    @System.Web.Optimization.Scripts.Render("~/Resource/UserControl.Helper.js")
+    @System.Web.Optimization.Scripts.Render("~/Scripts/bootstrap-notify-master/bootstrap-notify.js")
+    @System.Web.Optimization.Scripts.Render("~/Scripts/bootstrap-notify-master/bootstrap-notify.min.js")
+    @System.Web.Optimization.Scripts.Render("~/Scripts/jsBootstrap/jquery.bootstrap-growl.js")
+    @System.Web.Optimization.Scripts.Render("~/Scripts/maskedinput.js")
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+
+            SEGListarPerfilMenu();
+
+            
+            $("#ddlEstadoUsuario").kendoDropDownList();
+
+            $("#ddlPerfilUsuarios").kendoDropDownList({
+                change: function () {
+                    var dllPerfil = $('#ddlPerfilUsuarios').data('kendoDropDownList').value();
+                    if (dllPerfil == 0) {
+                        $.bootstrapGrowl("Falta seleccionar el perfil de su usuario.", { type: 'danger', width: 'auto' });
+                    }
+                }
+            });
+
+            $('#btnNuevoUsuario').click(function () {
+                document.getElementById("trContraseñas").style.display = '';
+                $("#txtContrasenia").removeAttr('disabled');
+                $("#txtContraseniaConfirm").removeAttr('disabled');
+
+                $('#hdAccionUsuario').val('N');
+                $('#txtCodigoUsuario').val('0');
+                $('#txtNombreCompletoUsuarios').prop('disabled', false);
+                $('#txtContrasenia').prop('disabled', false);
+                $('#txtContraseniaConfirm').prop('disabled', false);
+                $('#txtNombreCompletoUsuarios').val('');
+                $('#txtContrasenia').val('');
+                $('#txtContraseniaConfirm').val('');
+                $('#txtCorreoUsuarios').val('');
+                $('#txtTelefonoUsuarios').val('');
+                $('#ddlPerfilUsuarios').data('kendoDropDownList').select(0);
+                $('#validar_ddlPerfil').removeClass('borderValidar');
+                $('#txtNombreCompletoUsuarios').removeClass('borderValidar');
+                $('#txtContrasenia').removeClass('borderValidar');
+                $('#txtContraseniaConfirm').removeClass('borderValidar');
+                $('#chkEstadoUsuarios').prop('checked', true);
+                $('#txtNombreUsuarios').val('');
+                $('#txtApellidoUsuarios').val('');
+                $('#txtDniUsuarios').val('');
+                $('#txtNombreUsuarios').removeClass('borderValidar');
+                $('#txtApellidoUsuarios').removeClass('borderValidar');
+                $('#txtDniUsuarios').removeClass('borderValidar');
+
+                document.getElementById("btnActualizarUsuario").style.display = 'none';
+                document.getElementById("btnGuardarUsuario").style.display = '';
+                document.getElementById("btnDesactivarUsuario").style.display = 'none';
+                document.getElementById("btnActivarUsuario").style.display = 'none';
+                document.getElementById("btnCambiarClave").style.display = 'none';
+            });
+
+            $('#btnGuardarUsuario').click(function () {
+                if (validacionUsuario()) {
+                    getValidarExisteUsuario();
+                }
+            });
+
+            $('#btnActualizarUsuario').click(function () {
+                if (validacionUsuario()) {
+                    GuardarNuevoUsuario();
+                }
+            });
+
+            $('#btnCambiarClave').click(function () {
+                var codigoUsuario = $('#txtCodigoUsuario').val() == "" ? 0 : $('#txtCodigoUsuario').val();
+                if (codigoUsuario == 0) {
+                    $.bootstrapGrowl("Falta seleccionar un usuario.", { type: 'danger', width: 'auto' });
+                } else {
+                    $('#myModalCambiarClave').show('fast');
+                }
+            });
+
+            $('#DivCerrarModalCambiarClave').click(function () {
+                $('#myModalCambiarClave').hide('fast');
+            });
+
+            $('#btnDesactivarUsuario').click(function () {
+                var codigoUsuario = $('#txtCodigoUsuario').val() == "" ? 0 : $('#txtCodigoUsuario').val();
+                if (codigoUsuario == 0) {
+                    $.bootstrapGrowl("No hay usuarios para desactivar.", { type: 'danger', width: 'auto' });
+                } else {
+                    $('#myModalConfirmUsuario').show('fast');
+                }
+            });
+
+            $('#btnActivarUsuario').click(function () {
+                var codigoUsuario = $('#txtCodigoUsuario').val() == "" ? 0 : $('#txtCodigoUsuario').val();
+                if (codigoUsuario == 0) {
+                    $.bootstrapGrowl("No hay usuarios para activar.", { type: 'danger', width: 'auto' });
+                } else {
+                    $('#myModalConfirmActivarUsuario').show('fast');
+                }
+            });
+
+            $('#btnNoUsuario').click(function () {
+                $('#myModalConfirmUsuario').hide('fast');
+            });
+
+            $('#btnSiDesactivarUsuario').click(function () {
+
+                var codigo = $('#txtCodigoUsuario').val();
+                var flag = 1;
+
+                $.ajax({
+                    data: '{"codigo":"' + codigo + '","flag":"' + flag + '"}',
+                    type: "POST",
+                    url: "/operacionesfit/EliminarUsuario",
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "json",
+                    success: function (msg) {
+                        if (msg > 0) {
+                            $('#myModalConfirmUsuario').hide('fast');
+                            SEGListarUsuarioPorPerfil();
+                            $.bootstrapGrowl("El desactivo el usuario correctamente.", { type: 'success', width: 'auto' });
+                        } else {
+                            $.bootstrapGrowl("No se guardo correctamente.", { type: 'danger', width: 'auto' });
+                        }
+
+                    }
+                });
+            });
+
+            $('#btnNoActivarUsuario').click(function () {
+                $('#myModalConfirmActivarUsuario').hide('fast');
+            });
+
+
+            $('#btnSiActivarUsuario').click(function () {
+                var codigo = $('#txtCodigoUsuario').val();
+                var flag = 0;
+                $.ajax({
+                    data: '{"codigo":"' + codigo + '","flag":"' + flag + '"}',
+                    type: "POST",
+                    url: "/operacionesfit/EliminarUsuario",
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "json",
+                    success: function (msg) {
+                        if (msg > 0) {
+                            $('#myModalConfirmActivarUsuario').hide('fast');
+                            SEGListarUsuarioPorPerfil();
+                            $.bootstrapGrowl("El desactivo el usuario correctamente.", { type: 'success', width: 'auto' });
+                        } else {
+                            $.bootstrapGrowl("No se pudo guardar la información", { type: 'danger', width: 'auto' });
+                        }
+
+                    }
+                });
+            });
+
+            $('#btnGuardarNuevaClave').click(function () {
+
+                var codigo = $('#txtCodigoUsuario').val();
+                var antiguo = $('#txtContraseniaAntigua').val();
+                var nuevo = $('#txtContraseniaNueva').val();
+
+                $.ajax({
+                    data: '{"codigo":"' + codigo + '","antiguo":"' + antiguo + '","nuevo":"' + nuevo + '"}',
+                    type: "POST",
+                    url: "/operacionesfit/CambiarClaveUsuario",
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "json",
+                    success: function (msg) {
+                        if (msg.split('|')[1] > 0) {
+                            if (msg.split('|')[0] == 1) {
+                                $('#myModalCambiarClave').hide('fast');
+                                $('#txtContraseniaAntigua').val("");
+                                $('#txtContraseniaNueva').val("");
+                                $.bootstrapGrowl("Su contraseña se cambio correctamente.", { type: 'success', width: 'auto' });
+                            } else {
+                                $('#txtContraseniaAntigua').val("");
+                                $('#txtContraseniaNueva').val("");
+                                $.bootstrapGrowl("La contraseña antigua es incorrecta.", { type: 'danger', width: 'auto' });
+                            }
+                        } else {
+                            $.bootstrapGrowl("No se guardo correctamente la información.", { type: 'danger', width: 'auto' });
+                        }
+                    }
+                });
+            });
+
+            var CodigoPerfil = $('#hdCodigoPerfilModalUsuario').val() == "" ? 1 : $('#hdCodigoPerfilModalUsuario').val();
+            ClickObtenerPerfilModalUsuario(CodigoPerfil);
+
+        });
+
+
+        //usuarios
+        function ClickObtenerPerfilModalUsuario(CodigoPerfil) {
+            $('#hdCodigoPerfilModalUsuario').val(CodigoPerfil);
+
+            if (CodigoPerfil == 1) {
+
+                document.getElementById('divBotonGerenciasModalUsuario').style.backgroundColor = '#0075ff';
+                document.getElementById('divBotonGerenciasModalUsuario').style.color = '#fff';
+                document.getElementById('divBotonAdministracionModalUsuario').style.backgroundColor = '#fff';
+                document.getElementById('divBotonAdministracionModalUsuario').style.color = '#000';
+                document.getElementById('divBotonJefedeventasModalUsuario').style.backgroundColor = '#fff';
+                document.getElementById('divBotonJefedeventasModalUsuario').style.color = '#000';
+                document.getElementById('divBotonVendedorModalUsuario').style.backgroundColor = '#fff';
+                document.getElementById('divBotonVendedorModalUsuario').style.color = '#000';
+
+                document.getElementById('divBotonCounterModalUsuario').style.backgroundColor = '#fff';
+                document.getElementById('divBotonCounterModalUsuario').style.color = '#000';
+                document.getElementById('divBotonJugueriaModalUsuario').style.backgroundColor = '#fff';
+                document.getElementById('divBotonJugueriaModalUsuario').style.color = '#000';
+                document.getElementById('divBotonTrainerModalUsuario').style.backgroundColor = '#fff';
+                document.getElementById('divBotonTrainerModalUsuario').style.color = '#000';
+                document.getElementById('divBotonInvitadoModalUsuario').style.backgroundColor = '#fff';
+                document.getElementById('divBotonInvitadoModalUsuario').style.color = '#000';
+                document.getElementById('divBotonVendedorCorporativoModalUsuario').style.backgroundColor = '#fff';
+                document.getElementById('divBotonVendedorCorporativoModalUsuario').style.color = '#000';
+                document.getElementById('divBotonMarketingModalUsuario').style.backgroundColor = '#fff';
+                document.getElementById('divBotonMarketingModalUsuario').style.color = '#000';
+
+                document.getElementById('divBotonAsesorBytefitModalUsuario').style.backgroundColor = '#fff';
+                document.getElementById('divBotonAsesorBytefitModalUsuario').style.color = '#000';
+
+            } else if (CodigoPerfil == 13) {
+                document.getElementById('divBotonGerenciasModalUsuario').style.backgroundColor = '#fff';
+                document.getElementById('divBotonGerenciasModalUsuario').style.color = '#000';
+                document.getElementById('divBotonAdministracionModalUsuario').style.backgroundColor = '#0075ff';
+                document.getElementById('divBotonAdministracionModalUsuario').style.color = '#fff';
+                document.getElementById('divBotonJefedeventasModalUsuario').style.backgroundColor = '#fff';
+                document.getElementById('divBotonJefedeventasModalUsuario').style.color = '#000';
+                document.getElementById('divBotonVendedorModalUsuario').style.backgroundColor = '#fff';
+                document.getElementById('divBotonVendedorModalUsuario').style.color = '#000';
+                document.getElementById('divBotonCounterModalUsuario').style.backgroundColor = '#fff';
+                document.getElementById('divBotonCounterModalUsuario').style.color = '#000';
+                document.getElementById('divBotonJugueriaModalUsuario').style.backgroundColor = '#fff';
+                document.getElementById('divBotonJugueriaModalUsuario').style.color = '#000';
+                document.getElementById('divBotonTrainerModalUsuario').style.backgroundColor = '#fff';
+                document.getElementById('divBotonTrainerModalUsuario').style.color = '#000';
+                document.getElementById('divBotonInvitadoModalUsuario').style.backgroundColor = '#fff';
+                document.getElementById('divBotonInvitadoModalUsuario').style.color = '#000';
+                document.getElementById('divBotonVendedorCorporativoModalUsuario').style.backgroundColor = '#fff';
+                document.getElementById('divBotonVendedorCorporativoModalUsuario').style.color = '#000';
+                document.getElementById('divBotonMarketingModalUsuario').style.backgroundColor = '#fff';
+                document.getElementById('divBotonMarketingModalUsuario').style.color = '#000';
+
+
+                document.getElementById('divBotonAsesorBytefitModalUsuario').style.backgroundColor = '#fff';
+                document.getElementById('divBotonAsesorBytefitModalUsuario').style.color = '#000';
+            } else if (CodigoPerfil == 14) {
+                document.getElementById('divBotonGerenciasModalUsuario').style.backgroundColor = '#fff';
+                document.getElementById('divBotonGerenciasModalUsuario').style.color = '#000';
+                document.getElementById('divBotonAdministracionModalUsuario').style.backgroundColor = '#fff';
+                document.getElementById('divBotonAdministracionModalUsuario').style.color = '#000';
+                document.getElementById('divBotonJefedeventasModalUsuario').style.backgroundColor = '#fff';
+                document.getElementById('divBotonJefedeventasModalUsuario').style.color = '#000';
+                document.getElementById('divBotonVendedorModalUsuario').style.backgroundColor = '#fff';
+                document.getElementById('divBotonVendedorModalUsuario').style.color = '#000';
+                document.getElementById('divBotonCounterModalUsuario').style.backgroundColor = '#fff';
+                document.getElementById('divBotonCounterModalUsuario').style.color = '#000';
+                document.getElementById('divBotonJugueriaModalUsuario').style.backgroundColor = '#fff';
+                document.getElementById('divBotonJugueriaModalUsuario').style.color = '#000';
+                document.getElementById('divBotonTrainerModalUsuario').style.backgroundColor = '#fff';
+                document.getElementById('divBotonTrainerModalUsuario').style.color = '#000';
+                document.getElementById('divBotonInvitadoModalUsuario').style.backgroundColor = '#fff';
+                document.getElementById('divBotonInvitadoModalUsuario').style.color = '#000';
+                document.getElementById('divBotonVendedorCorporativoModalUsuario').style.backgroundColor = '#fff';
+                document.getElementById('divBotonVendedorCorporativoModalUsuario').style.color = '#000';
+                document.getElementById('divBotonMarketingModalUsuario').style.backgroundColor = '#0075ff';
+                document.getElementById('divBotonMarketingModalUsuario').style.color = '#fff';
+
+                document.getElementById('divBotonAsesorBytefitModalUsuario').style.backgroundColor = '#fff';
+                document.getElementById('divBotonAsesorBytefitModalUsuario').style.color = '#000';
+            } else if (CodigoPerfil == 6) {
+                document.getElementById('divBotonGerenciasModalUsuario').style.backgroundColor = '#fff';
+                document.getElementById('divBotonGerenciasModalUsuario').style.color = '#000';
+                document.getElementById('divBotonAdministracionModalUsuario').style.backgroundColor = '#fff';
+                document.getElementById('divBotonAdministracionModalUsuario').style.color = '#000';
+                document.getElementById('divBotonJefedeventasModalUsuario').style.backgroundColor = '#0075ff';
+                document.getElementById('divBotonJefedeventasModalUsuario').style.color = '#fff';
+                document.getElementById('divBotonVendedorModalUsuario').style.backgroundColor = '#fff';
+                document.getElementById('divBotonVendedorModalUsuario').style.color = '#000';
+                document.getElementById('divBotonCounterModalUsuario').style.backgroundColor = '#fff';
+                document.getElementById('divBotonCounterModalUsuario').style.color = '#000';
+                document.getElementById('divBotonJugueriaModalUsuario').style.backgroundColor = '#fff';
+                document.getElementById('divBotonJugueriaModalUsuario').style.color = '#000';
+                document.getElementById('divBotonTrainerModalUsuario').style.backgroundColor = '#fff';
+                document.getElementById('divBotonTrainerModalUsuario').style.color = '#000';
+                document.getElementById('divBotonInvitadoModalUsuario').style.backgroundColor = '#fff';
+                document.getElementById('divBotonInvitadoModalUsuario').style.color = '#000';
+                document.getElementById('divBotonVendedorCorporativoModalUsuario').style.backgroundColor = '#fff';
+                document.getElementById('divBotonVendedorCorporativoModalUsuario').style.color = '#000';
+                document.getElementById('divBotonMarketingModalUsuario').style.backgroundColor = '#fff';
+                document.getElementById('divBotonMarketingModalUsuario').style.color = '#000';
+
+                document.getElementById('divBotonAsesorBytefitModalUsuario').style.backgroundColor = '#fff';
+                document.getElementById('divBotonAsesorBytefitModalUsuario').style.color = '#000';
+            } else if (CodigoPerfil == 5) {
+                document.getElementById('divBotonGerenciasModalUsuario').style.backgroundColor = '#fff';
+                document.getElementById('divBotonGerenciasModalUsuario').style.color = '#000';
+                document.getElementById('divBotonAdministracionModalUsuario').style.backgroundColor = '#fff';
+                document.getElementById('divBotonAdministracionModalUsuario').style.color = '#000';
+                document.getElementById('divBotonJefedeventasModalUsuario').style.backgroundColor = '#fff';
+                document.getElementById('divBotonJefedeventasModalUsuario').style.color = '#000';
+                document.getElementById('divBotonVendedorModalUsuario').style.backgroundColor = '#0075ff';
+                document.getElementById('divBotonVendedorModalUsuario').style.color = '#fff';
+                document.getElementById('divBotonCounterModalUsuario').style.backgroundColor = '#fff';
+                document.getElementById('divBotonCounterModalUsuario').style.color = '#000';
+                document.getElementById('divBotonJugueriaModalUsuario').style.backgroundColor = '#fff';
+                document.getElementById('divBotonJugueriaModalUsuario').style.color = '#000';
+                document.getElementById('divBotonTrainerModalUsuario').style.backgroundColor = '#fff';
+                document.getElementById('divBotonTrainerModalUsuario').style.color = '#000';
+                document.getElementById('divBotonInvitadoModalUsuario').style.backgroundColor = '#fff';
+                document.getElementById('divBotonInvitadoModalUsuario').style.color = '#000';
+                document.getElementById('divBotonVendedorCorporativoModalUsuario').style.backgroundColor = '#fff';
+                document.getElementById('divBotonVendedorCorporativoModalUsuario').style.color = '#000';
+                document.getElementById('divBotonMarketingModalUsuario').style.backgroundColor = '#fff';
+                document.getElementById('divBotonMarketingModalUsuario').style.color = '#000';
+
+                document.getElementById('divBotonAsesorBytefitModalUsuario').style.backgroundColor = '#fff';
+                document.getElementById('divBotonAsesorBytefitModalUsuario').style.color = '#000';
+            } else if (CodigoPerfil == 4) {
+                document.getElementById('divBotonGerenciasModalUsuario').style.backgroundColor = '#fff';
+                document.getElementById('divBotonGerenciasModalUsuario').style.color = '#000';
+                document.getElementById('divBotonAdministracionModalUsuario').style.backgroundColor = '#fff';
+                document.getElementById('divBotonAdministracionModalUsuario').style.color = '#000';
+                document.getElementById('divBotonJefedeventasModalUsuario').style.backgroundColor = '#fff';
+                document.getElementById('divBotonJefedeventasModalUsuario').style.color = '#000';
+                document.getElementById('divBotonVendedorModalUsuario').style.backgroundColor = '#fff';
+                document.getElementById('divBotonVendedorModalUsuario').style.color = '#000';
+                document.getElementById('divBotonJugueriaModalUsuario').style.backgroundColor = '#fff';
+                document.getElementById('divBotonJugueriaModalUsuario').style.color = '#000';
+                document.getElementById('divBotonCounterModalUsuario').style.backgroundColor = '#0075ff';
+                document.getElementById('divBotonCounterModalUsuario').style.color = '#fff';
+                document.getElementById('divBotonTrainerModalUsuario').style.backgroundColor = '#fff';
+                document.getElementById('divBotonTrainerModalUsuario').style.color = '#000';
+                document.getElementById('divBotonInvitadoModalUsuario').style.backgroundColor = '#fff';
+                document.getElementById('divBotonInvitadoModalUsuario').style.color = '#000';
+                document.getElementById('divBotonVendedorCorporativoModalUsuario').style.backgroundColor = '#fff';
+                document.getElementById('divBotonVendedorCorporativoModalUsuario').style.color = '#000';
+                document.getElementById('divBotonMarketingModalUsuario').style.backgroundColor = '#fff';
+                document.getElementById('divBotonMarketingModalUsuario').style.color = '#000';
+
+                document.getElementById('divBotonAsesorBytefitModalUsuario').style.backgroundColor = '#fff';
+                document.getElementById('divBotonAsesorBytefitModalUsuario').style.color = '#000';
+            } else if (CodigoPerfil == 3) {
+                document.getElementById('divBotonGerenciasModalUsuario').style.backgroundColor = '#fff';
+                document.getElementById('divBotonGerenciasModalUsuario').style.color = '#000';
+                document.getElementById('divBotonAdministracionModalUsuario').style.backgroundColor = '#fff';
+                document.getElementById('divBotonAdministracionModalUsuario').style.color = '#000';
+                document.getElementById('divBotonJefedeventasModalUsuario').style.backgroundColor = '#fff';
+                document.getElementById('divBotonJefedeventasModalUsuario').style.color = '#000';
+                document.getElementById('divBotonVendedorModalUsuario').style.backgroundColor = '#fff';
+                document.getElementById('divBotonVendedorModalUsuario').style.color = '#000';
+                document.getElementById('divBotonCounterModalUsuario').style.backgroundColor = '#fff';
+                document.getElementById('divBotonCounterModalUsuario').style.color = '#000';
+                document.getElementById('divBotonJugueriaModalUsuario').style.backgroundColor = '#fff';
+                document.getElementById('divBotonJugueriaModalUsuario').style.color = '#000';
+                document.getElementById('divBotonTrainerModalUsuario').style.backgroundColor = '#0075ff';
+                document.getElementById('divBotonTrainerModalUsuario').style.color = '#fff';
+                document.getElementById('divBotonInvitadoModalUsuario').style.backgroundColor = '#fff';
+                document.getElementById('divBotonInvitadoModalUsuario').style.color = '#000';
+                document.getElementById('divBotonVendedorCorporativoModalUsuario').style.backgroundColor = '#fff';
+                document.getElementById('divBotonVendedorCorporativoModalUsuario').style.color = '#000';
+                document.getElementById('divBotonMarketingModalUsuario').style.backgroundColor = '#fff';
+                document.getElementById('divBotonMarketingModalUsuario').style.color = '#000';
+
+                document.getElementById('divBotonAsesorBytefitModalUsuario').style.backgroundColor = '#fff';
+                document.getElementById('divBotonAsesorBytefitModalUsuario').style.color = '#000';
+            } else if (CodigoPerfil == 15) {
+                document.getElementById('divBotonGerenciasModalUsuario').style.backgroundColor = '#fff';
+                document.getElementById('divBotonGerenciasModalUsuario').style.color = '#000';
+                document.getElementById('divBotonAdministracionModalUsuario').style.backgroundColor = '#fff';
+                document.getElementById('divBotonAdministracionModalUsuario').style.color = '#000';
+                document.getElementById('divBotonJefedeventasModalUsuario').style.backgroundColor = '#fff';
+                document.getElementById('divBotonJefedeventasModalUsuario').style.color = '#000';
+                document.getElementById('divBotonVendedorModalUsuario').style.backgroundColor = '#fff';
+                document.getElementById('divBotonVendedorModalUsuario').style.color = '#000';
+                document.getElementById('divBotonCounterModalUsuario').style.backgroundColor = '#fff';
+                document.getElementById('divBotonCounterModalUsuario').style.color = '#000';
+                document.getElementById('divBotonJugueriaModalUsuario').style.backgroundColor = '#fff';
+                document.getElementById('divBotonJugueriaModalUsuario').style.color = '#000';
+                document.getElementById('divBotonTrainerModalUsuario').style.backgroundColor = '#fff';
+                document.getElementById('divBotonTrainerModalUsuario').style.color = '#000';
+                document.getElementById('divBotonInvitadoModalUsuario').style.backgroundColor = '#0075ff';
+                document.getElementById('divBotonInvitadoModalUsuario').style.color = '#fff';
+                document.getElementById('divBotonVendedorCorporativoModalUsuario').style.backgroundColor = '#fff';
+                document.getElementById('divBotonVendedorCorporativoModalUsuario').style.color = '#000';
+                document.getElementById('divBotonMarketingModalUsuario').style.backgroundColor = '#fff';
+                document.getElementById('divBotonMarketingModalUsuario').style.color = '#000';
+
+                document.getElementById('divBotonAsesorBytefitModalUsuario').style.backgroundColor = '#fff';
+                document.getElementById('divBotonAsesorBytefitModalUsuario').style.color = '#000';
+            } else if (CodigoPerfil == 16) {
+                document.getElementById('divBotonGerenciasModalUsuario').style.backgroundColor = '#fff';
+                document.getElementById('divBotonGerenciasModalUsuario').style.color = '#000';
+                document.getElementById('divBotonAdministracionModalUsuario').style.backgroundColor = '#fff';
+                document.getElementById('divBotonAdministracionModalUsuario').style.color = '#000';
+                document.getElementById('divBotonJefedeventasModalUsuario').style.backgroundColor = '#fff';
+                document.getElementById('divBotonJefedeventasModalUsuario').style.color = '#000';
+                document.getElementById('divBotonVendedorModalUsuario').style.backgroundColor = '#fff';
+                document.getElementById('divBotonVendedorModalUsuario').style.color = '#000';
+                document.getElementById('divBotonCounterModalUsuario').style.backgroundColor = '#fff';
+                document.getElementById('divBotonCounterModalUsuario').style.color = '#000';
+                document.getElementById('divBotonJugueriaModalUsuario').style.backgroundColor = '#0075ff';
+                document.getElementById('divBotonJugueriaModalUsuario').style.color = '#fff';
+                document.getElementById('divBotonTrainerModalUsuario').style.backgroundColor = '#fff';
+                document.getElementById('divBotonTrainerModalUsuario').style.color = '#000';
+                document.getElementById('divBotonInvitadoModalUsuario').style.backgroundColor = '#fff';
+                document.getElementById('divBotonInvitadoModalUsuario').style.color = '#000';
+                document.getElementById('divBotonVendedorCorporativoModalUsuario').style.backgroundColor = '#fff';
+                document.getElementById('divBotonVendedorCorporativoModalUsuario').style.color = '#000';
+                document.getElementById('divBotonMarketingModalUsuario').style.backgroundColor = '#fff';
+                document.getElementById('divBotonMarketingModalUsuario').style.color = '#000';
+
+                document.getElementById('divBotonAsesorBytefitModalUsuario').style.backgroundColor = '#fff';
+                document.getElementById('divBotonAsesorBytefitModalUsuario').style.color = '#000';
+            } else if (CodigoPerfil == 7) {
+                document.getElementById('divBotonGerenciasModalUsuario').style.backgroundColor = '#fff';
+                document.getElementById('divBotonGerenciasModalUsuario').style.color = '#000';
+                document.getElementById('divBotonAdministracionModalUsuario').style.backgroundColor = '#fff';
+                document.getElementById('divBotonAdministracionModalUsuario').style.color = '#000';
+                document.getElementById('divBotonJefedeventasModalUsuario').style.backgroundColor = '#fff';
+                document.getElementById('divBotonJefedeventasModalUsuario').style.color = '#000';
+                document.getElementById('divBotonVendedorModalUsuario').style.backgroundColor = '#fff';
+                document.getElementById('divBotonVendedorModalUsuario').style.color = '#000';
+                document.getElementById('divBotonCounterModalUsuario').style.backgroundColor = '#fff';
+                document.getElementById('divBotonCounterModalUsuario').style.color = '#000';
+                document.getElementById('divBotonJugueriaModalUsuario').style.backgroundColor = '#fff';
+                document.getElementById('divBotonJugueriaModalUsuario').style.color = '#000';
+                document.getElementById('divBotonTrainerModalUsuario').style.backgroundColor = '#fff';
+                document.getElementById('divBotonTrainerModalUsuario').style.color = '#000';
+                document.getElementById('divBotonInvitadoModalUsuario').style.backgroundColor = '#fff';
+                document.getElementById('divBotonInvitadoModalUsuario').style.color = '#000';
+                document.getElementById('divBotonVendedorCorporativoModalUsuario').style.backgroundColor = '#0075ff';
+                document.getElementById('divBotonVendedorCorporativoModalUsuario').style.color = '#fff';
+                document.getElementById('divBotonMarketingModalUsuario').style.backgroundColor = '#fff';
+                document.getElementById('divBotonMarketingModalUsuario').style.color = '#000';
+
+                document.getElementById('divBotonAsesorBytefitModalUsuario').style.backgroundColor = '#fff';
+                document.getElementById('divBotonAsesorBytefitModalUsuario').style.color = '#000';
+            } else if (CodigoPerfil == 17) {
+                document.getElementById('divBotonGerenciasModalUsuario').style.backgroundColor = '#fff';
+                document.getElementById('divBotonGerenciasModalUsuario').style.color = '#000';
+                document.getElementById('divBotonAdministracionModalUsuario').style.backgroundColor = '#fff';
+                document.getElementById('divBotonAdministracionModalUsuario').style.color = '#000';
+                document.getElementById('divBotonJefedeventasModalUsuario').style.backgroundColor = '#fff';
+                document.getElementById('divBotonJefedeventasModalUsuario').style.color = '#000';
+                document.getElementById('divBotonVendedorModalUsuario').style.backgroundColor = '#fff';
+                document.getElementById('divBotonVendedorModalUsuario').style.color = '#000';
+                document.getElementById('divBotonCounterModalUsuario').style.backgroundColor = '#fff';
+                document.getElementById('divBotonCounterModalUsuario').style.color = '#000';
+
+                document.getElementById('divBotonJugueriaModalUsuario').style.backgroundColor = '#fff';
+                document.getElementById('divBotonJugueriaModalUsuario').style.color = '#000';
+                document.getElementById('divBotonTrainerModalUsuario').style.backgroundColor = '#fff';
+                document.getElementById('divBotonTrainerModalUsuario').style.color = '#000';
+                document.getElementById('divBotonInvitadoModalUsuario').style.backgroundColor = '#fff';
+
+                document.getElementById('divBotonInvitadoModalUsuario').style.color = '#000';
+                document.getElementById('divBotonVendedorCorporativoModalUsuario').style.backgroundColor = 'fff';
+                document.getElementById('divBotonVendedorCorporativoModalUsuario').style.color = '#000';
+                document.getElementById('divBotonMarketingModalUsuario').style.backgroundColor = '#fff';
+                document.getElementById('divBotonMarketingModalUsuario').style.color = '#000';
+
+                document.getElementById('divBotonAsesorBytefitModalUsuario').style.backgroundColor = '#0075ff';
+                document.getElementById('divBotonAsesorBytefitModalUsuario').style.color = '#fff';
+            }
+
+            SEGListarUsuarioPorPerfil();
+        }
+
+        function SEGListarUsuarioPorPerfil() {
+
+            var CodigoPerfil = $('#hdCodigoPerfilModalUsuario').val();
+            var Estado = $("#ddlEstadoUsuario").data('kendoDropDownList').value();
+
+            $("#gridUsuarios").empty();
+            $("#gridUsuarios").kendoGrid({
+                dataSource: {
+                    type: "json",
+                    transport: {
+                        read: function (options) {
+                            $.ajax({
+                                data: '{"CodigoPerfil":"' + CodigoPerfil + '","Estado":"' + Estado + '"}',
+                                type: "POST",
+                                url: "/operacionesfit/SEGListarUsuarioPorPerfil",
+                                contentType: "application/json; charset=utf-8",
+                                dataType: "json",
+                                success: function (msg) {
+                                    options.success(msg);
+                                }
+                            });
+                        }
+                    }
+                },
+                height: 410,
+                selectable: "row",
+                columns: [{
+                    field: "CodigoUsuario",
+                    title: "<div style='font-size: 12px;color:#fff;'>Codigo</div>",
+                    width: 10,
+                    attributes: {
+                        style: "font-size:10px;"
+                    }
+                }, {
+                    field: "NombreCompleto",
+                    title: "<div style='font-size: 12px;color:#fff;'>Usuario</div>",
+                    width: 20,
+                    attributes: {
+                        style: "font-size:10px;"
+                    }
+                }, {
+                    field: "DesEstado",
+                    title: "<div style='font-size: 12px;color:#fff;'>Estado</div>",
+                    width: 10,
+                    attributes: {
+                        style: "font-size:10px;"
+                    }
+                }, {
+                    field: "DesPerfil",
+                    title: "<div style='font-size: 12px;color:#fff;'>Perfil</div>",
+                    width: 25,
+                    attributes: {
+                        style: "font-size:10px;"
+                    }
+                }
+                ], dataBound: function (e) {
+
+                    var count = 0;
+                    $('#gridUsuarios tbody tr').each(function () {
+                        count += 1;
+                    });
+
+                    if (count > 0) {
+                        this.element.find('tbody tr:first').addClass('k-state-selected');
+                        this.select(this.tbody.find('>tr:first'));
+                    } else {
+                        document.getelementbyid('btnnuevousuario').click();
+                        $('#txtcodigousuario').val(0);
+                        $("#gridusuarios").empty();
+                    }
+
+                }, change: function () {
+                    var grid = this;
+                    grid.select().each(function () {
+                        var dataItem = grid.dataItem($(this));
+                        var CodigoUsuario = dataItem.CodigoUsuario;
+                        var Estado = dataItem.Estado;
+                        buscarUsuarios(CodigoUsuario);
+                        document.getElementById("btnActualizarUsuario").style.display = '';
+                        document.getElementById("btnGuardarUsuario").style.display = 'none';
+                        document.getElementById("btnCambiarClave").style.display = '';
+
+                        if (Estado == true) {
+                            document.getElementById("btnDesactivarUsuario").style.display = '';
+                            document.getElementById("btnActivarUsuario").style.display = 'none';
+                        } else {
+                            document.getElementById("btnDesactivarUsuario").style.display = 'none';
+                            document.getElementById("btnActivarUsuario").style.display = '';
+                        }
+
+                    });
+                }
+            });
+        }
+
+        function buscarUsuarios(codigo) {
+
+            var CodigoPerfil = getCookie('_CodigoPerfil_Business');
+            if (CodigoPerfil == 1 || CodigoPerfil == 13) {
+                $('#txtContrasenia').get(0).type = 'text';
+                $('#txtContraseniaConfirm').get(0).type = 'text';
+                $("#txtContrasenia").attr('disabled', 'disabled');
+                $("#txtContraseniaConfirm").attr('disabled', 'disabled');
+                document.getElementById("trContraseñas").style.display = 'block';
+            } else {
+                $('#txtContrasenia').get(0).type = 'password';
+                $('#txtContraseniaConfirm').get(0).type = 'password';
+                document.getElementById("trContraseñas").style.display = 'none';
+                $("#txtContrasenia").removeAttr('disabled');
+                $("#txtContraseniaConfirm").removeAttr('disabled');
+            }
+          
+            $.ajax({
+                data: '{"codigo":"' + codigo + '"}',
+                type: "POST",
+                url: "/operacionesfit/BuscarUsuario",
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function (msg) {
+                    $('#txtCodigoUsuario').val(msg.CodigoUsuario);
+                    $('#ddlPerfilUsuarios').data("kendoDropDownList").value(msg.CodigoPerfil);
+                    $('#txtNombreCompletoUsuarios').prop('disabled', true);
+                    $('#txtNombreCompletoUsuarios').val(msg.NombreCompleto);
+
+                    $('#txtContrasenia').val(msg.Password);
+                    $('#txtContraseniaConfirm').val(msg.Password);
+                    $('#txtCorreoUsuarios').val(msg.Mail);
+                    $('#txtTelefonoUsuarios').val(msg.Telefono);
+                    $('#txtNombreUsuarios').val(msg.Nombres);
+                    $('#txtApellidoUsuarios').val(msg.Apellidos);
+                    $('#txtDniUsuarios').val(msg.DNI);
+                    $('#chkEstadoUsuarios').prop('checked', msg.Estado);
+                    $('#hdAccionUsuario').val('E');
+                }
+            });
+        }
+
+        function validacionUsuario() {
+            var validator = true;
+            var CodigoPerfil = $('#ddlPerfilUsuarios').data('kendoDropDownList').value();
+            if (CodigoPerfil == 0) {
+                validator = false;
+                $.bootstrapGrowl("Falta seleccionar el perfil de su usuario.", { type: 'danger', width: 'auto' });
+            }
+            if ($('#txtNombreCompletoUsuarios').val() == '') {
+                validator = false;
+                $.bootstrapGrowl("Falta ingresar su nombre.", { type: 'danger', width: 'auto' });
+            }
+            if ($('#txtApellidoUsuarios').val() == '') {
+                validator = false;
+                $.bootstrapGrowl("Falta ingresar sus apellidos.", { type: 'danger', width: 'auto' });
+            }
+            if ($('#txtContrasenia').val() == '') {
+                validator = false;
+                $.bootstrapGrowl("Falta ingresar su contraseña.", { type: 'danger', width: 'auto' });
+            }
+            if ($('#txtContraseniaConfirm').val() == '') {
+                validator = false;
+                $.bootstrapGrowl("Falta confirmar su contraseña.", { type: 'danger', width: 'auto' });
+            }
+            if ($('#txtNombreUsuarios').val() == '') {
+                validator = false;
+                $.bootstrapGrowl("Falta ingresar su usuario.", { type: 'danger', width: 'auto' });
+            }
+            if ($('#txtDniUsuarios').val() == '') {
+                validator = false;
+                $.bootstrapGrowl("Falta ingresar su dni.", { type: 'danger', width: 'auto' });
+            }
+            return validator;
+        }
+
+        function getValidarExisteUsuario() {
+
+            var NombreCompleto = $('#txtNombreCompletoUsuarios').val();
+            $.ajax({
+                data: '{"NombreCompleto":"' + NombreCompleto + '"}',
+                type: "POST",
+                url: "/operacionesfit/uspValidarExisteUsuario",
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function (msg) {
+                    if (msg == 0) {
+                        var Password = $('#txtContrasenia').val();
+                        var PasswordConfirm = $('#txtContraseniaConfirm').val();
+                        if (Password == PasswordConfirm) {
+                            GuardarNuevoUsuario();
+                        } else {
+                            $.bootstrapGrowl("Confirmacion de contraseña incorrecta.", { type: 'danger', width: 'auto' });
+                        }
+                    } else {
+                        $.bootstrapGrowl("El usuario ya existe, ingrese otro nombre de usuario.", { type: 'danger', width: 'auto' });
+                    }
+                }
+            });
+        }
+
+        function GuardarNuevoUsuario() {
+
+            var CodigoUsuario = $("#txtCodigoUsuario").val() == "" ? 0 : $("#txtCodigoUsuario").val();
+            var CodigoPerfil = $('#ddlPerfilUsuarios').data('kendoDropDownList').value();
+            var Nombre = $('#txtNombreCompletoUsuarios').val();
+            var NombreCompleto = Nombre.replace(' ', '');
+            var Password = $('#txtContrasenia').val();
+            var Correo = $('#txtCorreoUsuarios').val();
+            var Telefono = $('#txtTelefonoUsuarios').val();
+            var Accion = $('#hdAccionUsuario').val();
+            var Estado = $('#chkEstadoUsuarios').is(':checked');
+            var Nombres = $('#txtNombreUsuarios').val();
+            var Apellidos = $('#txtApellidoUsuarios').val();
+            var Dni = $('#txtDniUsuarios').val();
+
+            $.ajax({
+                data: '{"CodigoUsuario":"' + CodigoUsuario + '","CodigoPerfil":"' + CodigoPerfil + '","NombreCompleto":"' + NombreCompleto + '","Password":"' + Password + '","Correo":"' + Correo + '","Telefono":"' + Telefono + '","Accion":"' + Accion + '","Estado":"' + Estado + '","Nombres":"' + Nombres + '","Apellidos":"' + Apellidos + '","Dni":"' + Dni + '"}',
+                type: "POST",
+                url: "/operacionesfit/GuardarNuevoUsuario",
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function (msg) {
+                    if (msg > 0) {
+                        $.bootstrapGrowl("Los datos se han guardado correctamente.", { type: 'success', width: 'auto' });
+                        SEGListarUsuarioPorPerfil();
+                    } else {
+                        $.bootstrapGrowl("La información no se ha podido guardar correctamente.", { type: 'danger', width: 'auto' });
+                    }
+                }
+            });
+        }
+
+        function SEGListarPerfilMenu() {
+
+            var entidad = {};
+
+            document.getElementById('loadMe').style.display = 'block';
+            $('button[type="button"]').attr("disabled", true);
+            var metodoCorrecto = function (msg) {
+
+                $('button[type="button"]').attr("disabled", false);
+                document.getElementById('loadMe').style.display = 'none';
+
+                for (var i = 0; i < msg.length; i++) {
+
+                    if (msg[i].Estado) {
+
+                        $('[data-controlmodulo="' + msg[i].CodigoMenu + '"]').show('fast');
+
+                    }
+                }
+
+            };
+            var metodoError = function (msg) {
+                alert(msg);
+            };
+            var request = {
+                //request: entidad
+            };
+            LlamarAJAX("/operacionesfit/SEGListarPerfilMenu_Control", request, metodoCorrecto, metodoError);
+
+        }
+
+        function getCookie(cname) {
+            var name = cname + "=";
+            var ca = document.cookie.split(';');
+            for (var i = 0; i < ca.length; i++) {
+                var c = ca[i].trim();
+                if (c.indexOf(name) == 0) return c.substring(name.length, c.length);
+            }
+            return "";
+        }
+
+    </script>
+
+}

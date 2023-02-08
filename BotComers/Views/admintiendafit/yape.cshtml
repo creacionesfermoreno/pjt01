@@ -1,0 +1,188 @@
+﻿@model E_DataModel.PlantillaFormaPagoDTO
+
+@{
+    ViewBag.Title = "yape";
+    Layout = "~/Views/Shared/__LayoutAppFitPlataformaFit.cshtml";
+}
+
+<br /><br /><br />
+<div class="slim-mainpanel">
+    <div class="container">
+        <div class="slim-pageheader">
+            <ol class="breadcrumb slim-breadcrumb">
+                <li class="breadcrumb-item"><a style="color:#0075ff;" href="@Url.Action("formasdepago","admintiendafit",new {id= HttpContext.Current.Request.Cookies["_SubDominio_Business"].Value})">Formas de pago</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Mercado de pago</li>
+            </ol>
+            <h6 class="slim-pagetitle">Yape</h6>
+        </div><!-- slim-pageheader -->
+
+        <div class="section-wrapper">
+            <div class="form-layout">
+                <div class="row mg-b-25">
+                    <div class="card">
+                        <div class="card-header" role="tab" id="headingOne">
+                            <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne" class="tx-gray-800 transition">
+                                Ayuda
+                            </a>
+                        </div>
+                        <div id="collapseOne" class="collapse show" role="tabpanel" aria-labelledby="headingOne">
+                            <div class="card-body">
+                                <b>Yape</b> es la aplicación de pagos móviles del BCP que ya tiene más de un millón de usuarios o yaperos cómo ellos los llaman.
+                                <p>
+                                    Tus clientes podrán pagar sus compras desde su celular con cargo directo a su cuenta de ahorros y a ti te depositarán de inmediato. Además Yape tiene interesantes ventajas sobre otros medios de pago:
+                                </p>
+                                <ul>
+                                    <li>Pagos con QR</li>
+                                    <li>No cobra comisiones</li>
+                                    <li>Depósitos inmediatos</li>
+                                    <li>Notificaciones a tu celular</li>
+                                    <li>Amplia base de usuarios</li>
+                                    <li>Más fácil y rápido que hacer transferencia tradicional</li>
+                                    <li>Por se una transferencia hay menos posibilidades de fraude</li>
+                                </ul>
+                                <p>
+                                    La única limitación es que por el momento tendrás que validar los pagos de manera manual. Pero ya estamos trabajando de la mano con el BCP para automatizar este proceso.
+                                </p>
+                                <p>
+                                    Para empezar a recibir pagos con Yape sólo completa este formulario con el número de celular asociado a tu Yape y el código de QR de tu perfil.
+                                </p>
+                                <p>
+                                    <b>¿Cómo funciona?</b>
+                                </p>
+                                <p>
+                                    Durante el proceso de checkout, tus clientes deberán seleccionar Yape como medio de pago. En ese momento se les mostrará tu código QR, el número celular al cual deberán pagar y el código de referencia de su compra. Esta información también la recibirá por correo electrónico. Tu cliente deberá usar la aplicación de Yape para pagar. Puede añadir tu número celular a contactos o usar el código QR. En el campo comentarios podrá ingresar el código de referencia de la compra, que te servirá para que el cruce con tus ventas sea mas fácil. Una vez que tu cliente realice el pago recibirás una notificación de Yape. La venta quedará en estado pendiente hasta que confirmes el pago manualmente en el administrador.
+                                </p>
+                                <p>
+                                    <b>¿Cómo obtengo mi código de QR?</b>
+                                </p>
+                                <p>
+                                    La forma más fácil de obtener tu código de QR es ingresándome a tu perfil dentro de la aplicación de Yape y escaseándolo desde otro teléfono con un lector de QR alternativo, NO el de Yape (por lo general la cámara de cualquier teléfono tiene esta funcionalidad). De esa forma podrás ver el código generado. Cópialo y pégalo en el administrador y listo, nosotros volveremos a generar el QR por ti.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row mg-b-25">
+                    <div class="col-lg-12">
+                        <div class="form-group">
+                            <label for="txtYape_NroCelular" class="form-control-label">Número de Celular:</label>
+                            <input id="txtYape_NroCelular" class="form-control form-control-sm" type="text" value="@Model.Yape_NroCelular" placeholder="">
+
+                        </div>
+                    </div><!-- col-4 -->
+                    <div class="col-lg-12">
+                        <div class="form-group">
+                            <label for="txtYape_CodigoQR" class="form-control-label">Código QR:</label>
+                            <input id="txtYape_CodigoQR" class="form-control form-control-sm" type="text" value="@Model.Yape_CodigoQR" placeholder="">
+                        </div>
+                    </div><!-- col-4 -->
+                    <div class="col-lg-12">
+                        <div class="form-group">
+                            <div id="qrcode" style="width:100px; height:100px; margin-top:15px;">
+
+                            </div>
+                        </div>
+                    </div><!-- col-4 -->
+
+                </div><!-- row -->
+                <br /><br />
+                <div class="form-layout-footer">
+                    <button class="btn btn-primary bd-0" onclick="javascript:uspRegistrarFormaPago_Yape();">Guardar</button>
+                    <a href="@Url.Action("formasdepago","admintiendafit",new {id= HttpContext.Current.Request.Cookies["_SubDominio_Business"].Value})"><button class="btn btn-secondary bd-0">Cancelar</button></a>
+                </div><!-- form-layout-footer -->
+            </div><!-- form-layout -->
+        </div><!-- section-wrapper -->
+
+    </div><!-- container -->
+    <br /><br />
+</div><!-- slim-mainpanel -->
+
+
+@section Scripts {
+
+    @System.Web.Optimization.Scripts.Render("~/Scripts/plugins/jquery-ui/jquery-ui.js")
+    @System.Web.Optimization.Scripts.Render("~/Scripts/plugins/jquery-ui/jquery-ui.min.js")
+
+    @System.Web.Optimization.Scripts.Render("~/Content/app/lib/popper.js/js/popper.js")
+    @System.Web.Optimization.Scripts.Render("~/Content/app/lib/bootstrap/js/bootstrap.js")
+
+    @System.Web.Optimization.Scripts.Render("~/Scripts/bootstrap-notify-master/bootstrap-notify.js")
+    @System.Web.Optimization.Scripts.Render("~/Scripts/bootstrap-notify-master/bootstrap-notify.min.js")
+    @System.Web.Optimization.Scripts.Render("~/Scripts/jsBootstrap/jquery.bootstrap-growl.js")
+
+    @System.Web.Optimization.Scripts.Render("~/Resource/UserControl.Helper.js")
+    @System.Web.Optimization.Scripts.Render("~/Scripts/jsQRcode/qr-code-styling.js")
+
+
+    <script type="text/javascript">
+
+        $(document).ready(function () {
+            makeCode();
+        });
+
+        function makeCode() {
+
+            var qrCode = new QRCodeStyling({
+                width: 150,
+                height: 150,
+                data: document.getElementById("txtYape_CodigoQR").value,
+                image: "/Content/iconos/logo-whatsapp.png",
+                dotsOptions: {
+                    color: "#30bf39",
+                    type: "rounded"
+                },
+                backgroundOptions: {
+                    color: "#e9ebee",
+                },
+                imageOptions: {
+                    crossOrigin: "anonymous"
+                }
+            });
+            qrCode.append(document.getElementById("qrcode"));
+
+        }
+
+        function uspRegistrarFormaPago_Yape() {
+
+            var entidad = {};
+
+            entidad.Yape_NroCelular = ConvertToStringFromObject($('input[id="txtYape_NroCelular"]').val());
+            entidad.Yape_CodigoQR = ConvertToStringFromObject($('input[id="txtYape_CodigoQR"]').val());
+            entidad.Yape_Estado = true;
+
+            if (IsUndefinedOrNullOrEmpty(entidad.Yape_NroCelular)) {
+                $.bootstrapGrowl("Falta ingresar Nro Celular.", { type: 'danger', width: 'auto' });
+                return;
+            }
+            else if (IsUndefinedOrNullOrEmpty(entidad.Yape_CodigoQR)) {
+                $.bootstrapGrowl("Falta ingresar Codigo QR.", { type: 'danger', width: 'auto' });
+                return;
+            }
+
+            $('button').attr('disabled', 'disabled');
+            var metodoCorrecto = function (msg) {
+
+                $('button').removeAttr('disabled');
+                if (msg) {
+                    $.bootstrapGrowl("Se guardo correctamente.", { type: 'success', width: 'auto' });
+                }
+                else {
+                    $.bootstrapGrowl("Error, no se guardo correctamente.", { type: 'danger', width: 'auto' });
+                }
+            };
+            var metodoError = function (msg) {
+                alert(msg);
+            };
+            var request = {
+                request: entidad
+            };
+            LlamarAJAX("/admintienda/ecommerce_uspRegistrarFormaPago_Yape", request, metodoCorrecto, metodoError);
+
+        }
+
+    </script>
+
+
+
+}

@@ -1,0 +1,128 @@
+﻿
+@{
+    ViewBag.Title = "Resumen";
+    Layout = "";
+}
+
+<html>
+<head>
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>BOTCOMERS - Digital Products </title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="~/Content/assets/css/BotcomersLayout.css" rel="stylesheet" />
+    <script src="~/Content/pruebas/js/carritobotcomers.js"></script>
+
+
+    <link href="~/Content/assets/css/plaza-font.css" rel="stylesheet" />
+    <!-- Favicon -->
+    <link rel="shortcut icon" type="image/x-icon" href="~/Content/upload/faviconbot/favicon.png">
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+    <script src="~/Scripts/jquery-3.3.1.min.js"></script>
+</head>
+<body>
+    <div class="header-middle pl-sm-0 pr-sm-0 pl-xs-0 pr-xs-0">
+        <div class="col-md-12">
+            <div class="row">
+                <!-- Begin Header Logo Area -->
+                <div class="col-lg-3">
+                    <div class="logo pb-sm-30 pb-xs-30">
+                        <a href="@Url.Action("Index")">
+                            <img src="~/Content/upload/faviconbot/logobot.png" />
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <br /><br />
+    <form role="form" id="form" style="padding: 19px;">
+
+        <div class="panel panel-default">
+            <div class="panel-heading" style="font-size: 24px;">Resumen de tu Orden</div>
+            <div class="panel-body">
+                <div class="container-fluid">
+                    <h3>
+                        NÚMERO DE ORDEN:
+                        5360659936
+                    </h3>
+                    <span>
+                        Enviaremos los detalles de tu orden al siguiente correo:
+                    </span>
+                    <br />
+                    <br />
+                    <span>Para seguimientos, cambios y devoluciones</span>
+                    <hr />
+                    <div id="clothing-nav-content" class="tab-content">
+                        @*<h2>Resumen de tu orden </h2>*@
+                        <br />
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="">
+                                    <span>
+                                        Total:
+                                    </span>
+                                    <br /><br />
+                                    <span>
+                                        S/49.480
+                                    </span>
+                                    <br /><br />
+                                    <span> (incluye despacho, descuentos y cupones aplicados)</span>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+
+                                <div class="col-md-8">
+                                    <span>Detalles de pago</span>
+                                    <br /><br />
+                                    <span>Visa: Terminada en 8582</span>
+                                    <br />
+                                    <span>Total de productos:1</span>
+                                </div>
+                            </div>
+                        </div>
+                        <hr />
+                        <h2>Despacho a domicilio</h2>
+                        <span>Luis Flores Rios .. Direccion Lol Altos Pinos</span>
+                        <br />
+                        <br /><br />
+                        <div class="col-md-6" style="margin: -33px;">
+
+                            @*<img src="@item.url_image" alt="Li's Product Image">*@
+                            <img src="~/Content/upload/product/large-size/4.jpg" />
+
+                        </div>
+                        <br /><br />
+                        <div class="col-md-6" style="float: right;">
+                            <div class="col-md-8">
+                                <span>LG  Código: 7370231LED Nanoell 55 55SM8600 4K Ultra HD Smart TV</span>
+                                <br /><br />
+                                      <span>1500.90</span>
+                                <br />
+                                <span>LED LG 55SM8600 Resolución: 4K Super Ultra HD</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <br /><br />
+                <p>
+                    <br><br>Para cualquier consulta o para obtener más información,
+                    <br><br>póngase en contacto con nuestro servicio de atención al cliente.
+                    <a href="https://www.binz360.com/">
+                        Atención al cliente.
+                    </a>
+                    <br /><br />
+
+                    <div class="buttons clearfix">
+                        <div class="btn btn-primary nextBtn" style="background-color: #fed700; border-color: #fed700; width: 35%;padding:14px;"><a href="@Url.Action("Index")" class="button" style="color:#fff;">PAGINA PRINCIPAL</a></div>
+                        <input type="button" style="background-color: #fed700; border-color: #fed700; width: 34%;padding:14px;" class="btn btn-warning hidden-print" name="imprimir" value="IMPRIMIR" onclick="window.print();">
+                    </div>
+
+            </div>
+        </div>
+
+    </form>
+</body>
+</html>
+
+

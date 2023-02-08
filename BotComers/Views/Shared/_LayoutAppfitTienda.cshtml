@@ -1,0 +1,216 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>@ViewBag.Title</title>
+    @if (IsSectionDefined("Styles"))
+    {@RenderSection("Styles", required: false)}
+
+    <link href="@Url.Content("~/Content/tienda/css/owl.carousel.min.css")" rel="stylesheet" />
+    <link href="@Url.Content("~/Content/tienda/img/favicon.png")" rel="stylesheet" />
+    <link href="@Url.Content("~/Content/tienda/image/png")" rel="stylesheet" />
+    <link href="@Url.Content("~/Content/tienda/css/slick.css")" rel="stylesheet" />
+    <link href="@Url.Content("~/Content/tienda/css/slickslick-theme.css")" rel="stylesheet" />
+    <link href="@Url.Content("~/Content/tienda/css/owl.theme.default.min.css")" rel="stylesheet" />
+    <link href="@Url.Content("~/Content/tienda/css/style.css")" rel="stylesheet" />
+    <link href="@Url.Content("~/Content/tienda/css/bootstrap-slider.css")" rel="stylesheet" />
+
+</head>
+<body>
+
+    <!-- end push menu-->
+    <div class="wrappage">
+
+        <header id="header" class="header-v5">
+
+            <div class="header-top-banner">
+                <a href="#"><img src="~/Content/tienda/img/banner-top.jpg" alt="" class="img-reponsive"></a>
+            </div>
+
+            <div class="header-center">
+                <div class="container container-240" style="">
+                    <div class="row flex">
+                        <div class="col-lg-2 col-md-2 col-sm-6 col-xs-6 v-center header-logo">
+                            <a href="#"><img src="~/Content/tienda/img/logo.png" alt="" class="img-reponsive"></a>
+                        </div>
+                        <div class="col-lg-7 col-md-7 v-center header-search hidden-xs hidden-sm">
+                            <form method="get" class="searchform ajax-search" action="/search" role="search">
+                                <input type="hidden" name="type" value="product">
+                                <input type="text" onblur="if (this.value=='') this.value = this.defaultValue" onfocus="if (this.value==this.defaultValue) this.value = ''" name="q" class="form-control" placeholder="">
+                                <ul class="list-product-search hidden-xs hidden-sm">
+                                    <li>
+                                        <a class="flex align-center" href="">
+                                            <div class="product-img">
+                                                <img src="~/Content/tienda/img/product/iphonex.jpg" alt="">
+                                            </div>
+                                            <h3 class="product-title">Notebook Black Spire Smartphone Black 2.0</h3>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a class="flex align-center" href="">
+                                            <div class="product-img">
+                                                <img src="~/Content/tienda/img/product/sound.jpg" alt="">
+                                            </div>
+                                            <h3 class="product-title">Smartphone 6S 64GB LTE</h3>
+                                        </a>
+                                    <li>
+                                        <a class="flex align-center" href="">
+                                            <div class="product-img">
+                                                <img src="~/Content/tienda/img/product/phone4.jpg" alt="">
+                                            </div>
+                                            <h3 class="product-title">Notebook Black Spire Smartphone Black 2.0</h3>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a class="flex align-center" href="">
+                                            <div class="product-img">
+                                                <img src="~/Content/tienda/img/product/phone5.jpg" alt="">
+                                            </div>
+                                            <h3 class="product-title">Smartphone 6S 64GB LTE </h3>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a class="flex align-center" href="">
+                                            <div class="product-img">
+                                                <img src="~/Content/tienda/img/product/phone1.jpg" alt="">
+                                            </div>
+                                            <h3 class="product-title">Notebook Black Spire Smartphone Black 2.0</h3>
+                                        </a>
+                                    </li>
+                                </ul>
+                                <div class="search-panel">
+
+                                </div>
+                                <span class="input-group-btn">
+                                    <button class="button_search" type="button"><i class="ion-ios-search-strong"></i></button>
+                                </span>
+                            </form>
+                        </div>
+                        <div class="col-lg-3  col-md-3 col-sm-6 col-xs-6 v-center header-sub">
+                            <div class="right-panel">
+                                <div class="header-sub-element hidden-xs hidden-sm">
+                                    <div class="sub-left">
+                                        <img src="~/Content/tienda/img/icon-call.png" alt="">
+                                    </div>
+                                    <div class="sub-right">
+                                        <span>Llámenos gratis</span>
+                                        <div class="phone">(+51) 999 456 789 </div>
+                                    </div>
+                                </div>
+                                <div class="header-sub-element row">
+                                    <a class="hidden-xs hidden-sm" href=""><img src="~/Content/tienda/img/icon-user.png" alt=""></a>
+                                    <a href="#"><img src="~/Content/tienda/img/icon-heart.png" alt=""></a>
+                                    <div class="cart" id="">
+                                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" id="label5">
+                                            <img src="~/Content/tienda/img/icon-cart.png" alt="">
+                                            <span class="count cart-count" style="background-image: linear-gradient(122deg, #ff0000, #ff712c);">0</span>
+                                        </a>
+                                        <input type="hidden" id="hdPrueba" value="HOLA" />
+                                        <div id="carrito" class="dropdown-menu dropdown-cart">
+                                            <ul id="lista-carrito" class="mini-products-list"></ul>
+                                            <div class="bottom-cart">
+                                                <div class="cart-price">
+                                                    <span>Subtotal</span>
+                                                    <span class="price-total">$ 120.00</span>
+                                                </div>
+                                                <div class="button-cart">
+                                                    <a href="#" id="vaciar-carrito" class="cart-btn btn-viewcart">Vaciar Carrito</a>
+                                                    <a href="#" id="procesar-pedido" class="cart-btn e-checkout btn-gradient">Procesar Compra</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <a href="#" class="hidden-md hidden-lg icon-pushmenu js-push-menu">
+                                        <i class="fa fa-bars f-15"></i>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </header>
+
+        @RenderBody()
+        <!-- / end content -->
+
+
+        <div class="feature" style="background-color:#000">
+            <div class="container container-240">
+                <div class="feature-inside">
+                    <div class="feature-block text-center">
+                        <div class="feature-block-img"><img src="~/Content/tienda/img/feature/truck.png" alt="" class="img-reponsive"></div>
+                        <div class="feature-info">
+                            <h3>Envíos a todo el Perú</h3>
+                            <p>enviamos a todas las regiones del Perú.</p>
+                        </div>
+                    </div>
+                    <div class="feature-block text-center">
+                        <div class="feature-block-img"><img src="~/Content/tienda/img/feature/credit-card.png" alt="" class="img-reponsive"></div>
+                        <div class="feature-info">
+                            <h3>Pago seguro</h3>
+                            <p>Pague con los métodos de pago más populares y seguros del mundo.</p>
+                        </div>
+                    </div>
+                    <div class="feature-block text-center">
+                        <div class="feature-block-img"><img src="~/Content/tienda/img/feature/safety.png" alt="" class="img-reponsive"></div>
+                        <div class="feature-info">
+                            <h3>Compra con confianza</h3>
+                            <p>Nuestra Protección del comprador cubre su compra desde el clic hasta la entrega.</p>
+                        </div>
+                    </div>
+                    <div class="feature-block text-center">
+                        <div class="feature-block-img"><img src="~/Content/tienda/img/feature/telephone.png" alt="" class="img-reponsive"></div>
+                        <div class="feature-info">
+                            <h3>Centro de ayuda 24/7</h3>
+                            <p>Asistencia las 24 horas para una experiencia de compra fluida.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+        <footer>
+            <div class="f-bottom">
+                <div class="container container-240">
+                    <div class="row flex lr">
+                        <div class="col-xs-6 f-copyright"><span>© 2020 AppsFit. todos los derechos reservados.</span></div>
+                        <div class="col-xs-6 f-payment hidden-xs">
+                            <a href="#"><img src="~/Content/tienda/img/payment/mastercard.png" alt="" class="img-reponsive"></a>
+                            <a href="#"><img src="~/Content/tienda/img/payment/paypal.png" alt="" class="img-reponsive"></a>
+                            <a href="#"><img src="~/Content/tienda/img/payment/visa.png" alt="" class="img-reponsive"></a>
+                            <a href="#"><img src="~/Content/tienda/img/payment/american-express.png" alt="" class="img-reponsive"></a>
+                            <a href="#"><img src="~/Content/tienda/img/payment/western-union.png" alt="" class="img-reponsive"></a>
+                            <a href="#"><img src="~/Content/tienda/img/payment/jcb.png" alt="" class="img-reponsive"></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </footer>
+        <!-- /footer -->
+        <!-- /footer -->
+    </div>
+
+    @System.Web.Optimization.Scripts.Render("~/Content/tienda/js/jquery.js")
+    @System.Web.Optimization.Scripts.Render("~/Content/tienda/js/bootstrap.js")
+    @System.Web.Optimization.Scripts.Render("~/Content/tienda/js/owl.carousel.min.js")
+    @System.Web.Optimization.Scripts.Render("~/Content/tienda/js/slick.min.js")
+    @System.Web.Optimization.Scripts.Render("~/Content/tienda/js/main.js")
+    @System.Web.Optimization.Scripts.Render("~/Content/tienda/js/bootstrap-slider.min.js")
+
+    @System.Web.Optimization.Scripts.Render("~/Scripts/jsCarrito/bootstrap.min.js")
+
+    @System.Web.Optimization.Scripts.Render("~/Scripts/jsCarrito/sweetalert2.min.js")
+    @System.Web.Optimization.Scripts.Render("~/Scripts/jsCarrito/carrito.js")
+    @System.Web.Optimization.Scripts.Render("~/Scripts/jsCarrito/pedido.js")
+    @System.Web.Optimization.Scripts.Render("~/Scripts/jsCarrito/popper.min.js")
+    @System.Web.Optimization.Scripts.Render("https://unpkg.com/@popperjs/core@2")
+
+    @RenderSection("scripts", required: false)
+
+</body>
+</html>

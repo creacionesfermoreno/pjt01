@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Generator: Adobe Illustrator 16.0.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 width="169.999px" height="169.999px" viewBox="0 0 169.999 169.999" enable-background="new 0 0 169.999 169.999"
+	 xml:space="preserve">
+<g id="Background">
+</g>
+<g id="Circle">
+	<g>
+		<path fill="#FFFFFF" d="M85,169.999c-46.869,0-85-38.131-85-84.999C0,38.131,38.131,0,85,0s84.999,38.131,84.999,85
+			C169.999,131.868,131.869,169.999,85,169.999z"/>
+	</g>
+</g>
+<g id="TEXT">
+</g>
+<g id="Icons">
+	<g>
+		<g>
+			<polyline fill="none" stroke="#282D33" stroke-width="4" points="125.022,73.268 111.882,73.268 111.882,87.182 129.856,87.182 
+							"/>
+			<line fill="none" stroke="#282D33" stroke-width="4" x1="105.694" y1="106.937" x2="104.567" y2="106.937"/>
+			<polyline fill="none" stroke="#282D33" stroke-width="4" points="104.567,66.618 123.198,66.618 130.464,87.805 130.464,99.462 
+				131.542,99.462 131.542,106.937 126.257,106.937 			"/>
+			<g>
+				<polyline fill="none" stroke="#282D33" stroke-width="4" points="104.694,99.729 104.694,55.243 40.983,55.243 40.983,99.729 
+									"/>
+			</g>
+			<line fill="none" stroke="#282D33" stroke-width="4" x1="76.52" y1="106.976" x2="64.023" y2="106.976"/>
+			<polyline fill="none" stroke="#282D33" stroke-width="4" points="43.69,106.976 39.058,106.976 39.058,98.4 104.694,98.4 
+				104.694,106.976 98.021,106.976 			"/>
+			<line fill="none" stroke="#282D33" stroke-width="4" x1="104.038" y1="106.898" x2="96.665" y2="106.898"/>
+			<circle fill="none" stroke="#282D33" stroke-width="4" cx="116.976" cy="109.634" r="5.934"/>
+			<circle fill="none" stroke="#282D33" stroke-width="4" cx="86.788" cy="109.634" r="5.934"/>
+			<circle fill="none" stroke="#282D33" stroke-width="4" cx="53.466" cy="109.634" r="5.936"/>
+			<circle fill="none" stroke="#282D33" stroke-width="4" cx="53.466" cy="109.634" r="5.936"/>
+			<line fill="none" stroke="#282D33" stroke-width="4" x1="133.677" y1="93.066" x2="126.157" y2="93.066"/>
+		</g>
+		<line fill="none" stroke="#282D33" stroke-width="4" x1="51.079" y1="67.486" x2="67.079" y2="67.486"/>
+	</g>
+</g>
+</svg>

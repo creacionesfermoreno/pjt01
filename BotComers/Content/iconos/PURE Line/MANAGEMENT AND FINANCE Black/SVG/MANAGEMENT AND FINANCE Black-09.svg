@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Generator: Adobe Illustrator 16.0.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="170px"
+	 height="170px" viewBox="0 0 170 170" enable-background="new 0 0 170 170" xml:space="preserve">
+<g id="Background">
+</g>
+<g id="Circle">
+	<g>
+		<path fill="#FFFFFF" d="M85,170c-46.869,0-85-38.131-85-85S38.131,0,85,0s85,38.131,85,85S131.869,170,85,170z"/>
+	</g>
+</g>
+<g id="TEXT">
+</g>
+<g id="Icons">
+	<g>
+		<circle fill="none" stroke="#282D33" stroke-width="4" cx="85.136" cy="84.477" r="33.338"/>
+		<circle fill="none" stroke="#282D33" stroke-width="4" cx="85.136" cy="84.477" r="20.338"/>
+		<path fill="none" stroke="#282D33" stroke-width="4" d="M85.135,62.548c-20.505,0-38.491,8.758-48.665,21.929
+			c10.174,13.17,28.16,21.928,48.665,21.928c20.507,0,38.493-8.758,48.667-21.928C123.628,71.306,105.642,62.548,85.135,62.548z"/>
+		<g>
+			<path fill="none" stroke="#282D33" stroke-width="4" stroke-dasharray="4" d="M122.173,66.118
+				c-6.763-13.617-20.804-22.98-37.038-22.98s-30.275,9.363-37.038,22.98"/>
+			<path fill="none" stroke="#282D33" stroke-width="4" stroke-dasharray="4" d="M48.097,102.834
+				c6.762,13.617,20.804,22.98,37.038,22.98s30.276-9.363,37.039-22.98"/>
+		</g>
+		<g>
+			<path fill="none" stroke="#282D33" stroke-width="4" d="M90.311,79.484V78.31c0-2.042-1.654-3.694-3.691-3.694h-2.966
+				c-2.038,0-3.692,1.652-3.692,3.694v2.514c0,1.167,0.902,2.126,2.089,2.88l5.63,2.155"/>
+			<path fill="none" stroke="#282D33" stroke-width="4" d="M79.961,90.333v1.176c0,2.04,1.654,3.692,3.692,3.692h2.966
+				c2.037,0,3.691-1.652,3.691-3.692v-2.516c0-1.166-0.962-2.186-2.152-2.94l-5.371-2.068"/>
+			<line fill="none" stroke="#282D33" stroke-width="4" x1="85.361" y1="69.56" x2="85.361" y2="75.075"/>
+			<line fill="none" stroke="#282D33" stroke-width="4" x1="85.361" y1="94.31" x2="85.361" y2="99.825"/>
+		</g>
+	</g>
+</g>
+</svg>

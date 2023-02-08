@@ -1,0 +1,561 @@
+﻿
+@{
+    ViewBag.Title = "ProcesoPago";
+    Layout = "";
+}
+
+
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>BOTCOMERS</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="~/Content/assets/css/BotcomersLayout.css" rel="stylesheet" />
+
+
+    <link href="~/Content/assets/css/BotcomersLayout.css" rel="stylesheet" />
+    <link rel="shortcut icon" type="image/x-icon" href="~/Content/upload/faviconbot/favicon.png">
+    <link href="~/Content/assets/css/bootstrap.min.css" rel="stylesheet" />
+
+    <link href="~/Content/assets/pagos/bootstrap.min.css" rel="stylesheet" />
+   
+    <link rel="shortcut icon" type="image/x-icon" href="~/Content/upload/faviconbot/favicon.png">
+
+    <link href="~/Content/assets/pagos/style.css" rel="stylesheet" />
+
+    <!-- Responsive CSS -->
+    <link href="~/Content/assets/css/responsive.css" rel="stylesheet" />
+
+    <!-- Nice Select CSS -->
+    <link href="~/Content/assets/css/nice-select.css" rel="stylesheet" />
+    <!-- Magnific Popup CSS -->
+    <link href="~/Content/assets/css/magnific-popup.css" rel="stylesheet" />
+    <!-- Bootstrap V4.1.3 Fremwork CSS -->
+    <link href="~/Content/assets/css/style.css" rel="stylesheet" />
+
+</head>
+<body>
+    <div class="header-middle pl-sm-0 pr-sm-0 pl-xs-0 pr-xs-0">
+        <div class="col-md-12">
+            <div class="row">
+                <!-- Begin Header Logo Area -->
+                <div class="col-lg-3">
+                    <div class="logo pb-sm-30 pb-xs-30">
+                        <a href="@Url.Action("Index")">
+                            <img src="~/Content/upload/faviconbot/logobot.png" />
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <header>
+        <div class="col-md-12">
+            <div class="stepwizard">
+                <div class="stepwizard-row setup-panel">
+                    <div class="stepwizard-step" style="width: 24%;">
+                        <a href="#step-1" type="button" class="btn btn-primary btn-circle " style=" background-color: #fed700;border-color: #fed700;">1</a>
+                        <p>Compras</p>
+                    </div>
+                    <div class="stepwizard-step" style="    width: 50%;">
+                        <a href="#step-2" type="button" class="btn btn-default btn-circle disabled" style="background-color: #fed700; border-color: #fed700;">2</a>
+                        <p>Despacho</p>
+                    </div>
+                    <div class="stepwizard-step">
+                        <a href="#step-3" type="button" class="btn btn-default btn-circle disabled" style="    background-color: #fed700;border-color: #fed700;">3</a>
+                        <p>Pago</p>
+                        <span class="stepwizard-step">
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+    <form role="form" id="form" style="padding: 19px;">
+        <div class="row setup-content" id="step-1">
+            <div class="rms-content-box rms-current-section">
+                <div class="col-md-6">
+
+                    <div class="panel panel-default">
+                        <div class="panel-heading" style="font-size: 16px;">
+                            Elige tus opciones de despacho
+                        </div>
+                        <div class="panel-body">
+                            Selecciona región y comuna donde quieres despachar o retirar tus productos.
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="country-select clearfix">
+                                        <label>Region <span class="required">*</span></label>
+                                        <select class="nice-select wide">
+                                            <option data-display="Seleccione una Region">Seleccione una Region</option>
+                                            <option>Lima</option>
+                                            <option>Junin</option>
+                                            <option>Arequipa</option>
+                                            <option>Ayacucho</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="country-select clearfix">
+                                        <label>Provincia <span class="required">*</span></label>
+                                        <select class="nice-select wide">
+                                            <option data-display="Seleccione una Provincia">Seleccione una Provincia</option>
+                                            <option value="uk">Chiclayo</option>
+                                            <option value="rou">Olmos</option>
+                                            <option value="fr">Lima</option>
+                                            <option value="de">Callao</option>
+                                            <option value="aus">La Capilla</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="country-select clearfix">
+                                        <label>Distrito <span class="required">*</span></label>
+                                        <select class="nice-select wide">
+                                            <option data-display="Seleccione un Distrito">Seleccione un Distrito</option>
+                                            <option>Comas</option>
+                                            <option>Puente Piedra</option>
+                                            <option>Surco</option>
+                                            <option>Chorrillos</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <button class="btn btn-primary nextBtn " type="button" style="color: #fff;background-color: #fed700; border-color: #fed700;width:100%">Continuar</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 col-xs-12 pull-right">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <h2 style="font-size: 16px;">
+                                Resumen de tu orden
+                            </h2>
+                        </div>
+                        <div class="panel-body">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="">
+                                        <span>
+                                            Televisor Plasma LG
+                                        </span>
+                                        <br /><br />
+                                        <span>3 Unidades</span>
+                                        <br /><br />
+                                        <span>Codigo: 40400404</span>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="col-md-2">
+                                        <span>S/345.00</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 col-xs-12 pull-right">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <h2 style="font-size: 16px;">
+                                Despacho 1 (de 2)
+                            </h2>
+                        </div>
+                        <div class="panel-body">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <h5>Envio</h5>
+                                        <span style="float:left">
+                                            Despacho a domicilio Lo Pinos 2323, Depto Defdef, PAIPOTE, REGION DE ATACAMA (III) ¿Cuándo? Sáb 25/01/2020
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row setup-content" id="step-2">
+            <div class="rms-content-box rms-current-section">
+                <div class="col-md-6">
+                    <div class="panel panel-default">
+                        <div class="panel-heading" style="font-size: 16px;">
+                            Elige tus opciones de despacho
+                        </div>
+                        <div class="panel-body">
+                            <div class="panel panel-default col-md-6">
+                                <div class="panel-body">
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="">
+                                                <span>
+                                                    Region
+                                                </span>
+                                            </div>
+                                            <br />
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="col-md-2">
+                                                <span>Lima</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="">
+                                                <span>
+                                                    Provincia
+                                                </span>
+                                            </div>
+                                            <br />
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="col-md-2">
+                                                <span>Lima</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="">
+                                                <span>
+                                                    Distrito
+                                                </span>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="col-md-2">
+                                                <span>Los Olivos</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-8" style="margin: -15px">
+                                <div class="checkout-form-list">
+                                    <label>Direccion<span class="required">*</span></label>
+                                    <input placeholder="Direccion" type="text">
+                                </div>
+                            </div>
+                            <br />
+                            <div class="col-md-8" style="margin: -15px">
+                                <div class="checkout-form-list">
+                                    <label>Número<span class="required">*</span></label>
+                                    <input placeholder="Numero de Telefono o Celular" type="text">
+                                </div>
+                            </div>
+                            <br />
+                            <div class="col-md-8" style="margin: -15px">
+                                <div class="checkout-form-list">
+                                    <label>Departamento/Casa/oficina<span class="required">*</span></label>
+                                    <input placeholder="Departamento,Oficina" type="text">
+                                </div>
+                            </div>
+                        </div>
+                        <button class="btn btn-primary nextBtn " type="button" style="color: #fff;background-color: #fed700; border-color: #fed700;margin-bottom: 20px;width:61%">Continuar</button>
+                    </div>
+                </div>
+                <div class="col-md-4 col-xs-12 pull-right">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <h2 style="font-size: 16px;">
+                                Resumen de tu orden
+                            </h2>
+                        </div>
+                        <div class="panel-body">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="">
+                                        <span>
+                                            Televisor Plasma LG
+                                        </span>
+                                        <br /><br />
+                                        <span>3 Unidades</span>
+                                        <br /><br />
+                                        <span>Codigo: 40400404</span>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="col-md-2">
+                                        <span>S/345.00</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 col-xs-12 pull-right">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <h2 style="font-size: 16px;">
+                                Despacho 1 (de 2)
+                            </h2>
+                        </div>
+                        <div class="panel-body">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <h5>Envio</h5>
+                                        <span style="float:left">
+                                            Despacho a domicilio Lo Pinos 2323, Depto Defdef, PAIPOTE, REGION DE ATACAMA (III) ¿Cuándo? Sáb 25/01/2020</p>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row setup-content" id="step-3">
+            <div class="rms-content-box rms-current-section">
+                <div class="col-md-8">
+                    <div class="panel panel-default">
+                        <div class="panel-heading" style="font-size: 16px;">
+                            Elige tu medio de pago
+                        </div>
+                        <div class="panel-body">
+                            <div class="container-fluid">
+                                <div class="col-md-12">
+                                    <ul id="clothing-nav" class="nav nav-tabs" role="tablist">
+                                        <li class="nav-item" style="width: 50%;">
+                                            <a class="nav-link active"
+                                               href="#home" id="home-tab" role="tab" data-toggle="tab" aria-controls="home" aria-expanded="true">Tarjetas de crédito o Debito</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link" href="#hats" role="tab" id="hats-tab" data-toggle="tab" aria-controls="hats">Paga con Paypal</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <br />
+                                <br />
+                                <div id="clothing-nav-content" class="tab-content">
+                                    <div role="tabpanel" class="tab-pane fade show active" id="home" aria-labelledby="home-tab">
+                                        <br />
+                                        <div class="col-md-12">
+                                            <div class="panel panel-default">
+                                                <div class="panel-body">
+                                                    <br />
+                                                    <div class="col-md-12">
+                                                        <div class="panel panel-default">
+                                                            <div class="panel-body">
+                                                                <div class="header">
+                                                                    <div class="title">
+                                                                        <div>
+                                                                            Compra 100% segura.
+                                                                            Protegemos tus datos.
+                                                                            <img src="~/Content/upload/payment/security.png" style="height:37px; width: 100px; background-size: 65px auto;background-repeat: no-repeat;float: right;" />
+                                                                        </div>
+                                                                    </div>
+                                                                    <br />
+                                                                    <div class="card-logos">
+                                                                        <img src="~/Content/upload/payment/paymetbot.png" />
+                                                                    </div>
+                                                                </div>
+                                                                <br />
+                                                                <div class="row">
+                                                                    <div class="col-md-9">
+                                                                        <div class="checkout-form-list">
+                                                                            <label>
+                                                                                Numero de Tarjeta <span class="required"></span>
+                                                                            </label>
+                                                                            <input placeholder=".... .... .... ...." type="text">
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="col-md-3">
+                                                                        <div class="checkout-form-list">
+                                                                            <label>CVV<span class="required"></span></label>
+                                                                            <input placeholder="" type="text">
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="col-md-6">
+                                                                        <div class="country-select clearfix">
+                                                                            <label>Fecha de Expiracion <span class="required"></span></label>
+                                                                            <select class="nice-select wide">
+                                                                                <option data-display="Mes">Mes</option>
+                                                                                <option value="">Enero</option>
+                                                                                <option value="">Febrero</option>
+                                                                                <option value="">Marzo</option>
+                                                                                <option value="">Abril</option>
+                                                                                <option value="">Mayo</option>
+                                                                                <option value="">Junio</option>
+                                                                                <option value="">Julio</option>
+                                                                                <option value="">Agosto</option>
+                                                                                <option value="">Septimbre</option>
+                                                                                <option value="">Octubre</option>
+                                                                                <option value="">Noviembre</option>
+                                                                                <option value="">Diciembre</option>
+                                                                            </select>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="col-md-6">
+                                                                        <div class="country-select clearfix">
+                                                                            <label> <span class="required"></span></label>
+                                                                            <br />
+                                                                            <select class="nice-select wide">
+                                                                                <option data-display="Año">Año</option>
+                                                                                <option value="">2020</option>
+                                                                                <option value="">2021</option>
+                                                                                <option value="">2022</option>
+                                                                                <option value="">2023</option>
+                                                                                <option value="">2024</option>
+                                                                            </select>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="btn btn-primary nextBtn" style="background-color: #fed700; border-color: #fed700; width: 100%;"><a href="@Url.Action("Resumen")" class="button" style="color:#fff;">CONTINUAR</a></div>
+                                                                @*<button class="btn btn-primary nextBtn " type="button" style="color: #fff;background-color: #fed700; border-color: #fed700; width: 100%;">USAR ESTA TARJETA</button>*@
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div role="tabpanel" class="tab-pane fade" id="hats" aria-labelledby="hats-tab">
+                                        <p>   !OPS¡ ESPERE QUE ESTAMOS EN MATENIMIENTO POR FAVOR GRACIAS.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 col-xs-12 pull-right">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <h2 style="font-size: 16px;">
+                                Resumen de tu orden
+                            </h2>
+                        </div>
+                        <div class="panel-body">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="">
+                                        <span>
+                                            Televisor Plasma LG
+                                        </span>
+                                        <br /><br />
+                                        <span>3 Unidades</span>
+                                        <br /><br />
+                                        <span>Codigo: 404004046666</span>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="col-md-2">
+                                        <span>S/345.00</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 col-xs-12 pull-right">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <h2 style="font-size: 16px;">
+                                Despacho 1 (de 2)
+                            </h2>
+                        </div>
+                        <div class="panel-body">
+
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <h5>Envio</h5>
+                                        <span style="float:left">
+                                            Despacho a domicilio Lo Pinos plza norte Lima  2323, Depto Defdef, PAIPOTE, REGION DE ATACAMA (III) ¿Cuándo? Sáb 25/01/2020
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div>
+            </div>
+        </div>
+    </form>
+
+    @*<script src="js/vendor/jquery-1.12.4.min.js"></script>*@
+    <script src="~/Content/assets/js/vendor/jquery-1.12.4.min.js"></script>
+
+    @*<script src="js/ajax-mail.js"></script>*@
+    <script src="~/Content/assets/js/ajax-mail.js"></script>
+    <!-- Meanmenu js -->
+    @*<script src="js/jquery.meanmenu.min.js"></script>*@
+    <script src="~/Content/assets/js/jquery.meanmenu.min.js"></script>
+    @*<script src="js/isotope.pkgd.min.js"></script>*@
+    <script src="~/Content/assets/js/isotope.pkgd.min.js"></script>
+    <!-- Imagesloaded js -->
+    @*<script src="js/imagesloaded.pkgd.min.js"></script>*@
+    <script src="~/Content/assets/js/imagesloaded.pkgd.min.js"></script>
+    <!-- Mixitup js -->
+    @*<script src="js/jquery.mixitup.min.js"></script>*@
+    <script src="~/Content/assets/js/jquery.mixitup.min.js"></script>
+    <!-- Countdown -->
+    @*<script src="js/jquery.countdown.min.js"></script>*@
+    <script src="~/Content/assets/js/jquery.countdown.min.js"></script>
+    <!-- Counterup -->
+    @*<script src="js/jquery.counterup.min.js"></script>*@
+    <script src="~/Content/assets/js/jquery.counterup.min.js"></script>
+    <!-- Waypoints -->
+    @*<script src="js/waypoints.min.js"></script>*@
+    <script src="~/Content/assets/js/waypoints.min.js"></script>
+    <!-- Barrating -->
+    @*<script src="js/jquery-ui.min.js"></script>*@
+    <script src="~/Content/assets/js/jquery-ui.min.js"></script>
+    <!-- Venobox -->
+    @*<script src="js/venobox.min.js"></script>*@
+    <script src="~/Content/assets/js/venobox.min.js"></script>
+    <!-- Nice Select js -->
+    @*<script src="js/jquery.nice-select.min.js"></script>*@
+    <script src="~/Content/assets/js/jquery.nice-select.min.js"></script>
+    <!-- ScrollUp js -->
+    @*<script src="js/scrollUp.min.js"></script>*@
+    <script src="~/Content/assets/js/scrollUp.min.js"></script>
+    <!-- Main/Activator js -->
+    @*<script src="js/main.js"></script>*@
+    <script src="~/Content/assets/js/main.js"></script>
+    <script src="~/Content/assets/js/jquery-ui.min.js"></script>
+    <script src="~/Content/assets/js/vendor/jquery-1.12.4.min.js"></script>
+
+    <!-- jQuery library -->
+    <script src="~/Content/assets/pagos/js/jquery-3.2.1.slim.min.js"></script>
+    <!-- Popper -->
+    <script src="~/Content/assets/pagos/js/popper.min.js"></script>
+    <!-- Latest compiled and minified Bootstrap JavaScript -->
+    <script src="~/Content/assets/pagos/js/bootstrap.min.js"></script>
+    <script src="~/Content/assets/pagos/js/jquery.min.js"></script>
+    <script src="~/Content/assets/pagos/js/bootstrap.min.js"></script>
+    <script src="~/Content/assets/pagos/js/jquery.tooltipster.min.js"></script>
+    <script src="~/Content/assets/pagos/js/jquery.validate.min.js"></script>
+
+    <script src="~/Content/assets/pagos/js/index.js"></script>
+
+</body>
+</html>
+
+

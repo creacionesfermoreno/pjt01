@@ -1,0 +1,373 @@
+﻿@model E_DataModel.CentroEntrenamiento.CentroEntrenamiento_EditorPaginaWebDTO
+
+@{
+    ViewBag.Title = "miperfil";
+    Layout = "~/Views/Shared/_LayoutAppFitPlataformaPersonaFit.cshtml";
+}
+
+<link href="@Url.Content("~/Content/app/css/slim.css")" rel="stylesheet" />
+<link href="@Url.Content("~/Content/app/lib/Ionicons/css/ionicons.css")" rel="stylesheet" />
+
+<link href="@Url.Content("~/Content/cssKendo/kendo.common.min.css")" rel="stylesheet" />
+<link href="@Url.Content("~/Content/cssKendo/kendo.dataviz.default.min.css")" rel="stylesheet" />
+<link href="@Url.Content("~/Content/cssKendo/kendo.dataviz.min.css")" rel="stylesheet" />
+<link href="@Url.Content("~/Content/cssKendo/kendo.default.min.css")" rel="stylesheet" />
+
+<style>
+    .btn-signin {
+        font-weight: 500;
+        font-size: 13px;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        margin-bottom: 40px;
+        border: 0;
+        min-height: 40px;
+        background-image: linear-gradient(to right, #ff0200 35%, #ffab28 100%);
+        background-repeat: repeat-x;
+    }
+
+    .btn-danger {
+        border: 0;
+        background-image: linear-gradient(to right, #ff0200 35%, #ffab28 100%);
+        background-repeat: repeat-x;
+    }
+    /** SPINNER CREATION **/
+    .loader {
+        position: relative;
+        text-align: center;
+        margin: 15px auto 35px auto;
+        z-index: 9999;
+        display: block;
+        width: 80px;
+        height: 80px;
+        border: 10px solid rgba(0, 0, 0, .3);
+        border-radius: 50%;
+        border-top-color: #000;
+        animation: spin 1s ease-in-out infinite;
+        -webkit-animation: spin 1s ease-in-out infinite;
+    }
+
+    /** MODAL STYLING **/
+    .modal-content {
+        border-radius: 0px;
+        box-shadow: 0 0 20px 8px rgba(0, 0, 0, 0.7);
+    }
+</style>
+
+<div class="page__header page__header-nav">
+    <div class="container-fluid page__container">
+        <div class="navbar navbar-secondary navbar-light navbar-expand-sm p-0 d-none d-md-flex" id="secondaryNavbar">
+            <ul class="nav navbar-nav">
+                <li class="nav-item active">
+                    <a href="@Url.Action("miperfil","pg",new {id= HttpContext.Current.Request.Cookies["_SubDominio_PersonaFit"].Value})" class="nav-link active"> <i class="fa fa-address-card"></i>MI PERFIL</a>
+                </li>
+                <li class="nav-item ">
+                    <a href="@Url.Action("progreso","pg", new {id= HttpContext.Current.Request.Cookies["_SubDominio_PersonaFit"].Value})" class="nav-link "><i class="fa fa-airbnb"></i>PROGRESO</a>
+                </li>
+                <li class="nav-item">
+                    <a onclick="javascript:return validarSelect_Membresia();" href="@Url.Action("reservaonline","pg", new {id= HttpContext.Current.Request.Cookies["_SubDominio_PersonaFit"].Value})" class="nav-link"><i class="fa fa-calendar-check"></i> RESERVAR CLASE</a>
+                </li>
+                <li class="nav-item">
+                    <a href="@Url.Action("login","pg",new {id= HttpContext.Current.Request.Cookies["_SubDominio_PersonaFit"].Value})" class="nav-link" style="color:red;font-weight:bold;"><i class="fa fa-sign-out"></i>CERRAR SESIÓN</a>
+                </li>
+                <li style="display:none;" class="nav-item">
+                    <a href="@Url.Action("reservaonline","pg", new {id= HttpContext.Current.Request.Cookies["_SubDominio_PersonaFit"].Value})" class="nav-link"><i class="fa fa-video"></i>CLASES EN VIVO</a>
+                </li>
+                <li style="display:none;" class="nav-item">
+                    <a href="@Url.Action("reservaonline","pg", new {id= HttpContext.Current.Request.Cookies["_SubDominio_PersonaFit"].Value})" class="nav-link"><i class="fa fa-play-circle"></i>VIDEOTECA</a>
+                </li>
+                <li style="display:none;" class="nav-item">
+                    <a href="@Url.Action("reservaonline","pg", new {id= HttpContext.Current.Request.Cookies["_SubDominio_PersonaFit"].Value})" class="nav-link"><i class="fa fa-store-alt"></i>TIENDA VIRTUAL</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<div class="container-fluid page__container">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-body">
+                    <div class="d-flex flex-column flex-sm-row">
+                        <div class="col-md-2" style="text-align:center;">
+                            <img id="imgFotoSocio" src="~/Content/app/img/img12.jpg" class="rounded-circle" style="width:180px;height:180px;" alt="Perfil">
+                            <br /><br />
+                        </div>
+                        <div class="col-md-10">
+                            <div class="flex" style="min-width: 200px;">
+                                <div class="d-flex">
+                                    <div>
+                                        <h4 class="card-title mb-1" style="text-transform:uppercase;font-weight:bold;" id="lblNombres">---</h4>
+                                        <h5 class="font-weight-bold" style="font-size:15px;" id="lblCodigoSocio">---</h5>
+                                        <h5 class="font-weight-bold" style="font-size:15px;" id="lblCorreo">---</h5>
+                                        <h5 class="font-weight-bold" style="font-size:15px;" id="lblCelular">---</h5>
+                                        <h5 class="font-weight-bold" style="font-size:15px;" id="lblNroIdentificacion">---</h5>
+                                        <h5 class="font-weight-bold" style="font-size:15px;" id="lblEstado">---</h5>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<div class="container-fluid page__container" id="divMembresias">
+
+</div>
+
+
+<div class="modal fade" id="loadMe" style="margin-top:10%;" tabindex="-1" role="dialog" aria-labelledby="loadMeLabel">
+    <div class="modal-dialog modal-sm" role="document">
+        <div class="modal-content">
+            <div class="modal-body text-center">
+                <div class="loader"></div>
+                <div clas="loader-txt">
+                    <p>Cargando... <br><br><small>Espere por favor, este proceso puede tardar unos minutos</small></p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="modalFaltaMembresiaActiva" class="modal fade" >
+    <div class="modal-dialog" role="document" style="margin-top: -50px;">
+        <div class="modal-content tx-size-sm">
+            <div class="modal-body tx-center pd-y-20 pd-x-20">
+                <button onclick="modalFaltaMembresiaActiva_Cerrar();"  type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <i class="icon icon ion-ios-close-outline tx-100 tx-danger lh-1 mg-t-20 d-inline-block"></i>
+                <h4 class="tx-danger mg-b-20">DEBES SELECCIONAR UNA MEMBRESIA ACTIVA!</h4>
+                <p class="mg-b-20 mg-x-20">¿Tienes una membresia activa? selecciona una matricula activa caso contrario te recomendamos comunicarte con el administrador del centro de entrenamiento.</p>
+                <button onclick="modalFaltaMembresiaActiva_Cerrar();" type="button" style="background-color:#dd3a49;color:#fff" class="btn pd-x-25" data-dismiss="modal" aria-label="Close">Aceptar</button>
+            </div><!-- modal-body -->
+        </div><!-- modal-content -->
+    </div><!-- modal-dialog -->
+</div><!-- modal -->
+
+
+
+@section Scripts {
+
+    @System.Web.Optimization.Scripts.Render("~/Scripts/plugins/jsKendo/angular.min.js")
+    @System.Web.Optimization.Scripts.Render("~/Scripts/plugins/jsKendo/kendo.all.min.js")
+
+    @System.Web.Optimization.Scripts.Render("~/Scripts/plugins/jquery-ui/jquery-ui.js")
+    @System.Web.Optimization.Scripts.Render("~/Scripts/plugins/jquery-ui/jquery-ui.min.js")
+
+    @System.Web.Optimization.Scripts.Render("~/Resource/UserControl.Helper.js")
+    @System.Web.Optimization.Scripts.Render("~/Resource/gimnasio/moduloCheking.js")
+
+    @System.Web.Optimization.Scripts.Render("~/Scripts/bootstrap-notify-master/bootstrap-notify.js")
+    @System.Web.Optimization.Scripts.Render("~/Scripts/bootstrap-notify-master/bootstrap-notify.min.js")
+    @System.Web.Optimization.Scripts.Render("~/Scripts/jsBootstrap/jquery.bootstrap-growl.js")
+    @System.Web.Optimization.Scripts.Render("~/Scripts/maskedinput.js")
+
+    <script type="text/javascript">
+
+        $(document).ready(function (e) {
+
+            ListarMembresiasSocio();
+            uspBuscarPlataformaPersonasFit_InformacionSocioPorCorreo();
+        });
+
+        function ListarMembresiasSocio() {
+            document.getElementById('loadMe').style.display = 'block';
+            var metodoCorrecto = function (data) {
+                document.getElementById('loadMe').style.display = 'none';
+
+                var content_membresias = new Array();
+                if (data.length > 0) {
+                    for (var i = 0; i < data.length; i++) {
+
+                        if (i == 0) {
+                            even_selectfirt_Membresia(data[i].CodigoMenbresia, data[i].CodigoPaquete, data[i].CodigoSocio, data[i].EstadoPermisoReservar);
+                        }
+
+                        content_membresias.push('<div class="row" data-CodigoSocio="' + data[i].CodigoSocio + '" data-CodigoMenbresia="' + data[i].CodigoMenbresia + '" data-CodigoPaquete="' + data[i].CodigoPaquete + '" data-Estado="' + data[i].EstadoPermisoReservar + '" onclick="even_change_Membresia(this);" >');
+                        content_membresias.push('    <div class="col-md-12">');
+                        content_membresias.push('        <div class="card" style="border-left: 6px solid #ff4811;">');
+                        content_membresias.push('            <div class="card-body">');
+                        content_membresias.push('                <div class="d-flex flex-column flex-sm-row">');
+                        content_membresias.push('                    <div class="col-md-2" style="text-align:center;">');
+                        content_membresias.push('                        <center>');
+                        content_membresias.push('                            <div style="width:85px;height:85px;background-color:' + data[i].EstadoColor + ';border-radius:100%;margin-top:50px;"></div>');
+                        content_membresias.push('                        </center>');
+                        content_membresias.push('                    </div>');
+                        content_membresias.push('                    <div class="col-md-10" style="text-align:center;">');
+                        content_membresias.push('                        <div class="flex" style="min-width: 200px;text-align:left;">');
+                        content_membresias.push('                            <div class="d-flex">');
+                        content_membresias.push('                                <div>');
+                        content_membresias.push('                                    <h4 class="card-title mb-1" style="text-transform:uppercase;font-weight:bold;">' + data[i].NombreComercial + '</h4>');
+                        content_membresias.push('                                    <p class="text-muted">' + data[i].NombrePaquete + '</p>');
+                        content_membresias.push('                                    <h5 class="font-weight-bold" style="font-size:13px;" id=""><i class="fa fa-calendar-alt"></i> ' + data[i].DesFechaInicio + ' - ' + data[i].DesFechaFin + '</h5>');
+                        content_membresias.push('                                    <h5 class="font-weight-bold" style="font-size:13px;" id=""><i class="fa fa-calendar-day"></i> Inscrito: ' + kendo.toString(kendo.parseDate(data[i].FechaCreacion, 'yyyy-MM-dd'), 'dd/MM/yyyy hh:mm:ss') + '</h5>');
+                        content_membresias.push('                                    <h5 class="font-weight-bold" style="font-size:13px;" id=""><i class="fa fa-eye"></i> Precio: ' + data[i].Costo + '</h5>');
+                        content_membresias.push('                                    <h5 class="font-weight-bold" style="font-size:13px;" id=""><i class="fa fa-eye"></i> A cuenta: ' + data[i].MontoTotal + '</h5>');
+                        content_membresias.push('                                    <h5 class="font-weight-bold" style="font-size:13px;" id=""><i class="fa fa-eye"></i> Debe: ' + data[i].Debe + '</h5>');
+                        content_membresias.push('                                </div>');
+                        content_membresias.push('                            </div>');
+                        content_membresias.push('                        </div>');
+                        content_membresias.push('                    </div>');
+                        content_membresias.push('                </div>');
+                        content_membresias.push('            </div>');
+                        content_membresias.push('        </div>');
+                        content_membresias.push('    </div>');
+                        content_membresias.push('</div>');
+
+                    }
+                    $('#divMembresias').html(content_membresias.join(' '));
+                } else {
+                    $('#divMembresias').html("");
+                }
+            };
+
+            var metodoError = function (msg) {
+                alert(msg);
+            };
+            var request = {
+            };
+
+            LlamarAJAX('/pg/CentroEntrenamiento_uspListarPlataformaPersonasFit_MembresiasCorreo', request, metodoCorrecto, metodoError);
+        }
+
+        function even_change_Membresia(control) {
+            var CodigoMembresia = $(control).attr('data-CodigoMenbresia');
+            var CodigoPaquete = $(control).attr('data-CodigoPaquete');
+            var CodigoSocio = $(control).attr('data-CodigoSocio');
+            var Estado = $(control).attr('data-Estado');
+           
+            if (Estado == 1) {
+                $.ajax({
+                    data: '{"CodigoMembresia":"' + CodigoMembresia + '","CodigoPaquete":"' + CodigoPaquete + '","CodigoSocio":"' + CodigoSocio + '"}',
+                    type: "POST",
+                    url: "/pg/GetMembresiaCodigo",
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "json",
+                    success: function (msg) {
+                        options.success(msg);
+                        if (msg == '') {
+
+                        } else {
+
+                        }
+                    }
+                });
+            } else {
+                $.bootstrapGrowl("Debes seleccionar una membresia activa o por iniciar.", { type: 'danger', width: 'auto' });
+                return;
+            }
+        }
+
+        function even_selectfirt_Membresia(CodigoMembresia, CodigoPaquete, CodigoSocio, Estado) {
+
+            var expiry = new Date();
+            expiry.setTime(expiry.getTime() - 3600);
+            document.cookie = "_CodigoPaquete_PersonaFit=; expires=" + expiry.toGMTString() + "; path=/";
+            document.cookie = "_CodigoMembresia_PersonaFit=; expires=" + expiry.toGMTString() + "; path=/";
+            
+            if (Estado == 1) {
+                $.ajax({
+                    data: '{"CodigoMembresia":"' + CodigoMembresia + '","CodigoPaquete":"' + CodigoPaquete + '","CodigoSocio":"' + CodigoSocio + '"}',
+                    type: "POST",
+                    url: "/pg/GetMembresiaCodigo",
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "json",
+                    success: function (msg) {
+                        options.success(msg);
+                        if (msg == '') {
+
+                        } else {
+
+                        }
+                    }
+                });
+            } else {
+                $.bootstrapGrowl("Debes seleccionar una membresia activa o por iniciar.", { type: 'danger', width: 'auto' });
+                return;
+            }
+        }
+
+        function uspBuscarPlataformaPersonasFit_InformacionSocioPorCorreo() {
+            document.getElementById('loadMe').style.display = 'block';
+            $.ajax({
+                type: "POST",
+                url: "/pg/uspBuscarPlataformaPersonasFit_InformacionSocioPorCorreo",
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function (msg) {
+
+                    if (msg == null) {
+                        $.bootstrapGrowl("El socio no existe.", { type: 'danger', width: 'auto' });
+
+                    } else {
+
+                        $('#lblNombres').html((msg.Nombres).toUpperCase() + ' ' + (msg.Apellidos).toUpperCase());
+                        $('#lblCodigoSocio').html('Codigo: ' + msg.CodigoSocio);
+                        $('#lblNroIdentificacion').html('Nro Identificación: ' + msg.DNI);
+                        //$('#lblEstado').html('Estado : Activo');
+                        if (msg.Celular != '') {
+                            $('#lblCelular').html('Celular: ' + msg.Celular);
+                        } else {
+                            $('#lblCelular').html('sin whatsapp');
+                        }
+                        $('#lblCorreo').html('Correo: ' + msg.Correo);
+
+                        var url = msg.ImagenUrl == undefined ? "~/Content/app/img/img12.jpg" : msg.ImagenUrl;
+                       
+                        $('#imgFotoSocio').attr('src', msg.ImagenUrl);
+
+                    }
+                }, complete: function () {
+                    document.getElementById('loadMe').style.display = 'none';
+                }
+
+            });
+
+        }
+
+        function validarSelect_Membresia() {
+
+            var CodigoMembresia = getCookie("_CodigoMembresia_PersonaFit");
+            if (CodigoMembresia == '') {
+                document.getElementById('modalFaltaMembresiaActiva').style.display = 'block';                
+                return false;
+            }
+            return true;
+        }
+
+        function validarSelect_Membresia2() {
+
+            var CodigoMembresia = getCookie("_CodigoMembresia_PersonaFit");
+            if (CodigoMembresia == '') {
+                //document.getElementById('modalFaltaMembresiaActiva').style.display = 'block';
+                $.bootstrapGrowl("¿Tienes una membresia activa? selecciona una matricula activa caso contrario te recomendamos comunicarte con el administrador del centro de entrenamiento..", { type: 'danger', width: 'auto' });
+                return false;
+            }
+            return true;
+        }
+
+        function modalFaltaMembresiaActiva_Cerrar() {
+            document.getElementById('modalFaltaMembresiaActiva').style.display = 'none';
+        }
+
+        function getCookie(cname) {
+            var name = cname + "=";
+            var ca = document.cookie.split(';');
+            for (var i = 0; i < ca.length; i++) {
+                var c = ca[i].trim();
+                if (c.indexOf(name) == 0) return c.substring(name.length, c.length);
+            }
+            return "";
+        }
+    </script>
+
+}
+
+

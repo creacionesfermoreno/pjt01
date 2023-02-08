@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Generator: Adobe Illustrator 16.0.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="170px"
+	 height="170px" viewBox="0 0 170 170" enable-background="new 0 0 170 170" xml:space="preserve">
+<g id="Background">
+</g>
+<g id="Circle">
+	<g>
+		<path fill="#282D33" d="M85,170c-46.869,0-85-38.131-85-85S38.131,0,85,0s85,38.131,85,85S131.869,170,85,170z"/>
+	</g>
+</g>
+<g id="TEXT">
+</g>
+<g id="Icons">
+	<g>
+		<path fill="none" stroke="#FFFFFF" stroke-width="4" d="M126.581,51.104v-4.078c0-0.505-0.411-0.907-0.926-0.907h-6.578
+			c-0.515,0-0.93,0.402-0.93,0.907v4.078"/>
+		<polyline fill="none" stroke="#FFFFFF" stroke-width="4" points="126.581,110.709 126.581,112.477 122.371,121.768 
+			118.161,112.477 118.161,110.709 		"/>
+		<g>
+			<path fill="#FFFFFF" d="M124.94,57.211v46.246h-5.15V57.211H124.94 M128.94,53.211h-13.15v54.246h13.15V53.211L128.94,53.211z"/>
+		</g>
+		<g>
+			<polyline fill="none" stroke="#FFFFFF" stroke-width="4" points="43.884,109.26 43.884,98.095 94.958,98.095 94.958,109.26 			
+				"/>
+			<rect x="36.94" y="74.246" fill="none" stroke="#FFFFFF" stroke-width="4" width="40.468" height="13.582"/>
+			<rect x="88.316" y="74.246" fill="none" stroke="#FFFFFF" stroke-width="4" width="13.581" height="13.582"/>
+			<line fill="none" stroke="#FFFFFF" stroke-width="4" x1="69.381" y1="63.513" x2="69.381" y2="74.378"/>
+			<line fill="none" stroke="#FFFFFF" stroke-width="4" x1="94.958" y1="63.513" x2="94.958" y2="74.378"/>
+			<line fill="none" stroke="#FFFFFF" stroke-width="4" x1="69.381" y1="88.17" x2="69.381" y2="108.646"/>
+			<rect x="36.94" y="50.032" fill="none" stroke="#FFFFFF" stroke-width="4" width="64.957" height="13.583"/>
+			<rect x="62.628" y="108.857" fill="none" stroke="#FFFFFF" stroke-width="4" width="13.585" height="13.582"/>
+			<rect x="88.316" y="108.857" fill="none" stroke="#FFFFFF" stroke-width="4" width="13.581" height="13.582"/>
+			<rect x="36.94" y="108.857" fill="none" stroke="#FFFFFF" stroke-width="4" width="13.584" height="13.582"/>
+		</g>
+	</g>
+</g>
+</svg>

@@ -1,0 +1,843 @@
+﻿@model E_DataModel.CentroEntrenamiento.CentroEntrenamiento_EditorPaginaWebDTO
+
+@{
+    ViewBag.Title = "reservaonline";
+    Layout = "~/Views/Shared/_LayoutAppFitPlataformaPersonaFit.cshtml";
+}
+@section Styles{
+
+    <link href="@Url.Content("~/Content/app/lib/Ionicons/css/ionicons.css")" rel="stylesheet" />
+
+    <link href="@Url.Content("~/Content/cssKendo/kendo.common.min.css")" rel="stylesheet" />
+    <link href="@Url.Content("~/Content/cssKendo/kendo.dataviz.default.min.css")" rel="stylesheet" />
+    <link href="@Url.Content("~/Content/cssKendo/kendo.dataviz.min.css")" rel="stylesheet" />
+    <link href="@Url.Content("~/Content/cssKendo/kendo.default.min.css")" rel="stylesheet" />
+    <style>
+       
+        a {
+            color: transparent;
+            text-decoration: none;
+        }
+
+        .clase:hover {
+            cursor: pointer;
+        }
+
+
+        .seleccionado {
+            background-color: #0075ff;
+            color: #fff;
+        }
+
+        .dseleccionado {
+            background-color: #fff;
+            color: #808080;
+        }
+
+
+        /** SPINNER CREATION **/
+        .loader {
+            position: relative;
+            text-align: center;
+            margin: 15px auto 35px auto;
+            z-index: 9999;
+            display: block;
+            width: 80px;
+            height: 80px;
+            border: 10px solid rgba(0, 0, 0, .3);
+            border-radius: 50%;
+            border-top-color: #000;
+            animation: spin 1s ease-in-out infinite;
+            -webkit-animation: spin 1s ease-in-out infinite;
+        }
+
+
+        /** MODAL STYLING **/
+        .modal-content {
+            border-radius: 0px;
+            box-shadow: 0 0 20px 8px rgba(0, 0, 0, 0.7);
+        }
+    </style>
+
+}
+
+<div class="page__header page__header-nav">
+    <div class="container-fluid page__container">
+        <div class="navbar navbar-secondary navbar-light navbar-expand-sm p-0 d-none d-md-flex" id="secondaryNavbar">
+            <ul class="nav navbar-nav">
+                <li class="nav-item ">
+                    <a href="@Url.Action("miperfil","pg",new {id= HttpContext.Current.Request.Cookies["_SubDominio_PersonaFit"].Value})" class="nav-link"><i class="fa fa-address-card"></i>MI PERFIL</a>
+                </li>
+                <li class="nav-item">
+                    <a href="@Url.Action("progreso","pg",new {id= HttpContext.Current.Request.Cookies["_SubDominio_PersonaFit"].Value})" class="nav-link"><i class="fa fa-product-hunt"></i>PROGRESO</a>
+                </li>
+                <li class="nav-item active">
+                    <a href="@Url.Action("reservaonline","pg", new {id= HttpContext.Current.Request.Cookies["_SubDominio_PersonaFit"].Value})" class="nav-link active"><i class="fa fa-calendar-check"></i>RESERVAR CLASE</a>
+                </li>
+                <li class="nav-item">
+                    <a href="@Url.Action("login","pg",new {id= HttpContext.Current.Request.Cookies["_SubDominio_PersonaFit"].Value})" class="nav-link" style="color:red;font-weight:bold;"><i class="fa fa-sign-out"></i>CERRAR SESIÓN</a>
+                </li>
+                <li style="display:none;" class="nav-item">
+                    <a href="@Url.Action("reservaonline","pg", new {id= HttpContext.Current.Request.Cookies["_SubDominio_PersonaFit"].Value})" class="nav-link"><i class="fa fa-video"></i>CLASES EN VIVO</a>
+                </li>
+                <li style="display:none;" class="nav-item">
+                    <a href="@Url.Action("reservaonline","pg", new {id= HttpContext.Current.Request.Cookies["_SubDominio_PersonaFit"].Value})" class="nav-link"><i class="fa fa-play-circle"></i>VIDEOTECA</a>
+                </li>
+                <li style="display:none;" class="nav-item">
+                    <a href="@Url.Action("reservaonline","pg", new {id= HttpContext.Current.Request.Cookies["_SubDominio_PersonaFit"].Value})" class="nav-link"><i class="fa fa-store-alt"></i>TIENDA VIRTUAL</a>
+                </li>
+
+            </ul>
+        </div>
+    </div>
+</div>
+
+
+<input id="hdCancelarReserva_id" type="hidden" value="" />
+<input id="hdCancelarReserva_id_tiemporeal" type="hidden" value="" />
+<input id="hdCancelarReserva_id_asistencia" type="hidden" value="" />
+
+<input id="hdCodigoSala_vista" type="hidden" value="100" />
+<input id="hdflag_consalamaquinas" type="hidden" value="0" />
+
+<div class="container-fluid page__container">
+    
+    <div class="row">
+        <div class="col-lg-9">
+            <div class="card">
+                <div class="card-body button-list" style="background-color: #f7f8f9;">
+                    <b>CLASES RESERVADAS:</b>
+                    <br /><br />
+                   
+                    <div class="table-responsive-lg">
+
+                        <table id="gridReservas" class="table">
+                            <thead>
+                                <tr>
+                                    <th scope="col">CLASE</th>
+                                    <th scope="col">DÍA</th>
+                                    <th scope="col">FECHA</th>
+                                    <th scope="col">INICIA</th>
+                                    <th scope="col">FINALIZA</th>
+                                    <th scope="col"></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                            </tbody>
+                        </table>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg">
+            <div class="card">
+                <div class="card-header card-header-large card-header-tabs-basic nav" id="divSalas">
+
+                </div>
+                <div class="card-body tab-content" style="background-color:#e9ebee;">
+                    <div class="tab-pane active show fade" id="activity_maquinas">
+                        <div class="col-md-12">
+                            <br />
+                            <b>Selecciona una fecha:</b>
+                            <br /><br />
+                            <div class="row row-sm" id="divClasesMaquinas_Fechas">
+                            </div>
+                            <br />
+                            <b id="lblEstadoTieneReserva_texto" style="color: #0075ff;"></b>
+
+                            <div id="divClasesMaquinas_Reservada">
+
+                            </div>
+                            <input id="hdCodigoClaseQR" type="hidden" value="" />
+                            <div id="divqrcode" class="col-md-3 col-lg-3 mg-t-30" style="display:none;background-color: #e9ebee;padding-bottom: 10px;">
+                                <div class="card-contact pd-t-3 pd-r-3 pd-b-3 pd-l-3 clase" style="background-color: #fff;border-radius: 12px;padding: 10px;box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);text-align:center;">
+                                    <p class="tx-center" style="font-size:24px;margin-top: 10px;font-weight:bold;">TU CODIGO QR</p>
+                                    <div id="qrcode" style="width:100%; height:100%;">
+
+                                    </div>
+                                </div>
+                            </div>
+
+                            <br />
+                            <p><b id="divTituloBuscadorSalaMaquinas">👇Selecciona un horario disponible:👇</b></p>
+                            <div class="row card-group-row" id="divHorariSalaMaquinas">
+
+                            </div>
+                            <div class="row card-group-row" id="divRegresar" style="display:none;">
+                                <div class="col-lg-2 col-md-2" style="margin-bottom: -30px;">
+                                    <div class="card card-group-row__card ">
+                                        <a href="#inicio">
+                                            <div class="d-flex flex-column" style="font-size:13px;text-align:center;font-weight:bold;background-color:#000;color:#fff;border-radius:10px;padding-top:15px;padding-bottom:15px;cursor:pointer;">
+                                                REGRESAR
+                                            </div>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                            <br />
+                            <div class="row row-sm" id="divClasesMaquinas" style="display:none;">
+                            </div>
+                            <br />
+                            <div class="row card-group-row" id="divRegresar2" style="display:none;">
+                                <div class="col-lg-2 col-md-2" style="margin-bottom: -30px;">
+                                    <div class="card card-group-row__card ">
+                                        <a href="#inicio">
+                                            <div class="d-flex flex-column" style="font-size:13px;text-align:center;font-weight:bold;background-color:#000;color:#fff;border-radius:10px;padding-top:15px;padding-bottom:15px;cursor:pointer;">
+                                                REGRESAR
+                                            </div>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                            <br />
+                        </div>
+                    </div>
+                    <div class="tab-pane fade" id="activity_grupales">
+                        <div class="col-md-12">
+                            <br />
+                            <b>Selecciona una fecha:</b>
+                            <br /><br />
+                            <div class="row row-sm" id="divClasesGrupales_Fechas">
+                            </div>
+                            <br />
+                            <b>Selecciona una clase:</b>
+                            <br /><br />
+                            <div class="row row-sm" id="divClases">
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="modalConfirmarReserva" class="modal">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content bg-success">
+            <div class="modal-body text-center p-4">
+                <i class="material-icons icon-40pt text-white mb-2">check</i>
+                <h4 class="tx-success tx-semibold mg-b-20" style="font-weight: bold;color: #fff;" id="modalConfirmarReserva_titulo"></h4>
+                <p id="modalConfirmarReserva_norma" style="color:#fff;display:none;" class="mg-b-20 mg-x-20">NORMATIVA: RECUERDA QUE PUEDES ENTRAR AL CENTRO 5MIN ANTES DE QUE EMPIECE TU CLASE, Y ABANDONAR HASTA 5MIN DESPUÉS.</p>
+                <p id="modalConfirmarReserva_nota" style="color:#fff;display:none;" class="mg-b-20 mg-x-20">RECUERDA QUE ES OBLIGATORIO EL USO DE TOALLA Y MASCARILLA.</p>
+                <button onclick="ocultarAviso();" type="button" class="btn btn-light pd-x-25" data-dismiss="modal" aria-label="Close">ACEPTAR</button>
+            </div> <!-- // END .modal-body -->
+        </div> <!-- // END .modal-content -->
+    </div><!-- modal-dialog -->
+</div><!-- modal -->
+
+<div id="modalAviso" class="modal" >
+    <div class="modal-dialog" role="document">
+        <div class="modal-content bg-danger">
+            <div class="modal-body text-center p-4">
+                <i class="material-icons icon-40pt text-white mb-2">report_problem</i>
+                <h4 class="tx-danger mg-b-20" style="font-weight: bold;color: #fff;">Lo sentimos, ya tienes una reserva en esta fecha.</h4>
+                <p class="mg-b-20 mg-x-20" style="color: #fff;">Si te gustaria entrenar en otro horario, primero debes cancelar tu reserva de este día, muchas gracias.</p>
+                <button onclick="ocultarAviso();" type="button" class="btn btn-light pd-x-25" data-dismiss="modal" aria-label="Close">Entiendo</button>
+            </div> <!-- // END .modal-body -->
+        </div>
+    </div>
+</div>
+
+<div id="modal-info" class="modal" >
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-body text-center p-4">
+                <i class="material-icons icon-40pt text-info mb-2">info_outline</i>
+                <h4>Upss!</h4>
+                <p class="mt-3">Lo sentimos, ya no hay clases disponibles en esta fecha.</p>
+                <button onclick="ocultarAviso();" type="button" class="btn btn-info my-2" data-dismiss="modal">Entiendo</button>
+            </div> <!-- // END .modal-body -->
+        </div> <!-- // END .modal-content -->
+    </div> <!-- // END .modal-dialog -->
+</div>
+
+<div id="myModalCancelarReservaClases" class="modal" >
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-body text-center p-4">
+                <i class="material-icons icon-40pt text-warning mb-2">warning</i>
+                <h4>¿Esta seguro de cancelar la reserva de esta clase?</h4>
+                <br />
+                <button onclick="Confirmar_UspActualizarPresencial_DesactivarHorarioClasesAsistencias_Checking();" type="button" class="btn btn-warning my-2" data-dismiss="modal">SI, CONTINUAR</button>
+                <br />
+                <button onclick="event_ocultarAviso_myModalCancelarReservaClases();" type="button" class="btn btn-light pd-x-25" data-dismiss="modal" aria-label="Close">NO</button>
+            </div> <!-- // END .modal-body -->
+        </div> <!-- // END .modal-content -->
+    </div> <!-- // END .modal-dialog -->
+</div>
+
+<div class="modal fade" id="loadMe" tabindex="-1" role="dialog" aria-labelledby="loadMeLabel">
+    <div class="modal-dialog modal-sm" role="document">
+        <div class="modal-content" style="margin-top: 30%;">
+            <div class="modal-body text-center">
+                <div class="loader"></div>
+                <div clas="loader-txt">
+                    <p>Cargando... <br><br><small>Espere por favor, este proceso puede tardar unos minutos</small></p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+
+    @System.Web.Optimization.Scripts.Render("~/Scripts/plugins/jsKendo/angular.min.js")
+    @System.Web.Optimization.Scripts.Render("~/Scripts/plugins/jsKendo/kendo.all.min.js")
+
+    @System.Web.Optimization.Scripts.Render("~/Scripts/plugins/jquery-ui/jquery-ui.js")
+    @System.Web.Optimization.Scripts.Render("~/Scripts/plugins/jquery-ui/jquery-ui.min.js")
+
+    @System.Web.Optimization.Scripts.Render("~/Content/app/lib/bootstrap/js/bootstrap.bundle.js")
+    @System.Web.Optimization.Scripts.Render("~/Content/app/lib/bootstrap/js/bootstrap.bundle.min.js")
+
+    @System.Web.Optimization.Scripts.Render("~/Resource/UserControl.Helper.js")
+    @System.Web.Optimization.Scripts.Render("~/Resource/paginacliente/reservasonline.js?xs")
+    @System.Web.Optimization.Scripts.Render("~/Scripts/jsQRcode/qr-code-styling.js")
+    
+    <script type="text/javascript">
+
+        function ObtenerDiaSemana(dia) {
+            var NombreSemana = "";
+            switch (dia) {
+                case 1: NombreSemana = 'DOMINGO'; break;
+                case 2: NombreSemana = 'LUNES'; break;
+                case 3: NombreSemana = 'MARTES'; break;
+                case 4: NombreSemana = 'MIÉRCOLES'; break;
+                case 5: NombreSemana = 'JUEVES'; break;
+                case 6: NombreSemana = 'VIERNES'; break;
+                case 7: NombreSemana = 'SÁBADO'; break;
+                default: NombreSemana = 'ERROR'; break;
+            }
+            return NombreSemana;
+        }
+
+        function CargarFechaHorarioSalaMaquinas() {
+            $("#modalLoadingMaquinas").show("fast");
+
+            var fecha = new Date();
+            var entidad = {};
+            entidad.FechaHoraReserva = kendo.toString(fecha, 'MM/dd/yyyy');
+
+            var metodoCorrecto = function (data) {
+
+                var semana1 = ObtenerDiaSemana(data.DiaSemanaHoy);
+                var semana2 = ObtenerDiaSemana(data.DiaSemana1);
+                var semana3 = ObtenerDiaSemana(data.DiaSemana2);
+
+                //-------CLASES MAQUINAS
+                uspListarPresencial_SalaMaquinas_HorarioTemporal(undefined, data.DiaSemanaHoy, data.FechaHoyTextoParametro, data.validacionTieneReservaHoy);
+
+                var content_claseFechas = new Array();
+                //FECHA HOY
+                content_claseFechas.push('<div class="col-sm-3 col-lg-3 mg-t-30" >');
+                content_claseFechas.push('<div class="card-contact pd-t-3 pd-r-3 pd-b-3 pd-l-3 clase" style="border-radius: 12px;">');
+                content_claseFechas.push('<div id="divMaquinas_Hoy" class="seleccionado" style="text-align:center;padding:3px;border-radius: 12px;border: 1px #ccc solid;" onclick="javascript:uspListarPresencial_SalaMaquinas_HorarioTemporal(this,' + data.DiaSemanaHoy + ',' + undefined + ',' + data.validacionTieneReservaHoy + ');" data-fecha="' + data.FechaHoyTextoParametro + '" data-validacionTieneReserva="' + data.validacionTieneReservaHoy + '"  >');
+                content_claseFechas.push('<p class="tx-center tx-18" style="margin-top: 8px;font-weight:bold;">' + semana1 + ' - ' + data.FechaHoyTexto + '</p>');
+                content_claseFechas.push('</div>');
+                content_claseFechas.push('</div>');
+                content_claseFechas.push('</div>');
+                //FECHA DESPUES 1
+                content_claseFechas.push('<div class="col-sm-3 col-lg-3 mg-t-30" >');
+                content_claseFechas.push('<div class="card-contact pd-t-3 pd-r-3 pd-b-3 pd-l-3 clase" style="border-radius: 12px;">');
+                content_claseFechas.push('<div id="divMaquinas_Despues1" class="dseleccionado" style="text-align:center;padding:3px;border-radius: 12px;border: 1px #ccc solid;" onclick="javascript:uspListarPresencial_SalaMaquinas_HorarioTemporal(this,' + data.DiaSemana1 + ',' + undefined + ',' + data.validacionTieneReservaDespues1 + ');" data-fecha="' + data.FechaDespues1TextoParametro + '" data-validacionTieneReserva="' + data.validacionTieneReservaDespues1 + '" >');
+                content_claseFechas.push('<p class="tx-center tx-18" style="margin-top: 8px;font-weight:bold;">' + semana2 + ' - ' + data.FechaDespues1Texto + '</p>');
+                content_claseFechas.push('</div>');
+                content_claseFechas.push('</div>');
+                content_claseFechas.push('</div>');
+                //FECHA DESPUES 2
+                content_claseFechas.push('<div class="col-sm-3 col-lg-3 mg-t-30" >');
+                content_claseFechas.push('<div class="card-contact pd-t-3 pd-r-3 pd-b-3 pd-l-3 clase" style="border-radius: 12px;">');
+                content_claseFechas.push('<div id="divMaquinas_Despues2" class="dseleccionado" style="text-align:center;padding:3px;border-radius: 12px;border: 1px #ccc solid;" onclick="javascript:uspListarPresencial_SalaMaquinas_HorarioTemporal(this,' + data.DiaSemana2 + ',' + undefined + ',' + data.validacionTieneReservaDespues2 + ');" data-fecha="' + data.FechaDespues2TextoParametro + '" data-validacionTieneReserva="' + data.validacionTieneReservaDespues2 + '" >');
+                content_claseFechas.push('<p class="tx-center tx-18" style="margin-top: 8px;font-weight:bold;">' + semana3 + ' - ' + data.FechaDespues2Texto + '</p>');
+                content_claseFechas.push('</div>');
+                content_claseFechas.push('</div>');
+                content_claseFechas.push('</div>');
+
+                $('#divClasesMaquinas_Fechas').html(content_claseFechas.join(' '));
+
+                $("#modalLoadingMaquinas").hide("fast");
+            };
+
+            var metodoError = function (msg) {
+                alert(msg);
+            };
+            var request = {
+                request: entidad
+            };
+
+            LlamarAJAX('/pg/CentroEntrenamiento_uspObtenerFechasReservas_Configuracion', request, metodoCorrecto, metodoError);
+
+        }
+
+        function Obtener3FechasTodo() {
+
+            $("#modalLoadingMaquinas").show("fast");
+
+            var fecha = new Date();
+            var entidad = {};
+            entidad.FechaHoraReserva = kendo.toString(fecha, 'MM/dd/yyyy');
+
+            var metodoCorrecto = function (data) {
+
+                var semana1 = ObtenerDiaSemana(data.DiaSemanaHoy);
+                var semana2 = ObtenerDiaSemana(data.DiaSemana1);
+                var semana3 = ObtenerDiaSemana(data.DiaSemana2);
+
+                var content_claseGrupalesFechas = new Array();
+                //FECHA HOY
+                content_claseGrupalesFechas.push('<div class="col-sm-3 col-lg-3 mg-t-30" style="padding-bottom: 3px;" >');
+                content_claseGrupalesFechas.push('<div class="card-contact pd-t-3 pd-r-3 pd-b-3 pd-l-3 clase" style="border-radius: 12px;">');
+                content_claseGrupalesFechas.push('<div id="divGrupales_Hoy" class="seleccionado" style="text-align:center;padding:3px;border-radius: 12px;" onclick="javascript:uspListarPresencial_HorarioClasesConfiguracionPaginaWeb(this,' + data.DiaSemanaHoy + ',' + undefined + ',' + data.validacionTieneReservaHoy + ');" data-fecha="' + data.FechaHoyTextoParametro + '" data-validacionTieneReserva="' + data.validacionTieneReservaHoy + '" >');
+                content_claseGrupalesFechas.push('<p class="tx-center tx-18" style="margin-top: 8px;font-weight:bold;">' + semana1 + ' - ' + data.FechaHoyTexto + '</p>');
+                content_claseGrupalesFechas.push('</div>');
+                content_claseGrupalesFechas.push('</div>');
+                content_claseGrupalesFechas.push('</div>');
+                //FECHA DESPUES 1
+                content_claseGrupalesFechas.push('<div class="col-sm-3 col-lg-3 mg-t-30" style="padding-bottom: 3px;" >');
+                content_claseGrupalesFechas.push('<div class="card-contact pd-t-3 pd-r-3 pd-b-3 pd-l-3 clase" style="border-radius: 12px;">');
+                content_claseGrupalesFechas.push('<div id="divGrupales_Despues1" class="dseleccionado" style="text-align:center;padding:3px;border-radius: 12px;" onclick="javascript:uspListarPresencial_HorarioClasesConfiguracionPaginaWeb(this,' + data.DiaSemana1 + ',' + undefined + ',' + data.validacionTieneReservaDespues1 + ');" data-fecha="' + data.FechaDespues1TextoParametro + '" data-validacionTieneReserva="' + data.validacionTieneReservaDespues1 + '" >');
+                content_claseGrupalesFechas.push('<p class="tx-center tx-18" style="margin-top: 8px;font-weight:bold;">' + semana2 + ' - ' + data.FechaDespues1Texto + '</p>');
+                content_claseGrupalesFechas.push('</div>');
+                content_claseGrupalesFechas.push('</div>');
+                content_claseGrupalesFechas.push('</div>');
+                //FECHA DESPUES 2
+                content_claseGrupalesFechas.push('<div class="col-sm-3 col-lg-3 mg-t-30" style="padding-bottom: 3px;">');
+                content_claseGrupalesFechas.push('<div class="card-contact pd-t-3 pd-r-3 pd-b-3 pd-l-3 clase" style="border-radius: 12px;">');
+                content_claseGrupalesFechas.push('<div id="divGrupales_Despues2" class="dseleccionado" style="text-align:center;padding:3px;border-radius: 12px;" onclick="javascript:uspListarPresencial_HorarioClasesConfiguracionPaginaWeb(this,' + data.DiaSemana2 + ',' + undefined + ',' + data.validacionTieneReservaDespues2 + ');" data-fecha="' + data.FechaDespues2TextoParametro + '" data-validacionTieneReserva="' + data.validacionTieneReservaDespues2 + '" >');
+                content_claseGrupalesFechas.push('<p class="tx-center tx-18" style="margin-top: 8px;font-weight:bold;">' + semana3 + ' - ' + data.FechaDespues2Texto + '</p>');
+                content_claseGrupalesFechas.push('</div>');
+                content_claseGrupalesFechas.push('</div>');
+                content_claseGrupalesFechas.push('</div>');
+
+                $('#divClasesGrupales_Fechas').html(content_claseGrupalesFechas.join(' '));
+
+                //-------CLASES MAQUINAS
+                if ($('#hdflag_consalamaquinas').val() == '1') {
+
+                    uspListarPresencial_SalaMaquinas_HorarioTemporal(undefined, data.DiaSemanaHoy, data.FechaHoyTextoParametro, data.validacionTieneReservaHoy);
+
+                    var content_claseFechas = new Array();
+                    //FECHA HOY
+                    content_claseFechas.push('<div class="col-sm-3 col-lg-3 mg-t-30" >');
+                    content_claseFechas.push('<div class="card-contact pd-t-3 pd-r-3 pd-b-3 pd-l-3 clase" style="border-radius: 12px;">');
+                    content_claseFechas.push('<div id="divMaquinas_Hoy" class="seleccionado" style="text-align:center;padding:3px;border-radius: 12px;border: 1px #ccc solid;" onclick="javascript:uspListarPresencial_SalaMaquinas_HorarioTemporal(this,' + data.DiaSemanaHoy + ',' + undefined + ',' + data.validacionTieneReservaHoy + ');" data-fecha="' + data.FechaHoyTextoParametro + '" data-validacionTieneReserva="' + data.validacionTieneReservaHoy + '"  >');
+                    content_claseFechas.push('<p class="tx-center tx-18" style="margin-top: 8px;font-weight:bold;">' + semana1 + ' - ' + data.FechaHoyTexto + '</p>');
+                    content_claseFechas.push('</div>');
+                    content_claseFechas.push('</div>');
+                    content_claseFechas.push('</div>');
+                    //FECHA DESPUES 1
+                    content_claseFechas.push('<div class="col-sm-3 col-lg-3 mg-t-30" >');
+                    content_claseFechas.push('<div class="card-contact pd-t-3 pd-r-3 pd-b-3 pd-l-3 clase" style="border-radius: 12px;">');
+                    content_claseFechas.push('<div id="divMaquinas_Despues1" class="dseleccionado" style="text-align:center;padding:3px;border-radius: 12px;border: 1px #ccc solid;" onclick="javascript:uspListarPresencial_SalaMaquinas_HorarioTemporal(this,' + data.DiaSemana1 + ',' + undefined + ',' + data.validacionTieneReservaDespues1 + ');" data-fecha="' + data.FechaDespues1TextoParametro + '" data-validacionTieneReserva="' + data.validacionTieneReservaDespues1 + '" >');
+                    content_claseFechas.push('<p class="tx-center tx-18" style="margin-top: 8px;font-weight:bold;">' + semana2 + ' - ' + data.FechaDespues1Texto + '</p>');
+                    content_claseFechas.push('</div>');
+                    content_claseFechas.push('</div>');
+                    content_claseFechas.push('</div>');
+                    //FECHA DESPUES 2
+                    content_claseFechas.push('<div class="col-sm-3 col-lg-3 mg-t-30" >');
+                    content_claseFechas.push('<div class="card-contact pd-t-3 pd-r-3 pd-b-3 pd-l-3 clase" style="border-radius: 12px;">');
+                    content_claseFechas.push('<div id="divMaquinas_Despues2" class="dseleccionado" style="text-align:center;padding:3px;border-radius: 12px;border: 1px #ccc solid;" onclick="javascript:uspListarPresencial_SalaMaquinas_HorarioTemporal(this,' + data.DiaSemana2 + ',' + undefined + ',' + data.validacionTieneReservaDespues2 + ');" data-fecha="' + data.FechaDespues2TextoParametro + '" data-validacionTieneReserva="' + data.validacionTieneReservaDespues2 + '" >');
+                    content_claseFechas.push('<p class="tx-center tx-18" style="margin-top: 8px;font-weight:bold;">' + semana3 + ' - ' + data.FechaDespues2Texto + '</p>');
+                    content_claseFechas.push('</div>');
+                    content_claseFechas.push('</div>');
+                    content_claseFechas.push('</div>');
+
+                    $('#divClasesMaquinas_Fechas').html(content_claseFechas.join(' '));
+
+                } else {
+
+                    uspListarPresencial_HorarioClasesConfiguracionPaginaWeb(undefined, data.DiaSemanaHoy, data.FechaHoyTextoParametro, data.validacionTieneReservaHoy);
+                }
+
+                $("#modalLoadingMaquinas").hide("fast");
+            };
+
+            var metodoError = function (msg) {
+                alert(msg);
+            };
+            var request = {
+                request: entidad
+            };
+
+            LlamarAJAX('/pg/CentroEntrenamiento_uspObtenerFechasReservas_Configuracion', request, metodoCorrecto, metodoError);
+
+        }
+
+        function Obtener3FechasClasesGrupales(fechaSeleccionada) {
+            $("#modalLoadingMaquinas").show("fast");
+            var fecha = new Date();
+            var entidad = {};
+            entidad.FechaHoraReserva = kendo.toString(fecha, 'MM/dd/yyyy');
+
+            var metodoCorrecto = function (data) {
+
+                var semana1 = ObtenerDiaSemana(data.DiaSemanaHoy);
+                var semana2 = ObtenerDiaSemana(data.DiaSemana1);
+                var semana3 = ObtenerDiaSemana(data.DiaSemana2);
+
+                var content_claseGrupalesFechas = new Array();
+
+                //FECHA HOY
+                var cssClase = fechaSeleccionada == data.FechaHoyTextoParametro ? "seleccionado" : "dseleccionado";
+                if (cssClase == "seleccionado") {
+                    uspListarPresencial_HorarioClasesConfiguracionPaginaWeb(undefined, data.DiaSemanaHoy, fechaSeleccionada, data.validacionTieneReservaHoy);
+                }
+                content_claseGrupalesFechas.push('<div class="col-sm-3 col-lg-3 mg-t-30" >');
+                content_claseGrupalesFechas.push('<div class="card-contact pd-t-3 pd-r-3 pd-b-3 pd-l-3 clase" style="border-radius: 12px;">');
+                content_claseGrupalesFechas.push('<div id="divGrupales_Hoy" class="' + cssClase + '" style="text-align:center;padding:3px;border-radius: 12px;" onclick="javascript:uspListarPresencial_HorarioClasesConfiguracionPaginaWeb(this,' + data.DiaSemanaHoy + ',' + undefined + ',' + data.validacionTieneReservaHoy + ');" data-fecha="' + data.FechaHoyTextoParametro + '" data-validacionTieneReserva="' + data.validacionTieneReservaHoy + '" >');
+                content_claseGrupalesFechas.push('<p class="tx-center tx-18" style="margin-top: 8px;font-weight:bold;">' + semana1 + ' - ' + data.FechaHoyTexto + '</p>');
+                content_claseGrupalesFechas.push('</div>');
+                content_claseGrupalesFechas.push('</div>');
+                content_claseGrupalesFechas.push('</div>');
+                //FECHA DESPUES 1
+                var cssClase = fechaSeleccionada == data.FechaDespues1TextoParametro ? "seleccionado" : "dseleccionado";
+                if (cssClase == "seleccionado") {
+                    uspListarPresencial_HorarioClasesConfiguracionPaginaWeb(undefined, data.DiaSemana1, fechaSeleccionada, data.validacionTieneReservaDespues1);
+                }
+                content_claseGrupalesFechas.push('<div class="col-sm-3 col-lg-3 mg-t-30" >');
+                content_claseGrupalesFechas.push('<div class="card-contact pd-t-3 pd-r-3 pd-b-3 pd-l-3 clase" style="border-radius: 12px;">');
+                content_claseGrupalesFechas.push('<div id="divGrupales_Despues1" class="' + cssClase + '" style="text-align:center;padding:3px;border-radius: 12px;" onclick="javascript:uspListarPresencial_HorarioClasesConfiguracionPaginaWeb(this,' + data.DiaSemana1 + ',' + undefined + ',' + data.validacionTieneReservaDespues1 + ');" data-fecha="' + data.FechaDespues1TextoParametro + '" data-validacionTieneReserva="' + data.validacionTieneReservaDespues1 + '" >');
+                content_claseGrupalesFechas.push('<p class="tx-center tx-18" style="margin-top: 8px;font-weight:bold;">' + semana2 + ' - ' + data.FechaDespues1Texto + '</p>');
+                content_claseGrupalesFechas.push('</div>');
+                content_claseGrupalesFechas.push('</div>');
+                content_claseGrupalesFechas.push('</div>');
+                //FECHA DESPUES 2
+                var cssClase = fechaSeleccionada == data.FechaDespues2TextoParametro ? "seleccionado" : "dseleccionado";
+                if (cssClase == "seleccionado") {
+                    uspListarPresencial_HorarioClasesConfiguracionPaginaWeb(undefined, data.DiaSemana2, fechaSeleccionada, data.validacionTieneReservaDespues2);
+                }
+                content_claseGrupalesFechas.push('<div class="col-sm-3 col-lg-3 mg-t-30" >');
+                content_claseGrupalesFechas.push('<div class="card-contact pd-t-3 pd-r-3 pd-b-3 pd-l-3 clase" style="border-radius: 12px;">');
+                content_claseGrupalesFechas.push('<div id="divGrupales_Despues2" class="' + cssClase + '" style="text-align:center;padding:3px;border-radius: 12px;" onclick="javascript:uspListarPresencial_HorarioClasesConfiguracionPaginaWeb(this,' + data.DiaSemana2 + ',' + undefined + ',' + data.validacionTieneReservaDespues2 + ');" data-fecha="' + data.FechaDespues2TextoParametro + '" data-validacionTieneReserva="' + data.validacionTieneReservaDespues2 + '" >');
+                content_claseGrupalesFechas.push('<p class="tx-center tx-18" style="margin-top: 8px;font-weight:bold;">' + semana3 + ' - ' + data.FechaDespues2Texto + '</p>');
+                content_claseGrupalesFechas.push('</div>');
+                content_claseGrupalesFechas.push('</div>');
+                content_claseGrupalesFechas.push('</div>');
+
+                $('#divClasesGrupales_Fechas').html(content_claseGrupalesFechas.join(' '));
+
+
+                //-------CLASES MAQUINAS
+
+                var content_claseFechas = new Array();
+                //FECHA HOY
+                content_claseFechas.push('<div class="col-sm-3 col-lg-3 mg-t-30" >');
+                content_claseFechas.push('<div class="card-contact pd-t-3 pd-r-3 pd-b-3 pd-l-3 clase" style="border-radius: 12px;">');
+                content_claseFechas.push('<div id="divMaquinas_Hoy" class="seleccionado" style="text-align:center;padding:3px;border-radius: 12px;border: 1px #ccc solid;" onclick="javascript:uspListarPresencial_HorarioClasesConfiguracionPaginaWeb_MAQUINAS(this,' + data.DiaSemanaHoy + ',' + undefined + ',' + data.validacionTieneReservaHoy + ');" data-fecha="' + data.FechaHoyTextoParametro + '" data-validacionTieneReserva="' + data.validacionTieneReservaHoy + '"  >');
+                content_claseFechas.push('<p class="tx-center tx-18" style="margin-top: 8px;font-weight:bold;">' + semana1 + ' - ' + data.FechaHoyTexto + '</p>');
+                content_claseFechas.push('</div>');
+                content_claseFechas.push('</div>');
+                content_claseFechas.push('</div>');
+                //FECHA DESPUES 1
+                content_claseFechas.push('<div class="col-sm-3 col-lg-3 mg-t-30" >');
+                content_claseFechas.push('<div class="card-contact pd-t-3 pd-r-3 pd-b-3 pd-l-3 clase" style="border-radius: 12px;">');
+                content_claseFechas.push('<div id="divMaquinas_Despues1" class="dseleccionado" style="text-align:center;padding:3px;border-radius: 12px;border: 1px #ccc solid;" onclick="javascript:uspListarPresencial_HorarioClasesConfiguracionPaginaWeb_MAQUINAS(this,' + data.DiaSemana1 + ',' + undefined + ',' + data.validacionTieneReservaDespues1 + ');" data-fecha="' + data.FechaDespues1TextoParametro + '" data-validacionTieneReserva="' + data.validacionTieneReservaDespues1 + '" >');
+                content_claseFechas.push('<p class="tx-center tx-18" style="margin-top: 8px;font-weight:bold;">' + semana2 + ' - ' + data.FechaDespues1Texto + '</p>');
+                content_claseFechas.push('</div>');
+                content_claseFechas.push('</div>');
+                content_claseFechas.push('</div>');
+                //FECHA DESPUES 2
+                content_claseFechas.push('<div class="col-sm-3 col-lg-3 mg-t-30" >');
+                content_claseFechas.push('<div class="card-contact pd-t-3 pd-r-3 pd-b-3 pd-l-3 clase" style="border-radius: 12px;">');
+                content_claseFechas.push('<div id="divMaquinas_Despues2" class="dseleccionado" style="text-align:center;padding:3px;border-radius: 12px;border: 1px #ccc solid;" onclick="javascript:uspListarPresencial_HorarioClasesConfiguracionPaginaWeb_MAQUINAS(this,' + data.DiaSemana2 + ',' + undefined + ',' + data.validacionTieneReservaDespues2 + ');" data-fecha="' + data.FechaDespues2TextoParametro + '" data-validacionTieneReserva="' + data.validacionTieneReservaDespues2 + '" >');
+                content_claseFechas.push('<p class="tx-center tx-18" style="margin-top: 8px;font-weight:bold;">' + semana3 + ' - ' + data.FechaDespues2Texto + '</p>');
+                content_claseFechas.push('</div>');
+                content_claseFechas.push('</div>');
+                content_claseFechas.push('</div>');
+
+                $('#divClasesMaquinas_Fechas').html(content_claseFechas.join(' '));
+
+                $("#modalLoadingMaquinas").hide("fast");
+            };
+
+            var metodoError = function (msg) {
+                alert(msg);
+            };
+            var request = {
+                request: entidad
+            };
+
+            LlamarAJAX('/pg/CentroEntrenamiento_uspObtenerFechasReservas_Configuracion', request, metodoCorrecto, metodoError);
+
+        }
+
+        //este carga despues de guardar una reserva
+        function Obtener3FechasSalaMaquinas(fechaSeleccionada) {
+            $("#modalLoadingMaquinas").show("fast");
+            var fecha = new Date();
+            var entidad = {};
+            entidad.FechaHoraReserva = kendo.toString(fecha, 'MM/dd/yyyy');
+
+            var metodoCorrecto = function (data) {
+
+                var semana1 = ObtenerDiaSemana(data.DiaSemanaHoy);
+                var semana2 = ObtenerDiaSemana(data.DiaSemana1);
+                var semana3 = ObtenerDiaSemana(data.DiaSemana2);
+
+                var content_claseGrupalesFechas = new Array();
+                //FECHA HOY
+                content_claseGrupalesFechas.push('<div class="col-sm-3 col-lg-3 mg-t-30" >');
+                content_claseGrupalesFechas.push('<div class="card-contact pd-t-3 pd-r-3 pd-b-3 pd-l-3 clase" style="border-radius: 12px;">');
+                content_claseGrupalesFechas.push('<div id="divGrupales_Hoy" class="seleccionado" style="text-align:center;padding:3px;border-radius: 12px;" onclick="javascript:uspListarPresencial_SalaMaquinas_HorarioTemporal(this,' + data.DiaSemanaHoy + ',' + undefined + ',' + data.validacionTieneReservaHoy + ');" data-fecha="' + data.FechaHoyTextoParametro + '" data-validacionTieneReserva="' + data.validacionTieneReservaHoy + '" >');
+                content_claseGrupalesFechas.push('<p class="tx-center tx-18" style="margin-top: 8px;font-weight:bold;">' + semana1 + ' - ' + data.FechaHoyTexto + '</p>');
+                content_claseGrupalesFechas.push('</div>');
+                content_claseGrupalesFechas.push('</div>');
+                content_claseGrupalesFechas.push('</div>');
+                //FECHA DESPUES 1
+                content_claseGrupalesFechas.push('<div class="col-sm-3 col-lg-3 mg-t-30" >');
+                content_claseGrupalesFechas.push('<div class="card-contact pd-t-3 pd-r-3 pd-b-3 pd-l-3 clase" style="border-radius: 12px;">');
+                content_claseGrupalesFechas.push('<div id="divGrupales_Despues1" class="dseleccionado" style="text-align:center;padding:3px;border-radius: 12px;" onclick="javascript:uspListarPresencial_SalaMaquinas_HorarioTemporal(this,' + data.DiaSemana1 + ',' + undefined + ',' + data.validacionTieneReservaDespues1 + ');" data-fecha="' + data.FechaDespues1TextoParametro + '" data-validacionTieneReserva="' + data.validacionTieneReservaDespues1 + '" >');
+                content_claseGrupalesFechas.push('<p class="tx-center tx-18" style="margin-top: 8px;font-weight:bold;">' + semana2 + ' - ' + data.FechaDespues1Texto + '</p>');
+                content_claseGrupalesFechas.push('</div>');
+                content_claseGrupalesFechas.push('</div>');
+                content_claseGrupalesFechas.push('</div>');
+                //FECHA DESPUES 2
+                content_claseGrupalesFechas.push('<div class="col-sm-3 col-lg-3 mg-t-30" >');
+                content_claseGrupalesFechas.push('<div class="card-contact pd-t-3 pd-r-3 pd-b-3 pd-l-3 clase" style="border-radius: 12px;">');
+                content_claseGrupalesFechas.push('<div id="divGrupales_Despues2" class="dseleccionado" style="text-align:center;padding:3px;border-radius: 12px;" onclick="javascript:uspListarPresencial_SalaMaquinas_HorarioTemporal(this,' + data.DiaSemana2 + ',' + undefined + ',' + data.validacionTieneReservaDespues2 + ');" data-fecha="' + data.FechaDespues2TextoParametro + '" data-validacionTieneReserva="' + data.validacionTieneReservaDespues2 + '" >');
+                content_claseGrupalesFechas.push('<p class="tx-center tx-18" style="margin-top: 8px;font-weight:bold;">' + semana3 + ' - ' + data.FechaDespues2Texto + '</p>');
+                content_claseGrupalesFechas.push('</div>');
+                content_claseGrupalesFechas.push('</div>');
+                content_claseGrupalesFechas.push('</div>');
+
+                $('#divClasesGrupales_Fechas').html(content_claseGrupalesFechas.join(' '));
+
+                //-------CLASES MAQUINAS
+
+                var content_claseFechas = new Array();
+
+                //FECHA HOY
+                var cssClase = fechaSeleccionada == data.FechaHoyTextoParametro ? "seleccionado" : "dseleccionado";
+                content_claseFechas.push('<div class="col-sm-3 col-lg-3 mg-t-30" >');
+                content_claseFechas.push('<div class="card-contact pd-t-3 pd-r-3 pd-b-3 pd-l-3 clase" style="border-radius: 12px;">');
+                content_claseFechas.push('<div id="divMaquinas_Hoy" class="' + cssClase + '" style="text-align:center;padding:3px;border-radius: 12px;border: 1px #ccc solid;" onclick="javascript:uspListarPresencial_HorarioClasesConfiguracionPaginaWeb_MAQUINAS(this,' + data.DiaSemanaHoy + ',' + undefined + ',' + data.validacionTieneReservaHoy + ');" data-fecha="' + data.FechaHoyTextoParametro + '" data-validacionTieneReserva="' + data.validacionTieneReservaHoy + '"  >');
+                content_claseFechas.push('<p class="tx-center tx-18" style="margin-top: 8px;font-weight:bold;">' + semana1 + ' - ' + data.FechaHoyTexto + '</p>');
+                content_claseFechas.push('</div>');
+                content_claseFechas.push('</div>');
+                content_claseFechas.push('</div>');
+                if (cssClase == "seleccionado") {
+                    uspListarPresencial_HorarioClasesConfiguracionPaginaWeb_MAQUINAS(undefined, data.DiaSemanaHoy, fechaSeleccionada, data.validacionTieneReservaHoy);
+                }
+                //FECHA DESPUES 1
+                var cssClase = fechaSeleccionada == data.FechaDespues1TextoParametro ? "seleccionado" : "dseleccionado";
+                if (cssClase == "seleccionado") {
+                    uspListarPresencial_HorarioClasesConfiguracionPaginaWeb_MAQUINAS(undefined, data.DiaSemana1, fechaSeleccionada, data.validacionTieneReservaDespues1);
+                }
+                content_claseFechas.push('<div class="col-sm-3 col-lg-3 mg-t-30" >');
+                content_claseFechas.push('<div class="card-contact pd-t-3 pd-r-3 pd-b-3 pd-l-3 clase" style="border-radius: 12px;">');
+                content_claseFechas.push('<div id="divMaquinas_Despues1" class="' + cssClase + '" style="text-align:center;padding:3px;border-radius: 12px;border: 1px #ccc solid;" onclick="javascript:uspListarPresencial_HorarioClasesConfiguracionPaginaWeb_MAQUINAS(this,' + data.DiaSemana1 + ',' + undefined + ',' + data.validacionTieneReservaDespues1 + ');" data-fecha="' + data.FechaDespues1TextoParametro + '" data-validacionTieneReserva="' + data.validacionTieneReservaDespues1 + '" >');
+                content_claseFechas.push('<p class="tx-center tx-18" style="margin-top: 8px;font-weight:bold;">' + semana2 + ' - ' + data.FechaDespues1Texto + '</p>');
+                content_claseFechas.push('</div>');
+                content_claseFechas.push('</div>');
+                content_claseFechas.push('</div>');
+                //FECHA DESPUES 2
+                var cssClase = fechaSeleccionada == data.FechaDespues2TextoParametro ? "seleccionado" : "dseleccionado";
+                if (cssClase == "seleccionado") {
+                    uspListarPresencial_HorarioClasesConfiguracionPaginaWeb_MAQUINAS(undefined, data.DiaSemana2, fechaSeleccionada, data.validacionTieneReservaDespues2);
+                }
+                content_claseFechas.push('<div class="col-sm-3 col-lg-3 mg-t-30" >');
+                content_claseFechas.push('<div class="card-contact pd-t-3 pd-r-3 pd-b-3 pd-l-3 clase" style="border-radius: 12px;">');
+                content_claseFechas.push('<div id="divMaquinas_Despues2" class="' + cssClase + '" style="text-align:center;padding:3px;border-radius: 12px;border: 1px #ccc solid;" onclick="javascript:uspListarPresencial_HorarioClasesConfiguracionPaginaWeb_MAQUINAS(this,' + data.DiaSemana2 + ',' + undefined + ',' + data.validacionTieneReservaDespues2 + ');" data-fecha="' + data.FechaDespues2TextoParametro + '" data-validacionTieneReserva="' + data.validacionTieneReservaDespues2 + '" >');
+                content_claseFechas.push('<p class="tx-center tx-18" style="margin-top: 8px;font-weight:bold;">' + semana3 + ' - ' + data.FechaDespues2Texto + '</p>');
+                content_claseFechas.push('</div>');
+                content_claseFechas.push('</div>');
+                content_claseFechas.push('</div>');
+
+                $("#modalLoadingMaquinas").hide("fast");
+
+                $('#divClasesMaquinas_Fechas').html(content_claseFechas.join(' '));
+
+            };
+
+            var metodoError = function (msg) {
+                alert(msg);
+            };
+            var request = {
+                request: entidad
+            };
+
+            LlamarAJAX('/pg/CentroEntrenamiento_uspObtenerFechasReservas_Configuracion', request, metodoCorrecto, metodoError);
+
+        }
+
+        function uspListarPresencial_SalaMaquinas_HorarioTemporal(control, DiaNumero, fecha, validacionTieneReserva) {
+
+            document.getElementById("divHorariSalaMaquinas").style.display = '';
+            document.getElementById("divRegresar").style.display = 'none';
+            document.getElementById("divRegresar2").style.display = 'none';
+            document.getElementById("divClasesMaquinas").style.display = 'none';
+
+            if (control != undefined) {
+
+                if ($(control).attr('id') == 'divMaquinas_Hoy') {
+                    $('#divMaquinas_Hoy').addClass('seleccionado');
+                    $('#divMaquinas_Hoy').removeClass('dseleccionado');
+                    $('#divMaquinas_Despues1').removeClass('seleccionado');
+                    $('#divMaquinas_Despues2').removeClass('seleccionado');
+
+                    $('#divMaquinas_Despues1').addClass('dseleccionado');
+                    $('#divMaquinas_Despues2').addClass('dseleccionado');
+
+                } else if ($(control).attr('id') == 'divMaquinas_Despues1') {
+                    $('#divMaquinas_Despues1').addClass('seleccionado');
+                    $('#divMaquinas_Despues1').removeClass('dseleccionado');
+                    $('#divMaquinas_Hoy').removeClass('seleccionado');
+                    $('#divMaquinas_Despues2').removeClass('seleccionado');
+
+                    $('#divMaquinas_Hoy').addClass('dseleccionado');
+                    $('#divMaquinas_Despues2').addClass('dseleccionado');
+                } else if ($(control).attr('id') == 'divMaquinas_Despues2') {
+                    $('#divMaquinas_Despues2').addClass('seleccionado');
+                    $('#divMaquinas_Despues2').removeClass('dseleccionado');
+                    $('#divMaquinas_Despues1').removeClass('seleccionado');
+                    $('#divMaquinas_Hoy').removeClass('seleccionado');
+
+                    $('#divMaquinas_Despues1').addClass('dseleccionado');
+                    $('#divMaquinas_Hoy').addClass('dseleccionado');
+                }
+            }
+
+            if (control != undefined) {
+                fecha = $(control).attr('data-fecha');
+                validacionTieneReserva = $(control).attr('data-validacionTieneReserva');
+            }
+
+            uspListarPresencial_HorarioClasesConfiguracionPaginaWeb_MAQUINAS(control, DiaNumero, fecha, validacionTieneReserva);
+            // ESTE METODO MUESTRA LA CLASE RESERVADA, (SOLO SI ES QUE HAY UNA CLASE RESERVADA EN LA FECHA)
+            //uspBuscarPresencial_HorarioClasesConfiguracionReservadoPaginaWeb_SALAMAQUINAS(DiaNumero, fecha);
+            //YA NO SE USARA ESTE METODO PORQUE NO FUNCIONA COMO QUEREMOS
+
+        }
+
+        //CARGAR LAS RESERVAS DEL CLIENTE
+        function verReservas() {
+
+            $('#gridReservas tbody').html('');
+      
+            var entidad = {};
+          
+            var metodoCorrecto = function (msg) {
+
+                for (var i = 0; i < msg.length; i++) {
+
+                    var htmlTags = "<tr>" +
+                        "<td>" + msg[i].Disciplina.toString().toUpperCase() + "</td>" +
+                        "<td>" + msg[i].DiaSemana.toString().toUpperCase() + "</td>" +
+                        "<td>" + kendo.toString(kendo.parseDate(msg[i].FechaHoraInicio, 'yyyy-MM-dd'), 'dd/MM/yyyy') + "</td>" +
+                        "<td>" + kendo.toString(kendo.parseDate(msg[i].FechaHoraInicio, 'yyyy-MM-dd'), 'hh:mm tt') + "</td>" +
+                        "<td>" + kendo.toString(kendo.parseDate(msg[i].FechaHoraFin, 'yyyy-MM-dd'), 'hh:mm tt') + "</td>" +
+
+                        "<td><center><button onclick='Consultar_UspActualizarPresencial_DesactivarHorarioClasesAsistencias_Checking(this);'  data-CodigoHorarioClasesConfiguracion=" + msg[i].CodigoHorarioClasesConfiguracion + " data-CodigoHorarioClasesConfiguracionTiempoReal=" + msg[i].CodigoHorarioClasesConfiguracionTiempoReal + " data-CodigoHorarioClasesConfiguracionAsistencias=" + msg[i].CodigoHorarioClasesConfiguracionAsistencias + "  type='button' class='btn btn-primary' title='Cancelar reserva.' style='font-size:14px;' >CANCELAR RESERVA</button></center></td>" +
+                        "</tr>";
+
+                    $('#gridReservas tbody').append(htmlTags);
+
+                }
+
+            };
+            var metodoError = function (msg) {
+                alert(msg);
+            };
+            /*request: entidad*/
+            var request = {
+               
+            };
+            LlamarAJAX("/pg/CentroEntrenamiento_uspBuscarReservasPresencial_HorarioClasesPorSocio_grid", request, metodoCorrecto, metodoError);
+
+
+        }
+
+        function Consultar_UspActualizarPresencial_DesactivarHorarioClasesAsistencias_Checking(element) {
+
+            var CodigoHorarioClasesConfiguracion = $(element).data("codigohorarioclasesconfiguracion");
+            var CodigoHorarioClasesConfiguracionTiempoReal = $(element).data("codigohorarioclasesconfiguraciontiemporeal");
+            var CodigoHorarioClasesConfiguracionAsistencias = $(element).data("codigohorarioclasesconfiguracionasistencias");
+
+            $('#hdCancelarReserva_id').val(CodigoHorarioClasesConfiguracion);
+            $('#hdCancelarReserva_id_tiemporeal').val(CodigoHorarioClasesConfiguracionTiempoReal);
+            $('#hdCancelarReserva_id_asistencia').val(CodigoHorarioClasesConfiguracionAsistencias);
+
+            document.getElementById('myModalCancelarReservaClases').style.display = 'block';
+
+        }
+
+        function event_ocultarAviso_myModalCancelarReservaClases() {
+            document.getElementById('myModalCancelarReservaClases').style.display = 'none';
+        }
+
+        function Confirmar_UspActualizarPresencial_DesactivarHorarioClasesAsistencias_Checking() {
+
+            var id = $('#hdCancelarReserva_id').val();
+            var id_tiemporeal = $('#hdCancelarReserva_id_tiemporeal').val();
+            var id_asistencia = $('#hdCancelarReserva_id_asistencia').val();
+         
+            document.getElementById('loadMe').style.display = 'block';
+            var entidad = {};
+            entidad.CodigoHorarioClasesConfiguracion = id;
+            entidad.CodigoHorarioClasesConfiguracionTiempoReal = id_tiemporeal;
+            entidad.CodigoHorarioClasesConfiguracionAsistencias = id_asistencia;
+            
+            if (entidad.CodigoHorarioClasesConfiguracion == '') {
+                alert("Falta selecionar una clase");                
+                return;
+            } if (entidad.CodigoHorarioClasesConfiguracionTiempoReal == '') {
+                alert("Falta selecionar una clase real");                
+                return;
+            } if (entidad.CodigoHorarioClasesConfiguracionAsistencias == '') {
+                alert("No tienes cita reservada");                
+                return;
+            } else if (entidad.CodigoSocio == '') {
+                alert("Falta selecionar una socio");                
+                return;
+            }
+
+            $('button[type="button"]').attr("disabled", true);
+
+            var metodoCorrecto = function (msg) {
+                document.getElementById('loadMe').style.display = 'none';
+                if (msg == 100) {
+                    $('button[type="button"]').attr("disabled", false);
+                    document.getElementById('myModalCancelarReservaClases').style.display = 'none';
+                    alert("TÚ RESERVA ESTA CANCELADA, AHORA PUEDES ELEGIR OTRO HORARIO");                    
+                    //AQUI VOLVER A CARGAR LAS RESERVAS
+                    location.reload();
+                }
+                else {
+                    $.bootstrapGrowl("Error, No se ha podido cancelar la reserva!", { type: 'danger', width: 'auto' });
+                }
+
+            };
+            var metodoError = function (msg) {
+                alert(msg);
+            };
+            var request = {
+                request: entidad
+            };
+            LlamarAJAX("/pg/CentroEntrenamiento_UspActualizarPresencial_DesactivarHorarioClasesAsistencias_grid", request, metodoCorrecto, metodoError);
+
+        }
+
+
+        $(document).ready(function () {
+
+            uspListarSalas();
+            verReservas();
+            //Obtener3FechasTodo();
+
+            $('#divRegresar,#divRegresar2').click(function () {
+                document.getElementById("divHorariSalaMaquinas").style.display = '';
+                document.getElementById("divRegresar").style.display = 'none';
+                $('#divTituloBuscadorSalaMaquinas').html('👇Selecciona un horario disponible:👇');
+            });
+
+        });
+    </script>
+}
+

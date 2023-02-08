@@ -1,0 +1,141 @@
+﻿@model IEnumerable<BotComers.ViewModels.Configuracion.AspNetUsersViewModel>
+
+@{
+    ViewBag.Title = "usuarios";
+    Layout = "~/Views/Shared/_LayoutApp.cshtml";
+}
+
+
+<div class="slim-mainpanel">
+
+    <div class="slim-mainpanel">
+        <div class="container">
+            <input type="hidden" value="0" id="hdCodigoUsuario" />
+            <div class="report-summary-header">
+                <div>
+                    <h4 class="tx-inverse mg-b-3">Usuarios</h4>
+                </div>
+                <div>
+                    <a href="@Url.Action("usuariosadd","configuracion")" class="btn btn-primary"><i class="icon ion-plus-circled tx-22"></i>Nuevo usuario</a>
+                </div>
+            </div><!-- d-flex -->
+            <div class="row mg-b-15">
+                <div class="col-lg-4">
+                    <div class="form-group">
+                        <label for="txtusuario_Buscador" class="form-control-label">Buscador: <span class="tx-danger" id="" style="display:none;">* Ingrese fecha</span></label>
+                        <input id="txtusuario_Buscador" onchange="Listarusuario();" class="form-control form-control-sm" type="text" name="" value="" placeholder="">
+                    </div>
+                </div>
+                <div class="col-lg-7"></div>
+            </div>
+
+            <div class="card card-table mg-t-20 mg-sm-t-30">
+
+                <div class="table-responsive">
+                    <table id="gridUsuario" class="table mg-b-0 tx-13">
+                        <thead>
+                            <tr>                                                               
+                                <th>
+                                   Nombre Completo
+                                </th>                              
+                                <th>
+                                   Usuario
+                                </th>
+                                <th>
+                                    Contraseña
+                                </th>                               
+                                <th>
+                                    Correo
+                                </th>                               
+                                <th>
+                                    Celular
+                                </th>                                                            
+                                <th>
+                                    Cargo
+                                </th>                               
+                                <th>
+                                    Creador
+                                </th>                                                              
+                                <th>
+                                    Fecha Creado
+                                </th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model)
+                            {
+                                <tr>                                  
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.FullName)
+                                    </td>                                  
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.UserName)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.PasswordHash)
+                                    </td>                                   
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Email)
+                                    </td>                                   
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.PhoneNumber)
+                                    </td>                                   
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.DesCargo)
+                                    </td>                                   
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.UsuarioCreacion)
+                                    </td>                                   
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.DesFechaCreacion)
+                                    </td>
+                                    <td>
+                                        @Html.ActionLink("Cambiar clave", "EditClave", new { id = item.Id })                                       
+                                    </td>
+                                </tr>
+                            }
+
+                        </tbody>
+                    </table>
+                </div><!-- table-responsive -->
+            </div><!-- card -->
+
+        </div><!-- slim-mainpanel -->
+
+    </div>
+
+</div>
+
+<div id="modalConfirmarEliminacion" class="modal fade">
+    <div class="modal-dialog modal-sm" role="document">
+        <div class="modal-content bd-0 tx-14">
+            <div class="modal-header pd-x-20">
+                <h6 class="tx-14 mg-b-0 tx-uppercase tx-inverse tx-bold">Confirmar</h6>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body pd-20">
+                <p class="mg-b-5">¿Esta seguro de eliminar este item?</p>
+            </div>
+            <div class="modal-footer justify-content-center">
+                <button type="button" class="btn btn-primary" onclick="javascript: Eliminarusuario();">Si</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+            </div>
+        </div>
+    </div><!-- modal-dialog -->
+</div>
+
+
+@section Scripts {
+
+    @System.Web.Optimization.Scripts.Render("~/Resource/UserControl.Helper.js")
+   
+    <script type="text/javascript">
+
+
+    </script>
+
+}
+

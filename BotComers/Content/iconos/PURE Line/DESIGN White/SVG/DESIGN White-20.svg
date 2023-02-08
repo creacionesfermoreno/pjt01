@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Generator: Adobe Illustrator 16.0.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="170px"
+	 height="169.999px" viewBox="0 0 170 169.999" enable-background="new 0 0 170 169.999" xml:space="preserve">
+<g id="Background">
+</g>
+<g id="Circle">
+	<g>
+		<path fill="#282D33" d="M85,169.999c-46.869,0-85-38.131-85-84.999C0,38.131,38.131,0,85,0s85,38.131,85,85
+			C170,131.868,131.869,169.999,85,169.999z"/>
+	</g>
+</g>
+<g id="TEXT">
+</g>
+<g id="Icons">
+	<g>
+		<polyline fill="none" stroke="#FFFFFF" stroke-width="4" points="68.982,121.297 68.982,128.438 123.063,128.438 123.063,82.835 
+			123.063,60.975 		"/>
+		<polyline fill="none" stroke="#FFFFFF" stroke-width="4" points="105.68,43.589 68.982,43.589 68.983,60.899 		"/>
+		<g>
+			<g>
+				<g>
+					<path fill="#FFFFFF" d="M112.68,51.247l2.728,2.728h-2.728V51.247 M108.68,41.589v16.386h16.383L108.68,41.589L108.68,41.589z"
+						/>
+				</g>
+			</g>
+		</g>
+		<g>
+			<polyline fill="none" stroke="#FFFFFF" stroke-width="4" points="66.701,70.095 114.201,70.095 114.201,120.187 40.262,120.187 
+				40.262,70.095 48.95,70.095 			"/>
+			<g>
+				<path fill="#FFFFFF" d="M103.749,80.546v21.699H89.385l-0.805-1.071L79.454,89.02l-3.199-4.261l-3.199,4.261l-3.972,5.29
+					l-7.885-10.501l-2.45-3.263H103.749 M57.253,80.546l-2.45,3.262l-4.091,5.444v-8.706H57.253 M107.749,76.546H46.711v24.689
+					L58,86.21l11.084,14.761l7.171-9.55l9.126,12.154l2.006,2.67h20.361V76.546L107.749,76.546z"/>
+			</g>
+			<circle fill="none" stroke="#FFFFFF" stroke-width="4" cx="93.397" cy="89.854" r="5.219"/>
+		</g>
+		<g>
+			<path fill="none" stroke="#FFFFFF" stroke-width="4" d="M61.534,60.896l-0.002-10.059c0.001-4.005-3.245-7.252-7.25-7.248l0,0
+				c-4.002,0-7.248,3.246-7.248,7.248v10.063"/>
+			<path fill="none" stroke="#FFFFFF" stroke-width="4" d="M53.799,54.48l-0.002,14.878c0.002,2.135,1.734,3.867,3.869,3.867l0,0
+				c2.135,0.005,3.867-1.734,3.867-3.867l-0.002-11.207"/>
+		</g>
+	</g>
+</g>
+</svg>

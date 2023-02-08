@@ -1,0 +1,251 @@
+﻿@model IEnumerable<BotComers.ViewModels.Inventario.ItemsVentaViewModel>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/__LayoutAppFitPlataformaFit.cshtml";
+}
+<style>
+    .modal-backdrop {
+        display: none;
+    }
+</style>
+
+
+<div class="page__header page__header-nav mb-0">
+    <div class="container-fluid page__container">
+        <div class="navbar navbar-secondary navbar-light navbar-expand-sm p-0 d-none d-md-flex" id="secondaryNavbar">
+            <ul class="nav navbar-nav">
+                <li class="nav-item">
+                    <button style="color: #ffffff;background-color: #ff0200;font-size: 1.0rem;border: 0px #ff0200 solid;height: 33px;padding: 5px;cursor:pointer;" class="navbar-toggler navbar-toggler-custom d-flex mr-navbar" type="button" data-toggle="sidebar">
+                        Operaciones
+                    </button>
+                </li>
+                <li class="nav-item" data-controlmodulo="45833cdd-55db-4a67-a879-f1ae9353f8bf">
+                    <a href="@Url.Action("checking","gestionce",new {id= HttpContext.Current.Request.Cookies["_SubDominio_Business"].Value})" class="nav-link">Clientes</a>
+                </li>
+                <li class="nav-item" data-controlmodulo="9e69cfd8-b063-44df-a7f2-a3a10d1eb899" style="display:none;">
+                    <a class="nav-link " href="@Url.Action("posfitness","pos",new {id= HttpContext.Current.Request.Cookies["_SubDominio_Business"].Value})">Punto de venta</a>
+                </li>
+                <li class="nav-item" data-controlmodulo="7611dfbe-186f-4abe-8e2e-e64ad7281728" style="display:none;">
+                    <a class="nav-link" href="@Url.Action("caja","gestionce",new {id= HttpContext.Current.Request.Cookies["_SubDominio_Business"].Value})">Caja</a>
+                </li>
+                <li class="nav-item" data-controlmodulo="93c0d848-83aa-45eb-a83a-ded00a6b6e23" style="display:none;">
+                    <a class="nav-link" href="@Url.Action("nutricion","gestionce",new {id= HttpContext.Current.Request.Cookies["_SubDominio_Business"].Value})">Medidas y Nutrición</a>
+                </li>
+                <li class="nav-item" data-controlmodulo="947dc11f-3e14-4fe7-bedc-ae3d81219bee" style="display:none;">
+                    <a class="nav-link" href="@Url.Action("Index","inventariofit",new {id= HttpContext.Current.Request.Cookies["_SubDominio_Business"].Value})">Inventario</a>
+                </li>
+                <li class="nav-item" data-controlmodulo="39497bd3-94ab-4236-a1d4-4623d854f91e" style="display:none;">
+                    <a href="@Url.Action("agendacomercial","gestionce",new {id= HttpContext.Current.Request.Cookies["_SubDominio_Business"].Value})" class="nav-link">Agenda Comercial</a>
+                </li>
+                <li class="nav-item" data-controlmodulo="bbc035e6-68ea-4885-917f-005ad3fcfb66" style="display:none;">
+                    <a href="@Url.Action("metascomerciales","gestionce",new {id= HttpContext.Current.Request.Cookies["_SubDominio_Business"].Value})" class="nav-link">Metas</a>
+                </li>
+                <li class="nav-item" data-controlmodulo="e1eadd0d-39b3-498d-b09b-9b3b28610b9b" style="display:none;">
+                    <a href="@Url.Action("informesfit","gestionce",new {id= HttpContext.Current.Request.Cookies["_SubDominio_Business"].Value})" class="nav-link">Informes</a>
+                </li>
+                <li class="nav-item" data-controlmodulo="600dabf4-7dc3-4dc0-a0ba-74b782955e52" style="display:none;">
+                    <a class="nav-link" href="@Url.Action("pagospersonal","gestionce",new {id= HttpContext.Current.Request.Cookies["_SubDominio_Business"].Value})">Pagos</a>
+                </li>
+                <li class="nav-item" data-controlmodulo="b1f65597-fd27-46ca-90d0-a0f2f1039ef7" style="display:none;">
+                    <a class="nav-link" href="@Url.Action("finanzas","gestionce",new {id= HttpContext.Current.Request.Cookies["_SubDominio_Business"].Value})">Finanzas</a>
+                </li>
+                <li class="nav-item" data-controlmodulo="4c01e8de-9440-4927-a2f2-d6241d925c39" style="display:none;">
+                    <a class="nav-link" href="@Url.Action("estadisticas","gestionce",new {id= HttpContext.Current.Request.Cookies["_SubDominio_Business"].Value})">Estadísticas</a>
+                </li>
+
+            </ul>
+        </div>
+    </div>
+</div>
+
+<div class="slim-mainpanel" style="background-color: #e9ebee;">
+    <br />
+    <div class="slim-mainpanel">
+        <div class="container">
+            <input type="hidden" value="0" id="hdCodigoItemVenta" />
+
+            <div class="row mg-b-15">
+                <div class="col-lg-4">
+                    <div class="form-group">
+                        <label for="txtItemsVenta_Buscador" class="form-control-label">Buscador: <span class="tx-danger" id="" style="display:none;">* Ingrese fecha</span></label>
+                        <input id="txtItemsVenta_Buscador" onchange="ListarItemsVenta();" class="form-control form-control-sm" type="text" name="" value="" placeholder="">
+                    </div>
+                </div>
+                <div class="col-lg-6">
+
+                </div>
+                <div class="col-lg-2">
+                    <a data-controlmodulo="13a54c86-f8b0-4dc1-9ce2-8892f9cdc0b8" style="display:none;" href="@Url.Action("add","itemsventafit",new {id= HttpContext.Current.Request.Cookies["_SubDominio_Business"].Value})">
+                        <button class="btn btn-primary bd-0">Nuevo producto</button>
+                    </a>
+                </div>
+            </div>
+
+            <div class="card card-table mg-t-20 mg-sm-t-30">
+
+                <div class="table-responsive">
+                    <table id="gridEmpresa" class="table mg-b-0 tx-13">
+                        <thead>
+                            <tr class="tx-10">
+                                <th class="pd-y-5">
+                                    Codigo
+                                </th>
+                                <th class="pd-y-5">
+
+                                </th>
+                                <th class="pd-y-5">
+                                    Nombre
+                                </th>
+                                <th class="pd-y-5">
+                                    Referencia
+                                </th>
+                                <th class="pd-y-5">
+                                    Precio venta
+                                </th>
+                                <th class="pd-y-5">
+                                    Descripcion
+                                </th>
+                                <th class="pd-y-5">
+                                    Acciones
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model)
+                            {
+                                if (item != null)
+                                {
+                            <tr>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.CodigoItemVenta)
+                                </td>
+                                <td>
+                                    <img src="@item.UrlImagen" style="width:40px;" alt="">
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Nombre)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Referencia)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.PrecioVenta)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Descripcion)
+                                </td>
+                                <td>
+                                    <a class="btn btn-primary btn-sm" href="@Url.Action("edit","itemsventafit", new {id= item.CodigoItemVenta})">Editar</a>
+                                    <a class="btn btn-primary btn-sm" href="" data-toggle="modal" data-target="#modalConfirmarEliminacion" onclick="SeleccionarFilaItemsVenta(@item.CodigoItemVenta);">Eliminar</a>
+                                </td>
+                            </tr>
+                                }
+                            }
+                        </tbody>
+                    </table>
+                </div><!-- table-responsive -->
+            </div><!-- card -->
+            <br /><br /><br />
+        </div><!-- slim-mainpanel -->
+
+    </div>
+
+</div>
+
+<div id="modalConfirmarEliminacion" class="modal fade">
+    <div class="modal-dialog modal-sm" role="document">
+        <div class="modal-content bd-0 tx-14">
+            <div class="modal-header pd-x-20">
+                <h6 class="tx-14 mg-b-0 tx-uppercase tx-inverse tx-bold">Confirmar</h6>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body pd-20">
+                <p class="mg-b-5">¿Esta seguro de eliminar este item?</p>
+            </div>
+            <div class="modal-footer justify-content-center" data-controlmodulo="714653bd-4b7c-4f27-b957-09e8f94f6008" style="display:none;">
+                <button type="button" class="btn btn-primary" onclick="javascript: EliminarItemsVenta();">Si</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+            </div>
+        </div>
+    </div><!-- modal-dialog -->
+</div>
+
+<div class="modal fade" id="loadMe" tabindex="-1" role="dialog" aria-labelledby="loadMeLabel">
+    <br /><br /><br /><br />
+    <div class="modal-dialog modal-sm" role="document">
+        <div class="modal-content">
+            <div class="modal-body text-center">
+                <img src="~/Content/appsfit_img/logoappsfitweb.png" style="width:255px;height:125px;" />
+                <div class="loader"></div>
+                <div clas="loader-txt">
+                    <p>Cargando... <br><br><small>Espere por favor, este proceso puede tardar unos minutos</small></p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@section Scripts {
+
+    @System.Web.Optimization.Scripts.Render("~/Scripts/jquery.min.js")
+
+    @System.Web.Optimization.Scripts.Render("~/Scripts/plugins/jsKendo/jquery.min.js")
+    @System.Web.Optimization.Scripts.Render("~/Scripts/plugins/jsKendo/angular.min.js")
+    @System.Web.Optimization.Scripts.Render("~/Scripts/plugins/jsKendo/kendo.all.min.js")
+
+    @System.Web.Optimization.Scripts.Render("~/Scripts/plugins/jquery-ui/jquery-ui.js")
+    @System.Web.Optimization.Scripts.Render("~/Scripts/plugins/jquery-ui/jquery-ui.min.js")
+
+    @System.Web.Optimization.Scripts.Render("~/Resource/UserControl.Helper.js")
+    @System.Web.Optimization.Scripts.Render("~/Scripts/bootstrap-notify-master/bootstrap-notify.js")
+    @System.Web.Optimization.Scripts.Render("~/Scripts/bootstrap-notify-master/bootstrap-notify.min.js")
+    @System.Web.Optimization.Scripts.Render("~/Scripts/jsBootstrap/jquery.bootstrap-growl.js")
+    @System.Web.Optimization.Scripts.Render("~/Resource/Inventario.js?llllkk")
+
+    <script type="text/javascript">
+
+        $(document).ready(function () {
+
+            SEGListarPerfilMenu();
+        });
+
+
+        function SEGListarPerfilMenu() {
+            
+            var entidad = {};
+
+            document.getElementById('loadMe').style.display = 'block';
+            $('button[type="button"]').attr("disabled", true);
+            var metodoCorrecto = function (msg) {
+
+                $('button[type="button"]').attr("disabled", false);
+                document.getElementById('loadMe').style.display = 'none';
+
+                for (var i = 0; i < msg.length; i++) {
+
+                    if (msg[i].Estado) {
+                        $('[data-controlmodulo="' + msg[i].CodigoMenu + '"]').show('fast');
+                    }
+                }
+
+            };
+            var metodoError = function (msg) {
+                alert(msg);
+            };
+            var request = {
+                //request: entidad
+            };
+            LlamarAJAX("/itemsventa/SEGListarPerfilMenu", request, metodoCorrecto, metodoError);
+
+        }
+
+
+    </script>
+
+}
+
+

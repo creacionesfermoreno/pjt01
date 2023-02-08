@@ -1,0 +1,3007 @@
+﻿
+@{
+    /**/
+
+    ViewBag.Title = "metascomerciales";
+    Layout = "~/Views/Shared/__LayoutAppFitPlataformaFit.cshtml";
+}
+
+
+<link href="@Url.Content("~/Content/cssKendo/kendo.common.min.css")" rel="stylesheet" />
+<link href="@Url.Content("~/Content/cssKendo/kendo.dataviz.default.min.css")" rel="stylesheet" />
+<link href="@Url.Content("~/Content/cssKendo/kendo.dataviz.min.css")" rel="stylesheet" />
+<link href="@Url.Content("~/Content/cssKendo/kendo.default.min.css")" rel="stylesheet" />
+<link href="@Url.Content("~/Content/cssKendo/kendo.mobile.all.min.css")" rel="stylesheet" />
+
+
+<style type="text/css">
+    .k-block, .k-button, .k-textbox, .k-drag-clue, .k-touch-scrollbar, .k-window, .k-window-titleless .k-window-content, .k-window-action, .k-inline-block, .k-grid .k-filter-options, .k-grouping-header .k-group-indicator, .k-autocomplete, .k-multiselect, .k-combobox, .k-dropdown, .k-dropdown-wrap, .k-datepicker, .k-timepicker, .k-colorpicker, .k-datetimepicker, .k-notification, .k-numerictextbox, .k-picker-wrap, .k-numeric-wrap, .k-colorpicker, .k-list-container, .k-calendar-container, .k-calendar td, .k-calendar .k-link, .k-treeview .k-in, .k-editor-inline, .k-tooltip, .k-tile, .k-slider-track, .k-slider-selection, .k-upload {
+        border-radius: 3px;
+    }
+
+    .modal-body {
+    }
+
+    .modal-backdrop {
+        display: none;
+    }
+
+    .card-body {
+        margin-top: -5px;
+        margin-bottom: -5px;
+    }
+
+    .k-dropdown .k-input, .k-selectbox .k-input {
+        /* background: none; */
+        background-color: #fff;
+        font-weight: bold;
+    }
+
+    .k-dropdown-wrap .k-input, .k-picker-wrap .k-input, .k-numeric-wrap .k-input {
+        border-radius: 3px 0 0 3px;
+        font-weight: bold;
+    }
+
+    .k-autocomplete {
+        background-image: url(textures/highlight.png);
+        background-image: none,linear-gradient(to bottom,#e2e1e199 0,#e2e1e199 100%);
+        background-position: 50% 50%;
+        background-color: #e3e3e3;
+        border: 1px solid #cac9c9;
+        color: #fff;
+    }
+
+    .k-header, .k-grid-header, .k-toolbar, .k-dropdown-wrap, .k-picker-wrap, .k-numeric-wrap, .k-grouping-header, .k-pager-wrap, .k-textbox, .k-button, .k-progressbar, .k-draghandle, .k-state-highlight, .k-tabstrip-items .k-item, .k-panelbar .k-tabstrip-items .k-item, .km-pane-wrapper > .km-pane > .km-view > .km-content {
+        background-image: url(textures/highlight.png);
+        background-image: none,-webkit-linear-gradient(top,#0075ff 0,#0075ff 100%);
+        background-image: none,-moz-linear-gradient(top,#0075ff 0,#0075ff 100%);
+        background-image: none,-o-linear-gradient(top,#0075ff 0,#0075ff 100%);
+        background-image: none,linear-gradient(to bottom,#0075ff 0,#0075ff 100%);
+        background-position: 50% 50%;
+        background-color: #e3e3e3;
+        color: #fff;
+    }
+
+        .k-header, .k-grid-header-wrap, .k-grid .k-grouping-header, .k-grid-header, .k-pager-wrap, .k-pager-wrap .k-textbox, .k-pager-wrap .k-link, .k-grouping-header .k-group-indicator, .k-gantt-toolbar .k-state-default {
+            border-color: #e8eaee;
+            background-color: #0075ff;
+            color: #fff;
+        }
+
+    .modal {
+        display: none;
+        background-color: rgba(0, 0, 0, 0.77);
+    }
+
+    .k-block, .k-header, .k-grid-header, .k-toolbar, .k-grouping-header, .k-pager-wrap, .k-button, .k-draghandle, .k-treemap-tile, html .km-pane-wrapper .k-header {
+        background-color: #0075ff;
+        color: #fff;
+    }
+
+        .k-grid-header th.k-header > .k-link {
+            display: block;
+            min-height: 18px;
+            line-height: 18px;
+            margin: -0.5em -0.6em -0.4em -0.6em;
+            padding: .1em .1em .1em .1em;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            color: #fff;
+        }
+
+        .k-grid-header table, .k-grid-content table, .k-grid-footer table, .k-grid-content-locked > table {
+            table-layout: fixed;
+        }
+
+
+
+        .k-grid-toolbar:first-child, .k-grouping-header + .k-grid-toolbar {
+            border-width: 0 0 1px;
+            border-radius: 0px;
+            background-color: #d7eafa;
+            height: 10px;
+        }
+
+    .k-block, .k-header, .k-grid-header, .k-toolbar, .k-grouping-header, .k-pager-wrap, .k-button, .k-draghandle, .k-treemap-tile, html .km-pane-wrapper .k-header {
+        background-color: rgba(227, 227, 227, 0);
+    }
+
+    #txtFechaInicioProcFreezing .k-header, .k-grid-header, .k-toolbar, .k-dropdown-wrap, .k-picker-wrap, .k-numeric-wrap, .k-grouping-header, .k-pager-wrap, .k-textbox, .k-button, .k-progressbar, .k-draghandle, .k-autocomplete, .k-state-highlight, .k-tabstrip-items .k-item, .k-panelbar .k-tabstrip-items .k-item, .km-pane-wrapper > .km-pane > .km-view > .km-content {
+        background-image: url(textures/highlight.png);
+        background-image: none,-webkit-linear-gradient(top,#0075ff 0,#0075ff 100%);
+        background-image: none,-moz-linear-gradient(top,#0075ff 0,#0075ff 100%);
+        background-image: none,-o-linear-gradient(top,#0075ff 0,#0075ff 100%);
+        background-image: none,linear-gradient(to bottom,#0075ff 0,#0075ff 100%);
+        background-position: 50% 50%;
+        background-color: #ffffff;
+    }
+
+    .k-state-selected {
+        color: #FFFFFF;
+        background-color: #0075ff;
+        border-color: #0075ff;
+    }
+
+
+    .k-grid tr td {
+        border-bottom: 1px solid #eaeaea;
+        border-left: 1px solid #eaeaea;
+        border-style: solid;
+    }
+
+    tr {
+        height: 16px;
+        font-size: 13px;
+    }
+
+    .k-textbox, .k-autocomplete, .k-dropdown-wrap, .k-picker-wrap, .k-numeric-wrap {
+        border-width: 1px;
+        border-style: solid;
+        padding: 0 1.9em 0 0;
+        font-weight: bold;
+    }
+
+    /** SPINNER CREATION **/
+    .loader {
+        position: relative;
+        text-align: center;
+        margin: 15px auto 35px auto;
+        z-index: 9999;
+        display: block;
+        width: 80px;
+        height: 80px;
+        border: 10px solid rgba(0, 0, 0, .3);
+        border-radius: 50%;
+        border-top-color: #000;
+        animation: spin 1s ease-in-out infinite;
+        -webkit-animation: spin 1s ease-in-out infinite;
+    }
+
+
+    /** MODAL STYLING **/
+    .modal-content {
+        border-radius: 0px;
+        box-shadow: 0 0 20px 8px rgba(0, 0, 0, 0.7);
+    }
+
+
+    [dir=ltr] .modal-lg, [dir=ltr] .modal-xl {
+        max-width: 950px;
+    }
+
+    a {
+        color: transparent;
+        text-decoration: none;
+    }
+</style>
+
+<div class="page__header page__header-nav mb-0">
+    <div class="container-fluid page__container">
+        <div class="navbar navbar-secondary navbar-light navbar-expand-sm p-0 d-none d-md-flex" id="secondaryNavbar">
+            <ul class="nav navbar-nav">
+                <li class="nav-item">
+                    <button style="color: #ffffff;background-color: #ff0200;font-size: 1.0rem;border: 0px #ff0200 solid;height: 33px;padding: 5px;cursor:pointer;" class="navbar-toggler navbar-toggler-custom d-flex mr-navbar" type="button" data-toggle="sidebar">
+                        Operaciones
+                    </button>
+                </li>
+                <li class="nav-item" data-controlmodulo="45833cdd-55db-4a67-a879-f1ae9353f8bf">
+                    <a href="@Url.Action("checking","gestionce",new {id= HttpContext.Current.Request.Cookies["_SubDominio_Business"].Value})" class="nav-link">Clientes</a>
+                </li>
+                <li class="nav-item" data-controlmodulo="9e69cfd8-b063-44df-a7f2-a3a10d1eb899" style="display:none;">
+                    <a class="nav-link " href="@Url.Action("posfitness","pos",new {id= HttpContext.Current.Request.Cookies["_SubDominio_Business"].Value})">Punto de venta</a>
+                </li>
+                <li class="nav-item" data-controlmodulo="7611dfbe-186f-4abe-8e2e-e64ad7281728" style="display:none;">
+                    <a class="nav-link" href="@Url.Action("caja","gestionce",new {id= HttpContext.Current.Request.Cookies["_SubDominio_Business"].Value})">Caja</a>
+                </li>
+                <li class="nav-item" data-controlmodulo="93c0d848-83aa-45eb-a83a-ded00a6b6e23" style="display:none;">
+                    <a class="nav-link" href="@Url.Action("nutricion","gestionce",new {id= HttpContext.Current.Request.Cookies["_SubDominio_Business"].Value})">Medidas y Nutrición</a>
+                </li>
+                <li class="nav-item" data-controlmodulo="947dc11f-3e14-4fe7-bedc-ae3d81219bee" style="display:none;">
+                    <a class="nav-link " href="@Url.Action("Index","inventariofit",new {id= HttpContext.Current.Request.Cookies["_SubDominio_Business"].Value})">Inventario</a>
+                </li>
+
+                <li class="nav-item" data-controlmodulo="39497bd3-94ab-4236-a1d4-4623d854f91e" style="display:none;">
+                    <a class="nav-link" href="@Url.Action("agendacomercial","gestionce",new {id= HttpContext.Current.Request.Cookies["_SubDominio_Business"].Value})">Agenda Comercial</a>
+                </li>
+                <li class="nav-item active" data-controlmodulo="bbc035e6-68ea-4885-917f-005ad3fcfb66" style="display:none;">
+                    <a href="@Url.Action("metascomerciales","gestionce",new {id= HttpContext.Current.Request.Cookies["_SubDominio_Business"].Value})" class="nav-link active">Metas</a>
+                </li>
+                <li class="nav-item" data-controlmodulo="bd61dc23-54d9-4901-9c35-b8d228b3a924" style="display:none;">
+                    <a href="@Url.Action("marketing","gestionce",new {id= HttpContext.Current.Request.Cookies["_SubDominio_Business"].Value})" class="nav-link">Marketing</a>
+                </li>
+                <li class="nav-item" data-controlmodulo="e1eadd0d-39b3-498d-b09b-9b3b28610b9b" style="display:none;">
+                    <a href="@Url.Action("informesfit","gestionce",new {id= HttpContext.Current.Request.Cookies["_SubDominio_Business"].Value})" class="nav-link">Informes</a>
+                </li>
+                <li class="nav-item" data-controlmodulo="600dabf4-7dc3-4dc0-a0ba-74b782955e52" style="display:none;">
+                    <a class="nav-link" href="@Url.Action("pagospersonal","gestionce",new {id= HttpContext.Current.Request.Cookies["_SubDominio_Business"].Value})">Pagos</a>
+                </li>
+
+                <li class="nav-item" data-controlmodulo="b1f65597-fd27-46ca-90d0-a0f2f1039ef7" style="display:none;">
+                    <a class="nav-link" href="@Url.Action("finanzas","gestionce",new {id= HttpContext.Current.Request.Cookies["_SubDominio_Business"].Value})">Finanzas</a>
+                </li>
+                <li class="nav-item" data-controlmodulo="4c01e8de-9440-4927-a2f2-d6241d925c39" style="display:none;">
+                    <a class="nav-link" href="@Url.Action("estadisticas","gestionce",new {id= HttpContext.Current.Request.Cookies["_SubDominio_Business"].Value})">Estadísticas</a>
+                </li>
+
+            </ul>
+        </div>
+    </div>
+</div>
+
+
+<br />
+<div class="container-fluid" style="background-color:#e4e6e9;">
+
+    <div class="row">
+        <div class="col-lg-12">
+            <center><h3 id="lblTituloPeriodoMeta" style="background-color: #0075ff; color: #fff; border-radius: 4px; padding: 4px;">METAS DEL AREA COMERCIAL</h3></center>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-lg-5">
+            <div class="card">
+                <div class="table-responsive" style="padding: 5px;">
+                    <table style="width:100%" width="100%" border="0">
+                        <tr>
+                            <td width="10%" align="left">
+                                <label style="font-weight:bold;font-size:11px;color:#000;">Meta </label>
+                            </td>
+                            <td width="18%">
+                                <div style="background-color:#f1f1f1;border-radius: 4px;color: #000;margin:2px 2px 2px 2px; ">
+                                    &nbsp;&nbsp<label style="font-size:11px;font-weight:900" id="lblTitulo_Meta">0.00</label>
+                                </div>
+                            </td>
+                            <td width="18%">
+                                <div style="background-color:#f1f1f1;border-radius: 4px;color: #000;margin:2px 2px 2px 2px;">
+                                    &nbsp;&nbsp<label style="font-size:13px;font-weight: 900">100.00%</label>
+                                </div>
+                            </td>
+                            <td width="10%">
+                                &nbsp;<label style="font-weight:bold;font-size:11px;color:#000;">Fecha:</label>
+                            </td>
+                            <td width="17%">
+                                <div style="background-color:#f1f1f1;border-radius: 4px;color: #000;">
+                                    &nbsp;&nbsp;<label style="font-size:13px;font-weight: 800;" id="lblTitulo_FechaHoy"></label>
+                                </div>
+                            </td>
+                            <td width="10%">
+                                <label style="font-weight:bold;font-size:13px;color:#000;">día:</label>
+                            </td>
+                            <td width="17%">
+                                <div style="background-color:#f1f1f1;border-radius: 4px;color:#000;">
+                                    &nbsp;&nbsp<label style="font-size:13px;font-weight: 800;" id="lblTitulo_DiaSemanaHoy"></label>
+                                </div>
+                            </td>
+
+                        </tr>
+                        <tr>
+                            <td width="10%" align="left">
+                                <label style="font-weight:bold;font-size:11px;color:#000;">Producción</label>
+                            </td>
+                            <td width="18%">
+                                <div style="background-color:#f1f1f1;border-radius: 4px;color: #000;margin:2px 2px 2px 2px; ">
+                                    &nbsp;&nbsp<label style="font-size:11px;font-weight:900" id="lblTitulo_VentaProduccionHastaHoy">0.00</label>
+                                </div>
+                            </td>
+                            <td width="18%">
+                                <div style="background-color:#f1f1f1;border-radius: 4px;color: #000;margin:2px 2px 2px 2px;">
+                                    &nbsp;&nbsp<label style="font-size:13px;font-weight: 900" id="lblTitulo_PorcentajeVentas">100.00%</label>
+                                </div>
+                            </td>
+                            <td width="10%">
+                                &nbsp;<label style="font-weight:bold;font-size:11px;color:#000;">#Falt:</label>
+                            </td>
+                            <td width="17%">
+                                <div style="background-color:#f1f1f1;border-radius: 4px;color: #000;">
+                                    &nbsp;&nbsp;<label style="font-size:13px;font-weight: 800;" id="lblTitulo_DiasFaltarterminarMes"></label>
+                                </div>
+                            </td>
+                            <td width="10%">
+                                <label style="font-weight:bold;font-size:11px;color:#000;">Renov:</label>
+                            </td>
+                            <td width="17%">
+                                <div style="background-color: #f1f1f1;border-radius: 4px;color: #000;">
+                                    &nbsp;&nbsp;<label style="font-size:11px;font-weight: 800;" id="lblCantidadRepartidosMes"></label>
+                                </div>
+                            </td>
+
+                        </tr>
+                        <tr>
+                            <td width="10%" align="left">
+                                <label style="font-weight:bold;font-size:11px;color:#000;">Faltante</label>
+                            </td>
+                            <td width="18%">
+                                <div style="background-color:#f1f1f1;border-radius: 4px;color: #000;margin:2px 2px 2px 2px; ">
+                                    &nbsp;&nbsp<label style="font-size:11px;font-weight:900" id="lblTitulo_VentaFaltante">0.00</label>
+                                </div>
+                            </td>
+                            <td width="18%">
+                                <div style="background-color:#f1f1f1;border-radius: 4px;color: #000;margin:2px 2px 2px 2px;">
+                                    &nbsp;&nbsp<label style="font-size:13px;font-weight: 900" id="lblTitulo_PorcentajeVentaFaltante">100.00%</label>
+                                </div>
+                            </td>
+                            <td width="10%" align="center">
+                                <label style="font-weight:bold;font-size:11px;color:#000;">Bono G</label>
+                            </td>
+                            <td width="18%">
+                                <div style="background-color: #f1f1f1;border-radius: 4px;color: #000;margin:2px 2px 2px 2px; ">
+                                    &nbsp;&nbsp<label style="font-size:11px;font-weight:900;color:#000;" id="lblTitulo_Bono">0.00</label>
+                                </div>
+                            </td>
+                            <td width="10%">
+                                <label style="font-weight:bold;font-size:11px;color:#000;">Ven:</label>
+                            </td>
+                            <td width="17%">
+                                <div style="background-color: #f1f1f1;border-radius: 4px;color:#000;">
+                                    &nbsp;&nbsp<label style="font-size:11px;font-weight: 800;" id="lblCantidadRepartidosPorVendedorMes"></label>
+                                </div>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-7">
+            <div class="card">
+                <div class="table-responsive" style="padding: 5px;">
+                    <table style="width:100%" border="0">
+                        <tr>
+                            <td width="12%" align="left">
+                                <label style="font-weight:bold;font-size:10px;color:#020202;text-align:center;">Ticket Promedio</label>
+                            </td>
+                            <td width="10%" align="center">
+                                <div style="background-color:#f1f1f1;border-radius: 4px;color: #000;margin:2px 2px 2px 2px; ">
+                                    &nbsp;&nbsp<label style="font-size:13px;font-weight:900" id="lblTicketPromedio_MontoMinimo_ver">0.00</label>
+                                </div>
+                            </td>
+                            <td width="5%">
+                                &nbsp;<label style="font-weight:bold;font-size:10px;color:#020202;text-align:center;">Bono:</label>
+                            </td>
+                            <td width="10%" align="center">
+                                <div style="background-color:#f1f1f1;border-radius: 4px;color: #000;margin:2px 2px 2px 2px;">
+                                    &nbsp;&nbsp<label style="font-size:13px;font-weight: 900" id="txtTicketPromedio_Bono_ver">0.00</label>
+                                </div>
+                            </td>
+                            <td width="14%">
+                                &nbsp;<label style="font-weight:bold;font-size:10px;color:#020202;">Cant Anual min.:</label>
+                            </td>
+                            <td width="10%" align="center">
+                                <div style="background-color:#f1f1f1;border-radius: 4px;color: #000;">
+                                    &nbsp;&nbsp;<label style="font-size:13px;font-weight: 800;" id="lblCantidadVentasAnuales_Cantidad_ver"></label>
+                                </div>
+                            </td>
+                            <td width="5%">
+                                <label style="font-weight:bold;font-size:10px;color:#020202;">Bono:</label>
+                            </td>
+                            <td width="10%" align="center">
+                                <div style="background-color:#f1f1f1;border-radius: 4px;color:#000;">
+                                    &nbsp;&nbsp<label style="font-size:13px;font-weight: 800;" id="lblCantidadVentasAnuales_Bono_ver"></label>
+                                </div>
+                            </td>
+                            <td width="15%">
+                                <label style="font-weight:bold;font-size:10px;color:#020202;">% adic. meta</label>
+                            </td>
+                            <td width="7%" align="center">
+                                <div style="background-color:#f1f1f1;border-radius: 4px;color:#000;">
+                                    &nbsp;&nbsp<label style="font-size:13px;font-weight: 800;" id="lblPasandoCada10PorcientoMasVenta_Bono_ver"></label>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td width="12%" align="left">
+                                <label style="font-weight:bold;font-size:11px;color:#020202;text-align:center;">Venta % Nuevos</label>
+                            </td>
+                            <td width="10%" align="center">
+                                <div style="background-color:#f1f1f1;border-radius: 4px;color: #000;margin:2px 2px 2px 2px; ">
+                                    &nbsp;&nbsp<label style="font-size:13px;font-weight:900" id="lblPorcentajeVentasNuevas_Porcentaje_ver">0.00</label>
+                                </div>
+                            </td>
+                            <td width="5%">
+                                &nbsp;<label style="font-weight:bold;font-size:11px;color:#020202;text-align:center;">Bono:</label>
+                            </td>
+                            <td width="10%" align="center">
+                                <div style="background-color:#f1f1f1;border-radius: 4px;color: #000;margin:2px 2px 2px 2px;">
+                                    &nbsp;&nbsp<label style="font-size:13px;font-weight: 900" id="lblPorcentajeVentasNuevas_Bono_ver">% 100.00</label>
+                                </div>
+                            </td>
+                            <td width="14%">
+                                &nbsp;<label style="font-weight:bold;font-size:11px;color:#020202;">Venta % Renovac.</label>
+                            </td>
+                            <td width="10%" align="center">
+                                <div style="background-color:#f1f1f1;border-radius: 4px;color: #000;">
+                                    &nbsp;&nbsp;<label style="font-size:13px;font-weight: 800;" id="lblPorcentajeVentasRenovaciones_Porcentaje_ver"></label>
+                                </div>
+                            </td>
+                            <td width="5%">
+                                <label style="font-weight:bold;font-size:11px;color:#020202;">Bono:</label>
+                            </td>
+                            <td width="10%" align="center">
+                                <div style="background-color:#f1f1f1;border-radius: 4px;color:#000;">
+                                    &nbsp;&nbsp<label style="font-size:13px;font-weight: 800;" id="lblPorcentajeVentasRenovaciones_Bono_ver"></label>
+                                </div>
+                            </td>
+                            <td width="15%">
+                                <label style="font-weight:bold;font-size:10px;color:#020202;">Cuota Semanal</label>
+                            </td>
+                            <td width="7%" align="center">
+                                <div style="background-color:#f1f1f1;border-radius: 4px;color:#000;">
+                                    &nbsp;&nbsp<label style="font-size:13px;font-weight: 800;" id="lblCuotaSemanal_Bono_ver"></label>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td width="12%" align="left">
+                                <label style="font-weight:bold;font-size:10px;color:#020202;text-align:center;">Venta % Reins.</label>
+                            </td>
+                            <td width="5%" align="center">
+                                <div style="background-color:#f1f1f1;border-radius: 4px;color: #000;margin:2px 2px 2px 2px; ">
+                                    &nbsp;&nbsp<label style="font-size:13px;font-weight:900" id="lblVentasReinscripciones_MontoMinimo_ver">0.00</label>
+                                </div>
+                            </td>
+                            <td width="5%">
+                                &nbsp;<label style="font-weight:bold;font-size:10px;color:#020202;text-align:center;">Bono:</label>
+                            </td>
+                            <td width="5%" align="center">
+                                <div style="background-color:#f1f1f1;border-radius: 4px;color: #000;margin:2px 2px 2px 2px;">
+                                    &nbsp;&nbsp<label style="font-size:13px;font-weight: 900" id="lblVentasReinscripciones_Bono_ver">100.00</label>
+                                </div>
+                            </td>
+                            <td width="12%">
+                                &nbsp;<label style="font-weight:bold;font-size:10px;color:#020202;">x Cada # Ampliac.</label>
+                            </td>
+                            <td width="5%" align="center">
+                                <div style="background-color:#f1f1f1;border-radius: 4px;color: #000;">
+                                    &nbsp;&nbsp;<label style="font-size:13px;font-weight: 800;" id="lblAmpliaciones_Cantidad_ver"></label>
+                                </div>
+                            </td>
+                            <td width="5%">
+                                <label style="font-weight:bold;font-size:10px;color:#020202;">Bono:</label>
+                            </td>
+                            <td width="5%" align="center">
+                                <div style="background-color:#f1f1f1;border-radius: 4px;color:#000;">
+                                    &nbsp;&nbsp<label style="font-size:13px;font-weight: 800;" id="lblAmpliaciones_Bono_ver"></label>
+                                </div>
+                            </td>
+                            <td width="15%" colspan="2" align="right">
+                                <table style="width:100%;">
+                                    <tr>                                        
+                                        <td style="width:90%;">
+                                            <button data-controlmodulo="c1def273-e9f2-4d19-a341-a308cc8efa1a" style="display:none;" id="btnVerMetasAnteriores" type="button" title="Ver metas anteriores" data-toggle="modal" data-target="#modalConfiguracionMetas" class="btn btn-primary btn-sm">Ver Metas anteriores</button>
+                                        </td>
+                                        <td style="width:10%;">
+                                            <div onclick='ImprimeDivMetas()' style='cursor: pointer;display:none;'></div>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </td>
+                        </tr>
+
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row" style="margin-top: -10px;">
+        <div class="col-lg-12">
+            <div class="card">
+                <div class="card-header card-header-tabs-basic nav" role="tablist" style="background-color:#fff;">
+                    <a data-controlmodulo="d9dc89b9-6c94-4563-b63f-f7d5c7d39088" href="#divProyeccion" id="liProyeccion" class="active" data-toggle="tab" role="tab" aria-controls="activity_all" aria-selected="true" style="font-size:13px;display:none;">Proyección</a>
+                    <a data-controlmodulo="16c5ab56-a7c0-48c4-893e-2b98490c0ce8" href="#divProductividad" id="liProductividad" data-toggle="tab" role="tab" aria-controls="activity_all" aria-selected="true" style="font-size:13px;display:none;">Productividad</a>
+                    <a data-controlmodulo="16c5ab56-a7c0-48c4-893e-2b98490c0ce8" href="#divConversionLeads" id="liConversionLeads" data-toggle="tab" role="tab" aria-controls="activity_all" aria-selected="true" style="font-size:13px;display:none;">Conversión de Leads</a>
+                </div>
+                <div class="card-body tab-content" style="background-color: #f5f5f5;">
+                    <div class="tab-pane active show fade" id="divProyeccion">
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <div class="card">
+                                    <table border="0" cellpadding="0" cellspacing="0" style="width:100%;">
+                                        <tr>
+                                            <td style="width:100%;" valign="top" colspan="2">
+                                                <div style="border-radius: 5px;width:100%;background-color:#f5f5f5;padding-left:5px;padding-right:5px;padding-top:5px;padding-bottom:5px; margin-right:2px;height:240px;">
+                                                    <div id="gridMetasAvance" style="width:100%">
+                                                    </div>
+                                                    <table style="width:100%;background-color:#0075ff;color:#FFF;border-radius:0px;" border="0">
+                                                        <tr valign="top">
+                                                            <td style="width:10%;text-align:left;padding:3px;">Totales</td>
+                                                            <td style="width:7.5%;text-align:center;padding:3px;"><label id="lblSumMeta" style="font-size:11px;"></label></td>
+                                                            <td style="width:7.5%;text-align:center;padding:3px;"><label id="lblSumVentaTotal" style="font-size:11px;"></label></td>
+                                                            <td style="width:7.5%;text-align:center;padding:3px;"><label id="lblSumDiferenciaFaltante" style="font-size:11px;"></label></td>
+                                                            <td style="width:7.5%;text-align:center;padding:3px;"><label id="lblSumPlanesMes" style="font-size:11px;"></label></td>
+                                                            <td style="width:7.5%;text-align:center;padding:3px;"><label id="lblSumAlcancePlanes" style="font-size:11px;"></label></td>
+                                                            <td style="width:7.5%;text-align:center;padding:3px;text-align:center;padding:3px;"><label id="lblSumMetaMinima" style="font-size:11px;"></label></td>
+                                                            <td style="width:7.5%;"><label id="lblSumMetaMinima" style="font-size:11px;"></label></td>
+
+                                                            <td style="width:7.5%;text-align:center;padding:3px;"><label id="lblSumVentaHoy" style="font-size:11px;"></label></td>
+                                                            <td style="width:7.5%;text-align:center;padding:3px;"><label id="lblSumNecDiaria" style="font-size:11px;"></label></td>
+                                                            <td style="width:7.5%;text-align:center;padding:3px;"><label id="lblSumPorAcumulado" style="font-size:11px;"></label></td>
+                                                            <td style="width:7.5%;text-align:center;padding:3px;"><label id="lblSumPorFaltante" style="font-size:11px;"></label></td>
+                                                            <td style="width:7.5%;text-align:center;padding:3px;"><label id="lblSumProyeccion" style="font-size:11px;"></label></td>
+                                                        </tr>
+                                                    </table>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td style="width:100%;" valign="top" colspan="3">
+                                                <div style="border-radius: 5px;width:100%;background-color: #f5f5f5;padding-left:5px;padding-right:5px;padding-top:5px;padding-bottom:5px; margin-top:5px;margin-right:2px;height:240px;">
+                                                    <div id="gridMetasEstadistica" style="width:100%">
+                                                    </div>
+                                                    <table style="width:100%;background-color:#0075ff;color:#FFF;border-radius:0px;" border="0">
+                                                        <tr valign="top">
+                                                            <td style="width:8.1%;text-align:left;padding:3px;">Totales</td>
+                                                            <td style="width:6.1%;text-align:center;padding:3px;"><label id="lblSumTicketPromedio" style="font-size:11px;"></label></td>
+                                                            <td style="width:6.2%;text-align:center;padding:3px;"><label id="lblSumNroClientesVendidos" style="font-size:11px;"></label></td>
+                                                            <td style="width:6.3%;text-align:center;padding:3px;"><label id="lblSumVentaAnuales" style="font-size:11px;"></label></td>
+                                                            <td style="width:6.3%;text-align:center;padding:3px;"><label id="lblSumCantidadAnuales" style="font-size:11px;"></label></td>
+                                                            <td style="width:6.3%;text-align:center;padding:3px;"><label id="lblSumCantidadNuevos" style="font-size:11px;"></label></td>
+                                                            <td style="width:6.3%;text-align:center;padding:3px;"><label id="lblSumCantidadEfectividad" style="font-size:11px;"></label></td>
+                                                            <td style="width:6.1%;text-align:center;padding:3px;"><label id="lblSumPorcentajeEfectividad" style="font-size:11px;"></label></td>
+                                                            <td style="width:5.5%;text-align:center;padding:3px;"><label id="lblSumCantidadRenovacionPorVendedorRepartido" style="font-size:11px;"></label></td>
+                                                            <td style="width:6.1%;text-align:center;padding:3px;"><label id="lblSumCantidadRenovacion" style="font-size:11px;"></label></td>
+                                                            <td style="width:6.1%;text-align:center;padding:3px;"><label id="lblSumPorcentajeRenovacion" style="font-size:11px;"></label></td>
+                                                            <td style="width:6.1%;text-align:center;padding:3px;"><label id="lblSumCantidadCierresReinscripcion" style="font-size:11px;"></label></td>
+                                                            <td style="width:6.1%;text-align:center;padding:3px;"><label id="lblSumCantidadVentaReinscripcion" style="font-size:11px;"></label></td>
+                                                            <td style="width:5.8%;text-align:center;padding:3px;"><label id="lblSumPorcentajeEfectividadReinscripcion" style="font-size:11px;"></label></td>
+                                                            <td style="width:6.1%;text-align:center;padding:3px;"><label id="lblSumVentaAmpliacion" style="font-size:11px;"></label></td>
+                                                            <td style="width:6.1%;text-align:center;padding:3px;"><label id="lblSumCantidadAmpliacion" style="font-size:11px;"></label></td>
+                                                        </tr>
+                                                    </table>
+                                                </div>
+                                                <div style="border-radius: 5px;width:100%;background-color: #f5f5f5;padding-left:5px;padding-right:5px;padding-top:5px;padding-bottom:5px; margin-top:5px;margin-right:2px;height:240px;">
+                                                    <div id="gridCuadroComisiones" style="width:100%">
+                                                    </div>
+                                                    <table style="width:100%;background-color:#0075ff;color:#FFF;border-radius:0px;" border="0">
+                                                        <tr valign="top">
+                                                            <td style="width:11%;text-align:left;padding:3px;">Totales</td>
+                                                            <td style="width:8%;text-align:center;padding:3px;"><label id="lblSumComision" style="font-size:11px;"></label></td>
+                                                            <td style="width:8%;text-align:center;padding:3px;"><label id="lblSumBonoGrupal" style="font-size:11px;"></label></td>
+                                                            <td style="width:8%;text-align:center;padding:3px;"><label id="lblSumBonoTicketPromedio" style="font-size:11px;"></label></td>
+                                                            <td style="width:8%;text-align:center;padding:3px;"><label id="lblSumBonoAnuales" style="font-size:11px;"></label></td>
+                                                            <td style="width:8%;text-align:center;padding:3px;"><label id="lblSumBonoNuevos" style="font-size:11px;"></label></td>
+                                                            <td style="width:8%;text-align:center;padding:3px;"><label id="lblSumBonoSemanal" style="font-size:11px;"></label></td>
+                                                            <td style="width:8%;text-align:center;padding:3px;"><label id="lblSumBonoRenovacion" style="font-size:11px;"></label></td>
+                                                            <td style="width:8%;text-align:center;padding:3px;"><label id="lblSumBonoReinscripcion" style="font-size:11px;"></label></td>
+                                                            <td style="width:8%;text-align:center;padding:3px;"><label id="lblSumBonoAdicional" style="font-size:11px;"></label></td>
+                                                            <td style="width:8%;text-align:center;padding:3px;"><label id="lblSumBonoAmpliacion" style="font-size:11px;"></label></td>
+                                                            <td style="width:8%;text-align:center;padding:3px;"><label id="lblSumTotalCobrar" style="font-size:11px;"></label></td>
+                                                        </tr>
+                                                    </table>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tab-pane fade" id="divProductividad">
+                        <table style="width:100%;" border="0">
+                            <tr>
+                                <td style="width:100%;" valign="top">
+                                    <table style="width:25%;" border="0">
+                                        <tr>
+                                            <td style="width:33%;font-weight:bold;font-size:18px;color:black;">Semana 1:</td>
+                                            <td style="width:33%;"><input id="txtFechaInicioSemana1" type="text" placeHolder="" style="width:98%;" /></td>
+                                            <td style="width:33%;"><input id="txtFechaFinSemana1" type="text" placeHolder="" style="width:98%;" /></td>
+                                        </tr>
+                                    </table>
+                                    <div id="gridProductividadSemana1" style="width:100%;">
+                                    </div>
+                                    <table style="width:100%;background-color:#0075ff;color:#FFF;border-radius:0px;border:1px #000 solid;" border="0" >
+                                        <tr valign="top" >
+                                            <td style="width:8%;text-align:left;padding:3px;">Totales</td>
+                                            <td style="width:5%;text-align:center;padding:3px;"><label id="lblProductividad_Nuevos_Semana1" style="font-size:11px;"></label></td>
+                                            <td style="width:5%;text-align:center;padding:3px;"><label id="lblProductividad_Invitados_Semana1" style="font-size:11px;"></label></td>
+                                            <td style="width:5%;text-align:center;padding:3px;"><label id="lblProductividad_Referidos_Semana1" style="font-size:11px;"></label></td>
+                                            <td style="width:5%;text-align:center;padding:3px;"><label id="lblProductividad_Llamada_Semana1" style="font-size:11px;"></label></td>
+                                            <td style="width:5%;text-align:center;padding:3px;"><label id="lblProductividad_TotalProspectos_Semana1" style="font-size:11px;"></label></td>
+                                            <td style="width:5%;text-align:center;padding:3px;"><label id="lblProductividad_TotalInscritos_Semana1" style="font-size:11px;"></label></td>
+                                            <td style="width:6%;text-align:center;padding:3px;"><label id="lblProductividad_Efectividad_Semana1" style="font-size:11px;"></label></td>
+                                            <td style="width:6%;text-align:center;padding:3px;"><label id="lblProductividad_MontoTotal_Semana1" style="font-size:11px;"></label></td>
+                                            <td style="width:6%;text-align:center;padding:3px;"><label id="lblProductividad_TPromedio_Semana1" style="font-size:11px;"></label></td>
+                                            <td style="width:6%;text-align:center;padding:3px;"><label id="lblProductividad_CantidadCitas_Semana1" style="font-size:11px;"></label></td>
+                                            <td style="width:6%;text-align:center;padding:3px;"><label id="lblProductividad_CantidadCierres_Semana1" style="font-size:11px;"></label></td>
+                                            <td style="width:6%;text-align:center;padding:3px;"><label id="lblProductividad_EfectividadCitas_Semana1" style="font-size:11px;"></label></td>
+                                            <td style="width:6%;text-align:center;padding:3px;"><label id="lblProductividad_MontoTotalCitas_Semana1" style="font-size:11px;"></label></td>
+                                            <td style="width:6%;text-align:center;padding:3px;"><label id="lblProductividad_TPromedioCitas_Semana1" style="font-size:11px;"></label></td>
+                                        </tr>
+                                    </table>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="width:100%;" valign="top">
+                                    <table style="width:25%;" border="0">
+                                        <tr>
+                                            <td style="width:33%;font-weight:bold;font-size:18px;color:black;">Semana 2:</td>
+                                            <td style="width:33%;"><input id="txtFechaInicioSemana2" type="text" placeHolder="" style="width:98%;" /></td>
+                                            <td style="width:33%;"><input id="txtFechaFinSemana2" type="text" placeHolder="" style="width:98%;" /></td>
+                                        </tr>
+                                    </table>
+                                    <div id="gridProductividadSemana2" style="width:100%;">
+                                    </div>
+                                    <table style="width: 100%; background-color: #0075ff; color: #FFF; border-radius: 0px; border: 1px #000 solid;" border="0">
+                                        <tr valign="top">
+                                            <td style="width:8%;text-align:left;padding:3px;">Totales</td>
+                                            <td style="width:5%;text-align:center;padding:3px;"><label id="lblProductividad_Nuevos_Semana2" style="font-size:11px;"></label></td>
+                                            <td style="width:5%;text-align:center;padding:3px;"><label id="lblProductividad_Invitados_Semana2" style="font-size:11px;"></label></td>
+                                            <td style="width:5%;text-align:center;padding:3px;"><label id="lblProductividad_Referidos_Semana2" style="font-size:11px;"></label></td>
+                                            <td style="width:5%;text-align:center;padding:3px;"><label id="lblProductividad_Llamada_Semana2" style="font-size:11px;"></label></td>                                            
+                                            <td style="width:5%;text-align:center;padding:3px;"><label id="lblProductividad_TotalProspectos_Semana2" style="font-size:11px;"></label></td>
+                                            <td style="width:5%;text-align:center;padding:3px;"><label id="lblProductividad_TotalInscritos_Semana2" style="font-size:11px;"></label></td>
+                                            <td style="width:6%;text-align:center;padding:3px;"><label id="lblProductividad_Efectividad_Semana2" style="font-size:11px;"></label></td>
+                                            <td style="width:6%;text-align:center;padding:3px;"><label id="lblProductividad_MontoTotal_Semana2" style="font-size:11px;"></label></td>
+                                            <td style="width:6%;text-align:center;padding:3px;"><label id="lblProductividad_TPromedio_Semana2" style="font-size:11px;"></label></td>
+                                            <td style="width:6%;text-align:center;padding:3px;"><label id="lblProductividad_CantidadCitas_Semana2" style="font-size:11px;"></label></td>
+                                            <td style="width:6%;text-align:center;padding:3px;"><label id="lblProductividad_CantidadCierres_Semana2" style="font-size:11px;"></label></td>
+                                            <td style="width:6%;text-align:center;padding:3px;"><label id="lblProductividad_EfectividadCitas_Semana2" style="font-size:11px;"></label></td>
+                                            <td style="width:6%;text-align:center;padding:3px;"><label id="lblProductividad_MontoTotalCitas_Semana2" style="font-size:11px;"></label></td>
+                                            <td style="width:6%;text-align:center;padding:3px;"><label id="lblProductividad_TPromedioCitas_Semana2" style="font-size:11px;"></label></td>
+                                        </tr>
+                                    </table>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="width:100%;" valign="top">
+                                    <table style="width:25%;" border="0">
+                                        <tr>
+                                            <td style="width:33%;font-weight:bold;font-size:18px;color:black;">Semana 3:</td>
+                                            <td style="width:33%;"><input id="txtFechaInicioSemana3" type="text" placeHolder="" style="width:98%;" /></td>
+                                            <td style="width:33%;"><input id="txtFechaFinSemana3" type="text" placeHolder="" style="width:98%;" /></td>
+                                        </tr>
+                                    </table>
+                                    <div id="gridProductividadSemana3" style="width:100%">
+                                    </div>
+                                    <table style="width: 100%; background-color: #0075ff; color: #FFF; border-radius: 0px; border: 1px #000 solid;" border="0">
+                                        <tr valign="top">
+                                            <td style="width:8%;text-align:left;padding:3px;">Totales</td>
+                                            <td style="width:5%;text-align:center;padding:3px;"><label id="lblProductividad_Nuevos_Semana3" style="font-size:11px;"></label></td>
+                                            <td style="width:5%;text-align:center;padding:3px;"><label id="lblProductividad_Invitados_Semana3" style="font-size:11px;"></label></td>
+                                            <td style="width:5%;text-align:center;padding:3px;"><label id="lblProductividad_Referidos_Semana3" style="font-size:11px;"></label></td>
+                                            <td style="width:5%;text-align:center;padding:3px;"><label id="lblProductividad_Llamada_Semana3" style="font-size:11px;"></label></td>                                            
+                                            <td style="width:5%;text-align:center;padding:3px;"><label id="lblProductividad_TotalProspectos_Semana3" style="font-size:11px;"></label></td>
+                                            <td style="width:5%;text-align:center;padding:3px;"><label id="lblProductividad_TotalInscritos_Semana3" style="font-size:11px;"></label></td>
+                                            <td style="width:6%;text-align:center;padding:3px;"><label id="lblProductividad_Efectividad_Semana3" style="font-size:11px;"></label></td>
+                                            <td style="width:6%;text-align:center;padding:3px;"><label id="lblProductividad_MontoTotal_Semana3" style="font-size:11px;"></label></td>
+                                            <td style="width:6%;text-align:center;padding:3px;"><label id="lblProductividad_TPromedio_Semana3" style="font-size:11px;"></label></td>
+                                            <td style="width:6%;text-align:center;padding:3px;"><label id="lblProductividad_CantidadCitas_Semana3" style="font-size:11px;"></label></td>
+                                            <td style="width:6%;text-align:center;padding:3px;"><label id="lblProductividad_CantidadCierres_Semana3" style="font-size:11px;"></label></td>
+                                            <td style="width:6%;text-align:center;padding:3px;"><label id="lblProductividad_EfectividadCitas_Semana3" style="font-size:11px;"></label></td>
+                                            <td style="width:6%;text-align:center;padding:3px;"><label id="lblProductividad_MontoTotalCitas_Semana3" style="font-size:11px;"></label></td>
+                                            <td style="width:6%;text-align:center;padding:3px;"><label id="lblProductividad_TPromedioCitas_Semana3" style="font-size:11px;"></label></td>
+                                        </tr>
+                                    </table>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="width:100%;" valign="top">
+                                    <table style="width:25%;" border="0">
+                                        <tr>
+                                            <td style="width:33%;font-weight:bold;font-size:18px;color:black;">Semana 4:</td>
+                                            <td style="width:33%;"><input id="txtFechaInicioSemana4" type="text" placeHolder="" style="width:98%;" /></td>
+                                            <td style="width:33%;"><input id="txtFechaFinSemana4" type="text" placeHolder="" style="width:98%;" /></td>
+                                        </tr>
+                                    </table>
+                                    <div id="gridProductividadSemana4" style="width:100%">
+                                    </div>
+                                    <table style="width: 100%; background-color: #0075ff; color: #FFF; border-radius: 0px; border: 1px #000 solid;" border="0">
+                                        <tr valign="top">
+                                            <td style="width:8%;text-align:left;padding:3px;">Totales</td>
+                                            <td style="width:5%;text-align:center;padding:3px;"><label id="lblProductividad_Nuevos_Semana4" style="font-size:11px;"></label></td>
+                                            <td style="width:5%;text-align:center;padding:3px;"><label id="lblProductividad_Invitados_Semana4" style="font-size:11px;"></label></td>
+                                            <td style="width:5%;text-align:center;padding:3px;"><label id="lblProductividad_Referidos_Semana4" style="font-size:11px;"></label></td>
+                                            <td style="width:5%;text-align:center;padding:3px;"><label id="lblProductividad_Llamada_Semana4" style="font-size:11px;"></label></td>                                            
+                                            <td style="width:5%;text-align:center;padding:3px;"><label id="lblProductividad_TotalProspectos_Semana4" style="font-size:11px;"></label></td>
+                                            <td style="width:6%;text-align:center;padding:3px;"><label id="lblProductividad_TotalInscritos_Semana4" style="font-size:11px;"></label></td>
+                                            <td style="width:6%;text-align:center;padding:3px;"><label id="lblProductividad_Efectividad_Semana4" style="font-size:11px;"></label></td>
+                                            <td style="width:6%;text-align:center;padding:3px;"><label id="lblProductividad_MontoTotal_Semana4" style="font-size:11px;"></label></td>
+                                            <td style="width:6%;text-align:center;padding:3px;"><label id="lblProductividad_TPromedio_Semana4" style="font-size:11px;"></label></td>
+                                            <td style="width:6%;text-align:center;padding:3px;"><label id="lblProductividad_CantidadCitas_Semana4" style="font-size:11px;"></label></td>
+                                            <td style="width:6%;text-align:center;padding:3px;"><label id="lblProductividad_CantidadCierres_Semana4" style="font-size:11px;"></label></td>
+                                            <td style="width:6%;text-align:center;padding:3px;"><label id="lblProductividad_EfectividadCitas_Semana4" style="font-size:11px;"></label></td>
+                                            <td style="width:6%;text-align:center;padding:3px;"><label id="lblProductividad_MontoTotalCitas_Semana4" style="font-size:11px;"></label></td>
+                                            <td style="width:6%;text-align:center;padding:3px;"><label id="lblProductividad_TPromedioCitas_Semana4" style="font-size:11px;"></label></td>
+                                        </tr>
+                                    </table>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                    <div class="tab-pane fade" id="divConversionLeads">
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <div class="card">
+                                    <h3>TOTAL</h3>
+                                    <div id="gridConversionLeads_Totales" style="width:60%">
+                                    </div>
+                                    <br />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <div class="card">
+                                    <h3>PROCEDENCIA: WALK IN</h3>
+                                    <div id="gridConversionLeads_Walking" style="width:50%">
+                                    </div>
+                                    <br />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <div class="card">
+                                    <h3>PROCEDENCIA: RENOVACIONES</h3>
+                                    <div id="gridConversionLeads_Renovaciones" style="width:50%">
+                                    </div>
+                                    <br />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <div class="card">
+                                    <h3>PROCEDENCIA: REINSCRIPCIONES</h3>
+                                    <div id="gridConversionLeads_Reinscripciones" style="width:50%">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <div class="card">
+                                    <h3>PROCEDENCIA: PROSPECCIÓN - TELEMARKETING</h3>
+                                    <div id="gridConversionLeads_Prospeccion" style="width:50%">
+                                    </div>
+                                    <br />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <div class="card">
+                                    <h3>PROCEDENCIA: DIGITAL</h3>
+                                    <div id="gridConversionLeads_Digital" style="width:50%">
+                                    </div>
+                                    <br />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <div class="card">
+                                    <h3>PROCEDENCIA: LLAMADA ENTRANTE</h3>
+                                    <div id="gridConversionLeads_LlamadaE" style="width:50%">
+                                    </div>
+                                    <br />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<div id="modalConfiguracionMetas" class="modal fade show" tabindex="-1" role="dialog" aria-labelledby="modal-large-title" aria-modal="true" style="padding-right: 17px; display: none;">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="modal-large-title">Buscador de periodos de metas</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div> <!-- // END .modal-header -->
+            <div class="modal-body">
+                <table style="width:100%;" border="0" cellpadding="0" cellspacing="0">
+                    <tr>
+                        <td style="width:10%;">
+                            Del :
+                        </td>
+                        <td style="width:30%;">
+                            <input id="txtFechaInicioHistorialBusqueda" type="text" style="width:98%;" />
+                        </td>
+                        <td style="width:5%;">
+                            al :
+                        </td>
+                        <td style="width:30%;">
+                            <input id="txtFechaFinHistorialBusqueda" type="text" style="width:98%;" />
+                        </td>
+                        <td style="width:15%;">
+                            <button id="btnBuscarMetasHistorial" onclick="uspListarHistorialMetas();" title="Buscar" type="button" class="btn btn-primary btn-sm">Buscar</button>
+                        </td>
+                        <td style="width:10%;"></td>
+
+                    </tr>
+                </table>
+                <br />
+                <div id="gridHistorialMetasVendedores"></div>
+                <br />
+                <center>
+                    <div id="divMensajeHistorialMetasVendedores" style="width: 100%;text-align:left;display:none;">
+                        <div class="alert alert-primary alert-dismissable">
+                            <button type="button" class="close" data-dismiss="alert" aria-hidden="true"></button>
+                            <strong>Atención!</strong>&nbsp;&nbsp;No hay metas para la fecha seleccionada..
+                        </div>
+                    </div>
+                </center>
+            </div> <!-- // END .modal-body -->
+            <div class="modal-footer">
+                <button type="button" class="btn btn-light" data-dismiss="modal">Cancelar</button>
+            </div> <!-- // END .modal-footer -->
+        </div> <!-- // END .modal-content -->
+    </div> <!-- // END .modal-dialog -->
+</div>
+
+<div class="modal fade" id="loadMe" tabindex="-1" role="dialog" aria-labelledby="loadMeLabel">
+    <br /><br /><br /><br />
+    <div class="modal-dialog modal-sm" role="document">
+        <div class="modal-content">
+            <div class="modal-body text-center">
+                <img src="~/Content/appsfit_img/logoappsfitweb.png" style="width:255px;height:125px;" />
+                <div class="loader"></div>
+                <div clas="loader-txt">
+                    <p>Cargando... <br><br><small>Espere por favor, este proceso puede tardar unos minutos</small></p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+
+    @System.Web.Optimization.Scripts.Render("~/Scripts/jquery.min.js")
+    @System.Web.Optimization.Scripts.Render("~/Scripts/plugins/jsKendo/angular.min.js")
+    @System.Web.Optimization.Scripts.Render("~/Scripts/plugins/jsKendo/kendo.all.min.js")
+
+    @System.Web.Optimization.Scripts.Render("~/Scripts/plugins/jquery-ui/jquery-ui.js")
+    @System.Web.Optimization.Scripts.Render("~/Scripts/plugins/jquery-ui/jquery-ui.min.js")
+
+    @System.Web.Optimization.Scripts.Render("~/Resource/UserControl.Helper.js")
+
+    @System.Web.Optimization.Scripts.Render("~/Scripts/bootstrap-notify-master/bootstrap-notify.js")
+    @System.Web.Optimization.Scripts.Render("~/Scripts/bootstrap-notify-master/bootstrap-notify.min.js")
+    @System.Web.Optimization.Scripts.Render("~/Scripts/jsBootstrap/jquery.bootstrap-growl.js")
+    @System.Web.Optimization.Scripts.Render("~/Scripts/maskedinput.js")
+
+    <script type="text/javascript">
+
+        $(document).ready(function (e) {
+
+            SEGListarPerfilMenu();
+
+            var f = new Date();
+            $('#lblTitulo_FechaHoy').html(f.getDate() + "/" + (f.getMonth() + 1) + "/" + f.getFullYear());
+
+            switch (f.getDay()) {
+                case 1:
+                    $('#lblTitulo_DiaSemanaHoy').html('Lunes');
+                    break;
+                case 2:
+                    $('#lblTitulo_DiaSemanaHoy').html('Martes');
+                    break;
+                case 3:
+                    $('#lblTitulo_DiaSemanaHoy').html('Miercoles');
+                    break;
+                case 4:
+                    $('#lblTitulo_DiaSemanaHoy').html('Jueves');
+                    break;
+                case 5:
+                    $('#lblTitulo_DiaSemanaHoy').html('Viernes');
+                    break;
+                case 6:
+                    $('#lblTitulo_DiaSemanaHoy').html('Sabado');
+                    break;
+                case 0:
+                    $('#lblTitulo_DiaSemanaHoy').html('Domingo');
+                    break;
+
+            }
+
+            var todayDate = new Date();
+            var Primerdia = new Date(todayDate.getFullYear(), todayDate.getMonth(), 1);
+            var ultimoDia = new Date(todayDate.getFullYear(), todayDate.getMonth() + 1, 0);
+            $('#txtFechaInicioHistorialBusqueda').kendoDatePicker();
+            $('#txtFechaInicioHistorialBusqueda').data("kendoDatePicker").value(Primerdia);
+            $('#txtFechaFinHistorialBusqueda').kendoDatePicker();
+            $('#txtFechaFinHistorialBusqueda').data("kendoDatePicker").value(ultimoDia);
+
+            $('#txtFechaInicioSemana1').kendoDatePicker();
+            $('#txtFechaInicioSemana1').data("kendoDatePicker").value(todayDate);
+            $('#txtFechaFinSemana1').kendoDatePicker();
+            $('#txtFechaFinSemana1').data("kendoDatePicker").value(todayDate);
+
+            $('#txtFechaInicioSemana2').kendoDatePicker();
+            $('#txtFechaInicioSemana2').data("kendoDatePicker").value(todayDate);
+            $('#txtFechaFinSemana2').kendoDatePicker();
+            $('#txtFechaFinSemana2').data("kendoDatePicker").value(todayDate);
+
+            $('#txtFechaInicioSemana3').kendoDatePicker();
+            $('#txtFechaInicioSemana3').data("kendoDatePicker").value(todayDate);
+            $('#txtFechaFinSemana3').kendoDatePicker();
+            $('#txtFechaFinSemana3').data("kendoDatePicker").value(todayDate);
+
+            $('#txtFechaInicioSemana4').kendoDatePicker();
+            $('#txtFechaInicioSemana4').data("kendoDatePicker").value(todayDate);
+            $('#txtFechaFinSemana4').kendoDatePicker();
+            $('#txtFechaFinSemana4').data("kendoDatePicker").value(todayDate);
+
+            uspListarHistorialMetas();
+        });
+
+        function uspListarHistorialMetas() {
+
+            var CodigoMeta = 0;
+            var FechaInicio = kendo.toString($("#txtFechaInicioHistorialBusqueda").data('kendoDatePicker').value(), 'MM/dd/yyyy');
+            var FechaFin = kendo.toString($("#txtFechaFinHistorialBusqueda").data('kendoDatePicker').value(), 'MM/dd/yyyy');
+
+            document.getElementById('loadMe').style.display = 'block';
+
+            $("#gridHistorialMetasVendedores").empty();
+            $("#gridHistorialMetasVendedores").kendoGrid({
+                dataSource: {
+                    type: "json",
+                    transport: {
+                        read: function (options) {
+                            $.ajax({
+                                data: '{"CodigoMeta":"' + CodigoMeta + '","FechaInicio":"' + FechaInicio + '","FechaFin":"' + FechaFin + '","NumeroPagina":"' + 1 + '"}',
+                                type: "POST",
+                                url: "/gestionce/uspListarHistorialMetas",
+                                contentType: "application/json; charset=utf-8",
+                                dataType: "json",
+                                success: function (msg) {
+                                    options.success(msg);
+                                    if (msg == "") {
+
+                                        document.getElementById('gridHistorialMetasVendedores').style.display = 'none';
+                                        document.getElementById('divMensajeHistorialMetasVendedores').style.display = '';
+
+                                        $("#lblSumVentaTotal").html("");
+                                        $('#lblTitulo_Meta').html("");
+                                        $('#lblTitulo_Bono').html("");
+                                        $('#lblTitulo_VentaProduccionHastaHoy').html("");
+                                        $('#lblTitulo_VentaFaltante').html("");
+                                        $('#lblTitulo_PorcentajeVentas').html("");
+                                        $('#lblTitulo_PorcentajeVentaFaltante').html("");
+
+                                        $('#lblCantidadRepartidosMes').html("");
+                                        $('#lblCantidadRepartidosPorVendedorMes').html("");
+
+                                        $('#lblTicketPromedio_MontoMinimo_ver').html("");
+                                        $('#txtTicketPromedio_Bono_ver').html("");
+                                        $('#lblCantidadVentasAnuales_Cantidad_ver').html("");
+                                        $('#lblCantidadVentasAnuales_Bono_ver').html("");
+                                        $('#lblPorcentajeVentasNuevas_Porcentaje_ver').html("");
+                                        $('#lblPorcentajeVentasNuevas_Bono_ver').html("");
+                                        $('#lblPorcentajeVentasRenovaciones_Porcentaje_ver').html("");
+                                        $('#lblPorcentajeVentasRenovaciones_Bono_ver').html("");
+                                        $('#lblVentasReinscripciones_MontoMinimo_ver').html("");
+                                        $('#lblVentasReinscripciones_Bono_ver').html("");
+                                        $('#lblCuotaSemanal_Bono_ver').html("");
+                                        $('#lblPasandoCada10PorcientoMasVenta_Bono_ver').html("");
+                                        $('#lblAmpliaciones_Cantidad_ver').html("");
+                                        $('#lblAmpliaciones_Bono_ver').html("");
+
+
+                                        $("#gridMetasAvance").empty();
+                                        $("#gridMetasEstadistica").empty();
+                                        $("#gridCuadroComisiones").empty();
+
+                                        $("#lblSumVentaTotal").html("");
+                                        $("#lblSumDiferenciaFaltante").html("");
+                                        $("#lblSumMetaMinima").html("");
+                                        $("#lblSumVentaHoy").html("");
+                                        $("#lblSumNecDiaria").html("");
+                                        $("#lblSumPorAcumulado").html("");
+                                        $("#lblSumPorFaltante").html("");
+                                        $("#lblSumProyeccion").html("");
+                                        $("#lblSumMetaSemanal").html("");
+
+                                        $("#lblSumTicketPromedio").html("");
+                                        $("#lblSumNroClientesVendidos").html("");
+                                        $("#lblSumVentaAnuales").html("");
+                                        $("#lblSumCantidadAnuales").html("");
+                                        $("#lblSumCantidadNuevos").html("");
+                                        $("#lblSumCantidadEfectividad").html("");
+                                        $("#lblSumPorcentajeEfectividad").html("");
+                                        $("#lblSumCantidadRenovacionPorVendedorRepartido").html("");
+                                        $("#lblSumCantidadRenovacion").html("");
+                                        $("#lblSumPorcentajeRenovacion").html("");
+                                        $("#lblSumPorcentajeEfectividadReinscripcion").html("");
+                                        $("#lblSumCantidadVentaReinscripcion").html("");
+                                        $("#lblSumVentaAmpliacion").html("");
+                                        $("#lblSumCantidadAmpliacion").html("");
+
+                                        $('#lblSumComision').html("");
+                                        $('#lblSumBonoGrupal').html("");
+                                        $('#lblSumBonoTicketPromedio').html("");
+                                        $('#lblSumBonoAnuales').html("");
+                                        $('#lblSumBonoNuevos').html("");
+                                        $('#lblSumBonoSemanal').html("");
+                                        $('#lblSumBonoRenovacion').html("");
+                                        $('#lblSumBonoReinscripcion').html("");
+                                        $('#lblSumBonoAdicional').html("");
+                                        $('#lblSumBonoAmpliacion').html("");
+                                        $("#lblSumTotalCobrar").html("");
+                                    } else {
+                                        document.getElementById('gridHistorialMetasVendedores').style.display = '';
+                                        document.getElementById('divMensajeHistorialMetasVendedores').style.display = 'none';
+                                    }
+                                }, complete: function () {
+                                    document.getElementById('loadMe').style.display = 'none';
+                                }
+                            });
+                        }
+                    }
+                },
+                selectable: "row",
+                height: 110,
+                columns: [{
+                    field: "FechaInicio",
+                    title: "Inicio",
+                    width: 15,
+                    template: "#= kendo.toString(kendo.parseDate(FechaInicio, 'yyyy-MM-dd'), 'dd/MM/yyyy') #",
+                    attributes: {
+                        style: "font-size:12px;"
+                    }
+                }, {
+                    field: "FechaFin",
+                    title: "Fin",
+                    width: 15,
+                    template: "#= kendo.toString(kendo.parseDate(FechaFin, 'yyyy-MM-dd'), 'dd/MM/yyyy') #",
+                    attributes: {
+                        style: "font-size:12px;"
+                    }
+                }, {
+                    field: "Meta",
+                    title: "Meta",
+                    width: 15,
+                    attributes: {
+                        style: "font-size:12px;"
+                    }
+                }, {
+                    field: "CantidadVendedores",
+                    title: "# vend.",
+                    width: 10,
+                    attributes: {
+                        style: "font-size:12px;"
+                    }
+                }, {
+                    field: "VentaTotal",
+                    title: "Venta",
+                    width: 15,
+                    attributes: {
+                        style: "font-size:12px;"
+                    }
+                }],
+                dataBound: function (e) {
+                    this.element.find('tbody tr:first').addClass('k-state-selected');
+                    this.select(this.tbody.find('>tr:first'));
+                }, change: function () {
+                    var text = "";
+                    var grid = this;
+                    grid.select().each(function () {
+                        var dataItem = grid.dataItem($(this));
+                        uspBuscarMetaVendedorPorMesActual(dataItem.CodigoMeta);
+
+                    });
+                }
+            });
+        }
+
+        function uspBuscarMetaVendedorPorMesActual(CodigoMeta) {
+            document.getElementById('loadMe').style.display = 'block';
+
+            $.ajax({
+                data: '{"CodigoMeta":"' + CodigoMeta + '"}',
+                type: "POST",
+                url: "/gestionce/uspBuscarMetaVendedorPorMesActual",
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function (msg) {
+
+                    $('#lblCantidadRepartidosMes').html(msg.CantidadRepartidosMes);
+                    $('#lblCantidadRepartidosPorVendedorMes').html(msg.CantidadRepartidosPorVendedorMes);
+
+                    $('#lblTicketPromedio_MontoMinimo_ver').html(msg.B_TicketPromedio_MontoMinimo);
+                    $('#txtTicketPromedio_Bono_ver').html(msg.B_TicketPromedio_Bono);
+                    $('#lblCantidadVentasAnuales_Cantidad_ver').html(msg.B_ContratosAnuales_CantidadMinima);
+                    $('#lblCantidadVentasAnuales_Bono_ver').html(msg.B_ContratosAnuales_Bono);
+                    $('#lblPorcentajeVentasNuevas_Porcentaje_ver').html(msg.B_Nuevos_PorcentajeMinimo);
+                    $('#lblPorcentajeVentasNuevas_Bono_ver').html(msg.B_Nuevos_Bono);
+                    $('#lblPorcentajeVentasRenovaciones_Porcentaje_ver').html(msg.B_Renovaciones_PorcentajeMinimo);
+                    $('#lblPorcentajeVentasRenovaciones_Bono_ver').html(msg.B_Renovaciones_Bono);
+                    $('#lblVentasReinscripciones_MontoMinimo_ver').html(msg.B_Reinscripciones_MontoMinimo);
+                    $('#lblVentasReinscripciones_Bono_ver').html(msg.B_Reinscripciones_Bono);
+                    $('#lblCuotaSemanal_Bono_ver').html(msg.B_VentaSemanal_Bono);
+                    $('#lblPasandoCada10PorcientoMasVenta_Bono_ver').html(msg.B_VentaAdicionalMeta10porciento_Bono);
+                    $('#lblAmpliaciones_Cantidad_ver').html(msg.B_AmpliacionContrato_Cantidad);
+                    $('#lblAmpliaciones_Bono_ver').html(msg.B_AmpliacionContrato_Bono);
+                    CalcularMontosTitulos(msg.Meta, msg.Bono, msg.FechaInicio, msg.FechaFin, msg.VentaTotal);
+                    uspListarMetasDetalle_VentasAvance(msg.CodigoMeta);
+
+                    //$('#uspListarVerificadorCodigosComerciales_hdFechaInicio').val(msg.FechaInicio);
+                    //$('#uspListarVerificadorCodigosComerciales_hdFechaFin').val(msg.FechaFin);
+
+                    //uspListarVerificadorCodigosComerciales();
+
+                }, complete: function () {
+                    document.getElementById('loadMe').style.display = 'none';
+                }
+            });
+
+        }
+
+        function uspListarMetasDetalle_VentasAvance(CodigoMeta) {
+
+            $("#gridMetasAvance").empty();
+            $("#gridMetasAvance").kendoGrid({
+                dataSource: {
+                    type: "json",
+                    transport: {
+                        read: function (options) {
+                            $.ajax({
+                                data: '{"CodigoMeta":"' + CodigoMeta + '"}',
+                                type: "POST",
+                                url: "/gestionce/uspListarMetasDetalle_VentasAvance",
+                                contentType: "application/json; charset=utf-8",
+                                dataType: "json",
+                                success: function (msg) {
+
+                                    var vendedorDDL = "<option id='' value='Seleccionar' >Seleccionar</option>";
+                                    for (var i = 0; i < msg.length; i++) {
+                                        var lblMetaMinimaPor = msg[i].MetaMinimaPorc;
+                                        msg[i].PorAcumulado = msg[i].PorAcumulado.toFixed(2);
+                                        msg[i].PorFaltante = msg[i].PorFaltante.toFixed(2);
+                                        msg[i].Proyeccion = msg[i].Proyeccion.toFixed(2);
+                                        vendedorDDL += "<option value='" + msg[i].NombreCompleto + "' >" + msg[i].NombreCompleto + "</option>";
+                                        $('#ddlVendedoresMetaDetalle').html(vendedorDDL);
+                                    }
+
+                                    $('#lblMetaMinimaPor').html(lblMetaMinimaPor);
+
+                                    if (msg.length > 0) {
+                                        
+                                        $('#lblTituloPeriodoMeta').html('PERIODO DEL ' + kendo.toString(kendo.parseDate(msg[0].FechaInicio, 'yyyy-MM-dd'), 'dd/MM/yyyy') + ' al ' + kendo.toString(kendo.parseDate(msg[0].FechaFin, 'yyyy-MM-dd'), 'dd/MM/yyyy'));
+                                    }
+
+                                    options.success(msg);
+
+                                }, complete: function () {
+                                    SumarTotales_ListarMetasDetalle_VentasAvance();
+                                    uspListarMetasDetalle_EstadisticaVenta(CodigoMeta);
+                                }
+                            });
+                        }
+                    }
+                },
+                height: 200,
+                columns: [{
+                    field: "NombreCompleto",
+                    title: "<label style='font-size: 12px;' >vendedor</label>",
+                    width: 45,
+                    attributes: {
+                        style: "font-size:13px;text-align:left;"
+                    }
+                }, {
+                    field: "Meta",
+                    title: "<center><label style='font-size: 12px;' >Meta</label></center>",
+                    width: 35,
+                    attributes: {
+                        style: "font-size:13px;text-align:center;"
+                    }
+                }, {
+                    field: "VentaTotal",
+                    title: "<center><b><label style='font-size: 12px;color:#fff;' >Venta total</label></b></center>",
+                    width: 35,
+                    attributes: {
+                        style: "font-size:13px;text-align:center;"
+                    }
+                }, {
+                    field: "DiferenciaFaltante",
+                    title: "<center><label style='font-size: 11px;' >Dif. Faltante</label></center>",
+                    width: 35,
+                    attributes: {
+                        style: "font-size:13px;text-align:center;"
+                    }
+                    }, {
+                        field: "CantidadMetaPlan",
+                        title: "<center><label style='font-size: 11px;' >Planes Mes</label></center>",
+                        width: 35,
+                        attributes: {
+                            style: "font-size:13px;text-align:center;"
+                        }
+                    }, {
+                        field: "CantidadPlanesVendido",
+                        title: "<center><label style='font-size: 11px;' >Alcance Planes</label></center>",
+                        width: 35,
+                        attributes: {
+                            style: "font-size:13px;text-align:center;"
+                        }
+                    }, {
+                    field: "MetaMinima",
+                    title: "<center>Meta Min <label style='font-size: 12px;' id='lblMetaMinimaPor'></label> %</center>",
+                    width: 35,
+                    attributes: {
+                        style: "font-size:13px;text-align:center;"
+                    }
+                }, {
+                    field: "MetaSemanal",
+                    title: "<center><label style='font-size: 11px;' >Meta Semanal</label></center>",
+                    width: 35,
+                    attributes: {
+                        style: "font-size:13px;text-align:center;"
+                    }
+                }, {
+                    field: "VentaDiaria",
+                    title: "<center><b><label style='font-size: 11px;color:#fff;' >Venta Hoy</label></b></center>",
+                    width: 35,
+                    attributes: {
+                        style: "font-size:13px;text-align:center;"
+                    }
+                }, {
+                    field: "NecesidadDiaria",
+                    title: "<center><b><label style='font-size: 11px;color:#fff;' >Nec. Hoy</label></b></center>",
+                    width: 35,
+                    attributes: {
+                        style: "font-size:13px;text-align:center;"
+                    }
+                }, {
+                    field: "PorAcumulado",
+                    title: "<center><label style='font-size: 11px;' >% Acumul</label></center>",
+                    width: 25,
+                    attributes: {
+                        style: "font-size:13px;text-align:center;"
+                    }
+                }, {
+                    field: "PorFaltante",
+                    title: "<center><label style='font-size: 11px;' >% Faltante</label></center>",
+                    width: 35,
+                    attributes: {
+                        style: "font-size:13px;text-align:center;"
+                    }
+                }, {
+                    field: "Proyeccion",
+                    title: "<center><b><label style='font-size: 11px;color:#fff;' >Proyección</label></b></center>",
+                    width: 35,
+                    attributes: {
+                        style: "font-size:13px;text-align:center;"
+                    }
+                }]
+            });
+
+        }
+
+        function SumarTotales_ListarMetasDetalle_VentasAvance() {
+            var lblSumMeta = 0;
+            var lblSumVentaTotal = 0;
+            var lblSumDiferenciaFaltante = 0;
+            var lblSumMetaMinima = 0;
+            var lblSumPlanesMes = 0;
+            var lblSumAlcancePlanes = 0;
+            var lblSumMetaSemanal = 0;
+            var lblSumVentaHoy = 0;
+            var lblSumNecDiaria = 0;
+            var lblSumPorAcumulado = 0;
+            var lblSumPorFaltante = 0;
+            var lblSumProyeccion = 0;
+
+            $("#gridMetasAvance .k-grid-content tbody tr").each(function () {
+                lblSumMeta += parseFloat($(this).find("td").eq(1).html());
+
+                lblSumVentaTotal += parseFloat($(this).find("td").eq(2).html());
+                lblSumDiferenciaFaltante += parseFloat($(this).find("td").eq(3).html());
+
+                lblSumPlanesMes += parseFloat($(this).find("td").eq(4).html());
+                lblSumAlcancePlanes += parseFloat($(this).find("td").eq(5).html());
+
+                lblSumMetaMinima += parseFloat($(this).find("td").eq(6).html());
+                lblSumMetaSemanal += parseFloat($(this).find("td").eq(7).html());
+                lblSumVentaHoy += parseFloat($(this).find("td").eq(8).html());
+                lblSumNecDiaria += parseFloat($(this).find("td").eq(9).html());
+                lblSumPorAcumulado += parseFloat($(this).find("td").eq(10).html());
+                lblSumPorFaltante += parseFloat($(this).find("td").eq(11).html());
+                lblSumProyeccion += parseFloat($(this).find("td").eq(12).html());
+            })
+            $('#lblSumMeta').html(lblSumMeta.toFixed(2));
+            $('#lblSumVentaTotal').html(lblSumVentaTotal.toFixed(2));
+            $('#lblSumDiferenciaFaltante').html(lblSumDiferenciaFaltante.toFixed(2));
+
+            $('#lblSumPlanesMes').html(lblSumPlanesMes.toFixed(0));
+            $('#lblSumAlcancePlanes').html(lblSumAlcancePlanes.toFixed(0));
+
+            $('#lblSumMetaMinima').html(lblSumMetaMinima.toFixed(2));
+            $('#lblSumMetaSemanal').html(lblSumMetaSemanal.toFixed(2));
+            $('#lblSumVentaHoy').html(lblSumVentaHoy.toFixed(2));
+            $('#lblSumNecDiaria').html(lblSumNecDiaria.toFixed(2));
+            $('#lblSumPorAcumulado').html(lblSumPorAcumulado.toFixed(2));
+            $('#lblSumPorFaltante').html(lblSumPorFaltante.toFixed(2));
+            $('#lblSumProyeccion').html(lblSumProyeccion.toFixed(2));
+        }
+
+        function uspListarMetasDetalle_EstadisticaVenta(CodigoMeta) {
+            document.getElementById('loadMe').style.display = 'block';
+
+            $("#gridMetasEstadistica").empty();
+            $("#gridMetasEstadistica").kendoGrid({
+                dataSource: {
+                    type: "json",
+                    transport: {
+                        read: function (options) {
+                            $.ajax({
+                                data: '{"CodigoMeta":"' + CodigoMeta + '"}',
+                                type: "POST",
+                                url: "/gestionce/uspListarMetasDetalle_EstadisticaVenta",
+                                contentType: "application/json; charset=utf-8",
+                                dataType: "json",
+                                success: function (msg) {
+                                    options.success(msg);
+                                }, complete: function () {
+                                    SumarTotales_uspListarMetasDetalle_EstadisticaVenta();
+                                    uspListarMetasDetalle_CuadroComisiones(CodigoMeta);
+                                    document.getElementById('loadMe').style.display = 'none';
+                                }
+                            });
+                        }
+                    }
+                },
+                height: 180,
+                columns: [{
+                    field: "NombreCompleto",
+                    title: "Vendedor",
+                    width: 45,
+                    attributes: {
+                        style: "font-size:13px;text-align:left;"
+                    }
+                }, {
+                    field: "B_TicketPromedio_MontoMinimo",
+                    title: "<b><center style='font-size:12px;color:#fff'>Ticket Pro</center></b>",
+                    width: 35,
+                    attributes: {
+                        style: "font-size:13px;text-align:center;"
+                    }
+                }, {
+                    field: "CantidadClientesVendidos",
+                    title: "<k style='font-size:12px;'>Nro Ventas</k>",
+                    width: 35,
+                    attributes: {
+                        style: "font-size:13px;text-align:center;"
+                    }
+                }, {
+                    field: "VentaMenbresiasAnuales",
+                    title: "<b style='font-size:12px;color:#fff'>Anuales</b>",
+                    width: 35,
+                    attributes: {
+                        style: "font-size:13px;text-align:center;"
+                    }
+                }, {
+                    field: "CantidadVentaMenbresiasAnuales",
+                    title: "<k style='font-size:12px;' >Nro Ventas</k>",
+                    width: 35,
+                    attributes: {
+                        style: "font-size:13px;text-align:center;"
+                    }
+                }, {
+                    field: "CantidadClientesNuevos",
+                    title: "<b style='font-size:12px;color:#fff'>Prospectos</b>",
+                    width: 35,
+                    attributes: {
+                        style: "font-size:13px;text-align:center;"
+                    }
+                }, {
+                    field: "CantidadVentasNuevas",
+                    title: "<k style='font-size:12px;'>Nro ventas</k>",
+                    width: 35,
+                    attributes: {
+                        style: "font-size:13px;text-align:center;"
+                    }
+                }, {
+                    field: "VentaNuevasPorcentaje",
+                    title: "<k style='font-size:12px;'>% Efectividad</k>",
+                    width: 35,
+                    attributes: {
+                        style: "font-size:13px;text-align:center;"
+                    }
+                }, {
+                    field: "CantidadMenbresiasRenovacionPorVendedorRepartido",
+                    title: "<b style='font-size:12px;color:#fff'>Renovaciones</b>",
+                    width: 28,
+                    attributes: {
+                        style: "font-size:13px;text-align:center;"
+                    }
+                }, {
+                    field: "CantidadMenbresiasRenovaciones",
+                    title: "<k style='font-size:12px;'>Nro ventas</k>",
+                    width: 35,
+                    attributes: {
+                        style: "font-size:13px;text-align:center;"
+                    }
+                }, {
+                    field: "VentaRenovacionesPorcentaje",
+                    title: "<k style='font-size:12px;'>% Efectividad</k>",
+                    width: 35,
+                    attributes: {
+                        style: "font-size:13px;text-align:center;"
+                    }
+                }, {
+                    field: "IngresoCantidadCitasReinscripcion",
+                    title: "<b style='font-size:12px;color:#fff'>Reinscripciones</b>",
+                    width: 33,
+                    attributes: {
+                        style: "font-size:13px;text-align:center;"
+                    }
+                }, {
+                    field: "CantidadMenbresiasReinscripcion",
+                        title: "<k style='font-size:12px;'>Nro ventas</k>",
+                    width: 33,
+                    attributes: {
+                        style: "font-size:13px;text-align:center;"
+                    }
+                }, {
+                    field: "PorcentajeEfectividadReinscripcion",
+                        title: "<k style='font-size:12px;'>% Efectividad</k>",
+                    width: 33,
+                    attributes: {
+                        style: "font-size:13px;text-align:center;"
+                    }
+                }, {
+                    field: "VentaMenbresiasAmplacion",
+                    title: "<b style='font-size:12px;color:#fff'>S/. Amplia</b>",
+                    width: 35,
+                    attributes: {
+                        style: "font-size:13px;text-align:center;"
+                    }
+                }, {
+                    field: "CantidadMenbresiasAmplacion",
+                        title: "<k style='font-size:12px;'>Nro ventas</k>",
+                    width: 35,
+                    attributes: {
+                        style: "font-size:13px;text-align:center;"
+                    }
+                }]
+            });
+
+        }
+
+        function SumarTotales_uspListarMetasDetalle_EstadisticaVenta() {
+            var Cantidad = 0;
+            var lblSumTicketPromedio = 0;
+            var lblSumNroClientesVendidos = 0;
+            var lblSumVentaAnuales = 0;
+            var lblSumCantidadAnuales = 0;
+            var lblSumCantidadNuevos = 0;
+            var lblSumPorcentajeEfectividad = 0;
+            var lblSumCantidadEfectividad = 0;
+
+            var lblSumCantidadRenovacionPorVendedorRepartido = 0;
+            var lblSumCantidadRenovacion = 0;
+            var lblSumPorcentajeRenovacion = 0;
+
+
+            var lblSumPorcentajeEfectividadReinscripcion = 0;
+            var lblSumCantidadCierresReinscripcion = 0;
+            var lblSumCantidadVentaReinscripcion = 0;
+
+            var lblSumVentaAmpliacion = 0;
+            var lblSumCantidadAmpliacion = 0;
+
+            $("#gridMetasEstadistica .k-grid-content tbody tr").each(function () {
+                Cantidad++;
+                lblSumTicketPromedio += parseFloat($(this).find("td").eq(1).html());
+                lblSumNroClientesVendidos += parseInt($(this).find("td").eq(2).html());
+                lblSumVentaAnuales += parseFloat($(this).find("td").eq(3).html());
+                lblSumCantidadAnuales += parseInt($(this).find("td").eq(4).html());
+                lblSumCantidadNuevos += parseInt($(this).find("td").eq(5).html());
+                lblSumCantidadEfectividad += parseInt($(this).find("td").eq(6).html());
+                lblSumPorcentajeEfectividad += parseFloat($(this).find("td").eq(7).html());
+
+                lblSumCantidadRenovacionPorVendedorRepartido += parseFloat($(this).find("td").eq(8).html());
+                lblSumCantidadRenovacion += parseInt($(this).find("td").eq(9).html());
+                lblSumPorcentajeRenovacion += parseFloat($(this).find("td").eq(10).html());
+
+                lblSumPorcentajeEfectividadReinscripcion += parseInt($(this).find("td").eq(11).html());
+                lblSumCantidadCierresReinscripcion += parseInt($(this).find("td").eq(12).html());
+                lblSumCantidadVentaReinscripcion += parseInt($(this).find("td").eq(13).html());
+
+                lblSumVentaAmpliacion += parseFloat($(this).find("td").eq(14).html());
+                lblSumCantidadAmpliacion += parseInt($(this).find("td").eq(15).html());
+
+            })
+
+            $('#lblSumTicketPromedio').html((lblSumTicketPromedio.toFixed(2) / Cantidad).toFixed(2));
+            $('#lblSumNroClientesVendidos').html(lblSumNroClientesVendidos);
+            $('#lblSumVentaAnuales').html(lblSumVentaAnuales.toFixed(2));
+            $('#lblSumCantidadAnuales').html(lblSumCantidadAnuales);
+            $('#lblSumPorcentajeEfectividad').html((lblSumPorcentajeEfectividad.toFixed(2) / Cantidad).toFixed(2));
+            $('#lblSumCantidadNuevos').html(lblSumCantidadNuevos);
+            $('#lblSumCantidadEfectividad').html(lblSumCantidadEfectividad);
+            $('#lblSumPorcentajeRenovacion').html((lblSumPorcentajeRenovacion / Cantidad).toFixed(0));
+            $('#lblSumCantidadRenovacion').html(lblSumCantidadRenovacion);
+
+            $('#lblSumCantidadCierresReinscripcion').html(lblSumPorcentajeEfectividadReinscripcion.toFixed(0));
+            $('#lblSumCantidadVentaReinscripcion').html(lblSumCantidadCierresReinscripcion.toFixed(0));
+            $('#lblSumPorcentajeEfectividadReinscripcion').html(lblSumCantidadVentaReinscripcion.toFixed(0));
+
+
+            $('#lblSumVentaAmpliacion').html(lblSumVentaAmpliacion.toFixed(2));
+            $('#lblSumCantidadAmpliacion').html(lblSumCantidadAmpliacion);
+
+            $('#lblSumCantidadRenovacionPorVendedorRepartido').html(lblSumCantidadRenovacionPorVendedorRepartido);
+
+            Cantidad = 0;
+        }
+
+        function uspListarMetasDetalle_CuadroComisiones(CodigoMeta) {
+            document.getElementById('loadMe').style.display = 'block';
+            $("#gridCuadroComisiones").empty();
+            $("#gridCuadroComisiones").kendoGrid({
+                dataSource: {
+                    type: "json",
+                    transport: {
+                        read: function (options) {
+                            $.ajax({
+                                data: '{"CodigoMeta":"' + CodigoMeta + '"}',
+                                type: "POST",
+                                url: "/gestionce/uspListarMetasDetalle_CuadroComisiones",
+                                contentType: "application/json; charset=utf-8",
+                                dataType: "json",
+                                success: function (msg) {
+                                    options.success(msg);
+                                },
+                                complete: function () {
+                                    SumarTotales_CuadroComisiones();
+                                    document.getElementById('loadMe').style.display = 'none';
+                                    //INICIA PRODUCTIVIDAD
+                                    uspBuscarMetaVendedorPorCodigo(CodigoMeta);
+                                }
+                            });
+                        }
+                    }
+                },
+                height: 180,
+                columns: [{
+                    field: "NombreCompleto",
+                    title: "<k style='font-size:12px;'>Vendedor</k>",
+                    width: 45,
+                    attributes: {
+                        style: "font-size:13px;text-align:left;"
+                    }
+                }, {
+                    field: "Pago_ComisionSoles",
+                    title: "<k style='font-size:12px;'>Comisión</k>",
+                    width: 35,
+                    attributes: {
+                        style: "font-size:13px;text-align:center;"
+                    }
+                }, {
+                    field: "Pago_BonoGrupalSoles",
+                    title: "<k style='font-size:12px;'>Bono Grupal</k>",
+                    width: 35,
+                    attributes: {
+                        style: "font-size:13px;text-align:center;"
+                    }
+                }, {
+                    field: "Pago_BonoTicketPromedioSoles",
+                    title: "<k style='font-size:12px;'>Bono Ticket Prom.</k>",
+                    width: 35,
+                    attributes: {
+                        style: "font-size:13px;text-align:center;"
+                    }
+                }, {
+                    field: "Pago_BonoAnualesSoles",
+                    title: "<k style='font-size:12px;'>Bono Anuales</k>",
+                    width: 35,
+                    attributes: {
+                        style: "font-size:13px;text-align:center;"
+                    }
+                }, {
+                    field: "Pago_BonoEfectividadNuevos",
+                    title: "<k style='font-size:12px;'>Bono Nuevos</k>",
+                    width: 35,
+                    attributes: {
+                        style: "font-size:13px;text-align:center;"
+                    }
+                }, {
+                    field: "Pago_BonoSemanal",
+                    title: "<k style='font-size:12px;'>Bono Semanal</k>",
+                    width: 30,
+                    attributes: {
+                        style: "font-size:13px;text-align:center;"
+                    }
+                }, {
+                    field: "Pago_BonoRenovacion",
+                    title: "<k style='font-size:12px;'>Bono Renovación</k>",
+                    width: 35,
+                    attributes: {
+                        style: "font-size:13px;text-align:center;"
+                    }
+                }, {
+                    field: "Pago_BonoReinscripcion",
+                    title: "<k style='font-size:12px;'>Bono Reinscripción</k>",
+                    width: 32,
+                    attributes: {
+                        style: "font-size:13px;text-align:center;"
+                    }
+                }, {
+                    field: "Pago_ComisionBonoAdicional",
+                    title: "<k style='font-size:12px;'>Bono adicional</k>",
+                    width: 35,
+                    attributes: {
+                        style: "font-size:13px;text-align:center;"
+                    }
+                },
+                {
+                    field: "Pago_BonoAmpliacion",
+                    title: "<k style='font-size:12px;'>Bono Ampliación</k>",
+                    width: 35,
+                    attributes: {
+                        style: "font-size:13px;text-align:center;"
+                    }
+                }, {
+                    field: "Pago_TotalCobrar",
+                    title: "<b><center style='font-size:12px;color:#fff'>Total a Cobrar</center></b>",
+                    width: 35,
+                    attributes: {
+                        style: "font-size:13px;text-align:center;"
+                    }
+                }]
+            });
+
+        }
+
+        function SumarTotales_CuadroComisiones() {
+            var lblSumComision = 0;
+            var lblSumBonoGrupal = 0;
+            var lblSumBonoTicketPromedio = 0;
+            var lblSumBonoAnuales = 0;
+            var lblSumBonoNuevos = 0;
+            var lblSumBonoSemanal = 0;
+            var lblSumBonoRenovacion = 0;
+            var lblSumBonoReinscripcion = 0;
+            var lblSumBonoAdicional = 0;
+            var lblSumBonoAmpliacion = 0;
+            var lblSumTotalCobrar = 0;
+
+            $("#gridCuadroComisiones .k-grid-content tbody tr").each(function () {
+
+                lblSumComision += parseFloat($(this).find("td").eq(1).html());
+                lblSumBonoGrupal += parseFloat($(this).find("td").eq(2).html());
+                lblSumBonoTicketPromedio += parseFloat($(this).find("td").eq(3).html());
+                lblSumBonoAnuales += parseFloat($(this).find("td").eq(4).html());
+                lblSumBonoNuevos += parseFloat($(this).find("td").eq(5).html());
+                lblSumBonoSemanal += parseFloat($(this).find("td").eq(6).html());
+                lblSumBonoRenovacion += parseFloat($(this).find("td").eq(7).html());
+                lblSumBonoReinscripcion += parseFloat($(this).find("td").eq(8).html());
+                lblSumBonoAdicional += parseFloat($(this).find("td").eq(9).html());
+                lblSumBonoAmpliacion += parseFloat($(this).find("td").eq(10).html());
+                lblSumTotalCobrar += parseFloat($(this).find("td").eq(11).html());
+            })
+            $('#lblSumComision').html(lblSumComision.toFixed(2));
+            $('#lblSumBonoGrupal').html(lblSumBonoGrupal.toFixed(2));
+            $('#lblSumBonoTicketPromedio').html(lblSumBonoTicketPromedio.toFixed(2));
+            $('#lblSumBonoAnuales').html(lblSumBonoAnuales.toFixed(2));
+            $('#lblSumBonoNuevos').html(lblSumBonoNuevos.toFixed(2));
+            $('#lblSumBonoSemanal').html(lblSumBonoSemanal.toFixed(2));
+            $('#lblSumBonoRenovacion').html(lblSumBonoRenovacion.toFixed(2));
+            $('#lblSumBonoReinscripcion').html(lblSumBonoReinscripcion.toFixed(2));
+            $('#lblSumBonoAdicional').html(lblSumBonoAdicional.toFixed(2));
+            $('#lblSumBonoAmpliacion').html(lblSumBonoAmpliacion.toFixed(2));
+            $('#lblSumTotalCobrar').html(lblSumTotalCobrar.toFixed(2));
+
+        }
+
+        //PRODUCTIVIDAD
+        function uspBuscarMetaVendedorPorCodigo(CodigoMeta) {
+            document.getElementById('loadMe').style.display = 'block';
+            $.ajax({
+                data: '{"CodigoMeta":"' + CodigoMeta + '"}',
+                type: "POST",
+                url: "/gestionce/uspBuscarMetaVendedorPorCodigo",
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function (msg) {
+
+                    $('#txtFechaInicioSemana1').data("kendoDatePicker").value(msg.FechaSemanal1a);
+                    $('#txtFechaFinSemana1').data("kendoDatePicker").value(msg.FechaSemanal1b);
+
+                    $('#txtFechaInicioSemana2').data("kendoDatePicker").value(msg.FechaSemanal2a);
+                    $('#txtFechaFinSemana2').data("kendoDatePicker").value(msg.FechaSemanal2b);
+
+                    $('#txtFechaInicioSemana3').data("kendoDatePicker").value(msg.FechaSemanal3a);
+                    $('#txtFechaFinSemana3').data("kendoDatePicker").value(msg.FechaSemanal3b);
+
+                    $('#txtFechaInicioSemana4').data("kendoDatePicker").value(msg.FechaSemanal4a);
+                    $('#txtFechaFinSemana4').data("kendoDatePicker").value(msg.FechaSemanal4b);
+
+                }, complete: function () {
+                    document.getElementById('loadMe').style.display = 'none';
+                    var FechaInicio = kendo.toString($("#txtFechaInicioSemana1").data('kendoDatePicker').value(), 'MM/dd/yyyy');
+                    var FechaFin = kendo.toString($("#txtFechaFinSemana1").data('kendoDatePicker').value(), 'MM/dd/yyyy');
+
+                    uspListarProductividad_AreaComercial_Semana1(CodigoMeta, FechaInicio, FechaFin);
+                }
+            });
+        }
+
+        function uspListarProductividad_AreaComercial_Semana1(CodigoMeta, FechaInicio, FechaFin) {
+
+            $("#gridProductividadSemana1").empty();
+            $("#gridProductividadSemana1").kendoGrid({
+                dataSource: {
+                    type: "json",
+                    transport: {
+                        read: function (options) {
+                            $.ajax({
+                                data: '{"CodigoMeta":"' + CodigoMeta + '","FechaInicio":"' + FechaInicio + '","FechaFin":"' + FechaFin + '"}',
+                                type: "POST",
+                                url: "/gestionce/uspListarProductividad_AreaComercial",
+                                contentType: "application/json; charset=utf-8",
+                                dataType: "json",
+                                success: function (msg) {
+
+                                    for (var i = 0; i < msg.length; i++) {
+                                        msg[i].Productividad_TPromedio = msg[i].Productividad_TPromedio.toFixed(2);
+                                        msg[i].Productividad_TPromedioCitas = msg[i].Productividad_TPromedioCitas.toFixed(2);
+                                    }
+                                    options.success(msg);
+                                }, complete: function () {
+
+                                    SumarTotales_Productividad_AreaComercial_Semana1();
+
+                                    var FechaInicio = kendo.toString($("#txtFechaInicioSemana2").data('kendoDatePicker').value(), 'MM/dd/yyyy');
+                                    var FechaFin = kendo.toString($("#txtFechaFinSemana2").data('kendoDatePicker').value(), 'MM/dd/yyyy');
+                                    uspListarProductividad_AreaComercial_Semana2(CodigoMeta, FechaInicio, FechaFin);
+                                }
+                            });
+                        }
+                    }
+                },
+                height: 260,
+                columns: [{
+                    field: "NombreCompleto",
+                    title: "Vendedor",
+                    width: 45,
+                    attributes: {
+                        style: "font-size:13px;text-align:left;"
+                    }
+                }, {
+                    field: "Productividad_Nuevos",
+                    title: "<k><center style='font-size:12px;'>Walk in</center></k>",
+                    width: 30,
+                    attributes: {
+                        style: "font-size:13px;text-align:center;"
+                    }
+                }, {
+                    field: "Productividad_Invitados",
+                    title: "<k><center style='font-size:12px;'>Prospección</center></k>",
+                    width: 30,
+                    attributes: {
+                        style: "font-size:13px;text-align:center;"
+                    }
+                }, {
+                    field: "Productividad_Referidos",
+                    title: "<k><center style='font-size:12px;'>Digital</center></k>",
+                    width: 30,
+                    attributes: {
+                        style: "font-size:13px;text-align:center;"
+                    }
+                }, {
+                    field: "Productividad_Llamada",
+                    title: "<k><center style='font-size:12px;'>Llamada E</center></k>",
+                    width: 30,
+                    attributes: {
+                        style: "font-size:13px;text-align:center;"
+                    }
+                }, {
+                    field: "Productividad_TotalProspectos",
+                    title: "<b><center style='color:black;font-size:12px;'>T. Prospectos</center></b>",
+                    width: 35,
+                    attributes: {
+                        style: "font-size:13px;text-align:center;"
+                    }
+                }, {
+                    field: "Productividad_TotalInscritos",
+                    title: "<b><center style='color:#fff;font-size:12px;'>Inscritos</center></b>",
+                    width: 35,
+                    attributes: {
+                        style: "font-size:13px;text-align:center;"
+                    }
+                }, {
+                    field: "Productividad_Efectividad",
+                    title: "<b><center style='font-size:12px;'>% Efectividad</center></b>",
+                    width: 35,
+                    attributes: {
+                        style: "font-size:13px;text-align:center;"
+                    }
+                }, {
+                    field: "Productividad_MontoTotal",
+                    title: "<b><center style='font-size:12px;'>Venta Total</center></b>",
+                    width: 35,
+                    attributes: {
+                        style: "font-size:13px;text-align:center;"
+                    }
+                }, {
+                    field: "Productividad_TPromedio",
+                    title: "<b><center style='font-size:12px;'>Ticket Pro.</center></b>",
+                    width: 35,
+                    attributes: {
+                        style: "font-size:13px;text-align:center;"
+                    }
+                }, {
+                    field: "Productividad_CantidadCitas",
+                    title: "<b><center style='font-size:12px;'>Actividades</center></b>",
+                    width: 35,
+                    attributes: {
+                        style: "font-size:13px;text-align:center;"
+                    }
+                }, {
+                    field: "Productividad_TotalInscritos",
+                    title: "<b><center style='font-size:12px;color:#fff;'>Nro Ventas</center></b>",
+                    width: 35,
+                    attributes: {
+                        style: "font-size:13px;text-align:center;"
+                    }
+                }, {
+                    field: "Productividad_EfectividadCitas",
+                    title: "<b><center style='font-size:12px;'>% Efectividad</center></b>",
+                    width: 35,
+                    attributes: {
+                        style: "font-size:13px;text-align:center;"
+                    }
+                }, {
+                    field: "Productividad_MontoTotal",
+                    title: "<b><center style='font-size:12px;'>Total Venta</center></b>",
+                    width: 35,
+                    attributes: {
+                        style: "font-size:13px;text-align:center;"
+                    }
+                }, {
+                    field: "Productividad_TPromedioCitas",
+                    title: "<b><center style='font-size:12px;'>Ticket Pro.</center></b>",
+                    width: 35,
+                    attributes: {
+                        style: "font-size:13px;text-align:center;"
+                    }
+                }
+                ]
+            });
+
+        }
+
+        function uspListarProductividad_AreaComercial_Semana2(CodigoMeta, FechaInicio, FechaFin) {
+
+            $("#gridProductividadSemana2").empty();
+            $("#gridProductividadSemana2").kendoGrid({
+                dataSource: {
+                    type: "json",
+                    transport: {
+                        read: function (options) {
+                            $.ajax({
+                                data: '{"CodigoMeta":"' + CodigoMeta + '","FechaInicio":"' + FechaInicio + '","FechaFin":"' + FechaFin + '"}',
+                                type: "POST",
+                                url: "/gestionce/uspListarProductividad_AreaComercial",
+                                contentType: "application/json; charset=utf-8",
+                                dataType: "json",
+                                success: function (msg) {
+                                    for (var i = 0; i < msg.length; i++) {
+                                        msg[i].Productividad_TPromedio = msg[i].Productividad_TPromedio.toFixed(2);
+                                        msg[i].Productividad_TPromedioCitas = msg[i].Productividad_TPromedioCitas.toFixed(2);
+                                    }
+                                    options.success(msg);
+                                }, complete: function () {
+                                    SumarTotales_Productividad_AreaComercial_Semana2();
+                                    var FechaInicio = kendo.toString($("#txtFechaInicioSemana3").data('kendoDatePicker').value(), 'MM/dd/yyyy');
+                                    var FechaFin = kendo.toString($("#txtFechaFinSemana3").data('kendoDatePicker').value(), 'MM/dd/yyyy');
+
+                                    uspListarProductividad_AreaComercial_Semana3(CodigoMeta, FechaInicio, FechaFin);
+                                }
+                            });
+                        }
+                    }
+                },
+                height: 260,
+                columns: [{
+                    field: "NombreCompleto",
+                    title: "Vendedor",
+                    width: 45,
+                    attributes: {
+                        style: "font-size:13px;text-align:left;"
+                    }
+                }, {
+                    field: "Productividad_Nuevos",
+                    title: "<k><center style='font-size:12px;'>Walk in</center></k>",
+                    width: 30,
+                    attributes: {
+                        style: "font-size:13px;text-align:center;"
+                    }
+                }, {
+                    field: "Productividad_Invitados",
+                    title: "<k><center style='font-size:12px;'>Prospección</center></k>",
+                    width: 30,
+                    attributes: {
+                        style: "font-size:13px;text-align:center;"
+                    }
+                }, {
+                    field: "Productividad_Referidos",
+                    title: "<k><center style='font-size:12px;'>Digital</center></k>",
+                    width: 30,
+                    attributes: {
+                        style: "font-size:13px;text-align:center;"
+                    }
+                }, {
+                    field: "Productividad_Llamada",
+                    title: "<k><center style='font-size:12px;'>Llamada E</center></k>",
+                    width: 30,
+                    attributes: {
+                        style: "font-size:13px;text-align:center;"
+                    }
+                }, {
+                    field: "Productividad_TotalProspectos",
+                    title: "<b><center style='color:black;font-size:12px;'>T. Prospectos</center></b>",
+                    width: 35,
+                    attributes: {
+                        style: "font-size:13px;text-align:center;"
+                    }
+                }, {
+                    field: "Productividad_TotalInscritos",
+                    title: "<b><center style='color:#fff;font-size:12px;'>Inscritos</center></b>",
+                    width: 35,
+                    attributes: {
+                        style: "font-size:13px;text-align:center;"
+                    }
+                }, {
+                    field: "Productividad_Efectividad",
+                    title: "<b><center style='font-size:12px;'>% Efectividad</center></b>",
+                    width: 35,
+                    attributes: {
+                        style: "font-size:13px;text-align:center;"
+                    }
+                }, {
+                    field: "Productividad_MontoTotal",
+                    title: "<b><center style='font-size:12px;'>Venta Total</center></b>",
+                    width: 35,
+                    attributes: {
+                        style: "font-size:13px;text-align:center;"
+                    }
+                }, {
+                    field: "Productividad_TPromedio",
+                    title: "<b><center style='font-size:12px;'>Ticket Pro.</center></b>",
+                    width: 35,
+                    attributes: {
+                        style: "font-size:13px;text-align:center;"
+                    }
+                }, {
+                    field: "Productividad_CantidadCitas",
+                    title: "<b><center style='font-size:12px;'>Actividades</center></b>",
+                    width: 35,
+                    attributes: {
+                        style: "font-size:13px;text-align:center;"
+                    }
+                }, {
+                    field: "Productividad_TotalInscritos",
+                    title: "<b><center style='font-size:12px;color:#fff;'>Nro Ventas</center></b>",
+                    width: 35,
+                    attributes: {
+                        style: "font-size:13px;text-align:center;"
+                    }
+                }, {
+                    field: "Productividad_EfectividadCitas",
+                    title: "<b><center style='font-size:12px;'>% Efectividad</center></b>",
+                    width: 35,
+                    attributes: {
+                        style: "font-size:13px;text-align:center;"
+                    }
+                }, {
+                    field: "Productividad_MontoTotal",
+                    title: "<b><center style='font-size:12px;'>Total Venta</center></b>",
+                    width: 35,
+                    attributes: {
+                        style: "font-size:13px;text-align:center;"
+                    }
+                }, {
+                    field: "Productividad_TPromedioCitas",
+                    title: "<b><center style='font-size:12px;'>Ticket Pro.</center></b>",
+                    width: 35,
+                    attributes: {
+                        style: "font-size:13px;text-align:center;"
+                    }
+                }
+                ]
+            });
+
+        }
+
+        function uspListarProductividad_AreaComercial_Semana3(CodigoMeta, FechaInicio, FechaFin) {
+
+            $("#gridProductividadSemana3").empty();
+            $("#gridProductividadSemana3").kendoGrid({
+                dataSource: {
+                    type: "json",
+                    transport: {
+                        read: function (options) {
+                            $.ajax({
+                                data: '{"CodigoMeta":"' + CodigoMeta + '","FechaInicio":"' + FechaInicio + '","FechaFin":"' + FechaFin + '"}',
+                                type: "POST",
+                                url: "/gestionce/uspListarProductividad_AreaComercial",
+                                contentType: "application/json; charset=utf-8",
+                                dataType: "json",
+                                success: function (msg) {
+                                    for (var i = 0; i < msg.length; i++) {
+                                        msg[i].Productividad_TPromedio = msg[i].Productividad_TPromedio.toFixed(2);
+                                        msg[i].Productividad_TPromedioCitas = msg[i].Productividad_TPromedioCitas.toFixed(2);
+                                    }
+                                    options.success(msg);
+                                }, complete: function () {
+                                    SumarTotales_Productividad_AreaComercial_Semana3();
+                                    var FechaInicio = kendo.toString($("#txtFechaInicioSemana4").data('kendoDatePicker').value(), 'MM/dd/yyyy');
+                                    var FechaFin = kendo.toString($("#txtFechaFinSemana4").data('kendoDatePicker').value(), 'MM/dd/yyyy');
+
+                                    uspListarProductividad_AreaComercial_Semana4(CodigoMeta, FechaInicio, FechaFin);
+                                }
+                            });
+                        }
+                    }
+                },
+                height: 260,
+                columns: [{
+                    field: "NombreCompleto",
+                    title: "Vendedor",
+                    width: 45,
+                    attributes: {
+                        style: "font-size:13px;text-align:left;"
+                    }
+                }, {
+                    field: "Productividad_Nuevos",
+                    title: "<k><center style='font-size:12px;'>Walk in</center></k>",
+                    width: 30,
+                    attributes: {
+                        style: "font-size:13px;text-align:center;"
+                    }
+                }, {
+                    field: "Productividad_Invitados",
+                    title: "<k><center style='font-size:12px;'>Prospección</center></k>",
+                    width: 30,
+                    attributes: {
+                        style: "font-size:13px;text-align:center;"
+                    }
+                }, {
+                    field: "Productividad_Referidos",
+                    title: "<k><center style='font-size:12px;'>Digital</center></k>",
+                    width: 30,
+                    attributes: {
+                        style: "font-size:13px;text-align:center;"
+                    }
+                }, {
+                    field: "Productividad_Llamada",
+                    title: "<k><center style='font-size:12px;'>Llamada E</center></k>",
+                    width: 30,
+                    attributes: {
+                        style: "font-size:13px;text-align:center;"
+                    }
+                }, {
+                    field: "Productividad_TotalProspectos",
+                    title: "<b><center style='color:black;font-size:12px;'>T. Prospectos</center></b>",
+                    width: 35,
+                    attributes: {
+                        style: "font-size:13px;text-align:center;"
+                    }
+                }, {
+                    field: "Productividad_TotalInscritos",
+                    title: "<b><center style='color:#fff;font-size:12px;'>Inscritos</center></b>",
+                    width: 35,
+                    attributes: {
+                        style: "font-size:13px;text-align:center;"
+                    }
+                }, {
+                    field: "Productividad_Efectividad",
+                    title: "<b><center style='font-size:12px;'>% Efectividad</center></b>",
+                    width: 35,
+                    attributes: {
+                        style: "font-size:13px;text-align:center;"
+                    }
+                }, {
+                    field: "Productividad_MontoTotal",
+                    title: "<b><center style='font-size:12px;'>Venta Total</center></b>",
+                    width: 35,
+                    attributes: {
+                        style: "font-size:13px;text-align:center;"
+                    }
+                }, {
+                    field: "Productividad_TPromedio",
+                    title: "<b><center style='font-size:12px;'>Ticket Pro.</center></b>",
+                    width: 35,
+                    attributes: {
+                        style: "font-size:13px;text-align:center;"
+                    }
+                }, {
+                    field: "Productividad_CantidadCitas",
+                    title: "<b><center style='font-size:12px;'>Actividades</center></b>",
+                    width: 35,
+                    attributes: {
+                        style: "font-size:13px;text-align:center;"
+                    }
+                }, {
+                    field: "Productividad_TotalInscritos",
+                    title: "<b><center style='font-size:12px;color:#fff;'>Nro Ventas</center></b>",
+                    width: 35,
+                    attributes: {
+                        style: "font-size:13px;text-align:center;"
+                    }
+                }, {
+                    field: "Productividad_EfectividadCitas",
+                    title: "<b><center style='font-size:12px;'>% Efectividad</center></b>",
+                    width: 35,
+                    attributes: {
+                        style: "font-size:13px;text-align:center;"
+                    }
+                }, {
+                    field: "Productividad_MontoTotal",
+                    title: "<b><center style='font-size:12px;'>Total Venta</center></b>",
+                    width: 35,
+                    attributes: {
+                        style: "font-size:13px;text-align:center;"
+                    }
+                }, {
+                    field: "Productividad_TPromedioCitas",
+                    title: "<b><center style='font-size:12px;'>Ticket Pro.</center></b>",
+                    width: 35,
+                    attributes: {
+                        style: "font-size:13px;text-align:center;"
+                    }
+                }
+                ]
+            });
+
+        }
+
+        function uspListarProductividad_AreaComercial_Semana4(CodigoMeta, FechaInicio, FechaFin) {
+
+            $("#gridProductividadSemana4").empty();
+            $("#gridProductividadSemana4").kendoGrid({
+                dataSource: {
+                    type: "json",
+                    transport: {
+                        read: function (options) {
+                            $.ajax({
+                                data: '{"CodigoMeta":"' + CodigoMeta + '","FechaInicio":"' + FechaInicio + '","FechaFin":"' + FechaFin + '"}',
+                                type: "POST",
+                                url: "/gestionce/uspListarProductividad_AreaComercial",
+                                contentType: "application/json; charset=utf-8",
+                                dataType: "json",
+                                success: function (msg) {
+                                    for (var i = 0; i < msg.length; i++) {
+                                        msg[i].Productividad_TPromedio = msg[i].Productividad_TPromedio.toFixed(2);
+                                        msg[i].Productividad_TPromedioCitas = msg[i].Productividad_TPromedioCitas.toFixed(2);
+                                    }
+                                    options.success(msg);
+                                }, complete: function () {
+                                    SumarTotales_Productividad_AreaComercial_Semana4();
+                                    uspListarMetasDetalle_ConversionLeads_Totales(CodigoMeta);
+                                }
+                            });
+                        }
+                    }
+                },
+                height: 260,
+                columns: [{
+                    field: "NombreCompleto",
+                    title: "Vendedor",
+                    width: 45,
+                    attributes: {
+                        style: "font-size:13px;text-align:left;"
+                    }
+                }, {
+                    field: "Productividad_Nuevos",
+                    title: "<k><center style='font-size:12px;'>Walk in</center></k>",
+                    width: 30,
+                    attributes: {
+                        style: "font-size:13px;text-align:center;"
+                    }
+                }, {
+                    field: "Productividad_Invitados",
+                    title: "<k><center style='font-size:12px;'>Prospección</center></k>",
+                    width: 30,
+                    attributes: {
+                        style: "font-size:13px;text-align:center;"
+                    }
+                }, {
+                    field: "Productividad_Referidos",
+                    title: "<k><center style='font-size:12px;'>Digital</center></k>",
+                    width: 30,
+                    attributes: {
+                        style: "font-size:13px;text-align:center;"
+                    }
+                }, {
+                    field: "Productividad_Llamada",
+                    title: "<k><center style='font-size:12px;'>Llamada E</center></k>",
+                    width: 30,
+                    attributes: {
+                        style: "font-size:13px;text-align:center;"
+                    }
+                }, {
+                    field: "Productividad_TotalProspectos",
+                    title: "<b><center style='color:black;font-size:12px;'>T. Prospectos</center></b>",
+                    width: 35,
+                    attributes: {
+                        style: "font-size:13px;text-align:center;"
+                    }
+                }, {
+                    field: "Productividad_TotalInscritos",
+                    title: "<b><center style='color:#fff;font-size:12px;'>Inscritos</center></b>",
+                    width: 35,
+                    attributes: {
+                        style: "font-size:13px;text-align:center;"
+                    }
+                }, {
+                    field: "Productividad_Efectividad",
+                    title: "<b><center style='font-size:12px;'>% Efectividad</center></b>",
+                    width: 35,
+                    attributes: {
+                        style: "font-size:13px;text-align:center;"
+                    }
+                }, {
+                    field: "Productividad_MontoTotal",
+                    title: "<b><center style='font-size:12px;'>Venta Total</center></b>",
+                    width: 35,
+                    attributes: {
+                        style: "font-size:13px;text-align:center;"
+                    }
+                }, {
+                    field: "Productividad_TPromedio",
+                    title: "<b><center style='font-size:12px;'>Ticket Pro.</center></b>",
+                    width: 35,
+                    attributes: {
+                        style: "font-size:13px;text-align:center;"
+                    }
+                }, {
+                    field: "Productividad_CantidadCitas",
+                    title: "<b><center style='font-size:12px;'>Actividades</center></b>",
+                    width: 35,
+                    attributes: {
+                        style: "font-size:13px;text-align:center;"
+                    }
+                }, {
+                    field: "Productividad_TotalInscritos",
+                    title: "<b><center style='font-size:12px;color:#fff;'>Nro Ventas</center></b>",
+                    width: 35,
+                    attributes: {
+                        style: "font-size:13px;text-align:center;"
+                    }
+                }, {
+                    field: "Productividad_EfectividadCitas",
+                    title: "<b><center style='font-size:12px;'>% Efectividad</center></b>",
+                    width: 35,
+                    attributes: {
+                        style: "font-size:13px;text-align:center;"
+                    }
+                }, {
+                    field: "Productividad_MontoTotal",
+                    title: "<b><center style='font-size:12px;'>Total Venta</center></b>",
+                    width: 35,
+                    attributes: {
+                        style: "font-size:13px;text-align:center;"
+                    }
+                }, {
+                    field: "Productividad_TPromedioCitas",
+                    title: "<b><center style='font-size:12px;'>Ticket Pro.</center></b>",
+                    width: 35,
+                    attributes: {
+                        style: "font-size:13px;text-align:center;"
+                    }
+                }
+                ]
+            });
+
+        }
+
+        function CalcularMontosTitulos(meta, bono, fechainicio, fechafin, venta) {
+
+            $('#lblTitulo_Meta').html(parseFloat(meta).toFixed(2));
+            $('#lblTitulo_Bono').html('S/. ' + parseFloat(bono).toFixed(2));
+            $('#lblTitulo_VentaProduccionHastaHoy').html(parseFloat(venta).toFixed(2));
+            $('#lblTitulo_VentaFaltante').html(parseFloat(parseFloat(meta).toFixed(2) - parseFloat(venta).toFixed(2)).toFixed(2));
+            var porcenjateAvanzado = (parseFloat(venta).toFixed(2) * 100) / parseFloat(meta).toFixed(2);
+            $('#lblTitulo_PorcentajeVentas').html('% ' + parseFloat(porcenjateAvanzado).toFixed(2));
+            $('#lblTitulo_PorcentajeVentaFaltante').html('% ' + parseFloat(100 - parseFloat(porcenjateAvanzado).toFixed(2)).toFixed(2));
+
+            var fechaFinMes = kendo.toString(kendo.parseDate(fechafin, 'MM'), 'MM');
+            var fechaFinAnio = kendo.toString(kendo.parseDate(fechafin, 'yyyy-MM-dd'), 'dd/MM/yyyy').split('/')[2];
+            var hoy = new Date();
+            var mm = hoy.getMonth() + 1;
+            var yyyy = hoy.getFullYear();
+
+            //if (mm > 0 && mm <= 9) {
+            //    var mes = 0 + '' + mm;
+            //}
+
+            if (fechaFinMes == mm && fechaFinAnio == yyyy) {
+                var f = new Date();
+                $('#lblTitulo_FechaHoy').html(f.getDate() + "/" + (f.getMonth() + 1) + "/" + f.getFullYear());
+
+                switch (f.getDay()) {
+                    case 1:
+                        $('#lblTitulo_DiaSemanaHoy').html('Lunes');
+                        break;
+                    case 2:
+                        $('#lblTitulo_DiaSemanaHoy').html('Martes');
+                        break;
+                    case 3:
+                        $('#lblTitulo_DiaSemanaHoy').html('Miercoles');
+                        break;
+                    case 4:
+                        $('#lblTitulo_DiaSemanaHoy').html('Jueves');
+                        break;
+                    case 5:
+                        $('#lblTitulo_DiaSemanaHoy').html('Viernes');
+                        break;
+                    case 6:
+                        $('#lblTitulo_DiaSemanaHoy').html('Sabado');
+                        break;
+                    case 0:
+                        $('#lblTitulo_DiaSemanaHoy').html('Domingo');
+                        break;
+
+                }
+
+                var diaFin = kendo.toString(kendo.parseDate(fechafin, 'yyyy-MM-dd'), 'dd/MM/yyyy').split('/')[0];
+                var diasFaltantes = parseInt(diaFin) - parseInt(f.getDate());
+                $('#lblTitulo_DiasFaltarterminarMes').html(diasFaltantes);
+            } else {
+                $('#lblTitulo_DiasFaltarterminarMes').html("");
+                $('#lblTitulo_DiaSemanaHoy').html("");
+                $('#lblTitulo_FechaHoy').html("");
+            }
+
+        }
+
+        function SumarTotales_Productividad_AreaComercial_Semana1() {
+            var lblProductividad_Nuevos_Semana1 = 0;
+            var lblProductividad_Invitados_Semana1 = 0;
+            var lblProductividad_Referidos_Semana1 = 0;
+            var lblProductividad_Llamada_Semana1 = 0;            
+            var lblProductividad_TotalProspectos_Semana1 = 0;
+            var lblProductividad_TotalInscritos_Semana1 = 0;
+            var lblProductividad_Efectividad_Semana1 = 0;
+            var lblProductividad_MontoTotal_Semana1 = 0;
+            var lblProductividad_TPromedio_Semana1 = 0;
+            var lblProductividad_CantidadCitas_Semana1 = 0;
+            var lblProductividad_CantidadCierres_Semana1 = 0;
+            var lblProductividad_EfectividadCitas_Semana1 = 0;
+            var lblProductividad_MontoTotalCitas_Semana1 = 0;
+            var lblProductividad_TPromedioCitas_Semana1 = 0;
+
+            $("#gridProductividadSemana1 .k-grid-content tbody tr").each(function () {
+
+                lblProductividad_Nuevos_Semana1 += parseFloat($(this).find("td").eq(1).html());
+                lblProductividad_Invitados_Semana1 += parseFloat($(this).find("td").eq(2).html());
+                lblProductividad_Referidos_Semana1 += parseFloat($(this).find("td").eq(3).html());
+                lblProductividad_Llamada_Semana1 += parseFloat($(this).find("td").eq(4).html());                
+                lblProductividad_TotalProspectos_Semana1 += parseFloat($(this).find("td").eq(5).html());
+                lblProductividad_TotalInscritos_Semana1 += parseFloat($(this).find("td").eq(6).html());
+                lblProductividad_Efectividad_Semana1 += parseFloat($(this).find("td").eq(7).html());
+                lblProductividad_MontoTotal_Semana1 += parseFloat($(this).find("td").eq(8).html());
+                lblProductividad_TPromedio_Semana1 += parseFloat($(this).find("td").eq(9).html());
+                lblProductividad_CantidadCitas_Semana1 += parseFloat($(this).find("td").eq(10).html());
+                lblProductividad_CantidadCierres_Semana1 += parseFloat($(this).find("td").eq(11).html());
+                lblProductividad_EfectividadCitas_Semana1 += parseFloat($(this).find("td").eq(12).html());
+                lblProductividad_MontoTotalCitas_Semana1 += parseFloat($(this).find("td").eq(13).html());
+                lblProductividad_TPromedioCitas_Semana1 += parseFloat($(this).find("td").eq(14).html());
+
+            })
+            $('#lblProductividad_Nuevos_Semana1').html(lblProductividad_Nuevos_Semana1.toFixed(2));
+            $('#lblProductividad_Invitados_Semana1').html(lblProductividad_Invitados_Semana1.toFixed(2));
+            $('#lblProductividad_Referidos_Semana1').html(lblProductividad_Referidos_Semana1.toFixed(2));
+            $('#lblProductividad_Llamada_Semana1').html(lblProductividad_Llamada_Semana1.toFixed(2));            
+            $('#lblProductividad_TotalProspectos_Semana1').html(lblProductividad_TotalProspectos_Semana1.toFixed(2));
+            $('#lblProductividad_TotalInscritos_Semana1').html(lblProductividad_TotalInscritos_Semana1.toFixed(2));
+            $('#lblProductividad_Efectividad_Semana1').html(lblProductividad_Efectividad_Semana1.toFixed(2));
+            $('#lblProductividad_MontoTotal_Semana1').html(lblProductividad_MontoTotal_Semana1.toFixed(2));
+            $('#lblProductividad_TPromedio_Semana1').html(lblProductividad_TPromedio_Semana1.toFixed(2));
+            $('#lblProductividad_CantidadCitas_Semana1').html(lblProductividad_CantidadCitas_Semana1.toFixed(2));
+            $('#lblProductividad_CantidadCierres_Semana1').html(lblProductividad_CantidadCierres_Semana1.toFixed(2));
+            $('#lblProductividad_EfectividadCitas_Semana1').html(lblProductividad_EfectividadCitas_Semana1.toFixed(2));
+            $('#lblProductividad_MontoTotalCitas_Semana1').html(lblProductividad_MontoTotalCitas_Semana1.toFixed(2));
+            $('#lblProductividad_TPromedioCitas_Semana1').html(lblProductividad_TPromedioCitas_Semana1.toFixed(2));
+
+            $('#txtFechaInicioSemana1').data("kendoDatePicker").enable(false);
+            $('#txtFechaFinSemana1').data("kendoDatePicker").enable(false);
+        }
+
+        function SumarTotales_Productividad_AreaComercial_Semana2() {
+            var lblProductividad_Nuevos_Semana2 = 0;
+            var lblProductividad_Invitados_Semana2 = 0;
+            var lblProductividad_Referidos_Semana2 = 0;
+            var lblProductividad_Llamada_Semana2 = 0;            
+            var lblProductividad_TotalProspectos_Semana2 = 0;
+            var lblProductividad_TotalInscritos_Semana2 = 0;
+            var lblProductividad_Efectividad_Semana2 = 0;
+            var lblProductividad_MontoTotal_Semana2 = 0;
+            var lblProductividad_TPromedio_Semana2 = 0;
+            var lblProductividad_CantidadCitas_Semana2 = 0;
+            var lblProductividad_CantidadCierres_Semana2 = 0;
+            var lblProductividad_EfectividadCitas_Semana2 = 0;
+            var lblProductividad_MontoTotalCitas_Semana2 = 0;
+            var lblProductividad_TPromedioCitas_Semana2 = 0;
+
+            $("#gridProductividadSemana2 .k-grid-content tbody tr").each(function () {
+
+                lblProductividad_Nuevos_Semana2 += parseFloat($(this).find("td").eq(1).html());
+                lblProductividad_Invitados_Semana2 += parseFloat($(this).find("td").eq(2).html());
+                lblProductividad_Referidos_Semana2 += parseFloat($(this).find("td").eq(3).html());
+                lblProductividad_Llamada_Semana2 += parseFloat($(this).find("td").eq(4).html());                
+                lblProductividad_TotalProspectos_Semana2 += parseFloat($(this).find("td").eq(5).html());
+                lblProductividad_TotalInscritos_Semana2 += parseFloat($(this).find("td").eq(6).html());
+                lblProductividad_Efectividad_Semana2 += parseFloat($(this).find("td").eq(7).html());
+                lblProductividad_MontoTotal_Semana2 += parseFloat($(this).find("td").eq(8).html());
+                lblProductividad_TPromedio_Semana2 += parseFloat($(this).find("td").eq(9).html());
+                lblProductividad_CantidadCitas_Semana2 += parseFloat($(this).find("td").eq(10).html());
+                lblProductividad_CantidadCierres_Semana2 += parseFloat($(this).find("td").eq(11).html());
+                lblProductividad_EfectividadCitas_Semana2 += parseFloat($(this).find("td").eq(12).html());
+                lblProductividad_MontoTotalCitas_Semana2 += parseFloat($(this).find("td").eq(13).html());
+                lblProductividad_TPromedioCitas_Semana2 += parseFloat($(this).find("td").eq(14).html());
+
+            })
+            $('#lblProductividad_Nuevos_Semana2').html(lblProductividad_Nuevos_Semana2.toFixed(2));
+            $('#lblProductividad_Invitados_Semana2').html(lblProductividad_Invitados_Semana2.toFixed(2));
+            $('#lblProductividad_Referidos_Semana2').html(lblProductividad_Referidos_Semana2.toFixed(2));
+            $('#lblProductividad_Llamada_Semana2').html(lblProductividad_Llamada_Semana2.toFixed(2));            
+            $('#lblProductividad_TotalProspectos_Semana2').html(lblProductividad_TotalProspectos_Semana2.toFixed(2));
+            $('#lblProductividad_TotalInscritos_Semana2').html(lblProductividad_TotalInscritos_Semana2.toFixed(2));
+            $('#lblProductividad_Efectividad_Semana2').html(lblProductividad_Efectividad_Semana2.toFixed(2));
+            $('#lblProductividad_MontoTotal_Semana2').html(lblProductividad_MontoTotal_Semana2.toFixed(2));
+            $('#lblProductividad_TPromedio_Semana2').html(lblProductividad_TPromedio_Semana2.toFixed(2));
+            $('#lblProductividad_CantidadCitas_Semana2').html(lblProductividad_CantidadCitas_Semana2.toFixed(2));
+            $('#lblProductividad_CantidadCierres_Semana2').html(lblProductividad_CantidadCierres_Semana2.toFixed(2));
+            $('#lblProductividad_EfectividadCitas_Semana2').html(lblProductividad_EfectividadCitas_Semana2.toFixed(2));
+            $('#lblProductividad_MontoTotalCitas_Semana2').html(lblProductividad_MontoTotalCitas_Semana2.toFixed(2));
+            $('#lblProductividad_TPromedioCitas_Semana2').html(lblProductividad_TPromedioCitas_Semana2.toFixed(2));
+
+            $('#txtFechaInicioSemana2').data("kendoDatePicker").enable(false);
+            $('#txtFechaFinSemana2').data("kendoDatePicker").enable(false);
+        }
+
+        function SumarTotales_Productividad_AreaComercial_Semana3() {
+            var lblProductividad_Nuevos_Semana3 = 0;
+            var lblProductividad_Invitados_Semana3 = 0;
+            var lblProductividad_Referidos_Semana3 = 0;
+            var lblProductividad_Llamada_Semana3 = 0;
+            
+            var lblProductividad_TotalProspectos_Semana3 = 0;
+            var lblProductividad_TotalInscritos_Semana3 = 0;
+            var lblProductividad_Efectividad_Semana3 = 0;
+            var lblProductividad_MontoTotal_Semana3 = 0;
+            var lblProductividad_TPromedio_Semana3 = 0;
+            var lblProductividad_CantidadCitas_Semana3 = 0;
+            var lblProductividad_CantidadCierres_Semana3 = 0;
+            var lblProductividad_EfectividadCitas_Semana3 = 0;
+            var lblProductividad_MontoTotalCitas_Semana3 = 0;
+            var lblProductividad_TPromedioCitas_Semana3 = 0;
+
+            $("#gridProductividadSemana3 .k-grid-content tbody tr").each(function () {
+
+                lblProductividad_Nuevos_Semana3 += parseFloat($(this).find("td").eq(1).html());
+                lblProductividad_Invitados_Semana3 += parseFloat($(this).find("td").eq(2).html());
+                lblProductividad_Referidos_Semana3 += parseFloat($(this).find("td").eq(3).html());
+                lblProductividad_Llamada_Semana3 += parseFloat($(this).find("td").eq(4).html());                
+                lblProductividad_TotalProspectos_Semana3 += parseFloat($(this).find("td").eq(5).html());
+                lblProductividad_TotalInscritos_Semana3 += parseFloat($(this).find("td").eq(6).html());
+                lblProductividad_Efectividad_Semana3 += parseFloat($(this).find("td").eq(7).html());
+                lblProductividad_MontoTotal_Semana3 += parseFloat($(this).find("td").eq(8).html());
+                lblProductividad_TPromedio_Semana3 += parseFloat($(this).find("td").eq(9).html());
+                lblProductividad_CantidadCitas_Semana3 += parseFloat($(this).find("td").eq(10).html());
+                lblProductividad_CantidadCierres_Semana3 += parseFloat($(this).find("td").eq(11).html());
+                lblProductividad_EfectividadCitas_Semana3 += parseFloat($(this).find("td").eq(12).html());
+                lblProductividad_MontoTotalCitas_Semana3 += parseFloat($(this).find("td").eq(13).html());
+                lblProductividad_TPromedioCitas_Semana3 += parseFloat($(this).find("td").eq(14).html());
+
+            })
+            $('#lblProductividad_Nuevos_Semana3').html(lblProductividad_Nuevos_Semana3.toFixed(2));
+            $('#lblProductividad_Invitados_Semana3').html(lblProductividad_Invitados_Semana3.toFixed(2));
+            $('#lblProductividad_Referidos_Semana3').html(lblProductividad_Referidos_Semana3.toFixed(2));
+            $('#lblProductividad_Llamada_Semana3').html(lblProductividad_Llamada_Semana3.toFixed(2));            
+            $('#lblProductividad_TotalProspectos_Semana3').html(lblProductividad_TotalProspectos_Semana3.toFixed(2));
+            $('#lblProductividad_TotalInscritos_Semana3').html(lblProductividad_TotalInscritos_Semana3.toFixed(2));
+            $('#lblProductividad_Efectividad_Semana3').html(lblProductividad_Efectividad_Semana3.toFixed(2));
+            $('#lblProductividad_MontoTotal_Semana3').html(lblProductividad_MontoTotal_Semana3.toFixed(2));
+            $('#lblProductividad_TPromedio_Semana3').html(lblProductividad_TPromedio_Semana3.toFixed(2));
+            $('#lblProductividad_CantidadCitas_Semana3').html(lblProductividad_CantidadCitas_Semana3.toFixed(2));
+            $('#lblProductividad_CantidadCierres_Semana3').html(lblProductividad_CantidadCierres_Semana3.toFixed(2));
+            $('#lblProductividad_EfectividadCitas_Semana3').html(lblProductividad_EfectividadCitas_Semana3.toFixed(2));
+            $('#lblProductividad_MontoTotalCitas_Semana3').html(lblProductividad_MontoTotalCitas_Semana3.toFixed(2));
+            $('#lblProductividad_TPromedioCitas_Semana3').html(lblProductividad_TPromedioCitas_Semana3.toFixed(2));
+
+            $('#txtFechaInicioSemana3').data("kendoDatePicker").enable(false);
+            $('#txtFechaFinSemana3').data("kendoDatePicker").enable(false);
+        }
+
+        function SumarTotales_Productividad_AreaComercial_Semana4() {
+            var lblProductividad_Nuevos_Semana4 = 0;
+            var lblProductividad_Invitados_Semana4 = 0;
+            var lblProductividad_Referidos_Semana4 = 0;
+            var lblProductividad_Llamada_Semana4 = 0;            
+            var lblProductividad_TotalProspectos_Semana4 = 0;
+            var lblProductividad_TotalInscritos_Semana4 = 0;
+            var lblProductividad_Efectividad_Semana4 = 0;
+            var lblProductividad_MontoTotal_Semana4 = 0;
+            var lblProductividad_TPromedio_Semana4 = 0;
+            var lblProductividad_CantidadCitas_Semana4 = 0;
+            var lblProductividad_CantidadCierres_Semana4 = 0;
+            var lblProductividad_EfectividadCitas_Semana4 = 0;
+            var lblProductividad_MontoTotalCitas_Semana4 = 0;
+            var lblProductividad_TPromedioCitas_Semana4 = 0;
+
+            $("#gridProductividadSemana4 .k-grid-content tbody tr").each(function () {
+
+                lblProductividad_Nuevos_Semana4 += parseFloat($(this).find("td").eq(1).html());
+                lblProductividad_Invitados_Semana4 += parseFloat($(this).find("td").eq(2).html());
+                lblProductividad_Referidos_Semana4 += parseFloat($(this).find("td").eq(3).html());
+                lblProductividad_Llamada_Semana4 += parseFloat($(this).find("td").eq(4).html());                
+                lblProductividad_TotalProspectos_Semana4 += parseFloat($(this).find("td").eq(5).html());
+                lblProductividad_TotalInscritos_Semana4 += parseFloat($(this).find("td").eq(6).html());
+                lblProductividad_Efectividad_Semana4 += parseFloat($(this).find("td").eq(7).html());
+                lblProductividad_MontoTotal_Semana4 += parseFloat($(this).find("td").eq(8).html());
+                lblProductividad_TPromedio_Semana4 += parseFloat($(this).find("td").eq(9).html());
+                lblProductividad_CantidadCitas_Semana4 += parseFloat($(this).find("td").eq(10).html());
+                lblProductividad_CantidadCierres_Semana4 += parseFloat($(this).find("td").eq(11).html());
+                lblProductividad_EfectividadCitas_Semana4 += parseFloat($(this).find("td").eq(12).html());
+                lblProductividad_MontoTotalCitas_Semana4 += parseFloat($(this).find("td").eq(13).html());
+                lblProductividad_TPromedioCitas_Semana4 += parseFloat($(this).find("td").eq(14).html());
+
+            })
+            $('#lblProductividad_Nuevos_Semana4').html(lblProductividad_Nuevos_Semana4.toFixed(2));
+            $('#lblProductividad_Invitados_Semana4').html(lblProductividad_Invitados_Semana4.toFixed(2));
+            $('#lblProductividad_Referidos_Semana4').html(lblProductividad_Referidos_Semana4.toFixed(2));
+            $('#lblProductividad_Llamada_Semana4').html(lblProductividad_Llamada_Semana4.toFixed(2));            
+            $('#lblProductividad_TotalProspectos_Semana4').html(lblProductividad_TotalProspectos_Semana4.toFixed(2));
+            $('#lblProductividad_TotalInscritos_Semana4').html(lblProductividad_TotalInscritos_Semana4.toFixed(2));
+            $('#lblProductividad_Efectividad_Semana4').html(lblProductividad_Efectividad_Semana4.toFixed(2));
+            $('#lblProductividad_MontoTotal_Semana4').html(lblProductividad_MontoTotal_Semana4.toFixed(2));
+            $('#lblProductividad_TPromedio_Semana4').html(lblProductividad_TPromedio_Semana4.toFixed(2));
+            $('#lblProductividad_CantidadCitas_Semana4').html(lblProductividad_CantidadCitas_Semana4.toFixed(2));
+            $('#lblProductividad_CantidadCierres_Semana4').html(lblProductividad_CantidadCierres_Semana4.toFixed(2));
+            $('#lblProductividad_EfectividadCitas_Semana4').html(lblProductividad_EfectividadCitas_Semana4.toFixed(2));
+            $('#lblProductividad_MontoTotalCitas_Semana4').html(lblProductividad_MontoTotalCitas_Semana4.toFixed(2));
+            $('#lblProductividad_TPromedioCitas_Semana4').html(lblProductividad_TPromedioCitas_Semana4.toFixed(2));
+
+            $('#txtFechaInicioSemana4').data("kendoDatePicker").enable(false);
+            $('#txtFechaFinSemana4').data("kendoDatePicker").enable(false);
+        }
+
+        function uspListarMetasDetalle_ConversionLeads_Totales(CodigoMeta) {
+            document.getElementById('loadMe').style.display = 'block';
+
+            $("#gridConversionLeads_Totales").empty();
+            $("#gridConversionLeads_Totales").kendoGrid({
+                dataSource: {
+                    type: "json",
+                    transport: {
+                        read: function (options) {
+                            $.ajax({
+                                data: '{"CodigoMeta":"' + CodigoMeta + '"}',
+                                type: "POST",
+                                url: "/gestionce/uspListarMetasDetalle_ConversionLeads_Totales",
+                                contentType: "application/json; charset=utf-8",
+                                dataType: "json",
+                                success: function (msg) {
+                                    options.success(msg);
+                                    uspListarMetasDetalle_ConversionLeads_Walking(msg);
+                                    uspListarMetasDetalle_ConversionLeads_Renovaciones(msg);
+                                    uspListarMetasDetalle_ConversionLeads_Reinscripciones(msg);
+                                    uspListarMetasDetalle_ConversionLeads_Prospeccion(msg);
+                                    uspListarMetasDetalle_ConversionLeads_Digital(msg);
+                                    uspListarMetasDetalle_ConversionLeads_LlamadaE(msg);
+
+                                }, complete: function () {                                    
+                                    document.getElementById('loadMe').style.display = 'none';
+                                }
+                            });
+                        }
+                    }
+                },
+                height: 250,
+                columns: [{
+                    field: "NombreCompleto",
+                    title: "Vendedor",
+                    width: 45,
+                    attributes: {
+                        style: "font-size:13px;text-align:left;"
+                    }
+                }, {
+                    field: "ConversionLeads_CantidadTotalBD",
+                    title: "<b><center style='font-size:12px;color:#fff'>Contactos</center></b>",
+                    width: 35,
+                    attributes: {
+                        style: "font-size:13px;text-align:center;"
+                    }
+                }, {
+                    field: "ConversionLeads_CantidadTotalActividadesCitas",
+                        title: "<b><center style='font-size:12px;color:#fff'>Citas</center></b>",
+                    width: 35,
+                    attributes: {
+                        style: "font-size:13px;text-align:center;"
+                    }
+                }, {
+                    field: "ConversionLeads_CantidadTotalActividadesReunion",
+                    title: "<b><center style='font-size:12px;color:#fff'>Reunión</center></b>",
+                    width: 35,
+                    attributes: {
+                        style: "font-size:13px;text-align:center;"
+                    }
+                }, {
+                    field: "ConversionLeads_CantidadClientesVenta",
+                    title: "<b><center style='font-size:12px;color:#fff'>Cierres</center></b>",
+                    width: 35,
+                    attributes: {
+                        style: "font-size:13px;text-align:center;"
+                    }
+                }, {
+                    field: "ConversionLeads_VentaTotal",
+                    title: "<b><center style='font-size:12px;color:#fff'>S/ Venta</center></b>",
+                    width: 35,
+                    attributes: {
+                        style: "font-size:13px;text-align:center;"
+                    }
+                }]
+            });
+        }
+
+        function uspListarMetasDetalle_ConversionLeads_Walking(datos) {
+
+            $("#gridConversionLeads_Walking").empty();
+            $("#gridConversionLeads_Walking").kendoGrid({
+                dataSource: {
+                    type: "json",
+                    transport: {
+                        read: function (options) {
+                            options.success(datos);
+                        }
+                    }
+                },
+                height: 250,
+                columns: [{
+                    field: "NombreCompleto",
+                    title: "Vendedor",
+                    width: 45,
+                    attributes: {
+                        style: "font-size:13px;text-align:left;"
+                    }
+                }, {
+                    field: "ConversionLeads_CantidadWalking",
+                    title: "<b><center style='font-size:12px;color:#fff'>Visitas</center></b>",
+                    width: 35,
+                    attributes: {
+                        style: "font-size:13px;text-align:center;"
+                    }
+                }, {
+                    field: "ConversionLeads_ActividadCitas_walking",
+                    title: "<b><center style='font-size:12px;color:#fff'>Citas</center></b>",
+                    width: 35,
+                    attributes: {
+                        style: "font-size:13px;text-align:center;"
+                    }
+                }, {
+                    field: "ConversionLeads_ActividadReunion_walking",
+                    title: "<b><center style='font-size:12px;color:#fff'>Reunión</center></b>",
+                    width: 35,
+                    attributes: {
+                        style: "font-size:13px;text-align:center;"
+                    }
+                }, {
+                    field: "ConversionLeads_CantidadClientesVenta_walking",
+                    title: "<b><center style='font-size:12px;color:#fff'>Cierres</center></b>",
+                    width: 35,
+                    attributes: {
+                        style: "font-size:13px;text-align:center;"
+                    }
+                }]
+            });
+        }
+
+        function uspListarMetasDetalle_ConversionLeads_Renovaciones(datos) {
+
+            $("#gridConversionLeads_Renovaciones").empty();
+            $("#gridConversionLeads_Renovaciones").kendoGrid({
+                dataSource: {
+                    type: "json",
+                    transport: {
+                        read: function (options) {
+                            options.success(datos);
+                        }
+                    }
+                },
+                height: 250,
+                columns: [{
+                    field: "NombreCompleto",
+                    title: "Vendedor",
+                    width: 45,
+                    attributes: {
+                        style: "font-size:13px;text-align:left;"
+                    }
+                }, {
+                    field: "ConversionLeads_CantidadRenovaciones",
+                    title: "<b><center style='font-size:12px;color:#fff'>Contactos</center></b>",
+                    width: 35,
+                    attributes: {
+                        style: "font-size:13px;text-align:center;"
+                    }
+                }, {
+                    field: "ConversionLeads_ActividadCita_Renovaciones",
+                    title: "<b><center style='font-size:12px;color:#fff'>Citas</center></b>",
+                    width: 35,
+                    attributes: {
+                        style: "font-size:13px;text-align:center;"
+                    }
+                }, {
+                    field: "ConversionLeads_ActividadReunion_Renovaciones",
+                    title: "<b><center style='font-size:12px;color:#fff'>Reunión</center></b>",
+                    width: 35,
+                    attributes: {
+                        style: "font-size:13px;text-align:center;"
+                    }
+                }, {
+                    field: "ConversionLeads_CantidadClientesVenta_renovacion",
+                    title: "<b><center style='font-size:12px;color:#fff'>Cierres</center></b>",
+                    width: 35,
+                    attributes: {
+                        style: "font-size:13px;text-align:center;"
+                    }
+                }]
+            });
+        }
+
+        function uspListarMetasDetalle_ConversionLeads_Reinscripciones(datos) {
+
+            $("#gridConversionLeads_Reinscripciones").empty();
+            $("#gridConversionLeads_Reinscripciones").kendoGrid({
+                dataSource: {
+                    type: "json",
+                    transport: {
+                        read: function (options) {
+                            options.success(datos);
+                        }
+                    }
+                },
+                height: 250,
+                columns: [{
+                    field: "NombreCompleto",
+                    title: "Vendedor",
+                    width: 45,
+                    attributes: {
+                        style: "font-size:13px;text-align:left;"
+                    }
+                }, {
+                    field: "ConversionLeads_CantidadReinscripciones",
+                    title: "<b><center style='font-size:12px;color:#fff'>Contactos</center></b>",
+                    width: 35,
+                    attributes: {
+                        style: "font-size:13px;text-align:center;"
+                    }
+                }, {
+                    field: "ConversionLeads_ActividadCita_Reinscripciones",
+                    title: "<b><center style='font-size:12px;color:#fff'>Citas</center></b>",
+                    width: 35,
+                    attributes: {
+                        style: "font-size:13px;text-align:center;"
+                    }
+                }, {
+                    field: "ConversionLeads_ActividadReunion_Reinscripciones",
+                    title: "<b><center style='font-size:12px;color:#fff'>Reunión</center></b>",
+                    width: 35,
+                    attributes: {
+                        style: "font-size:13px;text-align:center;"
+                    }
+                }, {
+                    field: "ConversionLeads_CantidadClientesVenta_reinscripcion",
+                    title: "<b><center style='font-size:12px;color:#fff'>Cierres</center></b>",
+                    width: 35,
+                    attributes: {
+                        style: "font-size:13px;text-align:center;"
+                    }
+                }]
+            });
+        }
+
+        function uspListarMetasDetalle_ConversionLeads_Prospeccion(datos) {
+
+            $("#gridConversionLeads_Prospeccion").empty();
+            $("#gridConversionLeads_Prospeccion").kendoGrid({
+                dataSource: {
+                    type: "json",
+                    transport: {
+                        read: function (options) {
+                            options.success(datos);
+                        }
+                    }
+                },
+                height: 250,
+                columns: [{
+                    field: "NombreCompleto",
+                    title: "Vendedor",
+                    width: 45,
+                    attributes: {
+                        style: "font-size:13px;text-align:left;"
+                    }
+                }, {
+                    field: "ConversionLeads_CantidadProspeccion",
+                    title: "<b><center style='font-size:12px;color:#fff'>Contactos</center></b>",
+                    width: 35,
+                    attributes: {
+                        style: "font-size:13px;text-align:center;"
+                    }
+                }, {
+                    field: "ConversionLeads_ActividadCitas_prospeccion",
+                    title: "<b><center style='font-size:12px;color:#fff'>Citas</center></b>",
+                    width: 35,
+                    attributes: {
+                        style: "font-size:13px;text-align:center;"
+                    }
+                }, {
+                    field: "ConversionLeads_ActividadReunion_prospeccion",
+                    title: "<b><center style='font-size:12px;color:#fff'>Reunión</center></b>",
+                    width: 35,
+                    attributes: {
+                        style: "font-size:13px;text-align:center;"
+                    }
+                }, {
+                    field: "ConversionLeads_CantidadClientesVenta_prospeccion",
+                    title: "<b><center style='font-size:12px;color:#fff'>Cierres</center></b>",
+                    width: 35,
+                    attributes: {
+                        style: "font-size:13px;text-align:center;"
+                    }
+                }]
+            });
+        }
+
+        function uspListarMetasDetalle_ConversionLeads_Digital(datos) {
+
+            $("#gridConversionLeads_Digital").empty();
+            $("#gridConversionLeads_Digital").kendoGrid({
+                dataSource: {
+                    type: "json",
+                    transport: {
+                        read: function (options) {
+                            options.success(datos);
+                        }
+                    }
+                },
+                height: 250,
+                columns: [{
+                    field: "NombreCompleto",
+                    title: "Vendedor",
+                    width: 45,
+                    attributes: {
+                        style: "font-size:13px;text-align:left;"
+                    }
+                }, {
+                    field: "ConversionLeads_CantidadDigital",
+                    title: "<b><center style='font-size:12px;color:#fff'>Contactos</center></b>",
+                    width: 35,
+                    attributes: {
+                        style: "font-size:13px;text-align:center;"
+                    }
+                }, {
+                    field: "ConversionLeads_ActividadCita_digital",
+                    title: "<b><center style='font-size:12px;color:#fff'>Citas</center></b>",
+                    width: 35,
+                    attributes: {
+                        style: "font-size:13px;text-align:center;"
+                    }
+                }, {
+                    field: "ConversionLeads_ActividadReunion_digital",
+                    title: "<b><center style='font-size:12px;color:#fff'>Reunión</center></b>",
+                    width: 35,
+                    attributes: {
+                        style: "font-size:13px;text-align:center;"
+                    }
+                }, {
+                    field: "ConversionLeads_CantidadClientesVenta_digital",
+                    title: "<b><center style='font-size:12px;color:#fff'>Cierres</center></b>",
+                    width: 35,
+                    attributes: {
+                        style: "font-size:13px;text-align:center;"
+                    }
+                }]
+            });
+        }
+
+        function uspListarMetasDetalle_ConversionLeads_LlamadaE(datos) {
+
+            $("#gridConversionLeads_LlamadaE").empty();
+            $("#gridConversionLeads_LlamadaE").kendoGrid({
+                dataSource: {
+                    type: "json",
+                    transport: {
+                        read: function (options) {
+                            options.success(datos);
+                        }
+                    }
+                },
+                height: 250,
+                columns: [{
+                    field: "NombreCompleto",
+                    title: "Vendedor",
+                    width: 45,
+                    attributes: {
+                        style: "font-size:13px;text-align:left;"
+                    }
+                }, {
+                    field: "ConversionLeads_CantidadLlamadaE",
+                    title: "<b><center style='font-size:12px;color:#fff'>Atendidas</center></b>",
+                    width: 35,
+                    attributes: {
+                        style: "font-size:13px;text-align:center;"
+                    }
+                }, {
+                    field: "ConversionLeads_ActividadCita_llamadaE",
+                    title: "<b><center style='font-size:12px;color:#fff'>Citas</center></b>",
+                    width: 35,
+                    attributes: {
+                        style: "font-size:13px;text-align:center;"
+                    }
+                }, {
+                    field: "ConversionLeads_ActividadReunion_llamadaE",
+                    title: "<b><center style='font-size:12px;color:#fff'>Reunión</center></b>",
+                    width: 35,
+                    attributes: {
+                        style: "font-size:13px;text-align:center;"
+                    }
+                }, {
+                    field: "ConversionLeads_CantidadClientesVenta_llamadaentrante",
+                    title: "<b><center style='font-size:12px;color:#fff'>Cierres</center></b>",
+                    width: 35,
+                    attributes: {
+                        style: "font-size:13px;text-align:center;"
+                    }
+                }]
+            });
+        }
+
+
+        function getCookie(cname) {
+            var name = cname + "=";
+            var ca = document.cookie.split(';');
+            for (var i = 0; i < ca.length; i++) {
+                var c = ca[i].trim();
+                if (c.indexOf(name) == 0) return c.substring(name.length, c.length);
+            }
+            return "";
+        }
+
+        function SEGListarPerfilMenu() {
+
+            var entidad = {};
+
+            document.getElementById('loadMe').style.display = 'block';
+            $('button[type="button"]').attr("disabled", true);
+            var metodoCorrecto = function (msg) {
+
+                $('button[type="button"]').attr("disabled", false);
+                document.getElementById('loadMe').style.display = 'none';
+
+                for (var i = 0; i < msg.length; i++) {
+
+                    if (msg[i].Estado) {
+                        $('[data-controlmodulo="' + msg[i].CodigoMenu + '"]').show('fast');
+
+                    }
+                }
+
+            };
+            var metodoError = function (msg) {
+                alert(msg);
+            };
+            var request = {
+                //request: entidad
+            };
+            LlamarAJAX("/gestionce/SEGListarPerfilMenu", request, metodoCorrecto, metodoError);
+
+        }
+
+
+    </script>
+
+}

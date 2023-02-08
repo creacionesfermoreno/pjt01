@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Generator: Adobe Illustrator 16.0.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="170px"
+	 height="170px" viewBox="0 0 170 170" enable-background="new 0 0 170 170" xml:space="preserve">
+<g id="Background">
+</g>
+<g id="Circle">
+	<g>
+		<path fill="#FFFFFF" d="M85,170c-46.869,0-85-38.131-85-85S38.131,0,85,0s85,38.131,85,85S131.869,170,85,170z"/>
+	</g>
+</g>
+<g id="TEXT">
+</g>
+<g id="Icons">
+	<g>
+		<path fill="none" stroke="#282D33" stroke-width="4" d="M120.16,60.24h3.791c1.608,0,2.913-1.305,2.913-2.916v-9.941
+			c0-1.609-1.305-2.914-2.913-2.914h-3.791"/>
+		<path fill="none" stroke="#282D33" stroke-width="4" d="M120.16,105.572h3.791c1.608,0,2.913-1.303,2.913-2.914v-9.943
+			c0-1.607-1.305-2.912-2.913-2.912h-3.791"/>
+		<path fill="none" stroke="#282D33" stroke-width="4" d="M120.16,82.906h3.791c1.608,0,2.913-1.305,2.913-2.916v-9.941
+			c0-1.608-1.305-2.914-2.913-2.914h-3.791"/>
+		<polyline fill="none" stroke="#282D33" stroke-width="4" points="72.775,127.84 72.775,134.674 64.211,130.697 55.645,134.674 
+			55.645,127.84 		"/>
+		<path fill="none" stroke="#282D33" stroke-width="4" d="M112.393,40.135H50.295v81.589h62.098c1.608,0,2.912-1.306,2.912-2.915
+			v-75.76C115.305,41.44,114.001,40.135,112.393,40.135z"/>
+		<g>
+			<path fill="none" stroke="#282D33" stroke-width="4" d="M93.729,90.742c-2.918,2.207-6.55,3.516-10.489,3.516
+				c-9.609,0-17.402-7.791-17.402-17.4c0-9.613,7.793-17.402,17.402-17.402c5.425,0,10.271,2.484,13.465,6.379"/>
+			<path fill="none" stroke="#282D33" stroke-width="4" d="M88.727,68.736c0,0-7.147-1.631-11.287,2.256
+				c-4.979,4.681-3.902,11.955,0.754,13.294c4.576,1.317,6.328-2.194,6.861-3.732C85.59,79.02,88.727,68.736,88.727,68.736z"/>
+			<path fill="none" stroke="#282D33" stroke-width="4" d="M88.225,70.492c0,0-3.062,10.738-0.942,12.667
+				c6.209,5.644,20.506-9.03,6.584-20.131"/>
+		</g>
+	</g>
+</g>
+</svg>

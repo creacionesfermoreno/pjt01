@@ -1,0 +1,278 @@
+﻿@model IEnumerable<BotComers.ViewModels.EmpresaViewEditModel>
+
+@{
+    ViewBag.Title = "INICIAR SESIÓN";
+    Layout = "~/Views/Shared/_LayoutAppfitInicio.cshtml";
+}
+
+<!DOCTYPE html>
+
+    <html lang="en">
+    <head>
+
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+        <title>login</title>
+        <link href="@Url.Content("~/Content/app/css/slim.css")" rel="stylesheet" />
+        <link href="@Url.Content("~/Content/app/lib/Ionicons/css/ionicons.css")" rel="stylesheet" />
+
+        <style>
+            .btn-signin {
+                font-weight: 500;
+                font-size: 13px;
+                text-transform: uppercase;
+                letter-spacing: 1px;
+                margin-bottom: 40px;
+                border: 0;
+                min-height: 40px;
+                background-image: linear-gradient(to right, #ff0200 35%, #ffab28 100%);
+                background-repeat: repeat-x;
+            }
+
+            .slim-logo {
+                color: #ff2308
+            }
+        </style>
+        <style>
+        :root {
+            --urlLogoPagina: @HttpContext.Current.Request.Cookies["_LogoTipo"].Value;
+            --colorPrincipal: @HttpContext.Current.Request.Cookies["_ColorEmpresa_PersonaFit"].Value;
+        }
+        </style>
+
+        <!-- Facebook Pixel Code -->
+        <script>
+            !function (f, b, e, v, n, t, s) {
+                if (f.fbq) return; n = f.fbq = function () {
+                    n.callMethod ?
+                    n.callMethod.apply(n, arguments) : n.queue.push(arguments)
+                };
+                if (!f._fbq) f._fbq = n; n.push = n; n.loaded = !0; n.version = '2.0';
+                n.queue = []; t = b.createElement(e); t.async = !0;
+                t.src = v; s = b.getElementsByTagName(e)[0];
+                s.parentNode.insertBefore(t, s)
+            }(window, document, 'script',
+                'https://connect.facebook.net/en_US/fbevents.js');
+            fbq('init', '299216191529955');
+            fbq('track', 'PageView');
+        </script>
+        <noscript>
+            <img height="1" width="1" style="display:none"
+                 src="https://www.facebook.com/tr?id=299216191529955&ev=PageView&noscript=1" />
+        </noscript>
+        <!-- End Facebook Pixel Code -->
+
+    </head>
+    <body style="background-color:#e9ebee;">
+
+        <header style="background-color:#000;">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-xs-3">
+                        <a href="@Url.Action("login", "pg", new { id = HttpContext.Current.Request.Cookies["_SubDominio_PersonaFit"].Value })" id="logo">
+                            <img src="@HttpContext.Current.Request.Cookies["_LogoTipo"].Value" width="95" height="27" alt="" data-retina="true" class="logo_normal">
+                        </a>
+                    </div>
+                    <nav class="col-xs-9">
+                        <ul id="access_top">
+                            <li>
+                                <a href="@Url.Action("login", "pg", new { id = HttpContext.Current.Request.Cookies["_SubDominio_PersonaFit"].Value })" style="color: white;background-color: var(--colorPrincipal);font-size: 20px;border-radius: 0px;" class="hidden-xs">
+                                    <div class="icon icon-man-people-streamline-user">Iniciar sesión</div>
+                                </a>
+                            </li>
+                        </ul>
+                        <a class="cmn-toggle-switch cmn-toggle-switch__htx open_close" href="javascript:void(0);"><span>Menu mobile</span></a>
+                        <div class="main-menu">
+                            <div id="header_menu">
+                                
+                            </div>
+                            <a href="#" class="open_close" id="close_in"><i class="icon_close"></i></a>
+                            <ul>
+                                <li style="display:none;">
+                                    <a href="@Url.Action("inicio", "pg", new { id = HttpContext.Current.Request.Cookies["_SubDominio_PersonaFit"].Value })">INICIO</a>
+                                </li>
+                                <li style="display:none;">
+                                    <a href="@Url.Action("entrenaonline", "pg", new { id = HttpContext.Current.Request.Cookies["_SubDominio_PersonaFit"].Value })">ENTRENA ONLINE</a>
+                                </li>
+                                <li style="display:none;">
+                                    <a href="@Url.Action("videoteca", "pg", new { id = HttpContext.Current.Request.Cookies["_SubDominio_PersonaFit"].Value })">GIMNASIO TV</a>
+                                </li>
+                                <li style="display:none;">
+                                    <a href="@Url.Action("tienda", "pg", new { id = HttpContext.Current.Request.Cookies["_SubDominio_PersonaFit"].Value })">TIENDA</a>
+                                </li>
+                            </ul>
+                        </div>
+                        <!-- End main-menu -->
+                    </nav>
+                </div>
+                <!-- End row -->
+            </div>
+            <!-- End container -->
+        </header>
+
+        <br />
+        <div class="signin-wrapper" style="">
+            <div class="signin-box">
+                <div class="mb-3">
+                    <center>
+                        <img src="@ViewBag.LogoCorporativo" alt="Gimnasio" width="100" class="rounded-circle">
+                    </center>
+                </div>
+                <h2 class="slim-logo" style="color:var(--colorPrincipal);">Accede a tu espacio<span>.</span></h2>
+                <div class="form-group">
+                    @{  if (Model != null)
+                        {
+                            if (Model.Count() > 1)
+                            {
+                                <label>seleccionar sede</label>
+                            }
+                        }
+                    }
+                    <div id="validacion_sede" style="font-size:13px; color:var(--colorPrincipal);display:none;">
+                        Falta seleccionar sede...
+                    </div>
+                    <select id="txtUsuario_CodigoSede" class="form-control select2" style="font-size:18px;height:40px;" name="SelectedValue">
+
+                        @if (Model != null)
+                        {
+                            foreach (var item in Model)
+                            {
+                                <option value="@item.CodigoSede">@item.NombreComercialEmpresa</option>
+                            }
+                        }
+
+                    </select>
+                </div><!-- form-group -->
+                <div class="row row-xs mg-b-10">
+                    <div class="col-sm mg-t-10 mg-sm-t-0">
+                        <div id="validacion_usuario" style="font-size:13px; color:var(--colorPrincipal);display:none;">
+                            Falta ingresar usuario...
+                        </div>
+                        <input id="txtUsuario_Identificacion" type="text" class="form-control" placeholder="Ingrese DNI/CE/CC" style="font-size:16px;font-weight:bold;">
+                    </div>
+                </div><!-- row -->
+                <div class="row row-xs mg-b-10">
+                    <div class="col-sm mg-t-10 mg-sm-t-0">
+                        <div id="validacion_clave" style="font-size:13px; color:var(--colorPrincipal);display:none;">
+                            Falta ingresar contraseña...
+                        </div>
+                        <input id="txtUsuario_Clave" type="password" class="form-control" placeholder="Ingrese Contraseña" style="font-size:16px;font-weight:bold;">
+                    </div>
+                </div><!-- row -->
+                <div class="row row-xs mg-b-10">
+                    <div class="col-12 mg-t-10 mg-sm-t-0">
+                        <button onclick="ingresarAppsfit();" type="button" class="btn btn-primary btn-block " style="font-size:18px;background-color: var(--colorPrincipal);border: 1px solid var(--colorPrincipal);color:#fff;font-weight: bold;">
+                            Ingresar
+                        </button>
+                    </div>
+                </div><!-- form-group -->
+                <div class="row row-xs mg-b-10" style="display:none;">
+                    <div class="col-12 mg-t-10 mg-sm-t-0">
+                        <button id="loginFacebook" type="button" class="btn btn-primary btn-block " style="font-size:18px;background-color: #fff;border: 1px solid #1877f2;color:#1877f2;font-weight: bold;">
+                            <i class="fa ion-social-facebook" style=""></i>
+                            Ingresar con Facebook
+                        </button>
+                    </div>
+                </div><!-- form-group -->
+                <div id="modalAviso" class="form-group" style="display:none;">
+                    <label style="color:red;" id="lblMensajeLogin" ></label>
+                </div><!-- form-group -->
+                <p style="font-size:18px;" class="mg-b-0">No tienes una cuenta? <a href="@Url.Action("registrate","pg", new {id= HttpContext.Current.Request.Cookies["_SubDominio_PersonaFit"].Value})" style="color:var(--colorPrincipal);">Registrate</a></p>
+            </div><!-- signin-box -->
+
+        </div>
+
+        @System.Web.Optimization.Scripts.Render("~/Content/app/lib/jquery/js/jquery.js")
+        @System.Web.Optimization.Scripts.Render("~/Content/app/lib/popper.js/js/popper.js")
+        @System.Web.Optimization.Scripts.Render("~/Content/app/lib/bootstrap/js/bootstrap.js")
+        @System.Web.Optimization.Scripts.Render("~/Content/app/js/slim.js")
+
+        @System.Web.Optimization.Scripts.Render("~/Scripts/plugins/jsKendo/angular.min.js")
+        @System.Web.Optimization.Scripts.Render("~/Scripts/plugins/jsKendo/kendo.all.min.js")
+
+        @System.Web.Optimization.Scripts.Render("~/Scripts/plugins/jquery-ui/jquery-ui.js")
+        @System.Web.Optimization.Scripts.Render("~/Scripts/plugins/jquery-ui/jquery-ui.min.js")
+
+        @System.Web.Optimization.Scripts.Render("~/Scripts/bootstrap-notify-master/bootstrap-notify.js")
+        @System.Web.Optimization.Scripts.Render("~/Scripts/bootstrap-notify-master/bootstrap-notify.min.js")
+        @System.Web.Optimization.Scripts.Render("~/Scripts/jsBootstrap/jquery.bootstrap-growl.js")
+
+        @System.Web.Optimization.Scripts.Render("~/Resource/UserControl.Helper.js")
+        @*@System.Web.Optimization.Scripts.Render("~/Scripts/jsFacebook/configuracionfacebook_appsfit.js")*@
+
+        <script type="text/javascript">
+
+            $(document).ready(function () {
+              
+                var expiry = new Date();
+                expiry.setTime(expiry.getTime() - 3600);             
+                document.cookie = "_Usuario_PersonaFit=; expires=" + expiry.toGMTString() + "; path=/";
+                document.cookie = "_CodigoSocio_PersonaFit=; expires=" + expiry.toGMTString() + "; path=/";
+                document.cookie = "_CodigoPaquete_PersonaFit=; expires=" + expiry.toGMTString() + "; path=/";
+                document.cookie = "_CodigoMembresia_PersonaFit=; expires=" + expiry.toGMTString() + "; path=/";
+
+                document.cookie = "_urlBannerReserva=; expires=" + expiry.toGMTString() + "; path=/";
+                document.cookie = "_urlBannerCentro=; expires=" + expiry.toGMTString() + "; path=/";
+                
+            });
+
+            function ingresarAppsfit() {
+
+                var entidad = {};
+                entidad.CodigoSede = $('select[id="txtUsuario_CodigoSede"] option:selected').val();
+                entidad.UserName = $('#txtUsuario_Identificacion').val();
+                entidad.PasswordHash = $('#txtUsuario_Clave').val();
+               
+                if (entidad.CodigoSede == undefined || entidad.CodigoSede == 0) {                    
+                    document.getElementById("validacion_sede").style.display = '';
+                    return false;
+                } else {
+                    document.getElementById("validacion_sede").style.display = 'none';
+                }
+
+                if (entidad.UserName == "") {
+                    document.getElementById("validacion_usuario").style.display = '';
+                    return false;
+                } else {
+                    document.getElementById("validacion_usuario").style.display = 'none';
+                }
+
+                if (entidad.PasswordHash == "") {
+                    document.getElementById("validacion_clave").style.display = '';                    
+                    return false;
+                } else {
+                    document.getElementById("validacion_clave").style.display = 'none';
+                }
+
+                $('button').attr('disabled', 'disabled');
+                var metodoCorrecto = function (msg) {
+                    //1 = ¡El usuario y contraseña son correctos!
+                    //2 = ¡La contraseña es incorrecta!
+                    //3 = ¡Este usuario aún no se ha registrado!
+                    if (msg == "2") {
+                        $('button').removeAttr('disabled');
+                        document.getElementById('modalAviso').style.display = '';
+                        $('#lblMensajeLogin').html("¡La contraseña es incorrecta!");
+                    } else if (msg == "3") {
+                        $('button').removeAttr('disabled');
+                        document.getElementById('modalAviso').style.display = '';
+                        $('#lblMensajeLogin').html("¡Este usuario aún no se ha registrado!");
+                    }
+                    else {
+                        window.location.href = msg;
+                    }
+                };
+                var metodoError = function (msg) {
+                    alert(msg);
+                };
+                var request = {
+                    request: entidad
+                };
+                LlamarAJAX("/pg/ingresarPersonaFit", request, metodoCorrecto, metodoError);
+
+            }
+
+        </script>
+    </body>
+    </html>

@@ -1,0 +1,2166 @@
+﻿
+@{
+    ViewBag.Title = "ecuador";
+    Layout = "~/Views/Shared/_LayoutPaginaWebAppsfit1.cshtml";
+}
+
+
+<!-- Your SDK code -->
+<script>
+    window.fbAsyncInit = function () {
+        FB.init({
+            xfbml: true,
+            version: 'v13.0'
+        });
+    };
+
+    (function (d, s, id) {
+        var js, fjs = d.getElementsByTagName(s)[0];
+        if (d.getElementById(id)) return;
+        js = d.createElement(s); js.id = id;
+        js.src = 'https://connect.facebook.net/es_ES/sdk/xfbml.customerchat.js';
+        fjs.parentNode.insertBefore(js, fjs);
+    }(document, 'script', 'facebook-jssdk'));
+</script>
+<!--Start Preloader-->
+<div class="preloader">
+    <div class="preloader_box">
+        <div class="loader">
+            <div class="circle item0"></div>
+            <div class="circle item1"></div>
+            <div class="circle item2"></div>
+        </div>
+    </div>
+</div>
+<!--End Preloader-->
+<!--Header-->
+<header class="header_v4">
+    <section class="header_top" style="background-color:#ff0200;">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8">
+                    <div class="text_left">
+                        <ul>
+                            <li><span class="fa fa-phone"></span>(+593) 96 304 3457</li>
+                            <li><span class="fa fa-envelope"></span>0s3gym@gmail.com</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <div class="text_right text-right">
+                        <ul class="social-media">
+                            <li><a href="#"><i class="fa fa-facebook"></i></a></li>
+                            <li><a href="#"><i class="fa fa-instagram"></i></a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="navbar_outer">
+        <div class="navbar navbar-expand-lg  bsnav bsnav-sticky bsnav-sticky-slide">
+            <div class="container">
+                <a class="navbar-brand" href="#home">
+                    <img src="~/Content/appsfit_img/logoappsfitweb.jpg" class="img-fluid" alt="img">
+                </a>
+                <button class="navbar-toggler toggler-spring"><span class="navbar-toggler-icon"></span></button>
+                <div class="collapse navbar-collapse scroll-nav">
+                    <ul class="navbar-nav navbar-mobile navbar_left  ml-auto" id="nav">
+
+                        <li class="nav-item nav_item active  dropdown">
+                            <a class="nav-link link_hd" href="#">Centros Fitness</a>
+                            <ul class="navbar-nav submenu">
+                                <li class="nav-item"><a class="nav-link" href="#">Gimnasios y Cadenas</a></li>
+                                <li class="nav-item"><a class="nav-link" href="#">Escuela de Natación</a></li>
+                                <li class="nav-item"><a class="nav-link" href="#">Dance Studios</a></li>
+                                <li class="nav-item"><a class="nav-link" href="#">Estudios de Yoga y Pilates</a></li>
+                                <li class="nav-item"><a class="nav-link" href="#">Artes Marciales</a></li>
+                                <li class="nav-item" style="display:none;"><a class="nav-link" href="index-2.html">Home Default 02 <span class="new_page">nuevo</span></a></li>
+
+                            </ul>
+                        </li>
+                        <li class="nav-item nav_item dropdown">
+                            <a class="nav-link link_hd" href="#">Funciones</a>
+                            <ul class="navbar-nav submenu">
+                                <li class="nav-item"><a class="nav-link" href="#" style="font-size:12px;">Registrar tus PROSPECTOS</a></li>
+                                <li class="nav-item"><a class="nav-link" href="#" style="font-size:12px;">EMITE comprobantes electronicos</a></li>
+                                <li class="nav-item"><a class="nav-link" href="#" style="font-size:12px;">Gestiona todos tus clientes (C.R.M)</a></li>
+                                <li class="nav-item"><a class="nav-link" href="#" style="font-size:12px;">Controla ASISTENCIA de clientes y staff</a></li>
+                                <li class="nav-item"><a class="nav-link" href="#" style="font-size:12px;">Gestiona con AGENDA COMERCIAL</a></li>
+                                <li class="nav-item"><a class="nav-link" href="#" style="font-size:12px;">Revisa el PIPELINE de cada VENDEDOR</a></li>
+                                <li class="nav-item"><a class="nav-link" href="#" style="font-size:12px;">Automatiza CONTABILIDAD y FINANZAS</a></li>
+                                <li class="nav-item"><a class="nav-link" href="#" style="font-size:12px;">Controla STOCKS e INVENTARIOS</a></li>
+                                <li class="nav-item"><a class="nav-link" href="#" style="font-size:12px;">INTEGRACIÓN para RESERVAS DE CLASES</a></li>
+                                <li class="nav-item"><a class="nav-link" href="#" style="font-size:12px;">REPORTES y estadistícas (K.P.I)</a></li>
+                                <li class="nav-item" style="display:none;"><a class="nav-link" href="index-2.html">Home Default 02 <span class="new_page">nuevo</span></a></li>
+
+                            </ul>
+                        </li>
+                        <li class="nav-item nav_item dropdown">
+                            <a class="nav-link link_hd" href="#">  Blog  </a>
+                            <ul class="navbar-nav submenu" style="display:none;">
+                                <li class="nav-item dropdown">
+                                    <a class="nav-link arrow" href="#">Blog Grid </a>
+                                    <ul class="navbar-nav child_menu">
+                                        <li class="nav-item"><a class="nav-link" href="blog-three-column.html">Blog Three Column</a></li>
+                                        <li class="nav-item"><a class="nav-link" href="blog-four-column.html">Blog Four Column</a></li>
+                                        <li class="nav-item"><a class="nav-link" href="blog-single.html">Blog With Sidebar</a></li>
+                                    </ul>
+                                </li>
+                                <li class="nav-item dropdown">
+                                    <a class="nav-link arrow" href="#">Blog Details </a>
+                                    <ul class="navbar-nav child_menu">
+                                        <li class="nav-item"><a class="nav-link" href="blog-detail-sidebar.html">With Sidebar</a></li>
+                                        <li class="nav-item"><a class="nav-link" href="blog-detail.html">Without Sidebar</a></li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="nav-item nav_item"><a class="nav-link link_hd" href="#testimonials">Testimonios </a></li>
+
+                        <li class="nav-item nav_item"><a class="nav-link link_hd" href="contact.html">Contacto</a></li>
+                    </ul>
+                    <ul class="navbar-nav navbar-mobile navbar_right">
+                        <li class="nav-item  dropdown">
+                            <a href="#" class="topbar-one__search search-popup__toggler"><i class="flaticon-search icon"></i></a>
+                        </li>
+                        <li class="nav-item  dropdown">
+                            <!-- /.site-header__cart -->
+                            <a href="#" class="site-header__sidemenu-nav side-menu__toggler">
+                                <span class="site-header__sidemenu-nav-line"></span>
+                                <!-- /.site-header__sidemenu-nav-line -->
+                                <span class="site-header__sidemenu-nav-line"></span>
+                                <!-- /.site-header__sidemenu-nav-line -->
+                                <span class="site-header__sidemenu-nav-line"></span>
+                                <!-- /.site-header__sidemenu-nav-line -->
+                                <!-- /.site-header__sidemenu -->
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+</header>
+<!--Header-->
+<!--begin header -->
+<header class="header" style="display:none;">
+
+    <!--begin navbar-fixed-top -->
+    <nav class="navbar navbar-default navbar-fixed-top">
+
+        <!--begin container -->
+        <div class="container">
+
+            <!--begin navbar -->
+            <nav class="navbar navbar-expand-lg">
+
+                <!--begin logo -->
+                <img src="~/Content/appsfit_img/logoappsfitweb.jpg" style="width:165px;height:55px;" />
+                <!--end logo -->
+                <!--begin navbar-toggler -->
+                <button class="navbar-toggler collapsed" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"><i class="fas fa-bars"></i></span>
+                </button>
+                <!--end navbar-toggler -->
+                <!--begin navbar-collapse -->
+                <div class="navbar-collapse collapse" id="navbarCollapse" style="">
+
+                    <!--begin navbar-nav -->
+                    <ul class="navbar-nav ml-auto">
+
+                        <li><a href="#home" style="color:#071e55;">Inicio</a></li>
+
+                        <li><a href="#testimonials" style="color:#071e55;">Testimonios</a></li>
+                        <li>
+                            Funciones
+                            <ul><a href="#services">Control y gestión</a></ul>
+                        </li>
+                        <li><a href="#services">CRM y Ventas</a></li>
+                        <li><a href="#services">Reservas clases</a></li>
+                        <li style="display:none;"><a href="@Url.Action("precios","es")">Precios</a></li>
+
+                        <li><a href="#blog">Blog</a></li>
+
+                        <li><a target="_blank" href="https://m.me/softwareparagimnasios?ref=w13992993" class="external discover-btn">¡SOLICITA UNA DEMO!</a></li>
+
+                    </ul>
+                    <!--end navbar-nav -->
+
+                </div>
+                <!--end navbar-collapse -->
+
+            </nav>
+            <!--end navbar -->
+
+        </div>
+        <!--end container -->
+
+    </nav>
+    <!--end navbar-fixed-top -->
+
+</header>
+<!--end header -->
+
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+
+<style>
+
+    img.btn-whatsapp {
+        display: block !important;
+        position: fixed;
+        z-index: 9999999;
+        bottom: 20px;
+        left: 20px;
+        cursor: pointer;
+        border-radius: 100px !important;
+    }
+
+        img.btn-whatsapp:hover {
+            border-radius: 100px !important;
+            -webkit-box-shadow: 0px 0px 15px 0px rgba(7,94,84,1);
+            -moz-box-shadow: 0px 0px 15px 0px rgba(7,94,84,1);
+            box-shadow: 0px 0px 15px 0px rgba(7,94,84,1);
+            transition-duration: 1s;
+        }
+</style>
+<!--begin home section -->
+<!-- Facebook Pixel Code -->
+<script>
+    !function (f, b, e, v, n, t, s) {
+        if (f.fbq) return; n = f.fbq = function () {
+            n.callMethod ?
+                n.callMethod.apply(n, arguments) : n.queue.push(arguments)
+        };
+        if (!f._fbq) f._fbq = n; n.push = n; n.loaded = !0; n.version = '2.0';
+        n.queue = []; t = b.createElement(e); t.async = !0;
+        t.src = v; s = b.getElementsByTagName(e)[0];
+        s.parentNode.insertBefore(t, s)
+    }(window, document, 'script',
+        'https://connect.facebook.net/en_US/fbevents.js');
+    fbq('init', '307990113880229');
+    fbq('track', 'PageView');
+</script>
+
+<!-- Messenger Plugin de chat Code -->
+<div id="fb-root"></div>
+
+<!-- Your Plugin de chat code -->
+<div id="fb-customer-chat" class="fb-customerchat">
+</div>
+
+<script>
+    var chatbox = document.getElementById('fb-customer-chat');
+    chatbox.setAttribute("page_id", "105013807947692");
+    chatbox.setAttribute("attribution", "biz_inbox");
+</script>
+
+
+
+<noscript>
+    <img height="1" width="1" style="display:none"
+         src="https://www.facebook.com/tr?id=307990113880229&ev=PageView&noscript=1" />
+</noscript>
+<!-- End Facebook Pixel Code -->
+
+<img class="btn-whatsapp" src="https://clientes.dongee.com/whatsapp.png" width="64" height="64" alt="Whatsapp" onclick="window.location.href='https://wa.me/593963043457?text=Hola%20Appsfit!%20estoy%20interesado%20en%20el%20software%20para%20mi%20gimnasio,%20QUIERO%20MI%20DEMO'">
+
+
+<!--begin hero-wrapper -->
+<section class="hero-wrapper" id="home">
+
+    <!--begin section-blue -->
+    <div class="section-blue no-padding" style="background-color:#071e55;">
+
+        <!--begin container-->
+        <div class="container-fluid px-0">
+
+            <!--begin row-->
+            <div class="row no-gutters">
+
+                <!--begin col-md-6-->
+                <div class="col-md-6" style="color:#fff;text-align:center;">
+                    <img src="~/Content/paginaappsfit1/images/principal.png" class="width-100" alt="Happy">
+                    <b style="color:#fff;font-size:39px;">📲¡SOLICITA UNA DEMO!👉</b>
+                </div>
+                <!--end col-sm-6-->
+                <!--begin col-md-6-->
+                <div class="col-md-6 margin-top-50">
+
+                    <!--begin small-column-inside-->
+                    <div class="small-col-inside">
+
+                        <!--begin register-form-wrapper-->
+                        <div class="register-form-wrapper wow bounceIn" data-wow-delay="0.5s" style="visibility: visible; animation-delay: 0.5s; animation-name: bounceIn;">
+
+                            <h3 style="color:#071e55;font-weight:bold;">¿LISTO PARA TRANSFORMAR TU CENTRO FITNESS Y VIVIR LA EXPERIENCIA APPSFIT?</h3>
+
+                            <p class="white-text" style="color:#071e55;"><b style="color:#071e55;">Completa el formulario </b>para saber como APPSFIT puede cambiar de forma definitiva la gestión de tu negocio.</p>
+
+                            <!--begin form-->
+                            <div>
+
+                                <!--begin success message -->
+                                <p class="register_success_box" style="display:none;">We received your message and you'll hear from us soon. Thank You!</p>
+                                <!--end success message -->
+                                <!--begin register form -->
+                                <form id="register-form" class="register-form register" action="php/register.php" method="post">
+
+                                    <input id="txtLanding_NombresEmpresario" style="color:#071e55;" class="register-input" required="" name="register_names" placeholder="Nombre del empresario*" type="text">
+
+                                    <input id="txtLanding_NombresCentro" style="color:#071e55;" class="register-input" required="" name="register_names" placeholder="Nombre del gimnasio*" type="text">
+
+                                    <select id="ddlLanding_TipoCentro" class="register-input" required="" name="register_ticket">
+                                        <option value="Seleccionar">Tipo de Centro</option>
+                                        <option value="1">Gimnasio</option>
+                                        <option value="2">Cadenas</option>
+                                        <option value="3">CrossFit</option>
+                                        <option value="4">Yoga o Pilates</option>
+                                        <option value="5">Baile</option>
+                                        <option value="6">Boxeo</option>
+                                        <option value="7">Box</option>
+                                        <option value="8">Entrenador Personal</option>
+                                        <option value="9">Profesor de clases grupales</option>
+                                    </select>
+
+                                    <select id="ddlLanding_Problema" class="register-input" required="" name="register_ticket">
+                                        <option value="Seleccionar">¿Que estas buscando resolver?</option>
+                                        <option value="1">Controlar y organizar mi centro</option>
+                                        <option value="2">Clases online y en vivo</option>
+                                        <option value="3">Controlar mi aforo</option>
+                                        <option value="4">Plataforma de reserva de clases</option>
+                                        <option value="5" style="display:none;">App para reservas de clases</option>
+                                        <option value="6" style="display:none;">App para rutinas y dietas de mis clientes</option>
+                                        <option value="7">Otro</option>
+                                    </select>
+
+                                    <input onclick="EnviarDatos();" value="ENVIAR POR WHATSAPP" class="register-submit" type="button" style="color:#fff;border:0px #000 solid;background: linear-gradient(90deg, var(--colorPrincipal) 0%, var(--colorPrincipal) 35%, var(--colorSecundario) 100%);">
+                                    <div id="js-validacion" style="color:red;display:none;"></div>
+                                </form>
+                                <!--end register form -->
+
+                            </div>
+                            <!--end form-->
+
+                        </div>
+                        <!--end register-form-wrapper-->
+
+                    </div>
+                    <!--end small-column-inside-->
+                    <br />
+                </div>
+                <!--end col-sm-6-->
+
+            </div>
+            <!--end row-->
+
+        </div>
+        <!--end container-->
+
+    </div>
+    <!--section-blue-->
+
+</section>
+<!--end hero-wrapper -->
+<!--begin top-cta-blue -->
+<section class="top-cta-blue small-paddings" style="background-color:#fff;">
+    <br />
+    <!--begin container -->
+    <div class="container">
+
+        <!--begin row -->
+        <div class="row">
+
+            <!--begin col-md-3 -->
+            <div class="col-md-3" style="text-align:center;">
+                <i style="font-size:45px;color:#ff0200;" class="far fa-file-excel-o"></i>
+                <br /><br />
+                <h5 class="" style="color:#ff0200;">Olvídate de cuadernos y Excel</h5>
+
+                <p class="" style="color:#000;font-weight:bold;">Toma asistencias de manera rápida y simple. Gestiona todo tu Centro desde un sistema muy fácil de manejar.</p>
+
+            </div>
+            <!--end col-md-3 -->
+            <!--begin col-md-3 -->
+            <div class="col-md-3" style="text-align:center;">
+
+                <center><i style="font-size:45px;color:#ff0200;" class="fas fa-users"></i></center>
+                <br />
+                <h5 style="color:#ff0200;">
+                    Capta nuevos clientes y organizalos en el CRM
+                </h5>
+
+                <p style="color:#000;font-weight:bold;">Organiza tus prospectos, clientes por vencer y vencidos realizando el seguimiento de llamadas y citas muy facilmente.</p>
+
+            </div>
+            <!--end col-md-3 -->
+            <!--begin col-md-3 -->
+            <div class="col-md-3" style="text-align:center;">
+
+                <center><i style="font-size:45px;color:#ff0200;" class="fas fa-area-chart"></i></center>
+                <br />
+                <h5 style="color:#ff0200;">Controla y organiza tus finanzas</h5>
+
+                <p style="color:#000;font-weight:bold;">Mantén bajo control la contabilidad de tu centro organizando tus gastos administrativos y gastos de caja diaria, genera reportes de venta y obten tu utilidad al instante.</p>
+
+            </div>
+            <!--end col-md-3 -->
+            <!--begin col-md-3 -->
+            <div class="col-md-3" style="text-align:center;">
+
+                <center><i style="font-size:45px;color:#ff0200;" class="fas fa-star"></i></center>
+                <br />
+                <h5 style="color:#ff0200;">Controla el aforo y las reservas de tu centro</h5>
+
+                <p style="color:#000;font-weight:bold;">Olvidate de los correos o formularios que te generan mas trabajo, Automatiza las reservas de tus clientes conectado a tu sistema de Gestión appsfit.</p>
+
+            </div>
+            <!--end col-md-3 -->
+
+        </div>
+        <!--end row -->
+
+    </div>
+    <!--end container -->
+    <br />
+</section>
+<!--end top-cta-blue -->
+
+<section id="gestiongimnasio" class="home-section">
+
+    <div class="home-section-overlay"></div>
+
+    <!--begin container -->
+    <div class="container" id="banner1">
+
+        <!--begin container -->
+        <div class="container">
+
+            <!--begin row -->
+            <div class="row">
+
+                <!--begin col-md-12 -->
+                <div class="col-md-12 text-center">
+                    <br />
+                    <h1 style="color:#fff;font-size: 45px;" class="section-title">GESTIONA TU GIMNASIO  DESDE CUALQUIER LUGAR DEL MUNDO</h1>
+
+                    <p style="color:#fff;font-size: 21px;" class="section-subtitle">A medida que los gimnasios experimentan una transformación digital, Appsfit se posiciona como el software inteligente para facilitar la GESTIÓN TOTAL del centro fitness automatizando todas las areas y mejorando los resultados de tu equipo de trabajo y tu exito empresarial.</p>
+
+                </div>
+                <!--end col-md-12 -->
+
+            </div>
+            <!--end row -->
+            <!--begin row -->
+            <div class="row">
+
+                <!--begin col-md-12 -->
+                <div class="col-md-12 text-center">
+
+                    <img src="~/Content/paginaappsfit1/images/dispositivos3.png" style="width:100%;height: auto;max-width: 100%;object-fit: cover;" alt="appsfit">
+
+                </div>
+                <!--end col-md-12 -->
+
+            </div>
+            <!--end row -->
+
+        </div>
+        <!--end container -->
+        <!--begin services-wrapper -->
+        <div class="services-wrapper">
+
+            <!--begin container -->
+            <div class="container">
+
+                <div class="row">
+                    <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12">
+                        <div class="icon_box type_three wow fadeIn" data-wow-delay="00ms" data-wow-duration="1500ms">
+                            <i style="font-size: 45px; color: #fff;" class="fa fa-address-card-o"></i>
+                            <h4><a href="#" style="color:#fff;font-weight: bold;">Registra tus PROSPECTOS</a></h4>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12">
+                        <div class="icon_box type_three wow fadeIn" data-wow-delay="100ms" data-wow-duration="1500ms">
+                            <i style="font-size: 55px; color: #fff;" class="fa fa-money"></i>
+                            <h4><a href="#" style="color:#fff;font-weight: bold;">EMITE comprobantes electronicos</a></h4>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12">
+                        <div class="icon_box type_three wow fadeIn" data-wow-delay="100ms" data-wow-duration="1500ms">
+                            <i style="font-size: 55px; color: #fff;" class="fa fa-users"></i>
+                            <h4><a href="#" style="color:#fff;font-weight: bold;">Gestiona todos tus clientes (C.R.M)</a></h4>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12">
+                        <div class="icon_box type_three wow fadeIn" data-wow-delay="100ms" data-wow-duration="1500ms">
+                            <i style="font-size: 55px; color: #fff;" class="fa fa-check-circle"></i>
+                            <h4><a href="#" style="color:#fff;font-weight: bold;">Controla ASISTENCIA de clientes y staff</a></h4>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12">
+                        <div class="icon_box type_three wow fadeIn" data-wow-delay="100ms" data-wow-duration="1500ms">
+                            <i style="font-size: 55px; color: #fff;" class="fa fa-list-alt"></i>
+                            <h4><a href="#" style="color:#fff;font-weight: bold;">Gestiona con AGENDA COMERCIAL</a></h4>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12">
+                        <div class="icon_box type_three wow fadeIn" data-wow-delay="100ms" data-wow-duration="1500ms">
+                            <i style="font-size: 55px; color: #fff;" class="fa fa-table"></i>
+                            <h4><a href="#" style="color:#fff;font-weight: bold;">revisa el PIPELINE de cada VENDEDOR</a></h4>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12">
+                        <div class="icon_box type_three wow fadeIn" data-wow-delay="100ms" data-wow-duration="1500ms">
+                            <i style="font-size: 55px; color: #fff;" class="fa fa-clone"></i>
+                            <h4><a href="#" style="color:#fff;font-weight: bold;">Automatiza CONTABILIDAD y FINANZAS</a></h4>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12">
+                        <div class="icon_box type_three wow fadeIn" data-wow-delay="100ms" data-wow-duration="1500ms">
+                            <i style="font-size: 55px; color: #fff;" class="fa fa-barcode"></i>
+                            <h4><a href="#" style="color:#fff;font-weight: bold;">Controla STOCKS e INVENTARIOS</a></h4>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12">
+                        <div class="icon_box type_three wow fadeIn" data-wow-delay="100ms" data-wow-duration="1500ms">
+                            <i style="font-size: 55px; color: #fff;" class="fa fa-braille"></i>
+                            <h4><a href="#" style="color:#fff;font-weight: bold;">INTEGRACIÓN para RESERVAS DE CLASES</a></h4>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12">
+                        <div class="icon_box type_three wow fadeIn" data-wow-delay="100ms" data-wow-duration="1500ms">
+                            <i style="font-size: 55px; color: #fff;" class="fas fa-heartbeat"></i>
+                            <h4><a href="#" style="color:#fff;font-weight: bold;">Peso, medidas y AGENDA NUTRICIONAL</a></h4>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12">
+                        <div class="icon_box type_three wow fadeIn" data-wow-delay="100ms" data-wow-duration="1500ms">
+                            <i style="font-size: 55px; color: #fff;" class="fa fa-area-chart"></i>
+                            <h4><a href="#" style="color:#fff;font-weight: bold;">REPORTES Y estadísticas (K.P.I)</a></h4>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12">
+                        <div class="icon_box type_three wow fadeIn" data-wow-delay="100ms" data-wow-duration="1500ms">
+                            <i style="font-size: 55px; color: #fff;" class="fa fa-line-chart"></i>
+                            <h4><a href="#" style="color:#fff;font-weight: bold;">Lleva tu GIMNASIO al SIGUIENTE NIVEL</a></h4>
+                        </div>
+                    </div>
+                </div>
+
+                <br /><br />
+                <div class="row">
+                    <div class="col-md-12 text-center" style="position: relative;text-align:center;">
+
+                        <h1 style="color:#fff;font-size:39px;">¡Que la TECNOLOGIA trabaje para tí en el 2022!</h1>
+
+                        <div class="col-md-12">
+                            <center>
+                                <a style="border:1px #ff0200 solid;background-color:#ff0200;color:#fff;text-transform:uppercase;font-size:22px;" class="btn btn-primary btn-lg btn-block" href="#home">SOLICITAR PRUEBA GRATIS<br><span style="font-size:20px;">gratis los primeros 14 días</span></a>
+                            </center>
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+            <!--end container -->
+            <br /><br />
+        </div>
+        <!--end services-wrapper -->
+
+    </div>
+    <!--end container -->
+
+
+</section>
+<!--end home section -->
+
+<section class="section-white" id="services" style="background-color: #000000;">
+
+    <!--begin container -->
+    <div class="container">
+
+        <!--begin row -->
+        <div class="row">
+
+            <!--begin col-md-12 -->
+            <div class="col-md-12 text-center">
+                <h1 style="color:red;font-size: 55px;font-weight:bold;" class="section-title">APPSFIT</h1>
+
+                <h1 style="color:#fff;font-size: 55px;font-weight:bold;" class="section-title">El software inteligente de los centros de entrenamiento</h1>
+
+                <p class="section-subtitle" style="color:#fff;">
+                    Ofrecemos soluciones integrales para el crecimiento de tu centro.
+                </p>
+
+            </div>
+            <!--end col-md-12 -->
+
+        </div>
+        <!--end row -->
+
+    </div>
+    <!--end container -->
+    <!--begin container -->
+    <div class="container">
+
+        <!--begin row -->
+        <div class="row">
+
+            <!--begin col-md-4 -->
+            <div class="col-md-4">
+
+                <div class="our-services">
+
+
+                    <iframe width="800" height="250" src="https://www.youtube.com/embed/VUYNOHdEm1w?controls=0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen="">
+                    </iframe>
+
+                    <h3 style="color: red; font-size: 35px; font-weight: bold;text-align:center;">GESTIÓN Y CONTROL</h3>
+
+                    <p style="text-align: center;color: #FFF;">
+                        Olvídate de cuadernos y Excel
+                    </p>
+
+                </div>
+
+            </div>
+            <!--end col-md-4 -->
+            <!--begin col-md-4 -->
+            <div class="col-md-4">
+
+                <div class="our-services">
+
+                    <iframe width="800" height="250" src="https://www.youtube.com/embed/yxt4RZB1PM4?controls=0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen="">
+                    </iframe>
+
+                    <h3 style="color: red; font-size: 35px; font-weight: bold;text-align:center;">
+                        CRM Y VENTAS
+                    </h3>
+
+                    <p style="text-align: center;color: #FFF;">
+                        Organiza, audita y aumenta las renovaciones y reinscripciones de tus clientes.
+                    </p>
+
+                </div>
+
+            </div>
+            <!--end col-md-4 -->
+            <!--begin col-md-4 -->
+            <div class="col-md-4">
+
+                <div class="our-services">
+
+                    <iframe width="800" height="250" src="https://www.youtube.com/embed/M4vLgxLV_8U?controls=0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen="">
+                    </iframe>
+
+                    <h3 style="color: red; font-size: 35px; font-weight: bold;text-align:center;">
+                        PLATAFORMA WEB DE RESERVA DE CLASES
+                    </h3>
+
+                    <p style="text-align: center;color: #FFF;">
+                        comodidad y fidelización de tus clientes con tu centro.
+                    </p>
+                </div>
+
+            </div>
+            <!--end col-md-4 -->
+
+        </div>
+        <!--end row -->
+
+    </div>
+    <!--end container -->
+
+</section>
+
+<!--begin hero-wrapper -->
+<section id="" style="background-color:#fff;display:none;">
+    <br />
+    <br />
+    <br />
+    <!--begin section-blue -->
+    <div class="section-blue no-padding" style="background-color:#fff">
+
+        <!--begin container -->
+        <div class="container">
+
+            <!--begin row -->
+            <div class="row">
+
+                <!--begin col-md-12 -->
+                <div class="col-md-12 text-center">
+
+                    <h1 style="color:#ff0200;font-size:35px;" class="section-title">Aligera el peso de la <b style="text-decoration:underline;">gestión</b> de tu centro</h1>
+
+                </div>
+                <!--end col-md-12 -->
+
+            </div>
+            <!--end row -->
+
+        </div>
+        <br />
+        <!--end container -->
+        <!--begin container-->
+        <div class="container-fluid px-0">
+
+            <!--begin row-->
+            <div class="row no-gutters">
+
+                <!--begin col-md-6-->
+                <div class="col-md-5">
+
+                    <img src="/Content/paginaappsfit1/images/gestion.png" style="width:100%;" alt="Happy">
+
+                </div>
+                <!--end col-sm-6-->
+                <!--begin col-md-6-->
+                <div class="col-md-7">
+
+                    <!--begin services-wrapper -->
+                    <div class="services-wrapper">
+
+                        <!--begin container -->
+                        <div class="container">
+
+                            <!--begin row -->
+                            <div class="row">
+
+                                <!--begin col-md-4 -->
+                                <div class="col-md-3">
+
+                                    <div class="main-services">
+
+                                        <i style="color:#ff0200;" class="fa fa-check-circle"></i>
+
+                                        <h4 style="color:#ff0200;">Control de acceso</h4>
+
+                                        <p style="display:none;">Curabitur quam etsum lacus net netsum nulat iaculis etsimun vitae etsum nisle varius netsum.</p>
+
+                                    </div>
+
+                                </div>
+                                <!--end col-md-4 -->
+                                <!--begin col-md-4 -->
+                                <div class="col-md-3">
+
+                                    <div class="main-services">
+
+                                        <i style="color:#ff0200;" class="fa fa-line-chart"></i>
+
+                                        <h4 style="color:#ff0200;">Reportes financieros</h4>
+
+                                    </div>
+
+                                </div>
+                                <!--end col-md-4 -->
+                                <!--begin col-md-4 -->
+                                <div class="col-md-3">
+
+                                    <div class="main-services">
+
+                                        <i style="color:#ff0200;" class="fas fa-heartbeat"></i>
+
+                                        <h4 style="color:#ff0200;">Peso y medias</h4>
+
+                                        <p style="display:none;">Curabitur quam etsum lacus net netsum nulat iaculis etsimun vitae etsum nisle varius netsum.</p>
+
+                                    </div>
+
+                                </div>
+                                <!--end col-md-4 -->
+                                <!--begin col-md-4 -->
+                                <div class="col-md-3">
+
+                                    <div class="main-services">
+
+                                        <i style="color:#ff0200;" class="fa fa-cart-plus"></i>
+
+                                        <h4 style="color:#ff0200;">Caja</h4>
+
+                                    </div>
+
+                                </div>
+                                <!--end col-md-4 -->
+                                <!--begin col-md-4 -->
+                                <div class="col-md-3">
+
+                                    <div class="main-services">
+
+                                        <i style="color:#ff0200;" class="fa fa-barcode"></i>
+
+                                        <h4 style="color:#ff0200;">Inventario</h4>
+
+                                    </div>
+
+                                </div>
+                                <!--end col-md-4 -->
+                                <!--begin col-md-4 -->
+                                <div class="col-md-3">
+
+                                    <div class="main-services">
+
+                                        <i style="color:#ff0200;" class="fa fa-list-alt"></i>
+
+                                        <h4 style="color:#ff0200;">Agenda comercial</h4>
+
+                                    </div>
+
+                                </div>
+                                <!--end col-md-4 -->
+                                <!--begin col-md-4 -->
+                                <div class="col-md-3">
+
+                                    <div class="main-services">
+
+                                        <i style="color:#ff0200;" class="fa fa-braille"></i>
+
+                                        <h4 style="color:#ff0200;">Clases grupales</h4>
+
+                                    </div>
+
+                                </div>
+                                <!--end col-md-4 -->
+                                <!--begin col-md-4 -->
+                                <div class="col-md-3">
+
+                                    <div class="main-services">
+
+                                        <i style="color:#ff0200;" class="fa fa-address-card-o"></i>
+
+                                        <h4 style="color:#ff0200;">Personal</h4>
+
+                                    </div>
+
+                                </div>
+                                <!--end col-md-4 -->
+
+                            </div>
+                            <!--end row -->
+
+                        </div>
+                        <!--end container -->
+
+                    </div>
+                    <!--end services-wrapper -->
+                    <br />
+                </div>
+                <!--end col-sm-6-->
+
+            </div>
+            <!--end row-->
+
+        </div>
+        <!--end container-->
+
+    </div>
+    <!--section-blue-->
+
+</section>
+<!--end hero-wrapper -->
+<!--begin hero-wrapper -->
+<section class="" id="paginaweb" style="display: none;">
+
+    <!--begin section-blue -->
+    <div class="section-blue no-padding" style="background-color:#071e55;">
+        <br /> <br />
+        <!--begin container -->
+        <div class="container">
+
+            <!--begin row -->
+            <div class="row">
+
+                <!--begin col-md-12 -->
+                <div class="col-md-12 text-center">
+
+                    <h1 style="color:#fff;font-size:35px;" class="section-title">Potencia tu marca con tu <b style="text-decoration:underline;">página web</b> </h1>
+
+                </div>
+                <!--end col-md-12 -->
+
+            </div>
+            <!--end row -->
+
+        </div>
+        <br />
+        <!--end container -->
+        <!--begin container-->
+        <div class="container-fluid px-0">
+
+            <!--begin row-->
+            <div class="row no-gutters">
+
+                <!--begin col-md-6-->
+                <div class="col-md-6">
+
+                    <img src="/Content/paginaappsfit1/images/paginaweb.png" class="width-100" alt="Happy">
+
+                </div>
+                <!--end col-sm-6-->
+                <!--begin col-md-6-->
+                <div class="col-md-6 margin-top-50">
+
+                    <!--begin services-wrapper -->
+                    <div class="services-wrapper">
+
+                        <!--begin container -->
+                        <div class="container">
+
+                            <!--begin row -->
+                            <div class="row">
+
+                                <!--begin col-md-4 -->
+                                <div class="col-md-4">
+
+                                    <div class="main-services">
+
+                                        <i style="color:#ff0200;" class="fa fa-video-camera"></i>
+
+                                        <h4 style="color:#ff0200;">Genera ingresos con clases en vivo</h4>
+
+                                        <p style="display:none;">Curabitur quam etsum lacus net netsum nulat iaculis etsimun vitae etsum nisle varius netsum.</p>
+
+                                    </div>
+
+                                </div>
+                                <!--end col-md-4 -->
+                                <!--begin col-md-4 -->
+                                <div class="col-md-4">
+
+                                    <div class="main-services">
+
+                                        <i style="color:#ff0200;" class="fa fa-cubes"></i>
+
+                                        <h4 style="color:#ff0200;">Vende tus planes</h4>
+
+                                    </div>
+
+                                </div>
+                                <!--end col-md-4 -->
+                                <!--begin col-md-4 -->
+                                <div class="col-md-4">
+
+                                    <div class="main-services">
+
+                                        <i style="color:#ff0200;" class="fa fa-users"></i>
+
+                                        <h4 style="color:#ff0200;">Captura nuevos clientes con un formulario</h4>
+
+                                    </div>
+
+                                </div>
+                                <!--end col-md-4 -->
+                                <!--begin col-md-4 -->
+                                <div class="col-md-4">
+
+                                    <div class="main-services">
+
+                                        <i style="color:#ff0200;" class="fa fa-credit-card-alt"></i>
+
+                                        <h4 style="color:#ff0200;">Recibe pagos con tarjeta de débito y crédito</h4>
+
+                                    </div>
+
+                                </div>
+                                <!--end col-md-4 -->
+                                <!--begin col-md-4 -->
+                                <div class="col-md-4">
+
+                                    <div class="main-services">
+
+                                        <i style="color:#ff0200;" class="fa fa-star"></i>
+
+                                        <h4 style="color:#ff0200;">Diseño intuitivo y amigable.</h4>
+
+                                    </div>
+
+                                </div>
+                                <!--end col-md-4 -->
+                                <!--begin col-md-4 -->
+                                <div class="col-md-4">
+
+                                    <div class="main-services">
+
+                                        <i style="color:#ff0200;" class="fa fa-diamond"></i>
+
+                                        <h4 style="color:#ff0200;">Realza tu marca, brindale más confianza y llega a más clientes.</h4>
+
+                                    </div>
+
+                                </div>
+                                <!--end col-md-4 -->
+
+
+                            </div>
+                            <!--end row -->
+
+                        </div>
+                        <!--end container -->
+
+                    </div>
+                    <!--end services-wrapper -->
+                    <br />
+                </div>
+                <!--end col-sm-6-->
+
+            </div>
+            <!--end row-->
+
+        </div>
+        <!--end container-->
+
+    </div>
+    <!--section-blue-->
+
+</section>
+<!--end hero-wrapper -->
+<!--begin hero-wrapper -->
+<section class="" id="reservasclases" style="display: none;">
+
+    <!--begin section-blue -->
+    <div class="section-blue no-padding" style="background-color:#fff;">
+        <br /> <br />
+        <!--begin container -->
+        <div class="container">
+
+            <!--begin row -->
+            <div class="row">
+
+                <!--begin col-md-12 -->
+                <div class="col-md-12 text-center">
+
+                    <h1 style="color:#ff0200 ;font-size:35px;" class="section-title">Reduce los miedos y aumenta la seguridad de tus clientes brindandoles una plataforma de <b style="text-decoration:underline;">control de reservas</b></h1>
+
+                </div>
+                <!--end col-md-12 -->
+
+            </div>
+            <!--end row -->
+
+        </div>
+        <br />
+        <!--end container -->
+        <!--begin container-->
+        <div class="container-fluid px-0">
+
+            <!--begin row-->
+            <div class="row no-gutters">
+
+                <!--begin col-md-6-->
+                <div class="col-md-6">
+
+                    <img src="/Content/paginaappsfit1/images/reservas.png" class="width-100" alt="Happy">
+
+                </div>
+                <!--end col-sm-6-->
+                <!--begin col-md-6-->
+                <div class="col-md-6 margin-top-50">
+
+                    <!--begin services-wrapper -->
+                    <div class="services-wrapper">
+
+                        <!--begin container -->
+                        <div class="container">
+
+                            <!--begin row -->
+                            <div class="row">
+
+                                <!--begin col-md-4 -->
+                                <div class="col-md-4">
+
+                                    <div class="main-services">
+
+                                        <i style="color:#ff0200;" class="fa fa-diamond"></i>
+
+                                        <h4 style="color:#ff0200;">Visualización de perfil, membresias, pagos y deudas.</h4>
+
+                                    </div>
+
+                                </div>
+                                <!--end col-md-4 -->
+                                <!--begin col-md-4 -->
+                                <div class="col-md-4">
+
+                                    <div class="main-services">
+
+                                        <i style="color:#ff0200;" class="fa fa-calendar"></i>
+
+                                        <h4 style="color:#ff0200;">Reserva de clases presencial u online</h4>
+
+                                        <p style="display:none;">Curabitur quam etsum lacus net netsum nulat iaculis etsimun vitae etsum nisle varius netsum.</p>
+
+                                    </div>
+
+                                </div>
+                                <!--end col-md-4 -->
+                                <!--begin col-md-4 -->
+                                <div class="col-md-4">
+
+                                    <div class="main-services">
+
+                                        <i style="color:#ff0200;" class="fa fa-calendar-check-o"></i>
+
+                                        <h4 style="color:#ff0200;">Control de Ocupación</h4>
+
+                                    </div>
+
+                                </div>
+                                <!--end col-md-4 -->
+                                <!--begin col-md-4 -->
+                                <div class="col-md-4">
+
+                                    <div class="main-services">
+
+                                        <i style="color:#ff0200;" class="fas fa-heartbeat"></i>
+
+                                        <h4 style="color:#ff0200;">Visualización de su progreso</h4>
+
+                                    </div>
+
+                                </div>
+                                <!--end col-md-4 -->
+                                <!--begin col-md-4 -->
+                                <div class="col-md-4">
+
+                                    <div class="main-services">
+
+                                        <i style="color:#ff0200;" class="fa fa-qrcode"></i>
+
+                                        <h4 style="color:#ff0200;">Check-in con QR Code</h4>
+
+                                    </div>
+
+                                </div>
+                                <!--end col-md-4 -->
+                                <!--begin col-md-4 -->
+                                <div class="col-md-4">
+
+                                    <div class="main-services">
+
+                                        <i style="color:#ff0200;" class="fa fa-star"></i>
+
+                                        <h4 style="color:#ff0200;">Diseño intuitivo y amigable.</h4>
+
+                                    </div>
+
+                                </div>
+                                <!--end col-md-4 -->
+
+
+
+                            </div>
+                            <!--end row -->
+
+                        </div>
+                        <!--end container -->
+
+                    </div>
+                    <!--end services-wrapper -->
+                    <br />
+                </div>
+                <!--end col-sm-6-->
+
+            </div>
+            <!--end row-->
+
+        </div>
+        <!--end container-->
+
+    </div>
+    <!--section-blue-->
+
+</section>
+<!--end hero-wrapper -->
+
+<section class="section-grey section-bottom-border" id="testimonials">
+
+    <!--begin container -->
+    <div class="container">
+
+        <!--begin row -->
+        <div class="row">
+
+            <!--begin col-md-12 -->
+            <div class="col-md-12 text-center padding-bottom-25">
+
+                <h2 class="section-title">Nuestros clientes opinan</h2>
+
+            </div>
+            <!--end col-md-12 -->
+
+        </div>
+        <!--end row -->
+
+    </div>
+    <!--end container -->
+    <!--begin showcase-wrapper -->
+    <div class="showcase-wrapper">
+
+        <!--begin container -->
+        <div class="container">
+
+            <!--begin row-->
+            <div class="row">
+
+                <!--begin col md 12-->
+                <div class="col-md-12 padding-top-10">
+
+                    <!--begin carousel-->
+                    <div id="carouselIndicators" class="carousel slide carousel-showcase" data-ride="carousel">
+
+                        <!--begin carousel-indicators-->
+                        <ol class="carousel-indicators">
+                            <li data-target="#carouselIndicators" data-slide-to="0" class=""></li>
+                            <li data-target="#carouselIndicators" data-slide-to="1" class="active"></li>
+                        </ol>
+                        <!--end carousel-indicators-->
+                        <!--begin carousel-inner-->
+                        <div class="carousel-inner">
+
+                            <!--begin carousel-item-->
+                            <div class="carousel-item">
+
+                                <div class="row">
+                                    <div class="col-md-3 col-sm-3 col-xs-6">
+
+                                        <!--begin testim-inner -->
+                                        <div class="testim-inner first">
+                                            <br /><br />
+                                            <img src="~/Content/paginaappsfit1/images/logosgym/inkachallenge.jpg" alt="testimonials" class="testim-img">
+
+                                            <p style="display:none;">The attention of a traveller, should be particularly turned to the various works of nature.</p>
+
+                                            <h6>Inka Challenge<span class="job-text"> - Lima</span></h6>
+
+                                            <div class="testim-rating">
+                                                <i class="fa fa-star" aria-hidden="true"></i>
+                                                <i class="fa fa-star" aria-hidden="true"></i>
+                                                <i class="fa fa-star" aria-hidden="true"></i>
+                                                <i class="fa fa-star" aria-hidden="true"></i>
+                                                <i class="fa fa-star" aria-hidden="true"></i>
+                                            </div>
+                                        </div>
+                                        <!--end testim-inner -->
+
+                                    </div>
+
+                                    <div class="col-md-3 col-sm-3 col-xs-6">
+
+                                        <!--begin testim-inner -->
+                                        <div class="testim-inner first">
+                                            <br /><br />
+                                            <img src="~/Content/paginaappsfit1/images/logosgym/planetgymtrujillo.jpg" alt="testimonials" class="testim-img">
+
+                                            <p style="display:none;">The attention of a traveller, should be particularly turned to the various works of nature.</p>
+
+                                            <h6>Planet Gym<span class="job-text"> - Trujillo</span></h6>
+
+                                            <div class="testim-rating">
+                                                <i class="fa fa-star" aria-hidden="true"></i>
+                                                <i class="fa fa-star" aria-hidden="true"></i>
+                                                <i class="fa fa-star" aria-hidden="true"></i>
+                                                <i class="fa fa-star" aria-hidden="true"></i>
+                                                <i class="fa fa-star" aria-hidden="true"></i>
+                                            </div>
+
+                                        </div>
+                                        <!--end testim-inner -->
+
+                                    </div>
+
+                                    <div class="col-md-3 col-sm-3 col-xs-6">
+
+                                        <!--begin testim-inner -->
+                                        <div class="testim-inner first">
+                                            <br /><br />
+                                            <img src="~/Content/paginaappsfit1/images/logosgym/imperiumgymsocial.png" alt="testimonials" class="testim-img">
+
+                                            <p style="display:none;">The attention of a traveller, should be particularly turned to the various works of nature.</p>
+
+                                            <h6>Imperium Fitness Gym<span class="job-text"> - Arequipa</span></h6>
+
+                                            <div class="testim-rating">
+                                                <i class="fa fa-star" aria-hidden="true"></i>
+                                                <i class="fa fa-star" aria-hidden="true"></i>
+                                                <i class="fa fa-star" aria-hidden="true"></i>
+                                                <i class="fa fa-star" aria-hidden="true"></i>
+                                                <i class="fa fa-star" aria-hidden="true"></i>
+                                            </div>
+
+                                        </div>
+                                        <!--end testim-inner -->
+
+                                    </div>
+
+                                    <div class="col-md-3 col-sm-3 col-xs-6">
+
+                                        <!--begin testim-inner -->
+                                        <div class="testim-inner first">
+                                            <br /><br />
+                                            <img src="~/Content/paginaappsfit1/images/logosgym/ENTRENARCPF.jpg" alt="testimonials" class="testim-img">
+
+                                            <p style="display:none;">The attention of a traveller, should be particularly turned to the various works of nature.</p>
+
+                                            <h6>Entrenar CPF<span class="job-text"> - Lima</span></h6>
+
+                                            <div class="testim-rating">
+                                                <i class="fa fa-star" aria-hidden="true"></i>
+                                                <i class="fa fa-star" aria-hidden="true"></i>
+                                                <i class="fa fa-star" aria-hidden="true"></i>
+                                                <i class="fa fa-star" aria-hidden="true"></i>
+                                                <i class="fa fa-star" aria-hidden="true"></i>
+                                            </div>
+
+                                        </div>
+                                        <!--end testim-inner -->
+
+                                    </div>
+
+                                </div>
+
+                            </div>
+                            <!--end carousel-item-->
+                            <!--begin carousel-item-->
+                            <div class="carousel-item active">
+
+                                <div class="row">
+
+                                    <div class="col-md-3 col-sm-3 col-xs-6">
+
+                                        <!--begin testim-inner -->
+                                        <div class="testim-inner first">
+                                            <br /><br />
+                                            <img src="~/Content/paginaappsfit1/images/logosgym/BODYGYM.jpg" alt="testimonials" class="testim-img">
+
+                                            <p style="display:none;">The attention of a traveller, should be particularly turned to the various works of nature.</p>
+
+                                            <h6>Body Gym<span class="job-text"> - Lima</span></h6>
+
+                                            <div class="testim-rating">
+                                                <i class="fa fa-star" aria-hidden="true"></i>
+                                                <i class="fa fa-star" aria-hidden="true"></i>
+                                                <i class="fa fa-star" aria-hidden="true"></i>
+                                                <i class="fa fa-star" aria-hidden="true"></i>
+                                                <i class="fa fa-star" aria-hidden="true"></i>
+                                            </div>
+                                        </div>
+                                        <!--end testim-inner -->
+
+                                    </div>
+
+                                    <div class="col-md-3 col-sm-3 col-xs-6">
+
+                                        <!--begin testim-inner -->
+                                        <div class="testim-inner first">
+                                            <br /><br />
+                                            <img src="~/Content/paginaappsfit1/images/logosgym/olimpo.jpeg" alt="testimonials" class="testim-img">
+
+                                            <p style="display:none;">The attention of a traveller, should be particularly turned to the various works of nature.</p>
+
+                                            <h6>Olimpo Gym<span class="job-text"> - Lima</span></h6>
+
+                                            <div class="testim-rating">
+                                                <i class="fa fa-star" aria-hidden="true"></i>
+                                                <i class="fa fa-star" aria-hidden="true"></i>
+                                                <i class="fa fa-star" aria-hidden="true"></i>
+                                                <i class="fa fa-star" aria-hidden="true"></i>
+                                                <i class="fa fa-star" aria-hidden="true"></i>
+                                            </div>
+
+                                        </div>
+                                        <!--end testim-inner -->
+
+                                    </div>
+
+                                    <div class="col-md-3 col-sm-3 col-xs-6">
+
+                                        <!--begin testim-inner -->
+                                        <div class="testim-inner first">
+                                            <br /><br />
+                                            <img src="~/Content/paginaappsfit1/images/logosgym/tigergymlimaperu.png" alt="testimonials" class="testim-img">
+
+                                            <p style="display:none;">The attention of a traveller, should be particularly turned to the various works of nature.</p>
+
+                                            <h6>Imperium Fitness Gym<span class="job-text"> - Lima</span></h6>
+
+                                            <div class="testim-rating">
+                                                <i class="fa fa-star" aria-hidden="true"></i>
+                                                <i class="fa fa-star" aria-hidden="true"></i>
+                                                <i class="fa fa-star" aria-hidden="true"></i>
+                                                <i class="fa fa-star" aria-hidden="true"></i>
+                                                <i class="fa fa-star" aria-hidden="true"></i>
+                                            </div>
+
+                                        </div>
+                                        <!--end testim-inner -->
+
+                                    </div>
+
+                                    <div class="col-md-3 col-sm-3 col-xs-6">
+
+                                        <!--begin testim-inner -->
+                                        <div class="testim-inner first">
+                                            <br /><br />
+                                            <img src="~/Content/paginaappsfit1/images/logosgym/gymtimeate.jpg" alt="testimonials" class="testim-img">
+
+                                            <p style="display:none;">The attention of a traveller, should be particularly turned to the various works of nature.</p>
+
+                                            <h6>Entrenar CPF<span class="job-text"> - Lima</span></h6>
+
+                                            <div class="testim-rating">
+                                                <i class="fa fa-star" aria-hidden="true"></i>
+                                                <i class="fa fa-star" aria-hidden="true"></i>
+                                                <i class="fa fa-star" aria-hidden="true"></i>
+                                                <i class="fa fa-star" aria-hidden="true"></i>
+                                                <i class="fa fa-star" aria-hidden="true"></i>
+                                            </div>
+
+                                        </div>
+                                        <!--end testim-inner -->
+
+                                    </div>
+
+                                </div>
+
+                            </div>
+                            <!--end carousel-item-->
+
+                        </div>
+                        <!--end carousel-inner-->
+
+                    </div>
+                    <!--end carousel-->
+
+                </div>
+                <!--end col md 12-->
+
+            </div>
+            <!--end row -->
+
+        </div>
+        <!--end container -->
+
+    </div>
+    <!--end showcase-wrapper -->
+
+</section>
+
+<section class="section-grey no-padding">
+
+    <!--begin container-->
+    <div class="container-fluid px-0">
+
+        <!--begin row-->
+        <div class="row no-gutters">
+
+            <!--begin col-md-6-->
+            <div class="col-md-6">
+
+                <!--begin video-popup-wrapper-->
+                <div class="video-popup-wrapper margin-left-20">
+
+                    <!--begin popup-gallery-->
+                    <div class="popup-gallery">
+
+                        <iframe width="860" height="498" src="https://www.youtube.com/embed/t-0YotGy_J0?controls=0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen="">
+                        </iframe>
+
+                    </div>
+                    <!--end popup-gallery-->
+
+                </div>
+                <!--end video-popup-wrapper-->
+
+            </div>
+            <!--end col-sm-6-->
+            <!--begin col-md-6-->
+            <div class="col-md-6 margin-top-60">
+
+                <!--begin small-column-inside-->
+                <div class="small-col-inside">
+
+                    <h3>Más de 280 gimnasios confían en Appsfit</h3>
+
+                    <!--begin accordion -->
+                    <div class="accordion" id="accordionFAQ">
+
+                        <!--begin card -->
+                        <div class="card">
+
+                            <div class="card-header" id="headingOne">
+                                <h5 class="mb-0">
+                                    <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                                        Olvídate de cuadernos y Excel
+                                    </button>
+                                </h5>
+                            </div>
+
+                            <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordionFAQ" style="">
+                                <div class="card-body">
+                                    Toma asistencias de manera rápida y simple. Gestiona todo tu Centro desde un sistema muy fácil de manejar.
+                                </div>
+                            </div>
+
+                        </div>
+                        <!--end card -->
+                        <!--begin card -->
+                        <div class="card">
+
+                            <div class="card-header" id="headingTwo">
+                                <h5 class="mb-0">
+                                    <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                                        Capta nuevos clientes y organizalos en el CRM
+                                    </button>
+                                </h5>
+                            </div>
+
+                            <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionFAQ" style="">
+                                <div class="card-body">
+                                    Organiza tus prospectos, clientes por vencer y vencidos realizando el seguimiento de llamadas y citas muy facilmente.
+
+                                </div>
+                            </div>
+
+                        </div>
+                        <!--end card -->
+                        <!--begin card -->
+                        <div class="card">
+
+                            <div class="card-header" id="headingThree">
+                                <h5 class="mb-0">
+                                    <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                                        Controla y organiza tus finanzas
+                                    </button>
+                                </h5>
+                            </div>
+
+                            <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordionFAQ" style="">
+                                <div class="card-body">
+                                    Mantén bajo control la contabilidad de tu centro organizando tus gastos administrativos y gastos de caja diaria, genera reportes de venta y obten tu utilidad al instante.
+                                </div>
+                            </div>
+
+                        </div>
+                        <!--end card -->
+                        <!--begin card -->
+                        <div class="card">
+
+                            <div class="card-header" id="headingFour">
+                                <h5 class="mb-0">
+                                    <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
+                                        Controla el aforo y las reservas de tu centro
+                                    </button>
+                                </h5>
+                            </div>
+
+                            <div id="collapseFour" class="collapse" aria-labelledby="headingFour" data-parent="#accordionFAQ" style="">
+                                <div class="card-body">
+                                    Olvidate de los correos o formularios que te generan mas trabajo, Automatiza las reservas de tus clientes conectado a tu sistema de Gestión appsfit.
+                                </div>
+                            </div>
+
+                        </div>
+                        <!--end card -->
+
+                    </div>
+                    <!--end accordion -->
+
+                </div>
+                <!--end small-column-inside-->
+
+            </div>
+            <!--end col-sm-6-->
+
+        </div>
+        <!--end row-->
+
+    </div>
+    <!--end container-->
+
+</section>
+
+<!--begin section-grey -->
+<section class="section-grey section-bottom-border" style="padding-bottom:10px;background-color:#fff;display:none;">
+
+    <!--begin container -->
+    <div class="container">
+        <!--begin row -->
+        <div class="row">
+
+            <!--begin col-md-12 -->
+            <div class="col-md-12 margin-top-20">
+
+                <div class="nav nav-pills margin-right-25" role="tablist" aria-orientation="vertical">
+
+                    <a class="nav-link active" id="v-controlgestionfit-tab" data-toggle="pill" href="#b-controlgestionfit" role="tab" aria-controls="v-pills-home" aria-selected="true">
+                        <!--begin features-second -->
+                        <div class="features-second">
+
+                            <div class="dropcaps-circle blue">
+                                <i class="pe-7s-graph"></i>
+                            </div>
+
+                            <h4 class="margin-bottom-5" style="font-size: 25px;font-weight: bold;text-align:right;">Controla y organiza tu centro.</h4>
+
+                            <p style="font-size: 19px;text-align:right;">Pasa más tiempo con tus seres queridos.</p>
+
+                        </div>
+                        <!--end features-second-->
+                    </a>
+
+                    <a class="nav-link" id="v-controlaforofit-tab" data-toggle="pill" href="#b-controlaforofit" role="tab" aria-controls="v-pills-profile" aria-selected="false">
+                        <!--begin features-second-->
+                        <div class="features-second">
+
+                            <div class="dropcaps-circle green">
+                                <i class="pe-7s-check"></i>
+                            </div>
+
+                            <h4 class="margin-bottom-5" style="font-size: 25px;font-weight: bold;text-align:right;">Reservas y control de aforo online.</h4>
+
+                            <p style="font-size: 19px;text-align:right;">ten todo vinculado con un clic.</p>
+
+                        </div>
+                        <!--end features-second-->
+                    </a>
+
+                    <a class="nav-link" id="v-paginaweb-tab" data-toggle="pill" href="#b-paginaweb" role="tab" aria-controls="v-pills-home" aria-selected="true">
+                        <!--begin features-second -->
+                        <div class="features-second">
+
+                            <div class="dropcaps-circle blue">
+                                <i class="pe-7s-diamond"></i>
+                            </div>
+
+                            <h4 class="margin-bottom-5" style="font-size: 25px;font-weight: bold;text-align:right;">tu propia página web.</h4>
+
+                            <p style="font-size: 19px;text-align:right;">Tómese enserio su centrofit en la nueva era digital.</p>
+
+                        </div>
+                        <!--end features-second-->
+                    </a>
+
+                </div>
+
+            </div>
+            <!--end col-md-12 -->
+            <!--begin col-md-12 -->
+            <div class="col-md-12">
+
+                <div class="tab-content">
+
+                    <div class="tab-pane fade show active" id="b-controlgestionfit" role="tabpanel" aria-labelledby="v-controlgestionfit-tab">
+
+                        <div class="row">
+
+                            <div class="col-md-12 text-center">
+                                <img src="~/Content/paginaappsfit1/images/gestion.png" class="width-30" alt="pic">
+                            </div>
+
+                            <div class="col-md-12">
+
+                                <!--begin container -->
+                                <div class="container">
+
+                                    <!--begin row -->
+                                    <div class="row">
+
+                                        <!--begin col-md-4 -->
+                                        <div class="col-md-3">
+
+                                            <div class="main-services">
+
+                                                <i style="color:#ff0200;" class="fa fa-check-circle"></i>
+
+                                                <h4 style="color:#ff0200;">Control de acceso</h4>
+
+                                                <p style="display:none;">Curabitur quam etsum lacus net netsum nulat iaculis etsimun vitae etsum nisle varius netsum.</p>
+
+                                            </div>
+
+                                        </div>
+                                        <!--end col-md-4 -->
+                                        <!--begin col-md-4 -->
+                                        <div class="col-md-3">
+
+                                            <div class="main-services">
+
+                                                <i style="color:#ff0200;" class="fa fa-line-chart"></i>
+
+                                                <h4 style="color:#ff0200;">Reportes financieros</h4>
+
+                                            </div>
+
+                                        </div>
+                                        <!--end col-md-4 -->
+                                        <!--begin col-md-4 -->
+                                        <div class="col-md-3">
+
+                                            <div class="main-services">
+
+                                                <i style="color:#ff0200;" class="fas fa-heartbeat"></i>
+
+                                                <h4 style="color:#ff0200;">Peso y medias</h4>
+
+                                                <p style="display:none;">Curabitur quam etsum lacus net netsum nulat iaculis etsimun vitae etsum nisle varius netsum.</p>
+
+                                            </div>
+
+                                        </div>
+                                        <!--end col-md-4 -->
+                                        <!--begin col-md-4 -->
+                                        <div class="col-md-3">
+
+                                            <div class="main-services">
+
+                                                <i style="color:#ff0200;" class="fa fa-cart-plus"></i>
+
+                                                <h4 style="color:#ff0200;">Caja</h4>
+
+                                            </div>
+
+                                        </div>
+                                        <!--end col-md-4 -->
+
+                                    </div>
+                                    <!--end row -->
+
+                                    <div class="row">
+
+                                        <!--begin col-md-4 -->
+                                        <div class="col-md-3">
+
+                                            <div class="main-services">
+
+                                                <i style="color:#ff0200;" class="fa fa-barcode"></i>
+
+                                                <h4 style="color:#ff0200;">Inventario</h4>
+
+                                            </div>
+
+                                        </div>
+                                        <!--end col-md-4 -->
+                                        <!--begin col-md-4 -->
+                                        <div class="col-md-3">
+
+                                            <div class="main-services">
+
+                                                <i style="color:#ff0200;" class="fa fa-list-alt"></i>
+
+                                                <h4 style="color:#ff0200;">Agenda comercial</h4>
+
+                                            </div>
+
+                                        </div>
+                                        <!--end col-md-4 -->
+                                        <!--begin col-md-4 -->
+                                        <div class="col-md-3">
+
+                                            <div class="main-services">
+
+                                                <i style="color:#ff0200;" class="fa fa-braille"></i>
+
+                                                <h4 style="color:#ff0200;">Clases grupales</h4>
+
+                                            </div>
+
+                                        </div>
+                                        <!--end col-md-4 -->
+                                        <!--begin col-md-4 -->
+                                        <div class="col-md-3">
+
+                                            <div class="main-services">
+
+                                                <i style="color:#ff0200;" class="fa fa-address-card-o"></i>
+
+                                                <h4 style="color:#ff0200;">Personal</h4>
+
+                                            </div>
+
+                                        </div>
+                                        <!--end col-md-4 -->
+
+
+                                    </div>
+
+                                </div>
+                                <!--end container -->
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                    <div class="tab-pane fade" id="b-controlaforofit" role="tabpanel" aria-labelledby="v-controlaforofit-tab">
+
+                        <div class="row">
+
+                            <div class="col-md-6 padding-top-20">
+
+                                <h4 style="font-size: 25px;font-weight: bold;">Limita el aforo y quitale los miedos a tus clientes.</h4>
+
+                                <ul class="benefits">
+                                    <li><i class="far fa-check-circle"></i> Reserva de forma sencilla desde cualquier dispositivo.</li>
+                                    <li><i class="far fa-check-circle"></i> Limita el rango de horas de reserva por cada clase.</li>
+                                    <li><i class="far fa-check-circle"></i> Consigue maximizar las reservas y que nunca quede aforo disponible.</li>
+                                </ul>
+
+                                <a href="#contact" class="btn-green small scrool">Ver video</a>
+
+                            </div>
+
+                            <div class="col-md-6">
+                                <img src="~/Content/paginaappsfit1/images/reservas.png" class="width-100" alt="pic">
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                    <div class="tab-pane fade" id="b-paginaweb" role="tabpanel" aria-labelledby="v-paginaweb-tab">
+
+                        <div class="row">
+
+                            <div class="col-md-6 padding-top-20">
+
+                                <h4 style="font-size: 25px;font-weight: bold;">Tómese enserio su GIMNASIO en linea y atrae nuevos clientes.</h4>
+
+                                <ul class="benefits">
+                                    <li><i class="far fa-check-circle"></i> Realza tu marca, brindale más confianza y llega a más clientes.</li>
+                                    <li><i class="far fa-check-circle"></i> Captura nuevos clientes con un formulario.</li>
+                                    <li><i class="far fa-check-circle"></i> Recibe pagos con tarjeta de débito y crédito.</li>
+                                    <li><i class="far fa-check-circle"></i> Diseño intuitivo y amigable.</li>
+                                </ul>
+
+                                <a href="#contact" class="btn-green small scrool">Ver video</a>
+
+                            </div>
+
+                            <div class="col-md-6">
+                                <img src="~/Content/paginaappsfit1/images/paginaweb.png" class="width-100" alt="pic">
+                            </div>
+
+                        </div>
+                    </div>
+
+
+                </div>
+
+            </div>
+            <!--end col-md-12 -->
+
+        </div>
+        <!--end row -->
+    </div>
+    <!--end container -->
+    <!--begin container -->
+    <div class="container" style="display:none;">
+        <!--begin row -->
+        <div class="row">
+
+            <!--begin col-md-12 -->
+            <div class="col-md-12 margin-top-20">
+
+                <div class="nav nav-pills margin-right-25" role="tablist" aria-orientation="vertical">
+
+                    <a class="nav-link active" id="v-tiendaonline-tab" data-toggle="pill" href="#b-tiendaonline" role="tab" aria-controls="v-pills-profile" aria-selected="false">
+                        <!--begin features-second-->
+                        <div class="features-second">
+
+                            <div class="dropcaps-circle green">
+                                <i class="pe-7s-shopbag"></i>
+                            </div>
+
+                            <h4 class="margin-bottom-5">Tienda online y punto de venta.</h4>
+
+                            <p>Vende las 24 horas a tus clientes.</p>
+
+                        </div>
+                        <!--end features-second-->
+                    </a>
+
+                    <a style="display:none;" class="nav-link" id="v-appclientes-tab" data-toggle="pill" href="#b-appclientes" role="tab" aria-controls="v-pills-messages" aria-selected="false">
+                        <!--begin features-second-->
+                        <div class="features-second">
+                            <div class="dropcaps-circle red">
+                                <i class="pe-7s-bell"></i>
+                            </div>
+                            <h4 class="margin-bottom-5">App para tus clientes.</h4>
+
+                            <p>Tu centro fit más cerca a ellos.</p>
+
+                        </div>
+                        <!--end features-second-->
+                    </a>
+
+                </div>
+
+            </div>
+            <!--end col-md-12 -->
+            <!--begin col-md-12 -->
+            <div class="col-md-12">
+
+                <div class="tab-content" id="b-pills-tabContent">
+
+
+                    <div class="tab-pane fade show active" id="b-tiendaonline" role="tabpanel" aria-labelledby="v-tiendaonline-tab">
+
+                        <div class="row">
+
+                            <div class="col-md-6">
+                                <img src="~/Content/paginaappsfit1/images/tienda.png" class="width-100" alt="pic">
+                            </div>
+
+                            <div class="col-md-6 padding-top-10">
+
+                                <h4>Vende las 24 horas a tus clientes.</h4>
+
+                                <p>Triplica tus ventas.</p>
+
+                                <ul class="benefits">
+                                    <li><i class="far fa-check-circle"></i> Recibe pagos con tarjeta de débito y crédito..</li>
+                                    <li><i class="far fa-check-circle"></i> carrito de compras y administrador web de tu tienda.</li>
+                                    <li><i class="far fa-check-circle"></i> Sube hasta 200 productos.</li>
+                                </ul>
+
+                                <a href="#contact" class="btn-green small scrool">Get Started</a>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                    <div class="tab-pane fade" id="b-appclientes" role="tabpanel" aria-labelledby="v-appclientes-tab">
+
+                        <div class="row">
+
+                            <div class="col-md-6">
+                                <img src="http://placehold.it/555x379" class="width-100" alt="pic">
+                            </div>
+
+                            <div class="col-md-6 padding-top-20">
+
+                                <h4>Tu centro fit más cerca a ellos.</h4>
+
+                                <p>Potencia la experiencia que ofrece tu centro.</p>
+
+                                <ul class="benefits">
+                                    <li><i class="fas fa-arrow-right"></i> Reservas de clases.</li>
+                                    <li><i class="fas fa-arrow-right"></i> Medición de progreso físico.</li>
+                                    <li><i class="fas fa-arrow-right"></i> Tienda online incluido.</li>
+                                    <li><i class="fas fa-arrow-right"></i> Clases online y en vivo incluido.</li>
+                                </ul>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+            <!--end col-md-12 -->
+
+        </div>
+        <!--end row -->
+    </div>
+    <!--end container -->
+
+</section>
+<!--end section-grey -->
+<!--begin section-white -->
+<section class="section-white no-padding" id="register" style="background-color:#fff;">
+
+    <!--begin container-->
+    <div class="container-fluid px-0">
+
+        <!--begin row-->
+        <div class="row no-gutters">
+
+            <!--begin col-md-6-->
+            <div class="col-md-6">
+                <br /><br /><br /><br /><br />
+                <img src="~/Content/paginaappsfit1/images/appsfit-para-quien-es.png" class="width-100" alt="Happy">
+
+            </div>
+            <!--end col-sm-6-->
+            <!--begin col-md-6-->
+            <div class="col-md-6 margin-top-40">
+
+                <!--begin small-column-inside-->
+                <div class="small-col-inside">
+
+                    <!--begin register-form-wrapper-->
+                    <div class="register-form-wrapper wow bounceIn" data-wow-delay="0.5s" style="visibility: visible; animation-delay: 0.5s; animation-name: bounceIn;">
+
+                        <h1 class="white-text" style="color:#071e55;font-weight:bold;">¡SOLICITA UNA DEMO!</h1>
+                        <h3 style="color:#071e55;font-weight:bold;">¿LISTO PARA TRANSFORMAR TU CENTRO FITNESS Y VIVIR LA EXPERIENCIA APPSFIT?</h3>
+
+                        <p class="white-text" style="color:#071e55;"><b style="color:#071e55;">Completa el formulario </b>para saber como APPSFIT puede cambiar de forma definitiva la gestión de tu negocio.</p>
+
+                        <!--begin form-->
+                        <div>
+
+                            <!--begin success message -->
+                            <p class="register_success_box" style="display:none;">We received your message and you'll hear from us soon. Thank You!</p>
+                            <!--end success message -->
+                            <!--begin register form -->
+                            <form id="register-form" class="register-form register" action="php/register.php" method="post">
+
+                                <input id="txtLanding_NombresEmpresario2" style="color:#071e55;" class="register-input" required="" name="register_names" placeholder="Nombre del empresario*" type="text">
+
+                                <input id="txtLanding_NombresCentro2" style="color:#071e55;" class="register-input" required="" name="register_names" placeholder="Nombre del gimnasio*" type="text">
+
+                                <select id="ddlLanding_TipoCentro2" class="register-input" required="" name="register_ticket">
+                                    <option value="Seleccionar">Tipo de Centro</option>
+                                    <option value="1">Gimnasio</option>
+                                    <option value="2">Cadenas</option>
+                                    <option value="3">CrossFit</option>
+                                    <option value="4">Yoga o Pilates</option>
+                                    <option value="5">Baile</option>
+                                    <option value="6">Boxeo</option>
+                                    <option value="7">Box</option>
+                                    <option value="8">Entrenador Personal</option>
+                                    <option value="9">Profesor de clases grupales</option>
+                                </select>
+
+                                <select id="ddlLanding_Problema2" class="register-input" required="" name="register_ticket">
+                                    <option value="Seleccionar">¿Que estas buscando resolver?</option>
+                                    <option value="1">Controlar y organizar mi centro</option>
+                                    <option value="2">Clases online y en vivo</option>
+                                    <option value="3">Controlar mi aforo</option>
+                                    <option value="4">Plataforma de reserva de clases</option>
+                                    <option value="5" style="display:none;">App para reservas de clases</option>
+                                    <option value="6" style="display:none;">App para rutinas y dietas de mis clientes</option>
+                                    <option value="7">Otro</option>
+                                </select>
+
+                                <input onclick="EnviarDatos2();" value="ENVIAR POR WHATSAPP" class="register-submit" type="button" style="color:#fff;border:0px #000 solid;background: linear-gradient(90deg, var(--colorPrincipal) 0%, var(--colorPrincipal) 35%, var(--colorSecundario) 100%);">
+                                <div id="js-validacion2" style="color:red;display:none;"></div>
+                            </form>
+                            <!--end register form -->
+
+                        </div>
+                        <!--end form-->
+
+                    </div>
+                    <!--end register-form-wrapper-->
+
+                </div>
+                <!--end small-column-inside-->
+                <br /><br />
+            </div>
+            <!--end col-sm-6-->
+
+        </div>
+        <!--end row-->
+
+    </div>
+    <!--end container-->
+
+</section>
+<!--end section-white -->
+
+
+@section Scripts {
+
+    @System.Web.Optimization.Scripts.Render("~/Scripts/bootstrap-notify-master/bootstrap-notify.js")
+    @System.Web.Optimization.Scripts.Render("~/Scripts/bootstrap-notify-master/bootstrap-notify.min.js")
+    @System.Web.Optimization.Scripts.Render("~/Scripts/jsBootstrap/jquery.bootstrap-growl.js")
+
+    @System.Web.Optimization.Scripts.Render("~/Scripts/jquery.min.js")
+    @System.Web.Optimization.Scripts.Render("~/Scripts/plugins/jquery-ui/jquery-ui.js")
+    @System.Web.Optimization.Scripts.Render("~/Scripts/plugins/jquery-ui/jquery-ui.min.js")
+
+    @System.Web.Optimization.Scripts.Render("~/Resource/UserControl.Helper.js")
+    <script type="text/javascript">
+
+        $(document).ready(function () {
+
+        });
+
+        function EnviarDatos() {
+            var nombrescentro = $('#txtLanding_NombresCentro').val();
+            var nombresempresario = $('#txtLanding_NombresEmpresario').val();
+            var tipocentro = $('select[id="ddlLanding_TipoCentro"] option:selected').text();
+            var problema = $('select[id="ddlLanding_Problema"] option:selected').text();
+
+            if (nombrescentro == '') {
+                $('#js-validacion2').html('Falta ingresar nombre del centro');
+                document.getElementById("js-validacion").style.display = 'block';
+                return;
+            } else if (nombresempresario == '') {
+                $('#js-validacion2').html('Falta ingresar nombres y apellidos del empresario');
+                document.getElementById("js-validacion").style.display = 'block';
+                return;
+            } else if (tipocentro == 'Seleccionar') {
+                $('#js-validacion2').html('Falta seleccionar el tipo de centro');
+                document.getElementById("js-validacion").style.display = 'block';
+                return;
+            } else if (problema == 'Seleccionar') {
+                $('#js-validacion2').html('Falta seleccionar que le gustaria solucionar');
+                document.getElementById("js-validacion").style.display = 'block';
+                return;
+            }
+
+            document.getElementById("js-validacion2").style.display = 'none';
+
+            nombrescentro = nombrescentro.replace(' ', '%20').replace(' ', '%20').replace(' ', '%20').replace(' ', '%20');
+            nombresempresario = nombresempresario.replace(' ', '%20').replace(' ', '%20').replace(' ', '%20').replace(' ', '%20');
+            tipocentro = tipocentro.replace(' ', '%20').replace(' ', '%20').replace(' ', '%20').replace(' ', '%20');
+            problema = problema.replace(' ', '%20').replace(' ', '%20').replace(' ', '%20').replace(' ', '%20');
+
+
+            var Link = "https://api.whatsapp.com/send?phone=593963043457&text=👍%20Hola%20Appsfit,%20mi%20nombre%20es%20" + nombresempresario + ",%20😉%20mi%20empresa%20de%20" + tipocentro + "%20se%20llama%20" + nombrescentro + "%20y%20me%20gustaria%20" + problema + "%20💪";
+            window.open(Link, '_blank');
+
+        }
+
+        function EnviarDatos2() {
+
+            var nombrescentro = $('#txtLanding_NombresCentro2').val();
+            var nombresempresario = $('#txtLanding_NombresEmpresario2').val();
+            var tipocentro = $('select[id="ddlLanding_TipoCentro2"] option:selected').text();
+            var problema = $('select[id="ddlLanding_Problema2"] option:selected').text();
+
+            if (nombrescentro == '') {
+                $('#js-validacion').html('Falta ingresar nombre del centro');
+                document.getElementById("js-validacion").style.display = 'block';
+                return;
+            } else if (nombresempresario == '') {
+                $('#js-validacion').html('Falta ingresar nombres y apellidos del empresario');
+                document.getElementById("js-validacion").style.display = 'block';
+                return;
+            } else if (tipocentro == 'Seleccionar') {
+                $('#js-validacion').html('Falta seleccionar el tipo de centro');
+                document.getElementById("js-validacion").style.display = 'block';
+                return;
+            } else if (problema == 'Seleccionar') {
+                $('#js-validacion').html('Falta seleccionar que le gustaria solucionar');
+                document.getElementById("js-validacion").style.display = 'block';
+                return;
+            }
+
+            document.getElementById("js-validacion").style.display = 'none';
+
+            nombrescentro = nombrescentro.replace(' ', '%20').replace(' ', '%20').replace(' ', '%20').replace(' ', '%20');
+            nombresempresario = nombresempresario.replace(' ', '%20').replace(' ', '%20').replace(' ', '%20').replace(' ', '%20');
+            tipocentro = tipocentro.replace(' ', '%20').replace(' ', '%20').replace(' ', '%20').replace(' ', '%20');
+            problema = problema.replace(' ', '%20').replace(' ', '%20').replace(' ', '%20').replace(' ', '%20');
+
+            var Link = "https://api.whatsapp.com/send?phone=593963043457&text=👍%20Hola%20Appsfit,%20mi%20nombre%20es%20" + nombresempresario + ",%20😉%20mi%20empresa%20de%20" + tipocentro + "%20se%20llama%20" + nombrescentro + "%20y%20me%20gustaria%20" + problema + "%20💪";
+            window.open(Link, '_blank');
+
+        }
+
+    </script>
+}
+
+
+

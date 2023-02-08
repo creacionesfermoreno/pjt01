@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Generator: Adobe Illustrator 16.0.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="170px"
+	 height="170px" viewBox="0 0 170 170" enable-background="new 0 0 170 170" xml:space="preserve">
+<g id="Background">
+</g>
+<g id="Circle">
+	<g>
+		<path fill="#FFFFFF" d="M85,170c-46.869,0-85-38.131-85-85S38.131,0,85,0c46.87,0,85,38.131,85,85S131.87,170,85,170z"/>
+	</g>
+</g>
+<g id="TEXT">
+</g>
+<g id="Icons">
+	<g>
+		<g>
+			<g>
+				<g>
+					<g>
+						<line fill="none" stroke="#282D33" stroke-width="4" x1="122.612" y1="57.713" x2="122.187" y2="55.759"/>
+						
+							<line fill="none" stroke="#282D33" stroke-width="4" stroke-dasharray="3.3486,3.3486" x1="121.476" y1="52.486" x2="120.41" y2="47.578"/>
+						<polyline fill="none" stroke="#282D33" stroke-width="4" points="120.054,45.941 119.629,43.987 117.674,44.412 						"/>
+						
+							<line fill="none" stroke="#282D33" stroke-width="4" stroke-dasharray="3.8584,3.8584" x1="113.905" y1="45.23" x2="63.002" y2="56.288"/>
+						<polyline fill="none" stroke="#282D33" stroke-width="4" points="61.118,56.697 59.164,57.122 58.237,58.895 						"/>
+						
+							<line fill="none" stroke="#282D33" stroke-width="4" stroke-dasharray="3.2729,3.2729" x1="56.719" y1="61.794" x2="51.407" y2="71.943"/>
+						<line fill="none" stroke="#282D33" stroke-width="4" x1="50.648" y1="73.393" x2="49.721" y2="75.165"/>
+					</g>
+				</g>
+			</g>
+		</g>
+		<path fill="none" stroke="#282D33" stroke-width="4" d="M66.465,63.339L43.835,90.421l22.629,27.082h61.877V90.421V63.339H66.465z
+			 M65.568,95.944c-3.051,0-5.522-2.473-5.522-5.523c0-3.049,2.472-5.521,5.522-5.521s5.522,2.473,5.522,5.521
+			C71.09,93.472,68.619,95.944,65.568,95.944z"/>
+		<polygon fill="none" stroke="#282D33" stroke-width="4" points="97.212,76.751 101.657,85.753 111.588,87.194 104.4,94.202 
+			106.097,104.092 97.212,99.423 88.33,104.092 90.027,94.202 82.84,87.194 92.772,85.753 		"/>
+		<line fill="none" stroke="#282D33" stroke-width="4" x1="64.342" y1="90.421" x2="35.009" y2="90.421"/>
+	</g>
+</g>
+</svg>

@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Generator: Adobe Illustrator 16.0.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="170px"
+	 height="170px" viewBox="0 0 170 170" enable-background="new 0 0 170 170" xml:space="preserve">
+<g id="Background">
+</g>
+<g id="Circle">
+	<g>
+		<path fill="#FFFFFF" d="M85,170c-46.869,0-85-38.131-85-85S38.131,0,85,0s85,38.131,85,85S131.869,170,85,170z"/>
+	</g>
+</g>
+<g id="TEXT">
+</g>
+<g id="Icons">
+	<g>
+		<g>
+			<line fill="none" stroke="#282D33" stroke-width="4" stroke-dasharray="4" x1="113.825" y1="54.637" x2="81.318" y2="54.637"/>
+			<line fill="none" stroke="#282D33" stroke-width="4" x1="103.407" y1="67.637" x2="103.407" y2="91.637"/>
+			<line fill="none" stroke="#282D33" stroke-width="4" x1="103.407" y1="99.636" x2="103.407" y2="110.506"/>
+			<path fill="none" stroke="#282D33" stroke-width="4" stroke-linejoin="round" d="M99.14,120.303h12.539
+				c1.816,0,3.287-1.343,3.287-3V38.97c0-1.656-1.471-3-3.287-3h-6.142c-1.583,2.394-4.45,3.999-7.737,3.999
+				s-6.154-1.605-7.737-3.999H83.92c-1.815,0-3.287,1.344-3.287,3v17.777"/>
+		</g>
+		<g>
+			<rect x="47.55" y="62.969" fill="none" stroke="#282D33" stroke-width="4" width="45.056" height="66.083"/>
+			<g>
+				<g>
+					
+						<circle fill="none" stroke="#282D33" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" cx="69.563" cy="90.005" r="10.942"/>
+					
+						<ellipse fill="none" stroke="#282D33" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" cx="69.56" cy="90.005" rx="3.609" ry="10.943"/>
+					
+						<line fill="none" stroke="#282D33" stroke-width="4" stroke-linejoin="round" x1="58.396" y1="90.005" x2="81.758" y2="90.005"/>
+				</g>
+			</g>
+			<line fill="none" stroke="#282D33" stroke-width="4" stroke-linejoin="round" x1="61.901" y1="111.03" x2="78.255" y2="111.03"/>
+		</g>
+	</g>
+</g>
+</svg>

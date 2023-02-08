@@ -1,0 +1,134 @@
+﻿@model IEnumerable<E_DataModel.CuponesDTO>
+
+@{
+    ViewBag.Title = "cupones";
+    Layout = "~/Views/Shared/_LayoutApp.cshtml";
+}
+
+<div class="slim-mainpanel">
+    <div class="slim-mainpanel">
+        <div class="container">
+            <input type="hidden" value="0" id="hdCodigoItemVenta" />
+            <div class="report-summary-header">
+                <div>
+                    <h4 class="tx-inverse mg-b-3">Cupones</h4>
+                </div>
+                <div>
+                    <a href="@Url.Action("addcupon","admintienda")" class="btn btn-primary"><i class="icon ion-plus-circled tx-22"></i>Nuevo cupon</a>
+                </div>
+            </div><!-- d-flex -->
+            <div class="row mg-b-15">
+                <div class="col-lg-4">
+                    <div class="form-group">
+                        <label for="txtItemsVenta_Buscador" class="form-control-label">Buscador: <span class="tx-danger" id="" style="display:none;">* Ingrese fecha</span></label>
+                        <input id="txtItemsVenta_Buscador" onchange="ListarItemsVenta();" class="form-control form-control-sm" type="text" name="" value="" placeholder="">
+                    </div>
+                </div>
+                <div class="col-lg-7"></div>
+            </div>
+
+            <div class="card card-table mg-t-20 mg-sm-t-30">
+
+                <div class="table-responsive">
+                    <table id="gridEmpresa" class="table mg-b-0 tx-13">
+                        <thead>
+                            <tr class="tx-10">
+                                <th class="pd-y-5">
+                                    Codigo
+                                </th>
+                                <th class="pd-y-5">
+                                    Valor
+                                </th>
+                                <th class="pd-y-5">
+                                    Tipo
+                                </th>
+                                <th class="pd-y-5">
+                                    Creación
+                                </th>
+                                <th class="pd-y-5">
+                                    Inicio
+                                </th>
+                                <th class="pd-y-5">
+                                    Vencimiento
+                                </th>
+                                <th class="pd-y-5">
+                                    Acciones
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @{
+                                if (Model != null)
+                                {
+                                    foreach (var item in Model)
+                                    {
+                                        <tr>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.CodigoPromocion)
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.Valor)
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.DesTipoCupon)
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.FechaCreacionTexto)
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.FechaInicioTexto)
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.FechaFinTexto)
+                                            </td>
+                                            <td>
+                                    
+                                                <a href="@Url.Action("editcupon","admintienda", new {id= HttpContext.Current.Request.Cookies["_SubDominio_Business"].Value,idCupon= item.CodigoCupon})"><i class="fa fa-pencil tx-18" style="cursor:pointer;"></i></a>                                    
+                                            </td>
+                                        </tr>
+                                    }
+                                }
+
+                            }
+                        </tbody>
+                    </table>
+                </div><!-- table-responsive -->
+            </div><!-- card -->
+
+        </div><!-- slim-mainpanel -->
+
+    </div>
+
+</div>
+
+<div id="modalConfirmarEliminacion" class="modal fade">
+    <div class="modal-dialog modal-sm" role="document">
+        <div class="modal-content bd-0 tx-14">
+            <div class="modal-header pd-x-20">
+                <h6 class="tx-14 mg-b-0 tx-uppercase tx-inverse tx-bold">Confirmar</h6>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body pd-20">
+                <p class="mg-b-5">¿Esta seguro de eliminar este item?</p>
+            </div>
+            <div class="modal-footer justify-content-center">
+                <button type="button" class="btn btn-primary" onclick="javascript: EliminarItemsVenta();">Si</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+            </div>
+        </div>
+    </div><!-- modal-dialog -->
+</div>
+
+
+@section Scripts {
+
+    @System.Web.Optimization.Scripts.Render("~/Resource/UserControl.Helper.js")
+   
+    <script type="text/javascript">
+
+
+    </script>
+
+}

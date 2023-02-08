@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Generator: Adobe Illustrator 16.0.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="170px"
+	 height="170px" viewBox="0 0 170 170" enable-background="new 0 0 170 170" xml:space="preserve">
+<g id="Background">
+</g>
+<g id="Circle">
+	<g>
+		<path fill="#FFFFFF" d="M85,170c-46.869,0-85-38.131-85-85S38.131,0,85,0s85,38.131,85,85S131.869,170,85,170z"/>
+	</g>
+</g>
+<g id="TEXT">
+</g>
+<g id="Icons">
+	<g>
+		<polyline fill="none" stroke="#282D33" stroke-width="4" points="106.055,114.105 35.84,114.105 35.84,70.772 105.555,70.772 		
+			"/>
+		<polyline fill="none" stroke="#282D33" stroke-width="4" points="116.055,70.772 134.507,70.772 134.507,114.105 115.805,114.105 
+					"/>
+		<polyline fill="none" stroke="#282D33" stroke-width="4" points="122.555,88.438 126.507,88.438 126.507,97.438 122.555,97.438 		
+			"/>
+		<polyline fill="none" stroke="#282D33" stroke-width="4" points="100.805,97.438 43.84,97.438 43.84,88.438 100.805,88.438 		"/>
+		<line fill="none" stroke="#282D33" stroke-width="4" x1="61.549" y1="79.427" x2="41.84" y2="79.427"/>
+		<line fill="none" stroke="#282D33" stroke-width="4" x1="128.507" y1="105.76" x2="122.555" y2="105.76"/>
+		<line fill="none" stroke="#282D33" stroke-width="4" x1="100.805" y1="105.76" x2="82.454" y2="105.76"/>
+		<line fill="none" stroke="#282D33" stroke-width="4" x1="47.893" y1="105.76" x2="41.84" y2="105.76"/>
+		<g>
+			<polyline fill="none" stroke="#282D33" stroke-width="4" points="106.346,122.992 106.346,37.016 115.303,37.016 
+				115.303,122.992 			"/>
+			<line fill="none" stroke="#282D33" stroke-width="4" x1="106.998" y1="89.305" x2="115.676" y2="89.305"/>
+			<line fill="none" stroke="#282D33" stroke-width="4" x1="106.998" y1="83.555" x2="115.676" y2="83.555"/>
+			<polyline fill="none" stroke="#282D33" stroke-width="4" points="116.795,43.52 99.378,43.52 99.378,64.524 			"/>
+			<polygon fill="none" stroke="#282D33" stroke-width="4" points="115.303,123.992 115.303,123.104 106.346,123.104 
+				106.346,123.992 106.346,124.992 108.584,131.739 113.063,131.739 115.303,124.992 			"/>
+		</g>
+	</g>
+</g>
+</svg>

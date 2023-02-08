@@ -1,0 +1,377 @@
+﻿
+@{
+    ViewBag.Title = "mensajeswhatsapp";
+    Layout = "~/Views/Shared/__LayoutAppFitCorporativo.cshtml";
+}
+
+
+@section Styles {
+
+    <link href="@Url.Content("~/Content/cssKendo/kendo.common.min.css")" rel="stylesheet" />
+    <link href="@Url.Content("~/Content/cssKendo/kendo.dataviz.default.min.css")" rel="stylesheet" />
+    <link href="@Url.Content("~/Content/cssKendo/kendo.dataviz.min.css")" rel="stylesheet" />
+    <link href="@Url.Content("~/Content/cssKendo/kendo.default.min.css")" rel="stylesheet" />
+
+    <style>
+
+        .modal-body {
+        }
+
+        .modal-backdrop {
+            display: none;
+        }
+
+        .card-body {
+            margin-top: -5px;
+            margin-bottom: -5px;
+        }
+
+        .k-header, .k-grid-header, .k-toolbar, .k-dropdown-wrap, .k-picker-wrap, .k-numeric-wrap, .k-grouping-header, .k-pager-wrap, .k-textbox, .k-button, .k-progressbar, .k-draghandle, .k-autocomplete, .k-state-highlight, .k-tabstrip-items .k-item, .k-panelbar .k-tabstrip-items .k-item, .km-pane-wrapper > .km-pane > .km-view > .km-content {
+            background-image: url(textures/highlight.png);
+            background-image: none,-webkit-linear-gradient(top,#0075ff 0,#0075ff 100%);
+            background-image: none,-moz-linear-gradient(top,#0075ff 0,#0075ff 100%);
+            background-image: none,-o-linear-gradient(top,#0075ff 0,#0075ff 100%);
+            background-image: none,linear-gradient(to bottom,#0075ff 0,#0075ff 100%);
+            background-position: 50% 50%;
+            background-color: #e3e3e3;
+            color: #fff;
+        }
+
+            .k-header, .k-grid-header-wrap, .k-grid .k-grouping-header, .k-grid-header, .k-pager-wrap, .k-pager-wrap .k-textbox, .k-pager-wrap .k-link, .k-grouping-header .k-group-indicator, .k-gantt-toolbar .k-state-default {
+                border-color: #e8eaee;
+                background-color: #0075ff;
+                color: #fff;
+            }
+
+        .modal {
+            display: none;
+            background-color: rgba(0, 0, 0, 0.77);
+        }
+
+        .k-block, .k-header, .k-grid-header, .k-toolbar, .k-grouping-header, .k-pager-wrap, .k-button, .k-draghandle, .k-treemap-tile, html .km-pane-wrapper .k-header {
+            background-color: #0075ff;
+            color: #fff;
+        }
+
+            .k-grid-header th.k-header > .k-link {
+                display: block;
+                min-height: 18px;
+                line-height: 18px;
+                margin: -0.5em -0.6em -0.4em -0.6em;
+                padding: .1em .1em .1em .1em;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                color: #fff;
+            }
+
+            .k-grid-header table, .k-grid-content table, .k-grid-footer table, .k-grid-content-locked > table {
+                table-layout: fixed;
+            }
+
+        .k-grid tr td {
+            border-bottom: 1px solid #ada9a9;
+            border-style: dashed;
+        }
+
+        .k-grid-toolbar:first-child, .k-grouping-header + .k-grid-toolbar {
+            border-width: 0 0 1px;
+            border-radius: 0px;
+            background-color: #d7eafa;
+            height: 10px;
+        }
+
+        .k-block, .k-header, .k-grid-header, .k-toolbar, .k-grouping-header, .k-pager-wrap, .k-button, .k-draghandle, .k-treemap-tile, html .km-pane-wrapper .k-header {
+            background-color: rgba(227, 227, 227, 0);
+        }
+
+        #txtFechaInicioProcFreezing .k-header, .k-grid-header, .k-toolbar, .k-dropdown-wrap, .k-picker-wrap, .k-numeric-wrap, .k-grouping-header, .k-pager-wrap, .k-textbox, .k-button, .k-progressbar, .k-draghandle, .k-autocomplete, .k-state-highlight, .k-tabstrip-items .k-item, .k-panelbar .k-tabstrip-items .k-item, .km-pane-wrapper > .km-pane > .km-view > .km-content {
+            background-image: url(textures/highlight.png);
+            background-image: none,-webkit-linear-gradient(top,#0075ff 0,#0075ff 100%);
+            background-image: none,-moz-linear-gradient(top,#0075ff 0,#0075ff 100%);
+            background-image: none,-o-linear-gradient(top,#0075ff 0,#0075ff 100%);
+            background-image: none,linear-gradient(to bottom,#0075ff 0,#0075ff 100%);
+            background-position: 50% 50%;
+            background-color: #ffffff;
+        }
+
+        .k-state-selected {
+            color: #FFFFFF;
+            background-color: #0075ff;
+            border-color: #0075ff;
+        }
+
+        tr {
+            height: 16px;
+            font-size: 13px;
+        }
+
+        /** SPINNER CREATION **/
+        .loader {
+            position: relative;
+            text-align: center;
+            margin: 15px auto 35px auto;
+            z-index: 9999;
+            display: block;
+            width: 80px;
+            height: 80px;
+            border: 10px solid rgba(0, 0, 0, .3);
+            border-radius: 50%;
+            border-top-color: #000;
+            animation: spin 1s ease-in-out infinite;
+            -webkit-animation: spin 1s ease-in-out infinite;
+        }
+
+        /** MODAL STYLING **/
+        .modal-content {
+            border-radius: 0px;
+            box-shadow: 0 0 20px 8px rgba(0, 0, 0, 0.7);
+        }
+
+        [dir=ltr] .modal-lg, [dir=ltr] .modal-xl {
+            max-width: 950px;
+        }
+
+        a {
+            color: transparent;
+            text-decoration: none;
+        }
+    </style>
+}
+
+<div class="container-fluid page__container" style="background-color:#e9ebee;">
+    <br />
+    <div class="card">
+        <div class="card-header card-header-sm  d-flex align-items-center">
+            <h4 class="card-header__title flex m-0">APPSFIT - MENSAJES WHATSAPPS PARA CADA ETIQUETA</h4>
+        </div>
+        <div class="card-body tab-content">
+            <div class="row">
+                <div class="col-lg-3">
+                    <div class="form-group mg-t-2">
+                        <div class="input-group input-group-sm input-group-merge">
+                            <label style="color:#0075ff;font-weight:bold;">PROSPECTO APPSFIT:</label>
+                        </div>
+                    </div>
+                    <div class="form-group mg-t-2">
+
+                        <textarea id="txtMensaje_ProspectoAppsfit" placeholder="" cols="600" rows="1200" style="height:500px;width:100%;">
+📍Te explico, yo trabajo desde la comodidad de mi casa con una excelente herramienta de 🅼🅰🆁🅺🅴🆃🅸🅽🅶 🅳🅸🅶🅸🆃🅰🅻 la cual me está generando un buen ingreso económico💰 y funciona en todos los países🤝👨🏼‍💻, aquí te dejo un vídeo con toda la información.
+Si realmente deseas generar ingresos desde tu domicilio y entender este modelo de negocios mira este video completo, solo son 5 minutos👇🏼👇🏼👇🏼
+
+📎https://bit.ly/Presentación_Negocio_MiguelCG
+
+🙋🏼‍♂️ CUALQUIER DUDA DESPUES DE VER EL VIDEO PUEDES CONSULTARME
+
+😊También te dejo mis 🆁🅴🅳🅴🆂 🆂🅾🅲🅸🅰🅻🅴🆂 para que me conozcas y veas mis resultados🥂🦅👨🏻‍🎓👨🏼‍💻📈
+                        </textarea>
+
+                    </div>
+                </div>
+                <div class="col-lg-3">
+                    <div class="form-group mg-t-2">
+                        <div class="input-group input-group-sm input-group-merge">
+                            <label style="color:#0075ff;font-weight:bold;">INTERESADO APPSFIT:</label>
+                        </div>
+                    </div>
+                    <div class="form-group mg-t-2">
+                        <textarea id="txtMensaje_InteresadosAppsfit" placeholder="" cols="600" rows="1200" style="height:500px;width:100%;">
+📍👋 Hola, ¿DUEÑO DE GYM? 
+😨¿Tienes problemas en la gestión de tu Gimnasio?  😖,  que esperas  este  año 2022 usa la 🆃🅴🅲🅽🅾🅻🅾🅶🅸🅰  a tu favor para llevar el 🅲🅾🅽🆃🆁🅾🅻 🆃🅾🆃🅰🅻.
+
+🚀ℂ𝕆ℕ𝕋ℝ𝕆𝕃𝔸 𝕋𝕌𝕊 ℂ𝕃𝕀𝔼ℕ𝕋𝔼𝕊 𝕐 𝔸𝕌𝕋𝕆𝕄𝔸𝕋𝕀ℤ𝔸 𝕋𝕌 🅶🅸🅼🅽🅰🆂🅸🅾
+con Appsfit.
+
+✅ᴏʟᴠɪ́ᴅᴀᴛᴇ ᴅᴇ ᴄᴜᴀᴅᴇʀɴᴏs ʏ ᴇxᴄᴇʟ.
+✅ᴄᴏɴᴛʀᴏʟᴀ ʏ ᴏʀɢᴀɴɪᴢᴀ ᴛᴜs ғɪɴᴀɴᴢᴀs.
+✅ᴀᴜᴍᴇɴᴛᴀ ᴇʟ % ᴅᴇ ʀᴇɴᴏᴠᴀᴄɪᴏɴᴇs ʏ ʀᴇɪɴsᴄʀɪᴘᴄɪᴏɴᴇs.
+✅ᴏʙᴛᴇ́ɴ ᴇsᴛᴀᴅɪ́sᴛɪᴄᴀs ᴇɴ ᴛɪᴇᴍᴘᴏ ʀᴇᴀʟ.
+
+Te presentamos Appsfit, el software inteligente creado para centros de entrenamiento.
+
+🇵🇪🇪🇨𝙈𝙖𝙨 𝙙𝙚 𝟮𝟴𝟱 𝙜𝙞𝙢𝙣𝙖𝙨𝙞𝙤𝙨 𝙚𝙣 𝙚𝙡 𝙋𝙚𝙧𝙪́ 𝙩𝙧𝙖𝙗𝙖𝙟𝙖𝙣 𝙮 𝙘𝙤𝙣𝙛𝙞́𝙖𝙣 𝙚𝙣 𝙣𝙤𝙨𝙤𝙩𝙧𝙤𝙨.
+
+Si realmente deseas ahorrar tiempo y llevar el control de tu gimnasio en tus manos mira este video completo, solo en 5 minutos 👇🏼👇🏼👇🏼
+
+📎https://youtu.be/rwQKBlRTCXU
+
+🙋🏼‍♂️ CUALQUIER DUDA DESPUES DE VER EL VIDEO PUEDES CONSULTARME
+
+También puedes visitar nuestra pagina web aquí 👇🏼👇🏼👇🏼
+
+📎https://appsfit.azurewebsites.net/softwareparagimnasios
+
+ᴇs ʜᴏʀᴀ ᴅᴇ ʟʟᴇᴠᴀʀ ᴇʟ ᴄᴏɴᴛʀᴏʟ ʏ ɢᴇsᴛɪᴏ́ɴ ᴀʟ sɪɢᴜɪᴇɴᴛᴇ ɴɪᴠᴇʟ. 🚀🚀🚀
+                        </textarea>
+                    </div>
+                </div>
+                <div class="col-lg-3">
+                    <div class="form-group mg-t-2">
+                        <div class="input-group input-group-sm input-group-merge">
+                            <label style="color:#0075ff;font-weight:bold;">PAGO Y ACTIVACION APPSFIT:</label>
+                        </div>
+                    </div>
+                    <div class="form-group mg-t-2">
+                        <textarea id="txtMensaje_PresentacionAppsfit" placeholder="" cols="600" rows="1200" style="height:500px;width:100%;">
+
+                        </textarea>
+                    </div>
+                </div>
+                <div class="col-lg-3">
+                    <div class="form-group mg-t-2">
+                        <div class="input-group input-group-sm input-group-merge">
+                            <label style="color:#0075ff;font-weight:bold;">PERIODO DEMO APPSFIT:</label>
+                        </div>
+                    </div>
+                    <div class="form-group mg-t-2">
+                        <textarea id="txtMensaje_PeriodoPruebaAppsfit" placeholder="" cols="600" rows="1200" style="height:500px;width:100%;">
+📍👋 Hola,  ᴇs ʜᴏʀᴀ ᴅᴇ ʟʟᴇᴠᴀʀ ᴇʟ ᴄᴏɴᴛʀᴏʟ ʏ ɢᴇsᴛɪᴏ́ɴ ᴀʟ sɪɢᴜɪᴇɴᴛᴇ ɴɪᴠᴇʟ. 🚀🚀🚀
+
+ᴘᴀʀᴀ ᴘᴏᴅᴇʀ ᴀᴄᴛɪᴠᴀʀ ʟᴀ ʟɪɴᴇᴀ ᴅᴇʟ sᴏғᴛᴡᴀʀᴇ ᴘᴀʀᴀ ᴛᴜ ᴘᴇʀɪᴏᴅᴏ ᴅᴇ ᴘʀᴜᴇʙᴀ sᴏʟᴏ ᴛɪᴇɴᴇs ǫᴜᴇ ᴇɴᴠɪᴀʀᴍᴇ ʟᴏs sɪɢᴜɪᴇɴᴛᴇs ᴅᴀᴛᴏs:
+
+✅RUC
+✅RAZON SOCIAL
+✅NOMBRE Y APELLIDOS DEL GERENTE
+✅DNI DEL GERENTE
+✅NRO CELULAR DEL GERENTE
+✅CORREO DEL GERENTE
+✅NOMBRE DEL GIMNASIO
+✅DEPARTAMENTO, PROVINCIA, DISTRITO DEL GIMNASIO
+✅LOGO DEL GIMNASIO
+
+𝙘𝙤𝙣 𝙚𝙨𝙩𝙤𝙨 𝙙𝙖𝙩𝙤𝙨 𝙨𝙚 𝙥𝙧𝙤𝙘𝙚𝙙𝙚𝙧𝙖 𝙚𝙣 𝙖𝙘𝙩𝙞𝙫𝙖𝙧 𝙩𝙪 𝙡𝙞𝙣𝙚𝙖 𝙮 𝙚𝙡 𝙨𝙤𝙛𝙩𝙬𝙖𝙧𝙚 𝙚𝙨𝙩𝙖𝙧𝙖́ 𝙡𝙞𝙨𝙩𝙤 𝙚𝙣 𝟮𝟰 𝙝𝙤𝙧𝙖𝙨, 𝙙𝙚𝙨𝙥𝙪𝙚́𝙨 𝙙𝙚 𝙚𝙡𝙡𝙤 𝙮𝙖 𝙨𝙚 𝙥𝙪𝙚𝙙𝙚 𝙖𝙜𝙚𝙣𝙙𝙖𝙧 𝙡𝙖 𝟭𝙚𝙧𝙖 𝙘𝙖𝙥𝙖𝙘𝙞𝙩𝙖𝙘𝙞𝙤́𝙣 𝙤𝙣𝙡𝙞𝙣𝙚.
+                        </textarea>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-lg-3">
+                    <div class="form-group mg-t-2">
+                        <div class="input-group input-group-sm input-group-merge">
+                            <label style="color:#0075ff;font-weight:bold;">PROMOCION APPSFIT:</label>
+                        </div>
+                    </div>
+                    <div class="form-group mg-t-2">
+                        <textarea id="txtMensaje_PromocionAppsfit" placeholder="" cols="600" rows="1200" style="height:500px;width:100%;">
+🅿🆁🅾🅼🅾🅲🅸🅾́🅽 🎈🎊:
+
+🅒🅔🅡🅞 ​ 🅒🅞🅢🅣🅞 ​ 🅓🅔 ​ 🅘🅝🅢🅒🅡🅘🅟🅒🅘🅞́🅝 ​ 
+en el software gestión Appsfit.
+
+ᴇs ʜᴏʀᴀ ᴅᴇ ʟʟᴇᴠᴀʀ ᴇʟ ᴄᴏɴᴛʀᴏʟ ʏ ɢᴇsᴛɪᴏ́ɴ ᴀʟ sɪɢᴜɪᴇɴᴛᴇ ɴɪᴠᴇʟ.
+
+𝙎𝙤𝙡𝙤 𝙚𝙡𝙞𝙜𝙚𝙨 𝙚𝙡 𝙥𝙡𝙖𝙣 𝙢𝙚𝙣𝙨𝙪𝙖𝙡 𝙚𝙣 𝙣𝙪𝙚𝙨𝙩𝙧𝙖 𝙥𝙖𝙜𝙞𝙣𝙖 𝙬𝙚𝙗 𝙮 𝙡𝙞𝙨𝙩𝙤 👇🏼👇🏼👇🏼
+
+📎https://appsfit.azurewebsites.net/softwareparagimnasios
+
+ᴘʀᴏᴍᴏᴄɪᴏ́ɴ ᴠᴀʟɪᴅᴀ ʜᴀsᴛᴀ ᴇʟ 15 ᴅᴇ ᴇɴᴇʀᴏ ᴅᴇʟ 2022.
+
+🙋🏼‍♂️ CUALQUIER DUDA PUEDES CONSULTARME😊
+                        </textarea>
+                    </div>
+                </div>
+                <div class="col-lg-3">
+                    <div class="form-group mg-t-2">
+                        <div class="input-group input-group-sm input-group-merge">
+                            <label style="color:#0075ff;font-weight:bold;">PROMOCION SUNAFACT:</label>
+                        </div>
+                    </div>
+                    <div class="form-group mg-t-2">
+                        <textarea id="txtMensaje_PromocionSunafact" placeholder="" cols="600" rows="1200" style="height:500px;width:100%;">
+
+                        </textarea>
+                    </div>
+                </div>
+                <div class="col-lg-3">
+                    <div class="form-group mg-t-2">
+                        <div class="input-group input-group-sm input-group-merge">
+                            <label style="color:#0075ff;font-weight:bold;">SALUDO LUNES APPSFIT:</label>
+                        </div>
+                    </div>
+                    <div class="form-group mg-t-2">
+                        <textarea id="txtMensaje_SaludoLunesAppsfit" placeholder="" cols="600" rows="1200" style="height:500px;width:100%;">
+📍👋 Hola 🅼🆄🆈 ​ 🅱🆄🅴🅽🅾🆂 ​ 🅳🅸🅰🆂, les saluda Nazarena del área de centro de ayuda de Appsfit 🤝👩‍💻. 
+
+🙋‍♀️ ʀᴇᴄᴜᴇʀᴅᴀ ǫᴜᴇ ᴄᴜᴀʟǫᴜɪᴇʀ ᴄᴏɴsuʟᴛᴀ ᴏ ᴅᴜᴅᴀ ᴅᴇʟ sᴏғᴛᴡᴀʀᴇ 𝙚𝙨𝙩𝙖𝙧𝙚́ 𝙤𝙣𝙡𝙞𝙣𝙚 𝙙𝙚 𝟵𝙖𝙢 𝙖 7𝙥𝙢 ᴘᴀʀᴀ ᴘᴏᴅᴇʀ ʀᴇsᴏʟᴠᴇʀʟᴏ ✅ ʏ sɪ ᴛᴜ ᴇǫᴜɪᴘᴏ ᴅᴇ ᴛʀᴀʙᴀᴊᴏ ɴᴇᴄᴇsɪᴛᴀ ᴄᴀᴘᴀᴄɪᴛᴀᴄɪᴏ́ɴ ᴅᴇʟ sᴏғᴛᴡᴀʀᴇ ᴘᴏᴅᴇᴍᴏs ᴀɢᴇɴᴅᴀʀʟᴏ ᴄᴏɴ ᴘʀᴇᴠɪᴀ ᴄɪᴛᴀ ᴏɴʟɪɴᴇ 📅. 
+
+✨𝙌𝙪𝙚 𝙩𝙚𝙣𝙜𝙖𝙢𝙤𝙨 𝙪𝙣 𝙚𝙭𝙘𝙚𝙡𝙚𝙣𝙩𝙚 𝙞𝙣𝙞𝙘𝙞𝙤 𝙙𝙚 𝙨𝙚𝙢𝙖𝙣𝙖 😊.  
+                        </textarea>
+                    </div>
+                </div>
+                <div class="col-lg-3">
+                    <div class="form-group mg-t-2">
+                        <div class="input-group input-group-sm input-group-merge">
+                            <label style="color:#0075ff;font-weight:bold;">SALUDO SABADOS APPSFIT:</label>
+                        </div>
+                    </div>
+                    <div class="form-group mg-t-2">
+                        <textarea id="txtMensaje_SaludoSabadosAppsfit" placeholder="" cols="600" rows="1200" style="height:500px;width:100%;">
+📍👋 Hola 🅼🆄🆈 ​ 🅱🆄🅴🅽🅰🆂 ​ 🆃🅰🆁🅳🅴🆂, les saluda Nazarena del área de centro de ayuda de Appsfit 🤝👩‍💻. 
+
+🙋‍♀️ ʀᴇᴄᴜᴇʀᴅᴀ ǫᴜᴇ ᴄᴜᴀʟǫᴜɪᴇʀ ᴄᴏɴsuʟᴛᴀ ᴏ ᴅᴜᴅᴀ ᴅᴇʟ sᴏғᴛᴡᴀʀᴇ 𝙚𝙨𝙩𝙖𝙧𝙚́ 𝙤𝙣𝙡𝙞𝙣𝙚 𝙙𝙚 𝟵𝙖𝙢 𝙖 7𝙥𝙢 ᴘᴀʀᴀ ᴘᴏᴅᴇʀ ʀᴇsᴏʟᴠᴇʀʟᴏ ✅ ʏ sɪ ᴛᴜ ᴇǫᴜɪᴘᴏ ᴅᴇ ᴛʀᴀʙᴀᴊᴏ ɴᴇᴄᴇsɪᴛᴀ ᴄᴀᴘᴀᴄɪᴛᴀᴄɪᴏ́ɴ ᴅᴇʟ sᴏғᴛᴡᴀʀᴇ ᴘᴏᴅᴇᴍᴏs ᴀɢᴇɴᴅᴀʀʟᴏ ᴄᴏɴ ᴘʀᴇᴠɪᴀ ᴄɪᴛᴀ ᴏɴʟɪɴᴇ 📅. 
+
+✨𝙌𝙪𝙚 𝙩𝙚𝙣𝙜𝙖𝙢𝙤𝙨 𝙪𝙣 𝙗𝙪𝙚𝙣 𝙛𝙞𝙣 𝙙𝙚 𝙨𝙚𝙢𝙖𝙣𝙖 😊🙌. 
+                        </textarea>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <br />
+    <div class="card">
+        <div class="card-header card-header-sm  d-flex align-items-center">
+            <h4 class="card-header__title flex m-0">APPSFIT - PRUEBA LECTOR CODIGO QR</h4>
+        </div>
+        <div class="card-body tab-content">
+            <div class="row">
+
+                <h1>HTML5 QR Code Reader Usage Example</h1>
+                <span id="error" style='color:darkred;' class="center"></span>
+                <div id="reader" style="width:300px;height:250px"></div>
+                <span id="result" class="center"></span>
+
+            </div>
+        </div>
+    </div>
+    <br /><br />
+</div>
+
+
+@section Scripts {
+
+
+    @System.Web.Optimization.Scripts.Render("~/Scripts/jquery.min.js")
+    @System.Web.Optimization.Scripts.Render("~/Scripts/plugins/jsKendo/angular.min.js")
+    @System.Web.Optimization.Scripts.Render("~/Scripts/plugins/jsKendo/kendo.all.min.js")
+
+    @System.Web.Optimization.Scripts.Render("~/Scripts/plugins/jquery-ui/jquery-ui.js")
+    @System.Web.Optimization.Scripts.Render("~/Scripts/plugins/jquery-ui/jquery-ui.min.js")
+
+    @System.Web.Optimization.Scripts.Render("~/Resource/UserControl.Helper.js")
+
+    @System.Web.Optimization.Scripts.Render("~/Scripts/bootstrap-notify-master/bootstrap-notify.js")
+    @System.Web.Optimization.Scripts.Render("~/Scripts/bootstrap-notify-master/bootstrap-notify.min.js")
+    @System.Web.Optimization.Scripts.Render("~/Scripts/jsBootstrap/jquery.bootstrap-growl.js")
+    @System.Web.Optimization.Scripts.Render("~/Scripts/maskedinput.js")
+    @System.Web.Optimization.Scripts.Render("~/Scripts/jsQRcodeHTML5/html5-qrcode.min.js")
+    @System.Web.Optimization.Scripts.Render("~/Scripts/jsQRcodeHTML5/jsqrcode-combined.min.js")
+    @System.Web.Optimization.Scripts.Render("~/Scripts/jsQRcodeHTML5/html5-qrcode.js")
+    
+    <script type="text/javascript">
+
+        $(document).ready(function () {
+            $('#reader').html5_qrcode(function (data) {
+                $('#result').html(data);
+            },
+                function (error) {
+                    $('#error').html("Scanning...  " + error);
+                }, function (videoError) {
+                    $('#error').html("Camera error.");
+                }
+            );
+        });
+
+    </script>
+}

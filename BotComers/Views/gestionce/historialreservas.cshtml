@@ -1,0 +1,382 @@
+﻿
+@{
+    ViewBag.Title = "reservas";
+    Layout = "~/Views/Shared/__LayoutAppFitPlataformaFit.cshtml";
+}
+
+
+<link href="@Url.Content("~/Content/cssKendo/kendo.common.min.css")" rel="stylesheet" />
+<link href="@Url.Content("~/Content/cssKendo/kendo.dataviz.default.min.css")" rel="stylesheet" />
+<link href="@Url.Content("~/Content/cssKendo/kendo.dataviz.min.css")" rel="stylesheet" />
+<link href="@Url.Content("~/Content/cssKendo/kendo.default.min.css")" rel="stylesheet" />
+
+
+<style type="text/css">
+
+    .modal-backdrop {
+        display: none;
+    }
+
+    .modal-content {
+        margin-top: 150px;
+    }
+
+    .btn-primary {
+        border: 1px solid #ff0200;
+        background-color: #ff0200;
+    }
+
+    .card-body {
+        margin-top: -5px;
+        margin-bottom: -5px;
+    }
+
+    .modal {
+        display: none;
+        background-color: rgba(0, 0, 0, 0.77);
+    }
+
+    .k-block, .k-header, .k-grid-header, .k-toolbar, .k-grouping-header, .k-pager-wrap, .k-button, .k-draghandle, .k-treemap-tile, html .km-pane-wrapper .k-header {
+        background-color: rgba(227, 227, 227, 0);
+    }
+
+        .k-grid-header table, .k-grid-content table, .k-grid-footer table, .k-grid-content-locked > table {
+            table-layout: fixed;
+        }
+
+    .k-grid tr td {
+        border-bottom: 1px solid #ada9a9;
+        border-style: dashed;
+    }
+
+    .k-grid-toolbar:first-child, .k-grouping-header + .k-grid-toolbar {
+        border-width: 0 0 1px;
+        border-radius: 0px;
+        background-color: #d7eafa;
+        height: 10px;
+    }
+
+    .k-block, .k-header, .k-grid-header, .k-toolbar, .k-grouping-header, .k-pager-wrap, .k-button, .k-draghandle, .k-treemap-tile, html .km-pane-wrapper .k-header {
+        background-color: rgba(227, 227, 227, 0);
+    }
+
+    #txtFechaInicioProcFreezing .k-header, .k-grid-header, .k-toolbar, .k-dropdown-wrap, .k-picker-wrap, .k-numeric-wrap, .k-grouping-header, .k-pager-wrap, .k-textbox, .k-button, .k-progressbar, .k-draghandle, .k-autocomplete, .k-state-highlight, .k-tabstrip-items .k-item, .k-panelbar .k-tabstrip-items .k-item, .km-pane-wrapper > .km-pane > .km-view > .km-content {
+        background-image: url(textures/highlight.png);
+        background-image: none,-webkit-linear-gradient(top,rgba(255,255,255,.6) 0,rgba(255,255,255,.0) 100%);
+        background-image: none,-moz-linear-gradient(top,rgba(255,255,255,.6) 0,rgba(255,255,255,.0) 100%);
+        background-image: none,-o-linear-gradient(top,rgba(255,255,255,.6) 0,rgba(255,255,255,.0) 100%);
+        background-image: none,linear-gradient(to bottom,rgba(255,255,255,.6) 0,rgba(255,255,255,.0) 100%);
+        background-position: 50% 50%;
+        background-color: #ffffff;
+    }
+
+    .k-state-selected {
+        color: #FFFFFF;
+        background-color: #0075ff;
+        border-color: #0075ff;
+    }
+
+    tr {
+        height: 16px;
+        font-size: 13px;
+    }
+</style>
+
+<br />
+<div class="container page__container">
+
+    <div class="row">
+        <div class="col-2">
+            <div class="form-group">
+                <label for="ddlSala" class="form-label mr-1" style="font-size:12px;font-weight:bold;">Sala</label>
+                <input id="ddlSala" style="width:100%;font-size:12px;" />
+            </div>
+        </div>
+        <div class="col-2">
+            <div class="form-group">
+                <label for="FechaHoraReserva" class="form-label mr-1" style="font-size:12px;font-weight:bold;">Inicio</label>
+                <input id="FechaHoraReserva" type="text" placeHolder="Ingrese fecha" style="width:100%;font-size:12px;" />
+            </div>
+        </div>
+        <div class="col-1">
+            <div class="form-group">
+                <label class="form-label mr-1" style="font-size:12px;font-weight:bold;color:#fff;">buscar</label>
+                <button type="button" onclick="uspListarPresencial_HorarioClasesConfiguracionGestion()" class="btn btn-primary btn-sm" title="Buscar" style="font-size:11px;background-color: rgb(0 117 255);border-color: rgb(0 117 255);">Buscar</button>
+            </div>
+        </div>
+        <div class="col-2">
+
+        </div>
+        <div class="col-5">
+        </div>
+
+    </div>
+   
+    <div class="row">
+        <div class="col-md-4">
+            <div class="card">
+                <div class="card-body">
+                    <div class="d-flex flex-column flex-sm-row">
+                        <div id="gridClases" class="table-responsive border-bottom" data-toggle="lists" >
+                            
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-8">
+            <div class="card">
+                <div class="card-body">
+                    <div class="d-flex flex-column flex-sm-row">
+                        <div id="gridPersonasReservaron" class="table-responsive border-bottom" data-toggle="lists">
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+       
+    </div>
+</div>
+
+
+@section Scripts {
+
+    @System.Web.Optimization.Scripts.Render("~/Scripts/jquery.min.js")
+    @System.Web.Optimization.Scripts.Render("~/Scripts/plugins/jsKendo/angular.min.js")
+    @System.Web.Optimization.Scripts.Render("~/Scripts/plugins/jsKendo/kendo.all.min.js")
+
+    @System.Web.Optimization.Scripts.Render("~/Scripts/plugins/jquery-ui/jquery-ui.js")
+    @System.Web.Optimization.Scripts.Render("~/Scripts/plugins/jquery-ui/jquery-ui.min.js")
+
+    @System.Web.Optimization.Scripts.Render("~/Resource/UserControl.Helper.js")
+    @System.Web.Optimization.Scripts.Render("~/Scripts/bootstrap-notify-master/bootstrap-notify.js")
+    @System.Web.Optimization.Scripts.Render("~/Scripts/bootstrap-notify-master/bootstrap-notify.min.js")
+    @System.Web.Optimization.Scripts.Render("~/Scripts/jsBootstrap/jquery.bootstrap-growl.js")
+
+    <script type="text/javascript">
+
+        $(document).ready(function () {
+            var todayDate = new Date();
+            $("#FechaHoraReserva").kendoDatePicker();
+            $('#FechaHoraReserva').data("kendoDatePicker").value(todayDate);
+         
+            uspListarSala_Presencial();
+        });
+
+        function uspListarSala_Presencial() {
+            var ddlSala = $("#ddlSala").kendoDropDownList({
+                optionLabel: "Todos",
+                dataTextField: "Descripcion",
+                dataValueField: "CodigoSala",
+                dataSource: {
+                    transport: {
+                        read: function (options) {
+
+                            $.ajax({
+                                type: "POST",
+                                url: "/gestionce/uspListarSala_Presencial",
+                                contentType: "application/json; charset=utf-8",
+                                dataType: "json",
+                                success: function (msg) {
+                                    var maquinas = { CodigoSala: 100, Descripcion: "MAQUINAS" };
+                                    msg.push(maquinas);
+                                    options.success(msg);
+                                }, complete: function () {
+                                    uspListarPresencial_HorarioClasesConfiguracionGestion();
+                                }
+                            });
+                        }
+                    }
+                }, change: function () {
+                }
+
+            }).data("kendoDropDownList");
+        }
+
+        function uspListarPresencial_HorarioClasesConfiguracionGestion() {
+
+            var CodigoSala = $('#ddlSala').data('kendoDropDownList').value() == '' ? 0 : $('#ddlSala').data('kendoDropDownList').value(); 
+            var FechaHoraReserva = kendo.toString($("#FechaHoraReserva").data('kendoDatePicker').value(), 'MM/dd/yyyy');
+            
+            $("#gridClases").empty();
+            $("#gridClases").kendoGrid({
+                dataSource: {
+                    type: "json",
+                    transport: {
+                        read: function (options) {
+                            $.ajax({
+                                data: '{"CodigoSala":"' + CodigoSala + '","FechaHoraReserva":"' + FechaHoraReserva + '"}',
+                                type: "POST",
+                                url: "/gestionce/uspListarPresencial_HorarioClasesConfiguracionGestion",
+                                contentType: "application/json; charset=utf-8",
+                                dataType: "json",
+                                success: function (msg) {
+                                    options.success(msg);
+                                    if (msg == '') {
+                                        
+                                    } else {
+                                        
+                                    }
+                                }
+                            });
+                        }
+                    }
+                },
+                selectable: "row",
+                scrollable: true,
+                height: 380,
+                columns: [
+                    //{
+                    //    template: '<center><div style="height: 17px;width: 17px;margin-left: -4px;"><label style="background-color:#: EstadoColor #;width: 17px;border-radius:25px;height: 17px;"></label></div></center>',
+                    //    title: "",
+                    //    width: 3
+                    //},
+                    {
+                        field: "CantidadAsistencias",
+                        template: '<center><div class="row" style="text-align: center;padding-left: 20px;">#: CantidadAsistencias #</div></center>',
+                        title: "<center style='color:black;'><b>#Asis</b></center>",
+                        width: 4,
+                        attributes: {
+                            style: "font-size:16px;text-align:center;font-weight:bold"
+                        }
+                    },
+                    {
+                        field: "DesSala",
+                        template: '<center><div class="row" style="text-align: center;padding-left: 50px;">#: Disciplina #</div><div style="text-align: center;font-weight:bold;font-size:10px;">#: DesSala #</div></center>',
+                        title: "<center style='color:black;'><b>Clase</b></center>",
+                        width: 15,
+                        attributes: {
+                            style: "font-size:12px;text-align:center;"
+                        }
+                    },{
+                        field: "HoraInicio",
+                        title: "<center style='color:black;'><b>Inicia</b></center>",
+                        template: "#= kendo.toString(kendo.parseDate(HoraInicio, 'yyyy-MM-dd'), 'hh:mm tt') #",
+                        width: 7,
+                        attributes: {
+                            style: "font-size:12px;text-align:center;"
+                        }
+                    },{
+                        field: "HoraFin",
+                        title: "<center style='color:black;'><b>Finaliza</b></center>",                        
+                        template: "#= kendo.toString(kendo.parseDate(HoraFin, 'yyyy-MM-dd'), 'hh:mm tt') #",
+                        width: 7,
+                        attributes: {
+                            style: "font-size:12px;text-align:center;"
+                        }
+                    }],
+                dataBound: function (e) {                  
+                    this.element.find('tbody tr:first').addClass('k-state-selected');
+                    this.select(this.tbody.find('>tr:first'));
+                }, change: function (e) {
+
+                    var grid = this;
+                    grid.select().each(function () {
+                        var dataItem = grid.dataItem($(this));
+                        
+                        var CodigoHorarioClasesTiempoReal = dataItem.CodigoHorarioClasesTiempoReal;
+                        if (CodigoHorarioClasesTiempoReal != null) {
+                            uspListarPresencial_HorarioClasesAsistenciasGestion(CodigoHorarioClasesTiempoReal);
+                        } else {
+                            $("#gridPersonasReservaron").empty();
+                            $.bootstrapGrowl("Ninguna persona ha realizado su reserva en esta clase.", { type: 'success', width: 'auto' });
+                        }
+                        
+                    });
+
+                }
+            });
+
+        }
+
+        function uspListarPresencial_HorarioClasesAsistenciasGestion(CodigoHorarioClasesConfiguracionTiempoReal) {
+           
+            $("#gridPersonasReservaron").empty();
+            $("#gridPersonasReservaron").kendoGrid({
+                dataSource: {
+                    type: "json",
+                    transport: {
+                        read: function (options) {
+                            $.ajax({
+                                data: '{"CodigoHorarioClasesConfiguracionTiempoReal":"' + CodigoHorarioClasesConfiguracionTiempoReal + '"}',
+                                type: "POST",
+                                url: "/gestionce/uspListarPresencial_HorarioClasesAsistenciasGestion",
+                                contentType: "application/json; charset=utf-8",
+                                dataType: "json",
+                                success: function (msg) {
+                                    options.success(msg);
+                                    if (msg == '') {
+
+                                    } else {
+
+                                    }
+                                }
+                            });
+                        }
+                    }
+                },
+                selectable: "row",
+                scrollable: true,
+                height: 380,
+                columns: [ 
+                    {
+                        field: "CodigoSocio",
+                        template: '<center><div class="row" style="text-align: center;padding-left: 20px;">#: CodigoSocio #  #: Nombres #,#: Apellidos #</div></center>',
+                        title: "<center style='color:black;'><b>Cliente</b></center>",
+                        width: 12,
+                        attributes: {
+                            style: "font-size:12px;text-align:center;"
+                        }
+                    }, {
+                        field: "Celular",
+                        title: "<center style='color:black;'><b>Celular</b></center>",                       
+                        width: 5,
+                        attributes: {
+                            style: "font-size:12px;text-align:center;"
+                        }
+                    }, {
+                        field: "PlanMembresia",
+                        title: "<center style='color:black;'><b>Plan</b></center>",
+                        width: 10,
+                        attributes: {
+                            style: "font-size:12px;text-align:center;"
+                        }
+                    }, {
+                        field: "FechaInicio",
+                        title: "<center style='color:black;'><b>Inicia</b></center>",
+                        template: "#= kendo.toString(kendo.parseDate(FechaInicio, 'yyyy-MM-dd'), 'dd/MM/yyyy') #",
+                        width: 5,
+                        attributes: {
+                            style: "font-size:12px;text-align:center;"
+                        }
+                    }, {
+                        field: "FechaFin",
+                        title: "<center style='color:black;'><b>Finaliza</b></center>",
+                        template: "#= kendo.toString(kendo.parseDate(FechaFin, 'yyyy-MM-dd'), 'dd/MM/yyyy') #",
+                        width: 5,
+                        attributes: {
+                            style: "font-size:12px;text-align:center;"
+                        }
+                    }],
+                dataBound: function (e) {
+                    this.element.find('tbody tr:first').addClass('k-state-selected');
+                    this.select(this.tbody.find('>tr:first'));
+                }, change: function (e) {
+
+                    var grid = this;
+                    grid.select().each(function () {
+                        var dataItem = grid.dataItem($(this));
+                        //var codMem = dataItem.CodigoMenbresia;
+
+
+                    });
+
+                }
+            });
+
+        }
+    </script>
+
+}
+

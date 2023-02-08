@@ -1,0 +1,148 @@
+﻿
+@model BotComers.ViewModels.DetalleCarritoViewModel
+@{
+    ViewBag.Title = "DetalleCarrito";
+    Layout = "~/Views/Shared/_LayoutBotComers.cshtml";
+}
+
+<div class="body-wrapper">
+    <div class="breadcrumb-area">
+        <div class="container">
+            <div class="breadcrumb-content">
+                <ul>
+                    <li><a href="@Url.Action("Index")">Home</a></li>
+                    <li class="active">Detelle Carrito</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <!-- Li's Breadcrumb Area End Here -->
+    <!--Shopping Cart Area Strat-->
+    <div class="Shopping-cart-area pt-60 pb-60">
+        <div class="container">
+            <div class="row">
+                @foreach (var item in Model.ListaDetalleCarrito)
+                {
+                    <div class="col-12">
+                        <form action="#">
+                            <div class="table-responsive">
+                                <table class="table table-bordered">
+                                    <thead>
+                                        <tr>
+                                            <td class="text-center">Imagen</td>
+                                            <td class="text-left">Nombre del producto</td>
+                                            <td class="text-left">Catidad</td>
+                                            <td class="text-left">Elminar</td>
+                                            <td class="text-right">Precio unitario</td>
+                                            <td class="text-right">Total</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td class="text-center">
+                                                <a href="@Url.Action("DetalleProducto")">
+                                                    <img src="http://limupa2.demo.towerthemes.com/image/cache/catalog/products/3-90x90.jpg"
+                                                         alt="Gamer para juegos en linea master" class="img-thumbnail" />
+                                                </a>
+                                            </td>
+                                            <td class="text-left">
+                                                <a href="@Url.Action("DetalleProducto")">
+                                                   @item.NombreProducto
+                                                </a>
+                                            </td>
+                                            <td class="quantity">
+                                                <div class="cart-plus-minus">
+                                                    <input class="cart-plus-minus-box" value="1" type="text">
+                                                    <div class="dec qtybutton"><i class="fa fa-angle-down"></i></div>
+                                                    <div class="inc qtybutton"><i class="fa fa-angle-up"></i></div>
+                                                </div>
+                                            </td>
+                                            <td class="text-left">
+                                                <span class="input-group-btn">
+                                                    <button type="button" data-toggle="tooltip" title="Remove" class="btn btn-danger" onclick="cart.remove('530');"><i class="fa fa-times-circle"></i></button>
+                                                </span>
+                                            </td>
+                                            <td class="text-right">@item.PrecioUnitario</td>
+                                            <td class="text-right">@item.Total</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="text-center">
+                                                <img src="http://limupa2.demo.towerthemes.com/image/cache/catalog/products/3-90x90.jpg"
+                                                     alt="Gamer para juegos en linea master" class="img-thumbnail" />
+                                            </td>
+                                            <td class="text-left">
+                                                <a href="@Url.Action("DetalleProducto")">
+                                                 @item.NombreProducto   
+                                                </a>
+                                            </td>
+                                            <td class="quantity">
+                                                <div class="cart-plus-minus">
+                                                    <input class="cart-plus-minus-box" value="1" type="text">
+                                                    <div class="dec qtybutton"><i class="fa fa-angle-down"></i></div>
+                                                    <div class="inc qtybutton"><i class="fa fa-angle-up"></i></div>
+                                                </div>
+                                            </td>
+                                            <td class="text-left">
+                                                <span class="input-group-btn">
+                                                    <button type="button" data-toggle="tooltip" title="Remove" class="btn btn-danger" onclick="cart.remove('530');"><i class="fa fa-times-circle"></i></button>
+                                                </span>
+                                            </td>
+                                            <td class="text-right">@item.PrecioUnitario</td>
+                                            <td class="text-right">@item.Total</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-5">
+                                    <div class="coupon-all">
+                                        <div class="coupon">
+                                            <input id="coupon_code" class="input-text" name="codigo cupon" value="" placeholder="Coupon code" type="text">
+                                            <input class="button" name="apply_coupon" value="Ingrese su cupon" type="submit">
+                                        </div>
+
+                                    </div>
+                                </div>
+                                <div class="col-md-5 ml-auto">
+                                    <h4>
+                                        RESUMEN
+                                    </h4>
+                                    <table class="table table-bordered">
+
+                                        <tbody>
+                                            <tr>
+                                                <td class="text-right"><strong>Sub-Total:</strong></td>
+                                                <td class="text-right">S/81.00</td>
+                                            </tr>
+                                            <tr>
+                                                <td class="text-right"><strong>Descuento:</strong></td>
+                                                <td class="text-right">S/25.00</td>
+                                            </tr>
+                                            <tr>
+                                                <td class="text-right"><strong>IGV (18%):</strong></td>
+                                                <td class="text-right">S/160.20</td>
+                                            </tr>
+                                            <tr>
+                                                <td class="text-right"><strong>Total:</strong></td>
+                                                <td class="text-right">S/159.20</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+
+                        </form>
+                        <br />
+                        <div class="buttons clearfix">
+
+                            <div class="pull-left"><a href="@Url.Action("CatalogoProducto")" class="btn btn-warning">SEGUIR COMPRANDO</a></div>
+
+                            <div class="pull-right"><a href="@Url.Action("ProcesoPago")" class="btn btn-warning">CONTINUAR</a></div>
+                        </div>
+                    </div>
+                }
+            </div>
+
+        </div>
+    </div>
+</div>

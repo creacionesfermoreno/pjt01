@@ -1,0 +1,262 @@
+﻿
+@{
+    ViewBag.Title = "add";
+    Layout = "~/Views/Shared/__LayoutAppFitPlataformaFit.cshtml";
+}
+
+<link href="@Url.Content("~/Content/cssKendo/kendo.common.min.css")" rel="stylesheet" />
+<link href="@Url.Content("~/Content/cssKendo/kendo.dataviz.default.min.css")" rel="stylesheet" />
+<link href="@Url.Content("~/Content/cssKendo/kendo.dataviz.min.css")" rel="stylesheet" />
+<link href="@Url.Content("~/Content/cssKendo/kendo.default.min.css")" rel="stylesheet" />
+
+<style>
+    .modal-backdrop {
+        display: none;
+    }
+
+    tr {
+        height:55px;
+    }
+</style>
+
+
+<div class="page__header page__header-nav mb-0">
+    <div class="container-fluid page__container">
+        <div class="navbar navbar-secondary navbar-light navbar-expand-sm p-0 d-none d-md-flex" id="secondaryNavbar">
+            <ul class="nav navbar-nav">
+                <li class="nav-item">
+                    <button style="color: #ffffff;background-color: #ff0200;font-size: 1.0rem;border: 0px #ff0200 solid;height: 33px;padding: 5px;cursor:pointer;" class="navbar-toggler navbar-toggler-custom d-flex mr-navbar" type="button" data-toggle="sidebar">
+                        Operaciones
+                    </button>
+                </li>
+                <li class="nav-item" data-controlmodulo="45833cdd-55db-4a67-a879-f1ae9353f8bf">
+                    <a href="@Url.Action("checking","gestionce",new {id= HttpContext.Current.Request.Cookies["_SubDominio_Business"].Value})" class="nav-link">Clientes</a>
+                </li>
+                <li class="nav-item" data-controlmodulo="9e69cfd8-b063-44df-a7f2-a3a10d1eb899" style="display:none;">
+                    <a class="nav-link " href="@Url.Action("posfitness","pos",new {id= HttpContext.Current.Request.Cookies["_SubDominio_Business"].Value})">Punto de venta</a>
+                </li>
+                <li class="nav-item" data-controlmodulo="7611dfbe-186f-4abe-8e2e-e64ad7281728" style="display:none;">
+                    <a class="nav-link" href="@Url.Action("caja","gestionce",new {id= HttpContext.Current.Request.Cookies["_SubDominio_Business"].Value})">Caja</a>
+                </li>
+                <li class="nav-item" data-controlmodulo="93c0d848-83aa-45eb-a83a-ded00a6b6e23" style="display:none;">
+                    <a class="nav-link" href="@Url.Action("nutricion","gestionce",new {id= HttpContext.Current.Request.Cookies["_SubDominio_Business"].Value})">Medidas y Nutrición</a>
+                </li>
+                <li class="nav-item" data-controlmodulo="947dc11f-3e14-4fe7-bedc-ae3d81219bee" style="display:none;">
+                    <a class="nav-link" href="@Url.Action("Index","inventariofit",new {id= HttpContext.Current.Request.Cookies["_SubDominio_Business"].Value})">Inventario</a>
+                </li>
+                <li class="nav-item" data-controlmodulo="39497bd3-94ab-4236-a1d4-4623d854f91e" style="display:none;">
+                    <a href="@Url.Action("agendacomercial","gestionce",new {id= HttpContext.Current.Request.Cookies["_SubDominio_Business"].Value})" class="nav-link">Agenda Comercial</a>
+                </li>
+                <li class="nav-item" data-controlmodulo="bbc035e6-68ea-4885-917f-005ad3fcfb66" style="display:none;">
+                    <a href="@Url.Action("metascomerciales","gestionce",new {id= HttpContext.Current.Request.Cookies["_SubDominio_Business"].Value})" class="nav-link">Metas</a>
+                </li>
+                <li class="nav-item" data-controlmodulo="bd61dc23-54d9-4901-9c35-b8d228b3a924" style="display:none;">
+                    <a href="@Url.Action("marketing","gestionce",new {id= HttpContext.Current.Request.Cookies["_SubDominio_Business"].Value})" class="nav-link">Marketing</a>
+                </li>
+                <li class="nav-item" data-controlmodulo="e1eadd0d-39b3-498d-b09b-9b3b28610b9b" style="display:none;">
+                    <a href="@Url.Action("informesfit","gestionce",new {id= HttpContext.Current.Request.Cookies["_SubDominio_Business"].Value})" class="nav-link">Informes</a>
+                </li>
+                <li class="nav-item" data-controlmodulo="600dabf4-7dc3-4dc0-a0ba-74b782955e52" style="display:none;">
+                    <a class="nav-link" href="@Url.Action("pagospersonal","gestionce",new {id= HttpContext.Current.Request.Cookies["_SubDominio_Business"].Value})">Pagos</a>
+                </li>
+                <li class="nav-item" data-controlmodulo="b1f65597-fd27-46ca-90d0-a0f2f1039ef7" style="display:none;">
+                    <a class="nav-link" href="@Url.Action("finanzas","gestionce",new {id= HttpContext.Current.Request.Cookies["_SubDominio_Business"].Value})">Finanzas</a>
+                </li>
+                <li class="nav-item" data-controlmodulo="4c01e8de-9440-4927-a2f2-d6241d925c39" style="display:none;">
+                    <a class="nav-link" href="@Url.Action("estadisticas","gestionce",new {id= HttpContext.Current.Request.Cookies["_SubDominio_Business"].Value})">Estadísticas</a>
+                </li>
+
+            </ul>
+        </div>
+    </div>
+</div>
+
+<div class="slim-mainpanel" style="background-color: #e9ebee;">
+
+    <br />
+    <div class="container">
+        <div class="section-wrapper">
+            <div class="form-layout">
+                <input type="hidden" value="0" id="hdIDBuscadorItemsVenta" />
+                <input type="hidden" value="0" id="hdCodigoItemVenta" />
+                <input type="hidden" value="N" id="hdAccionItemVenta" />
+
+                <div class="row mg-b-25">
+                    <div class="col-lg-3">
+                        <div class="form-group">
+                            <label for="txtInventarioAjuste_ddlAlmacenes" class="form-control-label">Almacen: <span class="tx-danger" id="txtInventarioAjuste_ddlAlmacenes_validacion" style="display:none;">* Seleccione almacen</span></label>
+                            <select id="txtInventarioAjuste_ddlAlmacenes" class="form-control form-control-sm" data-placeholder=""></select>
+                        </div>
+                        <div class="form-group">
+                            <label for="txtInventarioAjuste_FechaRealizacion" class="form-control-label">Fecha Ajuste: <span class="tx-danger" id="txtInventarioAjuste_txtFechaRealizacion_validacion" style="display:none;">* Ingrese fecha</span></label>
+                            <input id="txtInventarioAjuste_FechaRealizacion" class="form-control form-control-sm" type="text" name="" value="" placeholder="">
+                        </div>
+
+                    </div>
+                    <div class="col-lg-3">
+
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="form-group">
+                            <label for="txtInventarioAjuste_Observaciones" class="form-control-label">Observaciones: </label>
+                            <textarea id="txtInventarioAjuste_Observaciones" rows="2" class="form-control" placeholder=""></textarea>
+                        </div>
+                    </div>
+                </div><!-- row -->
+
+                <div class="card-header">
+                    <h6 class="slim-card-title">agregar productos para el ajuste</h6>
+                </div><!-- card-header -->
+                <div class="table-responsive">
+                    <table id="gridAjusteInventario" class="table mg-b-0">
+                        <thead>
+                            <tr class="tx-10">
+                                <th class="pd-y-10" style="font-size:10px;" width="280px;">
+                                    Item
+                                </th>
+                                <th class="pd-y-2" style="font-size:10px;" width="80px;">
+                                    Cantidad actual
+                                </th>
+                                <th class="pd-y-3" style="font-size:10px;" width="150px;">
+                                    Tipo de ajuste
+                                </th>
+                                <th class="pd-y-2" style="font-size:10px;" width="80px;">
+                                    Cantidad
+                                </th>
+                                <th class="pd-y-2" style="font-size:10px;" width="80px;">
+                                    Cantidad final
+                                </th>
+                                <th class="pd-y-2" style="font-size:10px;" width="80px;">
+                                    Costo unitario
+                                </th>
+                                <th class="pd-y-2" style="font-size:10px;" width="80px;">
+                                    Total ajustado
+                                </th>
+                                <th class="pd-y-2">
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody></tbody>
+                        <tfoot>
+                            <tr class="tx-10">
+                                <th class="pd-y-10" style="font-size:10px;">
+                                    <button class="btn btn-primary bd-0" onclick="javascript:Agregar_NuevoItem();">Agregar producto</button>
+                                </th>
+                                <th class="pd-y-2" style="font-size:10px;">
+
+                                </th>
+                                <th class="pd-y-3" style="font-size:10px;">
+
+                                </th>
+                                <th class="pd-y-2" style="font-size:10px;">
+
+                                </th>
+                                <th class="pd-y-2" style="font-size:10px;">
+
+                                </th>
+                                <th class="pd-y-2" style="font-size:10px;text-align:center;">
+                                    TOTAL S/.
+                                </th>
+                                <th class="pd-y-2" style="font-size:15px;">
+                                    <label id="txtInventarioAjuste_TotalAjuste"></label>
+                                </th>
+                                <th class="pd-y-2">
+
+                                </th>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div><!-- table-responsive -->
+                <div class="card-footer tx-12 pd-y-15 bg-transparent">
+
+                </div><!-- card-footer -->
+
+                <div class="form-layout-footer">
+                    <button data-controlmodulo="78d4d719-4fcd-47e3-91f7-4d9cd2be253b" style="display:none;" class="btn btn-primary bd-0" onclick="javascript:RegistrarAjusteInventario();">Guardar</button>
+                    <a id="btnRegresar" href="@Url.Action("index","inventarioajustefit")"><button class="btn btn-secondary bd-0">Regresar</button></a>
+                </div><!-- form-layout-footer -->
+
+                <div style="display:none;" class="alert alert-solid alert-success" role="alert">
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                    <strong>Excelente!</strong> Registro Guardado Correctamente.
+                </div>
+            </div><!-- form-layout -->
+        </div><!-- section-wrapper -->
+        <br /><br />
+    </div><!-- container -->
+
+</div><!-- slim-mainpanel -->
+
+
+<div class="modal fade" id="loadMe" tabindex="-1" role="dialog" aria-labelledby="loadMeLabel">
+    <div class="modal-dialog modal-sm" role="document">
+        <div class="modal-content">
+            <div class="modal-body text-center">
+                <div class="loader"></div>
+                <div clas="loader-txt">
+                    <p>Cargando... <br><br><small>Espere por favor, este proceso puede tardar unos minutos</small></p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@section Scripts {
+
+    @System.Web.Optimization.Scripts.Render("~/Scripts/jquery.min.js")
+    @System.Web.Optimization.Scripts.Render("~/Scripts/plugins/jsKendo/angular.min.js")
+    @System.Web.Optimization.Scripts.Render("~/Scripts/plugins/jsKendo/kendo.all.min.js")
+
+    @System.Web.Optimization.Scripts.Render("~/Scripts/plugins/jquery-ui/jquery-ui.js")
+    @System.Web.Optimization.Scripts.Render("~/Scripts/plugins/jquery-ui/jquery-ui.min.js")
+
+    @System.Web.Optimization.Scripts.Render("~/Resource/UserControl.Helper.js")
+    @System.Web.Optimization.Scripts.Render("~/Resource/AjusteInventario.js?pp")
+
+    <script type="text/javascript">
+
+        $(document).ready(function () {
+            SEGListarPerfilMenu();
+            var todayDate = new Date();
+            $('input[id="txtInventarioAjuste_FechaRealizacion"]').kendoDatePicker();
+            $('input[id="txtInventarioAjuste_FechaRealizacion"]').data("kendoDatePicker").value(todayDate);
+
+            ListarAlmacenes();
+
+        });
+
+        function SEGListarPerfilMenu() {
+
+            var entidad = {};
+
+            document.getElementById('loadMe').style.display = 'block';
+            $('button[type="button"]').attr("disabled", true);
+            var metodoCorrecto = function (msg) {
+
+                $('button[type="button"]').attr("disabled", false);
+                document.getElementById('loadMe').style.display = 'none';
+
+                for (var i = 0; i < msg.length; i++) {
+
+                    if (msg[i].Estado) {
+                        $('[data-controlmodulo="' + msg[i].CodigoMenu + '"]').show('fast');
+                    }
+                }
+
+            };
+            var metodoError = function (msg) {
+                alert(msg);
+            };
+            var request = {
+                //request: entidad
+            };
+            LlamarAJAX("/itemsventa/SEGListarPerfilMenu", request, metodoCorrecto, metodoError);
+
+        }
+
+
+    </script>
+
+}
+

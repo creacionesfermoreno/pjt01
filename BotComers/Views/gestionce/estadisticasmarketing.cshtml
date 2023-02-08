@@ -1,0 +1,920 @@
+﻿
+@{
+    ViewBag.Title = "estadisticasmarketing";
+    Layout = "~/Views/Shared/__LayoutAppFitPlataformaFit.cshtml";
+}
+
+
+<link href="@Url.Content("~/Content/cssKendo/kendo.common.min.css")" rel="stylesheet" />
+<link href="@Url.Content("~/Content/cssKendo/kendo.dataviz.default.min.css")" rel="stylesheet" />
+<link href="@Url.Content("~/Content/cssKendo/kendo.dataviz.min.css")" rel="stylesheet" />
+<link href="@Url.Content("~/Content/cssKendo/kendo.default.min.css")" rel="stylesheet" />
+<style>
+
+    /** SPINNER CREATION **/
+    .loader {
+        position: relative;
+        text-align: center;
+        margin: 15px auto 35px auto;
+        z-index: 9999;
+        display: block;
+        width: 80px;
+        height: 80px;
+        border: 10px solid rgba(0, 0, 0, .3);
+        border-radius: 50%;
+        border-top-color: #000;
+        animation: spin 1s ease-in-out infinite;
+        -webkit-animation: spin 1s ease-in-out infinite;
+    }
+
+    /** MODAL STYLING **/
+    .modal-content {
+        border-radius: 0px;
+        box-shadow: 0 0 20px 8px rgba(0, 0, 0, 0.7);
+    }
+
+    .modal-backdrop.show {
+        opacity: 0.75;
+    }
+</style>
+
+
+<div class="page__header page__header-nav mb-0">
+    <div class="container-fluid page__container">
+        <div class="navbar navbar-secondary navbar-light navbar-expand-sm p-0 d-none d-md-flex" id="secondaryNavbar">
+            <ul class="nav navbar-nav">
+                <li class="nav-item">
+                    <button style="color: #ffffff;background-color: #ff0200;font-size: 1.0rem;border: 0px #ff0200 solid;height: 33px;padding: 5px;cursor:pointer;" class="navbar-toggler navbar-toggler-custom d-flex mr-navbar" type="button" data-toggle="sidebar">
+                        Operaciones
+                    </button>
+                </li>
+                <li class="nav-item" data-controlmodulo="45833cdd-55db-4a67-a879-f1ae9353f8bf">
+                    <a href="@Url.Action("checking","gestionce",new {id= HttpContext.Current.Request.Cookies["_SubDominio_Business"].Value})" class="nav-link">Clientes</a>
+                </li>
+                <li class="nav-item" data-controlmodulo="9e69cfd8-b063-44df-a7f2-a3a10d1eb899" style="display:none;">
+                    <a class="nav-link " href="@Url.Action("posfitness","pos",new {id= HttpContext.Current.Request.Cookies["_SubDominio_Business"].Value})">Punto de venta</a>
+                </li>
+                <li class="nav-item" data-controlmodulo="7611dfbe-186f-4abe-8e2e-e64ad7281728" style="display:none;">
+                    <a class="nav-link" href="@Url.Action("caja","gestionce",new {id= HttpContext.Current.Request.Cookies["_SubDominio_Business"].Value})">Caja</a>
+                </li>
+                <li class="nav-item" data-controlmodulo="93c0d848-83aa-45eb-a83a-ded00a6b6e23" style="display:none;">
+                    <a class="nav-link" href="@Url.Action("nutricion","gestionce",new {id= HttpContext.Current.Request.Cookies["_SubDominio_Business"].Value})">Medidas y Nutrición</a>
+                </li>
+                <li class="nav-item" data-controlmodulo="947dc11f-3e14-4fe7-bedc-ae3d81219bee" style="display:none;">
+                    <a class="nav-link " href="@Url.Action("Index","inventariofit",new {id= HttpContext.Current.Request.Cookies["_SubDominio_Business"].Value})">Inventario</a>
+                </li>
+
+                <li class="nav-item" data-controlmodulo="39497bd3-94ab-4236-a1d4-4623d854f91e" style="display:none;">
+                    <a class="nav-link" href="@Url.Action("agendacomercial","gestionce",new {id= HttpContext.Current.Request.Cookies["_SubDominio_Business"].Value})">Agenda Comercial</a>
+                </li>
+                <li class="nav-item" data-controlmodulo="bbc035e6-68ea-4885-917f-005ad3fcfb66" style="display:none;">
+                    <a href="@Url.Action("metascomerciales","gestionce",new {id= HttpContext.Current.Request.Cookies["_SubDominio_Business"].Value})" class="nav-link">Metas</a>
+                </li>
+                <li class="nav-item" data-controlmodulo="e1eadd0d-39b3-498d-b09b-9b3b28610b9b" style="display:none;">
+                    <a href="@Url.Action("informesfit","gestionce",new {id= HttpContext.Current.Request.Cookies["_SubDominio_Business"].Value})" class="nav-link">Informes</a>
+                </li>
+                <li class="nav-item" data-controlmodulo="600dabf4-7dc3-4dc0-a0ba-74b782955e52" style="display:none;">
+                    <a class="nav-link" href="@Url.Action("pagospersonal","gestionce",new {id= HttpContext.Current.Request.Cookies["_SubDominio_Business"].Value})">Pagos</a>
+                </li>
+
+                <li class="nav-item active" data-controlmodulo="b1f65597-fd27-46ca-90d0-a0f2f1039ef7" style="display:none;">
+                    <a class="nav-link active" href="@Url.Action("finanzas","gestionce",new {id= HttpContext.Current.Request.Cookies["_SubDominio_Business"].Value})">Finanzas</a>
+                </li>
+
+                <li class="nav-item" data-controlmodulo="4c01e8de-9440-4927-a2f2-d6241d925c39" style="display:none;">
+                    <a class="nav-link" href="@Url.Action("estadisticas","gestionce",new {id= HttpContext.Current.Request.Cookies["_SubDominio_Business"].Value})">Estadísticas</a>
+                </li>
+
+
+            </ul>
+        </div>
+    </div>
+</div>
+<br />
+<div class="card-header card-header-sm align-items-center" style="border-bottom:0px #fff solid;">
+    <div class="form-row">
+        <div class="col-2 col-md-2 mb-3">
+            <h4 class="card-header__title flex m-0">Marketing</h4>
+        </div>
+        <div class="col-4 col-md-4 mb-3">
+
+        </div>
+        <div class="col-2 col-md-2 mb-3">
+            <input type="text" id="txtFechaInicio" placeHolder="Fecha inicio" style="width:99%;font-size:11px;" class="k-datetime" />
+        </div>
+        <div class="col-2 col-md-2 mb-3">
+            <input type="text" id="txtFechaFin" placeHolder="Fecha fin" style="width:99%;font-size:11px;" class="k-datetime" />
+        </div>
+        <div class="col-2 col-md-2 mb-3">
+            <button class="btn btn-primary btn-sm btn-block mg-b-10" onclick="uspEstadisticaVentasPorEvolucionTicketPromedio_Ventas();">Buscar</button>
+        </div>
+    </div>
+
+</div>
+
+<br />
+<div class="container-fluid page__container">
+
+    <div class="row">
+
+        <div class="col-md-4">
+            <div class="card">
+                <div class="card-body">
+                    <div class="d-flex flex-column flex-sm-row">
+                        <canvas id="floarChart_uspListarEncuestaEstadisticaObjetivos" width="200" height="250"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card">
+                <div class="card-body">
+                    <div class="d-flex flex-column flex-sm-row">
+                        <canvas id="floarChart_uspListarEstadisticaComoConocioGym" width="200" height="250"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card">
+                <div class="card-body">
+                    <div class="d-flex flex-column flex-sm-row">
+                        <canvas id="floarChart_uspListarEstadisticaInteres" width="200" height="250"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="card">
+                <div class="card-body">
+                    <div class="d-flex flex-column flex-sm-row">
+                        <canvas id="floarChart_uspListarClientesHombres_MujeresEstadistica" width="200" height="250"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="card">
+                <div class="card-body">
+                    <div class="d-flex flex-column flex-sm-row">
+                        <canvas id="floarChart_uspListarTotalDia_TardeEstadistica" width="200" height="250"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="card">
+                <div class="card-body">
+                    <div class="d-flex flex-column flex-sm-row">
+                        <canvas id="floarChart_uspListarEstadisticaTipoContrato" width="200" height="250"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-8">
+            <div class="card">
+                <div class="card-body">
+                    <div class="d-flex flex-column flex-sm-row">
+                        <canvas id="floarChart_uspListarEstadisticaTiempoMenbresia" width="400" height="250"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="card">
+                <div class="card-body">
+                    <div class="d-flex flex-column flex-sm-row">
+                        <canvas id="floarChart_uspListarClientesAsistenciaEfectiva_Estadistica" width="200" height="250"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+</div>
+
+
+<div class="modal fade" id="loadMe" tabindex="-1" role="dialog" aria-labelledby="loadMeLabel">
+    <div class="modal-dialog modal-sm" role="document">
+        <div class="modal-content">
+            <div class="modal-body text-center">
+                <div class="loader"></div>
+                <div clas="loader-txt">
+                    <p>Cargando... <br><br><small>Espere por favor, este proceso puede tardar unos minutos</small></p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+@section Scripts {
+
+    @System.Web.Optimization.Scripts.Render("~/Scripts/jquery.min.js")
+    @System.Web.Optimization.Scripts.Render("~/Scripts/plugins/jsKendo/angular.min.js")
+    @System.Web.Optimization.Scripts.Render("~/Scripts/plugins/jsKendo/kendo.all.min.js")
+
+    @System.Web.Optimization.Scripts.Render("~/Scripts/plugins/jquery-ui/jquery-ui.js")
+    @System.Web.Optimization.Scripts.Render("~/Scripts/plugins/jquery-ui/jquery-ui.min.js")
+
+    @System.Web.Optimization.Scripts.Render("~/Resource/UserControl.Helper.js")
+
+    @System.Web.Optimization.Scripts.Render("~/Scripts/jsChart/Chart.bundle.min.js")
+    @System.Web.Optimization.Scripts.Render("~/Scripts/jsChart/Chart.min.js")
+
+    <script type="text/javascript">
+        $(document).ready(function (e) {
+            $('#txtFechaInicio').kendoDatePicker();
+            $('#txtFechaFin').kendoDatePicker();
+            var todayDate = new Date();
+            var Primerdia = new Date(todayDate.getFullYear(), todayDate.getMonth(), 1);
+            $('#txtFechaInicio').data("kendoDatePicker").value(Primerdia);
+            var ultimoDia = new Date(todayDate.getFullYear(), todayDate.getMonth() + 1, 0);
+            $('#txtFechaFin').data("kendoDatePicker").value(ultimoDia);
+
+            uspListarEncuestaEstadisticaObjetivos();
+        });
+
+
+        function uspListarEncuestaEstadisticaObjetivos() {
+
+            var fechaInicio = kendo.toString($("#txtFechaInicio").data('kendoDatePicker').value(), 'MM/dd/yyyy');
+            var fechaFin = kendo.toString($("#txtFechaFin").data('kendoDatePicker').value(), 'MM/dd/yyyy');
+            $('button[type="button"]').attr("disabled", true);
+            document.getElementById('loadMe').style.display = 'block';
+
+            var DescripcioObjetivo = [];
+            var porTotalObjetivo = [];
+
+            $.ajax({
+                data: '{"fechaInicio":"' + fechaInicio + '","fechaFin":"' + fechaFin + '"}',
+                type: "POST",
+                url: "/gestionce/uspListarEncuestaEstadisticaObjetivos",
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function (msg) {
+
+                    for (var i in msg) {
+                        DescripcioObjetivo.push(msg[i].DescripcioObjetivo);
+                        porTotalObjetivo.push(msg[i].porTotalObjetivo);
+                    }
+                    $('#floarChart_uspListarEncuestaEstadisticaObjetivos').empty();
+                    var ctx = document.getElementById('floarChart_uspListarEncuestaEstadisticaObjetivos');
+                    var myChart = new Chart(ctx, {
+                        type: 'pie',
+                        data: {
+                            labels: DescripcioObjetivo,
+                            datasets: [{
+                                label: 'Objetivos',
+                                data: porTotalObjetivo,
+                                backgroundColor: [
+                                    'rgb(232, 39, 57)',
+                                    'rgb(158, 158, 158)',
+                                    'rgb(33, 150, 243)',
+                                    'rgb(15, 157, 88)',
+                                    'rgb(144, 35, 10)',
+                                    'rgb(255, 87, 34)'
+                                ],
+                                borderColor: [
+                                    'rgb(232, 39, 57)',
+                                    'rgb(158, 158, 158)',
+                                    'rgb(33, 150, 243)',
+                                    'rgb(15, 157, 88)',
+                                    'rgb(144, 35, 10)',
+                                    'rgb(255, 87, 34)'
+                                ],
+                                borderWidth: 1
+                            }]
+                        },
+                        options: {
+                            title: {
+                                display: true,
+                                text: 'OBJETIVOS DE LAS PERSONAS'
+                            },
+                            scales: {
+                                yAxes: [{
+                                    ticks: {
+                                        beginAtZero: true
+                                    }
+                                }]
+                            }
+                        }
+                    });
+
+                }, complete: function () {
+                    DescripcioObjetivo = [];
+                    porTotalObjetivo = [];
+                    $('button[type="button"]').attr("disabled", false);
+                    uspListarEstadisticaComoConocioGym();
+
+                }
+            });
+
+
+        }
+
+        function uspListarEstadisticaComoConocioGym() {
+
+            var fechaInicio = kendo.toString($("#txtFechaInicio").data('kendoDatePicker').value(), 'MM/dd/yyyy');
+            var fechaFin = kendo.toString($("#txtFechaFin").data('kendoDatePicker').value(), 'MM/dd/yyyy');
+            $('button[type="button"]').attr("disabled", true);
+            document.getElementById('loadMe').style.display = 'block';
+
+            var DescripcioComoConocioGym = [];
+            var porTotalComoConocioGym = [];
+
+            $.ajax({
+                data: '{"fechaInicio":"' + fechaInicio + '","fechaFin":"' + fechaFin + '"}',
+                type: "POST",
+                url: "/gestionce/uspListarEstadisticaComoConocioGym",
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function (msg) {
+
+                    for (var i in msg) {
+                        DescripcioComoConocioGym.push(msg[i].DescripcioComoConocioGym);
+                        porTotalComoConocioGym.push(msg[i].porTotalComoConocioGym);
+                    }
+                    $('#floarChart_uspListarEstadisticaComoConocioGym').empty();
+                    var ctx = document.getElementById('floarChart_uspListarEstadisticaComoConocioGym');
+                    var myChart = new Chart(ctx, {
+                        type: 'pie',
+                        data: {
+                            labels: DescripcioComoConocioGym,
+                            datasets: [{
+                                label: 'Como conocio el gimnasio',
+                                data: porTotalComoConocioGym,
+                                backgroundColor: [
+                                    'rgb(232, 39, 57)',
+                                    'rgb(144, 35, 10)',
+                                    'rgb(33, 150, 243)',
+                                    'rgb(15, 157, 88)',
+                                    'rgb(255, 134, 40)',
+                                    'rgb(231, 35, 57)'
+                                ],
+                                borderColor: [
+                                    'rgb(232, 39, 57)',
+                                    'rgb(144, 35, 10)',
+                                    'rgb(33, 150, 243)',
+                                    'rgb(15, 157, 88)',
+                                    'rgb(255, 134, 40)',
+                                    'rgb(231, 35, 57)'
+                                ],
+                                borderWidth: 1
+                            }]
+                        },
+                        options: {
+                            title: {
+                                display: true,
+                                text: 'COMO CONOCIÓ EL CENTRO'
+                            },
+                            scales: {
+                                yAxes: [{
+                                    ticks: {
+                                        beginAtZero: true
+                                    }
+                                }]
+                            }
+                        }
+                    });
+
+                }, complete: function () {
+                    DescripcioComoConocioGym = [];
+                    porTotalComoConocioGym = [];
+                    $('button[type="button"]').attr("disabled", false);
+                    uspListarEstadisticaInteres();
+
+                }
+            });
+
+
+        }
+
+        function uspListarEstadisticaInteres() {
+
+            var fechaInicio = kendo.toString($("#txtFechaInicio").data('kendoDatePicker').value(), 'MM/dd/yyyy');
+            var fechaFin = kendo.toString($("#txtFechaFin").data('kendoDatePicker').value(), 'MM/dd/yyyy');
+            $('button[type="button"]').attr("disabled", true);
+            document.getElementById('loadMe').style.display = 'block';
+
+            var DescripcionInteres = [];
+            var porTotalInteres = [];
+
+            $.ajax({
+                data: '{"fechaInicio":"' + fechaInicio + '","fechaFin":"' + fechaFin + '"}',
+                type: "POST",
+                url: "/gestionce/uspListarEstadisticaInteres",
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function (msg) {
+
+                    for (var i in msg) {
+                        DescripcionInteres.push(msg[i].DescripcionInteres);
+                        porTotalInteres.push(msg[i].porTotalInteres);
+                    }
+                    $('#floarChart_uspListarEstadisticaInteres').empty();
+                    var ctx = document.getElementById('floarChart_uspListarEstadisticaInteres');
+                    var myChart = new Chart(ctx, {
+                        type: 'pie',
+                        data: {
+                            labels: DescripcionInteres,
+                            datasets: [{
+                                label: 'Intereses',
+                                data: porTotalInteres,
+                                backgroundColor: [
+                                    'rgb(244, 67, 54)',
+                                    'rgb(233, 30, 99)',
+                                    'rgb(156, 39, 176)',
+                                    'rgb(103, 58, 183)',
+                                    'rgb(63, 81, 181)',
+                                    'rgb(255, 87, 34)',
+                                    'rgb(0, 188, 212)',
+                                    'rgb(0, 150, 136)',
+                                    'rgb(76, 175, 80)',
+                                    'rgb(139, 195, 74)',
+                                    'rgb(255, 193, 7)',
+                                    'rgb(33, 150, 243)',
+                                    'rgb(158, 158, 158)',
+                                    'rgb(232, 39, 57)',
+                                    'rgb(144, 35, 10)'
+
+                                ],
+                                borderColor: [
+                                    'rgb(244, 67, 54)',
+                                    'rgb(233, 30, 99)',
+                                    'rgb(156, 39, 176)',
+                                    'rgb(103, 58, 183)',
+                                    'rgb(63, 81, 181)',
+                                    'rgb(255, 87, 34)',
+                                    'rgb(0, 188, 212)',
+                                    'rgb(0, 150, 136)',
+                                    'rgb(76, 175, 80)',
+                                    'rgb(139, 195, 74)',
+                                    'rgb(255, 193, 7)',
+                                    'rgb(33, 150, 243)',
+                                    'rgb(158, 158, 158)',
+                                    'rgb(232, 39, 57)',
+                                    'rgb(144, 35, 10)'
+
+                                ],
+                                borderWidth: 1
+                            }]
+                        },
+                        options: {
+                            title: {
+                                display: true,
+                                text: 'INTERESES DE LA PERSONA'
+                            },
+                            scales: {
+                                yAxes: [{
+                                    ticks: {
+                                        beginAtZero: true
+                                    }
+                                }]
+                            }
+                        }
+                    });
+
+                }, complete: function () {
+                    DescripcionInteres = [];
+                    porTotalInteres = [];
+                    $('button[type="button"]').attr("disabled", false);
+                    uspListarClientesHombres_MujeresEstadistica();
+
+                }
+            });
+
+
+        }
+
+        function uspListarClientesHombres_MujeresEstadistica() {
+
+            var fechaInicio = kendo.toString($("#txtFechaInicio").data('kendoDatePicker').value(), 'MM/dd/yyyy');
+            var fechaFin = kendo.toString($("#txtFechaFin").data('kendoDatePicker').value(), 'MM/dd/yyyy');
+            $('button[type="button"]').attr("disabled", true);
+            document.getElementById('loadMe').style.display = 'block';
+
+            var Descripcion = [];
+            var porCentajeTotal = [];
+
+            $.ajax({
+                data: '{"fechaInicio":"' + fechaInicio + '","fechaFin":"' + fechaFin + '"}',
+                type: "POST",
+                url: "/gestionce/uspListarClientesHombres_MujeresEstadistica",
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function (msg) {
+
+                    for (var i in msg) {
+                        Descripcion.push(msg[i].Descripcion);
+                        porCentajeTotal.push(msg[i].porCentajeTotal);
+                    }
+                    $('#floarChart_uspListarClientesHombres_MujeresEstadistica').empty();
+                    var ctx = document.getElementById('floarChart_uspListarClientesHombres_MujeresEstadistica');
+                    var myChart = new Chart(ctx, {
+                        type: 'pie',
+                        data: {
+                            labels: Descripcion,
+                            datasets: [{
+                                label: 'Intereses',
+                                data: porCentajeTotal,
+                                backgroundColor: [
+                                    'rgb(244, 67, 54)',
+                                    'rgb(233, 30, 99)',
+                                    'rgb(156, 39, 176)',
+                                    'rgb(103, 58, 183)',
+                                    'rgb(63, 81, 181)',
+                                    'rgb(255, 87, 34)',
+                                    'rgb(0, 188, 212)',
+                                    'rgb(0, 150, 136)',
+                                    'rgb(76, 175, 80)',
+                                    'rgb(139, 195, 74)',
+                                    'rgb(255, 193, 7)',
+                                    'rgb(33, 150, 243)',
+                                    'rgb(158, 158, 158)',
+                                    'rgb(232, 39, 57)',
+                                    'rgb(144, 35, 10)'
+
+                                ],
+                                borderColor: [
+                                    'rgb(244, 67, 54)',
+                                    'rgb(233, 30, 99)',
+                                    'rgb(156, 39, 176)',
+                                    'rgb(103, 58, 183)',
+                                    'rgb(63, 81, 181)',
+                                    'rgb(255, 87, 34)',
+                                    'rgb(0, 188, 212)',
+                                    'rgb(0, 150, 136)',
+                                    'rgb(76, 175, 80)',
+                                    'rgb(139, 195, 74)',
+                                    'rgb(255, 193, 7)',
+                                    'rgb(33, 150, 243)',
+                                    'rgb(158, 158, 158)',
+                                    'rgb(232, 39, 57)',
+                                    'rgb(144, 35, 10)'
+
+                                ],
+                                borderWidth: 1
+                            }]
+                        },
+                        options: {
+                            title: {
+                                display: true,
+                                text: '% POR GÉNERO'
+                            },
+                            scales: {
+                                yAxes: [{
+                                    ticks: {
+                                        beginAtZero: true
+                                    }
+                                }]
+                            }
+                        }
+                    });
+
+                }, complete: function () {
+                    Descripcion = [];
+                    porCentajeTotal = [];
+                    $('button[type="button"]').attr("disabled", false);
+                    uspListarTotalDia_TardeEstadistica();
+                }
+            });
+
+
+        }
+
+        function uspListarTotalDia_TardeEstadistica() {
+
+            var fechaInicio = kendo.toString($("#txtFechaInicio").data('kendoDatePicker').value(), 'MM/dd/yyyy');
+            var fechaFin = kendo.toString($("#txtFechaFin").data('kendoDatePicker').value(), 'MM/dd/yyyy');
+            $('button[type="button"]').attr("disabled", true);
+            document.getElementById('loadMe').style.display = 'block';
+
+            var Descripcion = [];
+            var porCentajeTotal = [];
+
+            $.ajax({
+                data: '{"fechaInicio":"' + fechaInicio + '","fechaFin":"' + fechaFin + '"}',
+                type: "POST",
+                url: "/gestionce/uspListarTotalDia_TardeEstadistica",
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function (msg) {
+
+                    for (var i in msg) {
+                        Descripcion.push(msg[i].Descripcion);
+                        porCentajeTotal.push(msg[i].porCentajeTotal);
+                    }
+                    $('#floarChart_uspListarTotalDia_TardeEstadistica').empty();
+                    var ctx = document.getElementById('floarChart_uspListarTotalDia_TardeEstadistica');
+                    var myChart = new Chart(ctx, {
+                        type: 'pie',
+                        data: {
+                            labels: Descripcion,
+                            datasets: [{
+                                label: 'VENTAS POR TURNOS',
+                                data: porCentajeTotal,
+                                backgroundColor: [
+                                    'rgb(232, 39, 57)',
+                                    'rgb(144, 35, 10)',
+                                    'rgb(33, 150, 243)',
+                                    'rgb(15, 157, 88)',
+                                    'rgb(144, 35, 10)',
+                                    'rgb(231, 35, 57)'
+                                ],
+                                borderColor: [
+                                    'rgb(232, 39, 57)',
+                                    'rgb(144, 35, 10)',
+                                    'rgb(33, 150, 243)',
+                                    'rgb(15, 157, 88)',
+                                    'rgb(144, 35, 10)',
+                                    'rgb(231, 35, 57)'
+                                ],
+                                borderWidth: 1
+                            }]
+                        },
+                        options: {
+                            title: {
+                                display: true,
+                                text: '% POR TURNOS'
+                            },
+                            scales: {
+                                yAxes: [{
+                                    ticks: {
+                                        beginAtZero: true
+                                    }
+                                }]
+                            }
+                        }
+                    });
+
+                }, complete: function () {
+                    Descripcion = [];
+                    porCentajeTotal = [];
+                    $('button[type="button"]').attr("disabled", false);
+                    uspListarEstadisticaTipoContrato();
+
+                }
+            });
+
+
+        }
+
+        function uspListarEstadisticaTipoContrato() {
+
+            var fechaInicio = kendo.toString($("#txtFechaInicio").data('kendoDatePicker').value(), 'MM/dd/yyyy');
+            var fechaFin = kendo.toString($("#txtFechaFin").data('kendoDatePicker').value(), 'MM/dd/yyyy');
+            $('button[type="button"]').attr("disabled", true);
+            document.getElementById('loadMe').style.display = 'block';
+
+            var Descripcion = [];
+            var porCentajeTotal = [];
+
+            $.ajax({
+                data: '{"fechaInicio":"' + fechaInicio + '","fechaFin":"' + fechaFin + '"}',
+                type: "POST",
+                url: "/gestionce/uspListarEstadisticaTipoContrato",
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function (msg) {
+
+                    for (var i in msg) {
+                        Descripcion.push(msg[i].Descripcion);
+                        porCentajeTotal.push(msg[i].porCentajeTotal);
+                    }
+                    $('#floarChart_uspListarEstadisticaTipoContrato').empty();
+                    var ctx = document.getElementById('floarChart_uspListarEstadisticaTipoContrato');
+                    var myChart = new Chart(ctx, {
+                        type: 'pie',
+                        data: {
+                            labels: Descripcion,
+                            datasets: [{
+                                label: 'Ventas por tipo de contrato',
+                                data: porCentajeTotal,
+                                backgroundColor: [
+                                    'rgb(232, 39, 57)',
+                                    'rgb(144, 35, 10)',
+                                    'rgb(33, 150, 243)',
+                                    'rgb(15, 157, 88)',
+                                    'rgb(144, 35, 10)',
+                                    'rgb(231, 35, 57)'
+                                ],
+                                borderColor: [
+                                    'rgb(232, 39, 57)',
+                                    'rgb(144, 35, 10)',
+                                    'rgb(33, 150, 243)',
+                                    'rgb(15, 157, 88)',
+                                    'rgb(144, 35, 10)',
+                                    'rgb(231, 35, 57)'
+                                ],
+                                borderWidth: 1
+                            }]
+                        },
+                        options: {
+                            title: {
+                                display: true,
+                                text: '% POR TIPO DE CONTRATO'
+                            },
+                            scales: {
+                                yAxes: [{
+                                    ticks: {
+                                        beginAtZero: true
+                                    }
+                                }]
+                            }
+                        }
+                    });
+
+                }, complete: function () {
+                    Descripcion = [];
+                    porCentajeTotal = [];
+                    $('button[type="button"]').attr("disabled", false);
+                    uspListarClientesAsistenciaEfectiva_Estadistica();
+
+                }
+            });
+
+
+        }
+
+        function uspListarClientesAsistenciaEfectiva_Estadistica() {
+
+            var fechaInicio = kendo.toString($("#txtFechaInicio").data('kendoDatePicker').value(), 'MM/dd/yyyy');
+            var fechaFin = kendo.toString($("#txtFechaFin").data('kendoDatePicker').value(), 'MM/dd/yyyy');
+            $('button[type="button"]').attr("disabled", true);
+            document.getElementById('loadMe').style.display = 'block';
+
+            var Descripcion = [];
+            var porCentajeTotal = [];
+
+            $.ajax({
+                data: '{"fechaInicio":"' + fechaInicio + '","fechaFin":"' + fechaFin + '"}',
+                type: "POST",
+                url: "/gestionce/uspListarClientesAsistenciaEfectiva_Estadistica",
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function (msg) {
+
+                    for (var i in msg) {
+                        Descripcion.push(msg[i].Descripcion);
+                        porCentajeTotal.push(msg[i].porCentajeTotal);
+                    }
+                    $('#floarChart_uspListarClientesAsistenciaEfectiva_Estadistica').empty();
+                    var ctx = document.getElementById('floarChart_uspListarClientesAsistenciaEfectiva_Estadistica');
+                    var myChart = new Chart(ctx, {
+                        type: 'pie',
+                        data: {
+                            labels: Descripcion,
+                            datasets: [{
+                                label: '% de nivel asistencia',
+                                data: porCentajeTotal,
+                                backgroundColor: [
+                                    'rgb(232, 39, 57)',
+                                    'rgb(158, 158, 158)',
+                                    'rgb(33, 150, 243)',
+                                    'rgb(15, 157, 88)',
+                                    'rgb(144, 35, 10)',
+                                    'rgb(255, 87, 34)'
+                                ],
+                                borderColor: [
+                                    'rgb(232, 39, 57)',
+                                    'rgb(158, 158, 158)',
+                                    'rgb(33, 150, 243)',
+                                    'rgb(15, 157, 88)',
+                                    'rgb(144, 35, 10)',
+                                    'rgb(255, 87, 34)'
+                                ],
+                                borderWidth: 1
+                            }]
+                        },
+                        options: {
+                            title: {
+                                display: true,
+                                text: 'POR EFECTIVIDAD DE ASISTENCIA'
+                            },
+                            scales: {
+                                yAxes: [{
+                                    ticks: {
+                                        beginAtZero: true
+                                    }
+                                }]
+                            }
+                        }
+                    });
+
+                }, complete: function () {
+                    Descripcion = [];
+                    porCentajeTotal = [];
+                    $('button[type="button"]').attr("disabled", false);
+                    uspListarEstadisticaTiempoMenbresia();
+                }
+            });
+
+
+        }
+
+        function uspListarEstadisticaTiempoMenbresia() {
+
+            var fechaInicio = kendo.toString($("#txtFechaInicio").data('kendoDatePicker').value(), 'MM/dd/yyyy');
+            var fechaFin = kendo.toString($("#txtFechaFin").data('kendoDatePicker').value(), 'MM/dd/yyyy');
+            $('button[type="button"]').attr("disabled", true);
+            document.getElementById('loadMe').style.display = 'block';
+
+            var Descripcion = [];
+            var porCentajeTotal = [];
+
+            $.ajax({
+                data: '{"fechaInicio":"' + fechaInicio + '","fechaFin":"' + fechaFin + '"}',
+                type: "POST",
+                url: "/gestionce/uspListarEstadisticaTiempoMenbresia",
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function (msg) {
+
+                    for (var i in msg) {
+                        Descripcion.push(msg[i].Descripcion);
+                        porCentajeTotal.push(msg[i].porCentajeTotal);
+                    }
+                    $('#floarChart_uspListarEstadisticaTiempoMenbresia').empty();
+                    var ctx = document.getElementById('floarChart_uspListarEstadisticaTiempoMenbresia');
+                    var myChart = new Chart(ctx, {
+                        type: 'pie',
+                        data: {
+                            labels: Descripcion,
+                            datasets: [{
+                                label: 'venta de membresia por tiempo',
+                                data: porCentajeTotal,
+                                backgroundColor: [
+                                    'rgb(232, 39, 57)',
+                                    'rgb(144, 35, 10)',
+                                    'rgb(33, 150, 243)',
+                                    'rgb(15, 157, 88)',
+                                    'rgb(144, 35, 10)',
+                                    'rgb(231, 35, 57)',
+                                    'rgb(63, 81, 181)',
+                                    'rgb(255, 87, 34)',
+                                    'rgb(0, 188, 212)',
+                                    'rgb(0, 150, 136)',
+                                    'rgb(76, 175, 80)',
+                                    'rgb(139, 195, 74)',
+                                    'rgb(255, 193, 7)',
+                                    'rgb(33, 150, 243)',
+                                    'rgb(158, 158, 158)',
+                                ],
+                                borderColor: [
+                                    'rgb(232, 39, 57)',
+                                    'rgb(144, 35, 10)',
+                                    'rgb(33, 150, 243)',
+                                    'rgb(15, 157, 88)',
+                                    'rgb(144, 35, 10)',
+                                    'rgb(231, 35, 57)',
+                                    'rgb(63, 81, 181)',
+                                    'rgb(255, 87, 34)',
+                                    'rgb(0, 188, 212)',
+                                    'rgb(0, 150, 136)',
+                                    'rgb(76, 175, 80)',
+                                    'rgb(139, 195, 74)',
+                                    'rgb(255, 193, 7)',
+                                    'rgb(33, 150, 243)',
+                                    'rgb(158, 158, 158)',
+                                ],
+                                borderWidth: 1
+                            }]
+                        },
+                        options: {
+                            title: {
+                                display: true,
+                                text: 'POR TIEMPO DE MEMBRESIA'
+                            },
+                            scales: {                               
+                                yAxes: [{
+                                    ticks: {
+                                        beginAtZero: true
+                                    }
+                                }]
+                            }
+                        }
+                    });
+
+                }, complete: function () {
+                    Descripcion = [];
+                    porCentajeTotal = [];
+                    $('button[type="button"]').attr("disabled", false);
+                    document.getElementById('loadMe').style.display = 'none';
+                }
+            });
+
+
+        }
+
+    </script>
+
+
+}

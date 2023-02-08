@@ -1,0 +1,109 @@
+﻿
+@{
+    ViewBag.Title = "blog";
+    Layout = "~/Views/Shared/_LayoutPaginaWebAppsfit1.cshtml";
+}
+
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+
+<script>
+    fbq('trackCustom', 'ViewBlogAppsfit');
+</script>
+
+<section>
+    <div class="row">
+
+        <div class="col-md-12 text-center" style="position: relative;text-align:center;">
+            <br /><br />
+            <center>
+                <h1 style="color: #000;font-weight:bold;font-size: 35px;">
+                    ¿Tienes un equipo de trabajo y no conoces sus funciones?<br />
+                    Por eso <b style="color:red">Appsfit</b> a creado una guia <b style="color:red">paso a paso</b> de cada función que debe realizar tu recepcionista
+                </h1>
+            </center>
+        </div>
+
+    </div>
+</section>
+
+<!--begin section-white -->
+<section class="section-white no-padding" id="register" style="background-color:#fff;">
+
+    <!--begin container-->
+    <div class="container-fluid px-0">
+        <div class="row no-gutters">
+            <!--begin col-md-6-->
+            <div class="col-lg-12 col-md-12 col-sm-12">
+                <br /><br />
+                <center>
+                    <img class="Class_btnWhatsapp" style="height:450px;" src="~/Content/appsfit_img/ebook1_appsfit.png" alt="Happy" onclick="window.location.href='https://wa.me/51957592357?text=Hola%20Appsfit!%20quiero%20mi%20ebook%20gratis'">
+                </center>
+
+            </div>
+            <!--end col-sm-6-->
+        </div>
+        <!--begin row-->
+        <div class="row no-gutters">
+            <!--begin col-md-6-->
+            <div class="col-lg-12 col-md-12 col-sm-12">
+
+                <!--begin register-form-wrapper-->
+                <div class="register-form-wrapper wow bounceIn" data-wow-delay="0.5s" style="visibility: visible; animation-delay: 0.5s; animation-name: bounceIn;text-align:center;">
+
+                    <h1 class="white-text" style="color:#000;font-weight:bold;">👇 ¡dale clic en el botón! 👇</h1>
+                    <br />
+                    <center>
+                        <div class="Class_btnWhatsapp" style="text-align: center;background-color: #25d366;color:#fff;padding:10px;border-radius:9px;width:100%;font-size:30px;cursor:pointer;" onclick="window.location.href='https://wa.me/51957592357?text=Hola%20Appsfit!%20quiero%20mi%20ebook%20gratis'">
+                            Descargar Gratis AHORA <span class="fab fa-whatsapp me-1"></span>
+                        </div>
+                    </center>
+
+                </div>
+                <!--end register-form-wrapper-->
+                <br />
+            </div>
+            <!--end col-sm-6-->
+
+        </div>
+        <!--end row-->
+
+    </div>
+    <!--end container-->
+
+</section>
+<!--end section-white -->
+<br />
+<br />
+<br />
+<br />
+
+@section Scripts {
+
+    @System.Web.Optimization.Scripts.Render("~/Scripts/bootstrap-notify-master/bootstrap-notify.js")
+    @System.Web.Optimization.Scripts.Render("~/Scripts/bootstrap-notify-master/bootstrap-notify.min.js")
+    @System.Web.Optimization.Scripts.Render("~/Scripts/jsBootstrap/jquery.bootstrap-growl.js")
+
+    @System.Web.Optimization.Scripts.Render("~/Scripts/jquery.min.js")
+    @System.Web.Optimization.Scripts.Render("~/Scripts/plugins/jquery-ui/jquery-ui.js")
+    @System.Web.Optimization.Scripts.Render("~/Scripts/plugins/jquery-ui/jquery-ui.min.js")
+
+    @System.Web.Optimization.Scripts.Render("~/Resource/UserControl.Helper.js")
+
+
+    <script type="text/javascript">
+
+        $(document).ready(function () {
+            $('.Class_btnWhatsapp').click(function () {
+                eventPotencialCustomEbook();
+            });
+        });
+
+        function eventPotencialCustomEbook() {
+            //alert("HOLA EVENT CONTACT");
+            fbq('trackCustom', 'CustomPotencialEbook');
+        }
+
+
+    </script>
+
+}

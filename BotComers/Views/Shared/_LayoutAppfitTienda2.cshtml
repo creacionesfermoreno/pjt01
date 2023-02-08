@@ -1,0 +1,306 @@
+﻿
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="Ansonika">
+    <title>@ViewBag.Title</title>
+    @if (IsSectionDefined("Styles"))
+    {@RenderSection("Styles", required: false)}
+
+    <!-- GOOGLE WEB FONT -->
+    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,900&display=swap" rel="stylesheet">
+
+    <!-- BASE CSS -->
+    <link href="@Url.Content("~/Content/tienda2/css/bootstrap.custom.min.css")" rel="stylesheet" />
+    <link href="@Url.Content("~/Content/tienda2/css/style.css")" rel="stylesheet" />
+    <!-- SPECIFIC CSS -->
+    <link href="@Url.Content("~/Content/tienda2/css/listing.css")" rel="stylesheet" />
+
+    <!-- YOUR CUSTOM CSS -->
+    <link href="@Url.Content("~/Content/tienda2/css/custom.css")" rel="stylesheet" />
+
+    <style>
+        :root {
+            --colorPrincipal: @HttpContext.Current.Request.Cookies["_ColorEmpresa_PersonaTiendaVirtual"].Value;
+        }
+    </style>
+</head>
+<body>
+
+    <script>
+
+        //SDK FACEBOOK LOGIN
+        (function (d, s, id) {
+            var js, fjs = d.getElementsByTagName(s)[0];
+            if (d.getElementById(id)) { return; }
+            js = d.createElement(s); js.id = id;
+            js.src = "https://connect.facebook.net/es_LA/all.js";
+            d.getElementsByTagName('head')[0].appendChild(js);
+            fjs.parentNode.insertBefore(js, fjs);
+        }(document, 'script', 'facebook-jssdk'));
+
+    </script>
+    <div id="page">
+
+        <header class="version_1">
+            <div class="layer"></div><!-- Mobile menu overlay mask -->
+            <div class="main_header" style="background-color:#980000;">
+                <div class="container">
+                    <div class="row small-gutters">
+                        <div class="col-xl-3 col-lg-3 d-lg-flex align-items-center">
+                            <div id="logo">
+                                @*<a href="index.html"><img src="@HttpContext.Current.Request.Cookies["_LogoTipo_PersonaTiendaVirtual"].Value" alt="" width="100" height="35"></a>*@
+                                <a href="index.html"><img src="/Content/tienda2/img/logo.svg" alt="" width="100" height="35"></a>
+                            </div>
+                        </div>
+                        <nav class="col-xl-6 col-lg-7">
+                            <a class="open_close" href="javascript:void(0);">
+                                <div class="hamburger hamburger--spin">
+                                    <div class="hamburger-box">
+                                        <div class="hamburger-inner"></div>
+                                    </div>
+                                </div>
+                            </a>
+                            <!-- Mobile menu button -->
+                            <div class="main-menu">
+                                <div id="header_menu">
+                                    <a href="index.html"><img src="img/logo_black.svg" alt="" width="100" height="35"></a>
+                                    <a href="#" class="open_close" id="close_in"><i class="ti-close"></i></a>
+                                </div>
+                                <ul>
+                                    <li class="submenu">
+                                        <a href="javascript:void(0);" class="show-submenu">Hogar</a>
+                                        <ul>
+                                            <li><a href="@Url.Action("cat_bancas","tienda",new {id= HttpContext.Current.Request.Cookies["_SubDominio_PersonaTiendaVirtual"].Value})">BANCAS</a></li>
+                                            <li><a href="index-3.html">MINI GIMNASIO</a></li>
+                                            <li><a href="index-3.html">RACK PARANTES DE FUERZA </a></li>
+                                            <li><a href="index-2.html">CARDIO</a></li>
+                                            <li><a href="index.html">PESAS, BARRAS Y DISCOS</a></li>
+
+                                        </ul>
+                                    </li>
+                                    <li class="submenu">
+                                        <a href="javascript:void(0);" class="show-submenu">Accesorios</a>
+                                        <ul>
+                                            <li><a href="index.html">Pisos de caucho</a></li>
+                                            <li><a href="index-2.html">CrossFit - Funcional</a></li>
+                                            <li><a href="index-3.html">Repuestos</a></li>
+                                            <li><a href="index-4.html">Otros</a></li>
+                                        </ul>
+                                    </li>
+                                 
+                                    <li>
+                                        <a href="#0">Blog</a>
+                                    </li>
+                                    <li>
+                                        <a href="#0">Contacto</a>
+                                    </li>
+                                </ul>
+                            </div>
+                            <!--/main-menu -->
+                        </nav>
+                        <div class="col-xl-3 col-lg-2 d-lg-flex align-items-center justify-content-end text-right">
+                            <a class="phone_top" href="tel://9438843343"><strong><span>Need Help?</span>+94 423-23-221</strong></a>
+                        </div>
+                    </div>
+                    <!-- /row -->
+                </div>
+            </div>
+            <!-- /main_header -->
+            <div class="main_nav inner">
+                <div class="container">
+                    <div class="row small-gutters">
+                        <div class="col-xl-3 col-lg-3 col-md-3">
+                            <nav class="categories">
+                                <ul class="clearfix">
+                                    <li>
+                                        <span>
+                                            <a href="#">
+                                                <span class="hamburger hamburger--spin">
+                                                    <span class="hamburger-box">
+                                                        <span class="hamburger-inner"></span>
+                                                    </span>
+                                                </span>
+                                                CATEGORIAS
+                                            </a>
+                                        </span>
+                                        <div id="menu">
+                                            <ul>
+                                                <li>
+                                                    <span><a href="@Url.Action("cat_trotadoras","tienda",new {id= HttpContext.Current.Request.Cookies["_SubDominio_PersonaTiendaVirtual"].Value})">TROTADORAS</a></span>
+                                                </li>
+                                                <li>
+                                                    <span><a href="#">BICICLETAS</a></span>
+                                                </li>
+                                                <li>
+                                                    <span><a href="#">ELIPTICAS</a></span>
+                                                </li>
+                                                <li>
+                                                    <span><a href="#">MINIGIMNASIO - HOME GYM</a></span>
+                                                </li>
+                                                <li>
+                                                    <span><a href="#">BANCOS MULTIAJUSTABLES</a></span>
+                                                </li>
+                                                <li>
+                                                    <span><a href="#">RACKS Y JAULAS</a></span>
+                                                </li>
+                                                <li>
+                                                    <span><a href="#">BARRAS - DISCOS Y MANCUERNAS</a></span>
+                                                </li>
+                                                <li>
+                                                    <span><a href="#">PISOS DE CAUCHO</a></span>
+                                                </li>
+                                                <li>
+                                                    <span><a href="#">FUNCIONAL - CROSSFIT</a></span>
+                                                </li>
+                                                <li>
+                                                    <span><a href="#">BANDAS ELÁSTICAS</a></span>
+                                                </li>
+                                                <li>
+                                                    <span><a href="#">MAQUINAS</a></span>
+                                                </li>
+                                                <li>
+                                                    <span><a href="#">COLCHONETAS</a></span>
+                                                </li>
+                                                <li>
+                                                    <span><a href="#">STEP DE EJERCICIOS</a></span>
+                                                </li>
+                                                <li>
+                                                    <span><a href="#">MULTIESTACIONES PARA GIMNASIOS</a></span>
+                                                </li>                                            
+                                            </ul>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </nav>
+                        </div>
+                        <div class="col-xl-6 col-lg-7 col-md-6 d-none d-md-block">
+                            <div class="custom-search-input" style="display:none;">
+                                <input id="txtbuscadorgeneraltienda" type="text" placeholder="Buscar productos">
+                                <button type="submit"><i class="header-icon_search_custom"></i></button>
+                            </div>
+                        </div>
+                        <div class="col-xl-3 col-lg-2 col-md-3">
+                            <ul class="top_tools">
+                                <li>
+                                    <div class="dropdown dropdown-cart">
+                                        <a href="cart.html" class="cart_bt"><strong id="lblCantidadCarrito">0</strong></a>
+                                        <div id="carrito" class="dropdown-menu">
+                                            <ul id="lista-carrito"></ul>
+                                            <div class="total_drop">
+                                                <div class="clearfix"><strong>Total</strong><span id="total">S/ 0.00</span></div>
+                                                <a href="@Url.Action("carrito","tienda",new {id= HttpContext.Current.Request.Cookies["_SubDominio_PersonaTiendaVirtual"].Value})" class="btn_1 outline">Ver Carrito</a>
+                                                <a href="@Url.Action("checkout","tienda",new {id= HttpContext.Current.Request.Cookies["_SubDominio_PersonaTiendaVirtual"].Value})" class="btn_1">Comprar</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- /dropdown-cart-->
+                                </li>
+                                <li style="display:none;">
+                                    <a href="#0" class="wishlist"><span>Wishlist</span></a>
+                                </li>
+                                <li>
+                                    <div class="dropdown dropdown-access">
+                                        <a href="account.html" class="access_link"><span>Account</span></a>
+                                        <div class="dropdown-menu">
+                                            <a href="@Url.Action("login","tienda",new {id= HttpContext.Current.Request.Cookies["_SubDominio_PersonaTiendaVirtual"].Value})" class="btn_1">Inicia sesión o regístrate</a>
+                                            <ul>
+                                                <li style="display:none;">
+                                                    <a href="track-order.html"><i class="ti-truck"></i>rastrea tu orden</a>
+                                                </li>
+                                                <li style="display:none;">
+                                                    <a href="account.html"><i class="ti-package"></i>Mis ordenes</a>
+                                                </li>
+                                                <li style="display:none;">
+                                                    <a href="account.html"><i class="ti-user"></i>Mi perfil</a>
+                                                </li>
+                                                <li>
+                                                    <a href="@Url.Action("LogOff","tienda",new {id= HttpContext.Current.Request.Cookies["_SubDominio_PersonaTiendaVirtual"].Value})"><i class="ti-close"></i>Cerrar sesión</a>
+                                                </li>
+                                                <li style="display:none;">
+                                                    <a href="help.html"><i class="ti-help-alt"></i>Ayuda y preguntas frecuentes</a>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                    <!-- /dropdown-access-->
+                                </li>
+                                <li>
+                                    <a href="javascript:void(0);" class="btn_search_mob"><span>Buscar</span></a>
+                                </li>
+                                <li>
+                                    <a href="#menu" class="btn_cat_mob">
+                                        <div class="hamburger hamburger--spin" id="hamburger">
+                                            <div class="hamburger-box">
+                                                <div class="hamburger-inner"></div>
+                                            </div>
+                                        </div>
+                                        Categorias
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <!-- /row -->
+                </div>
+                <div class="search_mob_wp" style="display:none;">
+                    <input id="txtbuscadorgeneraltiendamobil" type="text" class="form-control" placeholder="Buscar productos">
+                    <input type="submit" class="btn_1 full-width" value="Buscar">
+                </div>
+                <!-- /search_mobile -->
+            </div>
+            <!-- /main_nav -->
+        </header>
+        <!-- /header -->      
+
+        <main>
+            @RenderBody()
+        </main>
+        <!-- /main -->
+
+        <footer class="revealed">
+            <div class="container">
+
+                <hr>
+                <div class="row add_bottom_25">
+                    <div class="col-lg-6">
+
+                    </div>
+                    <div class="col-lg-6">
+                        <ul class="additional_links">
+                            <li><a href="#0">Términos y condiciones</a></li>
+                            <li><span>© 2020 AccionFit</span></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+        </footer>
+        <!--/footer-->
+    </div>
+
+    <div id="toTop"></div><!-- Back to top button -->
+    <!-- COMMON SCRIPTS -->
+    @System.Web.Optimization.Scripts.Render("~/Content/tienda2/js/common_scripts.min.js")
+    @System.Web.Optimization.Scripts.Render("~/Content/tienda2/js/main.js")
+
+    <!-- SPECIFIC SCRIPTS -->
+    @System.Web.Optimization.Scripts.Render("~/Scripts/jsCarrito/sticky_sidebar.min.js")
+    @System.Web.Optimization.Scripts.Render("~/Scripts/jsCarrito/specific_listing.js")
+    
+    @System.Web.Optimization.Scripts.Render("~/Scripts/jsCarrito/carrito.js")
+    @System.Web.Optimization.Scripts.Render("~/Scripts/jsCarrito/pedido.js")
+    @System.Web.Optimization.Scripts.Render("~/Scripts/jsCarrito/menu.js")
+
+    <script>
+
+
+    </script>
+
+    @RenderSection("scripts", required: false)
+</body>
+</html>

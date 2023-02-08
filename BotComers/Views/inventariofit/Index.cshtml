@@ -1,0 +1,1110 @@
+﻿@model IEnumerable<BotComers.ViewModels.Inventario.ItemsVentaViewModel>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/__LayoutAppFitPlataformaFit.cshtml";
+}
+
+<link href="@Url.Content("~/Content/cssKendo/kendo.common.min.css")" rel="stylesheet" />
+<link href="@Url.Content("~/Content/cssKendo/kendo.dataviz.default.min.css")" rel="stylesheet" />
+<link href="@Url.Content("~/Content/cssKendo/kendo.dataviz.min.css")" rel="stylesheet" />
+<link href="@Url.Content("~/Content/cssKendo/kendo.default.min.css")" rel="stylesheet" />
+
+
+<style>
+
+    .k-block, .k-button, .k-textbox, .k-drag-clue, .k-touch-scrollbar, .k-window, .k-window-titleless .k-window-content, .k-window-action, .k-inline-block, .k-grid .k-filter-options, .k-grouping-header .k-group-indicator, .k-autocomplete, .k-multiselect, .k-combobox, .k-dropdown, .k-dropdown-wrap, .k-datepicker, .k-timepicker, .k-colorpicker, .k-datetimepicker, .k-notification, .k-numerictextbox, .k-picker-wrap, .k-numeric-wrap, .k-colorpicker, .k-list-container, .k-calendar-container, .k-calendar td, .k-calendar .k-link, .k-treeview .k-in, .k-editor-inline, .k-tooltip, .k-tile, .k-slider-track, .k-slider-selection, .k-upload {
+        border-radius: 3px;
+    }
+
+    .modal-body {
+    }
+
+    .modal-backdrop {
+        display: none;
+    }
+
+    .card-body {
+        margin-top: -5px;
+        margin-bottom: -5px;
+    }
+
+    .k-dropdown .k-input, .k-selectbox .k-input {
+        /* background: none; */
+        background-color: #fff;
+        font-weight: bold;
+    }
+
+    .k-dropdown-wrap .k-input, .k-picker-wrap .k-input, .k-numeric-wrap .k-input {
+        border-radius: 3px 0 0 3px;
+        font-weight: bold;
+    }
+
+    .k-autocomplete {
+        background-image: url(textures/highlight.png);
+        background-image: none,linear-gradient(to bottom,#e2e1e199 0,#e2e1e199 100%);
+        background-position: 50% 50%;
+        background-color: #e3e3e3;
+        border: 1px solid #cac9c9;
+        color: #fff;
+    }
+
+    .k-header, .k-grid-header, .k-toolbar, .k-dropdown-wrap, .k-picker-wrap, .k-numeric-wrap, .k-grouping-header, .k-pager-wrap, .k-textbox, .k-button, .k-progressbar, .k-draghandle, .k-state-highlight, .k-tabstrip-items .k-item, .k-panelbar .k-tabstrip-items .k-item, .km-pane-wrapper > .km-pane > .km-view > .km-content {
+        background-image: url(textures/highlight.png);
+        background-image: none,-webkit-linear-gradient(top,#0075ff 0,#0075ff 100%);
+        background-image: none,-moz-linear-gradient(top,#0075ff 0,#0075ff 100%);
+        background-image: none,-o-linear-gradient(top,#0075ff 0,#0075ff 100%);
+        background-image: none,linear-gradient(to bottom,#0075ff 0,#0075ff 100%);
+        background-position: 50% 50%;
+        background-color: #e3e3e3;
+        color: #fff;
+    }
+
+        .k-header, .k-grid-header-wrap, .k-grid .k-grouping-header, .k-grid-header, .k-pager-wrap, .k-pager-wrap .k-textbox, .k-pager-wrap .k-link, .k-grouping-header .k-group-indicator, .k-gantt-toolbar .k-state-default {
+            border-color: #e8eaee;
+            background-color: #0075ff;
+            color: #fff;
+        }
+
+    .modal {
+        display: none;
+        background-color: rgba(0, 0, 0, 0.77);
+    }
+
+    .k-block, .k-header, .k-grid-header, .k-toolbar, .k-grouping-header, .k-pager-wrap, .k-button, .k-draghandle, .k-treemap-tile, html .km-pane-wrapper .k-header {
+        background-color: #0075ff;
+        color: #fff;
+    }
+
+        .k-grid-header th.k-header > .k-link {
+            display: block;
+            min-height: 18px;
+            line-height: 18px;
+            margin: -0.5em -0.6em -0.4em -0.6em;
+            padding: .1em .1em .1em .1em;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            color: #fff;
+        }
+
+        .k-grid-header table, .k-grid-content table, .k-grid-footer table, .k-grid-content-locked > table {
+            table-layout: fixed;
+        }
+
+
+
+        .k-grid-toolbar:first-child, .k-grouping-header + .k-grid-toolbar {
+            border-width: 0 0 1px;
+            border-radius: 0px;
+            background-color: #d7eafa;
+            height: 10px;
+        }
+
+    .k-block, .k-header, .k-grid-header, .k-toolbar, .k-grouping-header, .k-pager-wrap, .k-button, .k-draghandle, .k-treemap-tile, html .km-pane-wrapper .k-header {
+        background-color: rgba(227, 227, 227, 0);
+    }
+
+    #txtFechaInicioProcFreezing .k-header, .k-grid-header, .k-toolbar, .k-dropdown-wrap, .k-picker-wrap, .k-numeric-wrap, .k-grouping-header, .k-pager-wrap, .k-textbox, .k-button, .k-progressbar, .k-draghandle, .k-autocomplete, .k-state-highlight, .k-tabstrip-items .k-item, .k-panelbar .k-tabstrip-items .k-item, .km-pane-wrapper > .km-pane > .km-view > .km-content {
+        background-image: url(textures/highlight.png);
+        background-image: none,-webkit-linear-gradient(top,#0075ff 0,#0075ff 100%);
+        background-image: none,-moz-linear-gradient(top,#0075ff 0,#0075ff 100%);
+        background-image: none,-o-linear-gradient(top,#0075ff 0,#0075ff 100%);
+        background-image: none,linear-gradient(to bottom,#0075ff 0,#0075ff 100%);
+        background-position: 50% 50%;
+        background-color: #ffffff;
+    }
+
+    .k-state-selected {
+        color: #FFFFFF;
+        background-color: #0075ff;
+        border-color: #0075ff;
+    }
+
+
+    .k-grid tr td {
+        border-bottom: 1px solid #eaeaea;
+        border-left: 1px solid #eaeaea;
+        border-style: solid;
+    }
+
+    tr {
+        height: 16px;
+        font-size: 13px;
+    }
+
+    .k-textbox, .k-autocomplete, .k-dropdown-wrap, .k-picker-wrap, .k-numeric-wrap {
+        border-width: 1px;
+        border-style: solid;
+        padding: 0 1.9em 0 0;
+        font-weight: bold;
+    }
+
+    .k-state-focused.k-state-selected, .k-list > .k-state-focused.k-state-selected, .k-listview > .k-state-focused.k-state-selected, td.k-state-focused.k-state-selected {
+        webkit-box-shadow: inset 0 0 3px 4px #0075ff;
+        box-shadow: inset 0 0 3px 4px #0075ff;
+    }
+
+    .k-state-selected, .k-state-selected:link, .k-state-selected:visited, .k-list > .k-state-selected, .k-list > .k-state-highlight, .k-panel > .k-state-selected, .k-ghost-splitbar-vertical, .k-ghost-splitbar-horizontal, .k-draghandle.k-state-selected:hover, .k-scheduler .k-scheduler-toolbar .k-state-selected, .k-scheduler .k-today.k-state-selected, .k-marquee-color {
+        color: #fff;
+        background-color: #0075ff;
+        border-color: #0075ff;
+    }
+
+    /** SPINNER CREATION **/
+    .loader {
+        position: relative;
+        text-align: center;
+        margin: 15px auto 35px auto;
+        z-index: 9999;
+        display: block;
+        width: 80px;
+        height: 80px;
+        border: 10px solid rgba(0, 0, 0, .3);
+        border-radius: 50%;
+        border-top-color: #000;
+        animation: spin 1s ease-in-out infinite;
+        -webkit-animation: spin 1s ease-in-out infinite;
+    }
+
+    /*******************************
+    * MODAL AS LEFT/RIGHT SIDEBAR
+    * Add "left" or "right" in modal parent div, after class="modal".
+    * Get free snippets on bootpen.com
+    *******************************/
+
+    .modal.right .modal-dialog {
+        position: fixed;
+        margin-top: 49px;
+        width: 100%;
+    }
+
+    .modal.right .modal-content {
+        overflow-y: auto;
+    }
+
+    .modal.right .modal-body {
+        padding: 15px 15px 80px;
+    }
+
+    /*Right*/
+    .modal.right.fade .modal-dialog {
+        right: 0px;
+    }
+
+    .modal.right.fade.in .modal-dialog {
+        right: 0;
+    }
+
+    .user-info-wrapper {
+        position: relative;
+        width: 100%;
+        margin-bottom: -1px;
+        padding-top: 90px;
+        padding-bottom: 30px;
+        border: 1px solid #e1e7ec;
+        border-top-left-radius: 7px;
+        border-top-right-radius: 7px;
+        overflow: hidden
+    }
+
+        .user-info-wrapper .user-cover {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 120px;
+            background-position: center;
+            background-color: #f5f5f5;
+            background-repeat: no-repeat;
+            background-size: cover
+        }
+
+            .user-info-wrapper .user-cover .tooltip .tooltip-inner {
+                width: 230px;
+                max-width: 100%;
+                padding: 10px 15px
+            }
+
+        .user-info-wrapper .info-label {
+            display: block;
+            position: absolute;
+            top: 18px;
+            right: 18px;
+            height: 26px;
+            padding: 0 12px;
+            border-radius: 13px;
+            background-color: #fff;
+            color: #606975;
+            font-size: 12px;
+            line-height: 26px;
+            box-shadow: 0 1px 5px 0 rgba(0, 0, 0, 0.18);
+            cursor: pointer
+        }
+
+            .user-info-wrapper .info-label > i {
+                display: inline-block;
+                margin-right: 3px;
+                font-size: 1.2em;
+                vertical-align: middle
+            }
+
+        .user-info-wrapper .user-info {
+            display: table;
+            position: relative;
+            width: 100%;
+            padding: 0 18px;
+            z-index: 5
+        }
+
+            .user-info-wrapper .user-info .user-avatar,
+            .user-info-wrapper .user-info .user-data {
+                display: table-cell;
+                vertical-align: top
+            }
+
+            .user-info-wrapper .user-info .user-avatar {
+                position: relative;
+                width: 115px
+            }
+
+                .user-info-wrapper .user-info .user-avatar > img {
+                    display: block;
+                    width: 100%;
+                    border: 5px solid #fff;
+                    border-radius: 50%
+                }
+
+                .user-info-wrapper .user-info .user-avatar .edit-avatar {
+                    display: block;
+                    position: absolute;
+                    top: -2px;
+                    right: 2px;
+                    width: 36px;
+                    height: 36px;
+                    transition: opacity .3s;
+                    border-radius: 50%;
+                    background-color: #fff;
+                    color: #606975;
+                    line-height: 34px;
+                    box-shadow: 0 1px 5px 0 rgba(0, 0, 0, 0.2);
+                    cursor: pointer;
+                    opacity: 0;
+                    text-align: center;
+                    text-decoration: none
+                }
+
+                    .user-info-wrapper .user-info .user-avatar .edit-avatar::before {
+                        font-family: feather;
+                        font-size: 17px;
+                        content: '\e058'
+                    }
+
+                .user-info-wrapper .user-info .user-avatar:hover .edit-avatar {
+                    opacity: 1
+                }
+
+            .user-info-wrapper .user-info .user-data {
+                padding-top: 48px;
+                padding-left: 12px
+            }
+
+                .user-info-wrapper .user-info .user-data h4 {
+                    margin-bottom: 2px
+                }
+
+                .user-info-wrapper .user-info .user-data span {
+                    display: block;
+                    color: #9da9b9;
+                    font-size: 13px
+                }
+
+        .user-info-wrapper + .list-group .list-group-item:first-child {
+            border-radius: 0
+        }
+
+        .user-info-wrapper + .list-group .list-group-item:first-child {
+            border-radius: 0;
+        }
+
+    .list-group-item:first-child {
+        border-top-left-radius: 7px;
+        border-top-right-radius: 7px;
+    }
+
+    .list-group-item:first-child {
+        border-top-left-radius: .25rem;
+        border-top-right-radius: .25rem;
+    }
+
+    a.list-group-item {
+        padding-top: .87rem;
+        padding-bottom: .87rem;
+    }
+
+    a.list-group-item, .list-group-item-action {
+        transition: all .25s;
+        color: #606975;
+        font-weight: 500;
+    }
+
+    .with-badge {
+        position: relative;
+        padding-right: 3.3rem;
+    }
+
+    .list-group-item {
+        border-color: #e1e7ec;
+        background-color: #fff;
+        text-decoration: none;
+    }
+
+    .list-group-item {
+        position: relative;
+        display: block;
+        padding: .75rem 1.25rem;
+        margin-bottom: -1px;
+        background-color: #fff;
+        border: 1px solid rgba(0,0,0,0.125);
+    }
+
+    .badge.badge-primary {
+        background-color: #0da9ef;
+    }
+
+    .with-badge .badge {
+        position: absolute;
+        top: 50%;
+        right: 1.15rem;
+        -webkit-transform: translateY(-50%);
+        -ms-transform: translateY(-50%);
+        transform: translateY(-50%);
+    }
+
+    .list-group-item i {
+        margin-top: -4px;
+        margin-right: 8px;
+        font-size: 1.1em;
+    }
+
+    .comment {
+        display: block;
+        position: relative;
+        margin-bottom: 12px;
+        padding-left: 66px
+    }
+
+        .comment .comment-author-ava {
+            display: block;
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 60px;
+            border-radius: 50%;
+            overflow: hidden
+        }
+
+            .comment .comment-author-ava > img {
+                display: block;
+                width: 100%;
+                padding: 10px;
+            }
+
+        .comment .comment-body {
+            position: relative;
+            padding: 12px;
+            border: 1px solid #e1e7ec;
+            border-radius: 7px;
+            background-color: #fff
+        }
+
+            .comment .comment-body::after,
+            .comment .comment-body::before {
+                position: absolute;
+                top: 12px;
+                right: 100%;
+                width: 0;
+                height: 0;
+                border: solid transparent;
+                content: '';
+                pointer-events: none
+            }
+
+            .comment .comment-body::after {
+                border-width: 9px;
+                border-color: transparent;
+                border-right-color: #fff
+            }
+
+            .comment .comment-body::before {
+                margin-top: -1px;
+                border-width: 10px;
+                border-color: transparent;
+                border-right-color: #e1e7ec
+            }
+
+        .comment .comment-title {
+            margin-bottom: 4px;
+            color: #606975;
+            font-size: 12px;
+            font-weight: 500
+        }
+
+        .comment .comment-text {
+            margin-bottom: 6px
+        }
+
+        .comment .comment-footer {
+            display: table;
+            width: 100%
+        }
+
+            .comment .comment-footer > .column {
+                display: table-cell;
+                vertical-align: middle
+            }
+
+                .comment .comment-footer > .column:last-child {
+                    text-align: right
+                }
+
+        .comment .comment-meta {
+            color: #9da9b9;
+            font-size: 13px
+        }
+
+        .comment .reply-link {
+            transition: color .3s;
+            color: #606975;
+            font-size: 14px;
+            font-weight: 500;
+            letter-spacing: .07em;
+            text-transform: uppercase;
+            text-decoration: none
+        }
+
+            .comment .reply-link > i {
+                display: inline-block;
+                margin-top: -3px;
+                margin-right: 4px;
+                vertical-align: middle
+            }
+
+            .comment .reply-link:hover {
+                color: #0da9ef
+            }
+
+        .comment.comment-reply {
+            margin-top: 30px;
+            margin-bottom: 0
+        }
+
+    .gutters-sm {
+        margin-right: -8px;
+        margin-left: -8px;
+    }
+
+        .gutters-sm > .col, .gutters-sm > [class*=col-] {
+            padding-right: 8px;
+            padding-left: 8px;
+        }
+
+    .mb-3, .my-3 {
+        margin-bottom: 1rem !important;
+    }
+
+    .bg-gray-300 {
+        background-color: #e2e8f0;
+    }
+
+    .h-100 {
+        height: 100% !important;
+    }
+
+    .shadow-none {
+        box-shadow: none !important;
+    }
+  
+            
+
+</style>
+
+
+<div class="page__header page__header-nav mb-0">
+    <div class="container-fluid page__container">
+        <div class="navbar navbar-secondary navbar-light navbar-expand-sm p-0 d-none d-md-flex" id="secondaryNavbar">
+            <ul class="nav navbar-nav">
+                <li class="nav-item">
+                    <button style="color: #ffffff;background-color: #ff0200;font-size: 1.0rem;border: 0px #ff0200 solid;height: 33px;padding: 5px;cursor:pointer;" class="navbar-toggler navbar-toggler-custom d-flex mr-navbar" type="button" data-toggle="sidebar">
+                        Operaciones
+                    </button>
+                </li>
+                <li class="nav-item" data-controlmodulo="45833cdd-55db-4a67-a879-f1ae9353f8bf">
+                    <a href="@Url.Action("checking","gestionce",new {id= HttpContext.Current.Request.Cookies["_SubDominio_Business"].Value})" class="nav-link">Clientes</a>
+                </li>
+                <li class="nav-item" data-controlmodulo="9e69cfd8-b063-44df-a7f2-a3a10d1eb899" style="display:none;">
+                    <a class="nav-link " href="@Url.Action("posfitness","pos",new {id= HttpContext.Current.Request.Cookies["_SubDominio_Business"].Value})">Punto de venta</a>
+                </li>
+                <li class="nav-item" data-controlmodulo="7611dfbe-186f-4abe-8e2e-e64ad7281728" style="display:none;">
+                    <a class="nav-link" href="@Url.Action("caja","gestionce",new {id= HttpContext.Current.Request.Cookies["_SubDominio_Business"].Value})">Caja</a>
+                </li>
+                <li class="nav-item" data-controlmodulo="93c0d848-83aa-45eb-a83a-ded00a6b6e23" style="display:none;">
+                    <a class="nav-link" href="@Url.Action("nutricion","gestionce",new {id= HttpContext.Current.Request.Cookies["_SubDominio_Business"].Value})">Medidas y Nutrición</a>
+                </li>
+                <li class="nav-item active" data-controlmodulo="947dc11f-3e14-4fe7-bedc-ae3d81219bee" style="display:none;">
+                    <a class="nav-link active" href="@Url.Action("Index","inventariofit",new {id= HttpContext.Current.Request.Cookies["_SubDominio_Business"].Value})">Inventario</a>
+                </li>
+
+                <li class="nav-item" data-controlmodulo="39497bd3-94ab-4236-a1d4-4623d854f91e" style="display:none;">
+                    <a href="@Url.Action("agendacomercial","gestionce",new {id= HttpContext.Current.Request.Cookies["_SubDominio_Business"].Value})" class="nav-link">Agenda Comercial</a>
+                </li>
+                <li class="nav-item" data-controlmodulo="bbc035e6-68ea-4885-917f-005ad3fcfb66" style="display:none;">
+                    <a href="@Url.Action("metascomerciales","gestionce",new {id= HttpContext.Current.Request.Cookies["_SubDominio_Business"].Value})" class="nav-link">Metas</a>
+                </li>
+                <li class="nav-item" data-controlmodulo="bd61dc23-54d9-4901-9c35-b8d228b3a924" style="display:none;">
+                    <a href="@Url.Action("marketing","gestionce",new {id= HttpContext.Current.Request.Cookies["_SubDominio_Business"].Value})" class="nav-link">Marketing</a>
+                </li>
+                <li class="nav-item" data-controlmodulo="e1eadd0d-39b3-498d-b09b-9b3b28610b9b" style="display:none;">
+                    <a href="@Url.Action("informesfit","gestionce",new {id= HttpContext.Current.Request.Cookies["_SubDominio_Business"].Value})" class="nav-link">Informes</a>
+                </li>
+
+                <li class="nav-item" data-controlmodulo="600dabf4-7dc3-4dc0-a0ba-74b782955e52" style="display:none;">
+                    <a class="nav-link" href="@Url.Action("pagospersonal","gestionce",new {id= HttpContext.Current.Request.Cookies["_SubDominio_Business"].Value})">Pagos</a>
+                </li>
+                <li class="nav-item" data-controlmodulo="b1f65597-fd27-46ca-90d0-a0f2f1039ef7" style="display:none;">
+                    <a class="nav-link" href="@Url.Action("finanzas","gestionce",new {id= HttpContext.Current.Request.Cookies["_SubDominio_Business"].Value})">Finanzas</a>
+                </li>
+                <li class="nav-item" data-controlmodulo="4c01e8de-9440-4927-a2f2-d6241d925c39" style="display:none;">
+                    <a class="nav-link" href="@Url.Action("estadisticas","gestionce",new {id= HttpContext.Current.Request.Cookies["_SubDominio_Business"].Value})">Estadísticas</a>
+                </li>
+
+            </ul>
+        </div>
+    </div>
+</div>
+
+
+<div class="slim-mainpanel">
+    <div class="container">
+        <br /><br />
+        <div class="report-summary-header">
+            <div>
+                <h4 class="tx-inverse mg-b-3">Valor de inventario</h4>
+                <p>Consulta el valor del inventario actual, la cantidad de productos inventariables que tienes y su costo promedio</p>
+            </div>
+            <div>
+
+            </div>
+        </div><!-- d-flex -->
+        <div class="row">
+            <div class="col-12">
+                <div class="row no-gutters">
+                    <div class="col-lg-2 col-md-3 col-sm-12 p-0">
+                        <div class="form-group">                            
+                            <select id="txtInvoice_ddlAlmacenes" class="form-control " data-placeholder=""></select>
+                        </div>                      
+                    </div>
+                    <div class="col-lg-7 col-md-7 col-sm-12 p-0">
+                        <input type="text" placeholder="Busqueda de productos..." class="form-control form-control-lg" id="txtInvoice_BuscadorProductos">
+                    </div>
+                    <div class="col-lg-1 col-md-3 col-sm-12 p-0">
+                        <button type="submit" class="btn btn-primary" onclick="ListarValorInventario();">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-search"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+                        </button>
+                    </div>                    
+                    <div class="col-lg-2 col-md-3 col-sm-12 p-0">
+                        <div class="form-group">                            
+                            <button class="btn btn-primary btn-lg btn-block mg-b-10" style="width:95%;" onclick="Exportar_ValorInventario();">Exportar</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>      
+
+        <div class="card card-table mg-t-20 mg-sm-t-30">
+
+            <div class="table-responsive">
+                <table id="gridEmpresa" class="table mg-b-0 tx-13">
+                    <thead>
+                        <tr>
+                            <th>
+                                Codigo
+                            </th>
+                            <th>
+
+                            </th>
+                            <th>
+                                Item
+                            </th>
+
+                            <th>
+                                Descripción
+                            </th>
+                            <th>
+                                Referencia
+                            </th>
+                            <th>
+                                Precio venta
+                            </th>
+                            <th>
+                                precio compra promedio
+                            </th>
+                            <th>
+                                Cantidad actual
+                            </th>
+                            <th>
+                                Unidad
+                            </th>
+                            <th>
+                                Estado
+                            </th>
+
+                            <th style="display:none;">
+                                Total
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                        <tr ondblclick="event_mostrarventanahistorialajuste(@item.CodigoItemVenta);">
+                            <td>
+                                @Html.DisplayFor(modelItem => item.CodigoItemVenta)
+                            </td>
+                            <td>
+                                <img src="@item.UrlImagen" style="width:40px;" alt="">
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Nombre)
+                            </td>
+
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Descripcion)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Referencia)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.PrecioVenta)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.d_CostoPromedio)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.d_CantidadActual)
+                            </td>
+                            <td>
+                                Unidad
+                            </td>
+                            <td>
+                                Activo
+                            </td>
+
+                            <td style="display:none;">
+                                @Html.DisplayFor(modelItem => item.d_CostoTotal)
+                            </td>
+                        </tr>
+                        }
+                    </tbody>
+                </table>
+
+            </div><!-- table-responsive -->
+        </div><!-- card -->
+        <br /><br />
+    </div><!-- slim-mainpanel -->
+
+</div>
+
+
+<div id="modalHistorialAjusteInventario" class="modal right fade" >
+    <div class="modal-dialog modal-lg" role="document" style="max-width: 1050px;">
+        <input id="flagVentanaHistorialAgenda" type="hidden" value="" />
+        <div class="modal-content" style="border-radius: 0px;">
+            <div class="modal-body" style="background-color: #e9ebee;">
+                <div class="row">
+                    <div class="col-lg">
+                        <div class="card">
+                            <div class="card-body" style="height:600px;overflow:auto;">
+                                <div class="row">
+                                    <div class="col-lg-1">
+                                        <img id="lblInformacion_ImagenProducto" style="height:80px;width:80px;border-radius:5px;" src="#" alt="producto" />
+                                    </div>
+                                    <div class="col-lg-9">
+
+                                        <label id="lblInformacion_NombreProducto" style="font-weight: bold;
+                                                font-size: 20px;
+                                                margin-top: 8px;
+                                        "></label>
+                                    </div>
+                                    <div class="col-lg-2">
+                                        <button onclick="event_cerrarventanahistorialajuste();" type="button" class="btn btn-primary" data-dismiss="modal" style="margin-top: 5px;">Cerrar</button>
+                                    </div>
+                                </div>
+                                <br />
+                                <label style="font-weight: bold;font-size: 13px;color:#0075ff;">HISTORIAL DE AJUSTE INVENTARIO ÚLTIMOS 200:</label>
+                                <table class="table mg-b-0 tx-13">
+                                    <thead>
+                                        <tr class="tx-10">
+                                            <th style="width:200px;">
+                                                Usuario creador
+                                            </th>
+                                            <th style="width:200px;">
+                                                Tipo de ajuste
+                                            </th>
+                                            <th style="width:200px;">
+                                                Fecha ingreso
+                                            </th>
+                                            <th style="width:80px;">
+                                                Costo unidad
+                                            </th>
+                                            <th style="width:80px;">
+                                                Cantidad ajuste
+                                            </th>
+                                            <th style="width:80px;">
+                                                Cantidad final
+                                            </th>
+
+                                        </tr>
+                                    </thead>
+                                </table>
+                                <table class="table mg-b-0 tx-13">
+                                    <colgroup>
+                                        <col />
+                                        <col />
+                                        <col />
+                                        <col />
+                                        <col />
+                                        <col />
+                                        <col />
+                                    </colgroup>
+                                    <tbody id="gridHistorialAjuste" style="">
+                                    </tbody>
+                                </table>
+                                <label style="font-weight: bold;font-size: 13px;color:#0075ff;">INVENTARIO INICIAL:</label>
+
+                                <table id="gridDetalleInventario" class="table mg-b-0 tx-13">
+                                    <thead>
+                                        <tr class="tx-10">
+                                            <th class="pd-y-3">
+                                                Usuario creador
+                                            </th>
+                                            <th class="pd-y-3">
+                                                Fecha creado
+                                            </th>
+
+                                            <th class="pd-y-3">
+                                                Costo unidad
+                                            </th>
+                                            <th class="pd-y-3">
+                                                Almacén
+                                            </th>
+                                            <th class="pd-y-3">
+                                                Cantidad inicial
+                                            </th>
+                                            <th class="pd-y-3">
+                                            </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="table_inventarioinicial">
+                                    </tbody>
+                                </table>
+
+                                <br />
+                                <br />
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="loadMe" tabindex="-1" role="dialog" aria-labelledby="loadMeLabel">
+    <div class="modal-dialog modal-sm" role="document">
+        <div class="modal-content">
+            <div class="modal-body text-center">
+                <div class="loader"></div>
+                <div clas="loader-txt">
+                    <p>Cargando... <br><br><small>Espere por favor, este proceso puede tardar unos minutos</small></p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@section Scripts {
+
+    @System.Web.Optimization.Scripts.Render("~/Scripts/plugins/jsKendo/angular.min.js")
+    @System.Web.Optimization.Scripts.Render("~/Scripts/plugins/jsKendo/kendo.all.min.js")
+
+    @System.Web.Optimization.Scripts.Render("~/Scripts/plugins/jquery-ui/jquery-ui.js")
+    @System.Web.Optimization.Scripts.Render("~/Scripts/plugins/jquery-ui/jquery-ui.min.js")
+
+    @System.Web.Optimization.Scripts.Render("~/Resource/UserControl.Helper.js")
+
+<script type="text/javascript">
+
+        $(document).ready(function () {
+
+            SEGListarPerfilMenu();
+            ListarAlmacenes();
+        });
+
+        function ListarAlmacenes() {
+
+            var metodoCorrecto = function (data) {
+                var content_Almacenes = new Array();
+
+                for (var i = 0; i < data.length; i++) {
+                    content_Almacenes.push('<option value="' + data[i].CodigoAlmacen + '">' + data[i].Descripcion + '</option>');
+                }
+                $('#txtInvoice_ddlAlmacenes').html(content_Almacenes.join(' '));
+            };
+
+            var metodoError = function (msg) {
+                alert(msg);
+            };
+            var request = {
+            };
+
+            LlamarAJAX('/inventario/ListarAlmacenes', request, metodoCorrecto, metodoError);
+        }
+
+        function ListarValorInventario() {
+
+            var CodigoAlmacen = ConvertToStringFromObject($('select[id="txtInvoice_ddlAlmacenes"] option:selected').val());
+            var Nombre = $('#txtInvoice_BuscadorProductos').val();
+
+            var metodoCorrecto = function (data) {
+                var content_A = new Array();
+                if (data.length > 0) {
+                    for (var i = 0; i < data.length; i++) {
+
+                        content_A.push('<tr ondblclick="event_mostrarventanahistorialajuste('+data[i].CodigoItemVenta+');">');
+                        content_A.push('<td>');
+                        content_A.push(data[i].CodigoItemVenta);
+                        content_A.push('</td>');
+                        content_A.push('<td>');
+                        content_A.push('<img src="' + data[i].UrlImagen + '" style="width:40px;" alt="">');
+                        content_A.push('</td>');
+                        content_A.push('<td>');
+                        content_A.push(data[i].Nombre);
+                        content_A.push('</td>');
+                        content_A.push('<td>');
+                        content_A.push(data[i].Descripcion);
+                        content_A.push('</td>');
+                        content_A.push('<td>');
+                        content_A.push(data[i].Referencia);
+                        content_A.push('</td>');
+                        content_A.push('<td>');
+                        content_A.push(data[i].PrecioVenta);
+                        content_A.push('</td>');
+                        content_A.push('<td>');
+                        content_A.push(data[i].d_CostoPromedio);
+                        content_A.push('</td>');
+                        content_A.push('<td>');
+                        content_A.push(data[i].d_CantidadActual);
+                        content_A.push('</td>');
+                        content_A.push('<td>');
+                        content_A.push('Unidad');
+                        content_A.push('</td>');
+                        content_A.push('<td>');
+                        content_A.push('Activo');
+                        content_A.push('</td>');
+                        content_A.push('</tr>');
+
+                    }
+                    $('#gridEmpresa tbody').html(content_A.join(' '));
+                } else {
+                    $('#gridEmpresa tbody').html('');
+                }
+
+            };
+
+            var metodoError = function (msg) {
+                alert(msg);
+            };
+            var request = {
+                CodigoAlmacen: CodigoAlmacen,
+                Nombre: Nombre
+            };
+
+            LlamarAJAX('/inventario/ListarValorInventario', request, metodoCorrecto, metodoError);
+        }
+
+        function SEGListarPerfilMenu() {
+
+            var entidad = {};
+
+            document.getElementById('loadMe').style.display = 'block';
+            $('button[type="button"]').attr("disabled", true);
+            var metodoCorrecto = function (msg) {
+
+                $('button[type="button"]').attr("disabled", false);
+                document.getElementById('loadMe').style.display = 'none';
+
+                for (var i = 0; i < msg.length; i++) {
+
+                    if (msg[i].Estado) {
+                        $('[data-controlmodulo="' + msg[i].CodigoMenu + '"]').show('fast');
+
+                    }
+                }
+
+            };
+            var metodoError = function (msg) {
+                alert(msg);
+            };
+            var request = {
+                //request: entidad
+            };
+            LlamarAJAX("/inventario/SEGListarPerfilMenu", request, metodoCorrecto, metodoError);
+
+        }
+
+
+        function event_mostrarventanahistorialajuste(CodigoItemVenta) {
+            document.getElementById("modalHistorialAjusteInventario").style.display = 'block';
+            BuscarInventarioInicial(CodigoItemVenta);
+        }
+
+        function event_cerrarventanahistorialajuste() {
+            document.getElementById("modalHistorialAjusteInventario").style.display = 'none';
+        }
+
+        function BuscarInventarioInicial(CodigoItemVenta) {
+
+            document.getElementById("loadMe").style.display = 'block';
+
+            $.ajax({
+                data: '{"id":"' + CodigoItemVenta + '"}',
+                type: "POST",
+                url: "/inventariofit/buscarproducto",
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function (msg) {
+
+                    $('#lblInformacion_NombreProducto').html('CODIGO ' + msg.CodigoItemVenta + ' - ' + msg.Nombre.toString().toUpperCase() + ' - P.VENTA ' + parseFloat(msg.PrecioVenta).toFixed(2));
+                    $('#lblInformacion_ImagenProducto').attr('src', msg.UrlImagen);
+
+                    var fila_table_inventarioinicial = '';
+
+                    for (var i = 0; i < msg.lista_ItemsVentaInventarioDTO.length; i++) {
+
+                        fila_table_inventarioinicial += '<tr>';
+                        fila_table_inventarioinicial += '<td>' + msg.lista_ItemsVentaInventarioDTO[i].UsuarioCreacion + '</td>';
+                        fila_table_inventarioinicial += '<td>' + msg.lista_ItemsVentaInventarioDTO[i].DescFechaCreacion + '</td>';
+                        fila_table_inventarioinicial += '<td>' + msg.lista_ItemsVentaInventarioDTO[i].CostoUnidad + '</td>';
+                        fila_table_inventarioinicial += '<td>' + msg.lista_ItemsVentaInventarioDTO[i].DesAlmacen + '</td>';
+                        fila_table_inventarioinicial += '<td>' + msg.lista_ItemsVentaInventarioDTO[i].CantidadInicial + '</td>';
+
+                        fila_table_inventarioinicial += '</tr>';
+
+                    }
+
+                    $('#table_inventarioinicial').html(fila_table_inventarioinicial);
+
+                    if (msg != null) {
+
+                    }
+
+                    document.getElementById("loadMe").style.display = 'none';
+                },
+                error: function (e) {
+                    alert(e.responseText);
+                }, complete: function () {
+
+                    ecommerce_uspListarMovimientoItemVentaPorItemVenta_Paginacion(CodigoItemVenta, 1);
+
+                }
+            });
+        }
+
+        function ecommerce_uspListarMovimientoItemVentaPorItemVenta_Paginacion(CodigoItemVenta, PageNumber) {
+
+            document.getElementById("loadMe").style.display = 'block';
+
+            $.ajax({
+                data: '{"id":"' + CodigoItemVenta + '","PageNumber":"' + PageNumber + '"}',
+                type: "POST",
+                url: "/inventariofit/ecommerce_uspListarMovimientoItemVentaPorItemVenta",
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function (msg) {
+
+
+                    var fila_table_historialmovimiento = '';
+
+                    for (var i = 0; i < msg.length; i++) {
+
+                        fila_table_historialmovimiento += '<tr>';
+                        fila_table_historialmovimiento += '<td style="width: 180px;">' + msg[i].UsuarioCreacion + '</td>';
+                        fila_table_historialmovimiento += '<td style="width: 180px;font-weight:bold;color:' + msg[i].ColorTipoAjuste + '">' + msg[i].DesTipoAjuste + '</td>';
+                        fila_table_historialmovimiento += '<td style="width: 180px;">' + msg[i].DescFechaCreacion + '</td>';
+                        fila_table_historialmovimiento += '<td style="width: 80px;">' + msg[i].CostoUnidad + '</td>';
+                        fila_table_historialmovimiento += '<td style="width: 80px;font-weight:bold;color:' + msg[i].ColorTipoAjuste + '">' + (msg[i].CodigoTipoAjuste == 1 ? '+' : '-') + msg[i].CantidadAjuste + '</td>';
+                        fila_table_historialmovimiento += '<td style="width: 80px;">' + msg[i].CantidadFinal + '</td>';
+
+                        fila_table_historialmovimiento += '</tr>';
+
+                    }
+
+                    $('#gridHistorialAjuste').html(fila_table_historialmovimiento);
+
+                    if (msg != null) {
+
+                    }
+
+                    document.getElementById("loadMe").style.display = 'none';
+                },
+                error: function (e) {
+                    alert(e.responseText);
+                }
+            });
+        }
+
+        function Exportar_ValorInventario() {
+
+            var CodigoUnidadNegocio = getCookie('_CodigoUnidadNegocio_Business');
+            var CodigoSede = getCookie('_CodigoSede_Business');
+            var data = new FormData();
+            data.append('CodigoUnidadNegocio', CodigoUnidadNegocio);
+            data.append('CodigoSede', CodigoSede);
+            data.append('CodigoAlmacen', 1);
+
+            var xhr = new XMLHttpRequest();
+            xhr.open('POST', '/ExportarExcel/Appsfit/ExportaInventarioValorInventario.ashx', true);
+            xhr.responseType = 'blob';
+            xhr.onload = function (e) {
+                if (this.status == 200) {
+                    var blob = new Blob([this.response], { type: 'application/vnd.ms-excel' });
+                    var downloadUrl = URL.createObjectURL(blob);
+                    var a = document.createElement("a");
+                    a.href = downloadUrl;
+                    a.download = "InformeValorInventario.xls";
+                    a.style.display = "none";
+                    document.body.appendChild(a);
+                    a.click();
+                } else {
+                    alert('Unable to download excel.')
+                }
+            };
+            xhr.send(data);
+        }
+
+        function getCookie(cname) {
+            var name = cname + "=";
+            var ca = document.cookie.split(';');
+            for (var i = 0; i < ca.length; i++) {
+                var c = ca[i].trim();
+                if (c.indexOf(name) == 0) return c.substring(name.length, c.length);
+            }
+            return "";
+        }
+
+</script>
+
+}

@@ -1,0 +1,201 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{C99FF5B0-FA73-4EE5-B511-E89E04BD079F}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>E_DataLayer</RootNamespace>
+    <AssemblyName>E_DataLayer</AssemblyName>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <Deterministic>true</Deterministic>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Configuration.ConfigurationManager, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Configuration.ConfigurationManager.4.7.0\lib\net461\System.Configuration.ConfigurationManager.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data.OracleClient" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Net" />
+    <Reference Include="System.Security" />
+    <Reference Include="System.Security.AccessControl, Version=4.1.3.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Security.AccessControl.4.7.0\lib\net461\System.Security.AccessControl.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Security.Permissions, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Security.Permissions.4.7.0\lib\net461\System.Security.Permissions.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Security.Principal.Windows, Version=4.1.3.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Security.Principal.Windows.4.7.0\lib\net461\System.Security.Principal.Windows.dll</HintPath>
+    </Reference>
+    <Reference Include="System.ServiceProcess" />
+    <Reference Include="System.Transactions" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+    <Reference Include="WindowsBase" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="AlmacenesData.cs" />
+    <Compile Include="AspNetUsersDireccionesEntregaData.cs" />
+    <Compile Include="CategoriasData.cs" />
+    <Compile Include="CentroEntrenamiento\CentroEntrenamiento_AspNetUsersData.cs" />
+    <Compile Include="CentroEntrenamiento\CentroEntrenamiento_EditorPaginaWebData.cs" />
+    <Compile Include="CentroEntrenamiento\CentroEntrenamiento_EditorPaginaWebDetalleData.cs" />
+    <Compile Include="CentroEntrenamiento\CentroEntrenamiento_GaleriaFitnessData.cs" />
+    <Compile Include="CentroEntrenamiento\CentroEntrenamiento_MenuPlantillaData.cs" />
+    <Compile Include="CentroEntrenamiento\CentroEntrenamiento_Presencial_ConfiguracionSalaFitnessData.cs" />
+    <Compile Include="CentroEntrenamiento\CentroEntrenamiento_Presencial_DisciplinaSalaData.cs" />
+    <Compile Include="CentroEntrenamiento\CentroEntrenamiento_Presencial_HorarioClasesAsistenciasData.cs" />
+    <Compile Include="CentroEntrenamiento\CentroEntrenamiento_Presencial_HorarioClasesConfiguracionData.cs" />
+    <Compile Include="CentroEntrenamiento\CentroEntrenamiento_Presencial_SalaData.cs" />
+    <Compile Include="CentroEntrenamiento\CentroEntrenamiento_ProfesorData.cs" />
+    <Compile Include="CentroEntrenamiento\gimnasio_crm_1_embudosventaplantillaData.cs" />
+    <Compile Include="CentroEntrenamiento\gimnasio_crm_2_etapasplantillaData.cs" />
+    <Compile Include="CentroEntrenamiento\gimnasio_crm_3_tratosprospectoData.cs" />
+    <Compile Include="ClientesData.cs" />
+    <Compile Include="ComprobanteData.cs" />
+    <Compile Include="ComprobanteDetalleData.cs" />
+    <Compile Include="ComprobantePagoData.cs" />
+    <Compile Include="Configuracion\AspNetUsersData.cs" />
+    <Compile Include="Corporativo\EmpresaData.cs" />
+    <Compile Include="CuponesData.cs" />
+    <Compile Include="EnvioGratisData.cs" />
+    <Compile Include="Gimnasio\AdFitnessAtencionAlClienteData.cs" />
+    <Compile Include="Gimnasio\AgendaNutricionalData.cs" />
+    <Compile Include="Gimnasio\AgendaPostVentaData.cs" />
+    <Compile Include="Gimnasio\AgendaSeguimientoData.cs" />
+    <Compile Include="Gimnasio\AsistenciaData.cs" />
+    <Compile Include="Gimnasio\AsistenciaInvitadosData.cs" />
+    <Compile Include="Gimnasio\AyudaPreguntasFrecuentesData.cs" />
+    <Compile Include="Gimnasio\CajaAperturaCierreData.cs" />
+    <Compile Include="Gimnasio\CategoriaData.cs" />
+    <Compile Include="Gimnasio\CategoriaSuplementoData.cs" />
+    <Compile Include="Gimnasio\ClientesData.cs" />
+    <Compile Include="Gimnasio\ComprasData.cs" />
+    <Compile Include="Gimnasio\ComprasDetalleData.cs" />
+    <Compile Include="Gimnasio\ComprasRopasData.cs" />
+    <Compile Include="Gimnasio\ComprasSuplementosData.cs" />
+    <Compile Include="Gimnasio\ConfiguracionData.cs" />
+    <Compile Include="Gimnasio\ConfiguracionEstadosDelSocioData.cs" />
+    <Compile Include="Gimnasio\ConfiguracionGastoAperturaData.cs" />
+    <Compile Include="Gimnasio\ConfiguracionTraspasoData.cs" />
+    <Compile Include="Gimnasio\ContratoCuotaData.cs" />
+    <Compile Include="Gimnasio\ContratoData.cs" />
+    <Compile Include="Gimnasio\ContratoFolioData.cs" />
+    <Compile Include="Gimnasio\ContratoMensajeData.cs" />
+    <Compile Include="Gimnasio\ControlMedidasData.cs" />
+    <Compile Include="Gimnasio\ControlSalidaFormaPagoData.cs" />
+    <Compile Include="Gimnasio\DLHelper\ConnectionStrings.cs" />
+    <Compile Include="Gimnasio\DLHelper\Conversion.cs" />
+    <Compile Include="Gimnasio\DLHelper\Procedimientos.cs" />
+    <Compile Include="Gimnasio\EncuestaNuevo1Data.cs" />
+    <Compile Include="Gimnasio\EnvioCorreoBienvenidaData.cs" />
+    <Compile Include="Gimnasio\EnvioCorreoData.cs" />
+    <Compile Include="Gimnasio\GastosData.cs" />
+    <Compile Include="Gimnasio\Helper.cs" />
+    <Compile Include="Gimnasio\HistorialCongelamientoData.cs" />
+    <Compile Include="Gimnasio\HorarioClasesConfiguracionData.cs" />
+    <Compile Include="Gimnasio\HorarioClasesData.cs" />
+    <Compile Include="Gimnasio\HorarioClasesDetalleData.cs" />
+    <Compile Include="Gimnasio\HorarioPaqueteData.cs" />
+    <Compile Include="Gimnasio\HorarioPaqueteDetalleData.cs" />
+    <Compile Include="Gimnasio\HorarioPersonalEventualsData.cs" />
+    <Compile Include="Gimnasio\IngresoAjustesCajaData.cs" />
+    <Compile Include="Gimnasio\InteresProspectosData.cs" />
+    <Compile Include="Gimnasio\InvitadosData.cs" />
+    <Compile Include="Gimnasio\LlamadaEntranteData.cs" />
+    <Compile Include="Gimnasio\MenuData.cs" />
+    <Compile Include="Gimnasio\MetasData.cs" />
+    <Compile Include="Gimnasio\MetasDetalleData.cs" />
+    <Compile Include="Gimnasio\NotificacionappData.cs" />
+    <Compile Include="Gimnasio\NotificacionesData.cs" />
+    <Compile Include="Gimnasio\PagosContratosData.cs" />
+    <Compile Include="Gimnasio\PagosRopasData.cs" />
+    <Compile Include="Gimnasio\PagosSuplementosData.cs" />
+    <Compile Include="Gimnasio\PedidosData.cs" />
+    <Compile Include="Gimnasio\PerfilData.cs" />
+    <Compile Include="Gimnasio\PerfilMenuData.cs" />
+    <Compile Include="Gimnasio\PersonalAdministrativoData.cs" />
+    <Compile Include="Gimnasio\PersonalAsistenciaConfiguracionData.cs" />
+    <Compile Include="Gimnasio\PersonalAsistenciaData.cs" />
+    <Compile Include="Gimnasio\PersonalAsistenciaNotaData.cs" />
+    <Compile Include="Gimnasio\PlanesData.cs" />
+    <Compile Include="Gimnasio\ProductoData.cs" />
+    <Compile Include="Gimnasio\ProductoElaboradoData.cs" />
+    <Compile Include="Gimnasio\ProfesionalFitnessData.cs" />
+    <Compile Include="Gimnasio\ProspectosData.cs" />
+    <Compile Include="Gimnasio\RedesSocialesData.cs" />
+    <Compile Include="Gimnasio\ReferidoData.cs" />
+    <Compile Include="Gimnasio\RopasData.cs" />
+    <Compile Include="Gimnasio\SalaData.cs" />
+    <Compile Include="Gimnasio\SalaHorarioData.cs" />
+    <Compile Include="Gimnasio\SeriesContratoData.cs" />
+    <Compile Include="Gimnasio\SeriesData.cs" />
+    <Compile Include="Gimnasio\SociosFichaSaludMasterData.cs" />
+    <Compile Include="Gimnasio\SubTipoDocumentoData.cs" />
+    <Compile Include="Gimnasio\SuplementosData.cs" />
+    <Compile Include="Gimnasio\TiempoMembresiaData.cs" />
+    <Compile Include="Gimnasio\TipoAgendaClienteData.cs" />
+    <Compile Include="Gimnasio\TipoContratoData.cs" />
+    <Compile Include="Gimnasio\TipoDocumentoData.cs" />
+    <Compile Include="Gimnasio\TipoEgresoData.cs" />
+    <Compile Include="Gimnasio\TipoIngresoData.cs" />
+    <Compile Include="Gimnasio\TipoPaqueteData.cs" />
+    <Compile Include="Gimnasio\TipoResponsableData.cs" />
+    <Compile Include="Gimnasio\TurnosEmpresaData.cs" />
+    <Compile Include="Gimnasio\UbigeoData.cs" />
+    <Compile Include="Gimnasio\UsuarioData.cs" />
+    <Compile Include="Gimnasio\UsuariosIngresosData.cs" />
+    <Compile Include="Gimnasio\VentasData.cs" />
+    <Compile Include="Gimnasio\VentasDetalleData.cs" />
+    <Compile Include="Gimnasio\WhatsappConfigData.cs" />
+    <Compile Include="Helper.cs" />
+    <Compile Include="ItemsVentaAjusteInventarioData.cs" />
+    <Compile Include="ItemsVentaAjusteInventarioDetalleData.cs" />
+    <Compile Include="ItemsVentaData.cs" />
+    <Compile Include="ItemsVentaIncluidosKitData.cs" />
+    <Compile Include="ItemsVentaInventarioData.cs" />
+    <Compile Include="MaestroData.cs" />
+    <Compile Include="PasarelaEmpresaData.cs" />
+    <Compile Include="PlantillaFormaPagoData.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="TarifasEnvioData.cs" />
+    <Compile Include="TipoComprobanteData.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\E_DataModel\E_DataModel.csproj">
+      <Project>{88b4a97a-f5f4-4848-ac04-b90642cee6c5}</Project>
+      <Name>E_DataModel</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>

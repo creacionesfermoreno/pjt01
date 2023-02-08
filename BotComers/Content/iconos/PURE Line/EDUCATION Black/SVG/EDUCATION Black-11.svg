@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Generator: Adobe Illustrator 16.0.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="170px"
+	 height="170px" viewBox="0 0 170 170" enable-background="new 0 0 170 170" xml:space="preserve">
+<g id="Background">
+</g>
+<g id="Circle">
+	<g>
+		<path fill="#FFFFFF" d="M85,170c-46.868,0-85-38.131-85-85S38.132,0,85,0c46.87,0,85,38.131,85,85S131.87,170,85,170z"/>
+	</g>
+</g>
+<g id="TEXT">
+</g>
+<g id="Icons">
+	<g>
+		<line fill="none" stroke="#282D33" stroke-width="4" x1="107.888" y1="112.118" x2="119.063" y2="131.475"/>
+		<line fill="none" stroke="#282D33" stroke-width="4" x1="51.122" y1="131.475" x2="62.186" y2="112.313"/>
+		<line fill="none" stroke="#282D33" stroke-width="4" x1="85.093" y1="112.026" x2="85.093" y2="131.549"/>
+		<polyline fill="none" stroke="#282D33" stroke-width="4" points="102.368,43.791 129.063,43.791 129.063,112.881 41.124,112.881 
+			41.124,43.791 67.368,43.791 		"/>
+		<polygon fill="none" stroke="#282D33" stroke-width="4" points="74.563,50.791 122.063,50.791 122.063,105.881 48.124,105.881 
+			48.124,50.791 56.812,50.791 		"/>
+		<rect x="73.427" y="43.382" fill="none" stroke="#282D33" stroke-width="4" width="23.334" height="7"/>
+		<circle fill="none" stroke="#282D33" stroke-width="4" cx="68.341" cy="71.002" r="7.75"/>
+		<polygon fill="none" stroke="#282D33" stroke-width="4" points="102.089,74.853 107.026,83.403 111.964,91.955 102.089,91.955 
+			92.216,91.955 97.152,83.403 		"/>
+		<path fill="none" stroke="#282D33" stroke-width="4" d="M68.341,70.002c2.877,0,2.877,4,5.754,4c2.875,0,2.875-4,5.75-4
+			c2.878,0,2.878,4,5.755,4c2.88,0,2.88-4,5.76-4c2.879,0,2.879,4,5.759,4"/>
+		<line fill="none" stroke="#282D33" stroke-width="4" x1="64.118" y1="89.276" x2="68.868" y2="89.276"/>
+		<line fill="none" stroke="#282D33" stroke-width="4" x1="75.868" y1="84.276" x2="75.868" y2="98.526"/>
+	</g>
+</g>
+</svg>

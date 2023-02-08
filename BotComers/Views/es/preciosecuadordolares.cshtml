@@ -1,0 +1,960 @@
+﻿
+@{
+    ViewBag.Title = "precios dolares LATAM";
+    Layout = "~/Views/Shared/_LayoutPaginaWebAppsfit1.cshtml";
+}
+
+<style>
+
+    img.btn-whatsapp {
+        display: block !important;
+        position: fixed;
+        z-index: 9999999;
+        bottom: 20px;
+        left: 20px;
+        cursor: pointer;
+        border-radius: 100px !important;
+    }
+
+        img.btn-whatsapp:hover {
+            border-radius: 100px !important;
+            -webkit-box-shadow: 0px 0px 15px 0px rgba(7,94,84,1);
+            -moz-box-shadow: 0px 0px 15px 0px rgba(7,94,84,1);
+            box-shadow: 0px 0px 15px 0px rgba(7,94,84,1);
+            transition-duration: 1s;
+        }
+
+    table {
+        width: 100%;
+        text-align: left;
+        border-spacing: 0;
+        border-collapse: collapse;
+        -webkit-box-sizing: border-box;
+        -moz-box-sizing: border-box;
+        box-sizing: border-box;
+    }
+
+    th, td {
+        font-family: inherit;
+        font-size: .875em;
+        line-height: 1.45;
+        color: #444;
+        vertical-align: middle;
+        padding: 1em;
+    }
+
+    th {
+        font-weight: 600;
+    }
+
+    colgroup:nth-child(1) {
+        width: 20%;
+        border: 0 none;
+    }
+
+    colgroup:nth-child(2) {
+        width: 20%;
+        border: 0px solid #ccc;
+    }
+
+    colgroup:nth-child(3) {
+        width: 20%;
+        border: 0px solid #ccc;
+    }
+
+    colgroup:nth-child(4) {
+        width: 20%;
+        border: 0px solid #ccc;
+    }
+
+    colgroup:nth-child(5) {
+        width: 20%;
+        border: 0px solid #ccc;
+    }
+
+    /* Tablehead */
+
+    thead th {
+        background: #def4fe;
+        background: -moz-linear-gradient(top, #ffffff 0%, #f5f5f5 100%);
+        background: -webkit-linear-gradient(top, #ffffff 0%,#f5f5f5 100%);
+        background: -o-linear-gradient(top, #ffffff 0%,#f5f5f5 100%);
+        background: -ms-linear-gradient(top, #ffffff 0%,#f5f5f5 100%);
+        background: linear-gradient(to bottom, #ffffff 0%,#f5f5f5 100%);
+        text-align: center;
+        position: sticky;
+        top: 90px;
+        border-bottom: 2px solid #ccc;
+        padding: 1em 0 1em;
+        font-weight: bold;
+        color: #999;
+    }
+
+        thead th h2 {
+            font-weight: bold;
+            font-size: 1.4em;
+            line-height: 1.2;
+            color: var(--colorPrincipal);
+        }
+
+            thead th h2 + p {
+                font-size: 1.25em;
+                line-height: 0.3;
+            }
+
+        thead th p.promo {
+            font-size: 1em;
+            color: #fff;
+            position: sticky;
+            top: 9em;
+            left: -17px;
+            z-index: 1000;
+            width: 100%;
+            margin: 0;
+            padding: .625em 17px .75em;
+            background: #c00;
+            box-shadow: 0 2px 4px rgba(0,0,0,.25);
+            border-bottom: 1px solid #900;
+        }
+
+            thead th p.promo:before {
+                content: "";
+                position: sticky;
+                display: block;
+                width: 0px;
+                height: 0px;
+                border-style: solid;
+                border-width: 0 7px 7px 0;
+                border-color: transparent #900 transparent transparent;
+                bottom: -7px;
+                left: 0;
+            }
+
+            thead th p.promo:after {
+                content: "";
+                position: sticky;
+                display: block;
+                width: 0px;
+                height: 0px;
+                border-style: solid;
+                border-width: 7px 7px 0 0;
+                border-color: #900 transparent transparent transparent;
+                bottom: -7px;
+                right: 0;
+            }
+
+    /* Tablebody */
+
+    tbody tr span {
+        font-weight: bold;
+        font-size: 87.5%;
+        color: #fff;
+    }
+
+    tbody td {
+        text-align: center;
+        height: 8px;
+    }
+
+    .subtitulo {
+        background: linear-gradient(90deg, var(--colorPrincipal) 0%, var(--colorPrincipal) 35%, var(--colorSecundario) 100%);
+        font-weight: bold;
+    }
+
+
+    /* Tablefooter */
+
+    tfoot th {
+        padding: 2em 1em;
+        border-top: 1px solid #ccc;
+    }
+
+    tfoot td {
+        text-align: center;
+        padding: 2em 1em;
+        border-top: 1px solid #ccc;
+    }
+
+    tfoot a {
+        font-weight: bold;
+        color: #fff;
+        text-decoration: none;
+        text-transform: uppercase;
+        display: block;
+        padding: 1.125em 2em;
+        background: var(--colorPrincipal);
+        border-radius: .5em;
+    }
+
+    .checkfuncion {
+        color: var(--colorPrincipal);
+    }
+</style>
+
+<img class="btn-whatsapp Class_btnWhatsapp" src="https://clientes.dongee.com/whatsapp.png" width="64" height="64" alt="Whatsapp" onclick="window.location.href='https://wa.me/51957592357?text=Hola%20Appsfit!%20estoy%20interesado%20en%20el%20software%20para%20mi%20gimnasio'">
+
+<br />
+<br />
+<br />
+
+<section class="preventions bg_white type_two">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="heading text-center icon_dark tp_one">
+
+                    <h1>Software Para Todos Los <b class="text-orange">Negocios Fitness</b></h1>
+                    <span class="flaticon-virus icon"></span>
+                    <p style="display:none;">If you are healthy, you only need to wear a mask if you are taking care of a person with suspected 2019-nCoV infection.</p>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12">
+                <div class="icon_box type_three wow fadeIn animated" data-wow-delay="00ms" data-wow-duration="1500ms" style="visibility: visible; animation-duration: 1500ms; animation-delay: 0ms; animation-name: fadeIn;">
+                    <span class="fa fa-laptop text-orange" style="font-size: 35px;"></span>
+
+                    <h2><a href="#">Gimnasios</a></h2>
+                    <a href="#" class="read_more tp_two">
+                        Automatiza tus procesos y céntrate en tus clientes
+                        <span class="flaticon-arrow"></span>
+                    </a>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12">
+                <div class="icon_box type_three wow fadeIn animated" data-wow-delay="100ms" data-wow-duration="1500ms" style="visibility: visible; animation-duration: 1500ms; animation-delay: 100ms; animation-name: fadeIn;">
+                    <span class="fa fa-laptop text-orange" style="font-size: 35px;"></span>
+
+                    <h2><a href="prevention-single.html">Gimnasios Y Centros Fitness</a></h2>
+                    <a href="#" class="read_more tp_two">Software para gimnasios que hace el trabajo pesado de tu negocio <span class="flaticon-arrow"></span></a>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12">
+                <div class="icon_box type_three wow fadeIn animated" data-wow-delay="200ms" data-wow-duration="1500ms" style="visibility: visible; animation-duration: 1500ms; animation-delay: 200ms; animation-name: fadeIn;">
+                    <span class="fa fa-laptop text-orange" style="font-size: 35px;"></span>
+
+                    <h2><a href="#">Entrenadores Personales</a></h2>
+                    <a href="#" class="read_more tp_two">
+                        Nosotros gestionamos, tú entrenas. Ofrece a tus clientes lo mejor.
+                        <span class="flaticon-arrow"></span>
+                    </a>
+                </div>
+            </div>
+
+            <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12">
+                <div class="icon_box type_three wow fadeIn animated" data-wow-delay="300ms" data-wow-duration="1500ms" style="visibility: visible; animation-duration: 1500ms; animation-delay: 300ms; animation-name: fadeIn;">
+                    <span class="fa fa-laptop text-orange" style="font-size: 35px;"></span>
+
+                    <h2><a href="#">Cadenas de Gimnasios</a></h2>
+                    <a href="#" class="read_more tp_two">
+                        Haz que todas tus empresas funcionen conjuntamente
+                        <span class="flaticon-arrow"></span>
+                    </a>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12">
+                <div class="icon_box type_three wow fadeIn animated" data-wow-delay="400ms" data-wow-duration="1500ms" style="visibility: visible; animation-duration: 1500ms; animation-delay: 400ms; animation-name: fadeIn;">
+                    <span class="fa fa-laptop text-orange" style="font-size: 35px;"></span>
+
+                    <h2><a href="#">Franquicias Deportivas</a></h2>
+                    <a href="#" class="read_more tp_two">Aumenta el rendimiento de tu franquicia y fideliza clientes <span class="flaticon-arrow"></span></a>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12">
+                <div class="icon_box type_three wow fadeIn animated" data-wow-delay="500ms" data-wow-duration="1500ms" style="visibility: visible; animation-duration: 1500ms; animation-delay: 500ms; animation-name: fadeIn;">
+                    <span class="fa fa-laptop text-orange" style="font-size: 35px;"></span>
+
+                    <h2><a href="#">Boxeo Y Artes Marciales</a></h2>
+                    <a href="#" class="read_more tp_two">Gestiona, entrena y motiva a tus clientes con un software de fitness <span class="flaticon-arrow"></span></a>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12">
+                <div class="icon_box type_three wow fadeIn animated" data-wow-delay="600ms" data-wow-duration="1500ms" style="visibility: visible; animation-duration: 1500ms; animation-delay: 600ms; animation-name: fadeIn;">
+                    <span class="fa fa-laptop text-orange" style="font-size: 35px;"></span>
+
+                    <h2><a href="#">Ciclismo Y Remo</a></h2>
+                    <a href="#" class="read_more tp_two">Reduce tus tareas administrativas y haz crecer tu sala de remo y ciclismo <span class="flaticon-arrow"></span></a>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12">
+                <div class="icon_box type_three wow fadeIn animated" data-wow-delay="700ms" data-wow-duration="1500ms" style="visibility: visible; animation-duration: 1500ms; animation-delay: 700ms; animation-name: fadeIn;">
+                    <span class="fa fa-laptop text-orange" style="font-size: 35px;"></span>
+
+                    <h2><a href="#">Yoga, Pilates y Escuelas de Baile</a></h2>
+                    <a href="#" class="read_more tp_two">Atiende a las necesidades de tus clientes y aumenta su retención <span class="flaticon-arrow"></span></a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="small-paddings" style="background-color: #f8f8f8;">
+
+    <!--begin container -->
+    <div class="container">
+
+        <!--begin row -->
+        <div class="row">
+            <!--begin col-md-12 -->
+            <div class="col-md-12 text-center padding-top-60 padding-bottom-40">
+                <h1 class="section-title" style="font-size: 38px;"><b class="text-orange">ECOSISTEMA PERFECTO PARA HACER CRECER TU CENTRO FITNESS</b></h1>
+                <br />
+                ECUADOR, COLOMBIA, BOLIVIA, CHILE, MEXICO, VENEZUELA, PANAMA, PARAGUAY, URUGUAY, ARGENTINA
+                <br />
+                <p class="section-subtitle text-black">Descubre todos los planes que ofrece Appsfit para conseguir el máximo rendimiento de tu negocio y potenciar la permanencia de tus clientes.</p>
+
+            </div>
+        </div>
+        <!--end row -->
+
+    </div>
+    <!--end container -->
+
+</section>
+
+
+<section class="section-white section-bottom-border" style="padding-top: 0px; padding-bottom: 5px; border: 0px solid #fff; background-color: #f8f8f8;">
+    <!--begin pricing-wrapper -->
+    <div class="pricing-wrapper">
+
+        <!--begin container -->
+        <div class="container" style="text-align:center;">
+
+            <div class="row" style="">
+
+                <div class="card mb-3">
+                    <div class="card-body">
+                        <div class="row g-0">
+                            <div class="col-6 col-lg-3 mt-2 mb-4 mb-lg-0 px-1 px-lg-2 border-bottom">
+                                <div class="h-100" style="background: linear-gradient(90deg, #bbbbbb 0%, #e9e9e9 35%, #c3c3c3 100%); border-radius: 25px; ">
+                                    <div class="text-center p-4">
+                                        <h3 class="fw-normal my-0 price-title">LIFE</h3>
+                                        <p class="mt-3" style="color:#000;">Hasta los 900 clientes.</p>
+                                        <h2 class="fw-medium my-4" style="font-size: 36px;">
+                                            <sup class="fw-normal fs-2 me-1">$</sup>39.99<small class="fs--1 text-700">/ mensual</small>
+                                        </h2><a class="btn btn-outline-primary" href="#register" style=" background-color: #ff0200; color: #fff; border: 1px solid #ff0200;">Iniciar ahora</a>
+                                    </div>
+                                    <hr class="border-bottom-0 m-0" />
+                                    <div class="text-start px-sm-4 py-4">
+                                        <h5 class="fw-medium">Prueba 7 días GRATIS:</h5>
+                                        <h3 class="fw-medium fs-0">Gestiona y controla</h3>
+                                    </div>
+
+
+                                    <ul class="p-2 mb-3 background-gris-0 list-style-none">
+                                        <li class="contiene-li-precio-nuevo d-flex flex-row">
+                                        <li class="contiene-li-precio-nuevo d-flex flex-row" style="color: #000;">
+                                            <span class="text-color-primary mr-2"><i aria-hidden="true" class="fas fa-check-circle" style="color:#000;"></i></span> Soporte Online.
+                                        </li>
+                                        <li class="contiene-li-precio-nuevo d-flex flex-row" style="color: #000;">
+                                            <span class="text-color-primary mr-2"><i aria-hidden="true" class="fas fa-check-circle" style="color:#000;"></i></span> Capacitación Online.
+                                        </li>
+                                        <li class="contiene-li-precio-nuevo border d-flex flex-row border-success" style="padding:5px;margin-bottom:2px;border: 1px solid #dee2e6!important;border-radius:8px;"><span class="text-color-primary mr-2"><i aria-hidden="true" class="fas fa-check-circle" style="color:#000;"></i></span> <span style="font-family: eurostib;color: #5a5a5a;">DASHBOARD + KPI DE GESTIÓN AVANZADA + ESTADÍSTICAS</span></li>
+                                        <li class="contiene-li-precio-nuevo border d-flex flex-row border-success" style="padding:5px;margin-bottom:2px;border: 1px solid #dee2e6!important;border-radius:8px;"><span class="text-color-primary mr-2"><i aria-hidden="true" class="fas fa-check-circle" style="color:#000;"></i></span> <span style="font-family: eurostib;color: #5a5a5a;">CONTROL DE ACCESO + ASISTENCIAS DE CLIENTES Y STAFF</span></li>
+                                        <li class="contiene-li-precio-nuevo border d-flex flex-row border-success" style="padding:5px;margin-bottom:2px;border: 1px solid #dee2e6!important;border-radius:8px;"><span class="text-color-primary mr-2"><i aria-hidden="true" class="fas fa-check-circle" style="color:#000;"></i></span> <span style="font-family: eurostib;color: #5a5a5a;">SISTEMA DE GESTIÓN DE MEMBRESÍAS + RENOVACIONES, REINSCRIPCIONES, PAGOS Y COBRANZA.</span></li>
+                                        <li class="contiene-li-precio-nuevo border d-flex flex-row border-success" style="padding:5px;margin-bottom:2px;border: 1px solid #dee2e6!important;border-radius:8px;"><span class="text-color-primary mr-2"><i aria-hidden="true" class="fas fa-check-circle" style="color:#000;"></i></span> <span style="font-family: eurostib;color: #5a5a5a;">SISTEMA DE PUNTO DE VENTA DE PRODUCTOS + CATALOGO + INVENTARIO + COBRANZAS.</span></li>
+                                        <li class="contiene-li-precio-nuevo border d-flex flex-row border-success" style="padding:5px;margin-bottom:2px;border: 1px solid #dee2e6!important;border-radius:8px;"><span class="text-color-primary mr-2"><i aria-hidden="true" class="fas fa-check-circle" style="color:#000;"></i></span> <span style="font-family: eurostib;color: #5a5a5a;">FLUJO DE CAJA + VENTAS, GASTOS Y FINANZAS.</span></li>
+                                        <li class="contiene-li-precio-nuevo border d-flex flex-row border-success" style="padding:5px;margin-bottom:2px;border: 1px solid #dee2e6!important;border-radius:8px;"><span class="text-color-primary mr-2"><i aria-hidden="true" class="fas fa-check-circle" style="color:#000;"></i></span> <span style="font-family: eurostib;color: #5a5a5a;">SISTEMA DE CONTROL DE EVALUACIONES + CITAS.</span></li>
+
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="col-6 col-lg-3 mt-2 mb-4 mb-lg-0 px-1 px-lg-2 border-bottom">
+                                <div class="h-100" style="background: linear-gradient(90deg, #17b7d1 0%, #0fcbe9 35%, #2495a7 100%); border-radius: 25px;">
+                                    <div class="text-center p-4">
+                                        <h3 class="fw-normal my-0 price-title">BRONCE</h3>
+                                        <span class="fa fa-spa" style="font-size: 35px;color:#fff;"></span>
+                                        <p class="mt-3" style="color:#000;">Hasta los 3500 clientes.</p>
+                                        <h2 class="fw-medium my-4" style="font-size: 36px;">
+                                            <sup class="fw-normal fs-2 me-1">$</sup>69.99<small class="fs--1 text-700">/ mensual</small>
+                                        </h2><a class="btn btn-outline-primary" href="#register" style=" background-color: #ff0200; color: #fff; border: 1px solid #ff0200;">Iniciar ahora</a>
+                                    </div>
+                                    <hr class="border-bottom-0 m-0" />
+                                    <div class="text-start px-sm-4 py-4">
+                                        <h5 class="fw-medium">Prueba 7 días GRATIS:</h5>
+                                        <h3 class="fw-medium fs-0">Gestión Comercial y ventas</h3>
+                                    </div>
+
+                                    <ul class="p-2 mb-3 background-gris-0 list-style-none">
+                                        <li class="contiene-li-precio-nuevo d-flex flex-row">
+                                        <li class="contiene-li-precio-nuevo d-flex flex-row" style="color: #000;">
+                                            <span class="text-color-primary mr-2"><i aria-hidden="true" class="fas fa-check-circle" style="color:#000;"></i></span> Soporte Online.
+                                        </li>
+                                        <li class="contiene-li-precio-nuevo d-flex flex-row" style="color: #000;">
+                                            <span class="text-color-primary mr-2"><i aria-hidden="true" class="fas fa-check-circle" style="color:#000;"></i></span> Capacitación Online.
+                                        </li>
+                                        <li class="contiene-li-precio-nuevo d-flex flex-row" style="color: #000;">
+                                            <span class="text-color-primary mr-2"><i aria-hidden="true" class="fas fa-check-circle" style="color:#000;"></i></span> Funciones del plan LIFE.
+                                        </li>
+                                        <li class="contiene-li-precio-nuevo border d-flex flex-row border-success" style="padding:5px;margin-bottom:2px;border: 1px solid #18b0c9!important;border-radius:8px;"><span class="text-color-primary mr-2"><i aria-hidden="true" class="fas fa-check-circle" style="color:#000;"></i></span> <span style="font-family: eurostib;color: #403f3f;">CRM - SISTEMA DE GESTIÓN COMERCIAL.</span></li>
+                                        <li class="contiene-li-precio-nuevo border d-flex flex-row border-success" style="padding:5px;margin-bottom:2px;border: 1px solid #18b0c9!important;border-radius:8px;"><span class="text-color-primary mr-2"><i aria-hidden="true" class="fas fa-check-circle" style="color:#000;"></i></span> <span style="font-family: eurostib;color: #403f3f;">SISTEMA DE METAS DE MEMBRESIAS, OBJETIVOS, COMISIONES, BONOS Y AUDITORIA DE VENDEDORES.</span></li>
+                                        <li class="contiene-li-precio-nuevo border d-flex flex-row border-success" style="padding:5px;margin-bottom:2px;border: 1px solid #18b0c9!important;border-radius:8px;"><span class="text-color-primary mr-2"><i aria-hidden="true" class="fas fa-check-circle" style="color:#000;"></i></span> <span style="font-family: eurostib;color: #403f3f;"><i class="far fa-envelope"></i> MARKETING - ENVIO DE CORREOS MASIVOS A ACTIVOS, INACTIVOS Y POR VENCER + PLANTILLAS DE CORREO.</span></li>
+                                        <li class="contiene-li-precio-nuevo border d-flex flex-row border-success" style="padding:5px;margin-bottom:2px;border: 1px solid #18b0c9!important;border-radius:8px;"><span class="text-color-primary mr-2"><i aria-hidden="true" class="fas fa-check-circle" style="color:#000;"></i></span> <span style="font-family: eurostib;color: #403f3f;"><i class="far fa-envelope"></i> ENVIO DE CORREO DE CONTRATO DIGITAL DE MEMBRESIAS AUTOMATIZADO + </span></li>
+                                        <li class="contiene-li-precio-nuevo border d-flex flex-row border-success" style="padding:5px;margin-bottom:2px;border: 1px solid #18b0c9!important;border-radius:8px;"><span class="text-color-primary mr-2"><i aria-hidden="true" class="fas fa-check-circle" style="color:#000;"></i></span> <span style="font-family: eurostib;color: #403f3f;"><i class="far fa-envelope"></i> ENVIO DE CORREO DE COMPROBANTES DE PAGO FACTURA, BOLETA Y RECIBO.</span></li>
+
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="col-6 col-lg-3 mt-2 mb-4 mb-lg-0 px-1 px-lg-2 border-bottom">
+                                <div class="h-100" style="background: linear-gradient(90deg, #e0342b 0%, #ff291e 35%, #db4a19 100%); border-radius: 25px;">
+                                    <div class="text-center p-4">
+                                        <h3 class="fw-normal my-0" style="color:#fff;">SILVER</h3>
+                                        <span class="fa fa-rocket" style="font-size: 35px;color:#fff;"></span> <span class="fa fa-rocket" style="font-size: 35px;color:#fff;"></span>
+                                        <p class="mt-3" style="color:#fff;">Hasta los 5500 clientes.</p>
+                                        <h2 class="fw-medium my-4" style="color: #fff; font-size: 36px;">
+                                            <sup class="fw-normal fs-2 me-1">$</sup>94.99<small class="fs--1 text-700">/ mensual</small>
+                                        </h2><a class="btn btn-outline-primary" href="#register" style="background-color: #000000; color: #FFF; border: 1px solid #000000; ">Iniciar ahora</a>
+                                    </div>
+                                    <hr class="border-bottom-0 m-0" />
+                                    <div class="text-start px-sm-4 py-4">
+                                        <h5 class="fw-medium">Prueba 7 días GRATIS:</h5>
+                                        <h3 class="fw-medium fs-0">Procesos de ventas y Marketing por Correo</h3>
+                                    </div>
+                                    <ul class="p-2 mb-3 background-gris-0 list-style-none">
+                                        <li class="contiene-li-precio-nuevo d-flex flex-row">
+                                        <li class="contiene-li-precio-nuevo d-flex flex-row" style="color: #000;">
+                                            <span class="text-color-primary mr-2"><i aria-hidden="true" class="fas fa-check-circle" style="color:#000;"></i></span> Soporte Online.
+                                        </li>
+                                        <li class="contiene-li-precio-nuevo d-flex flex-row" style="color: #000;">
+                                            <span class="text-color-primary mr-2"><i aria-hidden="true" class="fas fa-check-circle" style="color:#000;"></i></span> Capacitación Online.
+                                        </li>
+                                        <li class="contiene-li-precio-nuevo d-flex flex-row" style="color: #000;">
+                                            <span class="text-color-primary mr-2"><i aria-hidden="true" class="fas fa-check-circle" style="color:#000;"></i></span> Funciones del plan BRONCE.
+                                        </li>
+
+                                        <li class="contiene-li-precio-nuevo border d-flex flex-row border-success" style="padding:5px;margin-bottom:2px;border: 1px solid #cd3b10!important;border-radius:8px;display:none;"><span class="text-color-primary mr-2"><i aria-hidden="true" class="fas fa-check-circle" style="color:#000;"></i></span> <span style="font-family: eurostib;color:#fff;">EMBUDOS DE VENTA Y PIPELINES EN TÚ CRM.</span></li>
+                                        <li class="contiene-li-precio-nuevo border d-flex flex-row border-success" style="padding:5px;margin-bottom:2px;border: 1px solid #cd3b10!important;border-radius:8px;"><span class="text-color-primary mr-2"><i aria-hidden="true" class="fas fa-check-circle" style="color:#000;"></i></span> <span style="font-family: eurostib;color:#fff;"><i class="far fa-envelope"></i>CAMPAÑAS DE CORREO MASIVO: Crea tus propias plantillas de correo.</span></li>
+                                        <li class="contiene-li-precio-nuevo border d-flex flex-row border-success" style="padding:5px;margin-bottom:2px;border: 1px solid #cd3b10!important;border-radius:8px;"><span class="text-color-primary mr-2"><i aria-hidden="true" class="fas fa-check-circle" style="color:#000;"></i></span> <span style="font-family: eurostib;color:#fff;"><i class="far fa-envelope"></i>CAMPAÑAS DE CORREO MASIVO: Envia a una lista de correos que esten en excel.</span></li>
+                                        <li class="contiene-li-precio-nuevo border d-flex flex-row border-success" style="padding:5px;margin-bottom:2px;border: 1px solid #cd3b10!important;border-radius:8px;"><span class="text-color-primary mr-2"><i aria-hidden="true" class="fas fa-check-circle" style="color:#000;"></i></span> <span style="font-family: eurostib;color:#fff;"><i class="far fa-envelope"></i>CAMPAÑAS DE CORREO MASIVO: envios instantaneos y programados.</span></li>
+
+                                        <li class="contiene-li-precio-nuevo border d-flex flex-row border-success" style="padding:5px;margin-bottom:2px;border: 1px solid #cd3b10!important;border-radius:8px;"><span class="text-color-primary mr-2"><i aria-hidden="true" class="fas fa-check-circle" style="color:#000;"></i></span> <span style="font-family: eurostib;color:#fff;">SISTEMA DE METAS DE SUPLEMENTOS, COMISIONES, BONOS DE VENDEDORES.</span></li>
+                                        <li class="contiene-li-precio-nuevo border d-flex flex-row border-success" style="padding:5px;margin-bottom:2px;border: 1px solid #cd3b10!important;border-radius:8px;"><span class="text-color-primary mr-2"><i aria-hidden="true" class="fas fa-check-circle" style="color:#000;"></i></span> <span style="font-family: eurostib;color:#fff;">INTEGRACIÓN CON HUELLERO BIOMETRICO, TORNIQUETES DE ACCESO.</span></li>
+
+
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="col-6 col-lg-3 mt-2 mb-4 mb-lg-0 px-1 px-lg-2 border-bottom">
+                                <div class="h-100" style="background: linear-gradient(90deg, #25D366 0%, #25D366 35%, #25D366 100%); border-radius: 20px; ">
+                                    <div class="text-center p-4">
+                                        <h3 class="fw-normal my-0">WHATSAPP MARKETING</h3>
+                                        <span class="fa fa-whatsapp" style="font-size: 35px;color:#fff;"></span>  <span class="fa fa-whatsapp" style="font-size: 35px;color:#fff;"></span> <span class="fa fa-whatsapp" style="font-size: 35px;color:#fff;"></span> <span class="fa fa-whatsapp" style="font-size: 35px;color:#fff;"></span>
+                                        <p class="mt-3" style="color:#000;">Hasta los 7500 clientes.</p>
+                                        <h2 class="fw-medium my-4" style="font-size: 36px;">
+                                            <sup class="fw-normal fs-2 me-1">$</sup>119.99<small class="fs--1 text-700">/ mensual</small>
+                                        </h2><a class="btn btn-outline-primary" href="#register" style=" background-color: #ff0200; color: #fff; border: 1px solid #ff0200;">Iniciar ahora</a>
+                                    </div>
+                                    <hr class="border-bottom-0 m-0" />
+                                    <div class="text-start px-sm-4 py-4">
+                                        <h5 class="fw-medium">Prueba 7 días GRATIS:</h5>
+                                        <h3 class="fw-medium fs-0">Aplicación y Marketing por whatsapp</h3>
+                                    </div>
+                                    <ul class="p-2 mb-3 background-gris-0 list-style-none">
+                                        <li class="contiene-li-precio-nuevo d-flex flex-row">
+                                        <li class="contiene-li-precio-nuevo d-flex flex-row" style="color: #000;">
+                                            <span class="text-color-primary mr-2"><i aria-hidden="true" class="fas fa-check-circle" style="color:#000;"></i></span> Soporte Online.
+                                        </li>
+                                        <li class="contiene-li-precio-nuevo d-flex flex-row" style="color: #000;">
+                                            <span class="text-color-primary mr-2"><i aria-hidden="true" class="fas fa-check-circle" style="color:#000;"></i></span> Capacitación Online.
+                                        </li>
+                                        <li class="contiene-li-precio-nuevo d-flex flex-row" style="color: #000;">
+                                            <span class="text-color-primary mr-2"><i aria-hidden="true" class="fas fa-check-circle" style="color:#000;"></i></span> Funciones del plan SILVER.
+                                        </li>
+
+                                        <li class="contiene-li-precio-nuevo border d-flex flex-row border-success" style="padding:5px;margin-bottom:2px;border: 1px solid #575c53!important;border-radius:8px;"><span class="text-color-primary mr-2"><i aria-hidden="true" class="fas fa-check-circle" style="color:#000;"></i></span> <span style="font-family: eurostib;color:#000;"><i class="fab fa-google-play"></i> APP PARA CLIENTES FITNESS, CONTROL DE MEMBRESIAS Y CONGELAMIENTO, GESTIÓN DE RESERVAS DE CLASES, PROGRESO FISICO.</span></li>
+                                        <li class="contiene-li-precio-nuevo border d-flex flex-row border-success" style="padding:5px;margin-bottom:2px;border: 1px solid #575c53!important;border-radius:8px;"><span class="text-color-primary mr-2"><i aria-hidden="true" class="fas fa-check-circle" style="color:#000;"></i></span> <span style="font-family: eurostib;color:#000;"><i class="fab fa-whatsapp"></i>CAMPAÑAS DE WHATSAPP: plantillas de mensajes predefinidas.</span></li>
+                                        <li class="contiene-li-precio-nuevo border d-flex flex-row border-success" style="padding:5px;margin-bottom:2px;border: 1px solid #575c53!important;border-radius:8px;"><span class="text-color-primary mr-2"><i aria-hidden="true" class="fas fa-check-circle" style="color:#000;"></i></span> <span style="font-family: eurostib;color:#000;"><i class="fab fa-whatsapp"></i>CAMPAÑAS DE WHATSAPP: crea tus propias plantillas de mensajes (texto, imagenes y videos).</span></li>
+                                        <li class="contiene-li-precio-nuevo border d-flex flex-row border-success" style="padding:5px;margin-bottom:2px;border: 1px solid #575c53!important;border-radius:8px;"><span class="text-color-primary mr-2"><i aria-hidden="true" class="fas fa-check-circle" style="color:#000;"></i></span> <span style="font-family: eurostib;color:#000;"><i class="fab fa-whatsapp"></i>CAMPAÑAS DE WHATSAPP: envia a una lista de números que esten en excel.</span></li>
+                                        <li class="contiene-li-precio-nuevo border d-flex flex-row border-success" style="padding:5px;margin-bottom:2px;border: 1px solid #575c53!important;border-radius:8px;"><span class="text-color-primary mr-2"><i aria-hidden="true" class="fas fa-check-circle" style="color:#000;"></i></span> <span style="font-family: eurostib;color:#000;"><i class="fab fa-whatsapp"></i>CAMPAÑAS DE WHATSAPP: envios instantaneos y programados.</span></li>
+
+                                    </ul>
+                                </div>
+                            </div>
+
+                            <div class="col-12 text-center" style="display:none;">
+                                <h5 class="mt-5">Looking for personal or small team task management?</h5>
+                                <p class="fs-1">Try the <a href="#">basic version</a> of Falcon</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+        <!--end container -->
+
+    </div>
+    <!--end pricing-wrapper -->
+</section>
+
+<section class="about type_one" style="background-color: #f8f8f8;">
+    <div class="container">
+        <div class="row">
+            <div class="col-6 col-lg-4 mt-2 mb-4 mb-lg-0 px-1 px-lg-2 border-bottom">
+                <div class="image_box">
+                    <img src="~/Content/paginaappsfit2/image/resources/home-4-about-1.jpg" class="img-fluid" alt="img">
+                </div>
+            </div>
+            <div class="col-6 col-lg-4 mt-2 mb-4 mb-lg-0 px-1 px-lg-2 border-bottom">
+                <div class="h-100" style="background: linear-gradient(90deg, #25D366 0%, #25D366 35%, #128C7E 100%); border-radius: 25px; ">
+                    <div class="text-center p-4">
+                        <h3 class="fw-normal my-0">VENTAS Y WHATSAPP EN AUTOMATICO</h3>
+                        <span class="fa fa-whatsapp" style="font-size: 35px;color:#fff;"></span>  <span class="fa fa-whatsapp" style="font-size: 35px;color:#fff;"></span>  <span class="fa fa-whatsapp" style="font-size: 35px;color:#fff;"></span> <span class="fa fa-whatsapp" style="font-size: 35px;color:#fff;"></span>
+                        <p class="mt-3" style="color:#000;">Hasta los 12000 clientes.</p>
+                        <h2 class="fw-medium my-4" style="font-size: 36px;">
+                            <sup class="fw-normal fs-2 me-1">$</sup>144.99<small class="fs--1 text-700">/ mensual</small>
+                        </h2><a class="btn btn-outline-primary" href="#register" style=" background-color: #ff0200; color: #fff; border: 1px solid #ff0200;">Iniciar ahora</a>
+                    </div>
+                    <hr class="border-bottom-0 m-0" />
+                    <div class="text-start px-sm-4 py-4 text-center">
+                        <h5 class="fw-medium">Prueba 7 días GRATIS:</h5>
+                        <h3 class="fw-medium fs-0">Tú recepcionista online 24/7</h3>
+                    </div>
+                    <ul class="p-2 mb-3 background-gris-0 list-style-none">
+                        <li class="contiene-li-precio-nuevo d-flex flex-row">
+                        <li class="contiene-li-precio-nuevo d-flex flex-row" style="color: #000;">
+                            <span class="text-color-primary mr-2"><i aria-hidden="true" class="fas fa-check-circle" style="color:#000;"></i></span> Soporte Online.
+                        </li>
+                        <li class="contiene-li-precio-nuevo d-flex flex-row" style="color: #000;">
+                            <span class="text-color-primary mr-2"><i aria-hidden="true" class="fas fa-check-circle" style="color:#000;"></i></span> Capacitación Online.
+                        </li>
+                        <li class="contiene-li-precio-nuevo d-flex flex-row" style="color: #000;">
+                            <span class="text-color-primary mr-2"><i aria-hidden="true" class="fas fa-check-circle" style="color:#000;"></i></span> Funciones del plan WHATSAPP MARKETING.
+                        </li>
+
+                        <li class="contiene-li-precio-nuevo border d-flex flex-row border-success" style="padding:5px;margin-bottom:2px;border: 1px solid #575c53!important;border-radius:8px;"><span class="text-color-primary mr-2"><i aria-hidden="true" class="fas fa-check-circle" style="color:#000;"></i></span> <span style="font-family: eurostib;color:#000;"><i class="fab fa-google-play"></i>APP CLIENTES FITNESS: VENTA DE MEMBRESIAS Y MATRICULAS, INTEGRACIÓN CON PASARELAS DE PAGO.</span></li>
+                        <li class="contiene-li-precio-nuevo border d-flex flex-row border-success" style="padding:5px;margin-bottom:2px;border: 1px solid #575c53!important;border-radius:8px;"><span class="text-color-primary mr-2"><i aria-hidden="true" class="fas fa-check-circle" style="color:#000;"></i></span> <span style="font-family: eurostib;color:#000;"><i class="fab fa-whatsapp"></i>AUTOMATIZACIÓN: WHATSAPP MASIVO DE COBRO DE CUOTAS Y 7 DEUDAS.</span></li>
+                        <li class="contiene-li-precio-nuevo border d-flex flex-row border-success" style="padding:5px;margin-bottom:2px;border: 1px solid #575c53!important;border-radius:8px;"><span class="text-color-primary mr-2"><i aria-hidden="true" class="fas fa-check-circle" style="color:#000;"></i></span> <span style="font-family: eurostib;color:#000;"><i class="fab fa-whatsapp"></i>AUTOMATIZACIÓN: WHATSAPP MASIVO DE CLIENTES POR VENCER EN 3 DÍAS, 7 DÍAS Y 15 DÍAS.</span></li>
+                        <li class="contiene-li-precio-nuevo border d-flex flex-row border-success" style="padding:5px;margin-bottom:2px;border: 1px solid #575c53!important;border-radius:8px;"><span class="text-color-primary mr-2"><i aria-hidden="true" class="fas fa-check-circle" style="color:#000;"></i></span> <span style="font-family: eurostib;color:#000;"><i class="fab fa-whatsapp"></i>AUTOMATIZACIÓN: WHATSAPP MASIVO DE CLIENTES VENCIDOS HACE 1 DÍA, 7 DÍAS, 15 DÍAS Y 30 DÍAS.</span></li>
+                        <li class="contiene-li-precio-nuevo border d-flex flex-row border-success" style="padding:5px;margin-bottom:2px;border: 1px solid #575c53!important;border-radius:8px;"><span class="text-color-primary mr-2"><i aria-hidden="true" class="fas fa-check-circle" style="color:#000;"></i></span> <span style="font-family: eurostib;color:#000;"><i class="fab fa-whatsapp"></i>AUTOMATIZACIÓN: WHATSAPP MASIVO DE CLIENTES NUEVOS ACTIVOS HACE 1 DÍA, 7 DÍAS, 15 DÍAS Y 30 DÍAS.</span></li>
+                        <li class="contiene-li-precio-nuevo border d-flex flex-row border-success" style="padding:5px;margin-bottom:2px;border: 1px solid #575c53!important;border-radius:8px;"><span class="text-color-primary mr-2"><i aria-hidden="true" class="fas fa-check-circle" style="color:#000;"></i></span> <span style="font-family: eurostib;color:#000;"><i class="fab fa-whatsapp"></i>AUTOMATIZACIÓN: WHATSAPP MASIVO DE CLIENTES ACTIVOS QUE NO ASISTEN HACE 3 DÍAS, 7 DÍAS, 15 DÍAS Y 30 DÍAS.</span></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-6 col-lg-4 mt-2 mb-4 mb-lg-0 px-1 px-lg-2 border-bottom">
+                <div class="h-100" style="background: linear-gradient(90deg, #f5693f 0%, #f5693f 35%, #f53f71 100%); border-radius: 25px; ">
+                    <div class="text-center p-4">
+                        <h3 class="fw-normal my-0">TRAINING APP</h3>
+                        <span class="fa fa-rocket" style="font-size: 35px;color:#fff;"></span>  <span class="fa fa-rocket" style="font-size: 35px;color:#fff;"></span>  <span class="fa fa-rocket" style="font-size: 35px;color:#fff;"></span> <span class="fa fa-rocket" style="font-size: 35px;color:#fff;"></span>
+                        <p class="mt-3" style="color:#000;">Hasta los 15000 clientes.</p>
+                        <h2 class="fw-medium my-4" style="font-size: 36px;">
+                            <sup class="fw-normal fs-2 me-1">$</sup>164.99<small class="fs--1 text-700">/ mensual</small>
+                        </h2><a class="btn btn-outline-primary" href="#register" style=" background-color: #ff0200; color: #fff; border: 1px solid #ff0200;">Iniciar ahora</a>
+                    </div>
+                    <hr class="border-bottom-0 m-0" />
+                    <div class="text-start px-sm-4 py-4 text-center">
+                        <h5 class="fw-medium">Prueba 7 días GRATIS:</h5>
+                        <h3 class="fw-medium fs-0">Tú entrenador online 24/7</h3>
+                    </div>
+                    <ul class="p-2 mb-3 background-gris-0 list-style-none">
+                        <li class="contiene-li-precio-nuevo d-flex flex-row">
+                        <li class="contiene-li-precio-nuevo d-flex flex-row" style="color: #000;">
+                            <span class="text-color-primary mr-2"><i aria-hidden="true" class="fas fa-check-circle" style="color:#000;"></i></span> Soporte Online.
+                        </li>
+                        <li class="contiene-li-precio-nuevo d-flex flex-row" style="color: #000;">
+                            <span class="text-color-primary mr-2"><i aria-hidden="true" class="fas fa-check-circle" style="color:#000;"></i></span> Capacitación Online.
+                        </li>
+                        <li class="contiene-li-precio-nuevo d-flex flex-row" style="color: #000;">
+                            <span class="text-color-primary mr-2"><i aria-hidden="true" class="fas fa-check-circle" style="color:#000;"></i></span> Funciones del plan WHATSAPP AUTOMATICO.
+                        </li>
+                        <li class="contiene-li-precio-nuevo border d-flex flex-row border-success" style="padding: 5px; margin-bottom: 2px; border: 1px solid #000!important; border-radius: 8px;"><span class="text-color-primary mr-2"><i aria-hidden="true" class="fas fa-check-circle" style="color:#000;"></i></span> <span style="font-family: eurostib;color:#000;"><i class="fab fa-google-play"></i>APP CLIENTES FITNESS: SISTEMA DE EJERCICIOS + RUTINAS DE ENTRENAMIENTO + VIDEOS DE EJERCICIOS</span></li>
+
+                        <li class="contiene-li-precio-nuevo border d-flex flex-row border-success" style="padding:5px;margin-bottom:2px;border: 1px solid #000!important;border-radius:8px;"><span class="text-color-primary mr-2"><i aria-hidden="true" class="fas fa-check-circle" style="color:#000;"></i></span> <span style="font-family: eurostib;color:#000;"><i class="fas fa-paper-plane"></i>AUTOMATIZACIÓN: NOTIFICACIONES APP CLIENTES COBRO DE CUOTAS Y 7 DEUDAS.</span></li>
+                        <li class="contiene-li-precio-nuevo border d-flex flex-row border-success" style="padding:5px;margin-bottom:2px;border: 1px solid #000!important;border-radius:8px;"><span class="text-color-primary mr-2"><i aria-hidden="true" class="fas fa-check-circle" style="color:#000;"></i></span> <span style="font-family: eurostib;color:#000;"><i class="fas fa-paper-plane"></i>AUTOMATIZACIÓN: NOTIFICACIONES APP CLIENTES DE CLIENTES POR VENCER EN 3 DÍAS, 7 DÍAS Y 15 DÍAS.</span></li>
+                        <li class="contiene-li-precio-nuevo border d-flex flex-row border-success" style="padding:5px;margin-bottom:2px;border: 1px solid #000!important;border-radius:8px;"><span class="text-color-primary mr-2"><i aria-hidden="true" class="fas fa-check-circle" style="color:#000;"></i></span> <span style="font-family: eurostib;color:#000;"><i class="fas fa-paper-plane"></i>AUTOMATIZACIÓN: NOTIFICACIONES APP CLIENTES DE CLIENTES VENCIDOS HACE 1 DÍA, 7 DÍAS, 15 DÍAS Y 30 DÍAS.</span></li>
+                        <li class="contiene-li-precio-nuevo border d-flex flex-row border-success" style="padding:5px;margin-bottom:2px;border: 1px solid #000!important;border-radius:8px;"><span class="text-color-primary mr-2"><i aria-hidden="true" class="fas fa-check-circle" style="color:#000;"></i></span> <span style="font-family: eurostib;color:#000;"><i class="fas fa-paper-plane"></i>AUTOMATIZACIÓN: NOTIFICACIONES APP CLIENTES DE CLIENTES NUEVOS ACTIVOS HACE 1 DÍA, 7 DÍAS, 15 DÍAS Y 30 DÍAS.</span></li>
+                        <li class="contiene-li-precio-nuevo border d-flex flex-row border-success" style="padding:5px;margin-bottom:2px;border: 1px solid #000!important;border-radius:8px;"><span class="text-color-primary mr-2"><i aria-hidden="true" class="fas fa-check-circle" style="color:#000;"></i></span> <span style="font-family: eurostib;color:#000;"><i class="fas fa-paper-plane"></i>AUTOMATIZACIÓN: NOTIFICACIONES APP CLIENTES DE CLIENTES ACTIVOS QUE NO ASISTEN HACE 3 DÍAS, 7 DÍAS, 15 DÍAS Y 30 DÍAS.</span></li>
+
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="explore_more" id="testimonios" style="background-color: #000000;">
+
+    <!--begin container -->
+    <div class="container">
+
+        <!--begin row -->
+        <div class="row">
+
+            <!--begin col-md-12 -->
+            <div class="col-md-12 text-center">
+                <div class="content_box text-center">
+                    <h1> <br class="disp_none_md" /> <span>¡NUESTROS CLIENTES NOS RECOMIENDAN!</span> </h1>
+                </div>
+
+                <h3 style="color:#fff;font-size: 41px;font-weight:bold;" class="section-title">El software lider que ayudo a cientos de centros de entrenamientos</h3>
+                <br />
+
+            </div>
+            <!--end col-md-12 -->
+
+        </div>
+        <!--end row -->
+
+    </div>
+    <!--end container -->
+    <!--begin container -->
+    <div class="container">
+
+        <!--begin row -->
+        <div class="row">
+
+            <!--begin col-md-4 -->
+            <div class="col-6 col-lg-3 mt-2 mb-4 mb-lg-0 px-1 px-lg-2 col-md-4" style="text-align: center;">
+
+                <div class="our-services">
+
+
+                    <iframe width="800" height="250" src="https://www.youtube.com/embed/0J-D5KaAY4Q?controls=0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen="">
+                    </iframe>
+
+                </div>
+
+            </div>
+            <!--end col-md-4 -->
+            <!--begin col-md-4 -->
+            <div class="col-6 col-lg-3 mt-2 mb-4 mb-lg-0 px-1 px-lg-2 col-md-4" style="text-align: center;">
+
+                <div class="our-services">
+
+                    <iframe width="800" height="250" src="https://www.youtube.com/embed/49BVcpM987k?controls=0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen="">
+                    </iframe>
+                </div>
+
+            </div>
+            <!--end col-md-4 -->
+            <!--begin col-md-4 -->
+            <div class="col-6 col-lg-3 mt-2 mb-4 mb-lg-0 px-1 px-lg-2 col-md-4" style="text-align: center;">
+
+                <div class="our-services">
+
+                    <iframe width="800" height="250" src="https://www.youtube.com/embed/j8wvdEyfVDk?controls=0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen="">
+                    </iframe>
+
+                </div>
+
+            </div>
+            <!--end col-md-4 -->
+            <!--begin col-md-4 -->
+            <div class="col-6 col-lg-3 mt-2 mb-4 mb-lg-0 px-1 px-lg-2 col-md-4" style="text-align: center;">
+
+                <div class="our-services">
+
+                    <iframe width="800" height="250" src="https://www.youtube.com/embed/yG4sPfth9I4?controls=0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen="">
+                    </iframe>
+                </div>
+
+            </div>
+            <!--end col-md-4 -->
+        </div>
+        <!--end row -->
+        <!--begin row -->
+        <div class="row">
+
+            <!--begin col-md-4 -->
+            <div class="col-6 col-lg-3 mt-2 mb-4 mb-lg-0 px-1 px-lg-2 col-md-4" style="text-align: center;">
+
+                <div class="our-services">
+
+
+                    <iframe width="800" height="250" src="https://www.youtube.com/embed/5LhKSSG8SGA?controls=0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen="">
+                    </iframe>
+
+                </div>
+
+            </div>
+            <!--end col-md-4 -->
+            <!--end col-md-4 -->
+        </div>
+        <!--end row -->
+      
+    </div>
+    <!--end container -->
+
+</section>
+
+
+<section class="contact_form faq type_two" id="register">
+    <br /><br /><br />
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-6 col-md-12">
+                <div class="contact_form_box type_two" style="background-color: #afadac;">
+                    <h2>Solicita tu demo y precios</h2>
+                    <form>
+                        <div class="row">
+
+                            <div class="col-lg-6 col-md-6">
+                                <div class="form-group">
+                                    <label> E-mail</label>
+                                    <input id="txtform_correo" type="email" name="form_emailbusiness" placeholder="" class="form-control">
+                                </div>
+                            </div>
+                            <div class="col-lg-6 col-md-6">
+                                <div class="form-group">
+                                    <label> Nombre de la empresa</label>
+                                    <input id="txtform_nombreempresa" type="text" name="form_business" placeholder="" class="form-control">
+                                </div>
+                            </div>
+                            <div class="col-lg-6 col-md-6">
+                                <div class="form-group">
+                                    <label>
+                                        Situación de la empresa
+                                    </label>
+                                    <select id="ddlform_select_situacionempresa" class="register-input" required="" name="form_select_situacionempresa">
+                                        <option value="Seleccionar">Seleccione por favor</option>
+                                        <option value="1">Tengo un negocio</option>
+                                        <option value="2">Me gustaría iniciar un negocio</option>
+                                        <option value="3">No tengo negocio</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-lg-6 col-md-6">
+                                <div class="form-group">
+                                    <label>Tipo de empresa</label>
+                                    <select id="ddlform_select_tipoempresa" class="register-input" required="" name="form_select_tipoempresa">
+                                        <option value="Seleccionar">Seleccione por favor</option>
+                                        <option value="1">Gimnasio</option>
+                                        <option value="2">Cadenas</option>
+                                        <option value="3">CrossFit</option>
+                                        <option value="4">Yoga o Pilates</option>
+                                        <option value="5">Baile</option>
+                                        <option value="6">Boxeo</option>
+                                        <option value="7">Box de CrossFit</option>
+                                        <option value="8">Entrenador Personal</option>
+                                        <option value="9">Profesor de clases grupales</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-lg-6 col-md-6">
+                                <div class="form-group">
+                                    <label>Número de ubicaciones</label>
+                                    <select id="ddlform_select_nroubicaciones" class="register-input" required="" name="form_select_nroubicaciones">
+                                        <option value="Seleccionar">Seleccione por favor</option>
+                                        <option value="1">0</option>
+                                        <option value="2">1</option>
+                                        <option value="3">2-4</option>
+                                        <option value="4">5+</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-lg-6 col-md-6">
+                                <div class="form-group">
+                                    <label> Nombre del dueño</label>
+                                    <input id="txtform_nameduenio" type="text" name="form_nameduenio" placeholder="" class="form-control">
+                                </div>
+                            </div>
+                            <div class="col-lg-12 col-md-12">
+                                <div class="form-group">
+                                    <label> ¿En que te podemos ayudar?</label>
+                                    <textarea id="txtform_asunto" name="form_mensaje" placeholder="" class="form-control textarea required" rows="5"></textarea>
+                                </div>
+                            </div>
+                            <div class="col-lg-12 col-md-12">
+                                <div class="lower_button_box">
+                                    <div class="row">
+                                        <div class="col-lg-12">
+                                            <div class="form-group text-center">
+
+                                                <button class="theme_btn tp_one" onclick="EnviarDatos();" type="button" style=" --tw-gradient-from: #128c7e; --tw-gradient-stops: #25d366, #128c7e; background-image: linear-gradient(to bottom right,var(--tw-gradient-stops));">Demo gratis & precios<span style="font-size: 22px;" class="fa fa-whatsapp"></span></button>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-lg-12 text-center">
+                                            <span id="js-validacionregistro" style="color: #E0342B;display:none;"></span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="col-lg-6 col-md-12">
+                <div class="faq_content">
+                    <div class="heading icon_dark  tp_three">
+                        <h6 class="text-orange">¿Alguna duda?</h6>
+                        <h1><b class="text-orange">Preguntas </b> <b class="text-black">frecuentes</b></h1>
+                    </div>
+                    <div id="accordion">
+                        <div class="card faq_box type_four">
+                            <div class="card-header" id="headingOne">
+                                <h5 class="mb-0">
+                                    <button class="faq_btn" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                                        <span style="font-size: 22px;" class="fa fa-question-circle-o"></span> ¿Por qué necesita mi gimnasio un software de gestión?
+                                    </button>
+                                </h5>
+                            </div>
+                            <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordion">
+                                <div class="card-body" style="font-weight:bold;">
+                                    Confiar en un software de gestión para centros fitness significa dedicar menos tiempo a realizar tareas rutinarias.<br />
+
+                                    Además, es una oportunidad para diversificar los flujos de ingresos y reforzar tu marca. Para obtener resultados significativos, el software de gestión para centros fitness de Appsfit es la opción número uno.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card faq_box type_four">
+                            <div class="card-header" id="headingTwo">
+                                <h5 class="mb-0">
+                                    <button class="faq_btn collapsed" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                                        <span style="font-size: 22px;" class="fa fa-question-circle-o"></span> ¿Hará crecer mi negocio el software para centros fitness?
+                                    </button>
+                                </h5>
+                            </div>
+                            <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordion">
+                                <div class="card-body" style="font-weight:bold;">
+                                    Un software de gestión para centros fitness te ayudará a aumentar los ingresos reduciendo los gastos generales, ofrecer nuevos servicios y mejorar la retención.<br />
+                                    Las herramientas de Appsfit permiten ofrecer un servicio inigualable que tus socios valorarán.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card faq_box type_four">
+                            <div class="card-header" id="headingThree">
+                                <h5 class="mb-0">
+                                    <button class="faq_btn collapsed" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                                        <span style="font-size: 22px;" class="fa fa-question-circle-o"></span> ¿Qué debo tener en cuenta antes de adquirir un software de gestión para centros fitness?
+                                    </button>
+                                </h5>
+                            </div>
+                            <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordion">
+                                <div class="card-body" style="font-weight:bold;">
+                                    Un buen proveedor de software para centros fitness no se limitará a venderte un producto, será un aliado.<br />
+                                    El software que elijas deberá tener todas las funciones que necesitas para gestionar tu negocio. Pero lo más importante es que el equipo que está detrás te apoye en todo momento.<br />
+                                    Ponte en contacto con nosotros para saber cómo ayudamos a nuestros clientes.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card faq_box type_four">
+                            <div class="card-header" id="headingCuatro">
+                                <h5 class="mb-0">
+                                    <button class="faq_btn collapsed" data-toggle="collapse" data-target="#collapseCuatro" aria-expanded="false" aria-controls="collapseCuatro">
+                                        <span style="font-size: 22px;" class="fa fa-question-circle-o"></span> No entiendo bien la tecnología, ¿me ayudan a configurar mi negocio?
+                                    </button>
+                                </h5>
+                            </div>
+                            <div id="collapseCuatro" class="collapse" aria-labelledby="headingCuatro" data-parent="#accordion">
+                                <div class="card-body" style="font-weight:bold;">
+                                    ¡Te ayudamos con toda la puesta en marcha de tu negocio! En menos de 30 minutos tendrás todo configurado.<br />
+
+                                    Además, todos los días del año, las 24 horas del día, nuestro equipo de expertos estará disponible para darte soporte y resolver todas tus dudas.<br />
+
+                                    O, si lo prefieres, podrás contratar packs de sesiones con expertos en digitalización, que te brindarán sesiones personalizadas para sacar el máximo partido a la tecnología y mejorar los resultados de tu negocio.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+
+@section Scripts {
+
+    @System.Web.Optimization.Scripts.Render("~/Scripts/bootstrap-notify-master/bootstrap-notify.js")
+    @System.Web.Optimization.Scripts.Render("~/Scripts/bootstrap-notify-master/bootstrap-notify.min.js")
+    @System.Web.Optimization.Scripts.Render("~/Scripts/jsBootstrap/jquery.bootstrap-growl.js")
+
+    @System.Web.Optimization.Scripts.Render("~/Scripts/jquery.min.js")
+    @System.Web.Optimization.Scripts.Render("~/Scripts/plugins/jquery-ui/jquery-ui.js")
+    @System.Web.Optimization.Scripts.Render("~/Scripts/plugins/jquery-ui/jquery-ui.min.js")
+
+    @System.Web.Optimization.Scripts.Render("~/Resource/UserControl.Helper.js")
+    <script type="text/javascript">
+
+        $(document).ready(function () {
+            fbq('trackCustom', 'CustomViewPriceDolaresAppsfit');
+        });
+
+        function eventContactoFacebook() {
+
+            fbq('trackCustom', 'CustomContactAppsfit');
+        }
+
+        function EnviarDatos() {
+
+            var correo = $('#txtform_correo').val();
+            var nombreempresa = $('#txtform_nombreempresa').val();
+            var situacionempresa = $('select[id="ddlform_select_situacionempresa"] option:selected').text();
+            var tipoempresa = $('select[id="ddlform_select_tipoempresa"] option:selected').text();
+            var nroubicaciones = $('select[id="ddlform_select_nroubicaciones"] option:selected').text();
+            var nombregerente = $('#txtform_nameduenio').val();
+            var asunto = $('#txtform_asunto').val();
+
+
+            if (correo == '') {
+                $('#js-validacionregistro').html('Falta ingresar el correo de la empresa.');
+                document.getElementById("js-validacionregistro").style.display = 'block';
+                $('#txtform_correo').select();
+                return;
+            } else if (nombreempresa == '') {
+                $('#js-validacionregistro').html('Falta ingresar el nombre de la empresa.');
+                document.getElementById("js-validacionregistro").style.display = 'block';
+                $('#txtform_nombreempresa').select();
+                return;
+            } else if (situacionempresa == 'Seleccione por favor') {
+                $('#js-validacionregistro').html('Falta seleccionar la situación de su empresa.');
+                document.getElementById("js-validacionregistro").style.display = 'block';
+                $('select[id="ddlform_select_situacionempresa"] option:selected').focus();
+                return;
+            } else if (tipoempresa == 'Seleccione por favor') {
+                $('#js-validacionregistro').html('Falta seleccionar el tipo de su empresa.');
+                document.getElementById("js-validacionregistro").style.display = 'block';
+                $('select[id="ddlform_select_tipoempresa"] option:selected').focus();
+                return;
+            } else if (nroubicaciones == 'Seleccione por favor') {
+                $('#js-validacionregistro').html('Falta seleccionar el nro de ubicaciones de su empresa.');
+                document.getElementById("js-validacionregistro").style.display = 'block';
+                $('select[id="ddlform_select_nroubicaciones"] option:selected').focus();
+                return;
+            } else if (nombregerente == '') {
+                $('#js-validacionregistro').html('Falta ingresar su nombre y apellidos.');
+                document.getElementById("js-validacionregistro").style.display = 'block';
+                $('#txtform_nameduenio').select();
+                return;
+            } else if (asunto == '') {
+                $('#js-validacionregistro').html('Falta ingresar el asunto.');
+                document.getElementById("js-validacionregistro").style.display = 'block';
+                $('#txtform_asunto').select();
+                return;
+            }
+
+            document.getElementById("js-validacionregistro").style.display = 'none';
+
+            correo = correo.replace(' ', '%20').replace(' ', '%20').replace(' ', '%20').replace(' ', '%20').replace(' ', '%20').replace(' ', '%20').replace(' ', '%20').replace(' ', '%20');
+            nombreempresa = nombreempresa.replace(' ', '%20').replace(' ', '%20').replace(' ', '%20').replace(' ', '%20').replace(' ', '%20').replace(' ', '%20').replace(' ', '%20').replace(' ', '%20');
+            situacionempresa = situacionempresa.replace(' ', '%20').replace(' ', '%20').replace(' ', '%20').replace(' ', '%20').replace(' ', '%20').replace(' ', '%20').replace(' ', '%20').replace(' ', '%20');
+            tipoempresa = tipoempresa.replace(' ', '%20').replace(' ', '%20').replace(' ', '%20').replace(' ', '%20').replace(' ', '%20').replace(' ', '%20').replace(' ', '%20').replace(' ', '%20');
+            nroubicaciones = nroubicaciones.replace(' ', '%20').replace(' ', '%20').replace(' ', '%20').replace(' ', '%20').replace(' ', '%20').replace(' ', '%20').replace(' ', '%20').replace(' ', '%20');
+            nombregerente = nombregerente.replace(' ', '%20').replace(' ', '%20').replace(' ', '%20').replace(' ', '%20').replace(' ', '%20').replace(' ', '%20').replace(' ', '%20').replace(' ', '%20');
+            asunto = asunto.replace(' ', '%20').replace(' ', '%20').replace(' ', '%20').replace(' ', '%20').replace(' ', '%20').replace(' ', '%20').replace(' ', '%20').replace(' ', '%20').replace(' ', '%20').replace(' ', '%20').replace(' ', '%20').replace(' ', '%20').replace(' ', '%20').replace(' ', '%20').replace(' ', '%20').replace(' ', '%20');
+
+            var mensaje = '';
+
+            mensaje = mensaje + 'Mi%20empresa%20se%20llama:%20' + nombreempresa + '%0A';
+            mensaje = mensaje + 'Mi%20correo%20es:%20' + correo + '%0A';
+            mensaje = mensaje + 'Tengo:%20' + nroubicaciones + '%0A';
+            mensaje = mensaje + 'La%20situacion%20de%20mi%20empresa%20es:%20' + situacionempresa + '%0A';
+            mensaje = mensaje + 'Mi%20tipo%20de%20empresa%20es:%20' + tipoempresa + '%0A';
+            mensaje = mensaje + 'Asunto:%20' + asunto;
+
+            var Link = "https://api.whatsapp.com/send?phone=51957592357&text=👍%20Hola%20Appsfit,%20mi%20nombre%20es%20" + nombregerente + "%0A" + mensaje;
+
+            eventContactoFacebook();
+
+            window.open(Link, '_blank');
+
+        }
+
+
+    </script>
+}

@@ -1,0 +1,1774 @@
+﻿
+@{
+    ViewBag.Title = "historialmetas";
+    Layout = "~/Views/Shared/__LayoutAppFitPlataformaFit.cshtml";
+}
+
+
+<link href="@Url.Content("~/Content/cssKendo/kendo.common.min.css")" rel="stylesheet" />
+<link href="@Url.Content("~/Content/cssKendo/kendo.dataviz.default.min.css")" rel="stylesheet" />
+<link href="@Url.Content("~/Content/cssKendo/kendo.dataviz.min.css")" rel="stylesheet" />
+<link href="@Url.Content("~/Content/cssKendo/kendo.default.min.css")" rel="stylesheet" />
+<link href="@Url.Content("~/Content/cssKendo/kendo.mobile.all.min.css")" rel="stylesheet" />
+
+
+<style type="text/css">
+    .k-block, .k-button, .k-textbox, .k-drag-clue, .k-touch-scrollbar, .k-window, .k-window-titleless .k-window-content, .k-window-action, .k-inline-block, .k-grid .k-filter-options, .k-grouping-header .k-group-indicator, .k-autocomplete, .k-multiselect, .k-combobox, .k-dropdown, .k-dropdown-wrap, .k-datepicker, .k-timepicker, .k-colorpicker, .k-datetimepicker, .k-notification, .k-numerictextbox, .k-picker-wrap, .k-numeric-wrap, .k-colorpicker, .k-list-container, .k-calendar-container, .k-calendar td, .k-calendar .k-link, .k-treeview .k-in, .k-editor-inline, .k-tooltip, .k-tile, .k-slider-track, .k-slider-selection, .k-upload {
+        border-radius: 3px;
+    }
+
+    .modal-body {
+    }
+
+    .modal-backdrop {
+        display: none;
+    }
+
+    .card-body {
+        margin-top: -5px;
+        margin-bottom: -5px;
+    }
+
+    .k-dropdown .k-input, .k-selectbox .k-input {
+        /* background: none; */
+        background-color: #fff;
+        font-weight: bold;
+    }
+
+    .k-dropdown-wrap .k-input, .k-picker-wrap .k-input, .k-numeric-wrap .k-input {
+        border-radius: 3px 0 0 3px;
+        font-weight: bold;
+    }
+
+    .k-autocomplete {
+        background-image: url(textures/highlight.png);
+        background-image: none,linear-gradient(to bottom,#e2e1e199 0,#e2e1e199 100%);
+        background-position: 50% 50%;
+        background-color: #e3e3e3;
+        border: 1px solid #cac9c9;
+        color: #fff;
+    }
+
+    .k-header, .k-grid-header, .k-toolbar, .k-dropdown-wrap, .k-picker-wrap, .k-numeric-wrap, .k-grouping-header, .k-pager-wrap, .k-textbox, .k-button, .k-progressbar, .k-draghandle, .k-state-highlight, .k-tabstrip-items .k-item, .k-panelbar .k-tabstrip-items .k-item, .km-pane-wrapper > .km-pane > .km-view > .km-content {
+        background-image: url(textures/highlight.png);
+        background-image: none,-webkit-linear-gradient(top,#0075ff 0,#0075ff 100%);
+        background-image: none,-moz-linear-gradient(top,#0075ff 0,#0075ff 100%);
+        background-image: none,-o-linear-gradient(top,#0075ff 0,#0075ff 100%);
+        background-image: none,linear-gradient(to bottom,#0075ff 0,#0075ff 100%);
+        background-position: 50% 50%;
+        background-color: #e3e3e3;
+        color: #fff;
+    }
+
+        .k-header, .k-grid-header-wrap, .k-grid .k-grouping-header, .k-grid-header, .k-pager-wrap, .k-pager-wrap .k-textbox, .k-pager-wrap .k-link, .k-grouping-header .k-group-indicator, .k-gantt-toolbar .k-state-default {
+            border-color: #e8eaee;
+            background-color: #0075ff;
+            color: #fff;
+        }
+
+    .modal {
+        display: none;
+        background-color: rgba(0, 0, 0, 0.77);
+    }
+
+    .k-block, .k-header, .k-grid-header, .k-toolbar, .k-grouping-header, .k-pager-wrap, .k-button, .k-draghandle, .k-treemap-tile, html .km-pane-wrapper .k-header {
+        background-color: #0075ff;
+        color: #fff;
+    }
+
+        .k-grid-header th.k-header > .k-link {
+            display: block;
+            min-height: 18px;
+            line-height: 18px;
+            margin: -0.5em -0.6em -0.4em -0.6em;
+            padding: .1em .1em .1em .1em;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            color: #fff;
+        }
+
+        .k-grid-header table, .k-grid-content table, .k-grid-footer table, .k-grid-content-locked > table {
+            table-layout: fixed;
+        }
+
+
+
+        .k-grid-toolbar:first-child, .k-grouping-header + .k-grid-toolbar {
+            border-width: 0 0 1px;
+            border-radius: 0px;
+            background-color: #d7eafa;
+            height: 10px;
+        }
+
+    .k-block, .k-header, .k-grid-header, .k-toolbar, .k-grouping-header, .k-pager-wrap, .k-button, .k-draghandle, .k-treemap-tile, html .km-pane-wrapper .k-header {
+        background-color: rgba(227, 227, 227, 0);
+    }
+
+    #txtFechaInicioProcFreezing .k-header, .k-grid-header, .k-toolbar, .k-dropdown-wrap, .k-picker-wrap, .k-numeric-wrap, .k-grouping-header, .k-pager-wrap, .k-textbox, .k-button, .k-progressbar, .k-draghandle, .k-autocomplete, .k-state-highlight, .k-tabstrip-items .k-item, .k-panelbar .k-tabstrip-items .k-item, .km-pane-wrapper > .km-pane > .km-view > .km-content {
+        background-image: url(textures/highlight.png);
+        background-image: none,-webkit-linear-gradient(top,#0075ff 0,#0075ff 100%);
+        background-image: none,-moz-linear-gradient(top,#0075ff 0,#0075ff 100%);
+        background-image: none,-o-linear-gradient(top,#0075ff 0,#0075ff 100%);
+        background-image: none,linear-gradient(to bottom,#0075ff 0,#0075ff 100%);
+        background-position: 50% 50%;
+        background-color: #ffffff;
+    }
+
+    .k-state-selected {
+        color: #FFFFFF;
+        background-color: #0075ff;
+        border-color: #0075ff;
+    }
+
+
+    .k-grid tr td {
+        border-bottom: 1px solid #eaeaea;
+        border-left: 1px solid #eaeaea;
+        border-style: solid;
+    }
+
+    tr {
+        height: 16px;
+        font-size: 13px;
+    }
+
+    .k-textbox, .k-autocomplete, .k-dropdown-wrap, .k-picker-wrap, .k-numeric-wrap {
+        border-width: 1px;
+        border-style: solid;
+        padding: 0 1.9em 0 0;
+        font-weight: bold;
+    }
+    /** SPINNER CREATION **/
+    .loader {
+        position: relative;
+        text-align: center;
+        margin: 15px auto 35px auto;
+        z-index: 9999;
+        display: block;
+        width: 80px;
+        height: 80px;
+        border: 10px solid rgba(0, 0, 0, .3);
+        border-radius: 50%;
+        border-top-color: #000;
+        animation: spin 1s ease-in-out infinite;
+        -webkit-animation: spin 1s ease-in-out infinite;
+    }
+
+
+    /** MODAL STYLING **/
+    .modal-content {
+        border-radius: 0px;
+        box-shadow: 0 0 20px 8px rgba(0, 0, 0, 0.7);
+    }
+
+
+    [dir=ltr] .modal-lg, [dir=ltr] .modal-xl {
+        max-width: 950px;
+    }
+
+    a {
+        color: transparent;
+        text-decoration: none;
+    }
+
+    .b-boton-selected {
+        background-color: #f70f0f;
+        border: 2px #f70f0f solid;
+        color: #fff;
+        border-radius: 3px;
+        font-weight: bold;
+        cursor: pointer;
+        text-align: center;
+    }
+
+    .b-boton-normal {
+        background-color: #0075ff;
+        color: #fff;
+        border-radius: 3px;
+        border: 2px #0075ff solid;
+        cursor: pointer;
+        text-align: center;
+        font-weight: bold;
+    }
+</style>
+
+<div class="page__header page__header-nav mb-0">
+    <div class="container-fluid page__container">
+        <div class="navbar navbar-secondary navbar-light navbar-expand-sm p-0 d-none d-md-flex" id="secondaryNavbar">
+            <ul class="nav navbar-nav">
+                <li class="nav-item">
+                    <button style="color: #ffffff;background-color: #ff0200;font-size: 1.0rem;border: 0px #ff0200 solid;height: 33px;padding: 5px;cursor:pointer;" class="navbar-toggler navbar-toggler-custom d-flex mr-navbar" type="button" data-toggle="sidebar">
+                        Operaciones
+                    </button>
+                </li>
+                <li class="nav-item" data-controlmodulo="45833cdd-55db-4a67-a879-f1ae9353f8bf">
+                    <a href="@Url.Action("checking","gestionce",new {id= HttpContext.Current.Request.Cookies["_SubDominio_Business"].Value})" class="nav-link">Clientes</a>
+                </li>
+                <li class="nav-item" data-controlmodulo="9e69cfd8-b063-44df-a7f2-a3a10d1eb899" style="display:none;">
+                    <a class="nav-link " href="@Url.Action("posfitness","pos",new {id= HttpContext.Current.Request.Cookies["_SubDominio_Business"].Value})">Punto de venta</a>
+                </li>
+                <li class="nav-item" data-controlmodulo="7611dfbe-186f-4abe-8e2e-e64ad7281728" style="display:none;">
+                    <a class="nav-link" href="@Url.Action("caja","gestionce",new {id= HttpContext.Current.Request.Cookies["_SubDominio_Business"].Value})">Caja</a>
+                </li>
+                <li class="nav-item" data-controlmodulo="93c0d848-83aa-45eb-a83a-ded00a6b6e23" style="display:none;">
+                    <a class="nav-link" href="@Url.Action("nutricion","gestionce",new {id= HttpContext.Current.Request.Cookies["_SubDominio_Business"].Value})">Medidas y Nutrición</a>
+                </li>
+                <li class="nav-item" data-controlmodulo="947dc11f-3e14-4fe7-bedc-ae3d81219bee" style="display:none;">
+                    <a class="nav-link" href="@Url.Action("Index","inventariofit",new {id= HttpContext.Current.Request.Cookies["_SubDominio_Business"].Value})">Inventario</a>
+                </li>
+
+                <li class="nav-item" data-controlmodulo="39497bd3-94ab-4236-a1d4-4623d854f91e" style="display:none;">
+                    <a href="@Url.Action("agendacomercial","gestionce",new {id= HttpContext.Current.Request.Cookies["_SubDominio_Business"].Value})" class="nav-link">Agenda Comercial</a>
+                </li>
+                <li class="nav-item" data-controlmodulo="bbc035e6-68ea-4885-917f-005ad3fcfb66" style="display:none;">
+                    <a href="@Url.Action("metascomerciales","gestionce",new {id= HttpContext.Current.Request.Cookies["_SubDominio_Business"].Value})" class="nav-link">Metas</a>
+                </li>
+                <li class="nav-item" data-controlmodulo="bd61dc23-54d9-4901-9c35-b8d228b3a924" style="display:none;">
+                    <a href="@Url.Action("marketing","gestionce",new {id= HttpContext.Current.Request.Cookies["_SubDominio_Business"].Value})" class="nav-link">Marketing</a>
+                </li>
+                <li class="nav-item" data-controlmodulo="e1eadd0d-39b3-498d-b09b-9b3b28610b9b" style="display:none;">
+                    <a href="@Url.Action("informesfit","gestionce",new {id= HttpContext.Current.Request.Cookies["_SubDominio_Business"].Value})" class="nav-link">Informes</a>
+                </li>
+                <li class="nav-item" data-controlmodulo="600dabf4-7dc3-4dc0-a0ba-74b782955e52" style="display:none;">
+                    <a class="nav-link" href="@Url.Action("pagospersonal","gestionce",new {id= HttpContext.Current.Request.Cookies["_SubDominio_Business"].Value})">Pagos</a>
+                </li>
+                <li class="nav-item" data-controlmodulo="b1f65597-fd27-46ca-90d0-a0f2f1039ef7" style="display:none;">
+                    <a class="nav-link" href="@Url.Action("finanzas","gestionce",new {id= HttpContext.Current.Request.Cookies["_SubDominio_Business"].Value})">Finanzas</a>
+                </li>
+                <li class="nav-item" data-controlmodulo="4c01e8de-9440-4927-a2f2-d6241d925c39" style="display:none;">
+                    <a class="nav-link" href="@Url.Action("estadisticas","gestionce",new {id= HttpContext.Current.Request.Cookies["_SubDominio_Business"].Value})">Estadísticas</a>
+                </li>
+
+            </ul>
+        </div>
+    </div>
+</div>
+<br />
+
+<div class="container-fluid" style="background-color:#e9ebee;">
+    <div class="row">
+        <div class="col-lg-5">
+            <div class="card" style="padding:5px;height: 700px;">
+                <div id="btnMensajeBuscadorHistorial" style="border-radius:5px;border:1px solid #e1e1e1;padding:5px;">
+                    <table border="0" cellpadding="0" cellspacing="0">
+                        <tr>
+                            <td style="font-size:42px;color:#000;font-weight:bold;">
+                                <div style="padding-bottom:2px;padding-left:2px;padding-right:2px;padding-top:2px;font-size:14px;">
+                                    Para empezar deberas seleccionar 2 fechas diferentes y dale clic en el boton Buscar.
+                                </div>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+                <br />
+                <div style="border-radius: 5px;width:100%;border:1px #e1e1e1 solid;padding:5px;">
+                    <table style="width:100%;" border="0" cellpadding="0" cellspacing="0">
+                        <tr>
+                            <td style="width:15%;">
+                                <button data-controlmodulo="8545cf02-b455-4e9f-860e-f4ebbd083418" style="display:none;" id="btnNuevaMeta" onclick="NuevaMeta();" title="Nueva meta" type="button" class="btn btn-primary btn-sm">Nueva meta</button>
+                            </td>
+                            <td style="width:10%;">
+                                <button id="btnCancelarMeta" onclick="CancelarIngresoMeta();" title="Cancelar ingreso" type="button" style="" class="btn btn-primary btn-sm">Cancelar</button>
+                            </td>
+                            <td style="width:20%;"></td>
+                            <td style="width:15%;">
+                                <button data-controlmodulo="f7605511-7a97-4584-a077-ebf4e97ea08e" style="display:none;" id="btnEliminarNueva" data-toggle='modal' data-target='#myModalConfirmEliminarMeta' title="Eliminar meta" type="button" class="btn btn-primary btn-sm">Eliminar</button>
+                            </td>
+                            <td style="width:40%;">
+                                <button data-controlmodulo="1659efa1-34e5-4896-9b67-93458fb3a62a" style="display:none;" id="btnActualizarMeta" onclick="guardarMeta();" title="Actualizar meta" type="button" class="btn btn-primary btn-sm">Actualizar</button>
+                                <button data-controlmodulo="8545cf02-b455-4e9f-860e-f4ebbd083418" style="display:none;" id="btnGuardarMeta" onclick="guardarMeta();" title="Guardar meta" type="button" class="btn btn-primary btn-sm">Guardar</button>
+                            </td>
+                        </tr>
+                    </table>
+                    <label style="color:#0075ff;font-size: 13px;">Buscador de periodos</label>
+                    <table style="width:100%;" border="0" cellpadding="0" cellspacing="0">
+                        <tr>
+                            <td style="width:30%;">
+                                <input id="txtFechaInicioBusqueda" type="text" placeHolder="" style="width:98%;" />
+                            </td>
+                            <td style="width:30%;">
+                                <input id="txtFechaFinBusqueda" type="text" placeHolder="" style="width:98%;" />
+                            </td>
+                            <td style="width:5%;"></td>
+                            <td style="width:10%;">
+                                <button id="btnBuscarMetas" onclick="uspListarHistorialMetas();" title="Buscar" type="button" class="btn btn-primary btn-sm">Buscar</button>
+                            </td>
+                            <td style="width:25%;"></td>
+                        </tr>
+                    </table>
+                    <div id="gridHistorialMetasVendedores"></div>
+                    <label style="color:#0075ff;font-size: 13px;">Cuota y nro de planes del mes por vendedor</label>
+                    <div id="gridVendedor" style="width:100%">
+                    </div>
+                </div>
+                <br />
+
+
+
+            </div>
+        </div>
+        <div class="col-lg-7">
+            <div style="border-radius: 5px;width:99%;border:1px #e1e1e1 solid;padding:5px;background-color:#fff;">
+                <input type="hidden" id="hdCodigoMeta" value="0" />
+                <input type="hidden" id="hdAccionMeta" value="N" />
+                <label style="color:#0075ff;font-size:12px;font-weight:bold;">META DEL MES</label>
+                <table border="0" cellpadding="0" cellspacing="0" style="width:100%;">
+                    <tr>
+                        <td style="width:100%;" valign="top">
+                            <table border="0" cellpadding="0" cellspacing="0" style="width:100%;">
+                                <tr>
+                                    <td>
+                                        <div style="background-color:#fff;border:1px #fff solid;border-radius: 4px;font-size:12px;margin-bottom:2px;margin-left:2px;margin-right:2px;padding-left:3px;">
+                                            <table border="0" cellpadding="0" cellspacing="0" style="width:100%;">
+                                                <tr>
+                                                    <td style="width:40%;font-size:13px;text-align:left;color:#000;font-weight:bold;">Monto de Meta:</td>
+                                                    <td style="width:60%;">
+                                                        <input id="txtMetaMesTotal" type="text" disabled onkeydown="return validarNumeros(event)" class="form-control form-control-sm" placeholder="0" style="width:99%;font-size: 14px;font-weight:bold;text-align:right;">
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div style="background-color:#fff;border:1px #fff solid;border-radius: 4px;font-size:12px;margin-bottom:2px;margin-left:2px;margin-right:2px;padding-left:3px;">
+                                            <table border="0" cellpadding="0" cellspacing="0" style="width:100%;">
+                                                <tr>
+                                                    <td style="width:40%;font-size:13px;text-align:left;color:#000;font-weight:bold;">Can. Vended</td>
+                                                    <td style="width:60%;">
+                                                        <input id="txtCantidadVendedoresTotal" disabled type="text" onkeydown="return validarNumeros(event);" class="form-control form-control-sm" placeholder="0" style="width:99%;font-size: 14px;font-weight:bold;text-align:right;">
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div style="background-color:#fff;border:1px #fff solid;border-radius: 4px;font-size:12px;margin-bottom:2px;margin-left:2px;margin-right:2px;padding-left:3px;">
+                                            <table border="0" cellpadding="0" cellspacing="0" style="width:100%;">
+                                                <tr>
+                                                    <td style="width:40%;font-size:13px;text-align:left;color:#000;font-weight:bold;">Meta minima %:</td>
+                                                    <td style="width:60%;">
+                                                        <input id="txtMetaMinimaPorc" type="text" class="form-control form-control-sm" onkeydown="return validarNumeros(event);" placeholder="0" style="width:99%;font-size: 14px;font-weight:bold;text-align:right;">
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <div style="background-color:#fff;border:1px #fff solid;border-radius: 4px;font-size:12px;padding:3px 3px 3px 3px;margin-bottom:2px;margin-left:2px;margin-right:2px;">
+                                            <table border="0" cellpadding="0" cellspacing="0" style="width:100%;">
+                                                <tr>
+                                                    <td style="width:50%;font-size:13px;text-align:left;color:#000;font-weight:bold;">Fecha inicio</td>
+                                                    <td style="width:50%;" valign="top">
+                                                        <input id="txtFechaInicioMeta" type="text" style="width:99%;">
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div style="background-color:#fff;border:1px #fff solid;border-radius: 4px;font-size:12px;padding:3px 3px 3px 3px;margin-bottom:2px;margin-left:2px;margin-right:2px;">
+                                            <table border="0" cellpadding="0" cellspacing="0">
+                                                <tr>
+                                                    <td style="width:50%;font-size:13px;text-align:left;color:#000;font-weight:bold;">Fecha fin</td>
+                                                    <td style="width:50%;" valign="top">
+                                                        <input id="txtFechaFinMeta" type="text" style="width:99%;">
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div style="background-color:#fff;border:1px #fff solid;border-radius: 4px;font-size:12px;margin-bottom:2px;margin-left:2px;margin-right:2px;padding-left:3px;">
+                                            <table border="0" cellpadding="0" cellspacing="0" style="width:100%;">
+                                                <tr>
+                                                    <td style="width:40%;font-size:13px;text-align:left;color:#000;font-weight:bold;">Bono Grupal:</td>
+                                                    <td style="width:60%;">
+                                                        <input id="txtBonoMesTotal" type="text" class="form-control form-control-sm" onkeydown="return validarNumeros(event);" placeholder="0" style="width:99%;font-size: 14px;font-weight:bold;text-align:right;">
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+
+            <div style="border-radius: 5px;width:99%;border:1px solid #e1e1e1;padding:5px;background-color:#fff;">
+                <label style="color:#0075ff;font-size:12px;font-weight:bold;">BONOS</label>
+                <table border="0" cellpadding="0" cellspacing="0" style="width:100%;">
+                    <tr>
+                        <td valign="top">
+                            <div style="background-color:#fff;border-radius: 4px;color:#000;font-size:11px;margin-bottom:2px;padding: 0px 4px 0px 4px;">
+                                <table border="0" cellpadding="0" cellspacing="0" style="width:100%;">
+                                    <tr>
+                                        <td style="width:40%;font-size:13px;text-align:left;">Ticket Promedio <span class="fas fa-question-circle" style="cursor:pointer;"></span></td>
+                                        <td style="width:20%;">
+                                            <input id="txtTicketPromedio_MontoMinimo" class="form-control form-control-sm" onkeydown="return validarNumeros(event);" type="text" placeholder="0" style="text-align:right;width:99%;font-weight:bold;">
+                                        </td>
+                                        <td style="width:15%;font-size:13px;text-align:center;font-weight:bold;">Bono</td>
+                                        <td style="width:20%;">
+                                            <input id="txtTicketPromedio_Bono" onkeydown="return validarNumeros(event);" type="text" class="form-control form-control-sm" placeholder="0" style="text-align:right;width:99%;font-size: 13px;font-weight:bold;">
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </td>
+                        <td valign="top">
+                            <div style="background-color:#fff;border-radius: 4px;color:#000;font-size:11px;margin-bottom:2px;margin-left:2px;padding: 0px 4px 0px 4px;">
+                                <table border="0" cellpadding="0" cellspacing="0" style="width:100%;">
+                                    <tr>
+                                        <td style="width:40%;font-size:13px;text-align:left;">Anual.Cant.Minima</td>
+                                        <td style="width:20%;">
+                                            <input id="txtCantidadVentasAnuales_Cantidad" onkeydown="return validarNumeros(event);" type="text" class="form-control form-control-sm" placeholder="0" style="text-align:right;width:99%;font-size: 14px;font-weight:bold;">
+                                        </td>
+                                        <td style="width:15%;font-size:13px;text-align:center;font-weight:bold;">Bono</td>
+                                        <td style="width:20%;">
+                                            <input id="txtCantidadVentasAnuales_Bono" onkeydown="return validarNumeros(event);" type="text" class="form-control form-control-sm" placeholder="0" style="text-align:right;width:99%;font-size: 14px;font-weight:bold;">
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div style="background-color:#fff;border-radius: 4px;color:#000;font-size:11px;margin-bottom:2px;padding: 0px 4px 0px 4px;">
+                                <table border="0" cellpadding="0" cellspacing="0" style="width:100%;">
+                                    <tr>
+                                        <td style="width:40%;font-size:13px;text-align:left;">Venta % Nuevos</td>
+                                        <td style="width:20%;">
+                                            <input id="txtPorcentajeVentasNuevas_Porcentaje" onkeydown="return validarNumeros(event);" type="text" class="form-control form-control-sm" placeholder="0" style="text-align:right;width:99%;font-size: 14px;font-weight:bold;">
+                                        </td>
+                                        <td style="width:15%;font-size:13px;text-align:center;font-weight:bold;">Bono</td>
+                                        <td style="width:20%;">
+                                            <input id="txtPorcentajeVentasNuevas_Bono" onkeydown="return validarNumeros(event);" type="text" class="form-control form-control-sm" placeholder="0" style="text-align:right;width:99%;font-size: 14px;font-weight:bold;">
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </td>
+                        <td>
+                            <div style="background-color:#fff;border-radius: 4px;color:#000;font-size:11px;margin-bottom:2px;margin-left:2px;padding: 0px 4px 0px 4px;">
+                                <table border="0" cellpadding="0" cellspacing="0" style="width:100%;">
+                                    <tr>
+                                        <td style="width:40%;font-size:13px;text-align:left;">Venta % Renovac.</td>
+                                        <td style="width:20%;">
+                                            <input id="txtPorcentajeVentasRenovaciones_Porcentaje" onkeydown="return validarNumeros(event);" type="text" class="form-control form-control-sm" placeholder="0" style="text-align:right;width:99%;font-size: 14px;font-weight:bold;">
+                                        </td>
+                                        <td style="width:15%;font-size:13px;text-align:center;font-weight:bold;">Bono</td>
+                                        <td style="width:20%;">
+                                            <input id="txtPorcentajeVentasRenovaciones_Bono" onkeydown="return validarNumeros(event);" type="text" class="form-control form-control-sm" placeholder="0" style="text-align:right;width:99%;font-size: 14px;font-weight:bold;">
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div style="background-color:#fff;border-radius: 4px;color:#000;font-size:11px;margin-bottom:2px;padding: 0px 4px 0px 4px;">
+                                <table border="0" cellpadding="0" cellspacing="0" style="width:100%;">
+                                    <tr>
+                                        <td style="width:40%;font-size:13px;text-align:left;">Venta % Reinscrip.</td>
+                                        <td style="width:20%;">
+                                            <input id="txtVentasReinscripciones_MontoMinimo" onkeydown="return validarNumeros(event);" type="text" class="form-control form-control-sm" placeholder="0" style="text-align:right;width:99%;font-size: 14px;font-weight:bold;">
+                                        </td>
+                                        <td style="width:15%;font-size:13px;text-align:center;font-weight:bold;">Bono</td>
+                                        <td style="width:20%;">
+                                            <input id="txtVentasReinscripciones_Bono" onkeydown="return validarNumeros(event);" type="text" class="form-control form-control-sm" placeholder="0" style="text-align:right;width:99%;font-size: 14px;font-weight:bold;">
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </td>
+                        <td>
+                            <div style="background-color:#fff;border-radius: 4px;color:#000;font-size:11px;margin-bottom:2px;margin-left:2px;padding: 0px 4px 0px 4px;">
+                                <table border="0" cellpadding="0" cellspacing="0" style="width:100%;">
+                                    <tr>
+                                        <td style="width:40%;font-size:13px;text-align:left;">Por Cada # Ampliac.</td>
+                                        <td style="width:20%;">
+                                            <input id="txtAmpliaciones_Cantidad" onkeydown="return validarNumeros(event);" type="text" class="form-control form-control-sm" placeholder="0" style="text-align:right;width:99%;font-size: 14px;font-weight:bold;">
+                                        </td>
+                                        <td style="width:15%;font-size:13px;text-align:center;font-weight:bold;">Bono</td>
+                                        <td style="width:20%;">
+                                            <input id="txtAmpliaciones_Bono" onkeydown="return validarNumeros(event);" type="text" class="form-control form-control-sm" placeholder="0" style="text-align:right;width:99%;font-size: 14px;font-weight:bold;">
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr style="display:none;">
+                        <td>
+                            <div style="background-color:#fff;border-radius: 4px;color:#000;font-size:11px;padding:3px 3px 3px 3px;margin-bottom:2px;">
+                                <table border="0" cellpadding="0" cellspacing="0" style="width:100%;">
+                                    <tr>
+                                        <td style="width:80%;font-size:13px;text-align:left;">Cuota Semanal. / 4 Semanas  S/.</td>
+                                        <td style="width:20%;">
+                                            <input id="txtCuotaSemanal_Bono" onkeydown="return validarNumeros(event);" type="text" class="form-control form-control-sm" placeholder="0" style="text-align:right;width:99%;font-size: 14px;font-weight:bold;">
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </td>
+                        <td>
+                            <div style="background-color:#fff;border-radius: 4px;color:#FFF;font-size:11px;padding:3px 3px 3px 3px;margin-bottom:2px;display:none;">
+                                <table border="0" cellpadding="0" cellspacing="0" style="width:100%;color: #FFF;">
+                                    <tr>
+                                        <td style="width:80%;font-size:13px;text-align:left;">Cada 10% adicional de Meta Vendida.  S/.</td>
+                                        <td style="width:20%;">
+                                            <input id="txtPasandoCada10PorcientoMasVenta_Bono" onkeydown="return validarNumeros(event);" type="text" class="form-control form-control-sm" placeholder="0" style="text-align:right;width:99%;font-size: 14px;font-weight:bold;">
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div>
+
+                        </td>
+                    </tr>
+                </table>
+                <label style="color:#0075ff;font-size:12px;margin-top: 6px;font-weight:bold;">BONO SEMANAL</label>
+                <table border="0" cellpadding="0" cellspacing="0" style="width:100%;">
+                    <tr>
+                        <td style="width:33%;">
+                            <div style="background-color:#fff;border-radius: 4px;color:#000;font-size:11px;padding:3px 3px 3px 3px;margin-bottom:2px;">
+                                <table border="0" cellpadding="0" cellspacing="0" style="width:100%;">
+                                    <tr>
+                                        <td style="width:5%;font-size:13px;text-align:center;font-weight:bold;color:#000;">1 </td>
+                                        <td style="width:30%;">
+                                            <input id="txtFechaSemanal1a" type="text" style="width:99%;">
+                                        </td>
+                                        <td style="width:12%;font-size:13px;text-align:center;">Hasta </td>
+                                        <td style="width:30%;">
+                                            <input id="txtFechaSemanal1b" type="text" style="width:99%;">
+                                        </td>
+                                        <td style="width:9%;font-size:13px;text-align:center;font-weight:bold;"> Bono </td>
+                                        <td style="width:11%;">
+                                            <input id="txtCuotaSemanalBono1" onkeydown="return validarDecimales(event);" type="text" class="form-control form-control-sm" placeholder="0" style="text-align:right;width:99%;font-size: 14px;font-weight:bold;">
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </td>
+                        <td style="width:33%;">
+                            <div style="background-color:#fff;border-radius: 4px;color:#000;font-size:11px;padding:3px 3px 3px 3px;margin-bottom:2px;margin-left:2px;">
+                                <table border="0" cellpadding="0" cellspacing="0" style="width:100%;">
+                                    <tr>
+                                        <td style="width:5%;font-size:13px;text-align:center;font-weight:bold;color:#000;">3 </td>
+                                        <td style="width:30%;">
+                                            <input id="txtFechaSemanal3a" type="text" style="width:99%;">
+                                        </td>
+                                        <td style="width:12%;font-size:13px;text-align:center;">Hasta </td>
+                                        <td style="width:30%;">
+                                            <input id="txtFechaSemanal3b" type="text" style="width:99%;">
+                                        </td>
+                                        <td style="width:9%;font-size:13px;text-align:center;font-weight:bold;"> Bono </td>
+                                        <td style="width:11%;">
+                                            <input id="txtCuotaSemanalBono3" onkeydown="return validarDecimales(event);" type="text" class="form-control form-control-sm" placeholder="0" style="text-align:right;width:99%;font-size: 14px;font-weight:bold;">
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </td>
+
+                    </tr>
+                    <tr>
+                        <td style="width:33%;">
+                            <div style="background-color:#fff;border-radius: 4px;color:#000;font-size:11px;padding:3px 3px 3px 3px;margin-bottom:2px;">
+                                <table border="0" cellpadding="0" cellspacing="0" style="width:100%;">
+                                    <tr>
+                                        <td style="width:5%;font-size:13px;text-align:center;font-weight:bold;color:#000;">2 </td>
+                                        <td style="width:30%;">
+                                            <input id="txtFechaSemanal2a" type="text" style="width:99%;">
+                                        </td>
+                                        <td style="width:12%;font-size:13px;text-align:center;">Hasta </td>
+                                        <td style="width:30%;">
+                                            <input id="txtFechaSemanal2b" type="text" style="width:99%;">
+                                        </td>
+                                        <td style="width:9%;font-size:13px;text-align:center;font-weight:bold;"> Bono </td>
+                                        <td style="width:11%;">
+                                            <input id="txtCuotaSemanalBono2" onkeydown="return validarDecimales(event);" type="text" class="form-control form-control-sm" placeholder="0" style="text-align:right;width:99%;font-size: 14px;font-weight:bold;">
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </td>
+                        <td style="width:33%;">
+                            <div style="background-color:#fff;border-radius: 4px;color:#000;font-size:11px;padding:3px 3px 3px 3px;margin-bottom:2px;width: 99.4%;margin-left: 2px;">
+                                <table border="0" cellpadding="0" cellspacing="0" style="width:100%;">
+                                    <tr>
+                                        <td style="width:5%;font-size:13px;text-align:center;font-weight:bold;color:#000;">4</td>
+                                        <td style="width:30%;">
+                                            <input id="txtFechaSemanal4a" type="text" style="width:99%;">
+                                        </td>
+                                        <td style="width:12%;font-size:13px;text-align:center;">Hasta</td>
+                                        <td style="width:30%;">
+                                            <input id="txtFechaSemanal4b" type="text" style="width:99%;">
+                                        </td>
+                                        <td style="width:9%;font-size:13px;text-align:center;font-weight:bold;"> Bono </td>
+                                        <td style="width:11%;">
+                                            <input id="txtCuotaSemanalBono4" onkeydown="return validarDecimales(event);" type="text" class="form-control form-control-sm" placeholder="0" style="text-align:right;width:99%;font-size: 14px;font-weight:bold;">
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </td>
+
+                    </tr>
+
+                </table>
+
+                <label style="color:#0075ff;font-size:12px;margin-top: 6px;font-weight:bold;">BONO POR CUMPLIR % ADICIONAL A LA META</label>
+                <table border="0" cellpadding="0" cellspacing="0" style="width:100%;">
+                    <tr>
+                        <td style="width:33%;">
+                            <div style="background-color:#fff;border-radius: 4px;color:#000;font-size:11px;padding:3px 3px 3px 3px;margin-bottom:2px;">
+                                <table border="0" cellpadding="0" cellspacing="0" style="width:100%;">
+                                    <tr>
+                                        <td style="width:10%;font-size:13px;text-align:center;color:#000;font-weight:bold;">1. %</td>
+                                        <td style="width:30%;">
+                                            <input id="txtPorcenBonoAdicional1" onkeydown="return validarDecimales(event);" type="text" class="form-control form-control-sm" placeholder="0" style="text-align:right;width:99%;font-size: 14px;font-weight:bold;">
+                                        </td>
+
+                                        <td style="width:15%;font-size:13px;text-align:center;font-weight:bold;"> Bono </td>
+                                        <td style="width:26%;">
+                                            <input id="txtMonto_BonoAdicional1" onkeydown="return validarDecimales(event);" type="text" class="form-control form-control-sm" placeholder="0" style="text-align:right;width:80%;font-size: 14px;font-weight:bold;">
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </td>
+                        <td style="width:33%;">
+                            <div style="background-color:#fff;border-radius: 4px;color:#000;font-size:11px;padding:3px 3px 3px 3px;margin-bottom:2px;margin-left:2px;">
+                                <table border="0" cellpadding="0" cellspacing="0" style="width:100%;">
+                                    <tr>
+                                        <td style="width:10%;font-size:13px;text-align:center;color:#000;font-weight:bold;">3. %</td>
+                                        <td style="width:30%;">
+                                            <input id="txtPorcenBonoAdicional3" onkeydown="return validarDecimales(event);" type="text" class="form-control form-control-sm" placeholder="0" style="text-align:right;width:99%;font-size: 14px;font-weight:bold;">
+                                        </td>
+
+                                        <td style="width:15%;font-size:13px;text-align:center;font-weight:bold;"> Bono </td>
+                                        <td style="width:26%;">
+                                            <input id="txtMonto_BonoAdicional3" onkeydown="return validarDecimales(event);" type="text" class="form-control form-control-sm" placeholder="0" style="text-align:right;width:80%;font-size: 14px;font-weight:bold;">
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </td>
+                        <td style="width:33%;">
+                            <div style="background-color:#fff;border-radius: 4px;color:#000;font-size:11px;padding:3px 3px 3px 3px;margin-bottom:2px;margin-left:2px;">
+                                <table border="0" cellpadding="0" cellspacing="0" style="width:100%;">
+                                    <tr>
+                                        <td style="width:10%;font-size:13px;text-align:center;color:#000;font-weight:bold;">5. %</td>
+                                        <td style="width:30%;">
+                                            <input id="txtPorcenBonoAdicional5" onkeydown="return validarDecimales(event);" type="text" class="form-control form-control-sm" placeholder="0" style="text-align:right;width:99%;font-size: 14px;font-weight:bold;">
+                                        </td>
+
+                                        <td style="width:15%;font-size:13px;text-align:center;font-weight:bold;"> Bono </td>
+                                        <td style="width:26%;">
+                                            <input id="txtMonto_BonoAdicional5" onkeydown="return validarDecimales(event);" type="text" class="form-control form-control-sm" placeholder="0" style="text-align:right;width:80%;font-size: 14px;font-weight:bold;">
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="width:33%;">
+                            <div style="background-color:#fff;border-radius: 4px;color:#000;font-size:11px;padding:3px 3px 3px 3px;margin-bottom:2px;">
+                                <table border="0" cellpadding="0" cellspacing="0" style="width:100%;">
+                                    <tr>
+                                        <td style="width:10%;font-size:13px;text-align:center;color:#000;font-weight:bold;">2. %</td>
+                                        <td style="width:30%;">
+                                            <input id="txtPorcenBonoAdicional2" onkeydown="return validarDecimales(event);" type="text" class="form-control form-control-sm" placeholder="0" style="text-align:right;width:99%;font-size: 14px;font-weight:bold;">
+                                        </td>
+
+                                        <td style="width:15%;font-size:13px;text-align:center;font-weight:bold;"> Bono </td>
+                                        <td style="width:26%;">
+                                            <input id="txtMonto_BonoAdicional2" onkeydown="return validarDecimales(event);" type="text" class="form-control form-control-sm" placeholder="0" style="text-align:right;width:80%;font-size: 14px;font-weight:bold;">
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </td>
+                        <td style="width:33%;">
+                            <div style="background-color:#fff;border-radius: 4px;color:#000;font-size:11px;padding:3px 3px 3px 3px;margin-bottom:2px;width: 99.4%;margin-left: 2px;">
+                                <table border="0" cellpadding="0" cellspacing="0" style="width:100%;">
+                                    <tr>
+                                        <td style="width:10%;font-size:13px;text-align:center;color:#000;font-weight:bold;">4. %</td>
+                                        <td style="width:30%;">
+                                            <input id="txtPorcenBonoAdicional4" onkeydown="return validarDecimales(event);" type="text" class="form-control form-control-sm" placeholder="0" style="text-align:right;width:99%;font-size: 14px;font-weight:bold;">
+                                        </td>
+                                        <td style="width:15%;font-size:13px;text-align:center;font-weight:bold;"> Bono </td>
+                                        <td style="width:26%;">
+                                            <input id="txtMonto_BonoAdicional4" onkeydown="return validarDecimales(event);" type="text" class="form-control form-control-sm" placeholder="0" style="text-align:right;width:80%;font-size: 14px;font-weight:bold;">
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </td>
+                        <td style="width:50%;">
+                            <div style="background-color:#fff;border-radius: 4px;color:#000;font-size:11px;padding:3px 3px 3px 3px;margin-bottom:2px;margin-left:2px;">
+                                <table border="0" cellpadding="0" cellspacing="0" style="width:100%;">
+                                    <tr>
+                                        <td style="width:10%;font-size:13px;text-align:center;color:#000;font-weight:bold;">6. %</td>
+                                        <td style="width:30%;">
+                                            <input id="txtPorcenBonoAdicional6" onkeydown="return validarDecimales(event);" type="text" class="form-control form-control-sm" placeholder="0" style="text-align:right;width:99%;font-size: 14px;font-weight:bold;">
+                                        </td>
+
+                                        <td style="width:15%;font-size:13px;text-align:center;font-weight:bold;"> Bono </td>
+                                        <td style="width:26%;">
+                                            <input id="txtMonto_BonoAdicional6" onkeydown="return validarDecimales(event);" type="text" class="form-control form-control-sm" placeholder="0" style="text-align:right;width:80%;font-size: 14px;font-weight:bold;">
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </td>
+                    </tr>
+
+                </table>
+            </div>
+
+            <div style="border-radius: 5px;width:99%;border:1px solid #e1e1e1;padding:5px;background-color:#fff;">
+                <label style="color:#0075ff;font-size:12px;font-weight:bold;">COMISIONES %</label>
+                <table border="0" cellpadding="0" cellspacing="0" style="width:100%;">
+                    <tr>
+                        <td style="width:80%;">
+                            <div style="background-color:#fff;border-radius: 4px;color:#000;font-size:11px;padding: 0px 4px 0px 4px;margin-bottom:2px;">
+                                <table border="0" cellpadding="0" cellspacing="0" style="width:100%;">
+                                    <tr>
+                                        <td style="width:11%;font-size:13px;text-align:center;color:#000;font-weight:bold;"> 1. desde %</td>
+                                        <td style="width:17%;">
+                                            <input id="txtComision1a" onkeydown="return validarDecimales(event);" type="text" class="form-control form-control-sm" placeholder="0" style="text-align:right;width:99%;font-size: 14px;font-weight:bold;">
+                                        </td>
+                                        <td style="width:11%;font-size:13px;text-align:center;color:#000;font-weight:bold;"> hasta %</td>
+                                        <td style="width:17%;">
+                                            <input id="txtComision1b" onkeydown="return validarDecimales(event);" type="text" class="form-control form-control-sm" placeholder="0" style="text-align:right;width:99%;font-size: 14px;font-weight:bold;">
+                                        </td>
+                                        <td style="width:5%;font-size:13px;text-align:center;font-weight:bold;"> = </td>
+                                        <td style="width:20%;">
+                                            <input id="txtComision1porc" onkeydown="return validarDecimales(event);" type="text" class="form-control form-control-sm" placeholder="0" style="text-align:right;width:99%;font-size: 14px;font-weight:bold;">
+                                        </td>
+                                        <td style="width:25%;font-size:13px;text-align:left;color:#000;font-weight:bold;">% gana</td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </td>                       
+                    </tr>
+                    <tr>
+                        <td style="width:80%;">
+                            <div style="background-color:#fff;border-radius: 4px;color:#000;font-size:11px;padding: 0px 4px 0px 4px;margin-bottom:2px;">
+                                <table border="0" cellpadding="0" cellspacing="0" style="width:100%;">
+                                    <tr>
+                                        <td style="width:11%;font-size:13px;text-align:center;color:#000;font-weight:bold;"> 2. desde %</td>
+                                        <td style="width:17%;">
+                                            <input id="txtComision2a" onkeydown="return validarDecimales(event);" type="text" class="form-control form-control-sm" placeholder="0" style="text-align:right;width:99%;font-size: 14px;font-weight:bold;">
+                                        </td>
+                                        <td style="width:11%;font-size:13px;text-align:center;color:#000;font-weight:bold;"> hasta %</td>
+                                        <td style="width:17%;">
+                                            <input id="txtComision2b" onkeydown="return validarDecimales(event);" type="text" class="form-control form-control-sm" placeholder="0" style="text-align:right;width:99%;font-size: 14px;font-weight:bold;">
+                                        </td>
+                                        <td style="width:5%;font-size:13px;text-align:center;font-weight:bold;"> = </td>
+                                        <td style="width:20%;">
+                                            <input id="txtComision2porc" onkeydown="return validarDecimales(event);" type="text" class="form-control form-control-sm" placeholder="0" style="text-align:right;width:99%;font-size: 14px;font-weight:bold;">
+                                        </td>
+                                        <td style="width:25%;font-size:13px;text-align:left;color:#000;font-weight:bold;">% gana</td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="width:80%;">
+                            <div style="background-color:#fff;border-radius: 4px;color:#000;font-size:11px;padding: 0px 4px 0px 4px;margin-bottom:2px;">
+                                <table border="0" cellpadding="0" cellspacing="0" style="width:100%;">
+                                    <tr>
+                                        <td style="width:11%;font-size:13px;text-align:center;color:#000;font-weight:bold;"> 3. desde %</td>
+                                        <td style="width:17%;">
+                                            <input id="txtComision3a" onkeydown="return validarDecimales(event);" type="text" class="form-control form-control-sm" placeholder="0" style="text-align:right;width:99%;font-size: 14px;font-weight:bold;">
+                                        </td>
+                                        <td style="width:11%;font-size:13px;text-align:center;color:#000;font-weight:bold;"> hasta %</td>
+                                        <td style="width:17%;">
+                                            <input id="txtComision3b" onkeydown="return validarDecimales(event);" type="text" class="form-control form-control-sm" placeholder="0" style="text-align:right;width:99%;font-size: 14px;font-weight:bold;">
+                                        </td>
+                                        <td style="width:5%;font-size:13px;text-align:center;font-weight:bold;"> = </td>
+                                        <td style="width:20%;">
+                                            <input id="txtComision3porc" onkeydown="return validarDecimales(event);" type="text" class="form-control form-control-sm" placeholder="0" style="text-align:right;width:99%;font-size: 14px;font-weight:bold;">
+                                        </td>
+                                        <td style="width:25%;font-size:13px;text-align:left;color:#000;font-weight:bold;">% gana</td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="width:50%;">
+                            <div style="background-color:#fff;border-radius: 4px;color:#000;font-size:11px;padding: 0px 4px 0px 4px;margin-bottom:2px;margin-left:2px;">
+                                <table border="0" cellpadding="0" cellspacing="0" style="width:100%;">
+                                    <tr>
+                                        <td style="width:11%;font-size:13px;text-align:center;color:#000;font-weight:bold;"> 4. desde %.</td>
+                                        <td style="width:17%;">
+                                            <input id="txtComision4a" onkeydown="return validarDecimales(event);" type="text" class="form-control form-control-sm" placeholder="0" style="text-align:right;width:99%;font-size: 14px;font-weight:bold;">
+                                        </td>
+                                        <td style="width:11%;font-size:13px;text-align:center;color:#000;font-weight:bold;"> hasta %.</td>
+                                        <td style="width:17%;">
+                                            <input id="txtComision4b" onkeydown="return validarDecimales(event);" type="text" class="form-control form-control-sm" placeholder="0" style="text-align:right;width:99%;font-size: 14px;font-weight:bold;">
+                                        </td>
+                                        <td style="width:5%;font-size:13px;text-align:center;font-weight:bold;"> = </td>
+                                        <td style="width:20%;">
+                                            <input id="txtComision4porc" onkeydown="return validarDecimales(event);" type="text" class="form-control form-control-sm" placeholder="0" style="text-align:right;width:99%;font-size: 14px;font-weight:bold;">
+                                        </td>
+                                        <td style="width:25%;font-size:13px;text-align:left;color:#000;font-weight:bold;">% gana</td>
+                                    </tr>
+                                </table>
+                            </div>
+
+                        </td>
+                    </tr>
+                    <tr>                       
+                        <td style="width:80%;">
+                            <div style="background-color:#fff;border-radius: 4px;color:#000;font-size:11px;padding: 0px 4px 0px 4px;margin-bottom:2px;margin-left:2px;">
+                                <table border="0" cellpadding="0" cellspacing="0" style="width:100%;">
+                                    <tr>
+                                        <td style="width:11%;font-size:13px;text-align:center;color:#000;font-weight:bold;"> 5. desde %</td>
+                                        <td style="width:17%;">
+                                            <input id="txtComision5a" onkeydown="return validarDecimales(event);" type="text" class="form-control form-control-sm" placeholder="0" style="text-align:right;width:99%;font-size: 14px;font-weight:bold;">
+                                        </td>
+                                        <td style="width:11%;font-size:13px;text-align:center;color:#000;font-weight:bold;"> hasta %</td>
+                                        <td style="width:17%;">
+                                            <input id="txtComision5b" onkeydown="return validarDecimales(event);" type="text" class="form-control form-control-sm" placeholder="0" style="text-align:right;width:99%;font-size: 14px;font-weight:bold;">
+                                        </td>
+                                        <td style="width:5%;font-size:13px;text-align:center;font-weight:bold;"> = </td>
+                                        <td style="width:20%;">
+                                            <input id="txtComision5porc" onkeydown="return validarDecimales(event);" type="text" class="form-control form-control-sm" placeholder="0" style="text-align:right;width:99%;font-size: 14px;font-weight:bold;">
+                                        </td>
+                                        <td style="width:25%;font-size:13px;text-align:left;color:#000;font-weight:bold;">% gana</td>
+                                    </tr>
+                                </table>
+                            </div>
+
+                        </td>
+                    </tr>
+                    <tr>                       
+                        <td style="width:80%;">
+                            <div style="background-color:#fff;border-radius: 4px;color:#000;font-size:11px;padding: 0px 4px 0px 4px;margin-bottom:2px;margin-left:2px;">
+                                <table border="0" cellpadding="0" cellspacing="0" style="width:100%;">
+                                    <tr>
+                                        <td style="width:11%;font-size:13px;text-align:center;color:#000;font-weight:bold;"> 6. desde %</td>
+                                        <td style="width:17%;">
+                                            <input id="txtComision6a" onkeydown="return validarDecimales(event);" type="text" class="form-control form-control-sm" placeholder="0" style="text-align:right;width:99%;font-size: 14px;font-weight:bold;">
+                                        </td>
+                                        <td style="width:11%;font-size:13px;text-align:center;color:#000;font-weight:bold;"> hasta %</td>
+                                        <td style="width:17%;">
+                                            <input id="txtComision6b" onkeydown="return validarDecimales(event);" type="text" class="form-control form-control-sm" placeholder="0" style="text-align:right;width:99%;font-size: 14px;font-weight:bold;">
+                                        </td>
+                                        <td style="width:5%;font-size:13px;text-align:center;font-weight:bold;"> = </td>
+                                        <td style="width:20%;">
+                                            <input id="txtComision6porc" onkeydown="return validarDecimales(event);" type="text" class="form-control form-control-sm" placeholder="0" style="text-align:right;width:99%;font-size: 14px;font-weight:bold;">
+                                        </td>
+                                        <td style="width:25%;font-size:13px;text-align:left;color:#000;font-weight:bold;">% gana</td>
+                                    </tr>
+                                </table>
+                            </div>
+
+                        </td>
+                    </tr>
+                </table>
+                <br />
+                <br />
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div id="myModalConfirmEliminarMeta" class="modal fade show" tabindex="-1" role="dialog" aria-labelledby="modal-small-title" aria-modal="true" style="padding-right: 17px;">
+    <div class="modal-dialog modal-sm" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="modal-small-title">Mensaje</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div> <!-- // END .modal-header -->
+            <div class="modal-body">
+                <p>¿Estás seguro de eliminar esta meta?</p>
+            </div> <!-- // END .modal-body -->
+            <div class="modal-footer">
+                <button id="btnNoEliminarEliminarMeta" type="button" class="btn btn-light" data-dismiss="modal">No</button>
+                <button id="btnSiEliminarEliminarMeta" onclick="uspEliminarMetaVendedor();" type="button" class="btn btn-primary ">Si</button>
+            </div> <!-- // END .modal-footer -->
+        </div> <!-- // END .modal-content -->
+    </div> <!-- // END .modal-dialog -->
+</div>
+
+
+<div class="modal fade" id="loadMe" tabindex="-1" role="dialog" aria-labelledby="loadMeLabel">
+    <br /><br /><br /><br />
+    <div class="modal-dialog modal-sm" role="document">
+        <div class="modal-content">
+            <div class="modal-body text-center">
+                <img src="~/Content/appsfit_img/logoappsfitweb.png" style="width:255px;height:125px;" />
+                <div class="loader"></div>
+                <div clas="loader-txt">
+                    <p>Cargando... <br><br><small>Espere por favor, este proceso puede tardar unos minutos</small></p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@section Scripts {
+
+    @System.Web.Optimization.Scripts.Render("~/Scripts/jquery.min.js")
+    @System.Web.Optimization.Scripts.Render("~/Scripts/plugins/jsKendo/angular.min.js")
+    @System.Web.Optimization.Scripts.Render("~/Scripts/plugins/jsKendo/kendo.all.min.js")
+
+    @System.Web.Optimization.Scripts.Render("~/Scripts/plugins/jquery-ui/jquery-ui.js")
+    @System.Web.Optimization.Scripts.Render("~/Scripts/plugins/jquery-ui/jquery-ui.min.js")
+
+    @System.Web.Optimization.Scripts.Render("~/Resource/UserControl.Helper.js")
+
+    @System.Web.Optimization.Scripts.Render("~/Scripts/bootstrap-notify-master/bootstrap-notify.js")
+    @System.Web.Optimization.Scripts.Render("~/Scripts/bootstrap-notify-master/bootstrap-notify.min.js")
+    @System.Web.Optimization.Scripts.Render("~/Scripts/jsBootstrap/jquery.bootstrap-growl.js")
+    @System.Web.Optimization.Scripts.Render("~/Scripts/maskedinput.js")
+
+
+    <script type="text/javascript">
+
+
+        $(document).ready(function (e) {
+
+            SEGListarPerfilMenu();
+
+            /* -------------------------------------------------------------------------- */
+
+            /*                                   Popover                                  */
+
+            /* -------------------------------------------------------------------------- */
+
+
+            var popoverInit = function popoverInit() {
+                var popoverTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="popover"]'));
+                popoverTriggerList.map(function (popoverTriggerEl) {
+                    return new window.bootstrap.Popover(popoverTriggerEl);
+                });
+            };
+
+            var todayDate = new Date();
+            var InicioDia = new Date(todayDate.getFullYear(), todayDate.getMonth(), 1);
+            var Primerdia = new Date(todayDate.getFullYear(), todayDate.getMonth(), 1);
+            var ultimoDia = new Date(todayDate.getFullYear(), todayDate.getMonth() + 1, 0);
+            $('#txtFechaInicioBusqueda').kendoDatePicker();
+            $('#txtFechaInicioBusqueda').data("kendoDatePicker").value(InicioDia);
+            $('#txtFechaFinBusqueda').kendoDatePicker();
+            $('#txtFechaFinBusqueda').data("kendoDatePicker").value(ultimoDia);
+
+            $('#txtFechaInicioMeta').kendoDatePicker({
+                value: InicioDia,
+                change: function () {
+                    CalcularMetaSemanal();
+                }
+            });
+
+            $('#txtFechaFinMeta').kendoDatePicker({
+                value: ultimoDia,
+                change: function () {
+                    CalcularMetaSemanal();
+                }
+            });
+
+            $('#txtFechaSemanal1a').kendoDatePicker();
+            $('#txtFechaSemanal1a').data("kendoDatePicker").value(Primerdia);
+
+            $('#txtFechaSemanal1b').kendoDatePicker();
+            $('#txtFechaSemanal1b').data("kendoDatePicker").value(Primerdia);
+
+            $('#txtFechaSemanal2a').kendoDatePicker();
+            $('#txtFechaSemanal2a').data("kendoDatePicker").value(Primerdia);
+
+            $('#txtFechaSemanal2b').kendoDatePicker();
+            $('#txtFechaSemanal2b').data("kendoDatePicker").value(Primerdia);
+
+            $('#txtFechaSemanal3a').kendoDatePicker();
+            $('#txtFechaSemanal3a').data("kendoDatePicker").value(Primerdia);
+
+            $('#txtFechaSemanal3b').kendoDatePicker();
+            $('#txtFechaSemanal3b').data("kendoDatePicker").value(Primerdia);
+
+            $('#txtFechaSemanal4a').kendoDatePicker();
+            $('#txtFechaSemanal4a').data("kendoDatePicker").value(Primerdia);
+
+            $('#txtFechaSemanal4b').kendoDatePicker();
+            $('#txtFechaSemanal4b').data("kendoDatePicker").value(Primerdia);
+        });
+
+        function uspListarHistorialMetas() {
+            document.getElementById('loadMe').style.display = 'block';
+            var CodigoMeta = 0;
+            var FechaInicio = kendo.toString($("#txtFechaInicioBusqueda").data('kendoDatePicker').value(), 'MM/dd/yyyy');
+            var FechaFin = kendo.toString($("#txtFechaFinBusqueda").data('kendoDatePicker').value(), 'MM/dd/yyyy');
+            $("#gridHistorialMetasVendedores").empty();
+            $("#gridHistorialMetasVendedores").kendoGrid({
+                dataSource: {
+                    type: "json",
+                    transport: {
+                        read: function (options) {
+                            $.ajax({
+                                data: '{"CodigoMeta":"' + CodigoMeta + '","FechaInicio":"' + FechaInicio + '","FechaFin":"' + FechaFin + '","NumeroPagina":"' + 1 + '"}',
+                                type: "POST",
+                                url: "/operacionesfit/uspListarHistorialMetas",
+                                contentType: "application/json; charset=utf-8",
+                                dataType: "json",
+                                success: function (msg) {
+                                    options.success(msg);
+                                    document.getElementById("btnMensajeBuscadorHistorial").style.display = "none";
+                                }, complete: function () {
+                                    document.getElementById('loadMe').style.display = 'none';
+                                }
+                            });
+                        }
+                    }
+                },
+                selectable: "row",
+                height: 120,
+                columns: [{
+                    field: "FechaInicio",
+                    title: "<b style='color:#fff;'>Inicio<b>",
+                    width: 15,
+                    template: "#= kendo.toString(kendo.parseDate(FechaInicio, 'yyyy-MM-dd'), 'dd/MM/yyyy') #",
+                    attributes: {
+                        style: "font-size:12px;"
+                    }
+                }, {
+                    field: "FechaFin",
+                    title: "<b style='color:#fff;'>Fin<b>",
+                    width: 15,
+                    template: "#= kendo.toString(kendo.parseDate(FechaFin, 'yyyy-MM-dd'), 'dd/MM/yyyy') #",
+                    attributes: {
+                        style: "font-size:12px;"
+                    }
+                }, {
+                    field: "Meta",
+                    title: "<b style='color:#fff;'>Meta</b>",
+                    width: 15,
+                    attributes: {
+                        style: "font-size:12px;"
+                    }
+                }, {
+                    field: "CantidadVendedores",
+                    title: "<b style='color:#fff;'># vend.</b>",
+                    width: 10,
+                    attributes: {
+                        style: "font-size:12px;"
+                    }
+                }, {
+                    field: "VentaTotal",
+                    title: "<b style='color:#fff;'>Venta</b>",
+                    width: 15,
+                    attributes: {
+                        style: "font-size:12px;"
+                    }
+                }],
+                dataBound: function (e) {
+                    this.element.find('tbody tr:first').addClass('k-state-selected');
+                    this.select(this.tbody.find('>tr:first'));
+                },
+                change: function () {
+                    var text = "";
+                    var grid = this;
+                    grid.select().each(function () {
+                        var dataItem = grid.dataItem($(this));
+                        uspBuscarMetaVendedorPorCodigo(dataItem.CodigoMeta);
+                    });
+                }
+            });
+        }
+
+        function uspBuscarMetaVendedorPorCodigo(CodigoMeta) {
+            document.getElementById('loadMe').style.display = 'block';
+            $.ajax({
+                data: '{"CodigoMeta":"' + CodigoMeta + '"}',
+                type: "POST",
+                url: "/operacionesfit/uspBuscarMetaVendedorPorCodigo",
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function (msg) {
+
+                    document.getElementById("btnEliminarNueva").style.display = 'block';
+                    document.getElementById("btnActualizarMeta").style.display = 'block';
+                    document.getElementById("btnGuardarMeta").style.display = 'none';
+                    document.getElementById("btnCancelarMeta").style.display = 'block';
+                    document.getElementById("btnNuevaMeta").style.display = 'block';
+
+                    $('#hdAccionMeta').val('E');
+                    $('#hdCodigoMeta').val(msg.CodigoMeta)
+                    $('#txtMetaMesTotal').val(msg.Meta);
+                    $('#txtCantidadVendedoresTotal').val(msg.CantidadVendedores);
+                    $('#txtBonoMesTotal').val(msg.Bono);
+                    $('#txtFechaInicioMeta').data("kendoDatePicker").value(msg.FechaInicio);
+                    $('#txtFechaFinMeta').data("kendoDatePicker").value(msg.FechaFin);
+                    $('#txtTicketPromedio_MontoMinimo').val(msg.B_TicketPromedio_MontoMinimo);
+                    $('#txtTicketPromedio_Bono').val(msg.B_TicketPromedio_Bono);
+                    $('#txtCantidadVentasAnuales_Cantidad').val(msg.B_ContratosAnuales_CantidadMinima);
+                    $('#txtCantidadVentasAnuales_Bono').val(msg.B_ContratosAnuales_Bono);
+                    $('#txtPorcentajeVentasNuevas_Porcentaje').val(msg.B_Nuevos_PorcentajeMinimo);
+                    $('#txtPorcentajeVentasNuevas_Bono').val(msg.B_Nuevos_Bono);
+                    $('#txtPorcentajeVentasRenovaciones_Porcentaje').val(msg.B_Renovaciones_PorcentajeMinimo);
+                    $('#txtPorcentajeVentasRenovaciones_Bono').val(msg.B_Renovaciones_Bono);
+                    $('#txtVentasReinscripciones_MontoMinimo').val(msg.B_Reinscripciones_MontoMinimo);
+                    $('#txtVentasReinscripciones_Bono').val(msg.B_Reinscripciones_Bono);
+                    $('#txtCuotaSemanal_Bono').val(msg.B_VentaSemanal_Bono);
+                    $('#txtPasandoCada10PorcientoMasVenta_Bono').val(msg.B_VentaAdicionalMeta10porciento_Bono);
+                    $('#txtAmpliaciones_Cantidad').val(msg.B_AmpliacionContrato_Cantidad);
+                    $('#txtAmpliaciones_Bono').val(msg.B_AmpliacionContrato_Bono);
+                    $('#txtComision1a').val(msg.Comision1a);
+                    $('#txtComision1b').val(msg.Comision1b);
+                    $('#txtComision1porc').val(msg.Comision1porc);
+                    $('#txtComision2a').val(msg.Comision2a);
+                    $('#txtComision2b').val(msg.Comision2b);
+                    $('#txtComision2porc').val(msg.Comision2porc);
+                    $('#txtComision3a').val(msg.Comision3a);
+                    $('#txtComision3b').val(msg.Comision3b);
+                    $('#txtComision3porc').val(msg.Comision3porc);
+                    $('#txtComision4a').val(msg.Comision4a);
+                    $('#txtComision4b').val(msg.Comision4b);
+                    $('#txtComision4porc').val(msg.Comision4porc);
+                    $('#txtComision5a').val(msg.Comision5a);
+                    $('#txtComision5b').val(msg.Comision5b);
+                    $('#txtComision5porc').val(msg.Comision5porc);
+                    $('#txtComision6a').val(msg.Comision6a);
+                    $('#txtComision6b').val(msg.Comision6b);
+                    $('#txtComision6porc').val(msg.Comision6porc);
+
+                    $('#txtPorcenBonoAdicional1').val(msg.PorcenBonoAdicional1);
+                    $('#txtMonto_BonoAdicional1').val(msg.Monto_BonoAdicional1);
+                    $('#txtPorcenBonoAdicional2').val(msg.PorcenBonoAdicional2);
+                    $('#txtMonto_BonoAdicional2').val(msg.Monto_BonoAdicional2);
+                    $('#txtPorcenBonoAdicional3').val(msg.PorcenBonoAdicional3);
+                    $('#txtMonto_BonoAdicional3').val(msg.Monto_BonoAdicional3);
+                    $('#txtPorcenBonoAdicional4').val(msg.PorcenBonoAdicional4);
+                    $('#txtMonto_BonoAdicional4').val(msg.Monto_BonoAdicional4);
+                    $('#txtPorcenBonoAdicional5').val(msg.PorcenBonoAdicional5);
+                    $('#txtMonto_BonoAdicional5').val(msg.Monto_BonoAdicional5);
+                    $('#txtPorcenBonoAdicional6').val(msg.PorcenBonoAdicional6);
+                    $('#txtMonto_BonoAdicional6').val(msg.Monto_BonoAdicional6);
+
+                    $('#txtFechaSemanal1a').data("kendoDatePicker").value(msg.FechaSemanal1a);
+                    $('#txtFechaSemanal1b').data("kendoDatePicker").value(msg.FechaSemanal1b);
+                    $('#txtCuotaSemanalBono1').val(msg.CuotaSemanalBono1);
+
+                    $('#txtFechaSemanal2a').data("kendoDatePicker").value(msg.FechaSemanal2a);
+                    $('#txtFechaSemanal2b').data("kendoDatePicker").value(msg.FechaSemanal2b);
+                    $('#txtCuotaSemanalBono2').val(msg.CuotaSemanalBono2);
+
+                    $('#txtFechaSemanal3a').data("kendoDatePicker").value(msg.FechaSemanal3a);
+                    $('#txtFechaSemanal3b').data("kendoDatePicker").value(msg.FechaSemanal3b);
+                    $('#txtCuotaSemanalBono3').val(msg.CuotaSemanalBono3);
+
+                    $('#txtFechaSemanal4a').data("kendoDatePicker").value(msg.FechaSemanal4a);
+                    $('#txtFechaSemanal4b').data("kendoDatePicker").value(msg.FechaSemanal4b);
+                    $('#txtCuotaSemanalBono4').val(msg.CuotaSemanalBono4);
+                    $('#txtMetaMinimaPorc').val(msg.MetaMinimaPorc);
+
+                    document.getElementById('loadMe').style.display = 'none';
+                    uspListarMetasDetalle(CodigoMeta);
+                }
+            });
+        }
+
+        function uspListarMetasDetalle(CodigoMeta) {
+            document.getElementById('loadMe').style.display = 'block';
+
+            $("#gridVendedor").empty();
+            $("#gridVendedor").kendoGrid({
+                dataSource: {
+                    type: "json",
+                    transport: {
+                        read: function (options) {
+                            $.ajax({
+                                data: '{"CodigoMeta":"' + CodigoMeta + '"}',
+                                type: "POST",
+                                url: "/operacionesfit/uspListarMetasDetalle",
+                                contentType: "application/json; charset=utf-8",
+                                dataType: "json",
+                                success: function (msg) {
+                                    options.success(msg);
+                                }, complete: function () {
+                                    document.getElementById('loadMe').style.display = 'none';
+                                }
+                            });
+                        }
+                    }
+                },
+                height: 400,
+                columns: [{
+                    field: "CodigoVendedor",
+                    title: "",
+                    width: 10,
+                    template: "<input type='checkbox' id='chkQuitarVendedor_#: CodigoVendedor #' value='#: Codigo #'  >",
+                    attributes: {
+                        style: "font-size:12px;"
+                    }
+                }, {
+                    field: "CodigoVendedor",
+                    title: "Codigo",
+                    width: 15,
+                    attributes: {
+                        style: "font-size:12px;"
+                    }
+                }, {
+                    field: "NombreCompleto",
+                    title: "Vendedor",
+                    width: 35,
+                    attributes: {
+                        style: "font-size:13px;"
+                    }
+                }, {
+                    field: "Meta",
+                    title: "Cuota del mes",
+                    template: "<input type='text' class='k-textbox' value='#: Meta #' style='width:99%;height:25px;' onchange='SumarMetas();'/>",
+                    width: 40,
+                    attributes: {
+                        style: "font-size:13px;"
+                    }
+                }, {
+                    field: "Meta",
+                    title: "Semanal",
+                    template: "<input type='text' class='k-textbox' value='#: MetaSemanal #' style='width:99%;height:25px;' onchange='SumarMetas();' disabled />",
+                    width: 40,
+                    attributes: {
+                        style: "font-size:13px;"
+                    }
+                }, {
+                    field: "CantidadMetaPlan",
+                    title: "Planes mes",
+                    template: "<input type='text' class='k-textbox' value='#: CantidadMetaPlan #' style='width:99%;height:25px;' />",
+                    width: 40,
+                    attributes: {
+                        style: "font-size:13px;"
+                    }
+                }]
+            });
+        }
+
+        function CalcularMetaSemanal() {
+            var DiaFinal = kendo.toString($("#txtFechaFinMeta").data('kendoDatePicker').value(), 'dd');
+            var FechaInicio = kendo.toString($("#txtFechaInicioMeta").data('kendoDatePicker').value(), 'dd');
+            var Operacion = ((DiaFinal - FechaInicio) + 1) / 7;
+            var operacioEntero = (Operacion.toString()).split('.')[0];
+            $('#gridVendedor .k-grid-content table tbody tr').each(function () {
+                var Meta = $(this).find("td").eq(3).find("input").val() == '' ? 0 : parseFloat($(this).find("td").eq(3).find("input").val());
+                var Resultado = Meta / (parseInt(operacioEntero));
+                $(this).find("td").eq(4).find("input").val(Resultado);
+            });
+
+        }
+
+        function NuevaMeta() {
+            document.getElementById("btnEliminarNueva").style.display = 'none';
+            document.getElementById("btnActualizarMeta").style.display = 'none';
+            document.getElementById("btnGuardarMeta").style.display = '';
+            document.getElementById("btnCancelarMeta").style.display = '';
+            document.getElementById("btnNuevaMeta").style.display = 'none';
+            $('#hdAccionMeta').val('N');
+            $('#txtMetaMesTotal').val('0');
+            $('#txtCantidadVendedoresTotal').val('0');
+            $('#txtBonoMesTotal').val('0');
+            $('#txtTicketPromedio_MontoMinimo').val('0');
+            $('#txtTicketPromedio_Bono').val('0');
+            $('#txtCantidadVentasAnuales_Cantidad').val('0');
+            $('#txtCantidadVentasAnuales_Bono').val('0');
+            $('#txtPorcentajeVentasNuevas_Porcentaje').val('0');
+            $('#txtPorcentajeVentasNuevas_Bono').val('0');
+            $('#txtPorcentajeVentasRenovaciones_Porcentaje').val('0');
+            $('#txtPorcentajeVentasRenovaciones_Bono').val('0');
+            $('#txtVentasReinscripciones_MontoMinimo').val('0');
+            $('#txtVentasReinscripciones_Bono').val('0');
+            $('#txtCuotaSemanal_Bono').val('0');
+            $('#txtPasandoCada10PorcientoMasVenta_Bono').val('0');
+            $('#txtAmpliaciones_Cantidad').val('0');
+            $('#txtAmpliaciones_Bono').val('0');
+
+            $('#txtComision1a').val('0');
+            $('#txtComision1b').val('0');
+            $('#txtComision1porc').val('0');
+            $('#txtComision2a').val('0');
+            $('#txtComision2b').val('0');
+            $('#txtComision2porc').val('0');
+            $('#txtComision3a').val('0');
+            $('#txtComision3b').val('0');
+            $('#txtComision3porc').val('0');
+
+            $('#txtComision4a').val('0');
+            $('#txtComision4b').val('0');
+            $('#txtComision4porc').val('0');
+            $('#txtComision5a').val('0');
+            $('#txtComision5b').val('0');
+            $('#txtComision5porc').val('0');
+            $('#txtComision6a').val('0');
+            $('#txtComision6b').val('0');
+            $('#txtComision6porc').val('0');
+
+            $('#txtPorcenBonoAdicional1').val('0');
+            $('#txtMonto_BonoAdicional1').val('0');
+            $('#txtPorcenBonoAdicional2').val('0');
+            $('#txtMonto_BonoAdicional2').val('0');
+            $('#txtPorcenBonoAdicional3').val('0');
+            $('#txtMonto_BonoAdicional3').val('0');
+            $('#txtPorcenBonoAdicional4').val('0');
+            $('#txtMonto_BonoAdicional4').val('0');
+            $('#txtPorcenBonoAdicional5').val('0');
+            $('#txtMonto_BonoAdicional5').val('0');
+            $('#txtPorcenBonoAdicional6').val('0');
+            $('#txtMonto_BonoAdicional6').val('0');
+
+            $('#txtCuotaSemanalBono1').val('0');
+            $('#txtCuotaSemanalBono2').val('0');
+            $('#txtCuotaSemanalBono3').val('0');
+            $('#txtCuotaSemanalBono4').val('0');
+            $('#txtMetaMinimaPorc').val('0');
+
+            var todayDate = new Date();
+            var InicioDia = new Date(todayDate.getFullYear(), todayDate.getMonth(), 1);
+            var Primerdia = new Date(todayDate.getFullYear(), todayDate.getMonth(), 1);
+            var ultimoDia = new Date(todayDate.getFullYear(), todayDate.getMonth() + 1, 0);
+
+            $('#txtFechaSemanal1a').kendoDatePicker();
+            $('#txtFechaSemanal1a').kendoDatePicker({
+                value: new Date(Primerdia),
+                change: function () {
+
+                }
+            });
+
+            Primerdia.setDate(Primerdia.getDate() + 6);
+            $('#txtFechaSemanal1b').kendoDatePicker();
+            $('#txtFechaSemanal1b').kendoDatePicker({
+                value: new Date(Primerdia),
+                change: function () {
+
+                }
+            });
+
+            Primerdia.setDate(Primerdia.getDate() + 1);
+            $('#txtFechaSemanal2a').kendoDatePicker();
+            $('#txtFechaSemanal2a').kendoDatePicker({
+                value: new Date(Primerdia),
+                change: function () {
+
+                }
+            });
+            Primerdia.setDate(Primerdia.getDate() + 6);
+            $('#txtFechaSemanal2b').kendoDatePicker();
+            $('#txtFechaSemanal2b').kendoDatePicker({
+                value: new Date(Primerdia),
+                change: function () {
+
+                }
+            });
+
+            Primerdia.setDate(Primerdia.getDate() + 1);
+            $('#txtFechaSemanal3a').kendoDatePicker();
+            $('#txtFechaSemanal3a').kendoDatePicker({
+                value: new Date(Primerdia),
+                change: function () {
+
+                }
+            });
+            Primerdia.setDate(Primerdia.getDate() + 6);
+            $('#txtFechaSemanal3b').kendoDatePicker();
+            $('#txtFechaSemanal3b').kendoDatePicker({
+                value: new Date(Primerdia),
+                change: function () {
+
+                }
+            });
+
+
+            Primerdia.setDate(Primerdia.getDate() + 1);
+            $('#txtFechaSemanal4a').kendoDatePicker();
+            $('#txtFechaSemanal4a').kendoDatePicker({
+                value: new Date(Primerdia),
+                change: function () {
+
+                }
+            });
+            Primerdia.setDate(Primerdia.getDate() + 6);
+            $('#txtFechaSemanal4b').kendoDatePicker();
+            $('#txtFechaSemanal4b').kendoDatePicker({
+                value: new Date(Primerdia),
+                change: function () {
+
+                }
+            });
+
+            ListarVendedoresMetas();
+        }
+
+        function ListarVendedoresMetas() {
+
+            $("#gridVendedor").empty();
+            $("#gridVendedor").kendoGrid({
+                dataSource: {
+                    type: "json",
+                    transport: {
+                        read: function (options) {
+                            $.ajax({
+                                type: "POST",
+                                url: "/operacionesfit/ListarVendedores",
+                                contentType: "application/json; charset=utf-8",
+                                dataType: "json",
+                                success: function (msg) {
+                                    options.success(msg);
+                                }
+                            });
+                        }
+                    }
+                },
+                height: 400,
+                columns: [{
+                    field: "CodigoUsuario",
+                    title: "<img onclick='RemoverVendedores();' src='../Imagenes/remover.png' style='height:21px;cursor:pointer;border-radius: 10px;margin-top: -7px;' class='img-rounded' data-toggle='dropdown' title='Remueve Vendedores seleccionados.'>",
+                    width: 10,
+                    template: "<input type='checkbox' id='chkQuitarVendedor_#: CodigoUsuario #' value='0'  >",
+                    attributes: {
+                        style: "font-size:12px;"
+                    }
+                }, {
+                    field: "CodigoUsuario",
+                    title: "<b style='color:#fff;'>Codigo</b>",
+                    width: 10,
+                    attributes: {
+                        style: "font-size:12px;"
+                    }
+                }, {
+                    field: "NombreCompleto",
+                    title: "<b style='color:#fff;'>Vendedor</b>",
+                    width: 30,
+                    attributes: {
+                        style: "font-size:13px;"
+                    }
+                }, {
+                    field: "Meta",
+                    title: "Couta del mes",
+                    template: "<input type='text' id='txtMiInput' name='txtInput' class='k-textbox' value='0' style='width:99%;height:25px;' onkeyup='SumarMetas();'/>",
+                    width: 25,
+                    attributes: {
+                        style: "font-size:13px;"
+                    }
+                }, {
+                    field: "MetaSemanal",
+                    title: "Semanal",
+                    template: "<input type='text' id='txtMiInputSemanal' name='txtMiInputSemanal' class='k-textbox' value='0' style='width:99%;height:25px;' />",
+                    width: 20,
+                    attributes: {
+                        style: "font-size:13px;"
+                    }
+                }, {
+                    field: "MetaSemanal",
+                    title: "Planes mes",
+                    template: "<input type='text' id='txtMiInputPlanMensual' class='k-textbox' value='0' style='width:99%;height:25px;' />",
+                    width: 20,
+                    attributes: {
+                        style: "font-size:13px;"
+                    }
+                }]
+            });
+        }
+
+
+        function uspEliminarMetaVendedor() {
+            document.getElementById('loadMe').style.display = 'block';
+            var CodigoMeta = $('#hdCodigoMeta').val() == '' ? 0 : $('#hdCodigoMeta').val();
+            if (CodigoMeta == 0) {
+                $.bootstrapGrowl("Falta seleccionar una meta.", { type: 'danger', width: 'auto' });
+            } else {
+                $.ajax({
+                    data: '{"CodigoMeta":"' + CodigoMeta + '"}',
+                    type: "POST",
+                    url: "/operacionesfit/uspEliminarMetaVendedor",
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "json",
+                    success: function (msg) {
+                        $('#myModalConfirmEliminarMeta').hide('fast');
+                        $.bootstrapGrowl("Los datos se han eliminado correctamente.", { type: 'success', width: 'auto' });
+                    }, complete: function () {
+                        document.getElementById('loadMe').style.display = 'none';
+                        uspListarHistorialMetas();
+                    }
+                });
+            }
+        }
+
+        function guardarMeta() {
+
+            var codigoMeta = $('#hdCodigoMeta').val() == '' ? 0 : $('#hdCodigoMeta').val();
+            var Meta = $('#txtMetaMesTotal').val() == '' ? 0 : $('#txtMetaMesTotal').val();
+            var Bono = $('#txtBonoMesTotal').val() == '' ? 0 : $('#txtBonoMesTotal').val();
+            var FechaInicio = kendo.toString($("#txtFechaInicioMeta").data('kendoDatePicker').value(), 'MM/dd/yyyy');
+            var FechaFin = kendo.toString($("#txtFechaFinMeta").data('kendoDatePicker').value(), 'MM/dd/yyyy');
+            var CantidadVendedores = $('#txtCantidadVendedoresTotal').val() == '' ? 0 : $('#txtCantidadVendedoresTotal').val();
+            var CodigoSupervisorVenta = 0;
+
+            var B_TicketPromedio_MontoMinimo = $('#txtTicketPromedio_MontoMinimo').val() == '' ? 0 : $('#txtTicketPromedio_MontoMinimo').val();
+            var B_TicketPromedio_Bono = $('#txtTicketPromedio_Bono').val() == '' ? 0 : $('#txtTicketPromedio_Bono').val();
+            var B_Nuevos_PorcentajeMinimo = $('#txtPorcentajeVentasNuevas_Porcentaje').val() == '' ? 0 : $('#txtPorcentajeVentasNuevas_Porcentaje').val();
+            var B_Nuevos_Bono = $('#txtPorcentajeVentasNuevas_Bono').val() == '' ? 0 : $('#txtPorcentajeVentasNuevas_Bono').val();
+            var B_Reinscripciones_MontoMinimo = $('#txtVentasReinscripciones_MontoMinimo').val() == '' ? 0 : $('#txtVentasReinscripciones_MontoMinimo').val();
+            var B_Reinscripciones_Bono = $('#txtVentasReinscripciones_Bono').val() == '' ? 0 : $('#txtVentasReinscripciones_Bono').val();
+            var B_Renovaciones_PorcentajeMinimo = $('#txtPorcentajeVentasRenovaciones_Porcentaje').val() == '' ? 0 : $('#txtPorcentajeVentasRenovaciones_Porcentaje').val();
+            var B_Renovaciones_Bono = $('#txtPorcentajeVentasRenovaciones_Bono').val() == '' ? 0 : $('#txtPorcentajeVentasRenovaciones_Bono').val();
+            var B_ContratosAnuales_CantidadMinima = $('#txtCantidadVentasAnuales_Cantidad').val() == '' ? 0 : $('#txtCantidadVentasAnuales_Cantidad').val();
+            var B_ContratosAnuales_Bono = $('#txtCantidadVentasAnuales_Bono').val() == '' ? 0 : $('#txtCantidadVentasAnuales_Bono').val();
+            var B_VentaSemanal_Bono = $('#txtCuotaSemanal_Bono').val() == '' ? 0 : $('#txtCuotaSemanal_Bono').val();
+            var B_VentaAdicionalMeta10porciento_Bono = $('#txtPasandoCada10PorcientoMasVenta_Bono').val() == '' ? 0 : $('#txtPasandoCada10PorcientoMasVenta_Bono').val();
+            var B_AmpliacionContrato_Cantidad = $('#txtAmpliaciones_Cantidad').val() == '' ? 0 : $('#txtAmpliaciones_Cantidad').val();
+            var B_AmpliacionContrato_Bono = $('#txtAmpliaciones_Bono').val() == '' ? 0 : $('#txtAmpliaciones_Bono').val();
+            var txtMetaSemanalGeneral = 20;//$('#txtMetaSemanalGeneral').val() == '' ? 0 : $('#txtMetaSemanalGeneral').val();
+            var txtComision1a = $('#txtComision1a').val() == '' ? 0 : $('#txtComision1a').val();
+            var txtComision1b = $('#txtComision1b').val() == '' ? 0 : $('#txtComision1b').val();
+            var txtComision1porc = $('#txtComision1porc').val() == '' ? 0 : $('#txtComision1porc').val();
+            var txtComision2a = $('#txtComision2a').val() == '' ? 0 : $('#txtComision2a').val();
+            var txtComision2b = $('#txtComision2b').val() == '' ? 0 : $('#txtComision2b').val();
+            var txtComision2porc = $('#txtComision2porc').val() == '' ? 0 : $('#txtComision2porc').val();
+            var txtComision3a = $('#txtComision3a').val() == '' ? 0 : $('#txtComision3a').val();
+            var txtComision3b = $('#txtComision3b').val() == '' ? 0 : $('#txtComision3b').val();
+
+            var txtComision3porc = $('#txtComision3porc').val() == '' ? 0 : $('#txtComision3porc').val();
+            var txtComision4a = $('#txtComision4a').val() == '' ? 0 : $('#txtComision4a').val();
+            var txtComision4b = $('#txtComision4b').val() == '' ? 0 : $('#txtComision4b').val();
+            var txtComision4porc = $('#txtComision4porc').val() == '' ? 0 : $('#txtComision4porc').val();
+            var txtComision5a = $('#txtComision5a').val() == '' ? 0 : $('#txtComision5a').val();
+            var txtComision5b = $('#txtComision5b').val() == '' ? 0 : $('#txtComision5b').val();
+            var txtComision5porc = $('#txtComision5porc').val() == '' ? 0 : $('#txtComision5porc').val();
+            var txtComision6a = $('#txtComision6a').val() == '' ? 0 : $('#txtComision6a').val();
+            var txtComision6b = $('#txtComision6b').val() == '' ? 0 : $('#txtComision6b').val();
+            var txtComision6porc = $('#txtComision6porc').val() == '' ? 0 : $('#txtComision6porc').val();
+            var User = $('#hdUsuario').val();
+            var Accion = $('#hdAccionMeta').val();
+
+            var txtPorcenBonoAdicional1 = $('#txtPorcenBonoAdicional1').val() == '' ? 0 : $('#txtPorcenBonoAdicional1').val();
+            var txtMonto_BonoAdicional1 = $('#txtMonto_BonoAdicional1').val() == '' ? 0 : $('#txtMonto_BonoAdicional1').val();
+            var txtPorcenBonoAdicional2 = $('#txtPorcenBonoAdicional2').val() == '' ? 0 : $('#txtPorcenBonoAdicional2').val();
+            var txtMonto_BonoAdicional2 = $('#txtMonto_BonoAdicional2').val() == '' ? 0 : $('#txtMonto_BonoAdicional2').val();
+            var txtPorcenBonoAdicional3 = $('#txtPorcenBonoAdicional3').val() == '' ? 0 : $('#txtPorcenBonoAdicional3').val();
+            var txtMonto_BonoAdicional3 = $('#txtMonto_BonoAdicional3').val() == '' ? 0 : $('#txtMonto_BonoAdicional3').val();
+            var txtPorcenBonoAdicional4 = $('#txtPorcenBonoAdicional4').val() == '' ? 0 : $('#txtPorcenBonoAdicional4').val();
+            var txtMonto_BonoAdicional4 = $('#txtMonto_BonoAdicional4').val() == '' ? 0 : $('#txtMonto_BonoAdicional4').val();
+            var txtPorcenBonoAdicional5 = $('#txtPorcenBonoAdicional5').val() == '' ? 0 : $('#txtPorcenBonoAdicional5').val();
+            var txtMonto_BonoAdicional5 = $('#txtMonto_BonoAdicional5').val() == '' ? 0 : $('#txtMonto_BonoAdicional5').val();
+            var txtPorcenBonoAdicional6 = $('#txtPorcenBonoAdicional6').val() == '' ? 0 : $('#txtPorcenBonoAdicional6').val();
+            var txtMonto_BonoAdicional6 = $('#txtMonto_BonoAdicional6').val() == '' ? 0 : $('#txtMonto_BonoAdicional6').val();
+
+            var txtFechaSemanal1a = kendo.toString($("#txtFechaSemanal1a").data('kendoDatePicker').value(), 'MM/dd/yyyy');
+            var txtFechaSemanal1b = kendo.toString($("#txtFechaSemanal1b").data('kendoDatePicker').value(), 'MM/dd/yyyy');
+            var txtCuotaSemanalBono1 = $('#txtCuotaSemanalBono1').val() == '' ? 0 : $('#txtCuotaSemanalBono1').val();
+            var txtFechaSemanal2a = kendo.toString($("#txtFechaSemanal2a").data('kendoDatePicker').value(), 'MM/dd/yyyy');
+            var txtFechaSemanal2b = kendo.toString($("#txtFechaSemanal2b").data('kendoDatePicker').value(), 'MM/dd/yyyy');
+            var txtCuotaSemanalBono2 = $('#txtCuotaSemanalBono2').val() == '' ? 0 : $('#txtCuotaSemanalBono2').val();
+            var txtFechaSemanal3a = kendo.toString($("#txtFechaSemanal3a").data('kendoDatePicker').value(), 'MM/dd/yyyy');
+            var txtFechaSemanal3b = kendo.toString($("#txtFechaSemanal3b").data('kendoDatePicker').value(), 'MM/dd/yyyy');
+            var txtCuotaSemanalBono3 = $('#txtCuotaSemanalBono3').val() == '' ? 0 : $('#txtCuotaSemanalBono3').val();
+            var txtFechaSemanal4a = kendo.toString($("#txtFechaSemanal4a").data('kendoDatePicker').value(), 'MM/dd/yyyy');
+            var txtFechaSemanal4b = kendo.toString($("#txtFechaSemanal4b").data('kendoDatePicker').value(), 'MM/dd/yyyy');
+            var txtCuotaSemanalBono4 = $('#txtCuotaSemanalBono4').val() == '' ? 0 : $('#txtCuotaSemanalBono4').val();
+            var txtMetaMinimaPorc = $('#txtMetaMinimaPorc').val() == '' ? 0 : $('#txtMetaMinimaPorc').val();
+
+            var xml = "";
+            xml += "<ds>";
+            $('#gridVendedor .k-grid-content table tbody tr').each(function () {
+                var Codigo = $(this).find("td").eq(0).find("input").val();
+                var codigoVendedor = $(this).find("td").eq(1).html();
+                var Meta = $(this).find("td").eq(3).find("input").val();
+                var MetaSemanal = $(this).find("td").eq(4).find("input").val();
+                var CantidadMetaPlan = $(this).find("td").eq(5).find("input").val();
+                xml += "<e>";
+                xml += "<a>" + Codigo + "</a>"; //codigo
+                xml += "<b>" + codigoVendedor + "</b>"; //codigo Vendedor
+                xml += "<c>" + Meta + "</c>"; //Meta
+                xml += "<d>" + MetaSemanal + "</d>"; //Meta Semanal
+                xml += "<f>" + CantidadMetaPlan + "</f>"; //Cantidad planes a vender del mes
+                xml += "</e>";
+            });
+            xml += "</ds>";
+
+            $.ajax({
+                data: '{"codigoMeta":"' + codigoMeta +
+                    '","Meta":"' + Meta + '","CantidadVendedores":"' + CantidadVendedores + '","Bono":"' + Bono +
+                    '","FechaInicio":"' + FechaInicio + '","FechaFin":"' + FechaFin + '","CodigoSupervisorVenta":"' + CodigoSupervisorVenta +
+                    '","B_TicketPromedio_MontoMinimo":"' + B_TicketPromedio_MontoMinimo + '","B_TicketPromedio_Bono":"' + B_TicketPromedio_Bono + '","B_ContratosAnuales_CantidadMinima":"' + B_ContratosAnuales_CantidadMinima + '","B_ContratosAnuales_Bono":"' + B_ContratosAnuales_Bono +
+                    '","B_Nuevos_PorcentajeMinimo":"' + B_Nuevos_PorcentajeMinimo + '","B_Nuevos_Bono":"' + B_Nuevos_Bono + '","B_Reinscripciones_MontoMinimo":"' + B_Reinscripciones_MontoMinimo + '","B_Reinscripciones_Bono":"' + B_Reinscripciones_Bono +
+                    '","B_Renovaciones_PorcentajeMinimo":"' + B_Renovaciones_PorcentajeMinimo + '","B_Renovaciones_Bono":"' + B_Renovaciones_Bono + '","B_VentaSemanal_Bono":"' + B_VentaSemanal_Bono +
+                    '","B_VentaAdicionalMeta10porciento_Bono":"' + B_VentaAdicionalMeta10porciento_Bono + '","B_AmpliacionContrato_Cantidad":"' + B_AmpliacionContrato_Cantidad + '","B_AmpliacionContrato_Bono":"' + B_AmpliacionContrato_Bono +
+                    '","metaSemanal":"' + txtMetaSemanalGeneral +
+                    '","txtComision1a":"' + txtComision1a + '","txtComision1b":"' + txtComision1b + '","txtComision1porc":"' + txtComision1porc +
+                    '","txtComision2a":"' + txtComision2a + '","txtComision2b":"' + txtComision2b + '","txtComision2porc":"' + txtComision2porc +
+                    '","txtComision3a":"' + txtComision3a + '","txtComision3b":"' + txtComision3b + '","txtComision3porc":"' + txtComision3porc +
+                    '","txtComision4a":"' + txtComision4a + '","txtComision4b":"' + txtComision4b + '","txtComision4porc":"' + txtComision4porc +
+                    '","txtComision5a":"' + txtComision5a + '","txtComision5b":"' + txtComision5b + '","txtComision5porc":"' + txtComision5porc +
+                    '","txtComision6a":"' + txtComision6a + '","txtComision6b":"' + txtComision6b + '","txtComision6porc":"' + txtComision6porc +
+                    '","xmlMeta":"' + xml + '","Accion":"' + Accion +
+                    '","txtPorcenBonoAdicional1":"' + txtPorcenBonoAdicional1 + '","txtMonto_BonoAdicional1":"' + txtMonto_BonoAdicional1 + '","txtPorcenBonoAdicional2":"' + txtPorcenBonoAdicional2 +
+                    '","txtMonto_BonoAdicional2":"' + txtMonto_BonoAdicional2 + '","txtPorcenBonoAdicional3":"' + txtPorcenBonoAdicional3 + '","txtMonto_BonoAdicional3":"' + txtMonto_BonoAdicional3 +
+                    '","txtPorcenBonoAdicional4":"' + txtPorcenBonoAdicional4 + '","txtMonto_BonoAdicional4":"' + txtMonto_BonoAdicional4 + '","txtPorcenBonoAdicional5":"' + txtPorcenBonoAdicional5 +
+                    '","txtMonto_BonoAdicional5":"' + txtMonto_BonoAdicional5 + '","txtPorcenBonoAdicional6":"' + txtPorcenBonoAdicional6 + '","txtMonto_BonoAdicional6":"' + txtMonto_BonoAdicional6 +
+
+                    '","txtFechaSemanal1a":"' + txtFechaSemanal1a + '","txtFechaSemanal1b":"' + txtFechaSemanal1b + '","txtCuotaSemanalBono1":"' + txtCuotaSemanalBono1 +
+                    '","txtFechaSemanal2a":"' + txtFechaSemanal2a + '","txtFechaSemanal2b":"' + txtFechaSemanal2b + '","txtCuotaSemanalBono2":"' + txtCuotaSemanalBono2 +
+                    '","txtFechaSemanal3a":"' + txtFechaSemanal3a + '","txtFechaSemanal3b":"' + txtFechaSemanal3b + '","txtCuotaSemanalBono3":"' + txtCuotaSemanalBono3 +
+                    '","txtFechaSemanal4a":"' + txtFechaSemanal4a + '","txtFechaSemanal4b":"' + txtFechaSemanal4b + '","txtCuotaSemanalBono4":"' + txtCuotaSemanalBono4 +
+                    '","txtMetaMinimaPorc":"' + txtMetaMinimaPorc +
+
+                    '"}',
+                type: "POST",
+                url: "/operacionesfit/GuardarMeta",
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function (msg) {
+                    //alert(msg);
+                    if (msg == 0) {
+                        if (Accion == 'N') {
+                            $.bootstrapGrowl("La meta ya existe para este mes.", { type: 'danger', width: 'auto' });
+                        } else {
+                            uspListarHistorialMetas();
+                            $.bootstrapGrowl("Los datos se han guardado correctamente.", { type: 'success', width: 'auto' });
+                            document.getElementById("btnEliminarNueva").style.display = '';
+                            document.getElementById("btnActualizarMeta").style.display = '';
+                            document.getElementById("btnGuardarMeta").style.display = 'none';
+                            document.getElementById("btnCancelarMeta").style.display = 'none';
+                            document.getElementById("btnNuevaMeta").style.display = '';
+                        }
+                    } else {
+                        $.bootstrapGrowl("Los datos se han guardado correctamente.", { type: 'success', width: 'auto' });
+                        uspListarHistorialMetas();
+                    }
+
+                }
+            });
+        }
+
+
+        function RemoverVendedores() {
+            $('#gridVendedor .k-grid-content table tbody tr').each(function () {
+                if ($(this).find("td").eq(0).find("input").is(':checked')) {
+                    $(this).remove();
+                }
+            });
+            SumarMetas();
+        }
+
+        function SumarMetas() {
+            var sumatoria = 0;
+            var cantidad = 0;
+            $('#gridVendedor .k-grid-content table tbody tr').each(function () {
+                var Meta = $(this).find("td").eq(3).find("input").val() == '' ? 0 : parseFloat($(this).find("td").eq(3).find("input").val());
+                sumatoria += Meta;
+                cantidad++;
+            });
+            $('#txtCantidadVendedoresTotal').val(cantidad);
+            $('#txtMetaMesTotal').val(sumatoria.toFixed(2));
+
+            CalcularMetaSemanal();
+        }
+
+        function CancelarIngresoMeta() {
+            document.getElementById("btnEliminarNueva").style.display = '';
+            document.getElementById("btnActualizarMeta").style.display = '';
+            document.getElementById("btnGuardarMeta").style.display = 'none';
+            document.getElementById("btnCancelarMeta").style.display = 'none';
+            document.getElementById("btnNuevaMeta").style.display = '';
+            $('#txtMetaMesTotal').val('0');
+            $('#txtCantidadVendedoresTotal').val('0');
+            $('#txtBonoMesTotal').val('0');
+            $('#txtTicketPromedio_MontoMinimo').val('0');
+            $('#txtTicketPromedio_Bono').val('0');
+            $('#txtCantidadVentasAnuales_Cantidad').val('0');
+            $('#txtCantidadVentasAnuales_Bono').val('0');
+            $('#txtPorcentajeVentasNuevas_Porcentaje').val('0');
+            $('#txtPorcentajeVentasNuevas_Bono').val('0');
+            $('#txtPorcentajeVentasRenovaciones_Porcentaje').val('0');
+            $('#txtPorcentajeVentasRenovaciones_Bono').val('0');
+            $('#txtVentasReinscripciones_MontoMinimo').val('0');
+            $('#txtVentasReinscripciones_Bono').val('0');
+            $('#txtCuotaSemanal_Bono').val('0');
+            $('#txtPasandoCada10PorcientoMasVenta_Bono').val('0');
+            $('#txtAmpliaciones_Cantidad').val('0');
+            $('#txtAmpliaciones_Bono').val('0');
+        }
+
+
+        function validarNumeros(e) { // 1
+            tecla = (document.all) ? e.keyCode : e.which; // 2
+            if (tecla == 8) return true; // backspace
+            if (e.ctrlKey && tecla == 86) { return true }; //Ctrl v
+            if (e.ctrlKey && tecla == 67) { return true }; //Ctrl c
+            if (e.ctrlKey && tecla == 88) { return true }; //Ctrl x
+            if (tecla >= 35 && tecla <= 40) { return true; } //direcionales ini-fin
+            if (tecla == 46) { return true; } //Supr
+            if (tecla >= 96 && tecla <= 106) { return true; } //numpad
+            if (tecla == 9) { return true; } //tab
+
+            patron = /[0-9]/; // patron
+
+            te = String.fromCharCode(tecla);
+            return patron.test(te); // prueba
+        }
+
+        function validarDecimales(e) {
+            tecla = (document.all) ? e.keyCode : e.which; // 2
+            if (tecla == 8) return true; // backspace
+            if (e.ctrlKey && tecla == 86) { return true }; //Ctrl v
+            if (e.ctrlKey && tecla == 67) { return true }; //Ctrl c
+            if (e.ctrlKey && tecla == 88) { return true }; //Ctrl x
+            if (tecla >= 35 && tecla <= 40) { return true; } //direcionales ini-fin
+            if (tecla == 46) { return true; } //Supr
+            if (tecla >= 96 && tecla <= 106) { return true; } //numpad
+            if (tecla == 9) { return true; } //tab
+
+            patron = /^[a-z]/; // patron
+
+            te = String.fromCharCode(tecla);
+            return patron.test(te); // prueba
+        }
+
+        function SEGListarPerfilMenu() {
+
+            var entidad = {};
+
+            document.getElementById('loadMe').style.display = 'block';
+            $('button[type="button"]').attr("disabled", true);
+            var metodoCorrecto = function (msg) {
+
+                $('button[type="button"]').attr("disabled", false);
+                document.getElementById('loadMe').style.display = 'none';
+
+                for (var i = 0; i < msg.length; i++) {
+
+                    if (msg[i].Estado) {
+
+                        $('[data-controlmodulo="' + msg[i].CodigoMenu + '"]').show('fast');
+
+                    }
+                }
+
+            };
+            var metodoError = function (msg) {
+                alert(msg);
+            };
+            var request = {
+                //request: entidad
+            };
+            LlamarAJAX("/operacionesfit/SEGListarPerfilMenu_Control", request, metodoCorrecto, metodoError);
+
+        }
+
+
+    </script>
+}

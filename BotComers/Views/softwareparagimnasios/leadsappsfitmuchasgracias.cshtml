@@ -1,0 +1,116 @@
+﻿
+@{
+    ViewBag.Title = "Appsfit, ¡FELICITACIONES!";
+    Layout = "~/Views/Shared/_LayoutPaginaWebAppsfit1.cshtml";
+}
+
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+
+<section class="explore_more" id="testimonios" style="background-color: #000000;">
+
+    <!--begin container -->
+    <div class="container">
+
+        <!--begin row -->
+        <div class="row">
+
+            <!--begin col-md-12 -->
+            <div class="col-md-12 text-center">
+                <div class="content_box text-center">
+                    <img src="~/Content/appsfit_img/Appsfit_Logo_A-color-sin-fondocortado.png" style="height:80px;" />
+
+                    <h1> <br class="disp_none_md" /> <span>¡FELICITACIONES!</span> </h1>
+                </div>
+
+                <h4 style="color:#fff;font-size: 30px;font-weight:bold;" class="section-title">Estas apunto de completar tu registro...</h4>
+                <br />
+                <div class="progress" style="height: 30px;">
+                    <div class="progress-bar" role="progressbar" style="width: 95%; background-color: #E0342B;font-size:25px;text-align:right;" aria-valuenow="95" aria-valuemin="0" aria-valuemax="100">95%</div>
+                </div>
+                <br />
+                <h4 style="color:#fff;font-size: 28px;font-weight:bold;" class="section-title"><b style="color: #E0342B;">IMPORTANTE:</b> Para validar tu registro, tienes que darle clic en el botón de whatsapp👇👇👇</h4>
+                <br />
+                <i style="font-size: 50px;" class="fas fa-arrow-circle-down"></i>
+                <br /><br /><br />
+                <button onclick="EnviarDatos();" class="" type="button" style="--tw-gradient-from: #128c7e; font-size: 28px; position: relative; color: #fff; --tw-gradient-from: #128c7e; --tw-gradient-stops: #25d366, #128c7e; background-image: linear-gradient(to bottom right,var(--tw-gradient-stops)); display: inline-block; width: 80%; height: 70px; line-height: 50px; font-weight: 500; transition: all .5s ease; text-align: center; font-family: 'Poppins', sans-serif; border-radius: 50px; background-size: 300% 100%; box-shadow: 0px; border: 0px !important; ">Conversemos ahora <span style="font-size: 35px;" class="fa fa-whatsapp"></span></button>
+
+            </div>
+            <!--end col-md-12 -->
+
+        </div>
+        <!--end row -->
+
+    </div>
+
+
+</section>
+
+
+@section Scripts {
+
+    @System.Web.Optimization.Scripts.Render("~/Scripts/bootstrap-notify-master/bootstrap-notify.js")
+    @System.Web.Optimization.Scripts.Render("~/Scripts/bootstrap-notify-master/bootstrap-notify.min.js")
+    @System.Web.Optimization.Scripts.Render("~/Scripts/jsBootstrap/jquery.bootstrap-growl.js")
+
+    @System.Web.Optimization.Scripts.Render("~/Scripts/jquery.min.js")
+    @System.Web.Optimization.Scripts.Render("~/Scripts/plugins/jquery-ui/jquery-ui.js")
+    @System.Web.Optimization.Scripts.Render("~/Scripts/plugins/jquery-ui/jquery-ui.min.js")
+
+    @System.Web.Optimization.Scripts.Render("~/Resource/UserControl.Helper.js")
+
+
+    <script type="text/javascript">
+
+        $(document).ready(function () {
+           
+            eventContactoFacebook();
+           
+        });
+
+        function eventContactoFacebook() {
+            let eventolead = localStorage.getItem('eventolead') || false;
+            if (!eventolead) {
+                fbq('track', 'Lead');
+                localStorage.setItem('eventolead', true);
+            }
+        }
+
+        function EnviarDatos() {
+            
+            var correo = localStorage.getItem('correo');
+            var nombreempresa = localStorage.getItem('nombreempresa');
+            var situacionempresa = localStorage.getItem('situacionempresa');
+            var tipoempresa = localStorage.getItem('tipoempresa');
+            var nroubicaciones = localStorage.getItem('correo');
+            var nombregerente = localStorage.getItem('nroubicaciones');
+            var asunto = localStorage.getItem('nombregerente');
+            var celular = localStorage.getItem('asunto');
+
+            correo = correo.replace(' ', '%20').replace(' ', '%20').replace(' ', '%20').replace(' ', '%20').replace(' ', '%20').replace(' ', '%20').replace(' ', '%20').replace(' ', '%20');
+            nombreempresa = nombreempresa.replace(' ', '%20').replace(' ', '%20').replace(' ', '%20').replace(' ', '%20').replace(' ', '%20').replace(' ', '%20').replace(' ', '%20').replace(' ', '%20');
+            situacionempresa = situacionempresa.replace(' ', '%20').replace(' ', '%20').replace(' ', '%20').replace(' ', '%20').replace(' ', '%20').replace(' ', '%20').replace(' ', '%20').replace(' ', '%20');
+            tipoempresa = tipoempresa.replace(' ', '%20').replace(' ', '%20').replace(' ', '%20').replace(' ', '%20').replace(' ', '%20').replace(' ', '%20').replace(' ', '%20').replace(' ', '%20');
+            nroubicaciones = nroubicaciones.replace(' ', '%20').replace(' ', '%20').replace(' ', '%20').replace(' ', '%20').replace(' ', '%20').replace(' ', '%20').replace(' ', '%20').replace(' ', '%20');
+            nombregerente = nombregerente.replace(' ', '%20').replace(' ', '%20').replace(' ', '%20').replace(' ', '%20').replace(' ', '%20').replace(' ', '%20').replace(' ', '%20').replace(' ', '%20');
+            asunto = asunto.replace(' ', '%20').replace(' ', '%20').replace(' ', '%20').replace(' ', '%20').replace(' ', '%20').replace(' ', '%20').replace(' ', '%20').replace(' ', '%20').replace(' ', '%20').replace(' ', '%20').replace(' ', '%20').replace(' ', '%20').replace(' ', '%20').replace(' ', '%20').replace(' ', '%20').replace(' ', '%20');
+            celular = celular.replace(' ', '%20').replace(' ', '%20').replace(' ', '%20').replace(' ', '%20').replace(' ', '%20').replace(' ', '%20').replace(' ', '%20').replace(' ', '%20').replace(' ', '%20').replace(' ', '%20').replace(' ', '%20').replace(' ', '%20').replace(' ', '%20').replace(' ', '%20').replace(' ', '%20').replace(' ', '%20');
+
+            var mensaje = '';
+            mensaje = mensaje + 'Mi%20empresa%20se%20llama:%20' + nombreempresa + '%0A';
+            mensaje = mensaje + 'Mi%20correo%20es:%20' + correo + '%0A';
+            mensaje = mensaje + 'Tengo:%20' + nroubicaciones + '%0A';
+            mensaje = mensaje + 'La%20situacion%20de%20mi%20empresa%20es:%20' + situacionempresa + '%0A';
+            mensaje = mensaje + 'Mi%20tipo%20de%20empresa%20es:%20' + tipoempresa + '%0A';
+            mensaje = mensaje + 'Asunto:%20' + asunto;
+           
+            var Link = "https://api.whatsapp.com/send?phone=51957592357&text=👍%20Hola%20Appsfit,%20mi%20nombre%20es%20" + nombregerente + "%0A" + mensaje;
+
+            window.open(Link, '_self');
+
+        }
+
+
+    </script>
+}
+
+

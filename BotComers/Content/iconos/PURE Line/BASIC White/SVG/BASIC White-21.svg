@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Generator: Adobe Illustrator 16.0.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="170px"
+	 height="169.999px" viewBox="0 0 170 169.999" enable-background="new 0 0 170 169.999" xml:space="preserve">
+<g id="Background">
+</g>
+<g id="Circle">
+	<g>
+		<path fill="#282D33" d="M85,169.999c-46.869,0-85-38.131-85-85S38.131,0,85,0s85,38.13,85,84.999S131.869,169.999,85,169.999z"/>
+	</g>
+</g>
+<g id="TEXT">
+</g>
+<g id="Icons">
+	<g>
+		<g>
+			<line fill="none" stroke="#FFFFFF" stroke-width="4" x1="126.456" y1="90.529" x2="126.456" y2="116.545"/>
+			<path fill="none" stroke="#FFFFFF" stroke-width="4" d="M43.941,116.545V64.217c0-1.555,1.265-2.818,2.818-2.818h16.648"/>
+			<line fill="none" stroke="#FFFFFF" stroke-width="4" x1="51.191" y1="108.463" x2="119.208" y2="108.463"/>
+			<line fill="none" stroke="#FFFFFF" stroke-width="4" x1="63.408" y1="69.398" x2="51.191" y2="69.398"/>
+			<path fill="none" stroke="#FFFFFF" stroke-width="4" d="M31.648,116.283v5.063c0,0,3.701,2.764,6.422,2.764h34.074h26.109h34.074
+				c2.721,0,6.423-2.764,6.423-2.764v-5.063H31.648z"/>
+		</g>
+		<g>
+			<path fill="none" stroke="#FFFFFF" stroke-width="4" d="M135.519,41.008H74.027c-1.785,0-3.227,1.67-3.227,3.732v34.486
+				c0,2.059,1.441,3.729,3.227,3.729h25.316l1.389,2.596l4.043,7.551l4.043-7.551l1.391-2.596h25.31c1.788,0,3.232-1.67,3.232-3.729
+				V44.74C138.751,42.678,137.306,41.008,135.519,41.008z"/>
+			<g>
+				<path fill="none" stroke="#FFFFFF" stroke-width="4" d="M90.009,57.697c-2.129,0-3.857,1.729-3.857,3.855
+					c0,2.129,1.729,3.859,3.857,3.859c2.127,0,3.857-1.73,3.857-3.859C93.867,59.426,92.136,57.697,90.009,57.697z"/>
+				<path fill="none" stroke="#FFFFFF" stroke-width="4" d="M104.775,57.697c-2.129,0-3.86,1.729-3.86,3.855
+					c0,2.129,1.731,3.859,3.86,3.859s3.857-1.73,3.857-3.859C108.632,59.426,106.904,57.697,104.775,57.697z"/>
+				<path fill="none" stroke="#FFFFFF" stroke-width="4" d="M119.54,57.697c-2.128,0-3.858,1.729-3.858,3.855
+					c0,2.129,1.73,3.859,3.858,3.859c2.127,0,3.858-1.73,3.858-3.859C123.398,59.426,121.667,57.697,119.54,57.697z"/>
+			</g>
+		</g>
+	</g>
+</g>
+</svg>

@@ -1,0 +1,90 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <!-- SEO -->
+    <meta name="author" content="GYM">
+    <meta name="description" content="📌@ViewBag.NombreComercial 💪">
+    <meta name="keywords" content="fitness, motivación, spa, salud, yoga, medical">
+    <!-- Favicons -->
+    
+    <link rel="shortcut icon" href="~/Content/appInicio/images/favicon.ico">
+    <!-- Page Title -->
+    <title>💪 @ViewBag.NombreComercial 💪</title>
+    <!-- Bootstrap -->
+    @if (IsSectionDefined("Styles"))
+    {@RenderSection("Styles", required: false)}
+
+    <link href="@Url.Content("~/Content/appInicio/css/bootstrap.min.css")" rel="stylesheet" />
+    <link href="@Url.Content("~/Content/appInicio/css/plugins/font-awesome.css")" rel="stylesheet" />
+    <link href="@Url.Content("~/Content/appInicio/css/plugins/streamline-icons.css")" rel="stylesheet" />
+    <link href="@Url.Content("~/Content/appInicio/css/health.css")" rel="stylesheet" />
+    <link href="@Url.Content("~/Content/appInicio/css/themes/orange.css")" rel="stylesheet" />
+
+    <link href="@Url.Content("~/Content/videoteca/css/animate.min.css")" rel="stylesheet" />
+    <link href="@Url.Content("~/Content/videoteca/css/menu.css")" rel="stylesheet" />
+    <link href="@Url.Content("~/Content/videoteca/css/style.css")" rel="stylesheet" />
+    <link href="@Url.Content("~/Content/videoteca/css/responsive.css")" rel="stylesheet" />
+    <link href="@Url.Content("~/Content/videoteca/css/icon_fonts/css/all_icons.min.css")" rel="stylesheet" />
+    <link href="@Url.Content("~/Content/videoteca/css/magnific-popup.min.css")" rel="stylesheet" />
+
+    <!-- YOUR CUSTOM CSS -->
+    <link href="@Url.Content("~/Content/videoteca/css/custom.css")" rel="stylesheet" />
+
+    <!-- Custom Google Font : Josefin Sans -->
+    <link href="https://fonts.googleapis.com/css?family=Poppins:400,300,500,600,700|Kalam:400,700" rel="stylesheet">
+
+    @System.Web.Optimization.Scripts.Render("~/Content/appInicio/js/modernizr.min.js")
+    @System.Web.Optimization.Scripts.Render("~/Content/appInicio/js/plugins/pace.js")
+
+    <style>
+        :root {
+            --urlLogoPagina: @HttpContext.Current.Request.Cookies["_LogoTipo"].Value;          
+            --colorPrincipal: @HttpContext.Current.Request.Cookies["_ColorEmpresa_PersonaFit"].Value;
+            --urlBannerReserva: url(@HttpContext.Current.Request.Cookies["_urlBannerReserva"].Value);
+            --urlBannerCentro: url(@HttpContext.Current.Request.Cookies["_urlBannerCentro"].Value);
+        }
+    </style>
+</head>
+
+<body data-spy="scroll" data-target="#navbar" data-offset="100">
+    <script>
+        //SDK FACEBOOK LOGIN
+        (function (d, s, id) {
+            var js, fjs = d.getElementsByTagName(s)[0];
+            if (d.getElementById(id)) { return; }
+            js = d.createElement(s); js.id = id;
+            js.src = "https://connect.facebook.net/es_LA/all.js";
+            d.getElementsByTagName('head')[0].appendChild(js);
+            fjs.parentNode.insertBefore(js, fjs);
+        }(document, 'script', 'facebook-jssdk'));
+
+    </script>
+    <!--Preloader div-->
+    <div class="preloader"></div>
+    
+    @RenderBody()
+
+    @System.Web.Optimization.Scripts.Render("~/Content/appInicio/js/jquery.min.js")
+    @System.Web.Optimization.Scripts.Render("~/Content/appInicio/js/bootstrap.min.js")
+    @System.Web.Optimization.Scripts.Render("~/Content/appInicio/js/plugins/validate.js")
+    @System.Web.Optimization.Scripts.Render("~/Content/appInicio/js/plugins/nicescroll.js")
+    @System.Web.Optimization.Scripts.Render("~/Content/appInicio/js/includes/contact_form.js")
+    @System.Web.Optimization.Scripts.Render("~/Content/appInicio/js/main.js")
+
+    @System.Web.Optimization.Scripts.Render("~/Content/videoteca/js/common_scripts_min.js")
+
+    @RenderSection("scripts", required: false)
+</body>
+
+</html>
+
+

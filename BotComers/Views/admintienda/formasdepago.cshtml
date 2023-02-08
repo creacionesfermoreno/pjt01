@@ -1,0 +1,107 @@
+﻿@model IEnumerable<E_DataModel.PlantillaFormaPagoDTO>
+
+@{
+    ViewBag.Title = "formasdepago";
+    Layout = "~/Views/Shared/_LayoutApp.cshtml";
+}
+
+<div class="slim-mainpanel">
+
+    <div class="slim-mainpanel">
+        <div class="container">
+            <div class="report-summary-header">
+                <div>
+                    <h4 class="tx-inverse mg-b-3">Formas de pago</h4>
+                </div>
+                <div>
+                </div>
+            </div><!-- d-flex -->
+
+            <div class="card card-table mg-t-20 mg-sm-t-30">
+
+                <div class="table-responsive">
+                    <table class="table mg-b-0 tx-13">
+                        <thead>
+                            <tr class="tx-10">
+                                <th class="pd-y-5">
+                                    Logo
+                                </th>
+                                <th class="pd-y-5">
+                                    Tipo
+                                </th>
+                                <th class="pd-y-5">
+                                    Acciones
+                                </th>                              
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @{
+                                if (Model != null)
+                                {
+                                    foreach (var item in Model)
+                                    {
+
+                                        <tr>
+                                            <td style="font-size:15px;font-weight:bold;">
+                                                @item.UrlImagen
+                                            </td>                                          
+                                            <td>
+                                                @item.Descripcion
+                                            </td>                                           
+                                            <td>
+
+                                                <button class="btn btn-primary btn-sm btn-block mg-b-10" data-Codigo="@item.Codigo" onclick="evento_Configurar(this);">Agregar +</button>
+                                            </td>
+                                        </tr>
+                                    }
+                                }
+                            }
+                        </tbody>
+                    </table>
+                </div><!-- table-responsive -->
+            </div><!-- card -->
+
+        </div><!-- slim-mainpanel -->
+
+    </div>
+
+</div>
+
+
+@section Scripts {
+    @System.Web.Optimization.Scripts.Render("~/Scripts/plugins/jquery-ui/jquery-ui.js")
+    @System.Web.Optimization.Scripts.Render("~/Scripts/plugins/jquery-ui/jquery-ui.min.js")
+
+    @System.Web.Optimization.Scripts.Render("~/Resource/UserControl.Helper.js")
+
+    @System.Web.Optimization.Scripts.Render("~/Scripts/bootstrap-notify-master/bootstrap-notify.js")
+    @System.Web.Optimization.Scripts.Render("~/Scripts/bootstrap-notify-master/bootstrap-notify.min.js")
+    @System.Web.Optimization.Scripts.Render("~/Scripts/jsBootstrap/jquery.bootstrap-growl.js")
+
+    <script type="text/javascript">
+
+        function evento_Configurar(control) {
+
+            var ID = $(control).attr('data-Codigo');
+
+            if (ID == 6) {
+                window.location.href = '/admintienda/contraentrega/' + getCookie('_SubDominio_Business');
+            }else if (ID == 7) {
+                window.location.href = '/admintienda/yape/' + getCookie('_SubDominio_Business');
+            }else if (ID == 8) {
+                window.location.href = '/admintienda/mercadopago/' + getCookie('_SubDominio_Business') ;
+            }
+        }
+
+        function getCookie(cname) {
+            var name = cname + "=";
+            var ca = document.cookie.split(';');
+            for (var i = 0; i < ca.length; i++) {
+                var c = ca[i].trim();
+                if (c.indexOf(name) == 0) return c.substring(name.length, c.length);
+            }
+            return "";
+        }
+    </script>
+
+}

@@ -1,0 +1,51 @@
+﻿#Counter_modal .hora-css {
+    background-color: red;
+}
+
+#countdown_modal {
+    color: red;
+}
+
+.counterdown {
+    padding: 0px 12px 4px 12px;
+    background-color: #000703;
+    color: #fff;
+    font-weight: bold;
+    font-size: 25px;
+    border-radius: 5px;
+}
+
+.span_counter {
+    font-size: 14px;
+}
+
+caption {
+    display: table-caption;
+    text-align: center;
+    font-weight: bold;
+    padding: 10px 0px;
+}
+
+@media (min-width: 768px) {
+    .counterdown {
+        padding: 0px 15px 4px 15px;
+        background-color: #000703;
+        color: #fff;
+        font-weight: bold;
+        font-size: 40px;
+        border-radius: 5px;
+    }
+
+    .span_counter {
+        font-size: 16px;
+    }
+}
+
+
+
+
+
+
+
+
+

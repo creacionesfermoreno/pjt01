@@ -1,0 +1,2583 @@
+﻿
+@{
+    ViewBag.Title = "ConfiguracionM";
+    Layout = "~/Views/Shared/__LayoutAppFitPlataformaFit.cshtml";
+}
+
+@section Styles{
+
+
+    <link href="@Url.Content("~/Content/cssKendo/kendo.common.min.css")" rel="stylesheet" />
+    <link href="@Url.Content("~/Content/cssKendo/kendo.dataviz.default.min.css")" rel="stylesheet" />
+    <link href="@Url.Content("~/Content/cssKendo/kendo.dataviz.min.css")" rel="stylesheet" />
+    <link href="@Url.Content("~/Content/cssKendo/kendo.default.min.css")" rel="stylesheet" />
+
+    <link href="@Url.Content("https://fullcalendar.io/assets/demo-to-codepen.css")" rel='stylesheet' />
+    <link href="@Url.Content("https://unpkg.com/fullcalendar@3.10.1/dist/fullcalendar.min.css")" rel='stylesheet' />
+    <link href="@Url.Content("https://unpkg.com/fullcalendar@3.10.1/dist/fullcalendar.print.css")" rel='stylesheet' media='print' />
+    <link href="@Url.Content("https://unpkg.com/fullcalendar-scheduler@1.10.0/dist/scheduler.min.css")" rel='stylesheet' />
+
+    <style>
+        .k-block, .k-button, .k-textbox, .k-drag-clue, .k-touch-scrollbar, .k-window, .k-window-titleless .k-window-content, .k-window-action, .k-inline-block, .k-grid .k-filter-options, .k-grouping-header .k-group-indicator, .k-autocomplete, .k-multiselect, .k-combobox, .k-dropdown, .k-dropdown-wrap, .k-datepicker, .k-timepicker, .k-colorpicker, .k-datetimepicker, .k-notification, .k-numerictextbox, .k-picker-wrap, .k-numeric-wrap, .k-colorpicker, .k-list-container, .k-calendar-container, .k-calendar td, .k-calendar .k-link, .k-treeview .k-in, .k-editor-inline, .k-tooltip, .k-tile, .k-slider-track, .k-slider-selection, .k-upload {
+            border-radius: 3px;
+        }
+
+        .modal-body {
+        }
+
+        .modal-backdrop {
+            display: none;
+        }
+
+        .card-body {
+            margin-top: -5px;
+            margin-bottom: -5px;
+        }
+
+        .k-dropdown .k-input, .k-selectbox .k-input {
+            /* background: none; */
+            background-color: #fff;
+            font-weight: bold;
+        }
+
+        .k-dropdown-wrap .k-input, .k-picker-wrap .k-input, .k-numeric-wrap .k-input {
+            border-radius: 3px 0 0 3px;
+            font-weight: bold;
+        }
+
+        .k-autocomplete {
+            background-image: url(textures/highlight.png);
+            background-image: none,linear-gradient(to bottom,#e2e1e199 0,#e2e1e199 100%);
+            background-position: 50% 50%;
+            background-color: #e3e3e3;
+            border: 1px solid #cac9c9;
+            color: #fff;
+        }
+
+        .k-header, .k-grid-header, .k-toolbar, .k-dropdown-wrap, .k-picker-wrap, .k-numeric-wrap, .k-grouping-header, .k-pager-wrap, .k-textbox, .k-button, .k-progressbar, .k-draghandle, .k-state-highlight, .k-tabstrip-items .k-item, .k-panelbar .k-tabstrip-items .k-item, .km-pane-wrapper > .km-pane > .km-view > .km-content {
+            background-image: url(textures/highlight.png);
+            background-image: none,-webkit-linear-gradient(top,#0075ff 0,#0075ff 100%);
+            background-image: none,-moz-linear-gradient(top,#0075ff 0,#0075ff 100%);
+            background-image: none,-o-linear-gradient(top,#0075ff 0,#0075ff 100%);
+            background-image: none,linear-gradient(to bottom,#0075ff 0,#0075ff 100%);
+            background-position: 50% 50%;
+            background-color: #e3e3e3;
+            color: #fff;
+        }
+
+            .k-header, .k-grid-header-wrap, .k-grid .k-grouping-header, .k-grid-header, .k-pager-wrap, .k-pager-wrap .k-textbox, .k-pager-wrap .k-link, .k-grouping-header .k-group-indicator, .k-gantt-toolbar .k-state-default {
+                border-color: #e8eaee;
+                background-color: #0075ff;
+                color: #fff;
+            }
+
+        .modal {
+            display: none;
+            background-color: rgba(0, 0, 0, 0.77);
+        }
+
+        .k-block, .k-header, .k-grid-header, .k-toolbar, .k-grouping-header, .k-pager-wrap, .k-button, .k-draghandle, .k-treemap-tile, html .km-pane-wrapper .k-header {
+            background-color: #0075ff;
+            color: #fff;
+        }
+
+            .k-grid-header th.k-header > .k-link {
+                display: block;
+                min-height: 18px;
+                line-height: 18px;
+                margin: -0.5em -0.6em -0.4em -0.6em;
+                padding: .1em .1em .1em .1em;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                color: #fff;
+            }
+
+            .k-grid-header table, .k-grid-content table, .k-grid-footer table, .k-grid-content-locked > table {
+                table-layout: fixed;
+            }
+
+
+
+            .k-grid-toolbar:first-child, .k-grouping-header + .k-grid-toolbar {
+                border-width: 0 0 1px;
+                border-radius: 0px;
+                background-color: #d7eafa;
+                height: 10px;
+            }
+
+        .k-block, .k-header, .k-grid-header, .k-toolbar, .k-grouping-header, .k-pager-wrap, .k-button, .k-draghandle, .k-treemap-tile, html .km-pane-wrapper .k-header {
+            background-color: rgba(227, 227, 227, 0);
+        }
+
+        #txtFechaInicioProcFreezing .k-header, .k-grid-header, .k-toolbar, .k-dropdown-wrap, .k-picker-wrap, .k-numeric-wrap, .k-grouping-header, .k-pager-wrap, .k-textbox, .k-button, .k-progressbar, .k-draghandle, .k-autocomplete, .k-state-highlight, .k-tabstrip-items .k-item, .k-panelbar .k-tabstrip-items .k-item, .km-pane-wrapper > .km-pane > .km-view > .km-content {
+            background-image: url(textures/highlight.png);
+            background-image: none,-webkit-linear-gradient(top,#0075ff 0,#0075ff 100%);
+            background-image: none,-moz-linear-gradient(top,#0075ff 0,#0075ff 100%);
+            background-image: none,-o-linear-gradient(top,#0075ff 0,#0075ff 100%);
+            background-image: none,linear-gradient(to bottom,#0075ff 0,#0075ff 100%);
+            background-position: 50% 50%;
+            background-color: #ffffff;
+        }
+
+        .k-state-selected {
+            color: #FFFFFF;
+            background-color: #0075ff;
+            border-color: #0075ff;
+        }
+
+
+        .k-grid tr td {
+            border-bottom: 1px solid #eaeaea;
+            border-left: 1px solid #eaeaea;
+            border-style: solid;
+        }
+
+        tr {
+            height: 16px;
+            font-size: 13px;
+        }
+
+        .k-textbox, .k-autocomplete, .k-dropdown-wrap, .k-picker-wrap, .k-numeric-wrap {
+            border-width: 1px;
+            border-style: solid;
+            padding: 0 1.9em 0 0;
+            font-weight: bold;
+        }
+
+
+        .k-state-focused.k-state-selected, .k-list > .k-state-focused.k-state-selected, .k-listview > .k-state-focused.k-state-selected, td.k-state-focused.k-state-selected {
+            webkit-box-shadow: inset 0 0 3px 4px #0075ff;
+            box-shadow: inset 0 0 3px 4px #0075ff;
+        }
+
+        .k-state-selected, .k-state-selected:link, .k-state-selected:visited, .k-list > .k-state-selected, .k-list > .k-state-highlight, .k-panel > .k-state-selected, .k-ghost-splitbar-vertical, .k-ghost-splitbar-horizontal, .k-draghandle.k-state-selected:hover, .k-scheduler .k-scheduler-toolbar .k-state-selected, .k-scheduler .k-today.k-state-selected, .k-marquee-color {
+            color: #fff;
+            background-color: #0075ff;
+            border-color: #0075ff;
+        }
+        /** SPINNER CREATION **/
+        .loader {
+            position: relative;
+            text-align: center;
+            margin: 15px auto 35px auto;
+            z-index: 9999;
+            display: block;
+            width: 80px;
+            height: 80px;
+            border: 10px solid rgba(0, 0, 0, .3);
+            border-radius: 50%;
+            border-top-color: #000;
+            animation: spin 1s ease-in-out infinite;
+            -webkit-animation: spin 1s ease-in-out infinite;
+        }
+
+
+        /** MODAL STYLING **/
+        .modal-content {
+            border-radius: 0px;
+            box-shadow: 0 0 20px 8px rgba(0, 0, 0, 0.7);
+        }
+
+
+        [dir=ltr] .modal-lg, [dir=ltr] .modal-xl {
+            max-width: 950px;
+        }
+
+        a {
+            color: transparent;
+            text-decoration: none;
+        }
+
+        .clase:hover {
+            cursor: pointer;
+        }
+
+
+        .seleccionado {
+            background-color: #0075ff;
+            color: #fff;
+        }
+
+        .dseleccionado {
+            background-color: #fff;
+            color: #808080;
+        }
+    </style>
+
+}
+
+<div class="page__header page__header-nav mb-0">
+    <div class="container-fluid page__container">
+        <div class="navbar navbar-secondary navbar-light navbar-expand-sm p-0 d-none d-md-flex" id="secondaryNavbar">
+            <ul class="nav navbar-nav">
+                <li class="nav-item">
+                    <button style="color: #ffffff;background-color: #ff0200;font-size: 1.0rem;border: 0px #ff0200 solid;height: 33px;padding: 5px;cursor:pointer;" class="navbar-toggler navbar-toggler-custom d-flex mr-navbar" type="button" data-toggle="sidebar">
+                        Operaciones
+                    </button>
+                </li>
+                <li class="nav-item" data-controlmodulo="45833cdd-55db-4a67-a879-f1ae9353f8bf">
+                    <a href="@Url.Action("checking","gestionce",new {id= HttpContext.Current.Request.Cookies["_SubDominio_Business"].Value})" class="nav-link">Clientes</a>
+                </li>
+                <li class="nav-item" data-controlmodulo="9e69cfd8-b063-44df-a7f2-a3a10d1eb899" style="display:none;">
+                    <a class="nav-link " href="@Url.Action("posfitness","pos",new {id= HttpContext.Current.Request.Cookies["_SubDominio_Business"].Value})">Punto de venta</a>
+                </li>
+                <li class="nav-item" data-controlmodulo="7611dfbe-186f-4abe-8e2e-e64ad7281728" style="display:none;">
+                    <a class="nav-link" href="@Url.Action("caja","gestionce",new {id= HttpContext.Current.Request.Cookies["_SubDominio_Business"].Value})">Caja</a>
+                </li>
+                <li class="nav-item" data-controlmodulo="93c0d848-83aa-45eb-a83a-ded00a6b6e23" style="display:none;">
+                    <a class="nav-link" href="@Url.Action("nutricion","gestionce",new {id= HttpContext.Current.Request.Cookies["_SubDominio_Business"].Value})">Medidas y Nutrición</a>
+                </li>
+                <li class="nav-item" data-controlmodulo="947dc11f-3e14-4fe7-bedc-ae3d81219bee" style="display:none;">
+                    <a class="nav-link" href="@Url.Action("Index","inventariofit",new {id= HttpContext.Current.Request.Cookies["_SubDominio_Business"].Value})">Inventario</a>
+                </li>
+
+                <li class="nav-item" data-controlmodulo="39497bd3-94ab-4236-a1d4-4623d854f91e" style="display:none;">
+                    <a href="@Url.Action("agendacomercial","gestionce",new {id= HttpContext.Current.Request.Cookies["_SubDominio_Business"].Value})" class="nav-link">Agenda Comercial</a>
+                </li>
+                <li class="nav-item" data-controlmodulo="bbc035e6-68ea-4885-917f-005ad3fcfb66" style="display:none;">
+                    <a href="@Url.Action("metascomerciales","gestionce",new {id= HttpContext.Current.Request.Cookies["_SubDominio_Business"].Value})" class="nav-link">Metas</a>
+                </li>
+                <li class="nav-item" data-controlmodulo="e1eadd0d-39b3-498d-b09b-9b3b28610b9b" style="display:none;">
+                    <a href="@Url.Action("informesfit","gestionce",new {id= HttpContext.Current.Request.Cookies["_SubDominio_Business"].Value})" class="nav-link">Informes</a>
+                </li>
+                <li class="nav-item" data-controlmodulo="600dabf4-7dc3-4dc0-a0ba-74b782955e52" style="display:none;">
+                    <a class="nav-link" href="@Url.Action("pagospersonal","gestionce",new {id= HttpContext.Current.Request.Cookies["_SubDominio_Business"].Value})">Pagos</a>
+                </li>
+                <li class="nav-item" data-controlmodulo="b1f65597-fd27-46ca-90d0-a0f2f1039ef7" style="display:none;">
+                    <a class="nav-link" href="@Url.Action("finanzas","gestionce",new {id= HttpContext.Current.Request.Cookies["_SubDominio_Business"].Value})">Finanzas</a>
+                </li>
+                <li class="nav-item" data-controlmodulo="4c01e8de-9440-4927-a2f2-d6241d925c39" style="display:none;">
+                    <a class="nav-link" href="@Url.Action("estadisticas","gestionce",new {id= HttpContext.Current.Request.Cookies["_SubDominio_Business"].Value})">Estadísticas</a>
+                </li>
+
+            </ul>
+        </div>
+    </div>
+</div>
+
+<input id="hdCodigoHorarioClasesConfiguracion_CambiarAforo" type="hidden" value="" />
+<input id="hdCodigoHorarioClasesConfiguracion_Estado" type="hidden" value="" />
+<input id="hdListarPresencial_SalaMaquinas_HorarioTemporal_Configuracion_NroDia" type="hidden" value="0" />
+<input id="hdListarPresencial_SalaMaquinas_HorarioTemporal_Configuracion_HoraInicio" type="hidden" value="0" />
+<input id="hdListarPresencial_SalaMaquinas_HorarioTemporal_Configuracion_HoraFin" type="hidden" value="0" />
+<input id="hdCodigoSala_gestion" type="hidden" value="0" />
+<input id="hdCodigoSala_vista" type="hidden" value="0" />
+<input id="hdCodigoSala_personalizacion" type="hidden" value="0" />
+<input id="hdCodigoSala_desactivados" type="hidden" value="0" />
+
+<div class="container-fluid page__container" style="background-color:#e9ebee;">
+    <br />
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="card">
+                <div class="card-header card-header-tabs-basic nav" role="tablist" style="background-color: #fff;">
+                    <a href="#divIngresoHorarios" class="active" data-toggle="tab" role="tab" aria-controls="activity_all" aria-selected="true">1. Ingreso de horarios</a>
+                    <a href="#divProgramacionPersonalizada" onclick="uspListarSalaMaquinas_Presencial_personalizacion();" data-toggle="tab" role="tab" aria-controls="activity_all" aria-selected="true">2. Programación personalizada</a>
+                    <a href="#divHorariosDesactivados" onclick="uspListarSalaMaquinas_Presencial_desactivados();" data-toggle="tab" role="tab" aria-controls="activity_all" aria-selected="true">3. Horarios desactivados</a>
+                    <a href="#divMarca" onclick="ObtenerLogoColorEmpresa();" data-toggle="tab" role="tab" aria-controls="activity_all" aria-selected="true">4. Logo, color y mensaje</a>
+                    <a href="#divPisos" onclick="();" data-toggle="tab" role="tab" aria-controls="activity_all" aria-selected="true">5. Pisos</a>
+                </div>
+                <div class="card-body tab-content">
+                    <div class="tab-pane active show fade" id="divIngresoHorarios" style="">
+
+                        <div id="divSalasMaquinas" class="card-header card-header-tabs-basic nav" role="tablist" style="background-color: #fff36a;">
+                     
+                        </div>
+
+                        <input id="hdCodigoSala" type="hidden" value="100" />
+                        <button id="btnAbrirModalClase" style="display:none;" class="btn btn-primary active btn-block mg-b-10">Nuevo</button>
+
+                        <button data-toggle="modal" data-target="#modalConfirmarIngresoHorarios" class="btn btn-primary btn-block mg-b-10">Guardar cambios</button>
+                        <div class="row">
+                            <div class="col-lg-2">
+                                <div class="form-group form-group-sm">
+                                    <input id="txtDia_1_CodigoConfiguracionSalaFitness" type="hidden" value="" />
+                                    <label class="form-control-label"></label>
+                                    <select id="txtDia_1_Dia" style="width:90%;border-color: #c5c5c5;font-size:12px;color:#fff;background-color:#0075ff;" class="form-control form-control-sm" data-placeholder="" disabled>
+                                        <option selected value="2">Lunes</option>
+                                        <option value="3">Martes</option>
+                                        <option value="4">Miercoles</option>
+                                        <option value="5">Jueves</option>
+                                        <option value="6">Viernes</option>
+                                        <option value="7">Sabado</option>
+                                        <option value="1">Domingo</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-control-label">hora inicio: <span class="tx-danger">*</span></label>
+                                    <input id="txtDia_1_HoraInicio" style="width:90%;background-color:#fff36a;border-color: #c5c5c5;font-size:12px;" type="time" class="" placeholder="">
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-control-label">hora fin: <span class="tx-danger">*</span></label>
+                                    <input id="txtDia_1_HoraFin" style="width:90%;background-color:#fff36a;border-color: #c5c5c5;font-size:12px;" type="time" class="" placeholder="">
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-control-label">tiempo: 50,60,70,80<span class="tx-danger">*</span></label>
+                                    <input id="txtDia_1_Tiempo" onchange="eventCambioTiempo();" onkeypress="eventCambioTiempo();" onkeyup="eventCambioTiempo();" style="background-color:#fff36a;width:90%;border-color: #c5c5c5;font-size:12px;" class="form-control form-control-sm" type="text" value="" placeholder="">
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-control-label">aforo total: <span class="tx-danger">*</span></label>
+                                    <input id="txtDia_1_Plaza" onchange="eventCambioPlaza();" onkeypress="eventCambioPlaza();" onkeyup="eventCambioPlaza();" style="background-color:#fff36a;width:90%;border-color: #c5c5c5;font-size:12px;" class="form-control form-control-sm" type="text" value="" placeholder="">
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-control-label">intervalo: 5,10,15<span class="tx-danger">*</span></label>
+                                    <input id="txtDia_1_Minutos" onchange="eventCambioMinutos();" onkeypress="eventCambioMinutos();" onkeyup="eventCambioMinutos();" style="background-color:#fff36a;width:90%;border-color: #c5c5c5;font-size:12px;" class="form-control form-control-sm" type="text" value="" placeholder="">
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-control-label">nro horarios: <span class="tx-danger">*</span></label>
+                                    <input id="txtDia_1_Horarios" style="width:90%;border-color: #c5c5c5;font-size:12px;" class="form-control form-control-sm" type="text" value="" placeholder="" disabled title="Formula: nro horarios = tiempo / min intervarlo">
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-control-label">aforo x horario: <span class="tx-danger">*</span></label>
+                                    <input id="txtDia_1_AforoxHorarios" style="width:90%;border-color: #c5c5c5;font-size:12px;" class="form-control form-control-sm" type="text" value="" placeholder="" disabled title="Formula: aforo x horario = aforo total / nro horarios">
+                                </div>
+                            </div>
+                            <div class="col-lg-2">
+                                <div class="form-group form-group-sm">
+                                    <input id="txtDia_2_CodigoConfiguracionSalaFitness" type="hidden" value="" />
+                                    <label class="form-control-label"></label>
+                                    <select id="txtDia_2_Dia" style="width:90%;border-color: #c5c5c5;font-size:12px;color:#fff;background-color:#0075ff;" class="form-control form-control-sm" data-placeholder="" disabled>
+                                        <option value="2">Lunes</option>
+                                        <option selected value="3">Martes</option>
+                                        <option value="4">Miercoles</option>
+                                        <option value="5">Jueves</option>
+                                        <option value="6">Viernes</option>
+                                        <option value="7">Sabado</option>
+                                        <option value="1">Domingo</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-control-label">hora inicio : <span class="tx-danger">*</span></label>
+                                    <input id="txtDia_2_HoraInicio" style="width:90%;border-color: #c5c5c5;font-size:12px;" type="text" class="" placeholder="" disabled>
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-control-label">hora fin: <span class="tx-danger">*</span></label>
+                                    <input id="txtDia_2_HoraFin" style="width:90%;border-color: #c5c5c5;font-size:12px;" type="text" class="" placeholder="" disabled>
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-control-label">tiempo: 50,60,70,80<span class="tx-danger">*</span></label>
+                                    <input id="txtDia_2_Tiempo" onchange="eventCambioTiempo();" onkeypress="eventCambioTiempo();" onkeyup="eventCambioTiempo();" style="width:90%;border-color: #c5c5c5;font-size:12px;" class="form-control form-control-sm" type="text" value="" placeholder="" disabled>
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-control-label">aforo total: <span class="tx-danger">*</span></label>
+                                    <input id="txtDia_2_Plaza" style="width:90%;border-color: #c5c5c5;font-size:12px;" class="form-control form-control-sm" type="text" value="" placeholder="" disabled>
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-control-label">intervalo: 5,10,15<span class="tx-danger">*</span></label>
+                                    <input id="txtDia_2_Minutos" style="width:90%;border-color: #c5c5c5;font-size:12px;" class="form-control form-control-sm" type="text" value="" placeholder="" disabled>
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-control-label">nro horarios: <span class="tx-danger">*</span></label>
+                                    <input id="txtDia_2_Horarios" style="width:90%;border-color: #c5c5c5;font-size:12px;" class="form-control form-control-sm" type="text" value="" placeholder="" disabled>
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-control-label">aforo x horario: <span class="tx-danger">*</span></label>
+                                    <input id="txtDia_2_AforoxHorarios" style="width:90%;border-color: #c5c5c5;font-size:12px;" class="form-control form-control-sm" type="text" value="" placeholder="" disabled>
+                                </div>
+                            </div>
+                            <div class="col-lg-2">
+                                <div class="form-group form-group-sm">
+                                    <input id="txtDia_3_CodigoConfiguracionSalaFitness" type="hidden" value="" />
+                                    <label class="form-control-label"></label>
+                                    <select id="txtDia_3_Dia" style="width:90%;border-color: #c5c5c5;font-size:12px;color:#fff;background-color:#0075ff;" class="form-control form-control-sm" data-placeholder="" disabled>
+                                        <option value="2">Lunes</option>
+                                        <option value="3">Martes</option>
+                                        <option selected value="4">Miercoles</option>
+                                        <option value="5">Jueves</option>
+                                        <option value="6">Viernes</option>
+                                        <option value="7">Sabado</option>
+                                        <option value="1">Domingo</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-control-label">hora inicio : <span class="tx-danger">*</span></label>
+                                    <input id="txtDia_3_HoraInicio" style="width:90%;border-color: #c5c5c5;font-size:12px;" type="text" class="" placeholder="" disabled>
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-control-label">hora fin: <span class="tx-danger">*</span></label>
+                                    <input id="txtDia_3_HoraFin" style="width:90%;border-color: #c5c5c5;font-size:12px;" type="text" class="" placeholder="" disabled>
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-control-label">tiempo: 50,60,70,80<span class="tx-danger">*</span></label>
+                                    <input id="txtDia_3_Tiempo" onchange="eventCambioTiempo();" onkeypress="eventCambioTiempo();" onkeyup="eventCambioTiempo();" style="width:90%;border-color: #c5c5c5;font-size:12px;" class="form-control form-control-sm" type="text" value="" placeholder="" disabled>
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-control-label">aforo total: <span class="tx-danger">*</span></label>
+                                    <input id="txtDia_3_Plaza" style="width:90%;border-color: #c5c5c5;font-size:12px;" class="form-control form-control-sm" type="text" value="" placeholder="" disabled>
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-control-label">intervalo: 5,10,15<span class="tx-danger">*</span></label>
+                                    <input id="txtDia_3_Minutos" style="width:90%;border-color: #c5c5c5;font-size:12px;" class="form-control form-control-sm" type="text" value="" placeholder="" disabled>
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-control-label">nro horarios: <span class="tx-danger">*</span></label>
+                                    <input id="txtDia_3_Horarios" style="width:90%;border-color: #c5c5c5;font-size:12px;" class="form-control form-control-sm" type="text" value="" placeholder="" disabled>
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-control-label">aforo x horario: <span class="tx-danger">*</span></label>
+                                    <input id="txtDia_3_AforoxHorarios" style="width:90%;border-color: #c5c5c5;font-size:12px;" class="form-control form-control-sm" type="text" value="" placeholder="" disabled>
+                                </div>
+                            </div>
+                            <div class="col-lg-2">
+                                <div class="form-group form-group-sm">
+                                    <input id="txtDia_4_CodigoConfiguracionSalaFitness" type="hidden" value="" />
+                                    <label class="form-control-label"></label>
+                                    <select id="txtDia_4_Dia" style="width:90%;border-color: #c5c5c5;font-size:12px;color:#fff;background-color:#0075ff;" class="form-control form-control-sm" data-placeholder="" disabled>
+                                        <option value="2">Lunes</option>
+                                        <option value="3">Martes</option>
+                                        <option value="4">Miercoles</option>
+                                        <option selected value="5">Jueves</option>
+                                        <option value="6">Viernes</option>
+                                        <option value="7">Sabado</option>
+                                        <option value="1">Domingo</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-control-label">hora inicio : <span class="tx-danger">*</span></label>
+                                    <input id="txtDia_4_HoraInicio" style="width:90%;border-color: #c5c5c5;font-size:12px;" type="text" class="" placeholder="" disabled>
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-control-label">hora fin: <span class="tx-danger">*</span></label>
+                                    <input id="txtDia_4_HoraFin" style="width:90%;border-color: #c5c5c5;font-size:12px;" type="text" class="" placeholder="" disabled>
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-control-label">tiempo: 50,60,70,80<span class="tx-danger">*</span></label>
+                                    <input id="txtDia_4_Tiempo" onchange="eventCambioTiempo();" onkeypress="eventCambioTiempo();" onkeyup="eventCambioTiempo();" style="width:90%;border-color: #c5c5c5;font-size:12px;" class="form-control form-control-sm" type="text" value="" placeholder="" disabled>
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-control-label">aforo total: <span class="tx-danger">*</span></label>
+                                    <input id="txtDia_4_Plaza" style="width:90%;border-color: #c5c5c5;font-size:12px;" class="form-control form-control-sm" type="text" value="" placeholder="" disabled>
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-control-label">intervalo: 5,10,15<span class="tx-danger">*</span></label>
+                                    <input id="txtDia_4_Minutos" style="width:90%;border-color: #c5c5c5;font-size:12px;" class="form-control form-control-sm" type="text" value="" placeholder="" disabled>
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-control-label">nro horarios: <span class="tx-danger">*</span></label>
+                                    <input id="txtDia_4_Horarios" style="width:90%;border-color: #c5c5c5;font-size:12px;" class="form-control form-control-sm" type="text" value="" placeholder="" disabled>
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-control-label">aforo x horario: <span class="tx-danger">*</span></label>
+                                    <input id="txtDia_4_AforoxHorarios" style="width:90%;border-color: #c5c5c5;font-size:12px;" class="form-control form-control-sm" type="text" value="" placeholder="" disabled>
+                                </div>
+                            </div>
+                            <div class="col-lg-2">
+                                <div class="form-group form-group-sm">
+                                    <input id="txtDia_5_CodigoConfiguracionSalaFitness" type="hidden" value="" />
+                                    <label class="form-control-label"></label>
+                                    <select id="txtDia_5_Dia" style="width:90%;border-color: #c5c5c5;font-size:12px;color:#fff;background-color:#0075ff;" class="form-control form-control-sm" data-placeholder="" disabled>
+                                        <option value="2">Lunes</option>
+                                        <option value="3">Martes</option>
+                                        <option value="4">Miercoles</option>
+                                        <option value="5">Jueves</option>
+                                        <option selected value="6">Viernes</option>
+                                        <option value="7">Sabado</option>
+                                        <option value="1">Domingo</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-control-label">hora inicio : <span class="tx-danger">*</span></label>
+                                    <input id="txtDia_5_HoraInicio" style="width:90%;border-color: #c5c5c5;font-size:12px;" type="text" class="" placeholder="" disabled>
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-control-label">hora fin: <span class="tx-danger">*</span></label>
+                                    <input id="txtDia_5_HoraFin" style="width:90%;border-color: #c5c5c5;font-size:12px;" type="text" class="" placeholder="" disabled>
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-control-label">tiempo: 50,60,70,80<span class="tx-danger">*</span></label>
+                                    <input id="txtDia_5_Tiempo" onchange="eventCambioTiempo();" onkeypress="eventCambioTiempo();" onkeyup="eventCambioTiempo();" style="width:90%;border-color: #c5c5c5;font-size:12px;" class="form-control form-control-sm" type="text" value="" placeholder="" disabled>
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-control-label">aforo total: <span class="tx-danger">*</span></label>
+                                    <input id="txtDia_5_Plaza" style="width:90%;border-color: #c5c5c5;font-size:12px;" class="form-control form-control-sm" type="text" value="" placeholder="" disabled>
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-control-label">intervalo: 5,10,15<span class="tx-danger">*</span></label>
+                                    <input id="txtDia_5_Minutos" style="width:90%;border-color: #c5c5c5;font-size:12px;" class="form-control form-control-sm" type="text" value="" placeholder="" disabled>
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-control-label">nro horarios: <span class="tx-danger">*</span></label>
+                                    <input id="txtDia_5_Horarios" style="width:90%;border-color: #c5c5c5;font-size:12px;" class="form-control form-control-sm" type="text" value="" placeholder="" disabled>
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-control-label">aforo x horario: <span class="tx-danger">*</span></label>
+                                    <input id="txtDia_5_AforoxHorarios" style="width:90%;border-color: #c5c5c5;font-size:12px;" class="form-control form-control-sm" type="text" value="" placeholder="" disabled>
+                                </div>
+                            </div>
+                            <div class="col-lg-2">
+                                <div class="form-group form-group-sm">
+                                    <input id="txtDia_6_CodigoConfiguracionSalaFitness" type="hidden" value="" />
+                                    <label class="form-control-label"></label>
+                                    <select id="txtDia_6_Dia" style="width:90%;border-color: #c5c5c5;font-size:12px;color:#fff;background-color:#0075ff;" class="form-control form-control-sm" data-placeholder="">
+                                        <option value="2">Lunes</option>
+                                        <option value="3">Martes</option>
+                                        <option value="4">Miercoles</option>
+                                        <option value="5">Jueves</option>
+                                        <option value="6">Viernes</option>
+                                        <option selected value="7">Sabado</option>
+                                        <option value="1">Domingo</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-control-label">hora inicio : <span class="tx-danger">*</span></label>
+                                    <input id="txtDia_6_HoraInicio" style="width:90%;border-color: #c5c5c5;font-size:12px;" type="text" class="" placeholder="">
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-control-label">hora fin: <span class="tx-danger">*</span></label>
+                                    <input id="txtDia_6_HoraFin" style="width:90%;border-color: #c5c5c5;font-size:12px;" type="text" class="" placeholder="">
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-control-label">tiempo: 50,60,70,80<span class="tx-danger">*</span></label>
+                                    <input id="txtDia_6_Tiempo" onchange="eventCambioTiempo();" onkeypress="eventCambioTiempo();" onkeyup="eventCambioTiempo();" style="width:90%;border-color: #c5c5c5;font-size:12px;" class="form-control form-control-sm" type="text" value="" placeholder="">
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-control-label">aforo total: <span class="tx-danger">*</span></label>
+                                    <input id="txtDia_6_Plaza" style="width:90%;border-color: #c5c5c5;font-size:12px;" class="form-control form-control-sm" type="text" value="" placeholder="">
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-control-label">intervalo: 5,10,15<span class="tx-danger">*</span></label>
+                                    <input id="txtDia_6_Minutos" style="width:90%;border-color: #c5c5c5;font-size:12px;" class="form-control form-control-sm" type="text" value="" placeholder="">
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-control-label">nro horarios: <span class="tx-danger">*</span></label>
+                                    <input id="txtDia_6_Horarios" style="width:90%;border-color: #c5c5c5;font-size:12px;" class="form-control form-control-sm" type="text" value="" placeholder="">
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-control-label">aforo x horario: <span class="tx-danger">*</span></label>
+                                    <input id="txtDia_6_AforoxHorarios" style="width:90%;border-color: #c5c5c5;font-size:12px;" class="form-control form-control-sm" type="text" value="" placeholder="">
+                                </div>
+                            </div>
+                            <div class="col-lg-2">
+                                <div class="form-group form-group-sm">
+                                    <input id="txtDia_7_CodigoConfiguracionSalaFitness" type="hidden" value="" />
+                                    <label class="form-control-label"></label>
+                                    <select id="txtDia_7_Dia" style="width:90%;border-color: #c5c5c5;font-size:12px;color:#fff;background-color:#0075ff;" class="form-control form-control-sm" data-placeholder="">
+                                        <option value="2">Lunes</option>
+                                        <option value="3">Martes</option>
+                                        <option value="4">Miercoles</option>
+                                        <option value="5">Jueves</option>
+                                        <option value="6">Viernes</option>
+                                        <option value="7">Sabado</option>
+                                        <option selected value="1">Domingo</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-control-label">hora inicio : <span class="tx-danger">*</span></label>
+                                    <input id="txtDia_7_HoraInicio" style="width:90%;border-color: #c5c5c5;font-size:12px;" type="text" class="" placeholder="">
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-control-label">hora fin: <span class="tx-danger">*</span></label>
+                                    <input id="txtDia_7_HoraFin" style="width:90%;border-color: #c5c5c5;font-size:12px;" type="text" class="" placeholder="">
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-control-label">tiempo: 50,60,70,80 <span class="tx-danger">*</span></label>
+                                    <input id="txtDia_7_Tiempo" onchange="eventCambioTiempo();" onkeypress="eventCambioTiempo();" onkeyup="eventCambioTiempo();" style="width:90%;border-color: #c5c5c5;font-size:12px;" class="form-control form-control-sm" type="text" value="0" placeholder="">
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-control-label">aforo total: <span class="tx-danger">*</span></label>
+                                    <input id="txtDia_7_Plaza" style="width:90%;border-color: #c5c5c5;font-size:12px;" class="form-control form-control-sm" type="text" value="" placeholder="">
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-control-label">intervalo: 5,10,15<span class="tx-danger">*</span></label>
+                                    <input id="txtDia_7_Minutos" style="width:90%;border-color: #c5c5c5;font-size:12px;" class="form-control form-control-sm" type="text" value="" placeholder="">
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-control-label">nro horarios: <span class="tx-danger">*</span></label>
+                                    <input id="txtDia_7_Horarios" style="width:90%;border-color: #c5c5c5;font-size:12px;" class="form-control form-control-sm" type="text" value="" placeholder="">
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-control-label">aforo x horario: <span class="tx-danger">*</span></label>
+                                    <input id="txtDia_7_AforoxHorarios" style="width:90%;border-color: #c5c5c5;font-size:12px;" class="form-control form-control-sm" type="text" value="" placeholder="">
+                                </div>
+                            </div>
+                        </div><!-- row -->
+
+                    </div>
+                    <div class="tab-pane fade" id="divProgramacionPersonalizada">
+
+                        <div class="card">
+
+                            <div id="divSalasMaquinas_personalizacion" class="card-header card-header-tabs-basic nav" role="tablist" style="background-color: #fff36a;">
+
+                            </div>
+
+                            <div class="card-header card-header-tabs-basic nav" role="tablist" style="background-color:#CECED2;">
+                                <a href="#" id="controlHtrml_a_DiaLunes" onclick="uspListarPresencial_SalaMaquinas_HorarioTemporal_Configuracion(2);" class="active" data-toggle="tab" role="tab" aria-controls="activity_all" aria-selected="true" style="color:#000;">LUNES</a>
+                                <a href="#" onclick="uspListarPresencial_SalaMaquinas_HorarioTemporal_Configuracion(3);" data-toggle="tab" role="tab" aria-selected="false" class="" style="color:#000;">MARTES</a>
+                                <a href="#" onclick="uspListarPresencial_SalaMaquinas_HorarioTemporal_Configuracion(4);" data-toggle="tab" role="tab" aria-selected="false" class="" style="color:#000;">MIERCOLES</a>
+                                <a href="#" onclick="uspListarPresencial_SalaMaquinas_HorarioTemporal_Configuracion(5);" data-toggle="tab" role="tab" aria-selected="false" class="" style="color:#000;">JUEVES</a>
+                                <a href="#" onclick="uspListarPresencial_SalaMaquinas_HorarioTemporal_Configuracion(6);" data-toggle="tab" role="tab" aria-selected="false" class="" style="color:#000;">VIERNES</a>
+                                <a href="#" onclick="uspListarPresencial_SalaMaquinas_HorarioTemporal_Configuracion(7);" data-toggle="tab" role="tab" aria-selected="false" class="" style="color:#000;">SABADO</a>
+                                <a href="#" onclick="uspListarPresencial_SalaMaquinas_HorarioTemporal_Configuracion(1);" data-toggle="tab" role="tab" aria-selected="false" class="" style="color:#000;">DOMINGO</a>
+                            </div>
+                            <div class="row">
+
+                                <div class="col-lg-12" style="display:none;">
+                                    <div class="card clear-shadow">
+                                        <div class="bg-soft-light-gray card-header card-header-tabs-basic nav" role="tablist">
+                                            <a href="#activity_all" class="active" data-toggle="tab" role="tab" aria-selected="true">vista normal</a>
+                                            <a href="#activity_purchases" data-toggle="tab" role="tab" aria-selected="false" class="">vista lista</a>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-2">
+                                    <b style="font-size:10px;padding-left: 12px;text-align:initial;">👇Dale clic a un horario referencial:👇</b>
+                                    <div class="row card-group-row" id="divHorariSalaMaquinas" style="padding: 10px;">
+
+                                    </div>
+                                </div>
+                                <div class="col-lg-10" style="padding: 10px;">
+                                    <div id="gridClases" class="row card-group-row">
+
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+
+
+                    </div>
+                    <div class="tab-pane fade" id="divHorariosDesactivados">
+
+                        <div id="divSalasMaquinas_desactivados" class="card-header card-header-tabs-basic nav" role="tablist" style="background-color: #fff36a;">
+
+                        </div>
+
+                        <div id="gridClasesInactivas" class="row card-group-row">
+
+                        </div>
+                    </div>
+                    <div class="tab-pane fade" id="divMarca">
+                        <div class="alert alert-dark" role="alert">
+                            <strong>Nota - </strong> El logo es para la plataforma web de reservas. <a href="@Url.Action("login", "pg", new { id = HttpContext.Current.Request.Cookies["_SubDominio_Business"].Value })" target="_blank" style="color:#0075ff;font-weight:bold;" id="linkPLataforma">VER PLATAFORMA WEB DE RESERVA DE CITAS</a>
+                        </div>
+
+                        <div class="row" style="padding:10px;">
+                            <div class="col-lg-4">
+                                <div class="form-group">
+                                    <img id="imgLogoPlataforma" src="" class="img-fluid img-thumbnail" alt="">
+                                </div>
+                                <div class="form-group mg-t-2">
+                                    <div class="custom-file">
+                                        <input type="file" class="custom-file-input" style="width:100%;" id="buscarImagen">
+                                        <label class="custom-file-label" for="buscarImagen">Buscar logo tamaño maximo es 1200x1200</label>
+                                    </div><!-- custom-file -->
+                                </div>
+                                <div class="form-group mg-t-2">
+                                    <div class="input-group input-group-sm input-group-merge">
+                                        <input id="txtDetalle" type="text" class="form-control form-control-prepended" placeholder="Escriba Dirección" style="width:100%;font-weight:bold;" onkeypress="return validarCamposCadena(event)">
+                                        <div class="input-group-prepend">
+                                            <div class="input-group-text">
+                                                Detalle foto:
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <input type="hidden" id="hdheight_imagen" value="0" />
+                                    <input type="hidden" id="hdwidth_imagen" value="0" />
+                                </div>
+                                <div class="form-group mg-t-2">
+                                    <button class="btn btn-primary bd-0" onclick="javascript:guardarlogo();">Guardar logo</button>
+
+                                </div>
+
+                            </div><!-- col-4 -->
+                            <div class="col-lg-4">
+                                <div class="form-group">
+                                    <b style="color:#000;font-size:18px;">Seleccionar color: </b> <br />
+                                    <input id="txtColorPrincipalPagina" type="color" value="" style="height:40px;width:200px;" />
+                                </div>
+                                <div class="form-group">
+                                    <button class="btn btn-primary bd-0" onclick="javascript:uspActualizarEdicionPaginaWeb();">Guardar color</button>
+                                </div>
+                            </div>
+                            <div class="col-lg-4">
+                                <div class="form-group">
+                                    <b style="color:#000;font-size:18px;">Normativa: </b> <br />
+                                    <textarea id="txtNormativaPrincipalPagina" rows="3" class="form-control" placeholder=""></textarea>
+
+                                </div>
+                                <div class="form-group">
+                                    <b style="color:#000;font-size:18px;">Notas: </b> <br />
+                                    <textarea id="txtNotasPrincipalPagina" rows="3" class="form-control" placeholder=""></textarea>
+
+                                </div>
+                                <div class="form-group">
+                                    <b style="color:#000;font-size:18px;">Minutos máximo a cancelar reserva: </b> <br />
+                                    <input id="txtMinutosCancelarReservaPrincipalPagina" style="width:100%;font-size:18px;" class="form-control form-control-sm" type="text" value="" placeholder="">
+
+                                </div>
+                                <div class="form-group">
+                                    <button class="btn btn-primary bd-0" onclick="javascript:uspActualizarEdicionPaginaWeb();">Guardar</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tab-pane fade" id="divPisos">
+
+                        <button class="btn btn-primary" style="" data-toggle="modal" data-target="#modalAgregarSalaMaquina">AGREGAR SALA</button>
+                        <br /><br />
+                        <div id="gridSalasMaquinas">
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="slim-mainpanel" style="display:none;">
+    <div class="slim-mainpanel">
+        <div class="container">
+
+            <button id="btnAbrirModalClase" style="display:none;" class="btn btn-primary active btn-block mg-b-10" data-toggle="modal" data-target="#modalClase">Nuevo</button>
+
+            <div class="tab-content" style="padding: 3px; height: calc(100vh - 90px); overflow-y: hidden; overflow-x: hidden;">
+                <div id="divCalendarioClasesHorario" style="width: 100%; /*width: calc(99% - 3px); */ float: right; height: calc(100vh - 95px); padding-left: 2px;">
+                    <div style="width: 100%; height: calc(100vh - 95px); margin: 0px; padding: 5px 5px 5px 5px;">
+                        <div class="tab-content" style="padding: 2px;">
+                            <div id='' style="margin-left: 0px;">
+                                <div id='calendario' style="width: 100%;"></div>
+                                <div style='clear: both'></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div><!-- slim-mainpanel -->
+    </div>
+</div>
+
+<div id="modalClase" class="modal fade">
+    <div class="modal-dialog modal" style="width:950px;" role="document">
+        <div class="modal-content tx-size-sm">
+            <div class="modal-header pd-x-20">
+                <h6 class="tx-14 mg-b-0 tx-uppercase tx-inverse tx-bold">SALA FITNESS ó MAQUINAS</h6>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <input id="txtProfesor_Accion" type="hidden" value="N" />
+            <input id="txtProfesor_CodigoProfesional" type="hidden" value="" />
+            <div class="modal-body pd-10">
+                <div class="row row-sm mg-t-5">
+                    <div class="col-lg-12 mg-t-5 mg-lg-t-0">
+                        <div class="section-wrapper">
+                            <label class="section-title">PASO 1 : HORARIO</label>
+
+                            <div class="form-layout form-layout-4">
+                                <div class="row">
+                                    <label class="col-sm-4 form-control-label">Disciplina: <span class="tx-danger">*</span></label>
+                                    <div class="col-sm-8 mg-t-10 mg-sm-t-0">
+                                        <input type="hidden" value="" id="hdCodigoDisciplinaSala" />
+                                        <select id="txtClase_Disciplina" onchange="eventChange_DisciplinaSala_Presencial()" class="form-control form-control-sm" data-placeholder=""></select>
+                                    </div>
+                                </div><!-- row -->
+                                <div class="row mg-t-20">
+                                    <label class="col-sm-4 form-control-label">Nro de Plazas: <span class="tx-danger">*</span></label>
+                                    <div class="col-sm-8 mg-t-10 mg-sm-t-0">
+                                        <input id="txtClase_NroPlaza" type="text" class="form-control form-control-sm" placeholder="">
+                                    </div>
+                                </div>
+                                <div class="row mg-t-20">
+                                    <label class="col-sm-4 form-control-label">Día: <span class="tx-danger">*</span></label>
+                                    <div class="col-sm-8 mg-t-10 mg-sm-t-0">
+                                        <select id="txtClase_Dia" class="form-control form-control-sm" data-placeholder="" disabled>
+                                            <option selected value="2">Lunes</option>
+                                            <option value="3">Martes</option>
+                                            <option value="4">Miercoles</option>
+                                            <option value="5">Jueves</option>
+                                            <option value="6">Viernes</option>
+                                            <option value="7">Sabado</option>
+                                            <option value="1">Domingo</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="row mg-t-20">
+                                    <label class="col-sm-4 form-control-label">hora inicio: <span class="tx-danger">*</span></label>
+                                    <div class="col-sm-8 mg-t-10 mg-sm-t-0">
+                                        <input id="txtClase_HoraInicio" type="text" class="form-control form-control-sm" placeholder="">
+                                    </div>
+                                </div>
+                                <div class="row mg-t-20">
+                                    <label class="col-sm-4 form-control-label">hora fin: <span class="tx-danger">*</span></label>
+                                    <div class="col-sm-8 mg-t-10 mg-sm-t-0">
+                                        <input id="txtClase_HoraFin" type="text" class="form-control form-control-sm" placeholder="">
+                                    </div>
+                                </div>
+                            </div><!-- form-layout -->
+                        </div><!-- section-wrapper -->
+                    </div><!-- col-6 -->
+                    <div class="col-lg-6 mg-t-20 mg-lg-t-0" style="display:none;">
+                        <div class="section-wrapper">
+                            <label class="section-title">(OPCIONAL) : AGREGA NUEVAS DISCIPLINAS</label>
+
+                            <div class="form-layout form-layout-5">
+                                <div class="row">
+                                    <label class="col-sm-4 form-control-label">Nombre Disciplina:<span class="tx-danger">*</span></label>
+                                    <div class="col-sm-8 mg-t-10 mg-sm-t-0">
+                                        <input id="txtDisciplina_Nombre" type="text" class="form-control" placeholder="">
+                                    </div>
+                                </div><!-- row -->
+                                <div class="row mg-t-20">
+                                    <label class="col-sm-4 form-control-label">Plazas:<span class="tx-danger">*</span></label>
+                                    <div class="col-sm-8 mg-t-10 mg-sm-t-0">
+                                        <input id="txtDisciplina_Plazas" type="text" class="form-control" placeholder="">
+                                    </div>
+                                </div>
+                                <div class="row mg-t-20">
+                                    <label class="col-sm-4 form-control-label">Color:<span class="tx-danger">*</span></label>
+                                    <div class="col-sm-8 mg-t-10 mg-sm-t-0">
+                                        <input id="txtDisciplina_Color" type="color" value="#ff3b00" disabled class="form-control" style="height: 50px;" placeholder="Enter lastname">
+                                    </div>
+                                </div><!-- row -->
+                                <div class="row mg-t-20">
+                                    <label class="col-sm-4 form-control-label"><span class="tx-danger">*</span></label>
+                                    <div class="col-sm-8 mg-t-10 mg-sm-t-0">
+                                        <button onclick="uspRegistrarDisciplinaSala_Presencial();" class="btn btn-outline-primary btn-block mg-b-10">Guardar Disciplina (Opcional)</button>
+                                    </div>
+                                </div><!-- row -->
+                            </div><!-- form-layout -->
+                        </div><!-- section-wrapper -->
+                    </div><!-- col-6 -->
+                </div>
+
+
+            </div><!-- modal-body -->
+            <div class="modal-footer">
+                <input type="hidden" value="" id="hdCodigoHorarioClasesConfiguracion" />
+                <button onclick="uspRegistrarPresencial_HorarioClasesConfiguracion();" type="button" class="btn btn-primary">Guardar Clase</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+            </div>
+        </div>
+    </div><!-- modal-dialog -->
+</div><!-- modal -->
+
+<div id="modalConfirmarIngresoHorarios" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="modal-small-title" style="padding-right: 17px;" aria-modal="true">
+    <div class="modal-dialog modal-sm" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="modal-small-title">Mensaje importante</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div> <!-- // END .modal-header -->
+            <div class="modal-body">
+                <p>¿Estas seguro de cambiar el horario semanal?</p>
+                <p>Esta opción modifica los horarios de toda la semana</p>
+            </div> <!-- // END .modal-body -->
+            <div class="modal-footer">
+                <button onclick="CancelarModalConfirmarIngresoHorarios();" type="button" class="btn btn-light" data-dismiss="modal">Cancelar</button>
+                <button onclick="EliminarHorarioXHorasTemporal();" type="button" class="btn btn-primary">Si, guardar cambios</button>
+            </div> <!-- // END .modal-footer -->
+        </div> <!-- // END .modal-content -->
+    </div> <!-- // END .modal-dialog -->
+</div>
+
+<div id="modalCambiarAforo" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="modal-small-title" style="padding-right: 17px;" aria-modal="true">
+    <div class="modal-dialog modal-sm" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="modal-small-title">Cambiar nro de aforo</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close" onclick="CancelarmodalCambiarAforo();">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div> <!-- // END .modal-header -->
+            <div class="modal-body">
+                <p style="color:#0075ff;font-weight: bold;font-size: 22px;">¿Estas seguro de cambiar el aforo de este horario?</p>
+                <p>Ingrese o modifiqué la cantidad</p>
+                <div class="form-group mg-t-2">
+                    <div class="input-group input-group-sm input-group-merge">
+                        <input id="txtCambiarAforo" type="text" class="form-control form-control-prepended" placeHolder="Ingrese aforo" style="width:100%;font-weight:bold;font-size: 30px;" />
+                        <div class="input-group-prepend">
+                            <div class="input-group-text">
+                                AFORO:
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div> <!-- // END .modal-body -->
+            <div class="modal-footer">
+                <button onclick="CancelarmodalCambiarAforo();" type="button" class="btn btn-light" data-dismiss="modal">Cancelar</button>
+                <button onclick="uspActualizarPresencial_HorarioClasesConfiguracion_CambiarAforo();" type="button" class="btn btn-primary">Si, guardar cambios</button>
+            </div> <!-- // END .modal-footer -->
+        </div> <!-- // END .modal-content -->
+    </div> <!-- // END .modal-dialog -->
+</div>
+
+<div id="modalActivarHorario" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="modal-small-title" style="padding-right: 17px;" aria-modal="true">
+    <div class="modal-dialog modal-sm" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="modal-small-title">Activar horario</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close" onclick="CancelarmodalActivarHorario();">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div> <!-- // END .modal-header -->
+            <div class="modal-body">
+                <p style="color:red;font-weight: bold;font-size: 22px;">¿Estas seguro de activar este horario?</p>
+            </div> <!-- // END .modal-body -->
+            <div class="modal-footer">
+                <button onclick="CancelarmodalActivarHorario();" type="button" class="btn btn-light" data-dismiss="modal">Cancelar</button>
+                <button style="background-color:red;color:#fff;border:1px solid red;" onclick="uspActualizarPresencial_HorarioClasesConfiguracion_Activar();" type="button" class="btn btn-primary">Si, activar horario</button>
+            </div> <!-- // END .modal-footer -->
+        </div> <!-- // END .modal-content -->
+    </div> <!-- // END .modal-dialog -->
+</div>
+
+<div id="modaldesactivarHorario" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="modal-small-title" style="padding-right: 17px;" aria-modal="true">
+    <div class="modal-dialog modal-sm" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="modal-small-title">Desactivar horario</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close" onclick="CancelarmodaldesactivarHorario();">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div> <!-- // END .modal-header -->
+            <div class="modal-body">
+                <p style="color:#0075ff;font-weight: bold;font-size: 22px;">¿Estas seguro de desactivar este horario?</p>
+            </div> <!-- // END .modal-body -->
+            <div class="modal-footer">
+                <button onclick="CancelarmodaldesactivarHorario();" type="button" class="btn btn-light" data-dismiss="modal">Cancelar</button>
+                <button onclick="uspActualizarPresencial_HorarioClasesConfiguracion_Desactivar();" type="button" class="btn btn-primary">Si, desactivar horario</button>
+            </div> <!-- // END .modal-footer -->
+        </div> <!-- // END .modal-content -->
+    </div> <!-- // END .modal-dialog -->
+</div>
+
+<div id="modalClasesMaquinas" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="modal-large-title" style="padding-right: 17px;">
+    <div class="modal-dialog modal-lg" role="document" style="margin-top: 58px;">
+        <div class="modal-content">
+            <div class="modal-header">
+
+            </div> <!-- // END .modal-header -->
+            <div class="modal-body">
+                <h5 style="color:red;font-weight:bold;">tienes horarios en maquinas que tienen reservas, no podemos registrar los nuevos horarios que estas creando.</h5>
+                <h6>¿Quieres eliminar las clases de maquinas vigentes y tambien las que tienen reservas?</h6>
+                <div class="form-row">
+                    <div class="col-12 col-md-12 mb-3">
+                        <div class="custom-control custom-checkbox">
+                            <input class="custom-control-input" type="checkbox" value="" id="chkConfirmarEliminarHorariosMaquinas">
+                            <label class="custom-control-label" for="chkConfirmarEliminarHorariosMaquinas">
+                                Estoy de <b style="color:red;">acuerdo</b> y soy consciente que las clases de maquinas y reservas que estan vigentes se eliminarán definitamente sin poder recuperar esa información, tambien de avisar a mis clientes que deben volver a reservas sus clases en otro horario.
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="col-5 col-md-5 mb-3">
+                        <button type="button" onclick="uspDeshabilitarTodoPresencial_SalaMaquinas_SALAMAQUINASTIEMPOREAL();" class="btn btn-primary">Eliminar horarios y reservas definitivamente</button>
+                    </div>
+                    <div class="col-7 col-md-7 mb-3">
+                        <button onclick="event_cerrarmMdalClasesMaquinas();" type="button" class="btn btn-light" data-dismiss="modal">Cancelar</button>
+                    </div>
+                </div>
+                <table style="width:100%;">
+                    <tr>
+                        <td style="width:20%"></td>
+                        <td style="width:20%"></td>
+                        <td style="width:20%"></td>
+                        <td style="width:40%"></td>
+                    </tr>
+                </table>
+                <div id="gvListaClasesMaquinas" style="height:350px; overflow: auto;"></div>
+            </div> <!-- // END .modal-body -->
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" style="display:none;">Save changes</button>
+            </div> <!-- // END .modal-footer -->
+        </div> <!-- // END .modal-content -->
+    </div> <!-- // END .modal-dialog -->
+</div>
+
+<div id="modalAgregarClaseMaquinas" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="modal-small-title" style="padding-right: 17px;" aria-modal="true">
+    <div class="modal-dialog modal-sm" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="modal-small-title">nueva clase de maquinas</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close" onclick="CancelarmodalAgregarClaseMaquinas();">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div> <!-- // END .modal-header -->
+            <div class="modal-body">
+                <div class="form-group mg-t-2">
+
+                </div>
+                <div class="form-group mg-t-2">
+                    <div class="input-group input-group-sm input-group-merge">
+                        <input id="txtAforo_ClaseMaquinas" type="text" class="form-control form-control-prepended" placeHolder="Ingrese aforo" style="width:100%;font-weight:bold;font-size: 30px;" />
+                        <div class="input-group-prepend">
+                            <div class="input-group-text">
+                                AFORO:
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div> <!-- // END .modal-body -->
+            <div class="modal-footer">
+                <button onclick="CancelarmodalAgregarClaseMaquinas();" type="button" class="btn btn-light" data-dismiss="modal">Cancelar</button>
+                <button onclick="();" type="button" class="btn btn-primary">Si, agregar clase</button>
+            </div> <!-- // END .modal-footer -->
+        </div> <!-- // END .modal-content -->
+    </div> <!-- // END .modal-dialog -->
+</div>
+
+<div id="modalAgregarSalaMaquina" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="modal-small-title" style="padding-right: 17px;" aria-modal="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="modal-small-title">agregar sala</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close" onclick="CancelarmodalAgregarSalaMaquina();">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div> <!-- // END .modal-header -->
+            <div class="modal-body">
+                <p>Ingrese el nombre de la sala:</p>
+                <div class="form-group mg-t-2">
+                    <div class="input-group input-group-sm input-group-merge">
+                        <input id="txtGestionSalaMaquina_Descripcion" type="text" class="form-control form-control-prepended" placeHolder="Ingrese nombre de sala" style="width:100%;font-weight:bold;font-size: 30px;" />
+                        <div class="input-group-prepend">
+                            <div class="input-group-text">
+                                NOMBRE:
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div> <!-- // END .modal-body -->
+            <div class="modal-footer">
+                <button onclick="CancelarmodalAgregarSalaMaquina();" type="button" class="btn btn-light" data-dismiss="modal">Cancelar</button>
+                <button onclick="uspRegistrarSala_Presencial();" type="button" class="btn btn-primary">Guardar</button>
+            </div> <!-- // END .modal-footer -->
+        </div> <!-- // END .modal-content -->
+    </div> <!-- // END .modal-dialog -->
+</div>
+
+<div id="modalActualizarNombreSala" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="modal-small-title" style="padding-right: 17px;" aria-modal="true">
+    <div class="modal-dialog modal-sm" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="modal-small-title"></h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close" onclick="event_cancelarNombreSala();">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div> <!-- // END .modal-header -->
+            <div class="modal-body">
+                <h5 style="font-weight:bold;">Ingrese el nuevo nombre:</h5>
+                <div class="form-group">
+                    <div class="row row-xs">
+                        <div class="col-sm">
+                            <input id="txtSala_NuevoNombre" type="text" style="font-size:20px;" name="Descripcion" class="form-control form-control-sm" placeholder="Ingrese aqui...">
+                        </div><!-- col -->
+                    </div><!-- row -->
+                </div>
+            </div> <!-- // END .modal-body -->
+            <div class="modal-footer">
+                <button onclick="event_cancelarNombreSala();" type="button" class="btn btn-light" data-dismiss="modal">Cancelar</button>
+                <button onclick="uspActualizarSala_Presencial();" type="button" class="btn btn-primary">Actualizar</button>
+            </div> <!-- // END .modal-footer -->
+        </div> <!-- // END .modal-content -->
+    </div> <!-- // END .modal-dialog -->
+</div>
+
+<div id="modaldesactivarsala" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="modal-small-title" style="padding-right: 17px;" aria-modal="true">
+    <div class="modal-dialog modal-sm" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="modal-small-title"></h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close" onclick="event_cancelarDesactivarSala();">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div> <!-- // END .modal-header -->
+            <div class="modal-body">
+                <h5 style="color:red;font-weight:bold;">¡Esta sala puede tener clases con reservas!</h5>
+                <h6>¿Quieres eliminar esta sala?</h6>
+                <div class="form-row">
+                    <div class="col-12 col-md-12 mb-3">
+                        <div class="custom-control custom-checkbox">
+                            <input class="custom-control-input" type="checkbox" value="" id="chkConfirmarEliminarSala">
+                            <label class="custom-control-label" for="chkConfirmarEliminarSala">
+                                Estoy de <b style="color:red;">acuerdo</b> y soy consciente, que antes de eliminar la sala debo eliminar todas sus clases.
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            </div> <!-- // END .modal-body -->
+            <div class="modal-footer">
+                <button onclick="event_cancelarDesactivarSala();" type="button" class="btn btn-light" data-dismiss="modal">Cancelar</button>
+                <button onclick="uspEliminarSala_Presencial();" type="button" class="btn btn-primary">Si, eliminar sala definitivamente</button>
+            </div> <!-- // END .modal-footer -->
+        </div> <!-- // END .modal-content -->
+    </div> <!-- // END .modal-dialog -->
+</div>
+
+<div class="modal fade" id="loadMe" tabindex="-1" role="dialog" aria-labelledby="loadMeLabel" style="position:absolute;">
+    <br /><br /><br /><br />
+    <div class="modal-dialog modal-sm" role="document">
+        <div class="modal-content">
+            <div class="modal-body text-center">
+                <img src="~/Content/appsfit_img/logoappsfitweb.png" style="width:255px;height:125px;" />
+                <div class="loader"></div>
+                <div clas="loader-txt">
+                    <p>Cargando... <br><br><small>Espere por favor, este proceso puede tardar unos minutos</small></p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@section Scripts {
+
+    @System.Web.Optimization.Scripts.Render("~/Scripts/jquery.min.js")
+    @System.Web.Optimization.Scripts.Render("~/Scripts/plugins/jsKendo/angular.min.js")
+    @System.Web.Optimization.Scripts.Render("~/Scripts/plugins/jsKendo/kendo.all.min.js")
+
+    @System.Web.Optimization.Scripts.Render("~/Scripts/plugins/jquery-ui/jquery-ui.js")
+    @System.Web.Optimization.Scripts.Render("~/Scripts/plugins/jquery-ui/jquery-ui.min.js")
+
+    @System.Web.Optimization.Scripts.Render("~/Resource/UserControl.Helper.js")
+
+    @System.Web.Optimization.Scripts.Render("~/Scripts/bootstrap-notify-master/bootstrap-notify.js")
+    @System.Web.Optimization.Scripts.Render("~/Scripts/bootstrap-notify-master/bootstrap-notify.min.js")
+    @System.Web.Optimization.Scripts.Render("~/Scripts/jsBootstrap/jquery.bootstrap-growl.js")
+    @System.Web.Optimization.Scripts.Render("~/Resource/centroentrenamiento/ReservaPresencialMaquinas.js?errrr")
+
+
+    <script src="~/Scripts/default/moment.min.js"></script>
+    <script src="~/Scripts/fullcalendarV2/fullcalendar.min.js"></script>
+    <script src="~/Scripts/fullcalendarV2/scheduler.min.js"></script>
+
+    <script src="~/Scripts/default/bootstrap3-typeahead.min.js"></script>
+    <script src="~/Scripts/print.min.js"></script>
+
+    <script src="https://unpkg.com/fullcalendar@3.10.1/dist/locale-all.js"></script>
+
+    <script type="text/javascript">
+
+        $(document).ready(function () {
+
+            SEGListarPerfilMenu();
+
+            $("#txtNormativaPrincipalPagina").kendoEditor({
+                resizable: {
+                    content: true,
+                    toolbar: true
+                }
+            });
+
+            $("#txtNotasPrincipalPagina").kendoEditor({
+                resizable: {
+                    content: true,
+                    toolbar: true
+                }
+            });
+
+            $('#buscarImagen').change(function () {
+                var File = this.files;
+                if (File && File[0]) {
+                    ReadImage(File[0]);
+                }
+            });
+
+            var todayDate = new Date();
+            $("#txtClase_HoraInicio").kendoTimePicker({
+                dateInput: true,
+                format: "hh:mm tt",
+                interval: 60,
+                min: new Date(new Date().setHours(5, 0, 0, 0)),
+                max: new Date(new Date().setHours(23, 0, 0, 0)),
+                change: function () {
+                    var value = this.value();
+                    if (value == null) {
+                        $('#txtClase_HoraInicio').parent().parent().addClass('borderValidar');
+                    }
+                    else {
+                        $('#txtClase_HoraInicio').parent().parent().removeClass('borderValidar');
+                        var timepicker = $("#txtClase_HoraFin").data("kendoTimePicker");
+                        timepicker.setOptions({ min: value });
+                        timepicker.value(null);
+                    }
+                }
+            });
+            $("#txtClase_HoraFin").kendoTimePicker({
+                dateInput: true,
+                format: "hh:mm tt",
+                interval: 60,
+                min: new Date(new Date().setHours(6, 0, 0, 0)),
+                max: new Date(new Date().setHours(23, 45, 0, 0)),
+                change: function () {
+                    var value = this.value();
+                    if (value == null) {
+                        $('#txtClase_HoraFin').parent().parent().addClass('borderValidar');
+                    }
+                    else {
+                        $('#txtClase_HoraFin').parent().parent().removeClass('borderValidar');
+                    }
+                }
+            });
+
+            activarControlesHora();
+            
+            uspListarDisciplinaSala_Presencial();
+            
+            ListarSalaMaquinasGrid();
+            uspListarSalaMaquinas_Presencial_ingresohorarios();
+        });
+
+        //CAMBIAR NOMBRE DE SALA
+
+        function event_CambiarNombreSala(CodigoSala) {
+            document.getElementById('modalActualizarNombreSala').style.display = 'block';
+            $('#hdCodigoSala_gestion').val(CodigoSala);
+        }
+
+        function event_cancelarNombreSala() {
+            document.getElementById('modalActualizarNombreSala').style.display = 'none';
+            $('#hdCodigoSala_gestion').val('0');
+        }
+
+
+        function uspActualizarSala_Presencial() {
+
+            var entidad = {};
+            entidad.CodigoSala = $('input[id="hdCodigoSala_gestion"]').val();
+            entidad.Descripcion = $('input[id="txtSala_NuevoNombre"]').val();
+
+            if (IsUndefinedOrNullOrEmpty(entidad.CodigoSala)) {
+                alert("Falta seleccionar una sala.");
+                return;
+            } else if (IsUndefinedOrNullOrEmpty(entidad.Descripcion)) {
+                alert("Falta ingresar el nuevo nombre.");
+                return;
+            }
+
+            $('button[type="button"]').attr("disabled", true);
+            var metodoCorrecto = function (msg) {
+
+                $('button[type="button"]').attr("disabled", false);
+                $.bootstrapGrowl("Se actualizo correctamente el nombre de esta sala.", { type: 'success', width: 'auto' });
+                document.getElementById('modalActualizarNombreSala').style.display = 'none';
+                $('input[id="hdCodigoSala_gestion"]').val('0');
+
+                ListarSalaMaquinasGrid();
+
+            };
+            var metodoError = function (msg) {
+                alert(msg);
+            };
+            var request = {
+                request: entidad
+            };
+
+            LlamarAJAX("/reservapresencial/CentroEntrenamiento_uspEditarSala_Presencial", request, metodoCorrecto, metodoError);
+
+        }
+
+
+        //ELIMINAR SALA MAQUINAS
+
+        function event_DesactivarSala(CodigoSala) {
+            document.getElementById('modaldesactivarsala').style.display = 'block';
+            $('#hdCodigoSala_gestion').val(CodigoSala);
+        }
+
+        function event_cancelarDesactivarSala() {
+            document.getElementById('modaldesactivarsala').style.display = 'none';
+            $('#hdCodigoSala_gestion').val('0');
+        }
+
+        function uspEliminarSala_Presencial() {
+
+            var entidad = {};
+
+            entidad.CodigoSala = $('input[id="hdCodigoSala_gestion"]').val();
+
+            if (IsUndefinedOrNullOrEmpty(entidad.CodigoSala)) {
+                alert("Falta seleccionar una sala.");
+                return;
+            }
+
+            if (!$('#chkConfirmarEliminarSala').prop('checked')) {
+                $.bootstrapGrowl("Hola, te falta leer y confirmar el acuerdo.", { type: 'danger', width: 'auto' });
+                return;
+            }
+
+            $('button[type="button"]').attr("disabled", true);
+            var metodoCorrecto = function (msg) {
+
+                if (msg == 0) {
+                    $('button[type="button"]').attr("disabled", false);
+                    $.bootstrapGrowl("Se elimino correctamente esta sala.", { type: 'success', width: 'auto' });
+                    document.getElementById('modaldesactivarsala').style.display = 'none';
+                    $('input[id="hdCodigoSala_gestion"]').val('0');                   
+                    ListarSalaMaquinasGrid();
+                }
+                else {
+                    $('button[type="button"]').attr("disabled", false);
+                    document.getElementById('modaldesactivarsala').style.display = 'none';
+                    document.getElementById('modalavisosalaconclases').style.display = 'block';
+                }
+
+            };
+            var metodoError = function (msg) {
+                alert(msg);
+            };
+            var request = {
+                request: entidad
+            };
+            LlamarAJAX("/reservapresencial/CentroEntrenamiento_uspEliminarSalaMaquinas_Presencial", request, metodoCorrecto, metodoError);
+
+        }
+
+        //NUEVA CLASE DE MAQUINAS
+
+        function CancelarmodalAgregarSalaMaquina() {
+            document.getElementById('modalAgregarSalaMaquina').style.display = 'none';
+        }
+
+        function uspRegistrarSala_Presencial() {
+
+            var Accion = "N";
+
+            var entidad = {};
+            entidad.Descripcion = ConvertToStringFromObject($('input[id="txtGestionSalaMaquina_Descripcion"]').val());
+            entidad.NroSala = 0;
+            entidad.Color = "";
+            entidad.Accion = Accion;
+
+            if (IsUndefinedOrNullOrEmpty(entidad.Descripcion)) {
+                alert("Falta ingresar nombre de la sala.");
+                return;
+            }
+
+            $('button[type="button"]').attr("disabled", true);
+            var metodoCorrecto = function (msg) {
+
+                if (msg > 0) {
+                    $('button[type="button"]').attr("disabled", false);
+                    $.bootstrapGrowl("Se guardo correctamente los datos.", { type: 'success', width: 'auto' });
+                    $('input[id="txtGestionSalaMaquina_Descripcion"]').val('');
+                    document.getElementById('modalAgregarSalaMaquina').style.display = 'none';
+                    ListarSalaMaquinasGrid();
+                }
+                else {
+                    $.bootstrapGrowl("Error, vuelva a intentar nuevamente!", { type: 'danger', width: 'auto' });
+                }
+            };
+            var metodoError = function (msg) {
+                alert(msg);
+            };
+            var request = {
+                request: entidad
+            };
+
+            LlamarAJAX("/gestionce/uspRegistrarSalaMaquinas_Presencial", request, metodoCorrecto, metodoError);
+
+        }
+
+        function event_NuevaClaseMaquinas() {
+            document.getElementById('modalAgregarClaseMaquinas').style.display = 'block';
+        }
+
+        function CancelarmodalAgregarClaseMaquinas() {
+            document.getElementById('modalAgregarClaseMaquinas').style.display = 'none';
+        }
+
+        var ReadImage = function (file) {
+
+            var reader = new FileReader;
+            var image = new Image;
+
+            reader.readAsDataURL(file);
+            reader.onload = function (_file) {
+
+                image.src = _file.target.result;
+                image.onload = function () {
+                    var height = this.height;
+                    var width = this.width;
+                    var type = file.type;
+                    var size = ~~(file.size / 1024) + "KB";
+
+                    $("#imgLogoPlataforma").attr('src', _file.target.result);
+                    $("#txtDetalle").val("Size:" + size + ", " + height + " X " + width + ", " + type + "");
+                    $("#hdheight_imagen").val(height);
+                    $("#hdwidth_imagen").val(width);
+                    if (parseInt(height) > 1200) {
+                        $.bootstrapGrowl("El alto de la imagen no puede ser mayor 1200, seleccione otra imagen.", { type: 'danger', width: 'auto' });
+                    } else if (parseInt(width) > 1200) {
+                        $.bootstrapGrowl("El ancho de la imagen no puede ser mayor 1200, seleccione otra imagen.", { type: 'danger', width: 'auto' });
+                    }
+                }
+
+            }
+        }
+
+        function CancelarModalConfirmarIngresoHorarios() {
+            document.getElementById('modalConfirmarIngresoHorarios').style.display = 'none';
+        }
+
+        function activarControlesHora() {
+
+            $("#txtDia_2_HoraInicio").kendoTimePicker({
+                dateInput: true,
+                format: "hh:mm tt",
+                interval: 60,
+                min: new Date(new Date().setHours(5, 0, 0, 0)),
+                max: new Date(new Date().setHours(23, 0, 0, 0)),
+                change: function () {
+                    var value = this.value();
+                    if (value == null) {
+                        $('#txtDia_2_HoraInicio').parent().parent().addClass('borderValidar');
+                    }
+                    else {
+                        $('#txtDia_2_HoraInicio').parent().parent().removeClass('borderValidar');
+                        var timepicker = $("#txtDia_2_HoraFin").data("kendoTimePicker");
+                        timepicker.setOptions({ min: value });
+                        timepicker.value(null);
+                    }
+                }
+            });
+            $("#txtDia_2_HoraFin").kendoTimePicker({
+                dateInput: true,
+                format: "hh:mm tt",
+                interval: 60,
+                min: new Date(new Date().setHours(6, 0, 0, 0)),
+                max: new Date(new Date().setHours(23, 45, 0, 0)),
+                change: function () {
+                    var value = this.value();
+                    if (value == null) {
+                        $('#txtDia_2_HoraFin').parent().parent().addClass('borderValidar');
+                    }
+                    else {
+                        $('#txtDia_2_HoraFin').parent().parent().removeClass('borderValidar');
+                    }
+                }
+            });
+
+            $("#txtDia_3_HoraInicio").kendoTimePicker({
+                dateInput: true,
+                format: "hh:mm tt",
+                interval: 60,
+                min: new Date(new Date().setHours(5, 0, 0, 0)),
+                max: new Date(new Date().setHours(23, 0, 0, 0)),
+                change: function () {
+                    var value = this.value();
+                    if (value == null) {
+                        $('#txtDia_3_HoraInicio').parent().parent().addClass('borderValidar');
+                    }
+                    else {
+                        $('#txtDia_3_HoraInicio').parent().parent().removeClass('borderValidar');
+                        var timepicker = $("#txtDia_3_HoraFin").data("kendoTimePicker");
+                        timepicker.setOptions({ min: value });
+                        timepicker.value(null);
+                    }
+                }
+            });
+            $("#txtDia_3_HoraFin").kendoTimePicker({
+                dateInput: true,
+                format: "hh:mm tt",
+                interval: 60,
+                min: new Date(new Date().setHours(6, 0, 0, 0)),
+                max: new Date(new Date().setHours(23, 45, 0, 0)),
+                change: function () {
+                    var value = this.value();
+                    if (value == null) {
+                        $('#txtDia_3_HoraFin').parent().parent().addClass('borderValidar');
+                    }
+                    else {
+                        $('#txtDia_3_HoraFin').parent().parent().removeClass('borderValidar');
+                    }
+                }
+            });
+
+            $("#txtDia_4_HoraInicio").kendoTimePicker({
+                dateInput: true,
+                format: "hh:mm tt",
+                interval: 60,
+                min: new Date(new Date().setHours(5, 0, 0, 0)),
+                max: new Date(new Date().setHours(23, 0, 0, 0)),
+                change: function () {
+                    var value = this.value();
+                    if (value == null) {
+                        $('#txtDia_4_HoraInicio').parent().parent().addClass('borderValidar');
+                    }
+                    else {
+                        $('#txtDia_4_HoraInicio').parent().parent().removeClass('borderValidar');
+                        var timepicker = $("#txtDia_4_HoraFin").data("kendoTimePicker");
+                        timepicker.setOptions({ min: value });
+                        timepicker.value(null);
+                    }
+                }
+            });
+            $("#txtDia_4_HoraFin").kendoTimePicker({
+                dateInput: true,
+                format: "hh:mm tt",
+                interval: 60,
+                min: new Date(new Date().setHours(6, 0, 0, 0)),
+                max: new Date(new Date().setHours(23, 45, 0, 0)),
+                change: function () {
+                    var value = this.value();
+                    if (value == null) {
+                        $('#txtDia_4_HoraFin').parent().parent().addClass('borderValidar');
+                    }
+                    else {
+                        $('#txtDia_4_HoraFin').parent().parent().removeClass('borderValidar');
+                    }
+                }
+            });
+
+            $("#txtDia_5_HoraInicio").kendoTimePicker({
+                dateInput: true,
+                format: "hh:mm tt",
+                interval: 60,
+                min: new Date(new Date().setHours(5, 0, 0, 0)),
+                max: new Date(new Date().setHours(23, 0, 0, 0)),
+                change: function () {
+                    var value = this.value();
+                    if (value == null) {
+                        $('#txtDia_5_HoraInicio').parent().parent().addClass('borderValidar');
+                    }
+                    else {
+                        $('#txtDia_5_HoraInicio').parent().parent().removeClass('borderValidar');
+                        var timepicker = $("#txtDia_5_HoraFin").data("kendoTimePicker");
+                        timepicker.setOptions({ min: value });
+                        timepicker.value(null);
+                    }
+                }
+            });
+            $("#txtDia_5_HoraFin").kendoTimePicker({
+                dateInput: true,
+                format: "hh:mm tt",
+                interval: 60,
+                min: new Date(new Date().setHours(6, 0, 0, 0)),
+                max: new Date(new Date().setHours(23, 45, 0, 0)),
+                change: function () {
+                    var value = this.value();
+                    if (value == null) {
+                        $('#txtDia_5_HoraFin').parent().parent().addClass('borderValidar');
+                    }
+                    else {
+                        $('#txtDia_5_HoraFin').parent().parent().removeClass('borderValidar');
+                    }
+                }
+            });
+
+            $("#txtDia_6_HoraInicio").kendoTimePicker({
+                dateInput: true,
+                format: "hh:mm tt",
+                interval: 60,
+                min: new Date(new Date().setHours(5, 0, 0, 0)),
+                max: new Date(new Date().setHours(23, 0, 0, 0)),
+                change: function () {
+                    var value = this.value();
+                    if (value == null) {
+                        $('#txtDia_6_HoraInicio').parent().parent().addClass('borderValidar');
+                    }
+                    else {
+                        $('#txtDia_6_HoraInicio').parent().parent().removeClass('borderValidar');
+                        var timepicker = $("#txtDia_6_HoraFin").data("kendoTimePicker");
+                        timepicker.setOptions({ min: value });
+                        timepicker.value(null);
+                    }
+                }
+            });
+            $("#txtDia_6_HoraFin").kendoTimePicker({
+                dateInput: true,
+                format: "hh:mm tt",
+                interval: 60,
+                min: new Date(new Date().setHours(6, 0, 0, 0)),
+                max: new Date(new Date().setHours(23, 45, 0, 0)),
+                change: function () {
+                    var value = this.value();
+                    if (value == null) {
+                        $('#txtDia_6_HoraFin').parent().parent().addClass('borderValidar');
+                    }
+                    else {
+                        $('#txtDia_6_HoraFin').parent().parent().removeClass('borderValidar');
+                    }
+                }
+            });
+
+            $("#txtDia_7_HoraInicio").kendoTimePicker({
+                dateInput: true,
+                format: "hh:mm tt",
+                interval: 60,
+                min: new Date(new Date().setHours(5, 0, 0, 0)),
+                max: new Date(new Date().setHours(23, 0, 0, 0)),
+                change: function () {
+                    var value = this.value();
+                    if (value == null) {
+                        $('#txtDia_7_HoraInicio').parent().parent().addClass('borderValidar');
+                    }
+                    else {
+                        $('#txtDia_7_HoraInicio').parent().parent().removeClass('borderValidar');
+                        var timepicker = $("#txtDia_7_HoraFin").data("kendoTimePicker");
+                        timepicker.setOptions({ min: value });
+                        timepicker.value(null);
+                    }
+                }
+            });
+            $("#txtDia_7_HoraFin").kendoTimePicker({
+                dateInput: true,
+                format: "hh:mm tt",
+                interval: 60,
+                min: new Date(new Date().setHours(6, 0, 0, 0)),
+                max: new Date(new Date().setHours(23, 45, 0, 0)),
+                change: function () {
+                    var value = this.value();
+                    if (value == null) {
+                        $('#txtDia_7_HoraFin').parent().parent().addClass('borderValidar');
+                    }
+                    else {
+                        $('#txtDia_7_HoraFin').parent().parent().removeClass('borderValidar');
+                    }
+                }
+            });
+
+            $("#txtDia_1_HoraInicio").kendoTimePicker({
+                dateInput: true,
+                format: "hh:mm tt",
+                interval: 60,
+                min: new Date(new Date().setHours(5, 0, 0, 0)),
+                max: new Date(new Date().setHours(23, 0, 0, 0)),
+                change: function () {
+                    var value = this.value();
+                    if (value == null) {
+                        $('#txtDia_1_HoraInicio').parent().parent().addClass('borderValidar');
+                    }
+                    else {
+                        $("#txtDia_2_HoraInicio").data("kendoTimePicker").value(value);
+                        $("#txtDia_3_HoraInicio").data("kendoTimePicker").value(value);
+                        $("#txtDia_4_HoraInicio").data("kendoTimePicker").value(value);
+                        $("#txtDia_5_HoraInicio").data("kendoTimePicker").value(value);
+                        $("#txtDia_6_HoraInicio").data("kendoTimePicker").value(value);
+                        $("#txtDia_7_HoraInicio").data("kendoTimePicker").value(value);
+
+                        $('#txtDia_1_HoraInicio').parent().parent().removeClass('borderValidar');
+                        var timepicker = $("#txtDia_1_HoraFin").data("kendoTimePicker");
+                        timepicker.setOptions({ min: value });
+                        timepicker.value(null);
+                    }
+                }
+            });
+            $("#txtDia_1_HoraFin").kendoTimePicker({
+                dateInput: true,
+                format: "hh:mm tt",
+                interval: 60,
+                min: new Date(new Date().setHours(6, 0, 0, 0)),
+                max: new Date(new Date().setHours(23, 45, 0, 0)),
+                change: function () {
+                    var value = this.value();
+                    if (value == null) {
+                        $('#txtDia_1_HoraFin').parent().parent().addClass('borderValidar');
+                    }
+                    else {
+                        $("#txtDia_2_HoraFin").data("kendoTimePicker").value(value);
+                        $("#txtDia_3_HoraFin").data("kendoTimePicker").value(value);
+                        $("#txtDia_4_HoraFin").data("kendoTimePicker").value(value);
+                        $("#txtDia_5_HoraFin").data("kendoTimePicker").value(value);
+                        $("#txtDia_6_HoraFin").data("kendoTimePicker").value(value);
+                        $("#txtDia_7_HoraFin").data("kendoTimePicker").value(value);
+
+                        $('#txtDia_1_HoraFin').parent().parent().removeClass('borderValidar');
+                    }
+                }
+            });
+
+        }
+
+        function eventCambioTiempo() {
+            var tiempo = $('#txtDia_1_Tiempo').val();
+            $('#txtDia_2_Tiempo').val(tiempo);
+            $('#txtDia_3_Tiempo').val(tiempo);
+            $('#txtDia_4_Tiempo').val(tiempo);
+            $('#txtDia_5_Tiempo').val(tiempo);
+            $('#txtDia_6_Tiempo').val(tiempo);
+            $('#txtDia_7_Tiempo').val(tiempo);
+
+            //nro horarios = tiempo / intervalos(minutos)
+            for (var i = 1; i <= 7; i++) {
+                var tiempo = $('#txtDia_' + i + '_Tiempo').val() == '' ? 0 : $('#txtDia_' + i + '_Tiempo').val();
+                var intervalo = $('#txtDia_' + i + '_Minutos').val() == '' ? 0 : $('#txtDia_' + i + '_Minutos').val();
+                var nroHorarios = parseInt(tiempo) / parseInt(intervalo);
+                $('#txtDia_' + i + '_Horarios').val(nroHorarios);
+            }
+
+            for (var i = 1; i <= 7; i++) {
+                var tiempo = $('#txtDia_' + i + '_Plaza').val() == '' ? 0 : $('#txtDia_' + i + '_Plaza').val();
+                var intervalo = $('#txtDia_' + i + '_Horarios').val() == '' ? 0 : $('#txtDia_' + i + '_Horarios').val();
+                var nroHorarios = parseInt(tiempo) / parseInt(intervalo);
+                $('#txtDia_' + i + '_AforoxHorarios').val(nroHorarios);
+            }
+        }
+
+        function eventCambioMinutos() {
+            var intervalo = $('#txtDia_1_Minutos').val();
+            $('#txtDia_2_Minutos').val(intervalo);
+            $('#txtDia_3_Minutos').val(intervalo);
+            $('#txtDia_4_Minutos').val(intervalo);
+            $('#txtDia_5_Minutos').val(intervalo);
+            $('#txtDia_6_Minutos').val(intervalo);
+            $('#txtDia_7_Minutos').val(intervalo);
+
+            //nro horarios = aforo total / min intervalos
+            for (var i = 1; i <= 7; i++) {
+                var tiempo = $('#txtDia_' + i + '_Tiempo').val() == '' ? 0 : $('#txtDia_' + i + '_Tiempo').val();
+                var intervalo = $('#txtDia_' + i + '_Minutos').val() == '' ? 0 : $('#txtDia_' + i + '_Minutos').val();
+                var nroHorarios = parseInt(tiempo) / parseInt(intervalo);
+                $('#txtDia_' + i + '_Horarios').val(nroHorarios.toFixed(0));
+
+            }
+
+            for (var i = 1; i <= 7; i++) {
+
+                var tiempo = $('#txtDia_' + i + '_Plaza').val() == '' ? 0 : $('#txtDia_' + i + '_Plaza').val();
+                var intervalo = $('#txtDia_' + i + '_Horarios').val() == '' ? 0 : $('#txtDia_' + i + '_Horarios').val();
+                var nroHorarios = parseInt(tiempo) / parseInt(intervalo);
+                $('#txtDia_' + i + '_AforoxHorarios').val(nroHorarios);
+
+            }
+        }
+
+        function eventCambioPlaza() {
+            var plazas = $('#txtDia_1_Plaza').val();
+            $('#txtDia_2_Plaza').val(plazas);
+            $('#txtDia_3_Plaza').val(plazas);
+            $('#txtDia_4_Plaza').val(plazas);
+            $('#txtDia_5_Plaza').val(plazas);
+            $('#txtDia_6_Plaza').val(plazas);
+            $('#txtDia_7_Plaza').val(plazas);
+
+            //aforo x horario = aforo total / nro de horarios
+            for (var i = 1; i <= 7; i++) {
+
+                var tiempo = $('#txtDia_' + i + '_Plaza').val() == '' ? 0 : $('#txtDia_' + i + '_Plaza').val();
+                var intervalo = $('#txtDia_' + i + '_Horarios').val() == '' ? 0 : $('#txtDia_' + i + '_Horarios').val();
+                var nroHorarios = parseInt(tiempo) / parseInt(intervalo);
+                $('#txtDia_' + i + '_AforoxHorarios').val(nroHorarios);
+
+            }
+        }
+
+        //HORARIOS RANGO HORA MAQUINAS
+        function uspListarPresencial_SalaMaquinas_HorarioTemporal_Configuracion(DiaNumero) {
+
+            document.getElementById('loadMe').style.display = 'block';
+
+            var entidad = {};
+            entidad.CodigoSala = $('#hdCodigoSala_personalizacion').val();
+            entidad.DiaNumero = DiaNumero;
+
+            var metodoCorrecto = function (data) {
+                document.getElementById('loadMe').style.display = 'none';
+
+                if (data.length > 0) {
+                    var content_horario = new Array();
+                    
+                    for (var i = 0; i < data.length; i++) {
+
+                        content_horario.push('<div  onclick="javascript:uspListarPresencial_HorarioClasesConfiguracionPaginaWeb_ConfiguracionSalaMaquinas(this,' + DiaNumero + ');" data-horainicio="' + data[i].HoraInicioTexto + '" data-horafin="' + data[i].HoraFinTexto + '" class="col-lg-12">');
+                        content_horario.push('    <div class="card card-group-row__card" style="margin-bottom: 5px;">');
+                        content_horario.push('        <div class="d-flex flex-column" style="font-size:13px;text-align:center;font-weight:bold;background-color:#0075ff;color:#fff;border-radius:5px;cursor:pointer;">');
+                        content_horario.push(data[i].HoraInicioTexto + ' - ' + data[i].HoraFinTexto);
+                        content_horario.push('        </div>');
+                        content_horario.push('    </div>');
+                        content_horario.push('</div>');
+
+                        if (i == 0) {
+
+                            uspListarPresencial_HorarioClasesConfiguracionPaginaWeb_ConfiguracionSalaMaquinas_DEFAULT(data[i].HoraInicioTexto, data[i].HoraFinTexto, DiaNumero);
+                        }
+
+                    }
+
+                    $('#divHorariSalaMaquinas').html(content_horario.join(' '));
+
+                } else {
+
+                    $('#gridClases').html('');
+                    $('#divHorariSalaMaquinas').html('');
+
+                }
+
+            };
+
+            var metodoError = function (msg) {
+                alert(msg);
+            };
+            var request = {
+                request: entidad
+            };
+
+            LlamarAJAX('/reservapresencial/uspListarPresencial_SalaMaquinas_HorarioTemporal_Configuracion', request, metodoCorrecto, metodoError);
+
+        }
+
+        //HORARIOS SALA DE MAQUINAS DEFAULT
+        function uspListarPresencial_HorarioClasesConfiguracionPaginaWeb_ConfiguracionSalaMaquinas_DEFAULT(horainicio, horafin, DiaNumero) {
+
+            $('#hdListarPresencial_SalaMaquinas_HorarioTemporal_Configuracion_HoraInicio').val(horainicio);
+            $('#hdListarPresencial_SalaMaquinas_HorarioTemporal_Configuracion_HoraFin').val(horafin);
+            $('#hdListarPresencial_SalaMaquinas_HorarioTemporal_Configuracion_NroDia').val(DiaNumero);
+            document.getElementById('loadMe').style.display = 'block';
+
+            var hoy = new Date();
+
+            var entidad = {};
+            entidad.CodigoSala = $('#hdCodigoSala_personalizacion').val(); 
+            entidad.DiaNumero = DiaNumero;
+            entidad.HoraInicio = hoy.getFullYear() + '/' + (hoy.getMonth() + 1) + '/' + hoy.getDate() + ' ' + horainicio;
+            entidad.HoraFin = hoy.getFullYear() + '/' + (hoy.getMonth() + 1) + '/' + hoy.getDate() + ' ' + horafin;
+
+            var metodoCorrecto = function (data) {
+                document.getElementById('loadMe').style.display = 'none';
+
+                if (data.length > 0) {
+
+                    var content_clase = new Array();
+                    for (var i = 0; i < data.length; i++) {
+
+                        if (data[i].Estado == 1) { //HORARIO ACTIVO
+
+                            content_clase.push('<div class="col-lg-3 col-md-2  mg-t-5" style="background-color: transparent;padding-bottom: 10px;" >');
+                            content_clase.push('<div class="card-contact pd-t-3 pd-r-3 pd-b-3 pd-l-3 clase" style="background-color: #fff;border-radius: 12px;padding: 3px;box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);">');
+                            content_clase.push('<div style="background-color:#fff;color:#000;text-align:center;padding:2px;border-radius: 12px;">');
+                            content_clase.push('<b class="tx-center tx-14" style="margin-top: 12px;font-weight:bold;" title="CODIGO-CONFI: ' + data[i].CodigoHorarioClasesConfiguracion + '">' + data[i].HoraInicioTexto + ' - ' + data[i].HoraFinTexto + '</b>');
+                            content_clase.push('</div>');
+                            content_clase.push('<div style="background-color:#fff;color:#000;text-align:center;padding:3px;">');
+                            content_clase.push('<b class="tx-center" style="font-size:14px;margin-top: 10px;font-weight:bold;">AFORO: ' + data[i].CantidadPlazas + '</b>');
+                            content_clase.push('</div>');
+
+                            content_clase.push('<div onclick="javascript:CentroEntrenamiento_uspBuscarPresencial_HorarioClasesConfiguracion(this);" data-id-maquinas="' + data[i].CodigoHorarioClasesConfiguracion + '" style="background-color:#0075fe;color:#fff;text-align:center;padding:5px;border-radius: 12px;margin-bottom: 5px;border: 2px solid #0075fe;"> ');
+                            content_clase.push('<b class="tx-center" style="font-size:12px;padding-top: 10px;">CAMBIAR AFORO</b>');
+                            content_clase.push('</div>');
+
+                            content_clase.push('<div onclick="javascript:preguntarDesactivarHorario(this);" data-id-maquinas="' + data[i].CodigoHorarioClasesConfiguracion + '" style="background-color:#EFEFF4;color:#000;text-align:center;padding:5px;border-radius: 12px;"> ');
+                            content_clase.push('<b class="tx-center" style="font-size:12px;padding-top: 10px;">DESACTIVAR HORARIO</b>');
+                            content_clase.push('</div>');
+
+                        } else { //HORARIO DESACTIVADO
+
+                            content_clase.push('<div class="col-lg-3 col-md-2  mg-t-5" style="background-color: transparent;padding-bottom: 10px;" >');
+                            content_clase.push('<div class="card-contact pd-t-3 pd-r-3 pd-b-3 pd-l-3 clase" style="background-color: #fff;border-radius: 12px;padding: 3px;box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);">');
+                            content_clase.push('<div style="background-color:#fff;color:#000;text-align:center;padding:2px;border-radius: 12px;">');
+                            content_clase.push('<b class="tx-center tx-14" style="margin-top: 12px;font-weight:bold;" title="CODIGO-CONFI: ' + data[i].CodigoHorarioClasesConfiguracion + '">' + data[i].HoraInicioTexto + ' - ' + data[i].HoraFinTexto + '</b>');
+                            content_clase.push('</div>');
+                            content_clase.push('<div style="background-color:#fff;color:#000;text-align:center;padding:3px;">');
+                            content_clase.push('<b class="tx-center" style="font-size:14px;margin-top: 10px;font-weight:bold;">AFORO: ' + data[i].CantidadPlazas + '</b>');
+                            content_clase.push('</div>');
+
+                            content_clase.push('<div onclick="" data-id-maquinas="' + data[i].CodigoHorarioClasesConfiguracion + '" style="background-color:#efeff4;color:#000;text-align:center;padding:5px;border-radius: 12px;margin-bottom: 5px;border: 2px solid #efeff4;"> ');
+                            content_clase.push('<b class="tx-center" style="font-size:12px;padding-top: 10px;">CAMBIAR AFORO</b>');
+                            content_clase.push('</div>');
+
+                            content_clase.push('<div onclick="javascript:preguntarActivarHorario(this);" data-id-maquinas="' + data[i].CodigoHorarioClasesConfiguracion + '" style="background-color:red;color:#fff;text-align:center;padding:5px;border-radius: 12px;"> ');
+                            content_clase.push('<b class="tx-center" style="font-size:12px;padding-top: 10px;">ACTIVAR HORARIO</b>');
+                            content_clase.push('</div>');
+
+                        }
+                      
+                        content_clase.push('</div>');
+                        content_clase.push('</div>');
+
+                    }
+                    $('#gridClases').html(content_clase.join(' '));
+
+
+                } else {
+
+                    $('#gridClases').html('');
+
+                }
+
+            };
+
+            var metodoError = function (msg) {
+                alert(msg);
+            };
+            var request = {
+                request: entidad
+            };
+
+            LlamarAJAX('/reservapresencial/uspListarPresencial_HorarioClasesConfiguracionPaginaWeb_ConfiguracionSalaMaquinas', request, metodoCorrecto, metodoError);
+        }
+
+        //HORARIOS SALA DE MAQUINAS
+        function uspListarPresencial_HorarioClasesConfiguracionPaginaWeb_ConfiguracionSalaMaquinas(control, DiaNumero) {
+
+            document.getElementById('loadMe').style.display = 'block';
+
+            var horainicio = $(control).attr('data-horainicio');
+            var horafin = $(control).attr('data-horafin');
+
+            $('#hdListarPresencial_SalaMaquinas_HorarioTemporal_Configuracion_HoraInicio').val(horainicio);
+            $('#hdListarPresencial_SalaMaquinas_HorarioTemporal_Configuracion_HoraFin').val(horafin);
+            $('#hdListarPresencial_SalaMaquinas_HorarioTemporal_Configuracion_NroDia').val(DiaNumero);
+
+            var hoy = new Date();
+
+            var entidad = {};
+            entidad.CodigoSala = $('#hdCodigoSala_personalizacion').val(); 
+            entidad.DiaNumero = DiaNumero;
+            entidad.HoraInicio = hoy.getFullYear() + '/' + (hoy.getMonth() + 1) + '/' + hoy.getDate() + ' ' + horainicio;
+            entidad.HoraFin = hoy.getFullYear() + '/' + (hoy.getMonth() + 1) + '/' + hoy.getDate() + ' ' + horafin;
+
+            var metodoCorrecto = function (data) {
+                document.getElementById('loadMe').style.display = 'none';
+
+                if (data.length > 0) {
+
+                    var content_clase = new Array();
+                    for (var i = 0; i < data.length; i++) {
+
+                        if (data[i].Estado == 1) { //HORARIO ACTIVO
+
+                            content_clase.push('<div class="col-lg-3 col-md-2  mg-t-5" style="background-color: transparent;padding-bottom: 10px;" >');
+                            content_clase.push('<div class="card-contact pd-t-3 pd-r-3 pd-b-3 pd-l-3 clase" style="background-color: #fff;border-radius: 12px;padding: 3px;box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);">');
+                            content_clase.push('<div style="background-color:#fff;color:#000;text-align:center;padding:2px;border-radius: 12px;">');
+                            content_clase.push('<b class="tx-center tx-14" style="margin-top: 12px;font-weight:bold;" title="CODIGO-CONFI: ' + data[i].CodigoHorarioClasesConfiguracion + '">' + data[i].HoraInicioTexto + ' - ' + data[i].HoraFinTexto + '</b>');
+                            content_clase.push('</div>');
+                            content_clase.push('<div style="background-color:#fff;color:#000;text-align:center;padding:3px;">');
+                            content_clase.push('<b class="tx-center" style="font-size:14px;margin-top: 10px;font-weight:bold;">AFORO: ' + data[i].CantidadPlazas + '</b>');
+                            content_clase.push('</div>');
+
+                            content_clase.push('<div onclick="javascript:CentroEntrenamiento_uspBuscarPresencial_HorarioClasesConfiguracion(this);" data-id-maquinas="' + data[i].CodigoHorarioClasesConfiguracion + '" style="background-color:#0075fe;color:#fff;text-align:center;padding:5px;border-radius: 12px;margin-bottom: 5px;border: 2px solid #0075fe;"> ');
+                            content_clase.push('<b class="tx-center" style="font-size:12px;padding-top: 10px;">CAMBIAR AFORO</b>');
+                            content_clase.push('</div>');
+
+                            content_clase.push('<div onclick="javascript:preguntarDesactivarHorario(this);" data-id-maquinas="' + data[i].CodigoHorarioClasesConfiguracion + '" style="background-color:#EFEFF4;color:#000;text-align:center;padding:5px;border-radius: 12px;"> ');
+                            content_clase.push('<b class="tx-center" style="font-size:12px;padding-top: 10px;">DESACTIVAR HORARIO</b>');
+                            content_clase.push('</div>');
+
+                        } else { //HORARIO DESACTIVADO
+
+                            content_clase.push('<div class="col-lg-3 col-md-2  mg-t-5" style="background-color: transparent;padding-bottom: 10px;" >');
+                            content_clase.push('<div class="card-contact pd-t-3 pd-r-3 pd-b-3 pd-l-3 clase" style="background-color: #fff;border-radius: 12px;padding: 3px;box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);">');
+                            content_clase.push('<div style="background-color:#fff;color:#000;text-align:center;padding:2px;border-radius: 12px;">');
+                            content_clase.push('<b class="tx-center tx-14" style="margin-top: 12px;font-weight:bold;">' + data[i].HoraInicioTexto + ' - ' + data[i].HoraFinTexto + '</b>');
+                            content_clase.push('</div>');
+                            content_clase.push('<div style="background-color:#fff;color:#000;text-align:center;padding:3px;">');
+                            content_clase.push('<b class="tx-center" style="font-size:14px;margin-top: 10px;font-weight:bold;">AFORO: ' + data[i].CantidadPlazas + '</b>');
+                            content_clase.push('</div>');
+
+                            content_clase.push('<div onclick="" data-id-maquinas="' + data[i].CodigoHorarioClasesConfiguracion + '" style="background-color:#efeff4;color:#000;text-align:center;padding:5px;border-radius: 12px;margin-bottom: 5px;border: 2px solid #efeff4;"> ');
+                            content_clase.push('<b class="tx-center" style="font-size:12px;padding-top: 10px;">CAMBIAR AFORO</b>');
+                            content_clase.push('</div>');
+
+                            content_clase.push('<div onclick="javascript:preguntarActivarHorario(this);" data-id-maquinas="' + data[i].CodigoHorarioClasesConfiguracion + '" style="background-color:red;color:#fff;text-align:center;padding:5px;border-radius: 12px;"> ');
+                            content_clase.push('<b class="tx-center" style="font-size:12px;padding-top: 10px;">ACTIVAR HORARIO</b>');
+                            content_clase.push('</div>');
+
+                        }
+                        
+                        content_clase.push('</div>');
+                        content_clase.push('</div>');
+
+                    }
+                    $('#gridClases').html(content_clase.join(' '));
+
+
+                } else {
+
+                    $('#gridClases').html('');
+
+                }
+
+            };
+
+            var metodoError = function (msg) {
+                alert(msg);
+            };
+            var request = {
+                request: entidad
+            };
+
+            LlamarAJAX('/reservapresencial/uspListarPresencial_HorarioClasesConfiguracionPaginaWeb_ConfiguracionSalaMaquinas', request, metodoCorrecto, metodoError);
+        }
+
+        //HORARIOS SALA DE MAQUINAS DESPUES DE SUCCESS
+        function uspListarPresencial_HorarioClasesConfiguracionPaginaWeb_ConfiguracionSalaMaquinasSUCCESS() {
+
+            document.getElementById('loadMe').style.display = 'block';
+
+            var horainicio = $('#hdListarPresencial_SalaMaquinas_HorarioTemporal_Configuracion_HoraInicio').val();
+            var horafin = $('#hdListarPresencial_SalaMaquinas_HorarioTemporal_Configuracion_HoraFin').val();
+
+            var hoy = new Date();
+
+            var entidad = {};
+            entidad.CodigoSala = $('#hdCodigoSala_personalizacion').val(); 
+            entidad.DiaNumero = $('#hdListarPresencial_SalaMaquinas_HorarioTemporal_Configuracion_NroDia').val();
+            entidad.HoraInicio = hoy.getFullYear() + '/' + (hoy.getMonth() + 1) + '/' + hoy.getDate() + ' ' + horainicio;
+            entidad.HoraFin = hoy.getFullYear() + '/' + (hoy.getMonth() + 1) + '/' + hoy.getDate() + ' ' + horafin;
+
+            var metodoCorrecto = function (data) {
+                document.getElementById('loadMe').style.display = 'none';
+
+                if (data.length > 0) {
+
+                    var content_clase = new Array();
+                    for (var i = 0; i < data.length; i++) {
+
+                        if (data[i].Estado == 1) { //HORARIO ACTIVO
+
+                            content_clase.push('<div class="col-lg-3 col-md-2  mg-t-5" style="background-color: transparent;padding-bottom: 10px;" >');
+                            content_clase.push('<div class="card-contact pd-t-3 pd-r-3 pd-b-3 pd-l-3 clase" style="background-color: #fff;border-radius: 12px;padding: 3px;box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);">');
+                            content_clase.push('<div style="background-color:#fff;color:#000;text-align:center;padding:2px;border-radius: 12px;">');
+                            content_clase.push('<b class="tx-center tx-14" style="margin-top: 12px;font-weight:bold;" title="CODIGO-CONFI: ' + data[i].CodigoHorarioClasesConfiguracion + '">' + data[i].HoraInicioTexto + ' - ' + data[i].HoraFinTexto + '</b>');
+                            content_clase.push('</div>');
+                            content_clase.push('<div style="background-color:#fff;color:#000;text-align:center;padding:3px;">');
+                            content_clase.push('<b class="tx-center" style="font-size:14px;margin-top: 10px;font-weight:bold;">AFORO: ' + data[i].CantidadPlazas + '</b>');
+                            content_clase.push('</div>');
+
+                            content_clase.push('<div onclick="javascript:CentroEntrenamiento_uspBuscarPresencial_HorarioClasesConfiguracion(this);" data-id-maquinas="' + data[i].CodigoHorarioClasesConfiguracion + '" style="background-color:#0075fe;color:#fff;text-align:center;padding:5px;border-radius: 12px;margin-bottom: 5px;border: 2px solid #0075fe;"> ');
+                            content_clase.push('<b class="tx-center" style="font-size:12px;padding-top: 10px;">CAMBIAR AFORO</b>');
+                            content_clase.push('</div>');
+
+                            content_clase.push('<div onclick="javascript:preguntarDesactivarHorario(this);" data-id-maquinas="' + data[i].CodigoHorarioClasesConfiguracion + '" style="background-color:#EFEFF4;color:#000;text-align:center;padding:5px;border-radius: 12px;"> ');
+                            content_clase.push('<b class="tx-center" style="font-size:12px;padding-top: 10px;">DESACTIVAR HORARIO</b>');
+                            content_clase.push('</div>');
+
+                        } else { //HORARIO DESACTIVADO
+
+                            content_clase.push('<div class="col-lg-3 col-md-2  mg-t-5" style="background-color: transparent;padding-bottom: 10px;" >');
+                            content_clase.push('<div class="card-contact pd-t-3 pd-r-3 pd-b-3 pd-l-3 clase" style="background-color: #fff;border-radius: 12px;padding: 3px;box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);">');
+                            content_clase.push('<div style="background-color:#fff;color:#000;text-align:center;padding:2px;border-radius: 12px;">');
+                            content_clase.push('<b class="tx-center tx-14" style="margin-top: 12px;font-weight:bold;" title="CODIGO-CONFI: ' + data[i].CodigoHorarioClasesConfiguracion + '">' + data[i].HoraInicioTexto + ' - ' + data[i].HoraFinTexto + '</b>');
+                            content_clase.push('</div>');
+                            content_clase.push('<div style="background-color:#fff;color:#000;text-align:center;padding:3px;">');
+                            content_clase.push('<b class="tx-center" style="font-size:14px;margin-top: 10px;font-weight:bold;">AFORO: ' + data[i].CantidadPlazas + '</b>');
+                            content_clase.push('</div>');
+
+                            content_clase.push('<div onclick="" data-id-maquinas="' + data[i].CodigoHorarioClasesConfiguracion + '" style="background-color:#efeff4;color:#000;text-align:center;padding:5px;border-radius: 12px;margin-bottom: 5px;border: 2px solid #efeff4;"> ');
+                            content_clase.push('<b class="tx-center" style="font-size:12px;padding-top: 10px;">CAMBIAR AFORO</b>');
+                            content_clase.push('</div>');
+
+                            content_clase.push('<div onclick="javascript:preguntarActivarHorario(this);" data-id-maquinas="' + data[i].CodigoHorarioClasesConfiguracion + '" style="background-color:red;color:#fff;text-align:center;padding:5px;border-radius: 12px;"> ');
+                            content_clase.push('<b class="tx-center" style="font-size:12px;padding-top: 10px;">ACTIVAR HORARIO</b>');
+                            content_clase.push('</div>');
+
+                        }
+
+                        content_clase.push('</div>');
+                        content_clase.push('</div>');
+
+                    }
+                    $('#gridClases').html(content_clase.join(' '));
+
+                } else {
+
+                    $('#gridClases').html('');
+
+                }
+
+            };
+
+            var metodoError = function (msg) {
+                alert(msg);
+            };
+            var request = {
+                request: entidad
+            };
+
+            LlamarAJAX('/reservapresencial/uspListarPresencial_HorarioClasesConfiguracionPaginaWeb_ConfiguracionSalaMaquinas', request, metodoCorrecto, metodoError);
+        }
+
+        //HORARIOS SALA DE MAQUINAS INACTIVOS
+        function uspListarPresencial_HorarioClasesConfiguracionPaginaWeb_ConfiguracionSalaMaquinasINACTIVOS(CodigoSala) {
+
+            $('#hdCodigoSala_desactivados').val(CodigoSala);
+            document.getElementById('loadMe').style.display = 'block';
+
+            var entidad = {};
+            entidad.CodigoSala = CodigoSala;
+
+            var metodoCorrecto = function (data) {
+                document.getElementById('loadMe').style.display = 'none';
+
+                if (data.length > 0) {
+
+                    var content_clase = new Array();
+                    for (var i = 0; i < data.length; i++) {
+
+                        content_clase.push('<div class="col-lg-3 col-md-2  mg-t-5" style="background-color: transparent;padding-bottom: 10px;" >');
+                        content_clase.push('<div class="card-contact pd-t-3 pd-r-3 pd-b-3 pd-l-3 clase" style="background-color: #fff;border-radius: 12px;padding: 3px;box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);">');
+                        content_clase.push('<div style="background-color:#fff;color:#000;text-align:center;padding:2px;border-radius: 12px;">');
+                        content_clase.push('<p class="tx-center tx-14" style="margin-top: 12px;font-weight:bold;color:red;">' + data[i].DiaNombre + '</p>');
+                        content_clase.push('<b class="tx-center tx-14" style="margin-top: 12px;font-weight:bold;">' + data[i].HoraInicioTexto + ' - ' + data[i].HoraFinTexto + '</b>');
+                        content_clase.push('</div>');
+                        content_clase.push('<div style="background-color:#fff;color:#000;text-align:center;padding:3px;">');
+                        content_clase.push('<b class="tx-center" style="font-size:14px;margin-top: 10px;font-weight:bold;">AFORO: ' + data[i].CantidadPlazas + '</b>');
+                        content_clase.push('</div>');
+
+                        content_clase.push('<div onclick="" data-id-maquinas="' + data[i].CodigoHorarioClasesConfiguracion + '" style="background-color:#efeff4;color:#000;text-align:center;padding:5px;border-radius: 12px;margin-bottom: 5px;border: 2px solid #efeff4;"> ');
+                        content_clase.push('<b class="tx-center" style="font-size:12px;padding-top: 10px;">CAMBIAR AFORO</b>');
+                        content_clase.push('</div>');
+
+                        content_clase.push('<div onclick="javascript:preguntarActivarHorario(this);" data-id-maquinas="' + data[i].CodigoHorarioClasesConfiguracion + '" style="background-color:red;color:#fff;text-align:center;padding:5px;border-radius: 12px;"> ');
+                        content_clase.push('<b class="tx-center" style="font-size:12px;padding-top: 10px;">ACTIVAR HORARIO</b>');
+                        content_clase.push('</div>');
+
+
+                        content_clase.push('</div>');
+                        content_clase.push('</div>');
+
+                    }
+                    $('#gridClasesInactivas').html(content_clase.join(' '));
+
+
+                } else {
+                    $('#gridClasesInactivas').html('');
+                }
+
+            };
+
+            var metodoError = function (msg) {
+                alert(msg);
+            };
+            var request = {
+                request: entidad
+            };
+
+            LlamarAJAX('/reservapresencial/uspListarPresencial_HorarioClasesConfiguracionPaginaWeb_ConfiguracionSalaMaquinasINACTIVOS', request, metodoCorrecto, metodoError);
+        }
+
+        //BUSCAR AFORO
+        function CentroEntrenamiento_uspBuscarPresencial_HorarioClasesConfiguracion(control) {
+
+            document.getElementById('loadMe').style.display = 'block';
+
+            var CodigoHorarioClasesConfiguracion = $(control).attr('data-id-maquinas');
+            var entidad = {};
+            entidad.CodigoHorarioClasesConfiguracion = CodigoHorarioClasesConfiguracion;
+            $('#hdCodigoHorarioClasesConfiguracion_CambiarAforo').val(CodigoHorarioClasesConfiguracion);
+
+            var metodoCorrecto = function (data) {
+                document.getElementById('loadMe').style.display = 'none';
+
+                $('#txtCambiarAforo').val(data.CapacidadPermitida);
+                document.getElementById('modalCambiarAforo').style.display = 'block';
+
+            };
+
+            var metodoError = function (msg) {
+                alert(msg);
+            };
+            var request = {
+                request: entidad
+            };
+
+            LlamarAJAX('/reservapresencial/CentroEntrenamiento_uspBuscarPresencial_HorarioClasesConfiguracion', request, metodoCorrecto, metodoError);
+        }
+
+        function CancelarmodalCambiarAforo() {
+            document.getElementById('modalCambiarAforo').style.display = 'none';
+        }
+
+        function uspActualizarPresencial_HorarioClasesConfiguracion_CambiarAforo() {
+
+            document.getElementById('loadMe').style.display = 'block';
+
+            var entidad = {};
+            entidad.CodigoHorarioClasesConfiguracion = $('#hdCodigoHorarioClasesConfiguracion_CambiarAforo').val();
+            entidad.CapacidadPermitida = $('#txtCambiarAforo').val();
+
+            var metodoCorrecto = function (data) {
+                document.getElementById('loadMe').style.display = 'none';
+                document.getElementById('modalCambiarAforo').style.display = 'none';
+                uspListarPresencial_HorarioClasesConfiguracionPaginaWeb_ConfiguracionSalaMaquinasSUCCESS();
+
+                $.bootstrapGrowl("SE ACTUALIZO CORRECTAMENTE EL AFORO.", { type: 'success', width: 'auto' });
+
+            };
+
+            var metodoError = function (msg) {
+                alert(msg);
+            };
+            var request = {
+                request: entidad
+            };
+
+            LlamarAJAX('/reservapresencial/CentroEntrenamiento_uspActualizarPresencial_HorarioClasesConfiguracion_CambiarAforo', request, metodoCorrecto, metodoError);
+        }
+
+        //DESACTIVAR HORARIO
+        function preguntarDesactivarHorario(control) {
+            var CodigoHorarioClasesConfiguracion = $(control).attr('data-id-maquinas');
+            $('#hdCodigoHorarioClasesConfiguracion_Estado').val(CodigoHorarioClasesConfiguracion);
+            document.getElementById('modaldesactivarHorario').style.display = 'block';
+        }
+
+        function CancelarmodaldesactivarHorario() {
+            document.getElementById('modaldesactivarHorario').style.display = 'none';
+        }
+
+        function uspActualizarPresencial_HorarioClasesConfiguracion_Desactivar() {
+
+            document.getElementById('loadMe').style.display = 'block';
+
+            var entidad = {};
+            entidad.CodigoHorarioClasesConfiguracion = $('#hdCodigoHorarioClasesConfiguracion_Estado').val();
+
+            var metodoCorrecto = function (data) {
+                document.getElementById('loadMe').style.display = 'none';
+                $.bootstrapGrowl("SE DESACTIVO CORRECTAMENTE EL HORARIO.", { type: 'success', width: 'auto' });
+
+                document.getElementById('modaldesactivarHorario').style.display = 'none';
+                uspListarPresencial_HorarioClasesConfiguracionPaginaWeb_ConfiguracionSalaMaquinasSUCCESS();
+            };
+
+            var metodoError = function (msg) {
+                alert(msg);
+            };
+            var request = {
+                request: entidad
+            };
+
+            LlamarAJAX('/reservapresencial/CentroEntrenamiento_uspActualizarPresencial_HorarioClasesConfiguracion_Desactivar', request, metodoCorrecto, metodoError);
+        }
+
+        //ACTIVAR HORARIO
+        function preguntarActivarHorario(control) {
+            var CodigoHorarioClasesConfiguracion = $(control).attr('data-id-maquinas');
+            $('#hdCodigoHorarioClasesConfiguracion_Estado').val(CodigoHorarioClasesConfiguracion);
+            document.getElementById('modalActivarHorario').style.display = 'block';
+        }
+
+        function CancelarmodalActivarHorario() {
+            document.getElementById('modalActivarHorario').style.display = 'none';
+        }
+
+        function uspActualizarPresencial_HorarioClasesConfiguracion_Activar() {
+
+            document.getElementById('loadMe').style.display = 'block';
+
+            var entidad = {};
+            entidad.CodigoHorarioClasesConfiguracion = $('#hdCodigoHorarioClasesConfiguracion_Estado').val();
+
+            var metodoCorrecto = function (data) {
+                document.getElementById('loadMe').style.display = 'none';
+                document.getElementById('modalActivarHorario').style.display = 'none';
+                $.bootstrapGrowl("SE ACTIVO CORRECTAMENTE EL HORARIO.", { type: 'success', width: 'auto' });
+                uspListarPresencial_HorarioClasesConfiguracionPaginaWeb_ConfiguracionSalaMaquinasSUCCESS();
+                uspListarPresencial_HorarioClasesConfiguracionPaginaWeb_ConfiguracionSalaMaquinasINACTIVOS();
+
+            };
+
+            var metodoError = function (msg) {
+                alert(msg);
+            };
+            var request = {
+                request: entidad
+            };
+
+            LlamarAJAX('/reservapresencial/CentroEntrenamiento_uspActualizarPresencial_HorarioClasesConfiguracion_Activar', request, metodoCorrecto, metodoError);
+        }
+
+        function controlHtrml_a_DiaLunes(CodigoClase) {
+            
+            $('#hdCodigoSala_personalizacion').val(CodigoClase);
+            document.getElementById("controlHtrml_a_DiaLunes").click();
+        }
+
+        //BUSCAR LOG Y COLOR GIMNASIO
+        function ObtenerLogoColorEmpresa() {
+
+            document.getElementById('loadMe').style.display = 'block';
+
+            var entidad = {};
+
+            var metodoCorrecto = function (data) {
+                document.getElementById('loadMe').style.display = 'none';
+                $("#imgLogoPlataforma").attr("src", data.LogoCorporativo);
+                $('#txtColorPrincipalPagina').val(data.ColorPrincipalPagina);
+                $('#linkPLataforma').css('color', data.ColorPrincipalPagina);
+
+                //$("#txtNormativaPrincipalPagina").html(data.ReservasNormativa);
+                $("#txtNormativaPrincipalPagina").data("kendoEditor").value(data.ReservasNormativa);
+                //$("#txtNotasPrincipalPagina").html(data.ReservasNotas);
+                $("#txtNotasPrincipalPagina").data("kendoEditor").value(data.ReservasNotas);
+                $("#txtMinutosCancelarReservaPrincipalPagina").val(data.ReservasMinutosCancelar);
+            };
+
+            var metodoError = function (msg) {
+                alert(msg);
+            };
+            var request = {
+
+            };
+
+            LlamarAJAX('/reservapresencial/ObtenerLogoColorEmpresa', request, metodoCorrecto, metodoError);
+        }
+
+        var guardarlogo = function () {
+
+            var file = $("#buscarImagen").get(0).files;
+
+            var detalle = $("#txtDetalle").val();
+            var height = $("#hdheight_imagen").val();
+            var width = $("#hdwidth_imagen").val();
+
+            if (detalle == '') {
+                $.bootstrapGrowl("Falta seleccionar una imagen.", { type: 'danger', width: 'auto' });
+                return false;
+            } else if (parseInt(height) > 1200) {
+                $.bootstrapGrowl("El alto de la imagen no puede ser mayor 1200.", { type: 'danger', width: 'auto' });
+                return false;
+            } else if (parseInt(width) > 1200) {
+                $.bootstrapGrowl("El ancho de la imagen no puede ser mayor 1200.", { type: 'danger', width: 'auto' });
+                return false;
+            } else if (file == undefined || file == null) {
+                $.bootstrapGrowl("Falta seleccionar una imagen.", { type: 'danger', width: 'auto' });
+                return false;
+            }
+            document.getElementById('loadMe').style.display = 'block';
+
+            var data = new FormData;
+            data.append("file", file[0]);
+
+            $.ajax({
+                type: "Post",
+                url: "/reservapresencial/GuardarConfiguracion_logo",
+                data: data,
+                contentType: false,
+                processData: false,
+                success: function (response) {
+                    $.bootstrapGrowl("El logo ha sido guardado correctamente.", { type: 'success', width: 'auto' });
+                }, complete: function () {
+                    document.getElementById('loadMe').style.display = 'none';
+                }
+            })
+
+        }
+
+        function uspActualizarEdicionPaginaWeb() {
+
+            var entidad = {};
+            entidad.ColorPrincipalPagina = $('input[id="txtColorPrincipalPagina"]').val();
+            entidad.ReservasNormativa = $("#txtNormativaPrincipalPagina").data("kendoEditor").value(); //$('textarea[id="txtNormativaPrincipalPagina"]').val();
+            entidad.ReservasNotas = $("#txtNotasPrincipalPagina").data("kendoEditor").value(); // $('textarea[id="txtNotasPrincipalPagina"]').val();
+            entidad.ReservasMinutosCancelar = $('input[id="txtMinutosCancelarReservaPrincipalPagina"]').val();
+
+            //alert(entidad.ReservasNormativa);
+            //alert(entidad.ReservasNotas);
+            //return;
+            $('button').attr('disabled', 'disabled');
+            var metodoCorrecto = function (msg) {
+
+                if (msg) {
+                    $('button').removeAttr('disabled');
+                    $.bootstrapGrowl("SE GUARDO CORRECTAMENTE.", { type: 'success', width: 'auto' });
+                }
+                else {
+
+                }
+            };
+            var metodoError = function (msg) {
+                alert(msg);
+            };
+            var request = {
+                request: entidad
+            };
+            LlamarAJAX("/reservapresencial/CentroEntrenamiento_uspActualizarEdicionPaginaWeb_ColorPrincipalPagina", request, metodoCorrecto, metodoError);
+        }
+
+
+        function uspListarSalaMaquinas_Presencial_ingresohorarios() {
+
+            var entidad = {};
+
+            var metodoCorrecto = function (data) {
+
+                var content_salamaquinas = new Array();
+                for (var i = 0; i < data.length; i++) {
+
+                    if (i == 0) {
+                        content_salamaquinas.push('<a href="#" onclick="uspListarPresencial_ConfiguracionSalaFitness(' + data[i].CodigoSala +');" class="active" data-toggle="tab" role="tab" aria-controls="activity_all" aria-selected="true">' + data[i].Descripcion + '</a>');                        
+                        uspListarPresencial_ConfiguracionSalaFitness(data[i].CodigoSala);
+                                              
+                    } else {
+                        content_salamaquinas.push('<a href="#" onclick="uspListarPresencial_ConfiguracionSalaFitness(' + data[i].CodigoSala +');" data-toggle="tab" role="tab" aria-selected="false">' + data[i].Descripcion + '</a>');
+                    }
+                    //uspListarPresencial_HorarioClasesConfiguracionCalendario
+                }
+                $('#divSalasMaquinas').html(content_salamaquinas.join(' '));
+
+            };
+
+            var metodoError = function (msg) {
+                alert(msg);
+            };
+            var request = {
+                request: entidad
+            };
+
+            LlamarAJAX('/gestionce/uspListarSalaMaquinas_Presencial', request, metodoCorrecto, metodoError);
+        }
+
+        function uspListarSalaMaquinas_Presencial_personalizacion() {
+
+            var entidad = {};
+
+            var metodoCorrecto = function (data) {
+
+                var content_salamaquinas_personalizacion = new Array();
+                for (var i = 0; i < data.length; i++) {
+
+                    if (i == 0) {
+                        content_salamaquinas_personalizacion.push('<a href="#" onclick="controlHtrml_a_DiaLunes(' + data[i].CodigoSala + ');" class="active" data-toggle="tab" role="tab" aria-controls="activity_all" aria-selected="true">' + data[i].Descripcion + '</a>');
+                      
+                        controlHtrml_a_DiaLunes(data[i].CodigoSala);
+
+                    } else {
+                        content_salamaquinas_personalizacion.push('<a href="#" onclick="controlHtrml_a_DiaLunes(' + data[i].CodigoSala + ');" data-toggle="tab" role="tab" aria-selected="false">' + data[i].Descripcion + '</a>');
+                    }
+                    
+                }
+                $('#divSalasMaquinas_personalizacion').html(content_salamaquinas_personalizacion.join(' '));
+
+            };
+
+            var metodoError = function (msg) {
+                alert(msg);
+            };
+            var request = {
+                request: entidad
+            };
+
+            LlamarAJAX('/gestionce/uspListarSalaMaquinas_Presencial', request, metodoCorrecto, metodoError);
+        }
+
+        function uspListarSalaMaquinas_Presencial_desactivados() {
+
+            var entidad = {};
+
+            var metodoCorrecto = function (data) {
+
+                var content_salamaquinas_desactivados = new Array();
+                for (var i = 0; i < data.length; i++) {
+
+                    if (i == 0) {
+                        content_salamaquinas_desactivados.push('<a href="#" onclick="uspListarPresencial_HorarioClasesConfiguracionPaginaWeb_ConfiguracionSalaMaquinasINACTIVOS(' + data[i].CodigoSala + ');" class="active" data-toggle="tab" role="tab" aria-controls="activity_all" aria-selected="true">' + data[i].Descripcion + '</a>');
+
+                        //controlHtrml_a_DiaLunes(data[i].CodigoSala);
+                        uspListarPresencial_HorarioClasesConfiguracionPaginaWeb_ConfiguracionSalaMaquinasINACTIVOS(data[i].CodigoSala);
+
+                    } else {
+                        content_salamaquinas_desactivados.push('<a href="#" onclick="uspListarPresencial_HorarioClasesConfiguracionPaginaWeb_ConfiguracionSalaMaquinasINACTIVOS(' + data[i].CodigoSala + ');" data-toggle="tab" role="tab" aria-selected="false">' + data[i].Descripcion + '</a>');
+                    }
+
+                }
+                $('#divSalasMaquinas_desactivados').html(content_salamaquinas_desactivados.join(' '));
+
+            };
+
+            var metodoError = function (msg) {
+                alert(msg);
+            };
+            var request = {
+                request: entidad
+            };
+
+            LlamarAJAX('/gestionce/uspListarSalaMaquinas_Presencial', request, metodoCorrecto, metodoError);
+        }
+
+        function ListarSalaMaquinasGrid() {
+
+            document.getElementById('loadMe').style.display = 'block';
+
+            $("#gridSalasMaquinas").empty();
+            $("#gridSalasMaquinas").kendoGrid({
+                dataSource: {
+                    type: "json",
+                    transport: {
+                        read: function (options) {
+                            $.ajax({
+                                type: "POST",
+                                url: "/gestionce/uspListarSalaMaquinas_Presencial",
+                                contentType: "application/json; charset=utf-8",
+                                dataType: "json",
+                                success: function (msg) {
+                                    options.success(msg);
+                                }, complete: function () {
+                                    document.getElementById('loadMe').style.display = 'none';
+                                }
+                            });
+                        }
+                    }
+                },
+                selectable: "row",
+                sortable: true,
+                height: 400,
+                width: 450,
+                columns: [{
+                    field: "CodigoSala",
+                    title: "<center style='color:#fff;font-weight:bold'>Codigo</center>",
+                    width: 5,
+                    attributes: {
+                        style: "font-size:10px;text-align:center;"
+                    }
+                }, {
+                    field: "Descripcion",
+                    title: "<center style='color:#fff;font-weight:bold'>Descripcion</center>",
+                    width: 15,
+                    attributes: {
+                        style: "font-size:11px;text-align:center;"
+                    }
+                }, {
+                    template: "<center><button onclick='event_CambiarNombreSala(\"#: CodigoSala #\");' type='button' class='btn btn-light btn-sm' title='Modificar sala.' >Modificar nombre</button></center>",
+                    title: "",
+                    width: 10,
+                    attributes: {
+                        style: "font-size:12px;text-align:center;"
+                    }
+                }, {
+                    template: "<center><button onclick='event_DesactivarSala(\"#: CodigoSala #\");' type='button' class='btn btn-light btn-sm' title='Eliminar sala.' >Eliminar</button></center>",
+                    title: "",
+                    width: 10,
+                    attributes: {
+                        style: "font-size:12px;text-align:center;"
+                    }
+                }]
+            });
+
+        }
+
+        
+        function SEGListarPerfilMenu() {
+
+            var entidad = {};
+
+            document.getElementById('loadMe').style.display = 'block';
+            $('button[type="button"]').attr("disabled", true);
+            var metodoCorrecto = function (msg) {
+
+                $('button[type="button"]').attr("disabled", false);
+                document.getElementById('loadMe').style.display = 'none';
+
+                for (var i = 0; i < msg.length; i++) {
+
+                    if (msg[i].Estado) {
+
+                        $('[data-controlmodulo="' + msg[i].CodigoMenu + '"]').show('fast');
+
+                    }
+                }
+
+            };
+            var metodoError = function (msg) {
+                alert(msg);
+            };
+            var request = {
+                //request: entidad
+            };
+            LlamarAJAX("/operacionesfit/SEGListarPerfilMenu_Control", request, metodoCorrecto, metodoError);
+
+        }
+
+
+
+
+    </script>
+}

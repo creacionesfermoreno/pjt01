@@ -1,0 +1,248 @@
+﻿@model BotComers.ViewModels.CategoriasProductosViewModel
+
+@{
+    ViewBag.Title = "categoria";
+    Layout = "~/Views/Shared/_LayoutAppfitTienda2.cshtml";
+}
+
+<link href="@Url.Content("~/Content/tienda2/css/listing.css")" rel="stylesheet" />
+
+<link href="@Url.Content("~/Content/cssKendo/kendo.common.min.css")" rel="stylesheet" />
+<link href="@Url.Content("~/Content/cssKendo/kendo.dataviz.default.min.css")" rel="stylesheet" />
+<link href="@Url.Content("~/Content/cssKendo/kendo.dataviz.min.css")" rel="stylesheet" />
+<link href="@Url.Content("~/Content/cssKendo/kendo.default.min.css")" rel="stylesheet" />
+
+<style>
+
+    .boton_agregarcarrito {
+        background-color: #fff;
+        -webkit-border-radius: 0;
+        -moz-border-radius: 0;
+        -ms-border-radius: 0;
+        border-radius: 0;
+        width: 36px;
+        height: 36px;
+        color: #444;
+        text-align: center;
+        line-height: 40px;
+        display: block;
+        margin: 0;
+        padding: 0;
+    }
+
+
+    #txtbuscadorgeneraltienda {
+        padding:0px;
+        font-size:14px;
+        margin-left:20px;
+    }
+
+    .k-header {
+        width: 100%;
+        height: 100%;
+    }
+    .k-state-hover {
+        background-color: #fff;
+    }
+    .k-autocomplete.k-state-default, .k-picker-wrap.k-state-default, .k-numeric-wrap.k-state-default, .k-dropdown-wrap.k-state-default {
+        background-color:#fff;        
+    }
+
+
+    
+</style>
+<main>
+
+    <div class="container margin_30">
+        <div class="top_banner version_2">
+            <div class="opacity-mask d-flex align-items-center" data-opacity-mask="rgba(0, 0, 0, 0)">
+                <div class="container">
+                    <div class="d-flex justify-content-center">
+
+                    </div>
+                </div>
+            </div>
+            <img src="@Model.UrlImagen" class="img-fluid" alt="">
+        </div>
+        <!-- /top_banner -->
+        <div id="stick_here"></div>
+        <div class="toolbox elemento_stick version_2">
+
+        </div>
+        <!-- /toolbox -->
+        <div class="row small-gutters">
+            @foreach (var item in Model.listaItemsVenta)
+            {
+                <div class="col-6 col-md-4 col-xl-3">
+                    <div class="grid_item">
+                        <figure>
+                            <a href="@Url.Action("detalle","tienda",new {id= HttpContext.Current.Request.Cookies["_SubDominio_PersonaTiendaVirtual"].Value,Idproducto = item.CodigoImagen})">
+                                <img class="img-fluid lazy" src="@item.UrlImagen" data-src="@item.UrlImagen" alt="">
+                            </a>
+                        </figure>
+                        <a href="product-detail-1.html">
+                            <h3>@item.Nombre</h3>
+                        </a>
+                        <div class="price_box">
+                            <span class="new_price">S/.@item.PrecioVenta</span>
+                        </div>
+                        <ul>
+                            <li><a class="tooltip-1 boton_agregarcarrito" data-toggle="tooltip" data-placement="left" title="agregar al carrito" data-imagen="@item.UrlImagen" data-titulo="@item.Nombre" data-precio="@item.PrecioVenta" data-id="@item.CodigoImagen" onclick="comprarProducto(this)"><i class="ti-shopping-cart"></i><span>agregar al carrito</span></a></li>
+                        </ul>
+                    </div>
+
+                </div>
+            }
+
+        </div>
+        <!-- /row -->
+     
+    </div>
+    <!-- /container -->
+</main>
+
+
+@section Scripts {
+
+    @System.Web.Optimization.Scripts.Render("~/Scripts/jquery.min.js")
+    @System.Web.Optimization.Scripts.Render("~/Scripts/plugins/jsKendo/angular.min.js")
+    @System.Web.Optimization.Scripts.Render("~/Scripts/plugins/jsKendo/kendo.all.min.js")
+
+    @System.Web.Optimization.Scripts.Render("~/Scripts/plugins/jquery-ui/jquery-ui.js")
+    @System.Web.Optimization.Scripts.Render("~/Scripts/plugins/jquery-ui/jquery-ui.min.js")
+
+    @System.Web.Optimization.Scripts.Render("~/Content/tienda2/js/carousel-home.js")
+    @System.Web.Optimization.Scripts.Render("~/Resource/UserControl.Helper.js")
+
+    @System.Web.Optimization.Scripts.Render("~/Scripts/bootstrap-notify-master/bootstrap-notify.js")
+    @System.Web.Optimization.Scripts.Render("~/Scripts/bootstrap-notify-master/bootstrap-notify.min.js")
+    @System.Web.Optimization.Scripts.Render("~/Scripts/jsBootstrap/jquery.bootstrap-growl.js")
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            BuscadorProductos();
+           
+            leerMenu();
+            leerMenu2();
+            
+        });
+
+        function BuscadorProductos() {
+           
+            var ddlPaqueteContrato = $("#txtbuscadorgeneraltienda,#txtbuscadorgeneraltiendamobil").kendoAutoComplete({
+                filter: "startswith",
+                dataTextField: "Descripcion",
+                dataValueField: "CodigoItemVenta",             
+                template: '<div class="row" ><a href="/tienda/detalle/@HttpContext.Current.Request.Cookies["_SubDominio_PersonaTiendaVirtual"].Value?Idproducto=#: data.CodigoImagen #">' +
+                    '<span class="k-state-default" style="margin-left: 26px;margin-top: 9px;">' +
+                        '<img src="#: data.UrlImagen #" alt="" width="55" height="55" class="img-fluid lazy">' +
+                    '</span>' +
+                    '<span class="k-state-default" style="margin-top: 20px;margin-left: 20px;">' +
+                        '#: data.Nombre #' +
+                    '</span>' +
+                    '</a></div>',
+                valueTemplate: '<div style="font-size:12px;text-transform:uppercase;"> #:data.Descripcion# </div>',
+                dataSource: {
+                    serverFiltering: true,
+                    transport: {
+                        read: function (options) {
+                            var flag = ddlPaqueteContrato.value();                            
+                            $.ajax({
+                                data: '{"buscador":"' + flag + '"}',
+                                type: "POST",
+                                url: "/tienda/uspBuscadorItemsVentaInventariable",
+                                contentType: "application/json; charset=utf-8",
+                                dataType: "json",
+                                success: function (msg) {
+                                    options.success(msg);
+                                    if (msg == "") {
+                                        $.bootstrapGrowl("No hemos encontrado ningún plan.", { type: 'danger', width: 'auto' });
+                                    }
+                                }
+                            });
+                        }
+                    }, height: 600
+                }, change: function () {
+                  
+                }
+
+            }).data("kendoAutoComplete");
+        }
+
+        function getCookie(cname) {
+            var name = cname + "=";
+            var ca = document.cookie.split(';');
+            for (var i = 0; i < ca.length; i++) {
+                var c = ca[i].trim();
+                if (c.indexOf(name) == 0) return c.substring(name.length, c.length);
+            }
+            return "";
+        }
+
+        function leerMenu() {
+
+            var content_Catgorias = new Array();
+
+            let menuLS;
+            menuLS = obtenerMenuLocalStorage();
+            menuLS.forEach(function (menu) {
+
+                if (menu.CodigoMenuSuperior == 0) {
+                    content_Catgorias.push('<li class="megamenu submenu">');
+                    content_Catgorias.push('    <a href="javascript:void(0);" class="show-submenu-mega">' + menu.Descripcion + '</a>');
+                    content_Catgorias.push('    <div class="menu-wrapper">');
+                    content_Catgorias.push('        <div class="row small-gutters">');
+
+                    menuLS.forEach(function (menuhijo) {
+                        if (menu.CodigoMenu == menuhijo.CodigoMenuSuperior) {
+                            var url = '/tienda/categoria/' + getCookie('_SubDominio_PersonaTiendaVirtual') + '?Idcat=' + menuhijo.CodigoImagen;
+                            content_Catgorias.push('<div class="col-lg-3">');
+                            content_Catgorias.push('    <h3 style="cursor:pointer;" ><a href="' + url + '">' + menuhijo.Descripcion + '</a></h3>');
+                            content_Catgorias.push('</div>');
+                        }
+                    });
+
+                    content_Catgorias.push('        </div>');
+                    content_Catgorias.push('   </div>');
+                    content_Catgorias.push('</li>');
+                }
+
+            });
+
+            $('#ulCategorias').html(content_Catgorias.join(' '));
+        }
+
+        function leerMenu2() {
+            //PADRE MENU
+            var content_menu = new Array();
+            content_menu.push('<ul>');
+
+            let menuLS;
+            menuLS = obtenerMenuLocalStorage();
+            menuLS.forEach(function (menu) {
+
+                if (menu.CodigoMenuSuperior == 0) {
+                    content_menu.push('<li>');
+                    content_menu.push('    <span><a href="#0">' + menu.Descripcion + '</a></span>');
+                    content_menu.push('    <ul>');
+
+                    menuLS.forEach(function (menuhijo) {
+                        if (menu.CodigoMenu == menuhijo.CodigoMenuSuperior) {
+                            var url = '/tienda/categoria/' + getCookie('_SubDominio_PersonaTiendaVirtual') + '?Idcat=' + menuhijo.CodigoImagen;
+                            content_menu.push('        <li><a href="' + url + '">' + menuhijo.Descripcion + '</a></li>');
+                        }
+                    });
+
+                    content_menu.push('    </ul>');
+                    content_menu.push('</li>');
+                }
+
+            });
+
+            content_menu.push('</ul>');
+
+            $('#menu').html(content_menu.join(' '));
+        }
+
+    </script>
+}

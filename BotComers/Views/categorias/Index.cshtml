@@ -1,0 +1,231 @@
+﻿@model IEnumerable<E_DataModel.CategoriasDTO>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_LayoutApp.cshtml";
+}
+
+<div class="slim-mainpanel">
+
+    <div class="slim-mainpanel">
+        <div class="container">
+            <input type="hidden" value="0" id="hdCodigoItemVenta" />
+            <div class="report-summary-header">
+                <div>
+                    <h4 class="tx-inverse mg-b-3">Categorias</h4>
+                </div>
+                <div>
+                    <a href="@Url.Action("add","itemsventa")" class="btn btn-primary"><i class="icon ion-plus-circled tx-22"></i>Nueva Categoria</a>
+                </div>
+            </div><!-- d-flex -->
+            <div class="row mg-b-15">
+                <div class="col-lg-4">
+                    <div class="form-group">
+                        <label for="txtItemsVenta_Buscador" class="form-control-label">Buscador: <span class="tx-danger" id="" style="display:none;">* Ingrese fecha</span></label>
+                        <input id="txtItemsVenta_Buscador" onchange="ListarItemsVenta();" class="form-control form-control-sm" type="text" name="" value="" placeholder="">
+                    </div>
+                </div>
+                <div class="col-lg-7"></div>
+            </div>
+
+            <div class="card card-table mg-t-20 mg-sm-t-30">
+
+                <div class="table-responsive">
+                    <table id="gridEmpresa" class="table mg-b-0 tx-13">
+                        <thead>
+                            <tr class="tx-10">
+                                <th class="pd-y-45">
+                                    Categoria
+                                </th>                             
+                                <th class="pd-y-5">
+                                    Acciones
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model)
+                            {
+                                if (item != null)
+                                {
+                                    <tr>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.Descripcion)
+                                            <img src="@item.UrlImagen" alt="portada" />
+                                        </td>                                      
+                                        <td>
+                                            <i class="fa fa-eye tx-18" style="cursor:pointer;"></i>
+                                            <a href="@Url.Action("edit","itemsventa", new {id= item.CodigoMenu})"><i class="fa fa-pencil tx-18" style="cursor:pointer;"></i></a>
+                                            <i class="fa fa-plug tx-18" style="cursor:pointer;"></i>
+                                            <a href="" data-toggle="modal" data-target="#modalCargarPortada" data-CodigoPortada="@item.CodigoImagenPortada" data-CodigoMenu="@item.CodigoMenu" onclick="SeleccionarFilaCategoria(this);"><i class="fa fa-close tx-18" style="cursor:pointer;"></i></a>
+                                        </td>
+                                    </tr>
+                                }
+                            }
+                        </tbody>
+                    </table>
+                </div><!-- table-responsive -->
+            </div><!-- card -->
+
+        </div><!-- slim-mainpanel -->
+
+    </div>
+
+</div>
+
+<input type="hidden" id="hdCodigoImagen"  value="" />
+<input type="hidden" id="hdCodigoMenu" value="" />
+
+<div id="modalCargarPortada" class="modal fade">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content tx-sm-10-force">
+            <div class="modal-header pd-y-20 pd-x-25">
+                <h6 class="tx-14 mg-b-0 tx-uppercase tx-inverse tx-bold">Detalle</h6>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body pd-10">
+                <div class="card-body pd-10">
+                    <div class="form-group">
+                        <div class="row row-xs">
+                            <div class="col-lg-12">
+                                <div class="custom-file">
+                                    <input type="file" class="custom-file-input" id="buscarImagen">
+                                    <label class="custom-file-label" for="buscarImagen">Buscar imagen</label>
+                                </div><!-- custom-file -->
+                            </div><!-- col -->
+                        </div><!-- row -->
+                    </div>
+                    <div class="form-group">
+                        <div class="row row-xs">
+                            <img class="img-fluid" style="width:1398px;height:316px;" id="imgVistaImagen" />
+                        </div><!-- row -->
+                    </div>
+                    <div class="form-group">
+                        <div class="row row-xs">
+                            <div class="col-lg-12">
+                                <input id="txtDetalle_DescripcionImagen" type="text" name="lastname" class="form-control form-control-sm" placeholder="Ingrese link pago">
+                            </div><!-- col -->
+                        </div><!-- row -->
+                    </div>
+                </div><!-- card-body -->
+            </div><!-- modal-body -->
+            <div class="modal-footer">
+                <button onclick="javascript: Uploadimage();" type="button" class="btn btn-primary">Guardar</button>
+                <button id="btnCerrarModalCliente" type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+            </div>
+        </div>
+    </div><!-- modal-dialog -->
+</div><!-- modal -->
+
+
+
+@section Scripts {
+
+    @System.Web.Optimization.Scripts.Render("~/Scripts/plugins/jsKendo/angular.min.js")
+    @System.Web.Optimization.Scripts.Render("~/Scripts/plugins/jsKendo/kendo.all.min.js")
+
+    @System.Web.Optimization.Scripts.Render("~/Scripts/plugins/jquery-ui/jquery-ui.js")
+    @System.Web.Optimization.Scripts.Render("~/Scripts/plugins/jquery-ui/jquery-ui.min.js")
+
+    @System.Web.Optimization.Scripts.Render("~/Resource/UserControl.Helper.js")
+    @System.Web.Optimization.Scripts.Render("~/Scripts/bootstrap-notify-master/bootstrap-notify.js")
+    @System.Web.Optimization.Scripts.Render("~/Scripts/bootstrap-notify-master/bootstrap-notify.min.js")
+    @System.Web.Optimization.Scripts.Render("~/Scripts/jsBootstrap/jquery.bootstrap-growl.js")
+
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+
+            $('#buscarImagen').change(function () {
+                var File = this.files;
+                if (File && File[0]) {
+                    ReadImage(File[0]);
+                }
+            });
+
+
+        });
+
+        var ReadImage = function (file) {
+
+            var reader = new FileReader;
+            var image = new Image;
+
+            reader.readAsDataURL(file);
+            reader.onload = function (_file) {
+
+                image.src = _file.target.result;
+                image.onload = function () {
+
+                    var height = this.height;
+                    var width = this.width;
+                    var type = file.type;
+                    var size = ~~(file.size / 1024) + "KB";
+
+                    $("#imgVistaImagen").attr('src', _file.target.result);
+                    $("#txtDetalle_DescripcionImagen").val("Size:" + size + ", " + height + " X " + width + ", " + type + "");
+
+                }
+
+            }
+        }
+
+        var ClearPreview = function () {
+            $("#buscarImagen").val('');
+            $("#txtDetalle_DescripcionImagen").val('');
+            //$("#imgPreview").hide();
+        }
+
+        var Uploadimage = function () {
+
+            var CodigoImagen = $("#hdCodigoImagen").val();
+            var CodigoMenu = $("#hdCodigoMenu").val();
+            var file = $("#buscarImagen").get(0).files;
+
+            if ($('#hdCodigoImagen').val() == "") {
+                $.bootstrapGrowl("Error, no encontramos codigo de imagen!", { type: 'danger', width: 'auto' });
+                return false;
+            }
+            if ($('#hdCodigoMenu').val() == "") {
+                $.bootstrapGrowl("Error, Falta seleccionar una categoria!", { type: 'danger', width: 'auto' });
+                return false;
+            }
+            if (file == undefined || file == null) {
+                $.bootstrapGrowl("Falta seleccionar una imagen.", { type: 'danger', width: 'auto' });
+                return false;
+            }
+
+            var data = new FormData;
+            data.append("ImageFile2", file[0]);
+            data.append("CodigoImagenPortada", CodigoImagen);
+            data.append("CodigoMenu", CodigoMenu);
+
+            $.ajax({
+                type: "Post",
+                url: "/categorias/ImageUpload",
+                data: data,
+                contentType: false,
+                processData: false,
+                success: function (response) {
+                    $.bootstrapGrowl("La portada " + response + " ha sido guardada correctamente.", { type: 'success', width: 'auto' });
+                    ClearPreview();
+                    $("#modalCargarPortada").modal("hide");
+                    window.location.reload();
+                }
+
+            })
+
+        }
+
+        function SeleccionarFilaCategoria(control) {
+            var CodigoImagen = $(control).attr('data-CodigoPortada');
+            var CodigoMenu = $(control).attr('data-CodigoMenu');
+            
+            $("#hdCodigoImagen").val(CodigoImagen);
+            $("#hdCodigoMenu").val(CodigoMenu);
+        }
+
+    </script>
+
+}

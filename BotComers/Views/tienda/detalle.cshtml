@@ -1,0 +1,293 @@
+﻿@model BotComers.ViewModels.Inventario.ItemsVentaViewModel
+@{
+    ViewBag.Title = "detalle";
+    Layout = "~/Views/Shared/_LayoutAppfitTienda2.cshtml";
+}
+
+<link href="@Url.Content("~/Content/tienda2/css/product_page.css")" rel="stylesheet" />
+
+
+<link href="@Url.Content("~/Content/cssKendo/kendo.common.min.css")" rel="stylesheet" />
+<link href="@Url.Content("~/Content/cssKendo/kendo.dataviz.default.min.css")" rel="stylesheet" />
+<link href="@Url.Content("~/Content/cssKendo/kendo.dataviz.min.css")" rel="stylesheet" />
+<link href="@Url.Content("~/Content/cssKendo/kendo.default.min.css")" rel="stylesheet" />
+<style>
+
+
+    #txtbuscadorgeneraltienda {
+        padding: 0px;
+        font-size: 14px;
+        margin-left: 20px;
+    }
+
+    .k-header {
+        width: 100%;
+        height: 100%;
+    }
+
+    .k-state-hover {
+        background-color: #fff;
+    }
+
+    .k-autocomplete.k-state-default, .k-picker-wrap.k-state-default, .k-numeric-wrap.k-state-default, .k-dropdown-wrap.k-state-default {
+        background-color: #fff;
+    }
+</style>
+
+<div class="container margin_30">
+    <div class="row">
+        <div class="col-md-6" style="text-align: center;">
+            <img src="@Model.UrlImagen" alt="" style="height:600px;" />
+            @*<div style="background-image: url(@Model.UrlImagen);height:650px;"></div>*@
+            @*<div class="all">
+            <div class="slider">
+               <div class="owl-carousel owl-theme main">
+
+           <div style="background-image: url(~/Content/tienda2/img/products/shoes/2.jpg);" class="item-box"></div>
+        <div style="background-image: url(~/Content/tienda2/img/products/shoes/3.jpg);" class="item-box"></div>
+        <div style="background-image: url(~/Content/tienda2/img/products/shoes/4.jpg);" class="item-box"></div>
+        <div style="background-image: url(~/Content/tienda2/img/products/shoes/5.jpg);" class="item-box"></div>
+        <div style="background-image: url(~/Content/tienda2/img/products/shoes/6.jpg);" class="item-box"></div>
+                </div>
+
+            <div class="left nonl"><i class="ti-angle-left"></i></div>
+            <div class="right"><i class="ti-angle-right"></i></div>
+            </div>
+                <div class="slider-two">
+            <div class="owl-carousel owl-theme thumbs">
+                <div style="background-image: url(@Model.UrlImagen);" class="item active"></div>
+                <div style="background-image: url(~/Content/tienda2/img/products/shoes/2.jpg);" class="item"></div>
+                <div style="background-image: url(~/Content/tienda2/img/products/shoes/3.jpg);" class="item"></div>
+                <div style="background-image: url(~/Content/tienda2/img/products/shoes/4.jpg);" class="item"></div>
+                <div style="background-image: url(~/Content/tienda2/img/products/shoes/5.jpg);" class="item"></div>
+                <div style="background-image: url(~/Content/tienda2/img/products/shoes/6.jpg);" class="item"></div>
+            </div>
+            <div class="left-t nonl-t"></div>
+            <div class="right-t"></div>
+        </div>
+        </div>*@
+            </div>
+        <div class="col-md-6">
+            <div class="breadcrumbs">
+                <ul>
+                    <li><a href="@Url.Action("Index","tienda",new {id= HttpContext.Current.Request.Cookies["_SubDominio_PersonaTiendaVirtual"].Value})">tienda</a></li>
+                    <li>Detalle del menu</li>
+                </ul>
+            </div>
+            <!-- /page_header -->
+            <div class="prod_info">
+                <h1>@Model.Nombre</h1>
+                <span class="rating"><i class="icon-star voted"></i><i class="icon-star voted"></i><i class="icon-star voted"></i><i class="icon-star voted"></i><i class="icon-star"></i><em>4 reviews</em></span>
+                <p><br>@Model.Descripcion</p>
+                <div class="prod_options">
+                    <div class="row">
+                        <label class="col-xl-5 col-lg-5  col-md-6 col-6 pt-0"><strong>DISPONIBILIDAD</strong></label>
+                        <div class="col-xl-4 col-lg-5 col-md-6 col-6 colors">
+                            @if (Model.d_CantidadActual <= 0)
+                            {
+                                <p class="product-inventory"><span style="color:red;font-weight: bold;"> Agotado</span></p>
+                            }
+                            else
+                            {
+                                <p class="product-inventory"><span style="color: #00c719;font-weight: bold;">En stock</span></p>
+                            }
+                        </div>
+                    </div>
+                    <div class="row">
+                        <label class="col-xl-5 col-lg-5  col-md-6 col-6"><strong>CANTIDAD</strong></label>
+                        <div class="col-xl-4 col-lg-5 col-md-6 col-6">
+                            <div class="numbers-row">
+                                <input type="text" value="1" min="1" max="@Model.d_CantidadActual" id="txtCantidadCompra" class="qty2" name="quantity_1">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-5 col-md-6">
+                        <div class="price_main"><span class="new_price">@Model.PrecioVenta</span></div>
+                    </div>
+                    <div class="col-lg-4 col-md-6">
+                        <div class="btn_add_to_cart btn_1" data-imagen="@Model.UrlImagen" data-titulo="@Model.Nombre" data-precio="@Model.PrecioVenta" data-id="@Model.CodigoImagen" onclick="javascript: comprarProductoDetalle(this);">Agregar al carrito</div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <!-- /row -->
+</div>
+<!-- /container -->
+
+<div class="feat">
+    <div class="container">
+        <ul>
+            <li>
+                <div class="box">
+                    <i class="ti-gift"></i>
+                    <div class="justify-content-center">
+                        <h3>Envío gratis</h3>
+                        <p>Para todos los pedidos superiores a S/ 250.00</p>
+                    </div>
+                </div>
+            </li>
+            <li>
+                <div class="box">
+                    <i class="ti-wallet"></i>
+                    <div class="justify-content-center">
+                        <h3>Pago seguro</h3>
+                        <p>Pago 100% seguro</p>
+                    </div>
+                </div>
+            </li>
+            <li>
+                <div class="box">
+                    <i class="ti-headphone-alt"></i>
+                    <div class="justify-content-center">
+                        <h3>Soporte 24/7</h3>
+                        <p>Soporte superior en línea</p>
+                    </div>
+                </div>
+            </li>
+        </ul>
+    </div>
+</div>
+<!--/feat-->
+
+@section Scripts {
+
+    @System.Web.Optimization.Scripts.Render("~/Scripts/jquery.min.js")
+    @System.Web.Optimization.Scripts.Render("~/Scripts/plugins/jsKendo/angular.min.js")
+    @System.Web.Optimization.Scripts.Render("~/Scripts/plugins/jsKendo/kendo.all.min.js")
+
+    @System.Web.Optimization.Scripts.Render("~/Scripts/plugins/jquery-ui/jquery-ui.js")
+    @System.Web.Optimization.Scripts.Render("~/Scripts/plugins/jquery-ui/jquery-ui.min.js")
+
+    @System.Web.Optimization.Scripts.Render("~/Resource/UserControl.Helper.js")
+
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+
+            BuscadorProductos();
+
+            leerMenu();
+            leerMenu2();
+        });
+
+        function getCookie(cname) {
+            var name = cname + "=";
+            var ca = document.cookie.split(';');
+            for (var i = 0; i < ca.length; i++) {
+                var c = ca[i].trim();
+                if (c.indexOf(name) == 0) return c.substring(name.length, c.length);
+            }
+            return "";
+        }
+        function leerMenu() {
+
+            var content_Catgorias = new Array();
+
+            let menuLS;
+            menuLS = obtenerMenuLocalStorage();
+            menuLS.forEach(function (menu) {
+
+                if (menu.CodigoMenuSuperior == 0) {
+                    content_Catgorias.push('<li class="megamenu submenu">');
+                    content_Catgorias.push('    <a href="javascript:void(0);" class="show-submenu-mega">' + menu.Descripcion + '</a>');
+                    content_Catgorias.push('    <div class="menu-wrapper">');
+                    content_Catgorias.push('        <div class="row small-gutters">');
+
+                    menuLS.forEach(function (menuhijo) {
+                        if (menu.CodigoMenu == menuhijo.CodigoMenuSuperior) {
+                            var url = '/tienda/categoria/' + getCookie('_SubDominio_PersonaTiendaVirtual') + '?Idcat=' + menuhijo.CodigoImagen;
+                            content_Catgorias.push('<div class="col-lg-3">');
+                            content_Catgorias.push('    <h3 style="cursor:pointer;" ><a href="' + url + '">' + menuhijo.Descripcion + '</a></h3>');
+                            content_Catgorias.push('</div>');
+                        }
+                    });
+
+                    content_Catgorias.push('        </div>');
+                    content_Catgorias.push('   </div>');
+                    content_Catgorias.push('</li>');
+                }
+
+            });
+
+            $('#ulCategorias').html(content_Catgorias.join(' '));
+        }
+        function leerMenu2() {
+            //PADRE MENU
+            var content_menu = new Array();
+            content_menu.push('<ul>');
+
+            let menuLS;
+            menuLS = obtenerMenuLocalStorage();
+            menuLS.forEach(function (menu) {
+
+                if (menu.CodigoMenuSuperior == 0) {
+                    content_menu.push('<li>');
+                    content_menu.push('    <span><a href="#0">' + menu.Descripcion + '</a></span>');
+                    content_menu.push('    <ul>');
+
+                    menuLS.forEach(function (menuhijo) {
+                        if (menu.CodigoMenu == menuhijo.CodigoMenuSuperior) {
+                            var url = '/tienda/categoria/' + getCookie('_SubDominio_PersonaTiendaVirtual') + '?Idcat=' + menuhijo.CodigoImagen;
+                            content_menu.push('        <li><a href="' + url + '">' + menuhijo.Descripcion + '</a></li>');
+                        }
+                    });
+
+                    content_menu.push('    </ul>');
+                    content_menu.push('</li>');
+                }
+
+            });
+
+            content_menu.push('</ul>');
+
+            $('#menu').html(content_menu.join(' '));
+        }
+
+        function BuscadorProductos() {
+
+            var ddlPaqueteContrato = $("#txtbuscadorgeneraltienda,#txtbuscadorgeneraltiendamobil").kendoAutoComplete({
+                filter: "startswith",
+                dataTextField: "Descripcion",
+                dataValueField: "CodigoItemVenta",
+                template: '<div class="row" ><a href="/tienda/detalle/@HttpContext.Current.Request.Cookies["_SubDominio_PersonaTiendaVirtual"].Value?Idproducto=#: data.CodigoImagen #">' +
+                    '<span class="k-state-default" style="margin-left: 26px;margin-top: 9px;">' +
+                        '<img src="#: data.UrlImagen #" alt="" width="55" height="55" class="img-fluid lazy">' +
+                    '</span>' +
+                    '<span class="k-state-default" style="margin-top: 20px;margin-left: 20px;">' +
+                        '#: data.Nombre #' +
+                    '</span>' +
+                    '</a></div>',
+                valueTemplate: '<div style="font-size:12px;text-transform:uppercase;"> #:data.Descripcion# </div>',
+                dataSource: {
+                    serverFiltering: true,
+                    transport: {
+                        read: function (options) {
+                            var flag = ddlPaqueteContrato.value();
+                            $.ajax({
+                                data: '{"buscador":"' + flag + '"}',
+                                type: "POST",
+                                url: "/tienda/uspBuscadorItemsVentaInventariable",
+                                contentType: "application/json; charset=utf-8",
+                                dataType: "json",
+                                success: function (msg) {
+                                    options.success(msg);
+                                    if (msg == "") {
+                                       
+                                    }
+                                }
+                            });
+                        }
+                    }, height: 600
+                }, change: function () {
+
+                }
+
+            }).data("kendoAutoComplete");
+        }
+    </script>
+}
+

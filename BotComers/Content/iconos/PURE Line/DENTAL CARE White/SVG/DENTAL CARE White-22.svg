@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Generator: Adobe Illustrator 16.0.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="170px"
+	 height="169.999px" viewBox="0 0 170 169.999" enable-background="new 0 0 170 169.999" xml:space="preserve">
+<g id="Background">
+</g>
+<g id="Circle">
+	<g>
+		<path fill="#282D33" d="M85,169.999c-46.869,0-85-38.131-85-85S38.131,0,85,0s85,38.13,85,84.999S131.869,169.999,85,169.999z"/>
+	</g>
+</g>
+<g id="TEXT">
+</g>
+<g id="Icons">
+	<g>
+		<path fill="none" stroke="#FFFFFF" stroke-width="4" d="M79.12,111.332c2.82,0.517,5.742,0.788,8.738,0.788
+			c6.012,0,11.727-1.1,16.906-3.072l7.25,1.943l15.023,4.025l-4.025-15.023l-0.848-3.156c5.113-6.133,8.139-13.684,8.139-21.857
+			c0-20.512-19.002-37.141-42.445-37.141S45.411,54.468,45.411,74.979c0,1.029,0.049,2.049,0.145,3.057"/>
+		<g>
+			<line fill="none" stroke="#FFFFFF" stroke-width="4" x1="75.103" y1="57.706" x2="67.771" y2="57.706"/>
+			<line fill="none" stroke="#FFFFFF" stroke-width="4" x1="102.106" y1="57.706" x2="94.774" y2="57.706"/>
+			<path fill="none" stroke="#FFFFFF" stroke-width="4" d="M70.97,67.538c0.346,8.623,6.57,15.5,14.217,15.5
+				c7.648,0,13.871-6.877,14.217-15.5H70.97z"/>
+		</g>
+		<path fill="none" stroke="#FFFFFF" stroke-width="4" d="M71.614,85.347c-4.748-2.761-5.996-2.873-12.641-1.121
+			c-1.002,0.261-1.875,0.414-2.67,0.502c-0.797-0.088-1.672-0.241-2.672-0.502c-6.645-1.752-7.889-1.64-12.639,1.121
+			c-4.166,2.195-6.559,8.549-5.369,15.688c1.377,8.256,4.561,8.83,4.561,17.771c0,8.891,3.225,13.332,5.82,13.332
+			c2.594,0,3.9-3.047,6.742-10.663c1.955-5.224,4.848-6.053,7.111,0c2.848,7.616,4.15,10.663,6.744,10.663
+			c2.596,0,5.818-4.441,5.818-13.332c0-8.918,3.17-9.429,4.561-17.771C78.175,93.896,75.778,87.542,71.614,85.347z"/>
+		<g>
+			<line fill="none" stroke="#FFFFFF" stroke-width="4" x1="48.962" y1="101.038" x2="44.378" y2="101.038"/>
+			<line fill="none" stroke="#FFFFFF" stroke-width="4" x1="58.751" y1="101.038" x2="54.169" y2="101.038"/>
+			<line fill="none" stroke="#FFFFFF" stroke-width="4" x1="68.542" y1="101.038" x2="63.96" y2="101.038"/>
+		</g>
+	</g>
+</g>
+</svg>

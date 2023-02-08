@@ -1,0 +1,106 @@
+﻿
+@{
+    ViewBag.Title = "landingdemocentrofit";
+    Layout = "~/Views/Shared/_LayoutPaginaWebAppsfit1.cshtml";
+}
+
+<br />
+<!--begin section-white -->
+<section class="section-white no-padding" id="register">
+
+    <!--begin container-->
+    <div class="container-fluid px-0">
+
+        <!--begin row-->
+        <div class="row no-gutters">
+
+            <!--begin col-md-6-->
+            <div class="col-md-6">
+
+                <img src="http://placehold.it/1254x836" class="width-100" alt="Happy">
+
+            </div>
+            <!--end col-sm-6-->
+            <!--begin col-md-6-->
+            <div class="col-md-6 margin-top-40">
+
+                <!--begin small-column-inside-->
+                <div class="small-col-inside">
+
+                    <!--begin register-form-wrapper-->
+                    <div class="register-form-wrapper wow bounceIn" data-wow-delay="0.5s" style="visibility: visible; animation-delay: 0.5s; animation-name: bounceIn;">
+
+                        <h3>¿Listo para transformar tu negocio con Appsfit?</h3>
+
+                        <p>Más de 250 centros fit ya utilizan el software más completo todo en uno.</p>
+
+                        <!--begin form-->
+                        <div>
+
+                            <!--begin success message -->
+                            <p class="register_success_box" style="display:none;">We received your message and you'll hear from us soon. Thank You!</p>
+                            <!--end success message -->
+                            <!--begin register form -->
+                            <form id="register-form" class="register-form register" action="php/register.php" method="post">
+
+
+                                <input class="register-input name-input white-input" required="" name="register_names" placeholder="Nombre del centro*" type="text">
+                                <input class="register-input name-input white-input" required="" name="register_names" placeholder="Nombre del empresario*" type="text">
+                                <input class="register-input name-input white-input" required="" name="register_names" placeholder="Telefono celular*" type="text">
+                                <input class="register-input name-email white-input" required="" name="register_email" placeholder="Correo*" type="email">
+
+                                <select class="register-input white-input" required="" name="register_ticket">
+                                    <option value="0">Tipo de Centro</option>
+                                    <option value="1">Gimnasio</option>
+                                    <option value="2">Cadenas</option>
+                                    <option value="3">CrossFit</option>
+                                    <option value="4">Yoga o Pilates</option>
+                                    <option value="5">Baile</option>
+                                    <option value="6">Baile</option>
+                                    <option value="7">Boxeo</option>
+                                    <option value="8">Box</option>
+                                    <option value="9">Entrenador Personal</option>
+                                    <option value="10">Profesor de clases grupales</option>
+
+                                </select>
+
+                                <select class="register-input white-input" required="" name="register_ticket">
+                                    <option value="0">¿Que estas buscando en Appsfit?</option>
+                                    <option value="1">Controlar y organizar mi centro</option>
+                                    <option value="2">Clases online y en vivo</option>
+                                    <option value="3">Control de aforo y citas</option>
+                                    <option value="4">Pagina web para reserva de clases</option>
+                                    <option value="5">Tienda online</option>
+                                    <option value="6">App para reservas de clases</option>
+                                    <option value="7">App para rutinas y dietas de mis clientes</option>
+                                    <option value="8">Otro</option>
+
+                                </select>
+
+                                <input value="Quiero probar Appsfit" class="register-submit" type="submit" style="background: linear-gradient(90deg, var(--colorPrincipal) 0%, var(--colorPrincipal) 35%, var(--colorSecundario) 100%);">
+
+                            </form>
+                            <!--end register form -->
+
+                            <p class="register-form-terms">No Credit Card &#8226; No Installation Required</p>
+
+                        </div>
+                        <!--end form-->
+
+                    </div>
+                    <!--end register-form-wrapper-->
+
+                </div>
+                <!--end small-column-inside-->
+
+            </div>
+            <!--end col-sm-6-->
+
+        </div>
+        <!--end row-->
+
+    </div>
+    <!--end container-->
+
+</section>
+<!--end section-white -->

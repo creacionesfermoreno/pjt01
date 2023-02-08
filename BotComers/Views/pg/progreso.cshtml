@@ -1,0 +1,262 @@
+﻿@model IEnumerable<E_DataModel.Gimnasio.ControlMedidasDTO>
+
+@{
+    ViewBag.Title = "progreso";
+    Layout = "~/Views/Shared/_LayoutAppFitPlataformaPersonaFit.cshtml";
+}
+
+<style>
+
+    /** SPINNER CREATION **/
+    .loader {
+        position: relative;
+        text-align: center;
+        margin: 15px auto 35px auto;
+        z-index: 9999;
+        display: block;
+        width: 80px;
+        height: 80px;
+        border: 10px solid rgba(0, 0, 0, .3);
+        border-radius: 50%;
+        border-top-color: #000;
+        animation: spin 1s ease-in-out infinite;
+        -webkit-animation: spin 1s ease-in-out infinite;
+    }
+
+    /** MODAL STYLING **/
+    .modal-content {
+        border-radius: 0px;
+        box-shadow: 0 0 20px 8px rgba(0, 0, 0, 0.7);
+    }
+</style>
+
+<link href="@Url.Content("~/Content/cssKendo/kendo.common.min.css")" rel="stylesheet" />
+<link href="@Url.Content("~/Content/cssKendo/kendo.dataviz.default.min.css")" rel="stylesheet" />
+<link href="@Url.Content("~/Content/cssKendo/kendo.dataviz.min.css")" rel="stylesheet" />
+<link href="@Url.Content("~/Content/cssKendo/kendo.default.min.css")" rel="stylesheet" />
+
+
+<div class="page__header page__header-nav">
+    <div class="container-fluid page__container">
+        <div class="navbar navbar-secondary navbar-light navbar-expand-sm p-0 d-none d-md-flex" id="secondaryNavbar">
+            <ul class="nav navbar-nav">
+                <li class="nav-item ">
+                    <a href="@Url.Action("miperfil","pg",new {id= HttpContext.Current.Request.Cookies["_SubDominio_PersonaFit"].Value})" class="nav-link"><i class="fa fa-address-card"></i>MI PERFIL</a>
+                </li>
+                <li class="nav-item active">
+                    <a href="@Url.Action("progreso","pg",new {id= HttpContext.Current.Request.Cookies["_SubDominio_PersonaFit"].Value})" class="nav-link active"><i class="fa fa-product-hunt"></i>PROGRESO</a>
+                </li>
+                <li class="nav-item">
+                    <a href="@Url.Action("reservaonline","pg", new {id= HttpContext.Current.Request.Cookies["_SubDominio_PersonaFit"].Value})" class="nav-link"><i class="fa fa-calendar-check"></i>RESERVAR CLASE</a>
+                </li>
+                <li class="nav-item">
+                    <a href="@Url.Action("login","pg",new {id= HttpContext.Current.Request.Cookies["_SubDominio_PersonaFit"].Value})" class="nav-link" style="color:red;font-weight:bold;"><i class="fa fa-sign-out"></i>CERRAR SESIÓN</a>
+                </li>
+                <li style="display:none;" class="nav-item">
+                    <a href="@Url.Action("reservaonline","pg", new {id= HttpContext.Current.Request.Cookies["_SubDominio_PersonaFit"].Value})" class="nav-link"><i class="fa fa-video"></i>CLASES EN VIVO</a>
+                </li>
+                <li style="display:none;" class="nav-item">
+                    <a href="@Url.Action("reservaonline","pg", new {id= HttpContext.Current.Request.Cookies["_SubDominio_PersonaFit"].Value})" class="nav-link"><i class="fa fa-play-circle"></i>VIDEOTECA</a>
+                </li>
+                <li style="display:none;" class="nav-item">
+                    <a href="@Url.Action("reservaonline","pg", new {id= HttpContext.Current.Request.Cookies["_SubDominio_PersonaFit"].Value})" class="nav-link"><i class="fa fa-store-alt"></i>TIENDA VIRTUAL</a>
+                </li>
+
+            </ul>
+        </div>
+    </div>
+</div>
+
+<div class="container-fluid page__container" >
+   
+    <div class="container-fluid page__heading-container">
+        <div class="page__heading d-flex flex-column flex-md-row align-items-center justify-content-center justify-content-lg-between text-center text-lg-left">
+            <h3 class="m-lg-0">Historial de peso y medidas</h3>            
+        </div>
+    </div>
+
+    <div class="container-fluid page__container">     
+        <div class="row">
+
+            <div class="col-lg-12">
+                <div class="card">
+
+                    <div class="table-responsive border-bottom">
+                        @*style="width: 37px;"*@
+                        <table class="table mb-0 thead-border-top-0">
+                            <thead>
+                                <tr>
+                                    <th>
+                                        Fecha
+                                    </th>
+                                    <th>
+                                        Proxima medida
+                                    </th>
+                                    <th>
+                                        Diagnóstico
+                                    </th>
+                                    <th>
+                                        Antecedentes Medicos
+                                    </th>
+                                    <th>
+                                        Experiencia Entrenando
+                                    </th>
+                                    <th>
+                                        Objetivos
+                                    </th>
+                                    <th>
+                                        Edad
+                                    </th>
+                                    <th>
+                                        Estatura
+                                    </th>
+                                    <th>
+                                        Peso Corporal
+                                    </th>
+                                    <th>
+                                        Peso Muscular
+                                    </th>
+                                    <th>
+                                        % Grasa
+                                    </th>
+                                    <th>
+                                        % Agua
+                                    </th>
+                                    <th>
+                                        Grasa Visceral
+                                    </th>
+                                    <th>
+                                        IMC
+                                    </th>
+                                    <th>
+                                        Cuello
+                                    </th>
+                                    <th>
+                                        Circuns. del Torax
+                                    </th>
+                                    <th>
+                                        Cintura
+                                    </th>
+                                    <th>
+                                        Cintura Baja
+                                    </th>
+                                    <th>
+                                        Cadera
+                                    </th>
+                                    <th>
+                                        Muslo
+                                    </th>
+                                    <th>
+                                        Pantorrilla
+                                    </th>
+                                    <th>
+                                        Brazo Relajado
+                                    </th>
+                                    <th>
+                                        Brazo Contraído
+                                    </th>
+                                    <th>
+                                        Muñeca
+                                    </th>
+                                    <th>
+                                        Gluteos
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody class="list">
+
+                                @foreach (var item in Model)
+                                {
+                                    <tr>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.strFechaIngreso)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.strFechaVencimiento)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.Comentario)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.AntecedentesMedicos)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.ExpEntrenamiento)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.Observacion)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.Edad)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.Estatura)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.PesoCorporal)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.PesoGraso)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.PorcentajeGrasa)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.PorcentajeAgua)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.GrasaVisceral)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.IMC)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.Cuello)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.CirdelTorax)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.Cintura)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.CadA)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.CadB)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.MusloSuperior)
+                                        </td>
+                                        <td style="display:none;">
+                                            @Html.DisplayFor(modelItem => item.MusloBajo)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.Pantorrilla)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.BrazoNormal)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.BrazoFlexionado)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.Munieca)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.Gluteos)
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+   
+</div>
+

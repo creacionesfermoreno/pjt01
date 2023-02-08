@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Generator: Adobe Illustrator 16.0.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="170px"
+	 height="170px" viewBox="0 0 170 170" enable-background="new 0 0 170 170" xml:space="preserve">
+<g id="Background">
+</g>
+<g id="Circle">
+	<g>
+		<path fill="#FFFFFF" d="M85,170c-46.869,0-85-38.131-85-85S38.131,0,85,0s85,38.131,85,85S131.869,170,85,170z"/>
+	</g>
+</g>
+<g id="TEXT">
+</g>
+<g id="Icons">
+	<g>
+		<path fill="none" stroke="#282D33" stroke-width="4" d="M129.637,90.517c0.387-2.398,0.641-4.836,0.641-7.341
+			c0-25.512-20.686-46.191-46.195-46.191c-25.512,0-46.193,20.68-46.193,46.191c0,25.509,20.682,46.19,46.193,46.19
+			c15.975,0,30.053-8.108,38.348-20.432"/>
+		<path fill="none" stroke="#282D33" stroke-width="4" d="M76.27,89.052c13.813-1.17,27.822,0.774,40.955,5.827"/>
+		<path fill="none" stroke="#282D33" stroke-width="4" d="M40.924,99.442c3.371-1.786,6.828-3.35,10.348-4.69"/>
+		<path fill="none" stroke="#282D33" stroke-width="4" d="M89.844,88.062c5.262,12.119,8.068,25.354,8.023,38.951"/>
+		<path fill="none" stroke="#282D33" stroke-width="4" d="M55.643,46.623c13.645,9.34,24.455,21.846,31.721,36.165"/>
+		<path fill="none" stroke="#282D33" stroke-width="4" d="M88.395,57.422c-6.973-5.198-13.236-11.409-18.564-18.501"/>
+		<path fill="none" stroke="#282D33" stroke-width="4" d="M129.748,74.697c-6.926-1.048-13.66-2.879-20.092-5.418"/>
+		<path fill="none" stroke="#282D33" stroke-width="4" d="M110.582,64.722c0,5.471-4.441,9.909-9.908,9.909
+			c-5.473,0-9.908-4.438-9.908-9.909s4.436-9.912,9.908-9.912C106.141,54.81,110.582,59.251,110.582,64.722z"/>
+		<circle fill="none" stroke="#282D33" stroke-width="4" cx="126.158" cy="99.762" r="9.908"/>
+		<path fill="none" stroke="#282D33" stroke-width="4" d="M71.824,92.86c0,5.473-4.438,9.909-9.91,9.909
+			c-5.471,0-9.908-4.437-9.908-9.909c0-5.47,4.438-9.91,9.908-9.91C67.387,82.95,71.824,87.391,71.824,92.86z"/>
+	</g>
+</g>
+</svg>

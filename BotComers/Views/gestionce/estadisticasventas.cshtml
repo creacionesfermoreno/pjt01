@@ -1,0 +1,764 @@
+﻿
+@{
+    ViewBag.Title = "estadisticasventas";
+    Layout = "~/Views/Shared/__LayoutAppFitPlataformaFit.cshtml";
+}
+
+<link href="@Url.Content("~/Content/cssKendo/kendo.common.min.css")" rel="stylesheet" />
+<link href="@Url.Content("~/Content/cssKendo/kendo.dataviz.default.min.css")" rel="stylesheet" />
+<link href="@Url.Content("~/Content/cssKendo/kendo.dataviz.min.css")" rel="stylesheet" />
+<link href="@Url.Content("~/Content/cssKendo/kendo.default.min.css")" rel="stylesheet" />
+<style>
+
+    /** SPINNER CREATION **/
+    .loader {
+        position: relative;
+        text-align: center;
+        margin: 15px auto 35px auto;
+        z-index: 9999;
+        display: block;
+        width: 80px;
+        height: 80px;
+        border: 10px solid rgba(0, 0, 0, .3);
+        border-radius: 50%;
+        border-top-color: #000;
+        animation: spin 1s ease-in-out infinite;
+        -webkit-animation: spin 1s ease-in-out infinite;
+    }
+
+    /** MODAL STYLING **/
+    .modal-content {
+        border-radius: 0px;
+        box-shadow: 0 0 20px 8px rgba(0, 0, 0, 0.7);
+    }
+
+    .modal-backdrop.show {
+        opacity: 0.75;
+    }
+</style>
+
+<div class="page__header page__header-nav mb-0">
+    <div class="container-fluid page__container">
+        <div class="navbar navbar-secondary navbar-light navbar-expand-sm p-0 d-none d-md-flex" id="secondaryNavbar">
+            <ul class="nav navbar-nav">
+                <li class="nav-item">
+                    <button style="color: #ffffff;background-color: #ff0200;font-size: 1.0rem;border: 0px #ff0200 solid;height: 33px;padding: 5px;cursor:pointer;" class="navbar-toggler navbar-toggler-custom d-flex mr-navbar" type="button" data-toggle="sidebar">
+                        Operaciones
+                    </button>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="@Url.Action("checking","gestionce",new {id= HttpContext.Current.Request.Cookies["_SubDominio_Business"].Value})">Clientes</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="@Url.Action("posfitness","pos",new {id= HttpContext.Current.Request.Cookies["_SubDominio_Business"].Value})">Punto de venta</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="@Url.Action("caja","gestionce",new {id= HttpContext.Current.Request.Cookies["_SubDominio_Business"].Value})">Caja</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="@Url.Action("nutricion","gestionce",new {id= HttpContext.Current.Request.Cookies["_SubDominio_Business"].Value})">Medidas y Nutrición</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="@Url.Action("Index","inventariofit",new {id= HttpContext.Current.Request.Cookies["_SubDominio_Business"].Value})">Inventario</a>
+                </li>
+
+                <li class="nav-item ">
+                    <a class="nav-link" href="@Url.Action("agendacomercial","gestionce",new {id= HttpContext.Current.Request.Cookies["_SubDominio_Business"].Value})">Agenda Comercial</a>
+                </li>
+                <li class="nav-item ">
+                    <a href="@Url.Action("metascomerciales","gestionce",new {id= HttpContext.Current.Request.Cookies["_SubDominio_Business"].Value})" class="nav-link">Metas</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="@Url.Action("informesfit","gestionce",new {id= HttpContext.Current.Request.Cookies["_SubDominio_Business"].Value})">Informes</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="@Url.Action("pagospersonal","gestionce",new {id= HttpContext.Current.Request.Cookies["_SubDominio_Business"].Value})">Pagos</a>
+                </li>
+                @*Menu Finanzas, Angel Rojas, 18/01/2021 11:19*@
+                <li class="nav-item" data-controlmodulo="" style="">
+                    <a class="nav-link" href="@Url.Action("finanzas","gestionce",new {id= HttpContext.Current.Request.Cookies["_SubDominio_Business"].Value})">Finanzas</a>
+                </li>
+                <li class="nav-item active dropdown show">
+                    <a href="#" class="nav-link active dropdown-toggle" data-toggle="dropdown" aria-expanded="true">Estadisticas</a>
+                    <div class="dropdown-menu show" style="display:none;">
+                        <a class="dropdown-item active" href="@Url.Action("estadisticas","gestionce",new {id= HttpContext.Current.Request.Cookies["_SubDominio_Business"].Value})">Dashboard</a>
+                        <a class="dropdown-item" href="@Url.Action("estadisticasventas","gestionce",new {id= HttpContext.Current.Request.Cookies["_SubDominio_Business"].Value})">Ventas</a>
+                        <a class="dropdown-item" href="@Url.Action("estadisticasmarketing","gestionce",new {id= HttpContext.Current.Request.Cookies["_SubDominio_Business"].Value})">Marketing</a>
+                        <a class="dropdown-item" href="fixed-ui-icons.html">Clases Grupales</a>
+                    </div>
+                </li>
+
+            </ul>
+        </div>
+    </div>
+</div>
+<br />
+<div class="card-header card-header-sm align-items-center" style="border-bottom:0px #fff solid;">
+    <div class="form-row">
+        <div class="col-2 col-md-2 mb-3">
+            <h4 class="card-header__title flex m-0">Ventas</h4>
+        </div>
+        <div class="col-4 col-md-4 mb-3">
+
+        </div>
+        <div class="col-2 col-md-2 mb-3">
+            <input type="text" id="txtFechaInicio" placeHolder="Fecha inicio" style="width:99%;font-size:11px;" class="k-datetime" />
+        </div>
+        <div class="col-2 col-md-2 mb-3">
+            <input type="text" id="txtFechaFin" placeHolder="Fecha fin" style="width:99%;font-size:11px;" class="k-datetime" />
+        </div>
+        <div class="col-2 col-md-2 mb-3">
+            <button class="btn btn-primary btn-sm btn-block mg-b-10" onclick="uspEstadisticaVentasPorEvolucionTicketPromedio_Ventas();">Buscar</button>
+        </div>
+    </div>
+
+</div>
+<br />
+<div class="container-fluid page__container">
+
+    <div class="row">
+
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-body">
+                    <div class="d-flex flex-column flex-sm-row">
+                        <canvas id="floarChart_uspEstadisticaVentasPorEvolucionTicketPromedio_Ventas" width="400" height="165"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-3">
+            <div class="card">
+                <div class="card-body">
+                    <div class="d-flex flex-column flex-sm-row">
+                        <canvas id="floarChart_uspEstadisticaVentasPorTiempoMembresia_Ventas" width="200" height="180"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card">
+                <div class="card-body">
+                    <div class="d-flex flex-column flex-sm-row">
+                        <canvas id="floarChart_uspEstadisticaVentasPorDiaSemana_Ventas" width="200" height="180"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-9">
+            <div class="card">
+                <div class="card-body">
+                    <div class="d-flex flex-column flex-sm-row">
+                        <canvas id="floarChart_uspEstadisticaVentasPorDia_Ventas" width="400" height="165"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-3">
+            <div class="card">
+                <div class="card-body">
+                    <div class="d-flex flex-column flex-sm-row">
+                        <canvas id="floarChart_uspEstadisticaVentasPorFormaPago_Ventas" width="400" height="560"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-9">
+            <div class="card">
+                <div class="card-body">
+                    <div class="d-flex flex-column flex-sm-row">
+                        <canvas id="floarChart_uspEstadisticaVentasPorHoras_Ventas" width="400" height="165"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+</div>
+
+
+
+
+<div class="modal fade" id="loadMe" tabindex="-1" role="dialog" aria-labelledby="loadMeLabel">
+    <div class="modal-dialog modal-sm" role="document">
+        <div class="modal-content">
+            <div class="modal-body text-center">
+                <div class="loader"></div>
+                <div clas="loader-txt">
+                    <p>Cargando... <br><br><small>Espere por favor, este proceso puede tardar unos minutos</small></p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+@section Scripts {
+
+    @System.Web.Optimization.Scripts.Render("~/Scripts/jquery.min.js")
+    @System.Web.Optimization.Scripts.Render("~/Scripts/plugins/jsKendo/angular.min.js")
+    @System.Web.Optimization.Scripts.Render("~/Scripts/plugins/jsKendo/kendo.all.min.js")
+
+    @System.Web.Optimization.Scripts.Render("~/Scripts/plugins/jquery-ui/jquery-ui.js")
+    @System.Web.Optimization.Scripts.Render("~/Scripts/plugins/jquery-ui/jquery-ui.min.js")
+
+    @System.Web.Optimization.Scripts.Render("~/Resource/UserControl.Helper.js")
+
+    @System.Web.Optimization.Scripts.Render("~/Scripts/jsChart/Chart.bundle.min.js")
+    @System.Web.Optimization.Scripts.Render("~/Scripts/jsChart/Chart.min.js")
+
+    <script type="text/javascript">
+        $(document).ready(function (e) {
+            $('#txtFechaInicio').kendoDatePicker();
+            $('#txtFechaFin').kendoDatePicker();
+            var todayDate = new Date();
+            var Primerdia = new Date(todayDate.getFullYear(), todayDate.getMonth(), 1);
+            $('#txtFechaInicio').data("kendoDatePicker").value(Primerdia);
+            var ultimoDia = new Date(todayDate.getFullYear(), todayDate.getMonth() + 1, 0);
+            $('#txtFechaFin').data("kendoDatePicker").value(ultimoDia);
+
+            uspEstadisticaVentasPorEvolucionTicketPromedio_Ventas();
+        });
+
+
+        function uspEstadisticaVentasPorEvolucionTicketPromedio_Ventas() {
+
+            var FechaInicio = kendo.toString($("#txtFechaInicio").data('kendoDatePicker').value(), 'MM/dd/yyyy');
+            var FechaFin = kendo.toString($("#txtFechaFin").data('kendoDatePicker').value(), 'MM/dd/yyyy');
+            $('button[type="button"]').attr("disabled", true);
+
+            document.getElementById('loadMe').style.display = 'block';
+
+            var mes = [];
+            var ventamembresia = [];
+
+            $.ajax({
+                data: '{"FechaInicio":"' + FechaInicio + '","FechaFin":"' + FechaFin + '"}',
+                type: "POST",
+                url: "/gestionce/uspEstadisticaVentasPorEvolucionTicketPromedio_Ventas",
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function (msg) {
+
+                    for (var i in msg) {
+                        mes.push(msg[i].MesDescripcion);
+                        ventamembresia.push(msg[i].TotalNeto);
+                    }
+                    $('#floarChart_uspEstadisticaVentasPorEvolucionTicketPromedio_Ventas').empty();
+                    var ctx = document.getElementById('floarChart_uspEstadisticaVentasPorEvolucionTicketPromedio_Ventas');
+                    var myChart = new Chart(ctx, {
+                        type: 'bar',
+                        data: {
+                            labels: mes,
+                            datasets: [{
+                                label: 'Meses',
+                                data: ventamembresia,
+                                backgroundColor: [
+                                    'rgb(255, 28, 6)',
+                                    'rgb(255, 28, 6)',
+                                    'rgb(255, 28, 6)',
+                                    'rgb(255, 28, 6)',
+                                    'rgb(255, 28, 6)',
+                                    'rgb(255, 28, 6)',
+                                    'rgb(255, 28, 6)',
+                                    'rgb(255, 28, 6)',
+                                    'rgb(255, 28, 6)',
+                                    'rgb(255, 28, 6)',
+                                    'rgb(255, 28, 6)',
+                                    'rgb(255, 28, 6)',
+                                    'rgb(255, 28, 6)',
+                                    'rgb(255, 28, 6)',
+                                    'rgb(255, 28, 6)',
+                                    'rgb(255, 28, 6)',
+                                    'rgb(255, 28, 6)',
+                                    'rgb(255, 28, 6)'
+                                ],
+                                borderColor: [
+                                    'rgb(255, 28, 6)',
+                                    'rgb(255, 28, 6)',
+                                    'rgb(255, 28, 6)',
+                                    'rgb(255, 28, 6)',
+                                    'rgb(255, 28, 6)',
+                                    'rgb(255, 28, 6)',
+                                    'rgb(255, 28, 6)',
+                                    'rgb(255, 28, 6)',
+                                    'rgb(255, 28, 6)',
+                                    'rgb(255, 28, 6)',
+                                    'rgb(255, 28, 6)',
+                                    'rgb(255, 28, 6)',
+                                    'rgb(255, 28, 6)',
+                                    'rgb(255, 28, 6)',
+                                    'rgb(255, 28, 6)',
+                                    'rgb(255, 28, 6)',
+                                    'rgb(255, 28, 6)',
+                                    'rgb(255, 28, 6)'
+                                ],
+                                borderWidth: 1
+                            }]
+                        },
+                        options: {
+                            title: {
+                                display: true,
+                                text: 'VENTAS POR MESES'
+                            },
+                            scales: {
+                                yAxes: [{
+                                    ticks: {
+                                        beginAtZero: true
+                                    }
+                                }]
+                            }
+                        }
+                    });
+
+                }, complete: function () {
+                    mes = [];
+                    ventamembresia = [];
+                    $('button[type="button"]').attr("disabled", false);
+                    uspEstadisticaVentasPorTiempoMembresia_Ventas();
+                }
+            });
+
+        }
+
+        function uspEstadisticaVentasPorTiempoMembresia_Ventas() {
+
+            var FechaInicio = kendo.toString($("#txtFechaInicio").data('kendoDatePicker').value(), 'MM/dd/yyyy');
+            var FechaFin = kendo.toString($("#txtFechaFin").data('kendoDatePicker').value(), 'MM/dd/yyyy');
+            $('button[type="button"]').attr("disabled", true);
+            document.getElementById('loadMe').style.display = 'block';
+
+            var tiempo = [];
+            var ventamembresia = [];
+
+            $.ajax({
+                data: '{"FechaInicio":"' + FechaInicio + '","FechaFin":"' + FechaFin + '"}',
+                type: "POST",
+                url: "/gestionce/uspEstadisticaVentasPorTiempoMembresia_Ventas",
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function (msg) {
+
+                    for (var i in msg) {
+                        tiempo.push(msg[i].DescripcionProducto);
+                        ventamembresia.push(msg[i].TotalNeto);
+                    }
+                    $('#floarChart_uspEstadisticaVentasPorTiempoMembresia_Ventas').empty();
+                    var ctx = document.getElementById('floarChart_uspEstadisticaVentasPorTiempoMembresia_Ventas');
+                    var myChart = new Chart(ctx, {
+                        type: 'horizontalBar',
+                        data: {
+                            labels: tiempo,
+                            datasets: [{
+                                label: 'Tiempo',
+                                data: ventamembresia,
+                                backgroundColor: [
+                                    'rgb(255, 28, 6)',
+                                    'rgb(255, 28, 6)',
+                                    'rgb(255, 28, 6)',
+                                    'rgb(255, 28, 6)',
+                                    'rgb(255, 28, 6)',
+                                    'rgb(255, 28, 6)',
+                                    'rgb(255, 28, 6)',
+                                    'rgb(255, 28, 6)',
+                                    'rgb(255, 28, 6)',
+                                    'rgb(255, 28, 6)',
+                                    'rgb(255, 28, 6)',
+                                    'rgb(255, 28, 6)',
+                                    'rgb(255, 28, 6)',
+                                    'rgb(255, 28, 6)',
+                                    'rgb(255, 28, 6)',
+                                    'rgb(255, 28, 6)',
+                                    'rgb(255, 28, 6)',
+                                    'rgb(255, 28, 6)'
+                                ],
+                                borderColor: [
+                                    'rgb(255, 28, 6)',
+                                    'rgb(255, 28, 6)',
+                                    'rgb(255, 28, 6)',
+                                    'rgb(255, 28, 6)',
+                                    'rgb(255, 28, 6)',
+                                    'rgb(255, 28, 6)',
+                                    'rgb(255, 28, 6)',
+                                    'rgb(255, 28, 6)',
+                                    'rgb(255, 28, 6)',
+                                    'rgb(255, 28, 6)',
+                                    'rgb(255, 28, 6)',
+                                    'rgb(255, 28, 6)',
+                                    'rgb(255, 28, 6)',
+                                    'rgb(255, 28, 6)',
+                                    'rgb(255, 28, 6)',
+                                    'rgb(255, 28, 6)',
+                                    'rgb(255, 28, 6)',
+                                    'rgb(255, 28, 6)'
+                                ],
+                                borderWidth: 1
+                            }]
+                        },
+                        options: {
+                            title: {
+                                display: true,
+                                text: 'VENTAS POR TIEMPO DE MEMBRESIA'
+                            },
+                            scales: {
+                                yAxes: [{
+                                    ticks: {
+                                        beginAtZero: true
+                                    }
+                                }]
+                            }
+                        }
+                    });
+
+                }, complete: function () {
+                    tiempo = [];
+                    ventamembresia = [];
+                    $('button[type="button"]').attr("disabled", false);
+                    uspEstadisticaVentasPorDiaSemana_Ventas();
+                }
+            });
+
+        }
+
+        function uspEstadisticaVentasPorDiaSemana_Ventas() {
+
+            var FechaInicio = kendo.toString($("#txtFechaInicio").data('kendoDatePicker').value(), 'MM/dd/yyyy');
+            var FechaFin = kendo.toString($("#txtFechaFin").data('kendoDatePicker').value(), 'MM/dd/yyyy');
+            $('button[type="button"]').attr("disabled", true);
+            document.getElementById('loadMe').style.display = 'block';
+
+            var semana = [];
+            var ventamembresia = [];
+
+            $.ajax({
+                data: '{"FechaInicio":"' + FechaInicio + '","FechaFin":"' + FechaFin + '"}',
+                type: "POST",
+                url: "/gestionce/uspEstadisticaVentasPorDiaSemana_Ventas",
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function (msg) {
+
+                    for (var i in msg) {
+                        semana.push(msg[i].DescripcionProducto);
+                        ventamembresia.push(msg[i].TotalNeto);
+                    }
+                    $('#floarChart_uspEstadisticaVentasPorDiaSemana_Ventas').empty();
+                    var ctx = document.getElementById('floarChart_uspEstadisticaVentasPorDiaSemana_Ventas');
+                    var myChart = new Chart(ctx, {
+                        type: 'horizontalBar',
+                        data: {
+                            labels: semana,
+                            datasets: [{
+                                label: 'Semana',
+                                data: ventamembresia,
+                                backgroundColor: [
+                                    'rgb(255, 28, 6)',
+                                    'rgb(255, 28, 6)',
+                                    'rgb(255, 28, 6)',
+                                    'rgb(255, 28, 6)',
+                                    'rgb(255, 28, 6)',
+                                    'rgb(255, 28, 6)',
+                                    'rgb(255, 28, 6)',
+                                    'rgb(255, 28, 6)',
+                                    'rgb(255, 28, 6)',
+                                    'rgb(255, 28, 6)',
+                                    'rgb(255, 28, 6)',
+                                    'rgb(255, 28, 6)',
+                                    'rgb(255, 28, 6)',
+                                    'rgb(255, 28, 6)',
+                                    'rgb(255, 28, 6)',
+                                    'rgb(255, 28, 6)',
+                                    'rgb(255, 28, 6)',
+                                    'rgb(255, 28, 6)'
+                                ],
+                                borderColor: [
+                                    'rgb(255, 28, 6)',
+                                    'rgb(255, 28, 6)',
+                                    'rgb(255, 28, 6)',
+                                    'rgb(255, 28, 6)',
+                                    'rgb(255, 28, 6)',
+                                    'rgb(255, 28, 6)',
+                                    'rgb(255, 28, 6)',
+                                    'rgb(255, 28, 6)',
+                                    'rgb(255, 28, 6)',
+                                    'rgb(255, 28, 6)',
+                                    'rgb(255, 28, 6)',
+                                    'rgb(255, 28, 6)',
+                                    'rgb(255, 28, 6)',
+                                    'rgb(255, 28, 6)',
+                                    'rgb(255, 28, 6)',
+                                    'rgb(255, 28, 6)',
+                                    'rgb(255, 28, 6)',
+                                    'rgb(255, 28, 6)'
+                                ],
+                                borderWidth: 1
+                            }]
+                        },
+                        options: {
+                            title: {
+                                display: true,
+                                text: 'VENTAS POR DÍA DE SEMANA'
+                            },
+                            scales: {
+                                yAxes: [{
+                                    ticks: {
+                                        beginAtZero: true
+                                    }
+                                }]
+                            }
+                        }
+                    });
+
+                }, complete: function () {
+                    semana = [];
+                    ventamembresia = [];
+                    $('button[type="button"]').attr("disabled", false);
+                    uspEstadisticaVentasPorDia_Ventas();
+                }
+            });
+
+        }
+
+        function uspEstadisticaVentasPorDia_Ventas() {
+
+            var FechaInicio = kendo.toString($("#txtFechaInicio").data('kendoDatePicker').value(), 'MM/dd/yyyy');
+            var FechaFin = kendo.toString($("#txtFechaFin").data('kendoDatePicker').value(), 'MM/dd/yyyy');
+            $('button[type="button"]').attr("disabled", true);
+            document.getElementById('loadMe').style.display = 'block';
+
+            var dia = [];
+            var ventamembresia = [];
+
+            $.ajax({
+                data: '{"FechaInicio":"' + FechaInicio + '","FechaFin":"' + FechaFin + '"}',
+                type: "POST",
+                url: "/gestionce/uspEstadisticaVentasPorDia_Ventas",
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function (msg) {
+
+                    for (var i in msg) {
+                        dia.push(msg[i].Dia);
+                        ventamembresia.push(msg[i].TotalNeto);
+                    }
+                    $('#floarChart_uspEstadisticaVentasPorDia_Ventas').empty();
+                    var ctx = document.getElementById('floarChart_uspEstadisticaVentasPorDia_Ventas');
+                    var myChart = new Chart(ctx, {
+                        type: 'line',
+                        data: {
+                            labels: dia,
+                            datasets: [{
+                                label: 'Día',
+                                data: ventamembresia,
+                                borderColor: "rgb(255, 28, 6)",
+                                backgroundColor: "rgb(255, 28, 6)"
+                            }]
+                        },
+                        options: {
+                            title: {
+                                display: true,
+                                text: 'VENTAS POR DÍA'
+                            },
+                            scales: {
+                                yAxes: [{
+                                    ticks: {
+                                        beginAtZero: true
+                                    }
+                                }]
+                            }
+                        }
+                    });
+
+                }, complete: function () {
+                    dia = [];
+                    ventamembresia = [];
+                    $('button[type="button"]').attr("disabled", false);
+                    uspEstadisticaVentasPorFormaPago_Ventas();
+                }
+            });
+
+        }
+
+        function uspEstadisticaVentasPorFormaPago_Ventas() {
+
+            var FechaInicio = kendo.toString($("#txtFechaInicio").data('kendoDatePicker').value(), 'MM/dd/yyyy');
+            var FechaFin = kendo.toString($("#txtFechaFin").data('kendoDatePicker').value(), 'MM/dd/yyyy');
+            $('button[type="button"]').attr("disabled", true);
+            document.getElementById('loadMe').style.display = 'block';
+
+            var hora = [];
+            var ventamembresia = [];
+
+            $.ajax({
+                data: '{"FechaInicio":"' + FechaInicio + '","FechaFin":"' + FechaFin + '"}',
+                type: "POST",
+                url: "/gestionce/uspEstadisticaVentasPorFormaPago_Ventas",
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function (msg) {
+
+                    for (var i in msg) {
+                        hora.push(msg[i].HoraDia);
+                        ventamembresia.push(msg[i].TotalNeto);
+                    }
+                    $('#floarChart_uspEstadisticaVentasPorFormaPago_Ventas').empty();
+                    var ctx = document.getElementById('floarChart_uspEstadisticaVentasPorFormaPago_Ventas');
+                    var myChart = new Chart(ctx, {
+                        type: 'pie',
+                        data: {
+                            labels: hora,
+                            datasets: [{
+                                label: 'Formas de Pago',
+                                data: ventamembresia,
+                                backgroundColor: [
+                                    'rgb(255, 28, 6)',
+                                    'rgb(144, 35, 10)',
+                                    'rgb(33, 150, 243)',
+                                    'rgb(15, 157, 88)',
+                                    'rgb(144, 35, 10)',
+                                    'rgb(231, 35, 57)'
+                                ],
+                                borderColor: [
+                                    'rgb(255, 28, 6)',
+                                    'rgb(144, 35, 10)',
+                                    'rgb(33, 150, 243)',
+                                    'rgb(15, 157, 88)',
+                                    'rgb(144, 35, 10)',
+                                    'rgb(231, 35, 57)'
+                                ],
+                                borderWidth: 1
+                            }]
+                        },
+                        options: {
+                            title: {
+                                display: true,
+                                text: 'VENTAS POR FORMA DE PAGO'
+                            },
+                            scales: {
+                                yAxes: [{
+                                    ticks: {
+                                        beginAtZero: true
+                                    }
+                                }]
+                            }
+                        }
+                    });
+
+                }, complete: function () {
+                    hora = [];
+                    ventamembresia = [];
+                    $('button[type="button"]').attr("disabled", false);
+                    uspEstadisticaVentasPorHoras_Ventas();
+                }
+            });
+
+        }
+
+        function uspEstadisticaVentasPorHoras_Ventas() {
+
+            var FechaInicio = kendo.toString($("#txtFechaInicio").data('kendoDatePicker').value(), 'MM/dd/yyyy');
+            var FechaFin = kendo.toString($("#txtFechaFin").data('kendoDatePicker').value(), 'MM/dd/yyyy');
+            $('button[type="button"]').attr("disabled", true);
+            document.getElementById('loadMe').style.display = 'block';
+
+            var hora = [];
+            var ventamembresia = [];
+
+            $.ajax({
+                data: '{"FechaInicio":"' + FechaInicio + '","FechaFin":"' + FechaFin + '"}',
+                type: "POST",
+                url: "/gestionce/uspEstadisticaVentasPorHoras_Ventas",
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function (msg) {
+
+                    for (var i in msg) {
+                        hora.push(msg[i].HoraDia);
+                        ventamembresia.push(msg[i].TotalNeto);
+                    }
+                    $('#floarChart_uspEstadisticaVentasPorHoras_Ventas').empty();
+                    var ctx = document.getElementById('floarChart_uspEstadisticaVentasPorHoras_Ventas');
+                    var myChart = new Chart(ctx, {
+                        type: 'bar',
+                        data: {
+                            labels: hora,
+                            datasets: [{
+                                label: 'Meses',
+                                data: ventamembresia,
+                                backgroundColor: [
+                                    'rgb(255, 28, 6)',
+                                    'rgb(255, 28, 6)',
+                                    'rgb(255, 28, 6)',
+                                    'rgb(255, 28, 6)',
+                                    'rgb(255, 28, 6)',
+                                    'rgb(255, 28, 6)',
+                                    'rgb(255, 28, 6)',
+                                    'rgb(255, 28, 6)',
+                                    'rgb(255, 28, 6)',
+                                    'rgb(255, 28, 6)',
+                                    'rgb(255, 28, 6)',
+                                    'rgb(255, 28, 6)',
+                                    'rgb(255, 28, 6)',
+                                    'rgb(255, 28, 6)',
+                                    'rgb(255, 28, 6)',
+                                    'rgb(255, 28, 6)',
+                                    'rgb(255, 28, 6)',
+                                    'rgb(255, 28, 6)'
+                                ],
+                                borderColor: [
+                                    'rgb(255, 28, 6)',
+                                    'rgb(255, 28, 6)',
+                                    'rgb(255, 28, 6)',
+                                    'rgb(255, 28, 6)',
+                                    'rgb(255, 28, 6)',
+                                    'rgb(255, 28, 6)',
+                                    'rgb(255, 28, 6)',
+                                    'rgb(255, 28, 6)',
+                                    'rgb(255, 28, 6)',
+                                    'rgb(255, 28, 6)',
+                                    'rgb(255, 28, 6)',
+                                    'rgb(255, 28, 6)',
+                                    'rgb(255, 28, 6)',
+                                    'rgb(255, 28, 6)',
+                                    'rgb(255, 28, 6)',
+                                    'rgb(255, 28, 6)',
+                                    'rgb(255, 28, 6)',
+                                    'rgb(255, 28, 6)'
+                                ],
+                                borderWidth: 1
+                            }]
+                        },
+                        options: {
+                            title: {
+                                display: true,
+                                text: 'VENTAS POR HORAS'
+                            },
+                            scales: {
+                                yAxes: [{
+                                    ticks: {
+                                        beginAtZero: true
+                                    }
+                                }]
+                            }
+                        }
+                    });
+
+                }, complete: function () {
+                    hora = [];
+                    ventamembresia = [];
+                    $('button[type="button"]').attr("disabled", false);
+                    document.getElementById('loadMe').style.display = 'none';
+
+                }
+            });
+
+        }
+    </script>
+
+}

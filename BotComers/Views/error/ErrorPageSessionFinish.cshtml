@@ -1,0 +1,38 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+
+    <title>Falta autenticación</title>
+
+    <!-- vendor css -->
+    <link href="@Url.Content("~/Content/app/lib/font-awesome/css/font-awesome.css")" rel="stylesheet" />
+    <link href="@Url.Content("~/Content/app/lib/Ionicons/css/ionicons.css")" rel="stylesheet" />
+
+    <!-- Slim CSS -->
+    <link href="@Url.Content("~/Content/app/css/slim.css")" rel="stylesheet" />
+
+</head>
+<body>
+
+    <div class="page-error-wrapper">
+        <div>
+            <h1 class="error-title">502</h1>
+            <h5 class="tx-sm-24 tx-normal">Uupps. se agoto su tiempo de sesión.</h5>
+            <p class="mg-b-50">Seguridad habilitada, ingresa desde el login.</p>
+            @*<p class="mg-b-50"><a href="index.html" class="btn btn-error">Back to Home</a></p>*@
+            <p class="error-footer">&copy; Copyright @DateTime.Now.Year. All Rights Reserved. Appsfit.</p>
+        </div>
+
+    </div><!-- page-error-wrapper -->
+
+    @System.Web.Optimization.Scripts.Render("~/Content/app/lib/popper.js/js/popper.js")
+    @System.Web.Optimization.Scripts.Render("~/Content/app/lib/bootstrap/js/bootstrap.js")
+    @System.Web.Optimization.Scripts.Render("~/Content/app/js/slim.js")
+
+</body>
+</html>

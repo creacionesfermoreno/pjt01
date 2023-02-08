@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Generator: Adobe Illustrator 16.0.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="170px"
+	 height="170px" viewBox="0 0 170 170" enable-background="new 0 0 170 170" xml:space="preserve">
+<g id="Background">
+</g>
+<g id="Circle">
+	<g>
+		<path fill="#FFFFFF" d="M85,170c-46.869,0-85-38.131-85-85S38.131,0,85,0s85,38.131,85,85S131.869,170,85,170z"/>
+	</g>
+</g>
+<g id="TEXT">
+</g>
+<g id="Icons">
+	<g>
+		<g>
+			<g>
+				<polygon fill="none" stroke="#282D33" stroke-width="4" stroke-linejoin="round" stroke-miterlimit="10" points="83.788,120.53 
+					34.604,69.703 83.788,69.703 132.971,69.703 				"/>
+				<polyline fill="none" stroke="#282D33" stroke-width="4" stroke-linejoin="round" stroke-miterlimit="10" points="
+					102.977,75.553 83.788,120.53 64.577,75.497 62.106,69.703 				"/>
+			</g>
+			<g>
+				<polygon fill="none" stroke="#282D33" stroke-width="4" stroke-linejoin="round" stroke-miterlimit="10" points="34.604,69.851 
+					83.788,69.851 132.971,69.851 119.441,49.982 48.139,49.982 				"/>
+				<polyline fill="none" stroke="#282D33" stroke-width="4" stroke-linejoin="bevel" stroke-miterlimit="10" points="
+					99.964,64.755 83.788,49.782 62.106,69.851 				"/>
+				
+					<line fill="none" stroke="#282D33" stroke-width="4" stroke-linejoin="round" stroke-miterlimit="10" x1="61.93" y1="69.851" x2="51.917" y2="55.389"/>
+				<polygon fill="none" stroke="#282D33" stroke-width="4" stroke-linejoin="round" stroke-miterlimit="10" points="
+					105.651,69.851 119.407,49.982 119.441,49.982 132.971,69.851 				"/>
+			</g>
+		</g>
+	</g>
+</g>
+</svg>

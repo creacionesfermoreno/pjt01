@@ -1,0 +1,2216 @@
+﻿
+@{
+    ViewBag.Title = "planesmembresias";
+    Layout = "~/Views/Shared/__LayoutAppFitPlataformaFit.cshtml";
+}
+
+<link href="@Url.Content("~/Content/cssKendo/kendo.common.min.css")" rel="stylesheet" />
+<link href="@Url.Content("~/Content/cssKendo/kendo.dataviz.default.min.css")" rel="stylesheet" />
+<link href="@Url.Content("~/Content/cssKendo/kendo.dataviz.min.css")" rel="stylesheet" />
+<link href="@Url.Content("~/Content/cssKendo/kendo.default.min.css")" rel="stylesheet" />
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+
+<style>
+    .k-block, .k-button, .k-textbox, .k-drag-clue, .k-touch-scrollbar, .k-window, .k-window-titleless .k-window-content, .k-window-action, .k-inline-block, .k-grid .k-filter-options, .k-grouping-header .k-group-indicator, .k-autocomplete, .k-multiselect, .k-combobox, .k-dropdown, .k-dropdown-wrap, .k-datepicker, .k-timepicker, .k-colorpicker, .k-datetimepicker, .k-notification, .k-numerictextbox, .k-picker-wrap, .k-numeric-wrap, .k-colorpicker, .k-list-container, .k-calendar-container, .k-calendar td, .k-calendar .k-link, .k-treeview .k-in, .k-editor-inline, .k-tooltip, .k-tile, .k-slider-track, .k-slider-selection, .k-upload {
+        border-radius: 3px;
+    }
+
+    .modal-body {
+    }
+
+    .modal-backdrop {
+        display: none;
+    }
+
+    .card-body {
+        margin-top: -5px;
+        margin-bottom: -5px;
+    }
+
+    .k-dropdown .k-input, .k-selectbox .k-input {
+        /* background: none; */
+        background-color: #fff;
+        font-weight: bold;
+    }
+
+    .k-dropdown-wrap .k-input, .k-picker-wrap .k-input, .k-numeric-wrap .k-input {
+        border-radius: 3px 0 0 3px;
+        font-weight: bold;
+    }
+
+    .k-autocomplete {
+        background-image: url(textures/highlight.png);
+        background-image: none,linear-gradient(to bottom,#e2e1e199 0,#e2e1e199 100%);
+        background-position: 50% 50%;
+        background-color: #e3e3e3;
+        border: 1px solid #cac9c9;
+        color: #fff;
+    }
+
+    .k-header, .k-grid-header, .k-toolbar, .k-dropdown-wrap, .k-picker-wrap, .k-numeric-wrap, .k-grouping-header, .k-pager-wrap, .k-textbox, .k-button, .k-progressbar, .k-draghandle, .k-state-highlight, .k-tabstrip-items .k-item, .k-panelbar .k-tabstrip-items .k-item, .km-pane-wrapper > .km-pane > .km-view > .km-content {
+        background-image: url(textures/highlight.png);
+        background-image: none,-webkit-linear-gradient(top,#0075ff 0,#0075ff 100%);
+        background-image: none,-moz-linear-gradient(top,#0075ff 0,#0075ff 100%);
+        background-image: none,-o-linear-gradient(top,#0075ff 0,#0075ff 100%);
+        background-image: none,linear-gradient(to bottom,#0075ff 0,#0075ff 100%);
+        background-position: 50% 50%;
+        background-color: #e3e3e3;
+        color: #fff;
+    }
+
+        .k-header, .k-grid-header-wrap, .k-grid .k-grouping-header, .k-grid-header, .k-pager-wrap, .k-pager-wrap .k-textbox, .k-pager-wrap .k-link, .k-grouping-header .k-group-indicator, .k-gantt-toolbar .k-state-default {
+            border-color: #e8eaee;
+            background-color: #0075ff;
+            color: #fff;
+        }
+
+    .modal {
+        display: none;
+        background-color: rgba(0, 0, 0, 0.77);
+    }
+
+    .k-block, .k-header, .k-grid-header, .k-toolbar, .k-grouping-header, .k-pager-wrap, .k-button, .k-draghandle, .k-treemap-tile, html .km-pane-wrapper .k-header {
+        background-color: #0075ff;
+        color: #fff;
+    }
+
+        .k-grid-header th.k-header > .k-link {
+            display: block;
+            min-height: 18px;
+            line-height: 18px;
+            margin: -0.5em -0.6em -0.4em -0.6em;
+            padding: .1em .1em .1em .1em;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            color: #fff;
+        }
+
+        .k-grid-header table, .k-grid-content table, .k-grid-footer table, .k-grid-content-locked > table {
+            table-layout: fixed;
+        }
+
+
+
+        .k-grid-toolbar:first-child, .k-grouping-header + .k-grid-toolbar {
+            border-width: 0 0 1px;
+            border-radius: 0px;
+            background-color: #d7eafa;
+            height: 10px;
+        }
+
+    .k-block, .k-header, .k-grid-header, .k-toolbar, .k-grouping-header, .k-pager-wrap, .k-button, .k-draghandle, .k-treemap-tile, html .km-pane-wrapper .k-header {
+        background-color: rgba(227, 227, 227, 0);
+    }
+
+    #txtFechaInicioProcFreezing .k-header, .k-grid-header, .k-toolbar, .k-dropdown-wrap, .k-picker-wrap, .k-numeric-wrap, .k-grouping-header, .k-pager-wrap, .k-textbox, .k-button, .k-progressbar, .k-draghandle, .k-autocomplete, .k-state-highlight, .k-tabstrip-items .k-item, .k-panelbar .k-tabstrip-items .k-item, .km-pane-wrapper > .km-pane > .km-view > .km-content {
+        background-image: url(textures/highlight.png);
+        background-image: none,-webkit-linear-gradient(top,#0075ff 0,#0075ff 100%);
+        background-image: none,-moz-linear-gradient(top,#0075ff 0,#0075ff 100%);
+        background-image: none,-o-linear-gradient(top,#0075ff 0,#0075ff 100%);
+        background-image: none,linear-gradient(to bottom,#0075ff 0,#0075ff 100%);
+        background-position: 50% 50%;
+        background-color: #ffffff;
+    }
+
+    .k-state-selected {
+        color: #FFFFFF;
+        background-color: #0075ff;
+        border-color: #0075ff;
+    }
+
+
+    .k-grid tr td {
+        border-bottom: 1px solid #eaeaea;
+        border-left: 1px solid #eaeaea;
+        border-style: solid;
+    }
+
+    tr {
+        height: 16px;
+        font-size: 13px;
+    }
+
+    .k-textbox, .k-autocomplete, .k-dropdown-wrap, .k-picker-wrap, .k-numeric-wrap {
+        border-width: 1px;
+        border-style: solid;
+        padding: 0 1.9em 0 0;
+        font-weight: bold;
+    }
+
+    .k-state-focused.k-state-selected, .k-list > .k-state-focused.k-state-selected, .k-listview > .k-state-focused.k-state-selected, td.k-state-focused.k-state-selected {
+        webkit-box-shadow: inset 0 0 3px 4px #0075ff;
+        box-shadow: inset 0 0 3px 4px #0075ff;
+    }
+
+    .k-state-selected, .k-state-selected:link, .k-state-selected:visited, .k-list > .k-state-selected, .k-list > .k-state-highlight, .k-panel > .k-state-selected, .k-ghost-splitbar-vertical, .k-ghost-splitbar-horizontal, .k-draghandle.k-state-selected:hover, .k-scheduler .k-scheduler-toolbar .k-state-selected, .k-scheduler .k-today.k-state-selected, .k-marquee-color {
+        color: #fff;
+        background-color: #0075ff;
+        border-color: #0075ff;
+    }
+
+    /** SPINNER CREATION **/
+    .loader {
+        position: relative;
+        text-align: center;
+        margin: 15px auto 35px auto;
+        z-index: 9999;
+        display: block;
+        width: 80px;
+        height: 80px;
+        border: 10px solid rgba(0, 0, 0, .3);
+        border-radius: 50%;
+        border-top-color: #000;
+        animation: spin 1s ease-in-out infinite;
+        -webkit-animation: spin 1s ease-in-out infinite;
+    }
+
+
+    /** MODAL STYLING **/
+    .modal-content {
+        border-radius: 0px;
+        box-shadow: 0 0 20px 8px rgba(0, 0, 0, 0.7);
+    }
+
+
+    [dir=ltr] .modal-lg, [dir=ltr] .modal-xl {
+        max-width: 950px;
+    }
+
+    a {
+        color: transparent;
+        text-decoration: none;
+    }
+
+    .b-boton-selected {
+        background-color: #f70f0f;
+        border: 2px #f70f0f solid;
+        color: #fff;
+        border-radius: 3px;
+        font-weight: bold;
+        cursor: pointer;
+        text-align: center;
+    }
+
+    .b-boton-normal {
+        background-color: #0075ff;
+        color: #fff;
+        border-radius: 3px;
+        border: 2px #0075ff solid;
+        cursor: pointer;
+        text-align: center;
+        font-weight: bold;
+    }
+</style>
+
+
+<div class="page__header page__header-nav mb-0">
+    <div class="container-fluid page__container">
+        <div class="navbar navbar-secondary navbar-light navbar-expand-sm p-0 d-none d-md-flex" id="secondaryNavbar">
+            <ul class="nav navbar-nav">
+                <li class="nav-item">
+                    <button style="color: #ffffff;background-color: #ff0200;font-size: 1.0rem;border: 0px #ff0200 solid;height: 33px;padding: 5px;cursor:pointer;" class="navbar-toggler navbar-toggler-custom d-flex mr-navbar" type="button" data-toggle="sidebar">
+                        Operaciones
+                    </button>
+                </li>
+                <li class="nav-item" data-controlmodulo="45833cdd-55db-4a67-a879-f1ae9353f8bf">
+                    <a href="@Url.Action("checking","gestionce",new {id= HttpContext.Current.Request.Cookies["_SubDominio_Business"].Value})" class="nav-link">Clientes</a>
+                </li>
+                <li class="nav-item" data-controlmodulo="9e69cfd8-b063-44df-a7f2-a3a10d1eb899" style="display:none;">
+                    <a class="nav-link " href="@Url.Action("posfitness","pos",new {id= HttpContext.Current.Request.Cookies["_SubDominio_Business"].Value})">Punto de venta</a>
+                </li>
+                <li class="nav-item" data-controlmodulo="7611dfbe-186f-4abe-8e2e-e64ad7281728" style="display:none;">
+                    <a class="nav-link" href="@Url.Action("caja","gestionce",new {id= HttpContext.Current.Request.Cookies["_SubDominio_Business"].Value})">Caja</a>
+                </li>
+                <li class="nav-item" data-controlmodulo="93c0d848-83aa-45eb-a83a-ded00a6b6e23" style="display:none;">
+                    <a class="nav-link" href="@Url.Action("nutricion","gestionce",new {id= HttpContext.Current.Request.Cookies["_SubDominio_Business"].Value})">Medidas y Nutrición</a>
+                </li>
+                <li class="nav-item" data-controlmodulo="947dc11f-3e14-4fe7-bedc-ae3d81219bee" style="display:none;">
+                    <a class="nav-link" href="@Url.Action("Index","inventariofit",new {id= HttpContext.Current.Request.Cookies["_SubDominio_Business"].Value})">Inventario</a>
+                </li>
+
+                <li class="nav-item" data-controlmodulo="39497bd3-94ab-4236-a1d4-4623d854f91e" style="display:none;">
+                    <a href="@Url.Action("agendacomercial","gestionce",new {id= HttpContext.Current.Request.Cookies["_SubDominio_Business"].Value})" class="nav-link">Agenda Comercial</a>
+                </li>
+                <li class="nav-item" data-controlmodulo="bbc035e6-68ea-4885-917f-005ad3fcfb66" style="display:none;">
+                    <a href="@Url.Action("metascomerciales","gestionce",new {id= HttpContext.Current.Request.Cookies["_SubDominio_Business"].Value})" class="nav-link">Metas</a>
+                </li>
+                <li class="nav-item" data-controlmodulo="bd61dc23-54d9-4901-9c35-b8d228b3a924" style="display:none;">
+                    <a href="@Url.Action("marketing","gestionce",new {id= HttpContext.Current.Request.Cookies["_SubDominio_Business"].Value})" class="nav-link">Marketing</a>
+                </li>
+                <li class="nav-item" data-controlmodulo="e1eadd0d-39b3-498d-b09b-9b3b28610b9b" style="display:none;">
+                    <a href="@Url.Action("informesfit","gestionce",new {id= HttpContext.Current.Request.Cookies["_SubDominio_Business"].Value})" class="nav-link">Informes</a>
+                </li>
+                <li class="nav-item" data-controlmodulo="600dabf4-7dc3-4dc0-a0ba-74b782955e52" style="display:none;">
+                    <a class="nav-link" href="@Url.Action("pagospersonal","gestionce",new {id= HttpContext.Current.Request.Cookies["_SubDominio_Business"].Value})">Pagos</a>
+                </li>
+                <li class="nav-item" data-controlmodulo="b1f65597-fd27-46ca-90d0-a0f2f1039ef7" style="display:none;">
+                    <a class="nav-link" href="@Url.Action("finanzas","gestionce",new {id= HttpContext.Current.Request.Cookies["_SubDominio_Business"].Value})">Finanzas</a>
+                </li>
+                <li class="nav-item" data-controlmodulo="4c01e8de-9440-4927-a2f2-d6241d925c39" style="display:none;">
+                    <a class="nav-link" href="@Url.Action("estadisticas","gestionce",new {id= HttpContext.Current.Request.Cookies["_SubDominio_Business"].Value})">Estadísticas</a>
+                </li>
+
+            </ul>
+        </div>
+    </div>
+</div>
+
+
+<input id="hdCodigoUnidadNegocio" type="hidden" value="1" />
+<input id="hdCodigoSede" type="hidden" value="0" />
+<input id="hdCodigoPerfil" type="hidden" value="0" />
+<input id="hdUsuario" type="hidden" value="0" />
+<input id="hdCarpetaSocios" type="hidden" value="" />
+<input id="hdClickIngresoLogeo" type="hidden" value="0" />
+<input id="hdCodigoUsuario" type="hidden" value="0" />
+<input id="hdAccionPE" type="hidden" value="" />
+<input id="hdCodigo" type="hidden" value="" />
+<input id="hdCodEgreso" type="hidden" value="" />
+<input id="hdIPCliente" type="hidden" value="" />
+<input id="hdHostCliente" type="hidden" value="" />
+<input id="hdLatitude" type="hidden" value="" />
+<input id="hdLongitude" type="hidden" value="" />
+<input id="hdEstadoMensajeAdFitness" type="hidden" value="1" />
+
+<input type="hidden" id="hdFlagPrimeraVesAbreVentanaContrato" value="0" />
+<input id="hdFlagVentanaSocios" type="hidden" value="0" />
+<input id="FlagModulos" type="hidden" value="1" />
+<input type="hidden" id="hdFlagPrimeraVezClickLiTranseferencia" value="0" />
+<input id="hdAccionCrearPaquetes" type="hidden" value="" />
+<input type="hidden" id="hdFlagPrimeraVesClickLIpaquetes" value="0" />
+<input type="hidden" id="hdFlagPrimeraVezClickLiAnularVenta" value="0" />
+<input type="hidden" id="hdFlagPrimeraVesTipoDocumentoPagoSuplementos" value="0" />
+<input type="hidden" id="hdFlagPrimeraVesTipoDocumentoPagoRopas" value="0" />
+<input type="hidden" id="hdFlagPrimeraVesVentaCafeteria" value="0" />
+<input type="hidden" value="0" id="hdCodigoCategoriaProducto" />
+<input type="hidden" id="hdFlagPrimeraVesInventario" value="0" />
+<input type="hidden" id="hdFlagPrimeraVesUsuario" value="0" />
+<input type="hidden" value="" id="hdCodigoPerfilModalUsuario" />
+<input type="hidden" id="hdFlagPrimeraVesGastos" value="0" />
+<input id="hdTipoFechaFinContrato" type="hidden" value="" />
+<input id="hdFrezenDisponibles" type="hidden" />
+<input id="hdTotalCuota" type="hidden" value="0" />
+<input id="hdAccionTraspaso" type="hidden" />
+<input type="hidden" id="hdCodPaquete" value="" />
+<input id="hdCodHorarioPaquete" type="hidden" value="" />
+<input id="hdCodHoraCurso" type="hidden" value="" />
+<input id="flagImprimirVentasAnuladas" type="hidden" value="1" />
+<input type="hidden" value="" id="hdCodigoSalida" />
+<input type="hidden" value=" " id="hdCodigoSalidaAnularSuplementos" />
+<input type="hidden" value=" " id="hdCodigoPagoAnularSuplementos" />
+<input type="hidden" value="" id="hdCodigoPagoAnularRopas" />
+<input type="hidden" value="" id="hdCodigoSalidaAnularRopas" />
+<input type="hidden" value="0" id="hdDeudasSuplementos" />
+<input type="hidden" value="0" id="hdCodigoSalidaPagoSuplementos" />
+<input type="hidden" value="0" id="hdCodigoSalidaPagoRopas" />
+<input id="hdflagSuplemento" type="hidden" value="0" />
+<input id="hdflagRopas" type="hidden" value="0" />
+<input type="hidden" value="0" id="hdCodigoCategoriaSuplemento" />
+<input id="hdCodigoCDetalle" type="hidden" />
+
+<input id="hdCodigoCodigoMenbresiaPago" type="hidden" value="0" />
+<input id="hdCodigoDescripcionMenbresiaPago" type="hidden" value="" />
+<input id="hdAsesorComercialPago" type="hidden" value="" />
+<input id="hdCodigoTipoIngresoPago" type="hidden" value="0" />
+<input id="hdTipoProducto" type="hidden" value="0" />
+<input id="hdMontoTal" type="hidden" value="0" />
+<input id="hdAccionProducto" type="hidden" value="" />
+<input id="hdAccionServicios" type="hidden" value="" />
+<input id="hdAccionSuplementos" type="hidden" value="" />
+<input id="hdAccionRopa" type="hidden" value="" />
+<input type="hidden" id="hdFlagPrimeraVesHacerCompras" value="0" />
+<input type="hidden" id="hdFlagPrimeraVesAbreVentanaEliminarProductos" value="0" />
+<input type="hidden" id="hdFlagPrimeraVesHacerComprasSuplementos" value="0" />
+<input type="hidden" id="hdFlagPrimeraVesAbreVentanaEliminarSuplementos" value="0" />
+<input type="hidden" id="hdFlagPrimeraVesAbreVentanaEliminarRopas" value="0" />
+<input id="hdCodigoCompraSuplemento" type="hidden" value="" />
+<input id="hdCodigoCompraRopa" type="hidden" value="" />
+<input id="hdAccionUsuario" type="hidden" value="" />
+<input id="hdAccionTipoResponsable" type="hidden" value="N" />
+
+
+<input id="hdAccionContrato" type="hidden" value="N" />
+<input id="hdCodPaqueteTraspaso" type="hidden" value="" />
+<input id="hdCodigoMembresiaTraspasoOrigen" type="hidden" />
+<input id="hdCodMembresiaCuotas" type="hidden" />
+<input type="hidden" id="hdFlagPrimeraVesEstadoSocio" value="0" />
+<input type="hidden" value="0" id="hdFlagPrimeraVezClickAbrirCaja" />
+<input id="hdEstadoEgresosCaja" type="hidden" value="0" />
+<input id="hdFlagCambiarEstado" type="hidden" value="0" />
+<input id="hdCodigoUsuarioConfiguracionNuevoMes" type="hidden" value="0" />
+<input id="hdMontoTotalGrillaContrato" type="hidden" value="0" />
+
+<input type="hidden" id="hdFlagPrimeraVezClickEnviarNuevoAInvitado" value="0" />
+<input type="hidden" id="hdFlagPrimeraVezClickEnviarReferidoAInvitado" value="0" />
+<input type="hidden" id="hdFlagPrimeraVezClickEnviarLlamadaAInvitado" value="0" />
+<input type="hidden" id="hdFlagPrimeraVezClickVerMasStockProducto" value="0" />
+
+<input type="hidden" id="hdFlagPrimeraVezClickIngresoDeAgenda" value="0" />
+<input id="hdAccionTablaProspectos" type="hidden" />
+<input id="hdCodigoOrigen" type="hidden" />
+<input id="hdCodigoSocioRenoReins" type="hidden" />
+<input id="hdVendedorGrillaRenovReins" type="hidden" value="" />
+<input id="hdEstadoCita" type="hidden" value="" />
+<input id="hdCodigoTipoAgenda" type="hidden" />
+<input id="hdCodigoSocio" type="hidden" />
+<input id="hdHoraAgenda" type="hidden" value="" />
+<input id="hdCodigoPago" type="hidden" value="" />
+<input id="hdCodigoMenbresiaVerPago" type="hidden" value="" />
+<input id="hdCodigoInteres" type="hidden" value="" />
+<input type="hidden" id="hdFlagPrimeraVezClickAgregarInteres" value="0" />
+<input type="hidden" value="0" id="hdCodigoCategoriaProductoCompra" />
+<input type="hidden" value="0" id="hdCodigoCategoriaSuplementoCompra" />
+<input type="hidden" value="0" id="hdCodigoCuota" />
+<input type="hidden" value="0" id="flagRenovacionesInscritos" />
+<input type="hidden" id="hdFlagPrimeraVezClickRenovacionesInscritos" value="0" />
+
+<input id="hdRadioMigracion" type="hidden" />
+<input id="hdCodTipoAgendaClientesCaidos" type="hidden" />
+<input id="hdCodigoSocioCaidos" type="hidden" />
+<input type="hidden" id="hdFlagPrimeraVezClickCitasPendientes" value="0" />
+<input id="hdAccionPaquetes" type="hidden" value="" />
+
+
+
+<div class="container-fluid page__container" style="background-color:#e9ebee;">
+    <br />
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="card">
+                <div class="card-header card-header-tabs-basic nav" role="tablist" style="background-color:#fff;">
+                    <a href="#divMensual" id="liMensual" class="active" data-toggle="tab" role="tab" aria-controls="activity_all" aria-selected="true">Planes mensuales</a>
+                    <a href="#divDiario" id="liDiario" data-toggle="tab" role="tab" aria-controls="activity_all" aria-selected="false">Diarios</a>
+                </div>
+                <div class="card-body tab-content" style="background-color:#f5f5f5;">
+                    <div class="tab-pane active show  fade" id="divMensual">
+                        <div class="row">
+                            <div class="col-lg-4">
+                                <div class="card">
+                                    <div class="card-header card-header-sm d-flex align-items-center" style="background-color:#fff;">
+                                        <h4 class="card-header__title flex m-0">Ingreso de planes</h4>
+                                    </div>
+                                    <div class="card-body tab-content">
+                                        <div class="tab-pane active show fade" id="activity_all">
+                                            <br />
+                                            <div class="row">
+                                                <div class="col-3">
+                                                    <div data-controlmodulo="82b48d59-efe3-4c4d-ae69-42d4e2b870cc" style="display:none;">
+                                                        <button id="btnNuevoPaquete" title="Nuevo plan" type="button" style="color:none;" class="btn btn-primary btn-sm"><i class="fa-solid fa-plus"></i>&nbsp;Nuevo Plan</button>
+                                                    </div>
+                                                </div>
+                                                <div class="col-3">
+                                                    <div data-controlmodulo="9cd7a4d3-8d97-4f51-88d9-48adc7a3c9e1" style="display:none;">
+                                                        <button id="btnEliminarPaquete" title="Eliminar plan" type="button" class="btn btn-primary btn-sm"><i class="fa-solid fa-trash"></i>&nbsp;Eliminar Plan</button>
+                                                    </div>
+                                                </div>
+                                                <div class="col-3">
+                                                    <div data-controlmodulo="82b48d59-efe3-4c4d-ae69-42d4e2b870cc" style="display:none;">
+                                                        <button id="btnGuardarPaquete" title="Guardar plan" type="button" class="btn btn-primary btn-sm"><i class="fa-solid fa-floppy-disk"></i>&nbsp;Guardar Plan</button>
+                                                    </div>
+                                                </div>
+                                                <div class="col-3">
+                                                    <div data-controlmodulo="2c44b09b-9c0a-4238-a4ab-6ee3d47cdac0" style="display:none;">
+                                                        <button id="btnActualizarPaquete" title="Actualizar plan" type="button" class="btn btn-primary btn-sm"><i class="fa-solid fa-pen-to-square"></i>&nbsp;Actualizar Plan</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <br />
+                                            <div class="row mb-1">
+                                                <label for="ddlTiempoMembresiaPaquete" class="col-sm-4 col-form-label" style="font-weight: bold; font-size: 13px;color: #000;">Tiempo del plan:</label>
+                                                <div class="col-sm-8">
+                                                    <input id="ddlTiempoMembresiaPaquete" value="0" style="width: 100%; font-size: 13px; font-weight: bold;" tabindex="1" />
+                                                </div>
+                                            </div>
+                                            <div class="row mb-1">
+                                                <label for="txtDescripcionPaquete" class="col-sm-4 col-form-label" style="font-weight: bold; font-size: 13px;color: #000;">Nombre del plan:</label>
+                                                <div class="col-sm-8">
+                                                    <input id="txtDescripcionPaquete" type="text" class="form-control" style="width: 100%; font-size: 13px; font-weight: bold;" tabindex="2" />
+                                                </div>
+                                            </div>
+                                            <div class="row mb-1">
+                                                <label for="cboTipoPaquete" class="col-sm-4 col-form-label" style="font-weight: bold; font-size: 13px;color: #000;">Tipo del plan:</label>
+                                                <div class="col-sm-8">
+                                                    <input id="cboTipoPaquete" value="0" style="width: 100%; font-size: 13px; font-weight: bold;" tabindex="3" />
+                                                </div>
+                                            </div>
+                                            <div class="row mb-1" id="trOptionMembresiaInterdiaria">
+                                                <label for="chkMembresiaInterdiaria" class="col-sm-4 col-form-label" style="font-weight: bold; font-size: 13px;color: #000;"></label>
+                                                <div class="col-sm-8">
+                                                    <input id="chkMembresiaInterdiaria" type="checkbox" tabindex="4" /><label for="chkMembresiaInterdiaria">¿La membresia es interdiaria?</label>
+                                                </div>
+                                            </div>
+                                            <div class="row mb-1">
+                                                <label for="txtCostoPaquete" class="col-sm-4 col-form-label" style="font-weight: bold; font-size: 13px;color: #000;">Precio Venta:</label>
+                                                <div class="col-sm-8">
+                                                    <input id="txtCostoPaquete" type="text" class="form-control" style="width: 50%; font-size: 13px; font-weight: bold;" tabindex="5" />
+                                                </div>
+                                            </div>
+                                            <div class="row mb-1">
+                                                <label for="txtValorPaquete" class="col-sm-4 col-form-label" style="font-weight: bold; font-size: 13px;color: #000;">Sesiones:</label>
+                                                <div class="col-sm-8">
+                                                    <input id="txtValorPaquete" type="text" class="form-control" style="width: 50%; font-size: 13px; font-weight: bold;" tabindex="6" onkeydown="return validarNumeros(event)" />
+                                                </div>
+                                            </div>
+                                            <div class="row mb-1">
+                                                <label for="txtFrezenDisponiblesPaquete" class="col-sm-4 col-form-label" style="font-weight: bold; font-size: 13px;color: #000;"># Días de congelamiento::</label>
+                                                <div class="col-sm-8">
+                                                    <input id="txtFrezenDisponiblesPaquete" type="text" class="form-control" value="2" style="width: 50%; font-size: 13px; font-weight: bold;" tabindex="7" onkeydown="return validarNumeros(event)" />
+                                                </div>
+                                            </div>
+
+                                            <div class="row mb-1" style="display:none;">
+                                                <label for="txtNroIngresoDia" class="col-sm-4 col-form-label" style="font-weight: bold; font-size: 13px;color: #000;"># Ingreso día:</label>
+                                                <div class="col-sm-8">
+                                                    <input id="txtNroIngresoDia" type="text" class="form-control" value="2" style="width: 50%; font-size: 13px; font-weight: bold;" tabindex="7" onkeydown="return validarNumeros(event)" />
+                                                </div>
+                                            </div>
+                                            <div class="row mb-1">
+                                                <label for="txtFechaInicioPaquete" class="col-sm-4 col-form-label" style="font-weight: bold; font-size: 13px;color: #000;">Inicio de vigencia:</label>
+                                                <div class="col-sm-8">
+                                                    <input id="txtFechaInicioPaquete" type="text" style="width: 50%; font-size: 13px;" tabindex="8" />
+                                                </div>
+                                            </div>
+                                            <div class="row mb-1">
+                                                <label for="txtFechaVencimientoPaquete" class="col-sm-4 col-form-label" style="font-weight: bold; font-size: 13px;color: #000;">Fin de vigencia:</label>
+                                                <div class="col-sm-8">
+                                                    <input id="txtFechaVencimientoPaquete" type="text" style="width: 50%; font-size: 13px;" tabindex="9" />
+                                                </div>
+                                            </div>
+                                            <div class="row mb-1 align-content-center align-items-center">
+                                                <label for="chkNuncavence" class="col-sm-4 col-form-label" style="font-weight: bold; font-size: 13px;color: #000;">¿Hasta cuando venderas el plan?</label>
+                                                <div class="col-sm-8">
+                                                    <input id="chkNuncavence" type="checkbox" onclick="NuncaVencePaquete()"
+                                                           data-bind="checked: checkboxListValue" tabindex="10" class="cursor-pointer" /> <label for="chkNuncavence" class="cursor-pointer">Se vendera siempre</label>
+                                                </div>
+                                            </div>
+                                            <div class="row mb-1">
+                                                <label for="txtNumeroCupo" class="col-sm-4 col-form-label" style="font-weight: bold; font-size: 13px;color: #000;"># Cupos: opcional</label>
+                                                <div class="col-sm-8">
+                                                    <input id="txtNumeroCupo" type="text" value="2" class="form-control" style="width: 50%; font-size: 13px; font-weight: bold;" tabindex="7" onkeydown="return validarNumeros(event)" />                                                    
+                                                </div>
+                                            </div>
+
+                                            <div class="row mb-1 align-content-center align-items-center">
+                                                <label for="chkshowApp" class="col-sm-4 col-form-label" style="font-weight: bold; font-size: 13px;color: #000;">¿Visualizar en App?</label>
+                                                <div class="col-sm-8">
+                                                    <input id="chkshowApp" type="checkbox" tabindex="10" class="cursor-pointer" /> <label for="chkshowApp" class="cursor-pointer">Visualizar</label>
+                                                </div>
+                                            </div>
+                                            <div class="row mb-1" style="display: none;">
+                                                <label for="chkNuncavence" class="col-sm-4 col-form-label" style="font-weight: bold; font-size: 13px;color: #000;">T. Cliente:</label>
+                                                <div class="col-sm-8">
+                                                    <input id="cboTipoClientePaquete" value="0" style="width: 98%; font-size: 10px; font-weight: bold;" />
+                                                </div>
+                                            </div>
+                                            <div class="row mb-1" style="display: none;">
+                                                <label for="chkNuncavence" class="col-sm-4 col-form-label" style="font-weight: bold; font-size: 13px;color: #000;">T. Cliente:</label>
+                                                <div class="col-sm-8">
+                                                    <input id="cboTipoClientePaquete" value="0" style="width: 98%; font-size: 10px; font-weight: bold;" />
+                                                </div>
+                                            </div>
+                                            <div class="row mb-1" style="display: none;">
+                                                <input id="txtCodigoPaquete" type="text" value="0" class="k-textbox" style="width: 100%;" tabindex="0" />
+                                                <input id="chkUsarFInicioFin" type="checkbox" onclick="UsarFInicioFin()" data-bind="checked: checkboxListValue" />
+                                                
+                                                <label class="toggle">
+                                                    <input id="chkEstadoPaquete" type="checkbox" checked>
+                                                    <span class="handle"></span>
+                                                </label>
+                                            </div>
+                                            <div class="row pd-8-force">
+                                                <div id="lblFechaCreacionPlan" style="width: 100%; font-size: 13px; border-radius: 5px; padding: 5px 5px 8px 5px; text-align: center; color: red">
+
+                                                </div>
+                                                <div style="width: 100%; font-size: 13px; border-radius: 5px; padding: 5px 5px 8px 5px; color: #000;text-align:center;">
+                                                    * (Sesiones) 1 Mes: 30, 3 Meses: 90, 6 Meses: 180, 1 Año: 365
+                                                    <br />
+                                                    * Cambiar la información de un plan que ya existe va afectar a las membresias de los clientes que se han matriculado.
+                                                    <br />
+                                                    * Para las matriculas, cuando el plan creado es de tipo membresia se usara el nro de sesiones para sumar a la fecha de inicio, cuando es de tipo nutrición o personalizado se usara los días según el tiempo del plan para sumar a la fecha de inicio.
+                                                </div>
+                                            </div>
+                                            <div id="divHorariosysedesplanes" style="display:none;">
+                                                <div class="row">
+                                                    <div class="col-12">
+                                                        <div>
+                                                            <div style="background-color: #fff; border-radius: 4px;font-size: 12px; padding: 3px 3px 3px 3px; margin-bottom: 2px;">
+                                                                Horario disponible del plan seleccionado:
+                                                            </div>
+                                                            <p data-controlmodulo="d56386f6-b5cc-4bec-8cdd-e9280b473a88" style="display:none;">
+                                                                <button id="btnGuardarHorarioPaquete" title="Guardar días del paquete" type="button" style="background-color: #0075ff;border-color: #0075ff;" class="btn btn-primary btn-sm"><i class="fa-solid fa-floppy-disk"></i>&nbsp;Guardar cambios del Horario</button>
+                                                            </p>
+
+                                                            <center>
+                                                                <div id="gridDiasCursos" style="width:94%;text-align:left;">
+                                                                </div>
+                                                            </center>
+                                                            <br />
+
+                                                        </div>
+
+                                                    </div>
+
+                                                </div>
+                                                <div class="row">
+
+                                                    <div class="col-12">
+
+                                                        <div style="background-color: #fff; border-radius: 4px; font-size: 12px; padding: 3px 3px 3px 3px; margin-bottom: 2px;">
+                                                            Permisos para las Sedes:
+                                                        </div>
+                                                        <p data-controlmodulo="0e6a27ff-1033-48b1-a479-f14e3f97b7e6" style="display:none;">
+                                                            <button id="btnGuardarSedesPorSedesPermisos" title="Guardar Sedes" type="button" style="background-color: #0075ff;border-color: #0075ff;" class="btn btn-primary btn-sm"><i class="fa-solid fa-floppy-disk"></i>&nbsp;Guardar cambios de la Sede</button>
+                                                        </p>
+                                                        <center>
+                                                            <div id="gridUspListarSedesPorSedesPermisos" style="width:94%;text-align:left;">
+                                                            </div>
+                                                        </center>
+                                                        <br />
+                                                    </div>
+
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                       
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-8">
+                                <div class="card">
+                                    <div class="card-header card-header-sm d-flex align-items-center" style="background-color:#fff;">
+                                        <h4 class="card-header__title flex m-0">Historial de planes</h4>
+                                    </div>
+                                    <div class="card-body tab-content">
+                                        <div class="tab-pane active show fade" id="activity_all">
+                                            <div id="btnConfiguracionPaquete" style="width: 25px; height: 25px; border-radius: 10px; background-color: #1E7145; display: none;">
+                                                <img src="../Imagenes/opciones/ConfigurationCliente.png" class="img-circle" style="border-radius: 20%; width: 19px; cursor: pointer;" title="Configuracion de Paquetes">
+                                            </div>
+                                            <table style="width:100%;" border="0">
+                                                <tr>
+                                                    <td style="width: 25%;" valign="top">
+                                                        <input id="ddlTipoPaquete" value="0" style="width: 100%; font-size: 12px; font-weight: bold;" tabindex="1" />
+                                                    </td>
+                                                    <td style="width: 15%;" valign="top">
+                                                        <select id="ddlEstadoPaquete" style="width: 100%; font-size: 12px; font-weight: bold;">
+                                                            <option value="true">Vigentes</option>
+                                                            <option value="false">Finalizados</option>
+                                                        </select>
+                                                    </td>
+                                                    <td style="width: 40%;" align="center" valign="top">
+                                                        <input id="txtBusquedaPaquetes" type="text" class="form-control" placeholder="Busqueda de planes..." style="font-size: 12px;" />
+                                                    </td>
+                                                    <td style="width: 10%;" align="center" valign="top">
+                                                        <select id="ddlPaginacionuspListarPaquetesMenbresiasCursos" style="width: 60px; font-size: 12px;"></select>
+                                                    </td>
+                                                    <td style="width: 10%;" align="center" valign="top">
+                                                        <button onclick="ListadoPaquetesPorFiltro()" title="Buscar Paquete" type="button" style="background-color: #0075ff;border-color: #0075ff;background-color: #0075ff;border-color: #0075ff;" class="btn btn-primary btn-sm">
+                                                            <i class="fa-solid fa-magnifying-glass"></i>&nbsp;Buscar
+                                                        </button>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td colspan="6" style="">
+                                                        <div id="gridPaquetes" style="text-align: left;user-select:none;">
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                            </table>
+
+                                          
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                           
+                        </div>
+                    </div>
+                    <div class="tab-pane fade" id="divDiario">
+                        <div class="row">
+                            <div class="col-lg-3">
+                                <div class="card">
+                                    <div class="card-header card-header-sm d-flex align-items-center" style="background-color:#fff;">
+                                        <h4 class="card-header__title flex m-0">INGRESE LOS PRECIOS DE SUS DIARIOS</h4>
+                                    </div>
+                                    <div class="card-body tab-content">
+                                        <div class="tab-pane active show fade" id="activity_all">
+                                            <table style="width: 100%; padding: 5px;">
+                                                <tr>
+                                                    <td colspan="2" align="left">
+                                                        <table style="width: 100%;" border="0">
+                                                            <tr>
+                                                                <td style="width: 39%;" align="left">
+                                                                    <div data-controlmodulo="0e6a27ff-1033-48b1-a479-f14e3f97b7e6" style="display:none;">
+                                                                        <button id="btnNuevoServicio" title="Nuevo Servicio" type="button" class="btn btn-primary btn-sm"><i class="fa-solid fa-plus"></i>&nbsp;Nuevo diario</button>
+                                                                    </div>
+                                                                </td>
+                                                                <td style="width: 30%;" align="right">
+                                                                    <div data-controlmodulo="fa9eb9e1-be5a-4eaa-b841-515edea940f6" style="display:none;">
+                                                                        <button id="btnEliminarServicio" title="Eliminar Servicio" type="button" class="btn btn-primary btn-sm"><i class="fa-solid fa-trash"></i>&nbsp;Eliminar</button>
+                                                                    </div>
+                                                                </td>
+                                                                <td style="width: 30%;" align="right">
+                                                                    <div data-controlmodulo="0e6a27ff-1033-48b1-a479-f14e3f97b7e6" style="display:none;">
+                                                                        <button id="btnGuardarServicio" title="Guardar Servicio" type="button" style="display: none;" class="btn btn-primary btn-sm"><i class="fa-solid fa-floppy-disk"></i>&nbsp;Guardar diario</button>
+                                                                    </div>
+                                                                    <div data-controlmodulo="c0c78d47-50df-45b6-99d9-7d8ff18e1a0c" style="display:none;">
+                                                                        <button id="btnActualizarServicio" title="Actualizar Servicio" type="button" class="btn btn-primary btn-sm"><i class="fa-solid fa-pen-to-square"></i>&nbsp;Actualizar diario</button>
+                                                                    </div>
+                                                                </td>
+                                                            </tr>
+                                                        </table>
+
+                                                    </td>
+                                                </tr>
+                                                <tr style="display: none;">
+                                                    <td style="width: 20%;">&nbsp;&nbsp;<label style="font-weight: bold; font-size: 11px; color: #000;">Codigo Producto Elaborado:</label>
+                                                    <td>
+                                                        <input id="txtCodigoServicios" type="text" placeholder="Ingrese la descripción" class="k-textbox" style="width: 97%; height: 21px; font-size: 11px; font-weight: bold;" tabindex="1" />
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td style="width: 20%;">
+                                                        <label style="font-weight: bold; font-size: 11px; color: #000;">Descripción:</label>
+                                                    <td>
+                                                        <input id="txtDescripcionServicios" type="text" placeholder="Ingrese la descripción" class="k-textbox" style="width: 97%; height: 35px; font-size: 15px; font-weight: bold;" tabindex="1" />
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td style="width: 20%;">
+                                                        <label style="font-weight: bold; font-size: 11px; color: #000;">Precio:</label>
+                                                    <td>
+                                                        <input id="txtprecioServicios" value="0" type="text" class="k-textbox" placeholder="Ingrese el Precio" style="width: 97%; height: 35px; font-size: 15px; font-weight: bold;" tabindex="1" />
+                                                    </td>
+                                                </tr>
+
+                                            </table>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-4">
+                                <div class="card">
+                                    <div class="card-header card-header-sm d-flex align-items-center" style="background-color:#fff;">
+                                        <h4 class="card-header__title flex m-0">Historial de Diarios</h4>
+                                    </div>
+                                    <div class="card-body tab-content">
+                                        <div class="tab-pane active show fade" id="activity_all">
+                                            <table style="width: 100%;" border="0">
+                                                <tr>
+                                                    <td style="width: 40%;" align="center" valign="top">
+                                                        <input type="hidden" id="hdFlagPrimeraVesClickServicios" value="0" />
+                                                        <input id="txtBusquedaServicios" type="text" class="form-control" placeholder="Busqueda de Servicios" style="width: 100%; font-size: 14px; " />
+                                                    </td>
+                                                    <td style="width: 10%;" align="center" valign="top">
+                                                        <select id="ddlPaginacionuspListarServicios" style="width: 60px;"></select>
+                                                    </td>
+                                                    <td style="width: 10%;" align="center" valign="top">
+                                                        <button type="button" onclick="ListadoServiciosPorFiltro()" class="btn btn-primary btn-sm"><i class="fa-solid fa-magnifying-glass"></i>&nbsp;Buscar</button>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td colspan="3">
+                                                        <div id="gridServicios" style="text-align: left;">
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<div id="myModalHorarioPaquete" class="modal fade">
+    <br />
+    <br />
+    <br />
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div id="divCerrarmyModalHorarioPaquete" class="modal-header">
+                <h5 class="modal-title" id="modal-small-title">Horarios disponibles para ingresar en el plan seleccionado</h5>
+                <button id="btnxmyModalHorarioPaquete" type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div> <!-- // END .modal-header -->
+
+            <div class="modal-body" style="background-color: #e9ebee;">
+                <h style="color:#000;font-size:14px;">¿Seleccione un rango de horario?</h>
+                <div style="border-radius: 10px;background-color:#f9f9f9;padding: 6px;">
+                    <table width="100%" border="0">
+                        <tr>
+                            <td style="width:28%;">
+                                <label>
+                                    <input id="chkTodoElDia" type="checkbox" onclick="IngresarTodoElDia()"
+                                           data-bind="checked: checkboxListValue" /><label style="font-weight: bold;font-size: 11px;color:#000;">Todo el día</label>
+                                </label>
+                            </td>
+                            <td style="width:30%;">
+                                <div>
+                                    <input id="txtHoraInicioCurso" type="time" class="k-datetime" style="width:95%;font-size:11px;" />
+                                </div>
+                            </td>
+                            <td style="width:30%;">
+                                <div>
+                                    <input id="txtHoraFinCurso" type="time" class="k-datetime" style="width:95%;font-size:11px;" />
+                                </div>
+                            </td>
+                            <td style="width:20%;">
+                                <div>
+                                    <button id="btnGuardarHoraPaquete" type="button" title="Guardar Hora" class="btn btn-primary btn-sm">Guardar</button>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="4">
+                                <div id="gridHoraPaquete" style="width:100%;height:50%;">
+                                </div>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div id="myModalConfirmHoraPaquete" class="modal fade">
+    <div class="modal-dialog modal-sm" role="document">
+        <div class="modal-content">
+            <div id="DivCerrarmyModalConfirmHoraPaquete" class="modal-header">
+                <h5 class="modal-title" id="modal-small-title">¿Estás seguro de eliminar este horario?</h5>
+                <button id="btnxmyModalConfirmHoraPaquete" type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div> <!-- // END .modal-header -->
+            <div class="modal-body">
+                <p></p>
+                <h style="font-size:15px;"> Nota: si eliminas este horario, tus clientes matriculados a este plan no podran marcar su ingreso en el día seleccionado.</h>
+                <p></p>
+            </div>
+            <div class="modal-footer">
+                <button id="btnNoHoraPaquete" type="button" class="btn btn-default btn-lg" data-dismiss="modal">No</button>
+                <button id="btnSiHoraPaquete" type="button" class="btn btn-primary btn-lg">Si</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="myModalConfirmPaquete" class="modal">
+    <div class="modal-dialog" style="width:22%">
+        <div class="modal-content" style="border: 1px solid #00bcd4;border-radius: 15px;">
+            <div id="cerrarModalConfirmPaquete" style="background-color: rgba(0, 188, 212, 0.08);border-bottom: 1px solid rgba(0, 188, 212, 0.12);-webkit-border-radius: 0px 0px 0 0;color: #141823;line-height: 13px;padding: 10px 12px;-webkit-border-top-left-radius: 15px;-webkit-border-top-right-radius: 15px;-moz-border-radius-topleft: 15px;-moz-border-radius-topright: 15px;border-top-left-radius: 15px;border-top-right-radius: 15px;height: 26px;">
+                <button type="button" style="margin-top: -10px;" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                <label class="modal-title" style="color:#F09300;font-size:13px;margin-top: -3px;">Mensaje </label>
+            </div>
+            <div class="modal-body">
+                <p></p>
+                <h style="font-size:12px;">¿Estás seguro de eliminar un paquete?</h>
+                <p></p>
+            </div>
+            <div class="modal-footer" style="background-color: rgba(0, 188, 212, 0.07);border-bottom: 0px solid #e5e5e5;-webkit-border-radius: 3px 3px 0 0;color: #141823;font-weight: bold;line-height: 13px;padding: 3px 12px;border-radius: 12px;">
+                <button id="btnNoPaquete" style="font-size: 10px;" type="button" class="btn btn-default btn-sm" data-dismiss="modal">No</button>
+                <button id="btnSiPaquete" style="font-size: 10px;" type="button" class="btn btn-primary btn-sm" style="background-color:#F09300;border-color:#F09300;">Si</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="myModalConfirmProductoElaborado" class="modal">
+    <div class="modal-dialog" style="width:22%">
+        <div class="modal-content" style="border: 1px solid #00bcd4;border-radius: 15px;">
+            <div onclick="event_cerrarModalEliminar();" style="background-color: rgba(0, 188, 212, 0.08);border-bottom: 1px solid rgba(0, 188, 212, 0.12);-webkit-border-radius: 0px 0px 0 0;color: #141823;line-height: 13px;padding: 10px 12px;-webkit-border-top-left-radius: 15px;-webkit-border-top-right-radius: 15px;-moz-border-radius-topleft: 15px;-moz-border-radius-topright: 15px;border-top-left-radius: 15px;border-top-right-radius: 15px;height: 26px;">
+                <button type="button" style="margin-top: -10px;" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                <label class="modal-title" style="color:#F09300;font-size:13px;margin-top: -3px;">Mensaje</label>
+            </div>
+            <div class="modal-body">
+                <p></p>
+                <h style="font-size:12px;">
+                    ¿Esta seguro de eliminar el diario? <br /><br />
+                    * Recuerde que al eliminar este servicio afectará al informe de las ventas relacionadas a este diario.
+                    <p></p>
+            </div>
+            <div class="modal-footer" style="background-color: rgba(0, 188, 212, 0.07);border-bottom: 0px solid #e5e5e5;-webkit-border-radius: 3px 3px 0 0;color: #141823;font-weight: bold;line-height: 13px;padding: 3px 12px;border-radius: 12px;">
+                <button onclick="event_cerrarModalEliminar();" style="font-size: 10px;" type="button" class="btn btn-default btn-sm" data-dismiss="modal">No</button>
+                <button id="btnSiProElab" style="font-size: 10px;" type="button" class="btn btn-primary btn-sm" style="background-color:#F09300;border-color:#F09300;">Si</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="modal fade" id="loadMe" tabindex="-1" role="dialog" aria-labelledby="loadMeLabel">
+    <br /><br /><br /><br />
+    <div class="modal-dialog modal-sm" role="document">
+        <div class="modal-content">
+            <div class="modal-body text-center">
+                <img src="~/Content/appsfit_img/logoappsfitweb.png" style="width:255px;height:125px;" />
+                <div class="loader"></div>
+                <div clas="loader-txt">
+                    <p>Cargando... <br><br><small>Espere por favor, este proceso puede tardar unos minutos</small></p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+
+    @System.Web.Optimization.Scripts.Render("~/Scripts/jquery.min.js")
+
+    @System.Web.Optimization.Scripts.Render("~/Scripts/plugins/jsKendo/jquery.min.js")
+    @System.Web.Optimization.Scripts.Render("~/Scripts/plugins/jsKendo/angular.min.js")
+    @System.Web.Optimization.Scripts.Render("~/Scripts/plugins/jsKendo/kendo.all.min.js")
+
+    @System.Web.Optimization.Scripts.Render("~/Scripts/plugins/jquery-ui/jquery-ui.js")
+    @System.Web.Optimization.Scripts.Render("~/Scripts/plugins/jquery-ui/jquery-ui.min.js")
+
+    @System.Web.Optimization.Scripts.Render("~/Resource/UserControl.Helper.js")
+    @System.Web.Optimization.Scripts.Render("~/Scripts/bootstrap-notify-master/bootstrap-notify.js")
+    @System.Web.Optimization.Scripts.Render("~/Scripts/bootstrap-notify-master/bootstrap-notify.min.js")
+    @System.Web.Optimization.Scripts.Render("~/Scripts/jsBootstrap/jquery.bootstrap-growl.js")
+    @System.Web.Optimization.Scripts.Render("~/Scripts/maskedinput.js")
+
+    <script type="text/javascript">
+
+        $(document).ready(function () {
+
+            SEGListarPerfilMenu();
+
+            var todayDate = new Date();
+            $('#txtFechaInicioPaquete').kendoDatePicker();
+            $('#txtFechaInicioPaquete').data("kendoDatePicker").value(todayDate);
+            $('#txtFechaVencimientoPaquete').kendoDatePicker();
+            $('#txtFechaVencimientoPaquete').data("kendoDatePicker").value(todayDate);
+
+            $('#hdAccionCrearPaquetes').val("N");
+            if ($('#hdFlagPrimeraVesClickLIpaquetes').val() == 0) {
+                $('#hdFlagPrimeraVesClickLIpaquetes').val("1");
+                listaTipoPaquete();
+
+                ListaTiempoMembresiaPaquete();
+                listarddlTipoPaquete();
+                $("#ddlEstadoPaquete").kendoDropDownList();
+                //uspListarProductoPorCategoriaCompraFiltro();
+            }
+
+            $('#btnNuevoPaquete').click(function () {
+                $('#lblFechaCreacionPlan').html('');
+                $('#hdAccionCrearPaquetes').val('N');
+                $('#txtDescripcionPaquete').focus();
+                $('#txtDescripcionPaquete').val('');
+                $('#txtCodigoPaquete').val('0');
+                $('#txtValorPaquete').val('');
+                $('#txtFrezenDisponiblesPaquete').val('0');
+                $('#txtCostoPaquete').val('');
+                $('#chkEstadoPaquete').prop('checked', true);
+                var todayDate = new Date();
+                $('#txtFechaVencimientoPaquete').data("kendoDatePicker").value(todayDate);
+                $("#cboTipoPaquete").data("kendoDropDownList").select(0);
+
+                $("#ddlTiempoMembresiaPaquete").data("kendoDropDownList").select(0);
+                document.getElementById("btnEliminarPaquete").style.display = 'none';
+                document.getElementById("btnActualizarPaquete").style.display = 'none';
+                document.getElementById("btnGuardarPaquete").style.display = '';
+                $('#chkUsarFInicioFin').attr('checked', false);
+                $('#txtFechaInicioPaquete').data("kendoDatePicker").value(todayDate);
+                $('#txtNumeroCupo').val(999999);
+                $('#txtNroIngresoDia').val(3);
+                limpiarValidacionPaquetes();
+                $("#txtFechaVencimientoPaquete").data("kendoDatePicker").enable(true);
+                $('#chkNuncavence').attr('checked', false);
+                document.getElementById('divHorariosysedesplanes').style.display = 'none';
+                document.getElementById("chkshowApp").checked = false;
+            });
+
+            $('#divCerrarmyModalHorarioPaquete').click(function () {
+                $('#myModalHorarioPaquete').hide('fast');
+            });
+
+            $('#btnxmyModalHorarioPaquete').click(function () {
+                $('#myModalHorarioPaquete').hide('fast');
+            });
+
+            $('#btnNoHoraPaquete').click(function () {
+                $('#myModalConfirmHoraPaquete').hide('fast');
+            });
+
+            $('#DivCerrarmyModalConfirmHoraPaquete').click(function () {
+                $('#myModalConfirmHoraPaquete').hide('fast');
+            });
+
+            $('#txtBusquedaPaquetes').click(function () {
+                $('#txtBusquedaPaquetes').select();
+            });
+
+            $('#btnxmyModalConfirmHoraPaquete').click(function () {
+                $('#myModalConfirmHoraPaquete').hide('fast');
+            });
+
+            $('#btnSiProElab').click(function () {
+
+                var CodigoProducto = $('#txtCodigoServicios').val();
+
+                $.ajax({
+                    data: '{"CodigoProducto":"' + CodigoProducto + '"}',
+                    type: "POST",
+                    url: "/operacionesfit/EliminarProductoElaborado",
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "json",
+                    success: function (msg) {
+                        if (msg > 0) {
+
+                            $.bootstrapGrowl("El dato se ha eliminado correctamente.", { type: 'success', width: 'auto' });
+                            document.getElementById('myModalConfirmProductoElaborado').style.display = 'none';
+                            uspListarProductoElaboradoPorFiltro_Paginacion();
+
+                        } else {
+
+                            $.bootstrapGrowl("Error vuelve a intentarlo.", { type: 'danger', width: 'auto' });
+
+                        }
+                    }
+                });
+            });
+
+
+            $('#btnSiHoraPaquete').click(function () {
+                var CodHPD = $('#hdCodHoraCurso').val();
+                document.getElementById('loadMe').style.display = 'block';
+                $.ajax({
+                    data: '{"CodHPD":"' + CodHPD + '"}',
+                    type: "POST",
+                    url: "/operacionesfit/EliminarHoraPaquete",
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "json",
+                    success: function (msg) {
+                        $.bootstrapGrowl("Se elimino correctamente.", { type: 'success', width: 'auto' });
+                        $('#myModalConfirmHoraPaquete').hide('fast');
+                        var CodigoHP = $('#hdCodHorarioPaquete').val();
+                        uspListarHoraPaquete(CodigoHP);
+                    }, complete: function () {
+                        document.getElementById('loadMe').style.display = 'none';
+                    }
+                });
+            });
+
+            $('#btnGuardarPaquete').click(function () {
+                if (validacionNuevoPaquete()) {
+                    GuardarPaquete();
+                }
+            });
+
+            $('#btnActualizarPaquete').click(function () {
+                if (validacionNuevoPaquete()) {
+                    GuardarPaquete();
+                }
+            });
+
+            $('#btnEliminarPaquete').click(function () {
+                $('#myModalConfirmPaquete').show('fast');
+            });
+
+            $('#cerrarModalConfirmPaquete').click(function () {
+                $('#myModalConfirmPaquete').hide('fast');
+            });
+
+            $('#btnNoPaquete').click(function () {
+                $('#myModalConfirmPaquete').hide('fast');
+            });
+
+            $('#btnSiPaquete').click(function () {
+                $('button[type="button"]').attr("disabled", true);
+                var codigo = $('#txtCodigoPaquete').val();
+                document.getElementById('loadMe').style.display = 'block';
+                $.ajax({
+                    data: '{"codigo":"' + codigo + '"}',
+                    type: "POST",
+                    url: "/operacionesfit/EliminarPaquete",
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "json",
+                    success: function (msg) {
+
+                        if (msg > 0) {
+                            $('#myModalConfirmPaquete').hide('fast');
+                            ListadoPaquetesPorFiltro();
+                            $.bootstrapGrowl(msg, { type: 'danger', width: 'auto' });
+                        } else {
+                            $.bootstrapGrowl("No se pudo eliminar este registro.", { type: 'danger', width: 'auto' });
+                        }
+                    }, complete: function () {
+                        $('button[type="button"]').attr("disabled", false);
+                        document.getElementById('loadMe').style.display = 'none';
+                    }
+                });
+            });
+
+            $('#btnGuardarHorarioPaquete').click(function () {
+
+                var CodigoPaquete = $('#hdCodPaquete').val();
+                if (CodigoPaquete == "") {
+                    $.bootstrapGrowl("No hay paquetes para asignar Horarios.", { type: 'danger', width: 'auto' });
+                } else {
+                    var xml_HorarioPaquete = "";
+                    xml_HorarioPaquete += "<ds>";
+                    $('#gridDiasCursos tbody tr').each(function () {
+                        var dia = $(this).find("td").eq(0).find("input[id*='txtCodigoDia']").val();
+                        var chkdias = $(this).find("td").eq(0).find("input").prop('checked') ? 1 : 0;
+                        xml_HorarioPaquete += "<d>";
+                        xml_HorarioPaquete += "<a>" + dia + "</a>";
+                        xml_HorarioPaquete += "<b>" + chkdias + "</b>";
+                        xml_HorarioPaquete += "</d>";
+                    });
+                    xml_HorarioPaquete += "</ds>";
+
+                    var Accion = "N";
+                    document.getElementById('loadMe').style.display = 'block';
+                    $.ajax({
+                        data: '{"CodigoPaquete":"' + CodigoPaquete + '","xml_HorarioPaquete":"' + xml_HorarioPaquete + '","Accion":"' + Accion + '"}',
+                        type: "POST",
+                        url: "/operacionesfit/GuardarHorarioPaquete",
+                        contentType: "application/json; charset=utf-8",
+                        dataType: "json",
+                        success: function (msg) {
+                            $.bootstrapGrowl("Los datos se han guardado correctamente.", { type: 'success', width: 'auto' });
+                        }, complete: function () {
+                            document.getElementById('loadMe').style.display = 'none';
+                        }
+                    });
+                }
+
+            });
+
+            $('#btnGuardarSedesPorSedesPermisos').click(function () {
+                $('button[type="button"]').attr("disabled", true);
+                var CodigoPaquete = $('#hdCodPaquete').val();
+                if (CodigoPaquete == "") {
+                    $.bootstrapGrowl("No hay paquetes para asignar Horarios.", { type: 'danger', width: 'auto' });
+                } else {
+                    var xml_SedePaquete = "";
+                    xml_SedePaquete += "<ds>";
+                    $('#gridUspListarSedesPorSedesPermisos tbody tr').each(function () {
+                        var sede = $(this).find("td").eq(0).find("input[id*='txtCodigoDiaSede']").val();
+                        var chkSede = $(this).find("td").eq(0).find("input").prop('checked') ? 1 : 0;
+                        xml_SedePaquete += "<d>";
+                        xml_SedePaquete += "<a>" + sede + "</a>";
+                        xml_SedePaquete += "<b>" + chkSede + "</b>";
+                        xml_SedePaquete += "</d>";
+                    });
+                    xml_SedePaquete += "</ds>";
+                    document.getElementById('loadMe').style.display = 'block';
+
+                    $.ajax({
+                        data: '{"CodigoPaquete":"' + CodigoPaquete + '","xml_SedePaquete":"' + xml_SedePaquete + '"}',
+                        type: "POST",
+                        url: "/operacionesfit/uspRegistrarPaqueteSedePermiso",
+                        contentType: "application/json; charset=utf-8",
+                        dataType: "json",
+                        success: function (msg) {
+                            $.bootstrapGrowl("Los datos se han guardado correctamente.", { type: 'success', width: 'auto' });
+                        }, complete: function () {
+                            $('button[type="button"]').attr("disabled", false);
+                            document.getElementById('loadMe').style.display = 'none';
+                        }
+                    });
+                }
+            });
+
+            $('#btnGuardarHoraPaquete').click(function () {
+                GuardarHoraPaquete();
+            });
+
+            $('#txtDescripcionPaquete').keyup(function () {
+                if ($(this).val().length > 0) {
+                    $('#txtDescripcionPaquete').removeClass('borderValidar');
+                } else {
+                    $('#txtDescripcionPaquete').addClass('borderValidar');
+                }
+            });
+
+            $('#txtCostoPaquete').keyup(function () {
+                if ($(this).val().length > 0) {
+                    $('#txtCostoPaquete').removeClass('borderValidar');
+                } else {
+                    $('#txtCostoPaquete').addClass('borderValidar');
+                }
+            });
+
+            $('#txtValorPaquete').keyup(function () {
+                if ($(this).val().length > 0) {
+                    $('#txtValorPaquete').removeClass('borderValidar');
+                } else {
+                    $('#txtValorPaquete').addClass('borderValidar');
+                }
+            });
+
+            $('#txtFrezenDisponiblesPaquete').keyup(function () {
+                if ($(this).val().length > 0) {
+                    $('#txtFrezenDisponiblesPaquete').removeClass('borderValidar');
+                } else {
+                    $('#txtFrezenDisponiblesPaquete').addClass('borderValidar');
+                }
+            });
+
+            $("#txtHoraInicioCurso").kendoTimePicker({
+                format: "hh:mm tt",
+                parseFormats: ["HH:mm:ss"],
+                min: new Date(1950, 0, 1, 4, 0, 0),
+                max: new Date(2060, 11, 31, 23, 50, 0)
+            });
+
+            $("#txtHoraFinCurso").kendoTimePicker({
+                format: "hh:mm tt",
+                parseFormats: ["HH:mm:ss"],
+                min: new Date(1950, 0, 1, 4, 0, 0),
+                max: new Date(2060, 11, 31, 23, 50, 0)
+            });
+
+            var timepicker = $("#txtHoraInicioCurso").data("kendoTimePicker");
+            timepicker.value("04:00 AM");
+
+            var timepic = $("#txtHoraFinCurso").data("kendoTimePicker");
+            timepic.value("04:00 AM");
+
+            //DIARIO
+            $('#btnNuevoServicio').click(function () {
+                $('#txtCodigoServicios').val('0');
+                $('#txtDescripcionServicios').val('');
+                $('#txtprecioServicios').val('0');
+                $('#hdAccionServicios').val('N');
+                document.getElementById('btnGuardarServicio').style.display = '';
+                document.getElementById('btnActualizarServicio').style.display = 'none';
+                document.getElementById('btnEliminarServicio').style.display = 'none';
+                $('#txtDescripcionServicios').removeClass('borderValidar');
+                $('#txtprecioServicios').removeClass('borderValidar');
+            });
+
+            $('#btnGuardarServicio').click(function () {
+                if (validadorProductoElaborado()) {
+                    GuardarProductoElaborado();
+                }
+            });
+
+            $('#btnActualizarServicio').click(function () {
+                GuardarProductoElaborado();
+            });
+
+            $('#btnEliminarServicio').click(function () {
+                $('#myModalConfirmProductoElaborado').show('fast');
+            });
+
+
+        });
+
+
+        function listaTipoPaquete() {
+
+            var cboTipoPaquete = $("#cboTipoPaquete").kendoDropDownList({
+                dataTextField: "Descripcion",
+                dataValueField: "Codigo",
+                dataSource: {
+                    serverFiltering: false,
+                    transport: {
+                        read: function (options) {
+                            $.ajax({
+                                type: "POST",
+                                url: "/operacionesfit/listaTipoPaquete",
+                                contentType: "application/json; charset=utf-8",
+                                dataType: "json",
+                                success: function (msg) {
+                                    options.success(msg);
+                                }
+                            });
+                        }
+                    }
+                }, change: function () {
+                    var tipo = $("#cboTipoPaquete").data("kendoDropDownList").value();
+                    if (tipo == 2) {
+                        document.getElementById("trOptionMembresiaInterdiaria").style.display = '';
+                    } else {
+                        document.getElementById("trOptionMembresiaInterdiaria").style.display = 'none';
+                    }
+                    $('#chkMembresiaInterdiaria').prop('checked', false);
+                }
+            }).data("kendoDropDownList");
+        }
+
+        function ListaTiempoMembresiaPaquete() {
+            var ddlTiempoMembresiaPaquete = $("#ddlTiempoMembresiaPaquete").kendoDropDownList({
+                filter: "startswith",
+                optionLabel: "Seleccione",
+                dataTextField: "Descripcion",
+                dataValueField: "Valor", //CodigoTiempo
+                dataSource: {
+                    serverFiltering: true,
+                    transport: {
+                        read: function (options) {
+                            var nombre = $('input[aria-owns="ddlTiempoMembresia_listbox"]').val() == 'undefined' ? '' : $('input[aria-owns="ddlTiempoMembresia_listbox"]').val();
+                            $.ajax({
+                                data: '{"nombre":"' + nombre + '"}',
+                                type: "POST",
+                                url: "/operacionesfit/ListaTiempoMembresia",
+                                contentType: "application/json; charset=utf-8",
+                                dataType: "json",
+                                success: function (msg) {
+                                    options.success(msg);
+                                }
+                            });
+                        }
+                    }
+                }, change: function () {
+                    var valor = $("#ddlTiempoMembresiaPaquete").data("kendoDropDownList").value().split('|')[1];
+                    $('#txtValorPaquete').val(valor);
+                }
+            }).data("kendoDropDownList");
+        }
+
+        function listarddlTipoPaquete() {
+
+            var ddlPaquete = $("#ddlTipoPaquete").kendoDropDownList({
+                dataTextField: "Descripcion",
+                dataValueField: "Codigo",
+                dataSource: {
+                    serverFiltering: true,
+                    transport: {
+                        read: function (options) {
+                            $.ajax({
+                                type: "POST",
+                                url: "/operacionesfit/listarddlTipoPaquete",
+                                contentType: "application/json; charset=utf-8",
+                                dataType: "json",
+                                success: function (msg) {
+                                    options.success(msg);
+                                    ListadoPaquetesPorFiltro();
+                                }
+                            });
+                        }
+                    }
+                }, change: function () {
+                    ListadoPaquetesPorFiltro();
+                }
+            }).data("kendoDropDownList");
+        }
+
+        function ListadoPaquetesPorFiltro() {
+
+            var TipoPaquete = $("#ddlTipoPaquete").data('kendoDropDownList').value();
+            var Busqueda = $("#txtBusquedaPaquetes").val();
+            var Estado = $("#ddlEstadoPaquete").data('kendoDropDownList').value();
+
+            $("#gridPaquetes").empty();
+            $("#gridPaquetes").kendoGrid({
+                dataSource: {
+                    type: "json",
+                    transport: {
+                        read: function (options) {
+                            $.ajax({
+                                data: '{"Estado":"' + Estado + '","TipoPaquete":"' + TipoPaquete + '","Busqueda":"' + Busqueda + '","PageNumber":"' + 1 + '"}',
+                                type: "POST",
+                                url: "/operacionesfit/uspListarPaquetesMenbresiasCursos_Paginacion",
+                                contentType: "application/json; charset=utf-8",
+                                dataType: "json",
+                                success: function (msg) {
+                                    options.success(msg);
+                                }, complete: function () {
+                                    uspListarPaquetesMenbresiasCursos_NumeroRegistros();
+                                }
+                            });
+                        }
+                    }
+                },
+                height: 1300,
+                selectable: "row",
+                columns: [{
+                    field: "DesTiempoMembresia",
+                    title: "<b style='font-size:12px;'>Tiempo de plan</b>",
+                    width: 10,
+                    attributes: {
+                        style: "font-size:13px;"
+                    },
+                },{
+                    field: "Descripcion",
+                    title: "<b style='font-size:12px;'>Nombre del plan</b>",
+                    width: 40,
+                    attributes: {
+                        style: "font-size:14px;"
+                    }
+                }, {
+                    field: "DescFechaCreacion",
+                    title: "<b style='font-size:12px;'>Fecha creación</b>",
+                    width: 10,
+                    attributes: {
+                        style: "font-size:13px;"
+                    },
+                }, {
+                    field: "UsuarioCreacion",
+                    title: "<b style='font-size:12px;'>Usuario</b>",
+                    width: 8,
+                    attributes: {
+                        style: "font-size:13px;"
+                    },
+                }, {
+                    field: "DesEstado",
+                    title: "<b style='font-size:12px;'>Estado</b>",
+                    width: 8,
+                    attributes: {
+                        style: "font-size:13px;"
+                    },
+                }
+                ],
+                dataBound: function (e) {
+                    var count = 0;
+                    $('#gridPaquetes tbody tr').each(function () {
+                        count += 1;
+                    });
+                    if (count > 0) {
+                        var grid = $("#gridPaquetes").data("kendoGrid");
+                        this.element.find('tbody tr:first').addClass('k-state-selected');
+                        this.select(this.tbody.find('>tr:first'))
+                    } else {
+                        document.getElementById('btnNuevoPaquete').click();
+                        $('#hdCodPaquete').val(0);
+                        $("#gridDiasCursos").empty();
+                    }
+
+                },
+                change: function () {
+                    var grid = this;
+                    grid.select().each(function () {
+                        var dataItem = grid.dataItem($(this));
+                        var CodigoPaquete = dataItem.CodigoPaquete;
+                        $('#hdCodPaquete').val(CodigoPaquete);
+                        $('#lblFechaCreacionPlan').html('Fecha creada: ' + dataItem.DescFechaCreacion);
+                        BuscarPaquete(CodigoPaquete);
+                        document.getElementById("btnActualizarPaquete").style.display = '';
+                        document.getElementById("btnGuardarPaquete").style.display = 'none';
+                        document.getElementById("btnEliminarPaquete").style.display = '';
+
+                        uspListarAsignarDiasHorarioPaquete();
+                        ListarSedesHorarioPaquete();
+                        $('#txtDescripcionPaquete').removeClass('borderValidar');
+                        $('#txtValorPaquete').removeClass('borderValidar');
+                        $('#txtCostoPaquete').removeClass('borderValidar');
+                    });
+                }
+            });
+        }
+
+        function uspListarPaquetesMenbresiasCursos_NumeroRegistros() {
+            var TipoPaquete = $("#ddlTipoPaquete").data('kendoDropDownList').value();
+            var Busqueda = $("#txtBusquedaPaquetes").val();
+            var Estado = $("#ddlEstadoPaquete").data('kendoDropDownList').value();
+
+            $.ajax({
+                data: '{"Estado":"' + Estado + '","TipoPaquete":"' + TipoPaquete + '","Busqueda":"' + Busqueda + '"}',
+                type: "POST",
+                url: "/operacionesfit/uspListarPaquetesMenbresiasCursos_NumeroRegistros",
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function (msg) {
+                    ddlListaPaginasgriduspListarPaquetesMenbresiasCursos(msg.CantidadRegistros, msg.TamanioPagina);
+                }, complete: function () {
+                }
+            });
+        }
+
+        function ddlListaPaginasgriduspListarPaquetesMenbresiasCursos(CantidadTotalFilas, TamanioPagina) {
+            var CantidadPaginas = parseInt(CantidadTotalFilas / TamanioPagina) + 1;
+            var htmlOpcion = "";
+            for (var i = 1; i <= CantidadPaginas; i++) {
+                htmlOpcion += "<option value='" + i + "'> " + i + " </option>";
+            }
+            $('#ddlPaginacionuspListarPaquetesMenbresiasCursos').html(htmlOpcion);
+            $("#ddlPaginacionuspListarPaquetesMenbresiasCursos").kendoDropDownList({
+                change: function () {
+                    var nroPagina = $("#ddlPaginacionuspListarPaquetesMenbresiasCursos").data("kendoDropDownList").value();
+                    ListadoPaquetesPorFiltro_ChanguePage(nroPagina);
+                }
+            });
+        }
+
+        function ListadoPaquetesPorFiltro_ChanguePage(PageNumber) {
+            var TipoPaquete = $("#ddlTipoPaquete").data('kendoDropDownList').value();
+            var Busqueda = $("#txtBusquedaPaquetes").val();
+            var Estado = $("#ddlEstadoPaquete").data('kendoDropDownList').value();
+            $("#gridPaquetes").empty();
+            $("#gridPaquetes").kendoGrid({
+                dataSource: {
+                    type: "json",
+                    transport: {
+                        read: function (options) {
+                            $.ajax({
+                                data: '{"Estado":"' + Estado + '","TipoPaquete":"' + TipoPaquete + '","Busqueda":"' + Busqueda + '","PageNumber":"' + PageNumber + '"}',
+                                type: "POST",
+                                url: "/operacionesfit/uspListarPaquetesMenbresiasCursos_Paginacion",
+                                contentType: "application/json; charset=utf-8",
+                                dataType: "json",
+                                success: function (msg) {
+                                    options.success(msg);
+                                }, complete: function () {
+                                }
+                            });
+                        }
+                    }
+                }
+                , height: 510,
+                selectable: "row",
+                columns: [{
+                    field: "DesTiempoMembresia",
+                    title: "<b style='font-size:12px;'>Tiempo de plan</b>",
+                    width: 10,
+                    attributes: {
+                        style: "font-size:13px;"
+                    },
+                }, {
+                    field: "Descripcion",
+                    title: "<b style='font-size:12px;'>Nombre del plan</b>",
+                    width: 40,
+                    attributes: {
+                        style: "font-size:14px;"
+                    }
+                }, {
+                    field: "DescFechaCreacion",
+                    title: "<b style='font-size:12px;'>Fecha creación</b>",
+                    width: 10,
+                    attributes: {
+                        style: "font-size:13px;"
+                    },
+                }, {
+                    field: "UsuarioCreacion",
+                    title: "<b style='font-size:12px;'>Usuario</b>",
+                    width: 8,
+                    attributes: {
+                        style: "font-size:13px;"
+                    },
+                }, {
+                    field: "DesEstado",
+                    title: "<b style='font-size:12px;'>Estado</b>",
+                    width: 8,
+                    attributes: {
+                        style: "font-size:13px;"
+                    },
+                }
+                ],
+                dataBound: function (e) {
+                    var count = 0;
+                    $('#gridPaquetes tbody tr').each(function () {
+                        count += 1;
+                    });
+                    if (count > 0) {
+                        var grid = $("#gridPaquetes").data("kendoGrid");
+                        this.element.find('tbody tr:first').addClass('k-state-selected');
+                        this.select(this.tbody.find('>tr:first'))
+                    } else {
+                        document.getElementById('btnNuevoPaquete').click();
+                        $('#hdCodPaquete').val(0);
+                        $("#gridDiasCursos").empty();
+                    }
+                },
+                change: function () {
+                    var grid = this;
+                    grid.select().each(function () {
+                        var dataItem = grid.dataItem($(this));
+                        var CodigoPaquete = dataItem.CodigoPaquete;
+
+                        $('#hdCodPaquete').val(CodigoPaquete);
+                        $('#lblFechaCreacionPlan').html('Fecha creada: ' + dataItem.DescFechaCreacion);
+                        BuscarPaquete(CodigoPaquete);
+
+                        document.getElementById("btnActualizarPaquete").style.display = '';
+                        document.getElementById("btnGuardarPaquete").style.display = 'none';
+                        document.getElementById("btnEliminarPaquete").style.display = '';
+
+                        uspListarAsignarDiasHorarioPaquete();
+                        ListarSedesHorarioPaquete();
+
+                        $('#txtDescripcionPaquete').removeClass('borderValidar');
+                        $('#txtValorPaquete').removeClass('borderValidar');
+                        $('#txtCostoPaquete').removeClass('borderValidar');
+                    });
+                }
+            });
+        }
+
+        function uspListarAsignarDiasHorarioPaquete() {
+            var CodigoPaquete = $('#hdCodPaquete').val() == '' ? 0 : $('#hdCodPaquete').val();
+
+            $("#gridDiasCursos").empty();
+            $("#gridDiasCursos").kendoGrid({
+                dataSource: {
+                    type: "json",
+                    transport: {
+                        read: function (options) {
+                            $.ajax({
+                                type: "POST",
+                                data: '{"CodigoPaquete":"' + CodigoPaquete + '"}',
+                                url: "/operacionesfit/uspListarAsignarDiasHorarioPaquete",
+                                contentType: "application/json; charset=utf-8",
+                                dataType: "json",
+                                success: function (msg) {
+                                    options.success(msg);
+                                }
+                            });
+                        }
+                    }
+                },
+                height: 350,
+                sortable: true,
+                columns: [
+                    {
+                        template: "<input id='chkdias' title='seleccionar Día' type='checkbox' #: Check # ><input id='txtCodigoDia' type='text' value='#: Dia #' class='k-textbox' style='width:80px;display:none;'/>",
+                        title: "",
+                        width: 5
+                    }, {
+                        field: "desDia",
+                        title: "Día de semana",
+                        width: 15,
+                        attributes: {
+                            style: "font-size:13px;"
+                        }
+                    }, {
+                        template: "<button type='button' onclick='ListarHorario(#: CodigoHP #,#: Dia #)' class='btn btn-primary btn-sm' ><i class='fa-solid fa-pen-to-square'></i>Cambiar horario</button>",                       
+                        title: "",
+                        width: 10
+                    }]
+            });
+        }
+
+        function ListarHorario(CodigoHP, dia) {
+            verificarExiteDiaSemanaCurso(dia);
+            $('#hdCodHorarioPaquete').val(CodigoHP);
+        }
+
+        function verificarExiteDiaSemanaCurso(dia) {
+            var CodigoPaquete = $('#hdCodPaquete').val();
+
+            if (CodigoPaquete == "") {
+                $.bootstrapGrowl("No hay paquetes para asignar Horas al día.", { type: 'danger', width: 'auto' });
+            } else {
+                document.getElementById('loadMe').style.display = 'block';
+                $.ajax({
+                    data: '{"CodigoPaquete":"' + CodigoPaquete + '","dia":"' + dia + '"}',
+                    type: "POST",
+                    url: "/operacionesfit/verificarExiteDiaSemanaCurso",
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "json",
+                    success: function (msg) {
+                        if (msg > 0) {
+
+                            var timepicker = $("#txtHoraInicioCurso").data("kendoTimePicker");
+                            timepicker.value("04:00 AM");
+                            var timepic = $("#txtHoraFinCurso").data("kendoTimePicker");
+                            timepic.value("11:00 PM");
+                            $('#myModalHorarioPaquete').show('fast');
+                            var CodigoHP = $('#hdCodHorarioPaquete').val();
+                            uspListarHoraPaquete(CodigoHP);
+                        } else {
+                            $.bootstrapGrowl("Seleccione y guarde el día.", { type: 'danger', width: 'auto' });
+                        }
+                    }, complete: function () {
+                        document.getElementById('loadMe').style.display = 'none';
+                    }
+                });
+            }
+        }
+
+        function uspListarHoraPaquete(CodigoHP) {
+
+            $("#gridHoraPaquete").empty();
+            $("#gridHoraPaquete").kendoGrid({
+                dataSource: {
+                    type: "json",
+                    transport: {
+                        read: function (options) {
+                            $.ajax({
+                                data: '{"codigoHP":"' + CodigoHP + '"}',
+                                type: "POST",
+                                url: "/operacionesfit/uspListarHoraPaquete",
+                                contentType: "application/json; charset=utf-8",
+                                dataType: "json",
+                                success: function (msg) {
+                                    options.success(msg);
+                                }
+                            });
+                        }
+                    }
+                },
+                height: 250,
+                sortable: true,
+                columns: [
+                    {
+                        field: "HoraInicio",
+                        title: "<center style='color:#fff;font-size:12px;'><b>Hora Inicio</b></center>",
+                        width: 20,
+                        attributes: {
+                            style: "font-size:11px;text-align:center;"
+                        },
+                        template: "#= kendo.toString(kendo.parseDate(HoraInicio, 'yyyy-MM-dd'), 'hh:mmtt') #"
+                    }, {
+                        field: "horaFin",
+                        title: "<center style='color:#fff;font-size:12px;'><b>Hora Fín</b></center>",
+                        width: 20,
+                        attributes: {
+                            style: "font-size:11px;text-align:center;"
+                        },
+                        template: "#= kendo.toString(kendo.parseDate(horaFin, 'yyyy-MM-dd'), 'hh:mmtt') #"
+                    }
+                    , {
+                        template: "<i class='fa fa-trash-alt fa-2x' onclick='EliminarHoraPaquete(#: CodigoHPD #)'></i>",
+                        title: "",
+                        width: 10
+                    }
+                ]
+            });
+        }
+
+        function EliminarHoraPaquete(CodigoHPD) {
+            $('#myModalConfirmHoraPaquete').show("fast");
+            $('#hdCodHoraCurso').val(CodigoHPD);
+        }
+
+        function BuscarPaquete(codigo) {
+            document.getElementById('loadMe').style.display = 'block';
+            $.ajax({
+                data: '{"codigo":"' + codigo + '"}',
+                type: "POST",
+                url: "/operacionesfit/BuscarPaqueteAdministracion",
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function (msg) {
+                    document.getElementById('loadMe').style.display = 'none';
+                    document.getElementById('divHorariosysedesplanes').style.display = '';
+                    $('#txtCodigoPaquete').val(msg.CodigoPaquete);
+                    $('#txtDescripcionPaquete').val(msg.Descripcion);
+
+
+                    $('#chkshowApp').prop('checked', msg?.ShowApp);
+
+
+                    $('#txtValorPaquete').val(msg.valor);
+                    $('#txtFrezenDisponiblesPaquete').val(msg.CongelamientoVigente);
+                    $('#txtCostoPaquete').val(msg.Costo);
+                    $('#chkEstadoPaquete').prop('checked', msg.Estado);
+                    $('#chkMembresiaInterdiaria').prop('checked', msg.EstadoMembresiaInterdiaria);
+                    $('#txtFechaVencimientoPaquete').data('kendoDatePicker').value(msg.FechaVencimiento);
+                    $('#hdAccionCrearPaquetes').val('E');
+                    $('#cboTipoPaquete').data("kendoDropDownList").value(msg.CodigoTipoPaquete);
+
+                    var tipo = msg.CodigoTipoPaquete;
+                    if (tipo == 2) {
+                        document.getElementById("trOptionMembresiaInterdiaria").style.display = '';
+                    } else {
+                        document.getElementById("trOptionMembresiaInterdiaria").style.display = 'none';
+                    }
+
+                    $('#ddlTiempoMembresiaPaquete').data("kendoDropDownList").value(msg.TiempoMembresia + '|' + msg.ValorDias_Tiempo);
+                    var FechaVen = kendo.toString($("#txtFechaVencimientoPaquete").data('kendoDatePicker').value(), 'dd/MM/yyyy');
+                    if (FechaVen == "31/12/2099") {
+                        $('#txtFechaVencimientoPaquete').data("kendoDatePicker").enable(false);
+                        $('#chkNuncavence').prop('checked', true);
+                    } else {
+                        $('#txtFechaVencimientoPaquete').data("kendoDatePicker").enable(true);
+                        $('#chkNuncavence').prop('checked', false);
+                    }
+                    $('#txtNumeroCupo').val(msg.NroCupo);
+                    $('#txtFechaInicioPaquete').data('kendoDatePicker').value(msg.FechaInicio);
+                    if (msg.EstadoFecha == 1) {
+                        $('#chkUsarFInicioFin').prop('checked', true);
+                    } else {
+                        $('#chkUsarFInicioFin').prop('checked', false);
+                    }
+                    $('#txtNroIngresoDia').val(msg.NroIngresoDia);
+                }
+            });
+        }
+
+        function IngresarTodoElDia() {
+            var chkTodoElDia = $('#chkTodoElDia').is(':checked');
+            if (chkTodoElDia == true) {
+                var timepicker = $("#txtHoraInicioCurso").data("kendoTimePicker");
+                timepicker.value("04:00 AM");
+                var timepicker = $("#txtHoraFinCurso").data("kendoTimePicker");
+                timepicker.value("11:00 PM");
+                //$('#txtHoraInicioCurso').data("kendoTimePicker").enable(false);
+                //$('#txtHoraFinCurso').data("kendoTimePicker").enable(false);
+            } else {
+                var timepicker = $("#txtHoraInicioCurso").data("kendoTimePicker");
+                timepicker.value("04:00 AM");
+                var timepicker = $("#txtHoraFinCurso").data("kendoTimePicker");
+                timepicker.value("11:00 PM");
+                //$('#txtHoraInicioCurso').data("kendoTimePicker").enable(true);
+                //$('#txtHoraFinCurso').data("kendoTimePicker").enable(true);
+            }
+        }
+
+        function NuncaVencePaquete() {
+            var chkNuncavence = $('#chkNuncavence').is(':checked');
+            if (chkNuncavence == true) {
+                $('#txtFechaVencimientoPaquete').data("kendoDatePicker").value("31/12/2099");
+                $('#txtFechaVencimientoPaquete').data("kendoDatePicker").enable(false);
+            } else {
+                var todayDate = new Date();
+                $('#txtFechaVencimientoPaquete').data("kendoDatePicker").value(todayDate);
+                $('#txtFechaVencimientoPaquete').data("kendoDatePicker").enable(true);
+            }
+        }
+
+        function ListarSedesHorarioPaquete() {
+
+            var CodigoPaquete = $('#hdCodPaquete').val() == '' ? 0 : $('#hdCodPaquete').val();
+
+            $("#gridUspListarSedesPorSedesPermisos").empty();
+            $("#gridUspListarSedesPorSedesPermisos").kendoGrid({
+                dataSource: {
+                    type: "json",
+                    transport: {
+                        read: function (options) {
+                            $.ajax({
+                                type: "POST",
+                                data: '{"CodigoPaquete":"' + CodigoPaquete + '"}',
+                                url: "/operacionesfit/uspListarSedesPorSedesPermisos",
+                                contentType: "application/json; charset=utf-8",
+                                dataType: "json",
+                                success: function (msg) {
+                                    options.success(msg);
+                                }
+                            });
+                        }
+                    }
+                },
+                height: 180,
+                sortable: true,
+                columns: [
+                    {
+                        template: "<input id='chkSedes' title='seleccionar Sede' type='checkbox' #: DesEstado # ><input id='txtCodigoDiaSede' type='text' value='#: CodigoSede #' class='k-textbox' style='width:50px;display:none;'/>",
+                        title: "",
+                        width: 5
+                    }, {
+                        field: "RazonSocial",
+                        title: "Sede",
+                        width: 18,
+                        attributes: {
+
+                            style: "font-size:11px;"
+                        }
+                    }]
+            });
+
+        }
+
+        function GuardarHoraPaquete() {
+            var codigoHPD = 0;
+            var CodigoHP = $('#hdCodHorarioPaquete').val();
+            var HoraInicio = kendo.toString($("#txtHoraInicioCurso").data('kendoTimePicker').value(), 'hh:mmtt');
+            var HoraFin = kendo.toString($("#txtHoraFinCurso").data('kendoTimePicker').value(), 'hh:mmtt');
+            var accion = "N";
+            document.getElementById('loadMe').style.display = 'block';
+            $.ajax({
+                data: '{"codigoHPD":"' + codigoHPD + '","CodigoHP":"' + CodigoHP + '","HoraInicio":"' + HoraInicio + '","HoraFin":"' + HoraFin + '","accion":"' + accion + '"}',
+                type: "POST",
+                url: "/operacionesfit/GuardarHoraPaquete",
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function (msg) {
+                    uspListarHoraPaquete(CodigoHP);
+                    $.bootstrapGrowl("Los datos se han guardado correctamente.", { type: 'success', width: 'auto' });
+                }, complete: function () {
+                    document.getElementById('loadMe').style.display = 'none';
+                }
+            });
+        }
+
+        function limpiarValidacionPaquetes() {
+            $('#txtDescripcionPaquete').removeClass('borderValidar');
+            $('#txtCostoPaquete').removeClass('borderValidar');
+            $('#txtValorPaquete').removeClass('borderValidar');
+        }
+
+        function validacionNuevoPaquete() {
+            var validator = true;
+            if ($('#txtDescripcionPaquete').val() == '') {
+                validator = false;
+                $.bootstrapGrowl("Falta ingresar el nombre del plan.", { type: 'danger', width: 'auto' });
+            }
+            if ($('#txtValorPaquete').val() == '') {
+                validator = false;
+                $.bootstrapGrowl("Falta ingresar el nro de sesiones del plan.", { type: 'danger', width: 'auto' });
+            }
+            if ($('#txtCostoPaquete').val() == '') {
+                validator = false;
+                $.bootstrapGrowl("Falta ingresar el precio del plan.", { type: 'danger', width: 'auto' });
+            }
+            if ($("#cboTipoPaquete").data('kendoDropDownList').value() == '') {
+                validator = false;
+                $.bootstrapGrowl("Falta seleccionar el tipo del plan.", { type: 'danger', width: 'auto' });
+            }
+            if ($("#ddlTiempoMembresiaPaquete").data('kendoDropDownList').value() == '') {
+                validator = false;
+                $.bootstrapGrowl("Falta seleccionar el tiempo del plan.", { type: 'danger', width: 'auto' });
+            }
+            if ($("#txtFrezenDisponiblesPaquete").val() == '') {
+                validator = false;
+                $.bootstrapGrowl("Falta ingresar el nro de días de congelamiento.", { type: 'danger', width: 'auto' });
+            }
+            return validator;
+        }
+
+        function GuardarPaquete() {
+            $('button[type="button"]').attr("disabled", true);
+
+            var codigo = $('#txtCodigoPaquete').val() == '' ? '0' : $('#txtCodigoPaquete').val();
+            var descripcion = $('#txtDescripcionPaquete').val();
+            var TiempoMembresia = $("#ddlTiempoMembresiaPaquete").data('kendoDropDownList').value().split('|')[0];
+            var CodigoTipoPaquete = $("#cboTipoPaquete").data('kendoDropDownList').value() == '' ? '2' : $("#cboTipoPaquete").data('kendoDropDownList').value();
+
+            var EstadoMembresiaInterdiaria = false;
+            if (CodigoTipoPaquete == 2) {
+                EstadoMembresiaInterdiaria = $('#chkMembresiaInterdiaria').is(':checked');
+            }
+
+            var CodTipCli = 0;
+            var costo = $('#txtCostoPaquete').val();
+            var valor = $('#txtValorPaquete').val();
+            var FrezenDisponibles = $('#txtFrezenDisponiblesPaquete').val();
+            var FechaVencimiento = kendo.toString($("#txtFechaVencimientoPaquete").data('kendoDatePicker').value(), 'MM/dd/yyyy');
+            var estado = $('#chkEstadoPaquete').is(':checked');
+            var accion = $('#hdAccionCrearPaquetes').val();
+
+            var NroCupo = $('#txtNumeroCupo').val() == '' ? 0 : $('#txtNumeroCupo').val();
+            var FechaInicio = kendo.toString($("#txtFechaInicioPaquete").data('kendoDatePicker').value(), 'MM/dd/yyyy');
+            var EstadoFecha = $('#chkUsarFInicioFin').is(':checked') ? 1 : 0;
+            var NroIngresoDia = $('#txtNroIngresoDia').val() == '' ? 0 : $('#txtNroIngresoDia').val();
+            var showapp = document.getElementById("chkshowApp").checked;
+
+            document.getElementById('loadMe').style.display = 'block';
+            let data = {
+                codigo, descripcion, valor, FrezenDisponibles, costo, accion, estado, FechaVencimiento,
+                CodTipCli, CodigoTipoPaquete, TiempoMembresia, NroCupo, FechaInicio, EstadoFecha, NroIngresoDia, EstadoMembresiaInterdiaria, showapp
+            };
+
+            console.log(data)
+            $.ajax({
+                data: JSON.stringify(data),
+               // data: '{"codigo":"' + codigo + '","descripcion":"' + descripcion + '","valor":"' + valor + '","FrezenDisponibles":"' + FrezenDisponibles + '","costo":"' + costo + '","accion":"' + accion + '","estado":"' + estado + '","FechaVencimiento":"' + FechaVencimiento + '","CodTipCli":"' + CodTipCli + '","CodigoTipoPaquete":"' + CodigoTipoPaquete + '","TiempoMembresia":"' + TiempoMembresia + '","NroCupo":"' + NroCupo + '","FechaInicio":"' + FechaInicio + '","EstadoFecha":"' + EstadoFecha + '","NroIngresoDia":"' + NroIngresoDia + '","EstadoMembresiaInterdiaria":"' + EstadoMembresiaInterdiaria + '"}',
+                type: "POST",
+                url: "/operacionesfit/GuardarPaquete",
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function (msg) {
+                    if (msg > 0) {
+                        if (accion == 'N') {
+                            $.bootstrapGrowl("Paquete guardado correctamente y se a creado el horario de lunes a domingo de 6:00AM a 11.30PM automaticamente.", { type: 'success', width: 'auto' });
+                        } else {
+                            $.bootstrapGrowl("Los datos se han actualizado correctamente.", { type: 'success', width: 'auto' });
+                        }
+                        ListadoPaquetesPorFiltro();
+                    } else {
+                        $.bootstrapGrowl("Su tiempo se agoto vuelva a ingresar al sistema por favor, su ingreso solo dura 24 horas. Gracias", { type: 'danger', width: 'auto' });
+                    }
+                }, complete: function () {
+                    $('button[type="button"]').attr("disabled", false);
+                    document.getElementById('loadMe').style.display = 'none';
+                }
+            });
+        }
+
+        //diario
+        function event_cerrarModalEliminar() {
+            document.getElementById('myModalConfirmProductoElaborado').style.display = 'none';
+        }
+
+        function uspListarProductoElaboradoPorFiltro_Paginacion() {
+
+            var Busqueda = $("#txtBusquedaServicios").val();
+            $("#gridServicios").empty();
+            $("#gridServicios").kendoGrid({
+                dataSource: {
+                    type: "json",
+                    transport: {
+                        read: function (options) {
+                            $.ajax({
+                                data: '{"Busqueda":"' + Busqueda + '","PageNumber":"' + 1 + '"}',
+                                type: "POST",
+                                url: "/operacionesfit/uspListarProductoElaboradoPorFiltro_Paginacion",
+                                contentType: "application/json; charset=utf-8",
+                                dataType: "json",
+                                success: function (msg) {
+                                    options.success(msg);
+                                }, complete: function () {
+                                    uspListarProductoElaboradoPorFiltro_NumeroRegistros();
+                                    $("#gridServicios").parents('.k-grid-content').css("height", 376);
+                                }
+                            });
+                        }
+                    }
+                }, height: 600,
+                selectable: "row",
+                columns: [{
+                    field: "Descripcion",
+                    title: "<div style='font-size: 12px;color:#fff;'>Producto</div>",
+                    width: 25,
+                    attributes: {
+                        style: "font-size:14px;"
+                    }
+                }, {
+                    field: "PrecioVenta",
+                    title: "<div style='font-size: 12px;color:#fff;'>Precio</div>",
+                    width: 5,
+                    attributes: {
+                        style: "font-size:14px;"
+                    }
+                }
+                ],
+                dataBound: function (e) {
+                    var count = 0;
+                    $('#gridServicios tbody tr').each(function () {
+                        count += 1;
+                    });
+
+                    if (count > 0) {
+                        this.element.find('tbody tr:first').addClass('k-state-selected');
+                        this.select(this.tbody.find('>tr:first'))
+                    } else {
+                        document.getElementById('btnNuevoServicio').click();
+                        $("#gridServicios").empty();
+                    }
+
+                }, change: function () {
+                    var grid = this;
+                    grid.select().each(function () {
+                        var dataItem = grid.dataItem($(this));
+                        var CodigoProducto = dataItem.CodigoProducto;
+                        buscarProductoElaborado(CodigoProducto);
+                        document.getElementById("btnActualizarServicio").style.display = '';
+                        document.getElementById("btnGuardarServicio").style.display = 'none';
+                        document.getElementById("btnEliminarServicio").style.display = '';
+                        $('#txtDescripcionServicios').removeClass('borderValidar');
+                        $('#txtprecioServicios').removeClass('borderValidar');
+                    });
+                }
+            });
+        }
+
+        function uspListarProductoElaboradoPorFiltro_NumeroRegistros() {
+
+            var Busqueda = $("#txtBusquedaServicios").val();
+            $.ajax({
+                data: '{"Busqueda":"' + Busqueda + '"}',
+                type: "POST",
+                url: "/operacionesfit/uspListarProductoElaboradoPorFiltro_NumeroRegistros",
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function (msg) {
+                    ddlPaginacionuspListarServicios_Paginacion(msg.CantTotal, msg.TamanioPagina);
+                }, complete: function () {
+
+                }
+            });
+        }
+
+        function uspListarProductoElaboradoPorFiltro_ChanguePage(PageNumber) {
+
+            var Busqueda = $("#txtBusquedaServicios").val();
+            $("#gridServicios").empty();
+            $("#gridServicios").kendoGrid({
+                dataSource: {
+                    type: "json",
+                    transport: {
+                        read: function (options) {
+                            $.ajax({
+                                data: '{"Busqueda":"' + Busqueda + '","PageNumber":"' + PageNumber + '"}',
+                                type: "POST",
+                                url: "/operacionesfit/uspListarProductoElaboradoPorFiltro_Paginacion",
+                                contentType: "application/json; charset=utf-8",
+                                dataType: "json",
+                                success: function (msg) {
+                                    options.success(msg);
+                                }, complete: function () {
+                                }
+                            });
+                        }
+                    }
+                }
+                , height: 600,
+                selectable: "row",
+                columns: [{
+                    field: "Descripcion",
+                    title: "<div style='font-size: 12px;color:#fff;'>Producto</div>",
+                    width: 25,
+                    attributes: {
+                        style: "font-size:14px;"
+                    }
+                }, {
+                    field: "PrecioVenta",
+                    title: "<div style='font-size: 12px;color:#fff;'>Precio</div>",
+                    width: 5,
+                    attributes: {
+                        style: "font-size:14px;"
+                    }
+                }
+                ],
+                dataBound: function (e) {
+                    var count = 0;
+                    $('#gridServicios tbody tr').each(function () {
+                        count += 1;
+                    });
+
+                    if (count > 0) {
+                        this.element.find('tbody tr:first').addClass('k-state-selected');
+                        this.select(this.tbody.find('>tr:first'))
+                    } else {
+                        document.getElementById('btnNuevoServicio').click();
+                        $("#gridServicios").empty();
+                    }
+
+                }, change: function () {
+                    var grid = this;
+                    grid.select().each(function () {
+                        var dataItem = grid.dataItem($(this));
+                        var CodigoProducto = dataItem.CodigoProducto;
+                        buscarProductoElaborado(CodigoProducto);
+                        document.getElementById("btnActualizarServicio").style.display = '';
+                        document.getElementById("btnGuardarServicio").style.display = 'none';
+                        document.getElementById("btnEliminarServicio").style.display = '';
+                        $('#txtDescripcionServicios').removeClass('borderValidar');
+                        $('#txtprecioServicios').removeClass('borderValidar');
+
+                    });
+                }
+            });
+        }
+
+        function ddlPaginacionuspListarServicios_Paginacion(CantidadTotalFilas, TamanioPagina) {
+            var CantidadPaginas = parseInt(CantidadTotalFilas / TamanioPagina) + 1;
+            var htmlOpcion = "";
+            for (var i = 1; i <= CantidadPaginas; i++) {
+                htmlOpcion += "<option value='" + i + "'> " + i + " </option>";
+            }
+            $('#ddlPaginacionuspListarServicios').html(htmlOpcion);
+            $("#ddlPaginacionuspListarServicios").kendoDropDownList({
+                change: function () {
+                    var nroPagina = $("#ddlPaginacionuspListarServicios").data("kendoDropDownList").value();
+                    uspListarProductoElaboradoPorFiltro_ChanguePage(nroPagina);
+                }
+            });
+        }
+
+        function buscarProductoElaborado(CodigoProducto) {
+
+            $.ajax({
+                data: '{"CodigoProducto":"' + CodigoProducto + '"}',
+                type: "POST",
+                url: "/operacionesfit/BuscarProductoElaborado",
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function (msg) {
+                    $('#txtCodigoServicios').val(msg.CodigoProducto);
+                    $('#txtDescripcionServicios').val(msg.Descripcion);
+                    $('#txtprecioServicios').val(msg.PrecioVenta);
+                    $('#hdAccionServicios').val('E');
+                }
+            });
+        }
+
+
+        function validadorProductoElaborado() {
+            var validator = true;
+            if ($('#txtDescripcionServicios').val() == '') {
+                validator = false;
+                $('#txtDescripcionServicios').addClass('borderValidar');
+            } else {
+                $('#txtDescripcionServicios').removeClass('borderValidar');
+            }
+            if ($('#txtprecioServicios').val() <= 0) {
+                validator = false;
+                $('#txtprecioServicios').addClass('borderValidar');
+            } else {
+                $('#txtprecioServicios').removeClass('borderValidar');
+            }
+            return validator;
+        }
+
+
+        function GuardarProductoElaborado() {
+
+            var CodigoProducto = $('#txtCodigoServicios').val() == '' ? '0' : $('#txtCodigoServicios').val();
+            var Descripcion = $('#txtDescripcionServicios').val();
+            var PrecioVenta = $('#txtprecioServicios').val();
+            var CodigoCategoria = 0;
+            var Accion = $('#hdAccionServicios').val();
+
+            $.ajax({
+                type: "POST",
+                data: '{"CodigoProducto":"' + CodigoProducto + '","Descripcion":"' + Descripcion + '","PrecioVenta":"' + PrecioVenta + '","CodigoCategoria":"' + CodigoCategoria + '","Accion":"' + Accion + '"}',
+                url: "/operacionesfit/GuardarProductoElaborados",
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function (msg) {
+                    if (msg > 0) {
+                        if (Accion == 'N') {
+                            $.bootstrapGrowl("Los datos se han guardado correctamente", { type: 'success', width: 'auto' });
+                        } else {
+                            $.bootstrapGrowl("Los datos se han actualizado correctamente.", { type: 'success', width: 'auto' });
+                        }
+                        uspListarProductoElaboradoPorFiltro_Paginacion();
+
+                    } else {
+                        $.bootstrapGrowl("Su tiempo se agoto vuelva a ingresar al sistema por favor, su ingreso solo dura 24 horas. o este paquete no se puede eliminar.", { type: 'danger', width: 'auto' });
+                    }
+                }, complete: function () {
+
+                }
+            });
+        }
+
+        function ListadoServiciosPorFiltro() {
+            uspListarProductoElaboradoPorFiltro_Paginacion();
+        }
+
+        function SEGListarPerfilMenu() {
+
+            var entidad = {};
+
+            document.getElementById('loadMe').style.display = 'block';
+            $('button[type="button"]').attr("disabled", true);
+            var metodoCorrecto = function (msg) {
+
+                $('button[type="button"]').attr("disabled", false);
+                document.getElementById('loadMe').style.display = 'none';
+
+                for (var i = 0; i < msg.length; i++) {
+
+                    if (msg[i].Estado) {
+
+                        $('[data-controlmodulo="' + msg[i].CodigoMenu + '"]').show('fast');
+
+                    }
+                }
+
+            };
+            var metodoError = function (msg) {
+                alert(msg);
+            };
+            var request = {
+                //request: entidad
+            };
+            LlamarAJAX("/operacionesfit/SEGListarPerfilMenu_Control", request, metodoCorrecto, metodoError);
+
+        }
+
+
+    </script>
+
+
+}

@@ -1,0 +1,860 @@
+﻿@model IEnumerable<BotComers.ViewModels.CategoriaProductoViewModel>
+@{
+    ViewBag.Title = "DetalleProducto";
+    Layout = "~/Views/Shared/_LayoutBotComers.cshtml";
+}
+
+<link href="~/Content/assets/css/BotComers_Layout.css" rel="stylesheet" />
+<div class="body-wrapper">
+    <!-- Begin Header Area -->
+    <div class="breadcrumb-area">
+        <div class="container">
+            <div class="breadcrumb-content">
+                <ul>
+                    <li><a href="index.html">Inicio</a></li>
+                    <li class="active">Catalago de productos</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <!-- Li's Breadcrumb Area End Here -->
+    <!-- Begin Li's Content Wraper Area -->
+    <div class="content-wraper pt-60 pb-60 pt-sm-30">
+        <div class="container">
+            <div class="row">
+
+                <div class="col-lg-9 order-1 order-lg-2">
+
+                    <!-- Begin Li's Banner Area -->
+                    <div class="single-banner shop-page-banner">
+                        <a href="#">
+                            <img src="~/Content/upload/bg-banner/2.jpg" alt="Li's Static Banner">
+                        </a>
+                    </div>
+                    <!-- Li's Banner Area End Here -->
+                    <!-- shop-top-bar start -->
+                    <div class="shop-top-bar mt-30">
+                        <div class="shop-bar-inner">
+                            <div class="product-view-mode">
+                                <!-- shop-item-filter-list start -->
+                                <ul class="nav shop-item-filter-list" role="tablist">
+                                    <li class="active" role="presentation"><a aria-selected="true" class="active show" data-toggle="tab" role="tab" aria-controls="grid-view" href="#grid-view"><i class="fa fa-th"></i></a></li>
+                                    <li role="presentation"><a data-toggle="tab" role="tab" aria-controls="list-view" href="#list-view"><i class="fa fa-th-list"></i></a></li>
+                                </ul>
+                                <!-- shop-item-filter-list end -->
+                            </div>
+                            <div class="toolbar-amount">
+                                <span>
+                                    Mostrando 1 a 9 de 15
+                                </span>
+                            </div>
+                        </div>
+                        <!-- product-select-box start -->
+                        <div class="product-select-box">
+                            <div class="product-short">
+                                <p>
+                                    Ordenar por:
+                                </p>
+                                <select class="nice-select">
+                                    <option value="trending">Relevancia </option>
+                                    <option value="sales">Nombre (A - Z)</option>
+                                    <option value="sales">Nombre (Z - A)</option>
+                                    <option value="rating">Precio (Baja &gt; Alta)</option>
+                                    <option value="date">
+                                        Clasificación( Más bajo)
+                                    </option>
+                                    <option value="price-asc">Modelo (A - Z)</option>
+                                    <option value="price-asc">Modelo (Z - A)</option>
+                                </select>
+                            </div>
+                        </div>
+                        <!-- product-select-box end -->
+                    </div>
+                    <!-- shop-top-bar end -->
+                    <!-- shop-products-wrapper start -->
+                    <div class="shop-products-wrapper">
+                        <div class="tab-content">
+                            <div id="grid-view" class="tab-pane fade active show" role="tabpanel">
+                                <div class="product-area shop-product-area">
+
+                                    <div class="row">
+                                        @foreach (var categoria in Model)
+                                        {
+
+                                            <div class="col-lg-4 col-md-4 col-sm-6 mt-40">
+                                                @foreach (var item in categoria.ListaProducto)
+                                                {
+
+                                                    <!-- single-product-wrap start -->
+                                                    <div class="single-product-wrap">
+                                                        <div class="product-image">
+                                                            <a href="@Url.Action("DetalleProducto")">
+                                                                <img src="@item.UrlImage" alt="Li's Product Image">
+                                                            </a>
+                                                            <span class="sticker">@item.Title</span>
+                                                        </div>
+                                                        <div class="product_desc">
+                                                            <div class="product_desc_info">
+                                                                <div class="product-review">
+                                                                    <h5 class="manufacturer">
+                                                                        <a href="@Url.Action("DetalleProducto")">
+                                                                            @item.Descripcion
+                                                                        </a>
+                                                                    </h5>
+                                                                    <div class="rating-box">
+                                                                        <ul class="rating">
+                                                                            <li><i class="fa fa-star-o"></i></li>
+                                                                            <li><i class="fa fa-star-o"></i></li>
+                                                                            <li><i class="fa fa-star-o"></i></li>
+                                                                            <li class="no-star"><i class="fa fa-star-o"></i></li>
+                                                                            <li class="no-star"><i class="fa fa-star-o"></i></li>
+                                                                        </ul>
+                                                                    </div>
+                                                                </div>
+                                                                <h4><a class="product_name" href="@Url.Action("DetalleProducto")">@item.NombreProducto</a></h4>
+                                                                <div class="price-box">
+                                                                    <span class="new-price">@item.PrecioActual</span>
+                                                                </div>
+                                                            </div>
+                                                            <div class="add-actions">
+                                                                <ul class="add-actions-link">
+                                                                    <li class="add-cart active">
+                                                                        @Html.HiddenFor(model => item.CatalogoID)
+                                                                        @Html.HiddenFor(model => item.UrlImage)
+                                                                        @Html.HiddenFor(model => item.Title, new { @value = item.Title })
+                                                                        @Html.HiddenFor(model => item.Descripcion, new { @value = item.Descripcion })
+                                                                        @Html.HiddenFor(model => item.NombreProducto, new { @value = item.NombreProducto })
+                                                                        @Html.HiddenFor(model => item.PrecioActual, new { @value = item.PrecioActual })
+                                                                        @Html.HiddenFor(model => item.PrecioOriginal, new { @value = item.PrecioOriginal })
+                                                                        <a onclick="comprarProducto(this);" class="agregar-carrito" data-id="1">Agregar al Carrito</a>
+                                                                    </li>
+                                                                    <li><a href="#" title="quick view" class="quick-view-btn" data-toggle="modal" data-target="#exampleModalCenter"><i class="fa fa-eye"></i></a></li>
+                                                                    <li><a class="links-details" href="@Url.Action("Usuario")"><i class="fa fa-heart-o"></i></a></li>
+                                                                </ul>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                }
+
+                                            </div>
+
+
+                                            <div class="col-lg-4 col-md-4 col-sm-6 mt-40">
+                                                @foreach (var item in categoria.ListaProducto)
+                                                {
+
+                                                    <!-- single-product-wrap start -->
+                                                    <div class="single-product-wrap">
+                                                        <div class="product-image">
+                                                            <a href="@Url.Action("DetalleProducto")">
+                                                                <img src="@item.UrlImage" alt="Li's Product Image">
+                                                            </a>
+                                                            <span class="sticker">@item.Title</span>
+                                                        </div>
+                                                        <div class="product_desc">
+                                                            <div class="product_desc_info">
+                                                                <div class="product-review">
+                                                                    <h5 class="manufacturer">
+                                                                        <a href="@Url.Action("DetalleProducto")">
+                                                                            @item.Descripcion
+                                                                        </a>
+                                                                    </h5>
+                                                                    <div class="rating-box">
+                                                                        <ul class="rating">
+                                                                            <li><i class="fa fa-star-o"></i></li>
+                                                                            <li><i class="fa fa-star-o"></i></li>
+                                                                            <li><i class="fa fa-star-o"></i></li>
+                                                                            <li class="no-star"><i class="fa fa-star-o"></i></li>
+                                                                            <li class="no-star"><i class="fa fa-star-o"></i></li>
+                                                                        </ul>
+                                                                    </div>
+                                                                </div>
+                                                                <h4><a class="product_name" href="@Url.Action("DetalleProducto")">@item.NombreProducto</a></h4>
+                                                                <div class="price-box">
+                                                                    <span class="new-price">@item.PrecioActual</span>
+                                                                </div>
+                                                            </div>
+                                                            <div class="add-actions">
+                                                                <ul class="add-actions-link">
+                                                                    <li class="add-cart active">
+                                                                        @Html.HiddenFor(model => item.CatalogoID)
+                                                                        @Html.HiddenFor(model => item.UrlImage)
+                                                                        @Html.HiddenFor(model => item.Title, new { @value = item.Title })
+                                                                        @Html.HiddenFor(model => item.Descripcion, new { @value = item.Descripcion })
+                                                                        @Html.HiddenFor(model => item.NombreProducto, new { @value = item.NombreProducto })
+                                                                        @Html.HiddenFor(model => item.PrecioActual, new { @value = item.PrecioActual })
+                                                                        @Html.HiddenFor(model => item.PrecioOriginal, new { @value = item.PrecioOriginal })
+                                                                        <a onclick="comprarProducto(this);" class="agregar-carrito" data-id="1">Agregar al Carrito</a>
+                                                                    </li>
+                                                                    <li><a href="#" title="quick view" class="quick-view-btn" data-toggle="modal" data-target="#exampleModalCenter"><i class="fa fa-eye"></i></a></li>
+                                                                    <li><a class="links-details" href="@Url.Action("Usuario")"><i class="fa fa-heart-o"></i></a></li>
+                                                                </ul>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+
+                                                    <!-- single-product-wrap end -->
+                                                }
+                                            </div>
+                                            <div class="col-lg-4 col-md-4 col-sm-6 mt-40">
+                                                @foreach (var item in categoria.ListaProducto)
+                                                {
+
+                                                    <!-- single-product-wrap start -->
+                                                    <div class="single-product-wrap">
+                                                        <div class="product-image">
+                                                            <a href="@Url.Action("DetalleProducto")">
+                                                                <img src="@item.UrlImage" alt="Li's Product Image">
+                                                            </a>
+                                                            <span class="sticker">@item.Title</span>
+                                                        </div>
+                                                        <div class="product_desc">
+                                                            <div class="product_desc_info">
+                                                                <div class="product-review">
+                                                                    <h5 class="manufacturer">
+                                                                        <a href="@Url.Action("DetalleProducto")">
+                                                                            @item.Descripcion
+                                                                        </a>
+                                                                    </h5>
+                                                                    <div class="rating-box">
+                                                                        <ul class="rating">
+                                                                            <li><i class="fa fa-star-o"></i></li>
+                                                                            <li><i class="fa fa-star-o"></i></li>
+                                                                            <li><i class="fa fa-star-o"></i></li>
+                                                                            <li class="no-star"><i class="fa fa-star-o"></i></li>
+                                                                            <li class="no-star"><i class="fa fa-star-o"></i></li>
+                                                                        </ul>
+                                                                    </div>
+                                                                </div>
+                                                                <h4><a class="product_name" href="@Url.Action("DetalleProducto")">@item.NombreProducto</a></h4>
+                                                                <div class="price-box">
+                                                                    <span class="new-price">@item.PrecioActual</span>
+                                                                </div>
+                                                            </div>
+                                                            <div class="add-actions">
+                                                                <ul class="add-actions-link">
+                                                                    <li class="add-cart active">
+                                                                        @Html.HiddenFor(model => item.CatalogoID)
+                                                                        @Html.HiddenFor(model => item.UrlImage)
+                                                                        @Html.HiddenFor(model => item.Title, new { @value = item.Title })
+                                                                        @Html.HiddenFor(model => item.Descripcion, new { @value = item.Descripcion })
+                                                                        @Html.HiddenFor(model => item.NombreProducto, new { @value = item.NombreProducto })
+                                                                        @Html.HiddenFor(model => item.PrecioActual, new { @value = item.PrecioActual })
+                                                                        @Html.HiddenFor(model => item.PrecioOriginal, new { @value = item.PrecioOriginal })
+                                                                        <a onclick="comprarProducto(this);" class="agregar-carrito" data-id="1">Agregar al Carrito</a>
+                                                                    </li>
+                                                                    <li><a href="#" title="quick view" class="quick-view-btn" data-toggle="modal" data-target="#exampleModalCenter"><i class="fa fa-eye"></i></a></li>
+                                                                    <li><a class="links-details" href="@Url.Action("Usuario")"><i class="fa fa-heart-o"></i></a></li>
+                                                                </ul>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+
+                                                    <!-- single-product-wrap end -->
+                                                }
+                                            </div>
+                                            <div class="col-lg-4 col-md-4 col-sm-6 mt-40">
+                                                @foreach (var item in categoria.ListaProducto)
+                                                {
+
+                                                    <!-- single-product-wrap start -->
+                                                    <div class="single-product-wrap">
+                                                        <div class="product-image">
+                                                            <a href="@Url.Action("DetalleProducto")">
+                                                                <img src="@item.UrlImage" alt="Li's Product Image">
+                                                            </a>
+                                                            <span class="sticker">@item.</span>
+                                                        </div>
+                                                        <div class="product_desc">
+                                                            <div class="product_desc_info">
+                                                                <div class="product-review">
+                                                                    <h5 class="manufacturer">
+                                                                        <a href="@Url.Action("DetalleProducto")">
+                                                                            @item.Descripcion
+                                                                        </a>
+                                                                    </h5>
+                                                                    <div class="rating-box">
+                                                                        <ul class="rating">
+                                                                            <li><i class="fa fa-star-o"></i></li>
+                                                                            <li><i class="fa fa-star-o"></i></li>
+                                                                            <li><i class="fa fa-star-o"></i></li>
+                                                                            <li class="no-star"><i class="fa fa-star-o"></i></li>
+                                                                            <li class="no-star"><i class="fa fa-star-o"></i></li>
+                                                                        </ul>
+                                                                    </div>
+                                                                </div>
+                                                                <h4><a class="product_name" href="@Url.Action("DetalleProducto")">@item.NombreProducto</a></h4>
+                                                                <div class="price-box">
+                                                                    <span class="new-price">@item.PrecioActual</span>
+                                                                </div>
+                                                            </div>
+                                                            <div class="add-actions">
+                                                                <ul class="add-actions-link">
+                                                                    <li class="add-cart active">
+                                                                        @Html.HiddenFor(model => item.CatalogoID)
+                                                                        @Html.HiddenFor(model => item.UrlImage)
+                                                                        @Html.HiddenFor(model => item.Title, new { @value = item.Title })
+                                                                        @Html.HiddenFor(model => item.Descripcion, new { @value = item.Descripcion })
+                                                                        @Html.HiddenFor(model => item.NombreProducto, new { @value = item.NombreProducto })
+                                                                        @Html.HiddenFor(model => item.PrecioActual, new { @value = item.PrecioActual })
+                                                                        @Html.HiddenFor(model => item.PrecioOriginal, new { @value = item.PrecioOriginal })
+                                                                        <a onclick="comprarProducto(this);" class="agregar-carrito" data-id="1">Agregar al Carrito</a>
+                                                                    </li>
+                                                                    <li><a href="#" title="quick view" class="quick-view-btn" data-toggle="modal" data-target="#exampleModalCenter"><i class="fa fa-eye"></i></a></li>
+                                                                    <li><a class="links-details" href="@Url.Action("Usuario")"><i class="fa fa-heart-o"></i></a></li>
+                                                                </ul>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <!-- single-product-wrap end -->
+                                                }
+                                            </div>
+                                            <div class="col-lg-4 col-md-4 col-sm-6 mt-40">
+                                                @foreach (var item in categoria.ListaProducto)
+                                                {
+
+                                                    <!-- single-product-wrap start -->
+                                                    <div class="single-product-wrap">
+                                                        <div class="product-image">
+                                                            <a href="@Url.Action("DetalleProducto")">
+                                                                <img src="@item.UrlImage" alt="Li's Product Image">
+                                                            </a>
+                                                            <span class="sticker">@item.Title</span>
+                                                        </div>
+                                                        <div class="product_desc">
+                                                            <div class="product_desc_info">
+                                                                <div class="product-review">
+                                                                    <h5 class="manufacturer">
+                                                                        <a href="@Url.Action("DetalleProducto")">
+                                                                            @item.Descripcion
+                                                                        </a>
+                                                                    </h5>
+                                                                    <div class="rating-box">
+                                                                        <ul class="rating">
+                                                                            <li><i class="fa fa-star-o"></i></li>
+                                                                            <li><i class="fa fa-star-o"></i></li>
+                                                                            <li><i class="fa fa-star-o"></i></li>
+                                                                            <li class="no-star"><i class="fa fa-star-o"></i></li>
+                                                                            <li class="no-star"><i class="fa fa-star-o"></i></li>
+                                                                        </ul>
+                                                                    </div>
+                                                                </div>
+                                                                <h4><a class="product_name" href="@Url.Action("DetalleProducto")">@item.</a></h4>
+                                                                <div class="price-box">
+                                                                    <span class="new-price">@item.PrecioActual</span>
+                                                                </div>
+                                                            </div>
+                                                            <div class="add-actions">
+                                                                <ul class="add-actions-link">
+                                                                    <li class="add-cart active">
+                                                                        @Html.HiddenFor(model => item.CatalogoID)
+                                                                        @Html.HiddenFor(model => item.UrlImage)
+                                                                        @Html.HiddenFor(model => item.Title, new { @value = item.Title })
+                                                                        @Html.HiddenFor(model => item.Descripcion, new { @value = item.Descripcion })
+                                                                        @Html.HiddenFor(model => item.NombreProducto, new { @value = item.NombreProducto })
+                                                                        @Html.HiddenFor(model => item.PrecioActual, new { @value = item.PrecioActual })
+                                                                        @Html.HiddenFor(model => item.PrecioOriginal, new { @value = item.PrecioOriginal })
+                                                                        <a onclick="comprarProducto(this);" class="agregar-carrito" data-id="1">Agregar al Carrito</a>
+                                                                    </li>
+                                                                    <li><a href="#" title="quick view" class="quick-view-btn" data-toggle="modal" data-target="#exampleModalCenter"><i class="fa fa-eye"></i></a></li>
+                                                                    <li><a class="links-details" href="@Url.Action("Usuario")"><i class="fa fa-heart-o"></i></a></li>
+                                                                </ul>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+
+                                                    <!-- single-product-wrap end -->
+                                                }
+                                            </div>
+                                            <div class="col-lg-4 col-md-4 col-sm-6 mt-40">
+                                                @foreach (var item in categoria.ListaProducto)
+                                                {
+
+                                                    <!-- single-product-wrap start -->
+                                                    <div class="single-product-wrap">
+                                                        <div class="product-image">
+                                                            <a href="@Url.Action("DetalleProducto")">
+                                                                <img src="@item.UrlImage" alt="Li's Product Image">
+                                                            </a>
+                                                            <span class="sticker">@item.Title</span>
+                                                        </div>
+                                                        <div class="product_desc">
+                                                            <div class="product_desc_info">
+                                                                <div class="product-review">
+                                                                    <h5 class="manufacturer">
+                                                                        <a href="@Url.Action("DetalleProducto")">
+                                                                            @item.Descripcion
+                                                                        </a>
+                                                                    </h5>
+                                                                    <div class="rating-box">
+                                                                        <ul class="rating">
+                                                                            <li><i class="fa fa-star-o"></i></li>
+                                                                            <li><i class="fa fa-star-o"></i></li>
+                                                                            <li><i class="fa fa-star-o"></i></li>
+                                                                            <li class="no-star"><i class="fa fa-star-o"></i></li>
+                                                                            <li class="no-star"><i class="fa fa-star-o"></i></li>
+                                                                        </ul>
+                                                                    </div>
+                                                                </div>
+                                                                <h4><a class="product_name" href="@Url.Action("DetalleProducto")">@item.NombreProducto</a></h4>
+                                                                <div class="price-box">
+                                                                    <span class="new-price">@item.PrecioActual></span>
+                                                                </div>
+                                                            </div>
+                                                            <div class="add-actions">
+                                                                <ul class="add-actions-link">
+                                                                    <li class="add-cart active">
+                                                                        @Html.HiddenFor(model => item.CatalogoID)
+                                                                        @Html.HiddenFor(model => item.UrlImage)
+                                                                        @Html.HiddenFor(model => item.Title, new { @value = item.Title })
+                                                                        @Html.HiddenFor(model => item.Descripcion, new { @value = item.Descripcion })
+                                                                        @Html.HiddenFor(model => item.NombreProducto, new { @value = item.NombreProducto })
+                                                                        @Html.HiddenFor(model => item.PrecioActual, new { @value = item.PrecioActual })
+                                                                        @Html.HiddenFor(model => item.PrecioOriginal, new { @value = item.PrecioOriginal })
+                                                                        <a onclick="comprarProducto(this);" class="agregar-carrito" data-id="1">Agregar al Carrito</a>
+                                                                    </li>
+                                                                    <li><a href="#" title="quick view" class="quick-view-btn" data-toggle="modal" data-target="#exampleModalCenter"><i class="fa fa-eye"></i></a></li>
+                                                                    <li><a class="links-details" href="@Url.Action("Usuario")"><i class="fa fa-heart-o"></i></a></li>
+                                                                </ul>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <!-- single-product-wrap end -->
+                                                }
+                                            </div>
+                                        }
+                                    </div>
+                                </div>
+                            </div>
+                            <div id="list-view" class="tab-pane fade product-list-view" role="tabpanel">
+                                <div class="row">
+                                    @foreach (var categoria in Model)
+                                    {
+                                        <div class="col">
+
+                                            <div class="row product-layout-list">
+                                                @foreach (var item in categoria.ListaProducto)
+                                                {
+
+                                                    <div class="col-lg-3 col-md-5 ">
+                                                        <div class="product-image">
+                                                            <a href="@Url.Action("DetalleProducto")">
+                                                                <img src="@item.UrlImage" alt="Li's Product Image">
+
+                                                            </a>
+                                                            <span class="sticker">@item.Title</span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-lg-5 col-md-7">
+                                                        <div class="product_desc">
+                                                            <div class="product_desc_info">
+                                                                <div class="product-review">
+                                                                    <h5 class="manufacturer">
+                                                                        <a href="product-details.html">
+                                                                            @*@item.nombre_producto</a>*@
+                                                                    </h5>
+                                                                    <div class="rating-box">
+                                                                        <ul class="rating">
+                                                                            <li><i class="fa fa-star-o"></i></li>
+                                                                            <li><i class="fa fa-star-o"></i></li>
+                                                                            <li><i class="fa fa-star-o"></i></li>
+                                                                            <li class="no-star"><i class="fa fa-star-o"></i></li>
+                                                                            <li class="no-star"><i class="fa fa-star-o"></i></li>
+                                                                        </ul>
+                                                                    </div>
+                                                                </div>
+                                                                <h4>
+                                                                    <a class="product_name" href="#">
+                                                                        @item.NombreProducto
+                                                                    </a>
+                                                                </h4>
+                                                                <div class="price-box">
+                                                                    <span class="new-price">@item.PrecioActual</span>
+                                                                </div>
+                                                                @item.Descripcion
+
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-lg-4">
+                                                        <div class="shop-add-action mb-xs-30">
+                                                            <ul class="add-actions-link">
+                                                                <li class="add-cart active">
+                                                                    @Html.HiddenFor(model => item.CatalogoID)
+                                                                    @Html.HiddenFor(model => item.UrlImage)
+                                                                    @Html.HiddenFor(model => item.Title, new { @value = item.Title })
+                                                                    @Html.HiddenFor(model => item.Descripcion, new { @value = item.Descripcion })
+                                                                    @Html.HiddenFor(model => item.NombreProducto, new { @value = item.NombreProducto })
+                                                                    @Html.HiddenFor(model => item.PrecioActual, new { @value = item.PrecioActual })
+                                                                    @Html.HiddenFor(model => item.PrecioOriginal, new { @value = item.PrecioOriginal })
+                                                                    <a onclick="comprarProducto(this);" class="agregar-carrito" data-id="1">Agregar al Carrito</a>
+                                                                </li>
+                                                                <li class="wishlist"><a href="@Url.Action("Usuario")"><i class="fa fa-heart-o"></i>Añadir a la lista de deseos</a></li>
+                                                                <li><a class="quick-view" data-toggle="modal" data-target="#exampleModalCenter" href="#"><i class="fa fa-eye"></i>Vista rápida</a></li>
+                                                            </ul>
+                                                        </div>
+                                                    </div>
+                                                }
+                                            </div>
+
+                                            <div class="row product-layout-list">
+                                                @foreach (var item in categoria.ListaProducto)
+                                                {
+
+                                                    <div class="col-lg-3 col-md-5 ">
+                                                        <div class="product-image">
+                                                            <a href="@Url.Action("DetalleProducto")">
+                                                                <img src="@item.UrlImage" alt="Li's Product Image">
+                                                            </a>
+                                                            <span class="sticker">@item.Title</span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-lg-5 col-md-7">
+                                                        <div class="product_desc">
+                                                            <div class="product_desc_info">
+                                                                <div class="product-review">
+                                                                    <h5 class="manufacturer">
+                                                                        <a href="#">@item.Descripcion</a>
+                                                                    </h5>
+                                                                    <div class="rating-box">
+                                                                        <ul class="rating">
+                                                                            <li><i class="fa fa-star-o"></i></li>
+                                                                            <li><i class="fa fa-star-o"></i></li>
+                                                                            <li><i class="fa fa-star-o"></i></li>
+                                                                            <li class="no-star"><i class="fa fa-star-o"></i></li>
+                                                                            <li class="no-star"><i class="fa fa-star-o"></i></li>
+                                                                        </ul>
+                                                                    </div>
+                                                                </div>
+                                                                <h4>
+                                                                    <a class="product_name" href="single-product.html">
+                                                                        @item.NombreProducto
+                                                                    </a>
+                                                                </h4>
+                                                                <div class="price-box">
+                                                                    <span class="new-price">@item.PrecioActual</span>
+                                                                </div>
+                                                                @item.Descripcion
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-lg-4">
+                                                        <div class="shop-add-action mb-xs-30">
+                                                            <ul class="add-actions-link">
+                                                                <li class="add-cart active">
+                                                                    @Html.HiddenFor(model => item.CatalogoID)
+                                                                    @Html.HiddenFor(model => item.UrlImage)
+                                                                    @Html.HiddenFor(model => item.Title, new { @value = item.Title })
+                                                                    @Html.HiddenFor(model => item.Descripcion, new { @value = item.Descripcion })
+                                                                    @Html.HiddenFor(model => item.NombreProducto, new { @value = item.NombreProducto })
+                                                                    @Html.HiddenFor(model => item.PrecioActual, new { @value = item.PrecioActual })
+                                                                    @Html.HiddenFor(model => item.PrecioOriginal, new { @value = item.PrecioOriginal })
+                                                                    <a onclick="comprarProducto(this);" class="agregar-carrito" data-id="1">Agregar al Carrito</a>
+                                                                </li>
+                                                                <li class="wishlist"><a href="@Url.Action("Usuario")"><i class="fa fa-heart-o"></i>Añadir a la lista de deseos</a></li>
+                                                                <li><a class="quick-view" data-toggle="modal" data-target="#exampleModalCenter" href="#"><i class="fa fa-eye"></i>Vista rápida</a></li>
+                                                            </ul>
+                                                        </div>
+                                                    </div>
+                                                }
+                                            </div>
+                                            <div class="row product-layout-list">
+                                                @foreach (var item in categoria.ListaProducto)
+                                                {
+
+                                                    <div class="col-lg-3 col-md-5 ">
+                                                        <div class="product-image">
+                                                            <a href="@Url.Action("DetalleProducto")">
+                                                                <img src="@item.UrlImage" alt="Li's Product Image">
+                                                            </a>
+                                                            <span class="sticker">@item.Title</span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-lg-5 col-md-7">
+                                                        <div class="product_desc">
+                                                            <div class="product_desc_info">
+                                                                <div class="product-review">
+                                                                    <h5 class="manufacturer">
+                                                                        <a href="#">@item.Descripcion</a>
+                                                                    </h5>
+                                                                    <div class="rating-box">
+                                                                        <ul class="rating">
+                                                                            <li><i class="fa fa-star-o"></i></li>
+                                                                            <li><i class="fa fa-star-o"></i></li>
+                                                                            <li><i class="fa fa-star-o"></i></li>
+                                                                            <li class="no-star"><i class="fa fa-star-o"></i></li>
+                                                                            <li class="no-star"><i class="fa fa-star-o"></i></li>
+                                                                        </ul>
+                                                                    </div>
+                                                                </div>
+                                                                <h4>
+                                                                    <a class="product_name" href="#">
+                                                                        @item.NombreProducto
+                                                                    </a>
+                                                                </h4>
+                                                                <div class="price-box">
+                                                                    <span class="new-price">@item.PrecioActual</span>
+                                                                </div>
+                                                                @item.Descripcion
+
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-lg-4">
+                                                        <div class="shop-add-action mb-xs-30">
+                                                            <ul class="add-actions-link">
+                                                                <li class="add-cart active">
+                                                                    @Html.HiddenFor(model => item.CatalogoID)
+                                                                    @Html.HiddenFor(model => item.UrlImage)
+                                                                    @Html.HiddenFor(model => item.Title, new { @value = item.Title })
+                                                                    @Html.HiddenFor(model => item.Descripcion, new { @value = item.Descripcion })
+                                                                    @Html.HiddenFor(model => item.NombreProducto, new { @value = item.NombreProducto })
+                                                                    @Html.HiddenFor(model => item.PrecioActual, new { @value = item.PrecioActual })
+                                                                    @Html.HiddenFor(model => item.PrecioOriginal, new { @value = item.PrecioOriginal })
+                                                                    <a onclick="comprarProducto(this);" class="agregar-carrito" data-id="1">Agregar al Carrito</a>
+                                                                </li>
+                                                                <li class="wishlist"><a href="@Url.Action("Usuario")"><i class="fa fa-heart-o"></i>Añadir a la lista de deseos</a></li>
+                                                                <li><a class="quick-view" data-toggle="modal" data-target="#exampleModalCenter" href="#"><i class="fa fa-eye"></i>Vista rápida</a></li>
+                                                            </ul>
+                                                        </div>
+                                                    </div>
+                                                }
+                                            </div>
+
+
+                                        </div>
+                                    }
+                                </div>
+
+                            </div>
+                            <div class="paginatoin-area">
+                                <div class="row">
+                                    <div class="col-lg-6 col-md-6 pt-xs-15">
+
+                                        <p>Mostrando 1-12 de 13 artículo (s)</p>
+                                    </div>
+                                    <div class="col-lg-6 col-md-6">
+                                        <ul class="pagination-box pt-xs-20 pb-xs-15">
+                                            <li>
+                                                <a href="#" class="Previous"><i class="fa fa-chevron-left"></i> Previous</a>
+                                            </li>
+                                            <li class="active"><a href="#">1</a></li>
+                                            <li><a href="#">2</a></li>
+                                            <li><a href="#">3</a></li>
+                                            <li>
+                                                <a href="#" class="Next"> Next <i class="fa fa-chevron-right"></i></a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                    <!-- shop-products-wrapper end -->
+                </div>
+                <div class="col-lg-3 order-2 order-lg-1">
+                    <!--sidebar-categores-box start  -->
+                    <div class="sidebar-categores-box mt-sm-30 mt-xs-30">
+                        <div class="sidebar-title">
+                            <h2>Categorias</h2>
+                        </div>
+                        <!-- category-sub-menu start -->
+                        <div class="category-sub-menu">
+                            <ul>
+                                <li class="has-sub">
+                                    <a href="# ">Computadoras</a>
+                                    <ul>
+                                        <li><a href="#">Todos los videos</a></li>
+                                        <li><a href="#">Mouses</a></li>
+                                        <li><a href="#">Monitores</a></li>
+                                        <li><a href="#">Tables</a></li>
+                                        <li><a href="#">Parlantes</a></li>
+                                        <li><a href="#">Discos</a></li>
+                                        <li><a href="#">Celulares </a></li>
+                                        <li><a href="#">Pantallas Led</a></li>
+                                    </ul>
+                                </li>
+                                <li class="has-sub">
+                                    <a href="#">Televisores</a>
+                                    <ul>
+                                        <li><a href="#">Todos los videos</a></li>
+                                        <li><a href="#">Mouses</a></li>
+                                        <li><a href="#">Monitores</a></li>
+                                        <li><a href="#">Tables</a></li>
+                                        <li><a href="#">Parlantes</a></li>
+                                        <li><a href="#">Discos</a></li>
+                                        <li><a href="#">Celulares </a></li>
+                                        <li><a href="#">Pantallas Led</a></li>
+                                    </ul>
+                                </li>
+                                <li class="has-sub">
+                                    <a href="#">Electronica</a>
+                                    <ul>
+                                        <li><a href="#">Guitarra</a></li>
+                                        <li><a href="#">Teclados</a></li>
+                                        <li><a href="#">Bajo electronico</a></li>
+                                        <li><a href="#">Flauta</a></li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </div>
+                        <!-- category-sub-menu end -->
+                    </div>
+                    <!--sidebar-categores-box end  -->
+                    <!--sidebar-categores-box start  -->
+                    <div class="sidebar-categores-box">
+                        <div class="sidebar-title">
+                            <h2>Filtros  Busqueda</h2>
+                        </div>
+                        <!-- btn-clear-all start -->
+                        <button class="btn-clear-all mb-sm-30 mb-xs-30">Clear all</button>
+                        <!-- btn-clear-all end -->
+                        <!-- filter-sub-area start -->
+                        <div class="filter-sub-area">
+                            <h5 class="filter-sub-titel">Marca</h5>
+                            <div class="categori-checkbox">
+                                <form action="#">
+                                    <ul>
+                                        <li><input type="checkbox" name="product-categori"><a href="#">Primer Video (13)</a></li>
+                                        <li><input type="checkbox" name="product-categori"><a href="#">Computadoras (12)</a></li>
+                                        <li><input type="checkbox" name="product-categori"><a href="#">Electronica (11)</a></li>
+                                    </ul>
+                                </form>
+                            </div>
+                        </div>
+                        <!-- filter-sub-area end -->
+                        <!-- filter-sub-area start -->
+                        <div class="filter-sub-area pt-sm-10 pt-xs-10">
+                            <h5 class="filter-sub-titel">Categorias</h5>
+                            <div class="categori-checkbox">
+                                <form action="#">
+                                    <ul>
+                                        <li><input type="checkbox" name="product-categori"><a href="#">Gamer Videos (10)</a></li>
+                                        <li><input type="checkbox" name="product-categori"><a href="#">Diseño Studio (6)</a></li>
+                                    </ul>
+                                </form>
+                            </div>
+                        </div>
+                        <!-- filter-sub-area end -->
+                        <!-- filter-sub-area start -->
+                        <div class="filter-sub-area pt-sm-10 pt-xs-10">
+                            <h5 class="filter-sub-titel">Talla</h5>
+                            <div class="size-checkbox">
+                                <form action="#">
+                                    <ul>
+                                        <li><input type="checkbox" name="product-size"><a href="#">S (3)</a></li>
+                                        <li><input type="checkbox" name="product-size"><a href="#">M (3)</a></li>
+                                        <li><input type="checkbox" name="product-size"><a href="#">L (3)</a></li>
+                                        <li><input type="checkbox" name="product-size"><a href="#">XL (3)</a></li>
+                                    </ul>
+                                </form>
+                            </div>
+                        </div>
+                        <!-- filter-sub-area end -->
+                        <!-- filter-sub-area start -->
+                        <div class="filter-sub-area pt-sm-10 pt-xs-10">
+                            <h5 class="filter-sub-titel">Color</h5>
+                            <div class="color-categoriy">
+                                <form action="#">
+                                    <ul>
+                                        <li><span class="white"></span><a href="#">Blanco (1)</a></li>
+                                        <li><span class="black"></span><a href="#">Negro (1)</a></li>
+                                        <li><span class="Orange"></span><a href="#">Naranja (3) </a></li>
+                                        <li><span class="Blue"></span><a href="#">Azul  (2) </a></li>
+                                    </ul>
+                                </form>
+                            </div>
+                        </div>
+                        <!-- filter-sub-area end -->
+                        <!-- filter-sub-area start -->
+                        <div class="filter-sub-area pt-sm-10 pb-sm-15 pb-xs-15">
+                            <h5 class="filter-sub-titel">Dimension</h5>
+                            <div class="categori-checkbox">
+                                <form action="#">
+                                    <ul>
+                                        <li><input type="checkbox" name="product-categori"><a href="#">40x60cm (6)</a></li>
+                                        <li><input type="checkbox" name="product-categori"><a href="#">60x90cm (6)</a></li>
+                                        <li><input type="checkbox" name="product-categori"><a href="#">80x120cm (6)</a></li>
+                                    </ul>
+                                </form>
+                            </div>
+                        </div>
+                        <!-- filter-sub-area end -->
+                    </div>
+                    <!--sidebar-categores-box end  -->
+                    <!-- category-sub-menu start -->
+                    <div class="sidebar-categores-box mt-sm-30 mt-xs-30">
+                        <div class="sidebar-title">
+                            <h2>Laptop</h2>
+                        </div>
+                        <!-- category-sub-menu start -->
+                        <div class="category-sub-menu">
+                            <ul>
+                                <li class="has-sub">
+                                    <a href="# ">Prime Video</a>
+                                    <ul>
+                                        <li><a href="#">Todos los videos</a></li>
+                                        <li><a href="#">Mouses</a></li>
+                                        <li><a href="#">Monitores</a></li>
+                                        <li><a href="#">Tables</a></li>
+                                        <li><a href="#">Parlantes</a></li>
+                                        <li><a href="#">Discos</a></li>
+                                        <li><a href="#">Celulares </a></li>
+                                        <li><a href="#">Pantallas Led</a></li>
+                                    </ul>
+                                </li>
+                                <li class="has-sub">
+                                    <a href="#">Tecnologia</a>
+                                    <ul>
+                                        <li><a href="#">Televisores</a></li>
+                                        <li><a href="#">Computadooras</a></li>
+                                        <li><a href="#">Camera</a></li>
+                                        <li><a href="#">Celulares</a></li>
+                                        <li><a href="#">Phone</a></li>
+                                        <li><a href="#">Camaras Hd</a></li>
+                                        <li><a href="#">Monitores Led</a></li>
+                                    </ul>
+                                </li>
+                                <li class="has-sub">
+                                    <a href="#">Electronica</a>
+                                    <ul>
+                                        <li><a href="#">Teclados</a></li>
+                                        <li><a href="#">Guitarra</a></li>
+                                        <li><a href="#">Bajo Electronica</a></li>
+                                        <li><a href="#">Platillos</a></li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </div>
+                        <!-- category-sub-menu end -->
+                    </div>
+                    <div class="sidebar-categores-box mb-sm-0 mb-xs-0">
+                        <div class="sidebar-title">
+                            <h2>Diseño</h2>
+                        </div>
+                        <div class="category-tags">
+                            <ul>
+                                <li><a href="# ">Caricaturas</a></li>
+                                <li><a href="# ">Sonido</a></li>
+                                <li><a href="# ">Parlantes</a></li>
+                                <li><a href="# ">Computadora</a></li>
+                                <li><a href="# ">Tambor</a></li>
+                                <li><a href="# ">Accessories</a></li>
+                            </ul>
+                        </div>
+                        <!-- category-sub-menu end -->
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+
+
+</div>

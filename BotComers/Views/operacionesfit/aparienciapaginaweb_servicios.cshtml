@@ -1,0 +1,514 @@
+﻿
+@{
+    ViewBag.Title = "aparienciapaginaweb_servicios";
+    Layout = "~/Views/Shared/__LayoutAppFitPlataformaFit.cshtml";
+}
+
+<link href="@Url.Content("~/Content/cssKendo/kendo.common.min.css")" rel="stylesheet" />
+<link href="@Url.Content("~/Content/cssKendo/kendo.dataviz.default.min.css")" rel="stylesheet" />
+<link href="@Url.Content("~/Content/cssKendo/kendo.dataviz.min.css")" rel="stylesheet" />
+<link href="@Url.Content("~/Content/cssKendo/kendo.default.min.css")" rel="stylesheet" />
+<style>
+    .modal-backdrop {
+        display: none;
+    }
+
+    .k-block, .k-header, .k-grid-header, .k-toolbar, .k-grouping-header, .k-pager-wrap, .k-button, .k-draghandle, .k-treemap-tile, html .km-pane-wrapper .k-header {
+        background-color: rgba(227, 227, 227, 0);
+    }
+
+    .k-grid-header table, .k-grid-content table, .k-grid-footer table, .k-grid-content-locked > table {
+        table-layout: fixed;
+    }
+
+    .k-grid tr td {
+        border-bottom: 1px solid #ada9a9;
+        border-style: dashed;
+    }
+
+    .k-grid-toolbar:first-child, .k-grouping-header + .k-grid-toolbar {
+        border-width: 0 0 1px;
+        border-radius: 0px;
+        background-color: #d7eafa;
+        height: 10px;
+    }
+
+    .k-block, .k-header, .k-grid-header, .k-toolbar, .k-grouping-header, .k-pager-wrap, .k-button, .k-draghandle, .k-treemap-tile, html .km-pane-wrapper .k-header {
+        background-color: rgba(227, 227, 227, 0);
+    }
+
+    #txtFechaInicioProcFreezing .k-header, .k-grid-header, .k-toolbar, .k-dropdown-wrap, .k-picker-wrap, .k-numeric-wrap, .k-grouping-header, .k-pager-wrap, .k-textbox, .k-button, .k-progressbar, .k-draghandle, .k-autocomplete, .k-state-highlight, .k-tabstrip-items .k-item, .k-panelbar .k-tabstrip-items .k-item, .km-pane-wrapper > .km-pane > .km-view > .km-content {
+        background-image: url(textures/highlight.png);
+        background-image: none,-webkit-linear-gradient(top,rgba(255,255,255,.6) 0,rgba(255,255,255,.0) 100%);
+        background-image: none,-moz-linear-gradient(top,rgba(255,255,255,.6) 0,rgba(255,255,255,.0) 100%);
+        background-image: none,-o-linear-gradient(top,rgba(255,255,255,.6) 0,rgba(255,255,255,.0) 100%);
+        background-image: none,linear-gradient(to bottom,rgba(255,255,255,.6) 0,rgba(255,255,255,.0) 100%);
+        background-position: 50% 50%;
+        background-color: #ffffff;
+    }
+
+    .k-state-selected {
+        color: #FFFFFF;
+        background-color: #0075ff;
+        border-color: #0075ff;
+    }
+
+    tr {
+        height: 16px;
+        font-size: 13px;
+    }
+
+    /** SPINNER CREATION **/
+    .loader {
+        position: relative;
+        text-align: center;
+        margin: 15px auto 35px auto;
+        z-index: 9999;
+        display: block;
+        width: 80px;
+        height: 80px;
+        border: 10px solid rgba(0, 0, 0, .3);
+        border-radius: 50%;
+        border-top-color: #000;
+        animation: spin 1s ease-in-out infinite;
+        -webkit-animation: spin 1s ease-in-out infinite;
+    }
+</style>
+
+<br />
+
+            <div class="container-fluid page__container">
+                <a class="btn btn-primary" href="@Url.Action("aparienciapaginaweb", "operacionesfit", new { id = HttpContext.Current.Request.Cookies["_SubDominio_Business"].Value })">Regresar</a>
+                <br /><br />
+                <div class="row">
+                    <div class="col-lg-5">
+                        <div class="card">
+                            <div style="background-color:#fff;" class="card-header card-header-sm d-flex align-items-center">
+                                <h4 class="card-header__title flex m-0">SERVICIOS</h4>
+                            </div>
+                            <div class="card-body tab-content">
+                                <div class="tab-pane active show fade" id="activity_all">
+                                    <div id="gridServicios"></div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-7">
+                        <div class="card">
+                            <div style="background-color:#fff;" class="card-header card-header-sm d-flex align-items-center">
+                                <h4 class="card-header__title flex m-0">EDICION</h4>
+                            </div>
+                            <div class="card-body tab-content">
+                                <div class="tab-pane active show fade" id="activity_all">
+                                    <div class="button-list">
+                                        <button type="button" onclick="nuevodetalle();" class="btn btn-primary btn-sm" id="btnNuevo" title="Nuevo membresia">1. Nueva servicio</button>
+                                        <button type="button" onclick="uspEliminarEdicionPaginaWebDetalle();" class="btn btn-primary btn-sm" id="btnEliminar" title="Eliminar">Eliminar servicio</button>
+                                        <button type="button" onclick="guardardetalle();" class="btn btn-primary btn-sm" id="btnGuardar" title="Guardar membresia">Guardar servicio</button>
+                                        <button type="button" onclick="CentroEntrenamiento_uspListarGaleriaFitness();" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#modalGaleriaFotoServicios"  >Buscar imagen en Galeria</button>
+                                    </div>
+                                    <div class="row mg-b-25">
+                                        <div class="col-lg-12">
+                                            <input type="hidden" value="" id="txtLink" />
+                                            <input type="hidden" value="" id="hdCodigo" />
+                                            <div class="form-group mg-t-2">
+                                                <div class="input-group input-group-sm input-group-merge">
+                                                    <input id="txtTitulo" type="text" required="" class="form-control form-control-prepended" placeholder="Escriba Nombres" style="width:100%;font-weight:bold;" onkeypress="return validarCamposCadena(event)">
+                                                    <div class="input-group-prepend">
+                                                        <div class="input-group-text">
+                                                            Nombres del Servicio:
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="form-group mg-t-2">
+                                                <div class="input-group input-group-sm input-group-merge">
+                                                    <input id="txtSubTitulo" type="text" required="" class="form-control form-control-prepended" placeholder="Escriba disciplina" style="width:100%;font-weight:bold;" onkeypress="return validarCamposCadena(event)">
+                                                    <div class="input-group-prepend">
+                                                        <div class="input-group-text">
+                                                            Detalle:
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="form-group mg-t-2">
+                                                <div class="col-lg-12">
+                                                    <div class="custom-file">
+                                                        <input type="file" class="custom-file-input" style="width:100%;" id="buscarImagen">
+                                                        <label class="custom-file-label" for="buscarImagen">Buscar imagen, medida maxima obligatoria: 650x500</label>
+                                                    </div><!-- custom-file -->
+                                                </div><!-- col -->
+                                            </div>
+                                            <div class="form-group mg-t-2">
+                                                <div class="input-group input-group-sm input-group-merge">
+                                                    <input id="txtDetalle" type="text" class="form-control form-control-prepended" placeholder="" style="width:100%;font-weight:bold;" onkeypress="return validarCamposCadena(event)">
+                                                    <div class="input-group-prepend">
+                                                        <div class="input-group-text">
+                                                            Detalle foto:
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <input type="hidden" id="hdheight_imagen" value="0" />
+                                                <input type="hidden" id="hdwidth_imagen" value="0" />
+                                            </div>
+                                            <div class="form-group mg-t-2">
+                                                <img class="img-fluid" style="width:200px;" id="imgVistaImagen" />
+                                            </div>
+
+                                        </div><!-- col-4 -->
+
+                                    </div><!-- row -->
+
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- // end .row -->
+            </div>
+
+            <div id="modalGaleriaFotoServicios" class="modal fade show" tabindex="-1" role="dialog" aria-labelledby="modal-large-title" aria-modal="true" style="padding-right: 17px; display: none;">
+                <div class="modal-dialog modal-lg" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="modal-large-title">Galeria de fotos de servicios</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">×</span>
+                            </button>
+                        </div> <!-- // END .modal-header -->
+                        <div class="modal-body">
+                            <input type="hidden" id="hdUrlImagenGaleria" value="" />
+                         
+                            <div id="grid"></div>
+                        </div> <!-- // END .modal-body -->
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-light" data-dismiss="modal">Cancelar</button>
+                            <button type="button" onclick="ecommerce_uspActualizarEdicionPaginaWebDetalle();" class="btn btn-primary">Elejir como predeterminado</button>
+                        </div> <!-- // END .modal-footer -->
+                    </div> <!-- // END .modal-content -->
+                </div> <!-- // END .modal-dialog -->
+            </div>
+
+
+            <div class="modal fade" id="loadMe" tabindex="-1" role="dialog" aria-labelledby="loadMeLabel">
+                <div class="modal-dialog modal-sm" role="document">
+                    <div class="modal-content">
+                        <div class="modal-body text-center">
+                            <div class="loader"></div>
+                            <div clas="loader-txt">
+                                <p>Cargando... <br><br><small>Espere por favor, este proceso puede tardar unos minutos</small></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+                
+
+
+@section Scripts {
+
+    @System.Web.Optimization.Scripts.Render("~/Scripts/jquery.min.js")
+    @System.Web.Optimization.Scripts.Render("~/Scripts/plugins/jsKendo/angular.min.js")
+    @System.Web.Optimization.Scripts.Render("~/Scripts/plugins/jsKendo/kendo.all.min.js")
+
+    @System.Web.Optimization.Scripts.Render("~/Scripts/plugins/jquery-ui/jquery-ui.js")
+    @System.Web.Optimization.Scripts.Render("~/Scripts/plugins/jquery-ui/jquery-ui.min.js")
+
+    @System.Web.Optimization.Scripts.Render("~/Scripts/bootstrap-notify-master/bootstrap-notify.js")
+    @System.Web.Optimization.Scripts.Render("~/Scripts/bootstrap-notify-master/bootstrap-notify.min.js")
+    @System.Web.Optimization.Scripts.Render("~/Scripts/jsBootstrap/jquery.bootstrap-growl.js")
+    @System.Web.Optimization.Scripts.Render("~/Resource/UserControl.Helper.js")
+
+    <script type="text/javascript">
+
+        $(document).ready(function () {
+
+            ecommerce_uspListarEdicionPaginaWebDetalle_Servicios();
+
+            $('#buscarImagen').change(function () {
+                var File = this.files;
+                if (File && File[0]) {
+                    ReadImage(File[0]);
+                }
+            });
+        });
+
+        function nuevodetalle() {
+
+            $("#imgVistaImagen").attr('src', '');
+            $("#txtDetalle").val("");
+            $("#hdheight_imagen").val("");
+            $("#hdwidth_imagen").val("");
+            $("#hdCodigo").val("");
+            $("#txtTitulo").val("");
+            $("#txtSubTitulo").val("");
+            document.getElementById("btnEliminar").style.display = 'none';
+        }
+
+        var ReadImage = function (file) {
+
+            var reader = new FileReader;
+            var image = new Image;
+
+            reader.readAsDataURL(file);
+            reader.onload = function (_file) {
+
+                image.src = _file.target.result;
+                image.onload = function () {
+
+                    var height = this.height;
+                    var width = this.width;
+                    var type = file.type;
+                    var size = ~~(file.size / 1024) + "KB";
+
+                    $("#imgVistaImagen").attr('src', _file.target.result);
+                    $("#txtDetalle").val("Size:" + size + ", " + height + " X " + width + ", " + type + "");
+                    $("#hdheight_imagen").val(height);
+                    $("#hdwidth_imagen").val(width);
+                    if (parseInt(height) > 650) {
+                        
+                        $.bootstrapGrowl("El alto de la imagen no puede ser mayor 650, seleccione otra imagen.", { type: 'danger', width: 'auto' });
+                    } else if (parseInt(width) > 500) {
+                        
+                        $.bootstrapGrowl("El ancho de la imagen no puede ser mayor 500, seleccione otra imagen.", { type: 'danger', width: 'auto' });
+                    }
+
+                }
+
+            }
+        }
+
+        var guardardetalle = function () {
+
+            var Codigo = $("#hdCodigo").val();
+            var Titulo = $("#txtTitulo").val();
+            var SubTitulo = $("#txtSubTitulo").val();
+            var file = $("#buscarImagen").get(0).files;
+
+            var detalle = $("#txtDetalle").val();
+            var height = $("#hdheight_imagen").val();
+            var width = $("#hdwidth_imagen").val();
+
+            if (Titulo == '') {
+                $.bootstrapGrowl("Falta ingresar el titulo del servicio.", { type: 'danger', width: 'auto' });
+                return false;
+            } else if (SubTitulo == '') {
+                $.bootstrapGrowl("Falta ingresar la descripcion del servicio.", { type: 'danger', width: 'auto' });
+                return false;
+            } else if (detalle == '') {
+                $.bootstrapGrowl("Falta seleccionar una imagen.", { type: 'danger', width: 'auto' });
+                return false;
+            } else if (parseInt(height) > 650) {
+                $.bootstrapGrowl("El alto de la imagen no puede ser mayor 650.", { type: 'danger', width: 'auto' });
+                return false;
+            } else if (parseInt(width) > 500) {
+                $.bootstrapGrowl("El ancho de la imagen no puede ser mayor 500.", { type: 'danger', width: 'auto' });
+                return false;
+            } else if (file == undefined || file == null) {
+                $.bootstrapGrowl("Falta seleccionar una imagen.", { type: 'danger', width: 'auto' });
+                return false;
+            }
+
+            var data = new FormData;
+            data.append("file", file[0]);
+            data.append("Codigo", Codigo);
+            data.append("Titulo", Titulo);
+            data.append("SubTitulo", SubTitulo);
+            document.getElementById('loadMe').style.display = 'block';
+            $.ajax({
+                type: "Post",
+                url: "/operacionesfit/ecommerce_uspRegistrarEdicionPaginaWebDetalle_Servicios",
+                data: data,
+                contentType: false,
+                processData: false,
+                success: function (response) {
+                    $.bootstrapGrowl("La imagen " + Titulo + " ha sido guardada correctamente.", { type: 'success', width: 'auto' });
+                }, complete: function () {
+                    ecommerce_uspListarEdicionPaginaWebDetalle_Servicios();
+                    document.getElementById('loadMe').style.display = 'none';
+                }
+            })
+
+        }
+        
+        function ecommerce_uspListarEdicionPaginaWebDetalle_Servicios() {
+
+            $("#gridServicios").empty();
+            $("#gridServicios").kendoGrid({
+                dataSource: {
+                    type: "json",
+                    transport: {
+                        read: function (options) {
+                            $.ajax({
+                                type: "POST",
+                                url: "/operacionesfit/ecommerce_uspListarEdicionPaginaWebDetalle_Servicios",
+                                contentType: "application/json; charset=utf-8",
+                                dataType: "json",
+                                success: function (msg) {
+                                    options.success(msg);
+                                }
+                            });
+                        }
+                    }
+                },
+                selectable: "row",
+                scrollable: true,
+                height: 250,
+                columns: [
+                    {
+                        field: "Titulo",
+                        title: "<center style='color:black;'><b>Servicio</b></center>",
+                        width: 9,
+                        attributes: {
+                            style: "font-size:13px;text-align:center;"
+                        }
+                    }, {
+                        field: "SubTitulo",
+                        title: "<center style='color:black;'><b>Detalle</b></center>",
+                        width: 9,
+                        attributes: {
+                            style: "font-size:13px;text-align:center;"
+                        }
+                    }],
+                dataBound: function (e) {
+                    
+                    this.element.find('tbody tr:first').addClass('k-state-selected');
+                    this.select(this.tbody.find('>tr:first'));
+                }, change: function (e) {
+
+                    var grid = this;
+                    grid.select().each(function () {
+                        var dataItem = grid.dataItem($(this));
+
+                        $("#hdCodigo").val(dataItem.Codigo);
+                        $("#txtTitulo").val(dataItem.Titulo);
+                        $("#txtSubTitulo").val(dataItem.SubTitulo);
+                        $("#imgVistaImagen").attr('src', dataItem.UrlUmagen);
+                        document.getElementById("btnEliminar").style.display = '';
+                    });
+
+                }
+            });
+
+        }
+
+        function uspEliminarEdicionPaginaWebDetalle() {
+            document.getElementById('loadMe').style.display = 'block';
+            var Codigo = $("#hdCodigo").val();
+            var data = new FormData;
+            data.append("Codigo", Codigo);
+
+            $.ajax({
+                type: "POST",
+                url: "/operacionesfit/ecommerce_uspEliminarEdicionPaginaWebDetalle",
+                data: data,
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function (msg) {
+                    $.bootstrapGrowl("La información ha sido eliminada correctamente.", { type: 'success', width: 'auto' });
+                }, complete: function () {
+                    ecommerce_uspListarEdicionPaginaWebDetalle_Trinner();
+                    document.getElementById('loadMe').style.display = 'none';
+                }
+            });
+        }
+
+   
+        function ecommerce_uspActualizarEdicionPaginaWebDetalle() {
+            
+            var entidad = {};
+            entidad.Codigo = $("#hdCodigo").val();
+            entidad.UrlUmagen = $("#hdUrlImagenGaleria").val();
+          
+            if (entidad.Codigo == '') {
+                $.bootstrapGrowl("Falta seleccionar servicio.", { type: 'danger', width: 'auto' });
+                return;
+            }
+            else if (entidad.UrlUmagen == '') {
+                $.bootstrapGrowl("Falta seleccionar una imagen.", { type: 'danger', width: 'auto' });
+                return;
+            }
+            document.getElementById('loadMe').style.display = 'block';
+            $('button').attr('disabled', 'disabled');
+            var metodoCorrecto = function (msg) {
+                document.getElementById('loadMe').style.display = 'none';
+                $('button').removeAttr('disabled');
+                //msg.Success
+                if (msg) {
+                    $.bootstrapGrowl("La información se guardo correctamente.", { type: 'success', width: 'auto' });
+                    ecommerce_uspListarEdicionPaginaWebDetalle_Servicios();
+                }
+                else {
+                    alert("Error, vuelva a intentar nuevamente!");
+                }
+            };
+            var metodoError = function (msg) {
+                alert(msg);
+            };
+            var request = {
+                oParameter: entidad
+            };
+            LlamarAJAX("/operacionesfit/ecommerce_uspActualizarEdicionPaginaWebDetalle", request, metodoCorrecto, metodoError);
+
+        }
+
+        
+        function CentroEntrenamiento_uspListarGaleriaFitness() {
+            var Tipo = 5;
+
+            $("#grid").empty();
+            $("#grid").kendoGrid({
+                dataSource: {
+                    type: "json",
+                    transport: {
+                        read: function (options) {
+                            $.ajax({
+                                data: '{"Tipo":"' + Tipo + '"}',
+                                type: "POST",
+                                url: "/operacionesfit/CentroEntrenamiento_uspListarGaleriaFitness",
+                                contentType: "application/json; charset=utf-8",
+                                dataType: "json",
+                                success: function (msg) {
+                                    options.success(msg);
+                                }
+                            });
+                        }
+                    }
+                },
+                selectable: "row",
+                scrollable: true,
+                height: 550,
+                columns: [
+                    {
+                        template: '<center><img src="#: UrlImagen #" alt=""  style="height: 300px;width: 300px;" /></center>',
+                        title: "",
+                        width: 3
+                    }
+                ],
+                dataBound: function (e) {
+
+                    this.element.find('tbody tr:first').addClass('k-state-selected');
+                    this.select(this.tbody.find('>tr:first'));
+                }, change: function (e) {
+
+                    var grid = this;
+                    grid.select().each(function () {
+                        var dataItem = grid.dataItem($(this));
+                      
+                                         
+                        $("#hdUrlImagenGaleria").val(dataItem.UrlImagen);
+                      
+                    });
+
+                }
+            });
+
+        }
+        
+    </script>
+
+}
+
+

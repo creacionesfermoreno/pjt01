@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Generator: Adobe Illustrator 16.0.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="170px"
+	 height="170px" viewBox="0 0 170 170" enable-background="new 0 0 170 170" xml:space="preserve">
+<g id="Background">
+</g>
+<g id="Circle">
+	<g>
+		<path fill="#282D33" d="M85,170c-46.869,0-85-38.131-85-85S38.131,0,85,0s85,38.131,85,85S131.869,170,85,170z"/>
+	</g>
+</g>
+<g id="TEXT">
+</g>
+<g id="Icons">
+	<g>
+		<path fill="none" stroke="#FFFFFF" stroke-width="4" d="M107.342,56.396v-2.791c0-2.117,1.719-3.838,3.838-3.838l0,0
+			c2.119,0,3.838,1.721,3.838,3.838v2.791"/>
+		<path fill="none" stroke="#FFFFFF" stroke-width="4" d="M121.34,57.187l11.238,29.924v12.077h1.346v10.581h-11.592
+			c-1.227-2.393-3.717-4.04-6.596-4.04s-5.365,1.647-6.594,4.04h-8.898V57.187H121.34z"/>
+		<line fill="none" stroke="#FFFFFF" stroke-width="4" x1="66.391" y1="109.818" x2="58.76" y2="109.818"/>
+		<polyline fill="none" stroke="#FFFFFF" stroke-width="4" points="45.65,109.818 37.045,109.818 37.045,99.112 132.244,99.112 		
+			"/>
+		<line fill="none" stroke="#FFFFFF" stroke-width="4" x1="99.584" y1="109.722" x2="80.438" y2="109.722"/>
+		<circle fill="none" stroke="#FFFFFF" stroke-width="4" cx="115.736" cy="113.138" r="7.408"/>
+		<path fill="none" stroke="#FFFFFF" stroke-width="4" d="M66.133,113.138c0,4.091,3.316,7.411,7.41,7.411
+			c4.088,0,7.406-3.32,7.406-7.411c0-4.092-3.318-7.409-7.406-7.409C69.449,105.729,66.133,109.046,66.133,113.138z"/>
+		<path fill="none" stroke="#FFFFFF" stroke-width="4" d="M45.125,113.138c0,4.091,3.322,7.411,7.412,7.411
+			c4.092,0,7.41-3.32,7.41-7.411c0-4.092-3.318-7.409-7.41-7.409C48.447,105.729,45.125,109.046,45.125,113.138z"/>
+		<path fill="none" stroke="#FFFFFF" stroke-width="4" d="M45.125,113.138c0,4.091,3.322,7.411,7.412,7.411
+			c4.092,0,7.41-3.32,7.41-7.411c0-4.092-3.318-7.409-7.41-7.409C48.447,105.729,45.125,109.046,45.125,113.138z"/>
+		<path fill="none" stroke="#FFFFFF" stroke-width="4" d="M123.441,64.058h-13.436c-0.691,0-1.252,0.57-1.252,1.271v18.916
+			c0,0.706,0.561,1.275,1.252,1.275h8.441l7.906-3.746h5.41"/>
+		<polygon fill="none" stroke="#FFFFFF" stroke-width="4" points="39.682,99.316 99.926,99.316 99.926,57.295 89.625,51.434 
+			50.92,51.434 39.682,71.341 		"/>
+		<line fill="none" stroke="#FFFFFF" stroke-width="4" x1="108.754" y1="92.019" x2="115.424" y2="92.019"/>
+		<line fill="none" stroke="#FFFFFF" stroke-width="4" x1="37.705" y1="98.763" x2="32.711" y2="73.376"/>
+		<line fill="none" stroke="#FFFFFF" stroke-width="4" x1="88.852" y1="61.978" x2="88.852" y2="89.378"/>
+		<line fill="none" stroke="#FFFFFF" stroke-width="4" x1="76.641" y1="61.978" x2="76.641" y2="89.378"/>
+		<line fill="none" stroke="#FFFFFF" stroke-width="4" x1="64.43" y1="61.978" x2="64.43" y2="89.378"/>
+		<line fill="none" stroke="#FFFFFF" stroke-width="4" x1="52.219" y1="61.978" x2="52.219" y2="89.378"/>
+	</g>
+</g>
+</svg>

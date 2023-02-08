@@ -1,0 +1,624 @@
+﻿
+@{
+    ViewBag.Title = "modulos";
+    Layout = "~/Views/Shared/__LayoutAppFitCorporativo.cshtml";
+}
+
+<link href="@Url.Content("~/Content/cssKendo/kendo.common.min.css")" rel="stylesheet" />
+<link href="@Url.Content("~/Content/cssKendo/kendo.dataviz.default.min.css")" rel="stylesheet" />
+<link href="@Url.Content("~/Content/cssKendo/kendo.dataviz.min.css")" rel="stylesheet" />
+<link href="@Url.Content("~/Content/cssKendo/kendo.default.min.css")" rel="stylesheet" />
+<link href="@Url.Content("~/Content/cssKendo/kendo.mobile.all.min.css")" rel="stylesheet" />
+
+<style type="text/css">
+    .modal-body {
+    }
+
+    .modal-backdrop {
+        display: none;
+    }
+
+    .card-body {
+        margin-top: -5px;
+        margin-bottom: -5px;
+    }
+
+    .k-header, .k-grid-header, .k-toolbar, .k-dropdown-wrap, .k-picker-wrap, .k-numeric-wrap, .k-grouping-header, .k-pager-wrap, .k-textbox, .k-button, .k-progressbar, .k-draghandle, .k-autocomplete, .k-state-highlight, .k-tabstrip-items .k-item, .k-panelbar .k-tabstrip-items .k-item, .km-pane-wrapper > .km-pane > .km-view > .km-content {
+        background-image: url(textures/highlight.png);
+        background-image: none,-webkit-linear-gradient(top,#0075ff 0,#0075ff 100%);
+        background-image: none,-moz-linear-gradient(top,#0075ff 0,#0075ff 100%);
+        background-image: none,-o-linear-gradient(top,#0075ff 0,#0075ff 100%);
+        background-image: none,linear-gradient(to bottom,#0075ff 0,#0075ff 100%);
+        background-position: 50% 50%;
+        background-color: #e3e3e3;
+        color: #fff;
+    }
+
+        .k-header, .k-grid-header-wrap, .k-grid .k-grouping-header, .k-grid-header, .k-pager-wrap, .k-pager-wrap .k-textbox, .k-pager-wrap .k-link, .k-grouping-header .k-group-indicator, .k-gantt-toolbar .k-state-default {
+            border-color: #e8eaee;
+            background-color: #0075ff;
+            color: #fff;
+        }
+
+    .modal {
+        display: none;
+        background-color: rgba(0, 0, 0, 0.77);
+    }
+
+    .k-block, .k-header, .k-grid-header, .k-toolbar, .k-grouping-header, .k-pager-wrap, .k-button, .k-draghandle, .k-treemap-tile, html .km-pane-wrapper .k-header {
+        background-color: #0075ff;
+        color: #fff;
+    }
+
+        .k-grid-header th.k-header > .k-link {
+            display: block;
+            min-height: 18px;
+            line-height: 18px;
+            margin: -0.5em -0.6em -0.4em -0.6em;
+            padding: .1em .1em .1em .1em;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            color: #fff;
+        }
+
+        .k-grid-header table, .k-grid-content table, .k-grid-footer table, .k-grid-content-locked > table {
+            table-layout: fixed;
+        }
+
+    .k-grid tr td {
+        border-bottom: 1px solid #ada9a9;
+        border-style: dashed;
+    }
+
+    .k-grid-toolbar:first-child, .k-grouping-header + .k-grid-toolbar {
+        border-width: 0 0 1px;
+        border-radius: 0px;
+        background-color: #d7eafa;
+        height: 10px;
+    }
+
+    .k-block, .k-header, .k-grid-header, .k-toolbar, .k-grouping-header, .k-pager-wrap, .k-button, .k-draghandle, .k-treemap-tile, html .km-pane-wrapper .k-header {
+        background-color: rgba(227, 227, 227, 0);
+    }
+
+    #txtFechaInicioProcFreezing .k-header, .k-grid-header, .k-toolbar, .k-dropdown-wrap, .k-picker-wrap, .k-numeric-wrap, .k-grouping-header, .k-pager-wrap, .k-textbox, .k-button, .k-progressbar, .k-draghandle, .k-autocomplete, .k-state-highlight, .k-tabstrip-items .k-item, .k-panelbar .k-tabstrip-items .k-item, .km-pane-wrapper > .km-pane > .km-view > .km-content {
+        background-image: url(textures/highlight.png);
+        background-image: none,-webkit-linear-gradient(top,#0075ff 0,#0075ff 100%);
+        background-image: none,-moz-linear-gradient(top,#0075ff 0,#0075ff 100%);
+        background-image: none,-o-linear-gradient(top,#0075ff 0,#0075ff 100%);
+        background-image: none,linear-gradient(to bottom,#0075ff 0,#0075ff 100%);
+        background-position: 50% 50%;
+        background-color: #ffffff;
+    }
+
+    .k-state-selected {
+        color: #FFFFFF;
+        background-color: #0075ff;
+        border-color: #0075ff;
+    }
+
+    tr {
+        height: 16px;
+        font-size: 13px;
+    }
+
+    /** SPINNER CREATION **/
+    .loader {
+        position: relative;
+        text-align: center;
+        margin: 15px auto 35px auto;
+        z-index: 9999;
+        display: block;
+        width: 80px;
+        height: 80px;
+        border: 10px solid rgba(0, 0, 0, .3);
+        border-radius: 50%;
+        border-top-color: #000;
+        animation: spin 1s ease-in-out infinite;
+        -webkit-animation: spin 1s ease-in-out infinite;
+    }
+
+
+    /** MODAL STYLING **/
+    .modal-content {
+        border-radius: 0px;
+        box-shadow: 0 0 20px 8px rgba(0, 0, 0, 0.7);
+    }
+
+
+    [dir=ltr] .modal-lg, [dir=ltr] .modal-xl {
+        max-width: 950px;
+    }
+
+    a {
+        color: transparent;
+        text-decoration: none;
+    }
+
+    .b-boton-selected {
+        background-color: #f70f0f;
+        border: 2px #f70f0f solid;
+        color: #fff;
+        border-radius: 3px;
+        font-weight: bold;
+        cursor: pointer;
+        text-align: center;
+    }
+
+    .b-boton-normal {
+        background-color: #0075ff;
+        color: #fff;
+        border-radius: 3px;
+        border: 2px #0075ff solid;
+        cursor: pointer;
+        text-align: center;
+        font-weight: bold;
+    }
+</style>
+
+<div class="container-fluid" style="background-color:#e9ebee;">
+    <br />
+    <input id="hdCodigoMenu" type="hidden" value="" />
+    <div class="row">
+        <div class="col-lg-8">
+            <div class="form-group">
+                <input id="" onchange="();" class="form-control form-control-sm" type="text" name="" value="" placeholder="">
+            </div>
+        </div>
+        <div class="col-lg-2">
+            <button onclick="event_AbrirModalModulo();" class="btn btn-primary btn-sm">Nuevo Modulo</button>
+        </div>
+        <div class="col-lg-2">
+            <button onclick="event_GuardarOrden();" class="btn btn-primary btn-sm">Guardar Orden</button>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-lg-12" id="divModulos">
+            <div class="card">
+                <div class="card-header card-header-large bg-light d-flex align-items-center">
+                    <h4 class="card-header__title">Top Courses</h4>
+                </div>
+                <ul class="list-group list-group-flush mb-0" style="z-index: initial;">
+
+                    <li class="list-group-item" style="z-index: initial;">
+                        <div class="d-flex align-items-center">
+                            <a href="#" class="mr-3">
+                                <img src="https://images.unsplash.com/photo-1562577309-4932fdd64cd1?ixlib=rb-1.2.1&amp;ixid=eyJhcHBfaWQiOjEyMDd9&amp;auto=format&amp;fit=clamp&amp;w=35&amp;h=35" alt="course" class="">
+
+                            </a>
+                            <div class="flex">
+                                <a href="#" class="text-body"><strong>Basics of Social Media</strong></a>
+                                <div class="d-flex align-items-center">
+                                    <small class="text-muted">60 sales</small>
+                                </div>
+                            </div>
+                            <div class="ml-3">
+                                $23460
+                            </div>
+                        </div>
+                    </li>
+
+                 
+                </ul>
+            </div>           
+        </div>
+    </div>
+</div>
+
+
+<div id="myModalModulo" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="modal-small-title" aria-modal="true" style="padding-right: 17px;">
+    <div class="modal-dialog modal-lg" role="document" style="margin-top: 70px;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="modal-small-title">Agrega o cambia modulos</h5>
+                <button id="btnCerrarmyModalModulo" type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div> <!-- // END .modal-header -->
+            <div class="modal-body" style="background-color:#e9ebee;width:500px;">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="card" style="padding:10px;">
+
+                            <div class="form-group mg-t-2">
+                                <div class="input-group input-group-sm input-group-merge">
+                                    Padre:
+                                    <input id="ddlModuloPadre" value="0" style="width: 100%;font-weight:bold;text-align:center;font-size:12px;" />
+                                </div>
+                            </div>
+                            <div class="form-group mg-t-2">
+                                <div class="input-group input-group-sm input-group-merge">
+                                    <input id="txtModulo_Descripcion" type="text" class="form-control form-control-prepended" placeholder="Ingrese descripcion" style="width:100%;font-weight:bold;">
+                                    <div class="input-group-prepend">
+                                        <div class="input-group-text">
+                                            Descripción:
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group mg-t-2">
+                                <div class="input-group input-group-sm input-group-merge">
+                                    Observación
+                                    <textarea id="txtModulo_Observacion" rows="5" style="width:100%;">
+            
+                                    </textarea>                                    
+                                </div>
+                            </div>
+                            <div class="form-group mg-t-2">
+                                <div class="input-group input-group-sm input-group-merge">
+                                    <input id="txtModulo_IdControl" type="text" class="form-control form-control-prepended" placeholder="Ingrese id control" style="width:100%;font-weight:bold;">
+                                    <div class="input-group-prepend">
+                                        <div class="input-group-text">
+                                            Id Control:
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group mg-t-2">
+                                <div class="input-group input-group-sm input-group-merge">
+                                    <input id="txtModulo_Url" type="text" class="form-control form-control-prepended" placeholder="Ingrese Url" style="width:100%;font-weight:bold;">
+                                    <div class="input-group-prepend">
+                                        <div class="input-group-text">
+                                            Url:
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group mg-t-2">
+                                <div class="input-group input-group-sm input-group-merge">
+                                    <input id="txtModulo_Orden" type="text" class="form-control form-control-prepended" placeholder="Ingrese Url" style="width:100%;font-weight:bold;">
+                                    <div class="input-group-prepend">
+                                        <div class="input-group-text">
+                                            Orden:
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>                  
+                </div>
+
+            </div> <!-- // END .modal-body -->
+            <div class="modal-footer">
+                <button onclick="guardarModulo();" type="button" class="btn btn-primary" >Guardar</button>
+                <button id="btnCancelarmyModalModulo" type="button" class="btn btn-light" data-dismiss="modal">Cancelar</button>
+            </div> <!-- // END .modal-footer -->
+        </div> <!-- // END .modal-content -->
+    </div> <!-- // END .modal-dialog -->
+</div>
+
+
+<div class="modal fade" id="loadMe" tabindex="-1" role="dialog" aria-labelledby="loadMeLabel">
+    <div class="modal-dialog modal-sm" role="document">
+        <div class="modal-content">
+            <div class="modal-body text-center">
+                <div class="loader"></div>
+                <div clas="loader-txt">
+                    <p>Cargando... <br><br><small>Espere por favor, este proceso puede tardar unos minutos</small></p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@section Scripts {
+
+    @System.Web.Optimization.Scripts.Render("~/Scripts/jquery.min.js")
+    @System.Web.Optimization.Scripts.Render("~/Scripts/plugins/jsKendo/angular.min.js")
+    @System.Web.Optimization.Scripts.Render("~/Scripts/plugins/jsKendo/kendo.all.min.js")
+
+    @System.Web.Optimization.Scripts.Render("~/Scripts/plugins/jquery-ui/jquery-ui.js")
+    @System.Web.Optimization.Scripts.Render("~/Scripts/plugins/jquery-ui/jquery-ui.min.js")
+
+    @System.Web.Optimization.Scripts.Render("~/Resource/UserControl.Helper.js")
+
+    @System.Web.Optimization.Scripts.Render("~/Scripts/bootstrap-notify-master/bootstrap-notify.js")
+    @System.Web.Optimization.Scripts.Render("~/Scripts/bootstrap-notify-master/bootstrap-notify.min.js")
+    @System.Web.Optimization.Scripts.Render("~/Scripts/jsBootstrap/jquery.bootstrap-growl.js")
+    @System.Web.Optimization.Scripts.Render("~/Scripts/maskedinput.js")
+
+
+    <script type="text/javascript">
+
+        $(document).ready(function (e) {
+
+            CentroEntrenamiento_uspListarMenuPlantilla_ddl();
+            CentroEntrenamiento_uspListarMenuPlantilla();
+
+            $("#btnCancelarmyModalModulo").click(function () {
+                document.getElementById('myModalModulo').style.display = 'none';
+            });
+            $("#btnCerrarmyModalModulo").click(function () {
+                document.getElementById('myModalModulo').style.display = 'none';
+            });
+
+        });
+
+        function event_AbrirModalModulo() {
+            $('#hdCodigoMenu').val('');
+            $('input[id="txtModulo_Descripcion"]').val('');
+            $('textarea[id="txtModulo_Observacion"]').val('');
+            $('input[id="txtModulo_IdControl"]').val('');
+            $('input[id="txtModulo_Url"]').val('');
+            $('input[id="txtModulo_Orden"]').val('');
+          
+            document.getElementById('myModalModulo').style.display = 'block';
+        }
+
+        function CentroEntrenamiento_uspListarMenuPlantilla_ddl() {
+
+            $("#ddlModuloPadre").kendoDropDownList({
+                dataTextField: "Descripcion",
+                dataValueField: "CodigoMenu",
+                dataSource: {
+                    serverFiltering: false,
+                    transport: {
+                        read: function (options) {
+                            $.ajax({
+                                type: "POST",
+                                url: "/corporativo/CentroEntrenamiento_uspListarMenuPlantilla_ddl",
+                                contentType: "application/json; charset=utf-8",
+                                dataType: "json",
+                                success: function (msg) {
+                                    options.success(msg);
+
+                                }, complete: function () {
+                                   
+                                }
+                            });
+                        }
+                    }
+                }, change: function () {
+                    
+                }
+            }).data("kendoDropDownList");
+        }
+
+        function CentroEntrenamiento_uspListarMenuPlantilla() {
+
+            var entidad = {};
+         
+            document.getElementById('loadMe').style.display = 'block';
+            $('button[type="button"]').attr("disabled", true);
+            var metodoCorrecto = function (msg) {
+
+                $('button[type="button"]').attr("disabled", false);
+                document.getElementById('loadMe').style.display = 'none';
+               // alert(msg.length);
+                var content_modulo = new Array();
+                for (var i = 0; i < msg.length; i++) {
+
+                   // content_modulo.push('<div class="col-sm-3 col-lg-3 mg-t-30" style="background-color: #e9ebee;padding-bottom: 10px;">');
+                    if (msg[i].CodigoMenuSuperior == '') {
+
+                        content_modulo.push('<div class="card">');
+                        content_modulo.push('<div class="card-header card-header-large bg-light d-flex align-items-center">');
+                        content_modulo.push('<input id="txtOrden_' + msg[i].CodigoMenu + '" type="text" value="' + msg[i].Orden + '" placeholder="0" class="k-textbox" style="width: 60px;height: 35px; font-size: 18px; font-weight: bold;" >&nbsp;&nbsp;&nbsp;&nbsp;<h4 class="card-header__title" style="color:red;">' + msg[i].Descripcion + '</h4>');
+                        content_modulo.push('&nbsp;&nbsp;&nbsp;&nbsp;<button onclick="event_EditarModalModulo(/' + msg[i].CodigoMenu + '/);" class="btn btn-primary btn-sm">Editar</button>');
+                        content_modulo.push('</div>');
+                        content_modulo.push('<ul class="list-group list-group-flush mb-0" style="z-index: initial;">');
+                        //--INICIA Sub Menu
+                        for (var s = 0; s < msg.length; s++) {
+                            if (msg[i].CodigoMenu == msg[s].CodigoMenuSuperior) {
+                                content_modulo.push('<li class="list-group-item" style="z-index: initial;">');
+                                content_modulo.push('<div class="d-flex align-items-center">');
+                                
+                                content_modulo.push('<input id="txtOrden_' + msg[s].CodigoMenu +'" type="text" value="' + msg[s].Orden +'" placeholder="0" class="k-textbox" style="width: 60px;height: 35px; font-size: 18px; font-weight: bold;" >');
+                           
+                                content_modulo.push('<div class="flex">');
+                                content_modulo.push('<strong>' + msg[s].Descripcion+'</strong>');
+                                content_modulo.push('<div class="d-flex align-items-center">');
+                                content_modulo.push('<small class="text-muted">' + msg[s].Observacion +'</small>');
+                                content_modulo.push('</div>');
+                                content_modulo.push('</div>');
+                                content_modulo.push('<div class="ml-3">');
+                                content_modulo.push(' <button onclick="event_EditarModalModulo(/' + msg[s].CodigoMenu +'/);" class="btn btn-primary btn-sm">Editar</button>');
+                                content_modulo.push(' <button onclick="event_AbrirModalModulo();" class="btn btn-primary btn-sm">Eliminar</button>');
+                                content_modulo.push('</div>');
+                                content_modulo.push('</div>');
+                                content_modulo.push('</li>');
+                            }
+                        }
+                        
+                        //FIN Sub Menu
+                        content_modulo.push('</ul>');
+                        content_modulo.push('</div>');
+
+                    } 
+                    
+                   // content_modulo.push();
+                }
+                $('#divModulos').html(content_modulo.join(' '));
+
+            };
+            var metodoError = function (msg) {
+                alert(msg);
+            };
+            var request = {
+                
+            };
+            LlamarAJAX("/corporativo/CentroEntrenamiento_uspListarMenuPlantilla", request, metodoCorrecto, metodoError);
+
+        }
+
+        function guardarModulo() {
+
+            if ($('#hdCodigoMenu').val() == '') {
+                CentroEntrenamiento_uspRegistrarMenuPlantilla();
+            } else {
+                CentroEntrenamiento_uspActualizarMenuPlantilla();
+            }
+            
+        }
+
+        function event_EditarModalModulo(CodigoMenu) {
+            CodigoMenu = CodigoMenu.toString().replace('/', '').replace('/', '');
+
+
+            $('#hdCodigoMenu').val(CodigoMenu);
+
+            var entidad = {};
+            entidad.CodigoMenu = CodigoMenu;
+           
+            document.getElementById('loadMe').style.display = 'block';
+            $('button[type="button"]').attr("disabled", true);
+            var metodoCorrecto = function (msg) {
+
+                $('button[type="button"]').attr("disabled", false);
+                document.getElementById('loadMe').style.display = 'none';
+                
+                $("#ddlModuloPadre").data("kendoDropDownList").value(msg.CodigoMenuSuperior);
+                $('input[id="txtModulo_Descripcion"]').val(msg.Descripcion);
+                $('textarea[id="txtModulo_Observacion"]').val(msg.Observacion);
+                $('input[id="txtModulo_IdControl"]').val(msg.IdControl);
+                $('input[id="txtModulo_Url"]').val(msg.Url);
+                $('input[id="txtModulo_Orden"]').val(msg.Orden);
+
+                document.getElementById('myModalModulo').style.display = 'block';
+
+            };
+            var metodoError = function (msg) {
+                alert(msg);
+            };
+            var request = {
+                request: entidad
+            };
+            LlamarAJAX("/corporativo/CentroEntrenamiento_uspBuscarMenuPlantilla", request, metodoCorrecto, metodoError);
+            
+          
+        }
+
+        function CentroEntrenamiento_uspRegistrarMenuPlantilla() {
+            
+            var entidad = {};
+            entidad.CodigoMenu = "";
+            entidad.CodigoMenuSuperior = $("#ddlModuloPadre").data("kendoDropDownList").value();
+            entidad.Descripcion = ConvertToStringFromObject($('input[id="txtModulo_Descripcion"]').val());
+            entidad.Observacion = ConvertToStringFromObject($('textarea[id="txtModulo_Observacion"]').val());
+            entidad.IdControl = ConvertToStringFromObject($('input[id="txtModulo_IdControl"]').val());
+            entidad.Url = ConvertToStringFromObject($('input[id="txtModulo_Url"]').val());
+            entidad.Orden = ConvertToStringFromObject($('input[id="txtModulo_Orden"]').val());
+            entidad.Estado = true;         
+        
+            if (IsUndefinedOrNullOrEmpty(entidad.Descripcion)) {
+                $.bootstrapGrowl("Falta ingresar Descripción.", { type: 'danger', width: 'auto' });
+                return;
+            } else if (IsUndefinedOrNullOrEmpty(entidad.Observacion)) {
+                $.bootstrapGrowl("Falta ingresar Observacion.", { type: 'danger', width: 'auto' });
+                return;
+            } 
+            
+            document.getElementById('loadMe').style.display = 'block';
+            $('button[type="button"]').attr("disabled", true);
+            var metodoCorrecto = function (msg) {
+
+                $('button[type="button"]').attr("disabled", false);
+                document.getElementById('loadMe').style.display = 'none';             
+                $.bootstrapGrowl("Se guardo correctamente.", { type: 'success', width: 'auto' });
+                CentroEntrenamiento_uspListarMenuPlantilla_ddl();
+
+            };
+            var metodoError = function (msg) {
+                alert(msg);
+            };
+            var request = {
+                request: entidad
+            };
+            LlamarAJAX("/corporativo/CentroEntrenamiento_uspRegistrarMenuPlantilla", request, metodoCorrecto, metodoError);
+    
+        }
+
+        function CentroEntrenamiento_uspActualizarMenuPlantilla() {
+
+            var entidad = {};
+            entidad.CodigoMenu = $('#hdCodigoMenu').val();
+            entidad.CodigoMenuSuperior = $("#ddlModuloPadre").data("kendoDropDownList").value();
+            entidad.Descripcion = ConvertToStringFromObject($('input[id="txtModulo_Descripcion"]').val());
+            entidad.Observacion = ConvertToStringFromObject($('textarea[id="txtModulo_Observacion"]').val());
+            entidad.IdControl = ConvertToStringFromObject($('input[id="txtModulo_IdControl"]').val());
+            entidad.Url = ConvertToStringFromObject($('input[id="txtModulo_Url"]').val());
+            entidad.Orden = ConvertToStringFromObject($('input[id="txtModulo_Orden"]').val());
+            entidad.Estado = true;
+
+            if (IsUndefinedOrNullOrEmpty(entidad.Descripcion)) {
+                $.bootstrapGrowl("Falta ingresar Descripción.", { type: 'danger', width: 'auto' });
+                return;
+            } else if (IsUndefinedOrNullOrEmpty(entidad.Observacion)) {
+                $.bootstrapGrowl("Falta ingresar Observacion.", { type: 'danger', width: 'auto' });
+                return;
+            }
+
+            document.getElementById('loadMe').style.display = 'block';
+            $('button[type="button"]').attr("disabled", true);
+            var metodoCorrecto = function (msg) {
+
+                $('button[type="button"]').attr("disabled", false);
+                document.getElementById('loadMe').style.display = 'none';
+                $.bootstrapGrowl("Se actualizo correctamente.", { type: 'success', width: 'auto' });
+                CentroEntrenamiento_uspListarMenuPlantilla_ddl();
+
+            };
+            var metodoError = function (msg) {
+                alert(msg);
+            };
+            var request = {
+                request: entidad
+            };
+            LlamarAJAX("/corporativo/CentroEntrenamiento_uspActualizarMenuPlantilla", request, metodoCorrecto, metodoError);
+
+        }
+
+        function event_GuardarOrden() {            
+
+            document.getElementById('loadMe').style.display = 'block';
+            $('button[type="button"]').attr("disabled", true);
+            var metodoCorrecto = function (d) {
+                
+                $('button[type="button"]').attr("disabled", false);
+                document.getElementById('loadMe').style.display = 'none';
+              
+                var xmlModulo = "";
+                xmlModulo += "<ds>";
+                for (var i = 0; i < d.length; i++) {
+
+                    xmlModulo += "<d>";
+                    xmlModulo += "<a>" + d[i].CodigoMenu + "</a>";
+                    xmlModulo += "<b>" + $('input[id="txtOrden_' + d[i].CodigoMenu + '"]').val() + "</b>";                   
+                    xmlModulo += "</d>";
+               
+                }
+                xmlModulo += "</ds>";
+                
+                document.getElementById('loadMe').style.display = 'block';
+                $('button[type="button"]').attr("disabled", true);
+                $.ajax({
+                    data: '{"listaDetalle":"' + xmlModulo + '"}',
+                    type: "POST",
+                    url: "/corporativo/CentroEntrenamiento_uspActualizarMenuPlantillaOrden",
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "json",
+                    success: function (msg) {
+                       
+                    }, complete: function () {
+                        $('button[type="button"]').attr("disabled", false);
+                        document.getElementById('loadMe').style.display = 'none';
+                    }
+                });
+            
+            };
+            var metodoError = function (msg) {
+                alert(msg);
+            };
+            var request = {
+
+            };
+            LlamarAJAX("/corporativo/CentroEntrenamiento_uspListarMenuPlantilla", request, metodoCorrecto, metodoError);
+
+        }
+
+    </script>
+
+}

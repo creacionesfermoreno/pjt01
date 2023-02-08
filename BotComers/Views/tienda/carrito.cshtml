@@ -1,0 +1,582 @@
+﻿
+@{
+    ViewBag.Title = "carrito";
+    Layout = "~/Views/Shared/_LayoutAppfitTienda2.cshtml";
+}
+
+<link href="@Url.Content("~/Content/tienda2/css/cart.css")" rel="stylesheet" />
+
+<link href="@Url.Content("~/Content/cssKendo/kendo.common.min.css")" rel="stylesheet" />
+<link href="@Url.Content("~/Content/cssKendo/kendo.dataviz.default.min.css")" rel="stylesheet" />
+<link href="@Url.Content("~/Content/cssKendo/kendo.dataviz.min.css")" rel="stylesheet" />
+<link href="@Url.Content("~/Content/cssKendo/kendo.default.min.css")" rel="stylesheet" />
+
+<style>
+
+    .modal-backdrop {
+        display: none;
+    }
+
+    .modal-content {
+        margin-top: 150px;
+    }
+
+    .modal {
+        display: none;
+        background-color: rgba(0, 0, 0, 0.77);
+    }
+
+    .input-icono {
+        background-image: url('../../Content/iconos/tarjeta.png');
+        background-repeat: no-repeat;
+        background-position: 4px center;
+        background-size: 20px;
+        display: flex;
+        align-items: center;
+        width: 100%;
+        padding-left: 28px;
+        height: 35px;
+        border: 1px solid #dddddd;
+        border-radius: 3px;
+    }
+
+        .input-icono input {
+            width: 100%;
+            font-size: 15px;
+            border: none;
+        }
+
+            .input-icono input:focus {
+                outline: none;
+            }
+
+
+    #txtbuscadorgeneraltienda {
+        padding: 0px;
+        font-size: 14px;
+        margin-left: 20px;
+    }
+
+    .k-header {
+        width: 100%;
+        height: 100%;
+    }
+
+    .k-state-hover {
+        background-color: #fff;
+    }
+
+    .k-autocomplete.k-state-default, .k-picker-wrap.k-state-default, .k-numeric-wrap.k-state-default, .k-dropdown-wrap.k-state-default {
+        background-color: #fff;
+    }
+</style>
+
+<div class="container margin_30">
+    <div class="page_header">
+        <div class="breadcrumbs">
+            <ul>
+                <li><a href="@Url.Action("Index","tienda",new {id= HttpContext.Current.Request.Cookies["_SubDominio_PersonaTiendaVirtual"].Value})">tienda</a></li>
+                <li>Carrito de compras</li>
+            </ul>
+        </div>
+        <h1>CARRITO DE COMPRAS</h1>
+    </div>
+    <!-- /page_header -->
+    <table class="table table-striped cart-list" id="table_listcarrito">
+        <thead>
+            <tr>
+                <th>
+                    PRODUCTO
+                </th>
+                <th>
+                    PRECIO
+                </th>
+                <th>
+                    CANTIDAD
+                </th>
+                <th>
+                    SUBTOTAL
+                </th>
+                <th>
+
+                </th>
+            </tr>
+        </thead>
+        <tbody></tbody>
+    </table>
+    <div class="row add_top_30 flex-sm-row-reverse cart_actions">
+        <div class="col-sm-4 text-right">
+            <button id="btnActualizarCarrito" type="button" class="btn_1 gray" onclick="javascript:actualizarCarrito();">ACTUALIZAR CARRITO</button>
+        </div>
+        <div class="col-sm-8">
+            <div class="apply-coupon">
+                <div class="form-group form-inline">
+                    <input id="txtCodigoPromocion" type="text" value="" placeholder="Ingresa el código" class="form-control"><button type="button" class="btn_1 outline" onclick="evento_AplicarCupo();">Aplicar Cupón</button>
+                </div>
+            </div>
+            <div class="apply-coupon">
+                <div class="form-group form-inline">
+                    <input disabled id="txtDetalleDescuento" type="text" value="" placeholder="" class="form-control">
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- /cart_actions -->
+
+</div>
+<!-- /container -->
+
+<div class="box_cart">
+    <div class="container">
+        <div class="row justify-content-end">
+            <div class="col-xl-4 col-lg-4 col-md-6">
+                <ul>
+                    <li>
+                        <span>SUB TOTAL</span> <label id="lblSubTotal_Carrito">S/ 0.00</label>
+                    </li>
+                    <li>
+                        <span>ENVÍO</span> <label id="lblCostoEnvio_Carrito">S/ 0.00</label>
+                    </li>
+                    <li>
+                        <span>DESCUENTO</span> <label id="lblDescuento_Carrito">S/ 0.00</label>
+                    </li>
+                    <li>
+                        <span>TOTAL</span> <label id="lblTotal_Carrito">S/ 0.00</label>
+                    </li>
+                </ul>
+                <a href="@Url.Action("checkout","tienda",new {id= HttpContext.Current.Request.Cookies["_SubDominio_PersonaTiendaVirtual"].Value})" class="btn_1 full-width cart">PROCESAR COMPRA</a>
+                <div class="form-group" id="divEnviogratis" style="display:none;">
+                    <label class="container_check">
+                        envíos gratis por compras mayor a <a href="#0" id="lblEnviogratis"> 0.00 </a>
+                    </label>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- /box_cart -->
+
+<div id="modalAvisoCupon" class="popup_wrapper" style="display:none;">
+    <div class="popup_content" style="text-align:center;padding: 54px;">
+        <span class="popup_close" onclick="event_cerrarmodalAvisoCarrito();" style="background-color:#25c125;color:#fff;">Cerrar</span>
+        <div class="row no-gutters">
+            <div class="content">
+                <div class="wrapper">
+                    <h3 id="lblMensajeCupon"></h3>
+                </div>
+            </div>
+        </div>
+        <!-- row -->
+    </div>
+</div>
+
+@section Scripts {
+
+    @System.Web.Optimization.Scripts.Render("~/Scripts/plugins/jquery-ui/jquery-ui.js")
+    @System.Web.Optimization.Scripts.Render("~/Scripts/plugins/jquery-ui/jquery-ui.min.js")
+
+    @System.Web.Optimization.Scripts.Render("~/Resource/UserControl.Helper.js")
+
+    @System.Web.Optimization.Scripts.Render("~/Scripts/jquery.min.js")
+    @System.Web.Optimization.Scripts.Render("~/Scripts/plugins/jsKendo/angular.min.js")
+    @System.Web.Optimization.Scripts.Render("~/Scripts/plugins/jsKendo/kendo.all.min.js")
+
+    <script type="text/javascript">
+
+        $(document).ready(function () {
+            uspBuscarEnvioGratis();
+            leerMenu();
+            leerMenu2();
+            leerCarrito_LocalStorage();
+
+            let descuentoLS;
+            descuentoLS = obtenerDescuentoLocalStorage();
+            if (descuentoLS != '' && descuentoLS != undefined) {
+                var nrocupon = descuentoLS.nrocupon;
+                var valor = parseInt(descuentoLS.valor);
+                var tipo = descuentoLS.tipo;
+                var destipo = '';
+                if (tipo == 1) {
+                    destipo = "%";
+                } else {
+                    destipo = "S/.";
+                }
+                $('input[id="txtCodigoPromocion"]').val(nrocupon);
+                $('input[id="txtDetalleDescuento"]').val(valor + " " + destipo);
+            }
+
+            BuscadorProductos();
+        });
+
+        function event_cerrarmodalAvisoCarrito() {
+            $('#modalAvisoCupon').modal('hide');
+        }
+
+        function leerCarrito_LocalStorage() {
+            const listaProductos = document.querySelector('#table_listcarrito tbody');
+            $('#table_listcarrito tbody').empty();
+            let productosLS;
+            let fila = 1;
+            productosLS = obtenerProductosLocalStorage();
+            productosLS.forEach(function (producto) {
+                //Construir plantilla
+                const row = document.createElement('tr');
+                row.dataset['imagen'] = producto.imagen;
+                row.dataset['titulo'] = producto.titulo;
+                row.dataset['precio'] = parseFloat(producto.precio).toFixed(2);
+                row.dataset['id'] = producto.id;
+
+                row.innerHTML = `
+                                        <td>
+                                            <div class="thumb_cart">
+                                                <img src="${producto.imagen}" data-src="${producto.imagen}" class="lazy" alt="Image">
+                                            </div>
+                                            <span class="item_cart">${producto.titulo}</span>
+                                        </td>
+                                        <td>
+                                            <strong>${producto.precio}</strong>
+                                        </td>
+                                        <td>
+                                            <div class="numbers-row">
+                                                <input type="text" value="${producto.cantidad}" id="quantity_${fila}" class="qty2" name="quantity_${fila}">
+                                                <div class="inc button_inc" onclick="aumentaValor(${fila});">+</div><div class="dec button_inc" onclick="disminuirValor(${fila});" >-</div>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <strong>S/ ${producto.precio * producto.cantidad}</strong>
+                                        </td>
+                                        <td class="options" data-id="${producto.id}" onclick="javascript:eliminarProductoCarrito(this);">
+                                            <a href="#"><i class="ti-trash" ></i></a>
+                                        </td>`;
+
+                fila++;
+                listaProductos.appendChild(row);
+            });
+            //$('#lblCantidadCarrito').html(cantidad);
+        }
+
+        function aumentaValor(fila) {
+            var valor = $("#quantity_" + fila).val();
+            valor = parseInt(valor) + 1;
+            $("#quantity_" + fila).val(valor);
+            $('#btnActualizarCarrito').css('background-color', '#ffc107');
+        }
+
+        function disminuirValor(fila) {
+            var valor = $("#quantity_" + fila).val();
+            valor = parseInt(valor) - 1;
+            $("#quantity_" + fila).val(valor);
+            $('#btnActualizarCarrito').css('background-color', '#ffc107');
+        }
+
+        function Carrito_calcularTotal() {
+
+            let productosLS;
+            let descuentoLS;
+            let envioLS;
+            let enviogratisLS;
+            let total = 0;
+            let igv = 0;
+            let valordescuento = 0;
+            let tipodescuento = 0;
+            let costoenvio = 0;
+            let enviogratis = 0;
+            let descuentototal;
+            productosLS = obtenerProductosLocalStorage();
+            for (let i = 0; i < productosLS.length; i++) {
+                let element = Number(productosLS[i].precio * productosLS[i].cantidad);
+                total = total + element;
+
+            }
+            descuentoLS = obtenerDescuentoLocalStorage();
+
+            if (descuentoLS != '' && descuentoLS != undefined) {
+                valordescuento = descuentoLS.valor == undefined ? 0 : parseInt(descuentoLS.valor);
+                tipodescuento = descuentoLS.tipo == undefined ? 0 : descuentoLS.tipo;
+            }
+
+            if (tipodescuento == 1) { //%
+                descuentototal = (parseFloat(total * valordescuento).toFixed(2)) / 100;
+            } else if (tipodescuento == 2) { //Soles
+                descuentototal = valordescuento;
+            } else if (tipodescuento == 0) { //ningun descuento
+                descuentototal = 0;
+            }
+
+            envioLS = obtenerEnvioLocalStorage();
+            if (envioLS != '' && envioLS != undefined) {
+                costoenvio = envioLS.costoenvio == undefined ? 0 : parseFloat(envioLS.costoenvio);
+            }
+
+            enviogratisLS = obtenerEnvioGratisLocalStorage();
+            if (enviogratisLS != '' && enviogratisLS != undefined) {
+                enviogratis = enviogratisLS.valor == undefined ? 0 : parseFloat(enviogratisLS.valor);
+            }
+
+            $('#lblEnviogratis').html('S/' + parseFloat(enviogratis).toFixed(2));
+            if (enviogratis > 0) {
+                if (parseFloat(total) > parseFloat(enviogratis)) {
+                    costoenvio = 0;
+                }
+                document.getElementById("divEnviogratis").style.display = '';
+            } else {
+                document.getElementById("divEnviogratis").style.display = 'none';
+            }
+
+            igv = parseFloat(total * 0.18).toFixed(2);
+            subtotal = parseFloat(total - igv).toFixed(2);
+
+            document.getElementById('lblSubTotal_Carrito').innerHTML = "S/. " + total.toFixed(2);
+            document.getElementById('lblCostoEnvio_Carrito').innerHTML = "S/. " + costoenvio.toFixed(2);
+            document.getElementById('lblDescuento_Carrito').innerHTML = "S/. " + descuentototal.toFixed(2);
+
+            var totalgeneral = (parseFloat(total) + parseFloat(costoenvio)) - parseFloat(descuentototal);
+            document.getElementById('lblTotal_Carrito').innerHTML = "S/. " + totalgeneral.toFixed(2);
+
+        }
+
+        function eliminarProductoCarrito(control) {
+
+            let productoID;
+            productoID = $(control).attr('data-id');
+            eliminarProductoLocalStorage(productoID);
+            leerLocalStorage();
+            leerCarrito_LocalStorage();
+            calcularTotal();
+            Carrito_calcularTotal();
+        }
+
+        function actualizarCarrito() {
+
+            $('#table_listcarrito tbody tr').each(function () {
+
+                var imagen = $(this).attr('data-imagen');
+                var titulo = $(this).attr('data-titulo');
+                var precio = $(this).attr('data-precio');
+                var id = $(this).attr('data-id');
+                var cantidad = $(this).find("td").eq(2).find('input').val();
+
+                //Enviamos el producto seleccionado para tomar sus datos
+                leerDatosProductoCarrito(imagen, titulo, precio, id, cantidad);
+
+            });
+
+            leerLocalStorage();
+            leerCarrito_LocalStorage();
+            calcularTotal();
+            Carrito_calcularTotal();
+        }
+
+        //Leer datos del producto
+        function leerDatosProductoCarrito(imagen, titulo, precio, id, cantidad) {
+
+            const infoProducto = {
+                imagen: imagen,
+                titulo: titulo,
+                precio: precio,
+                id: id,
+                cantidad: cantidad
+            }
+            let productosLS;
+            productosLS = obtenerProductosLocalStorage();
+            productosLS.forEach(function (productoLS) {
+                if (productoLS.id === infoProducto.id) {
+                    productosLS = productoLS.id;
+                    eliminarProductoLocalStorage(infoProducto.id);
+
+                }
+            });
+
+            if (productosLS === infoProducto.id) {
+                insertarCarrito(infoProducto);
+            }
+
+        }
+
+        function getCookie(cname) {
+            var name = cname + "=";
+            var ca = document.cookie.split(';');
+            for (var i = 0; i < ca.length; i++) {
+                var c = ca[i].trim();
+                if (c.indexOf(name) == 0) return c.substring(name.length, c.length);
+            }
+            return "";
+        }
+
+        function leerMenu() {
+
+            var content_Catgorias = new Array();
+
+            let menuLS;
+            menuLS = obtenerMenuLocalStorage();
+            menuLS.forEach(function (menu) {
+
+                if (menu.CodigoMenuSuperior == 0) {
+                    content_Catgorias.push('<li class="megamenu submenu">');
+                    content_Catgorias.push('    <a href="javascript:void(0);" class="show-submenu-mega">' + menu.Descripcion + '</a>');
+                    content_Catgorias.push('    <div class="menu-wrapper">');
+                    content_Catgorias.push('        <div class="row small-gutters">');
+
+                    menuLS.forEach(function (menuhijo) {
+                        if (menu.CodigoMenu == menuhijo.CodigoMenuSuperior) {
+
+                            var url = '/tienda/categoria/' + getCookie('_SubDominio_PersonaTiendaVirtual') + '?Idcat=' + menuhijo.CodigoImagen;
+                            content_Catgorias.push('<div class="col-lg-3">');
+                            content_Catgorias.push('    <h3 style="cursor:pointer;" ><a href="' + url + '">' + menuhijo.Descripcion + '</a></h3>');
+                            content_Catgorias.push('</div>');
+                        }
+                    });
+
+                    content_Catgorias.push('        </div>');
+                    content_Catgorias.push('   </div>');
+                    content_Catgorias.push('</li>');
+                }
+
+            });
+
+            $('#ulCategorias').html(content_Catgorias.join(' '));
+        }
+
+        function leerMenu2() {
+            //PADRE MENU
+            var content_menu = new Array();
+            content_menu.push('<ul>');
+
+            let menuLS;
+            menuLS = obtenerMenuLocalStorage();
+            menuLS.forEach(function (menu) {
+
+                if (menu.CodigoMenuSuperior == 0) {
+                    content_menu.push('<li>');
+                    content_menu.push('    <span><a href="#0">' + menu.Descripcion + '</a></span>');
+                    content_menu.push('    <ul>');
+
+                    menuLS.forEach(function (menuhijo) {
+
+                        if (menu.CodigoMenu == menuhijo.CodigoMenuSuperior) {
+                            var url = '/tienda/categoria/' + getCookie('_SubDominio_PersonaTiendaVirtual') + '?Idcat=' + menuhijo.CodigoImagen;
+                            content_menu.push('        <li><a href="' + url + '">' + menuhijo.Descripcion + '</a></li>');
+                        }
+                    });
+
+                    content_menu.push('    </ul>');
+                    content_menu.push('</li>');
+                }
+
+            });
+
+            content_menu.push('</ul>');
+
+            $('#menu').html(content_menu.join(' '));
+        }
+
+        function evento_AplicarCupo() {
+
+            var entidad = {};
+            entidad.CodigoPromocion = $('input[id="txtCodigoPromocion"]').val();
+
+            var metodoCorrecto = function (data) {
+
+                if (data != "sin resultados") {
+                    var valor = data.split('|')[0];
+                    var tipo = data.split('|')[1];
+                    var codigo = data.split('|')[2];
+                    var destipo = '';
+
+                    if (tipo == 1) {
+                        destipo = "%";
+                    } else {
+                        destipo = "S/.";
+                    }
+
+                    $('input[id="txtDetalleDescuento"]').val(valor + " " + destipo);
+                    calcularDescuento(valor, tipo, codigo, entidad.CodigoPromocion);
+                } else {
+                    $('input[id="txtDetalleDescuento"]').val(data);
+                    $('input[id="txtCodigoPromocion"]').val('');
+                    localStorage.removeItem('descuento');
+                    Carrito_calcularTotal();
+                    $('#modalAvisoCupon').modal('show');
+                    $('#lblMensajeCupon').html("El nro de cupón no es valido ó ya expiró.");
+                    
+                }
+            };
+
+            var metodoError = function (msg) {
+                alert(msg);
+            };
+            var request = {
+                request: entidad
+            };
+
+            LlamarAJAX('/tienda/ecommerce_uspBuscar_CuponesXCodigoPromocion_TiendaVirtual', request, metodoCorrecto, metodoError);
+        }
+
+        function calcularDescuento(valor, tipo, codigo, nrocupon) {
+            leerDatosDescuento(valor, tipo, codigo, nrocupon);
+            Carrito_calcularTotal();
+        }
+
+        function uspBuscarEnvioGratis() {
+            var metodoCorrecto = function (data) {
+                document.getElementById("divEnviogratis").style.display = '';
+                leerDatosEnvioGratis(data.Valor);
+                Carrito_calcularTotal();
+            };
+            var metodoError = function (msg) {
+                alert(msg);
+            };
+            var request = {
+            };
+            LlamarAJAX("/tienda/ecommerce_uspBuscarEnvioGratisXtiendaVirtual", request, metodoCorrecto, metodoError);
+        }
+
+
+        function BuscadorProductos() {
+
+            var ddlPaqueteContrato = $("#txtbuscadorgeneraltienda,#txtbuscadorgeneraltiendamobil").kendoAutoComplete({
+                filter: "startswith",
+                dataTextField: "Descripcion",
+                dataValueField: "CodigoItemVenta",
+                template: '<div class="row" ><a href="/tienda/detalle/@HttpContext.Current.Request.Cookies["_SubDominio_PersonaTiendaVirtual"].Value?Idproducto=#: data.CodigoImagen #">' +
+                    '<span class="k-state-default" style="margin-left: 26px;margin-top: 9px;">' +
+                        '<img src="#: data.UrlImagen #" alt="" width="55" height="55" class="img-fluid lazy">' +
+                    '</span>' +
+                    '<span class="k-state-default" style="margin-top: 20px;margin-left: 20px;">' +
+                        '#: data.Nombre #' +
+                    '</span>' +
+                    '</a></div>',
+                valueTemplate: '<div style="font-size:12px;text-transform:uppercase;"> #:data.Descripcion# </div>',
+                dataSource: {
+                    serverFiltering: true,
+                    transport: {
+                        read: function (options) {
+                            var flag = ddlPaqueteContrato.value();
+                            $.ajax({
+                                data: '{"buscador":"' + flag + '"}',
+                                type: "POST",
+                                url: "/tienda/uspBuscadorItemsVentaInventariable",
+                                contentType: "application/json; charset=utf-8",
+                                dataType: "json",
+                                success: function (msg) {
+                                    options.success(msg);
+                                    if (msg == "") {
+                                        alert("No hemos encontrado ningún producto.");                                        
+                                    }
+                                }
+                            });
+                        }
+                    }, height: 600
+                }, change: function () {
+
+                }
+
+            }).data("kendoAutoComplete");
+        }
+
+    </script>
+
+}
+
+
+

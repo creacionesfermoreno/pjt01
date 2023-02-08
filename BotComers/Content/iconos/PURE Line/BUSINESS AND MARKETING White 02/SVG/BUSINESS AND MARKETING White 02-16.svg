@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Generator: Adobe Illustrator 16.0.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="170px"
+	 height="170px" viewBox="0 0 170 170" enable-background="new 0 0 170 170" xml:space="preserve">
+<g id="Background">
+</g>
+<g id="Circle">
+	<g>
+		<path fill="#282D33" d="M85,170c-46.869,0-85-38.131-85-85S38.131,0,85,0s85,38.131,85,85S131.869,170,85,170z"/>
+	</g>
+</g>
+<g id="TEXT">
+</g>
+<g id="Icons">
+	<g>
+		<g>
+			<path fill="none" stroke="#FFFFFF" stroke-width="4" d="M64.39,60.939c0-14.068,11.404-25.473,25.475-25.473
+				c14.066,0,25.473,11.404,25.473,25.473"/>
+			<path fill="none" stroke="#FFFFFF" stroke-width="4" d="M75.972,69.455c-0.548-2.664-0.844-5.529-0.844-8.516
+				c0-14.068,6.602-25.473,14.736-25.473c8.133,0,14.729,11.404,14.729,25.473c0,3.232-0.348,6.324-0.984,9.168"/>
+			<path fill="none" stroke="#FFFFFF" stroke-width="4" d="M113.69,69.969c1.064-2.807,1.646-5.85,1.646-9.029
+				c0-14.068-11.406-25.473-25.473-25.473v33.818"/>
+			<path fill="none" stroke="#FFFFFF" stroke-width="4" d="M64.39,60.939c0,3.166,0.605,6.184,1.657,8.979h47.632
+				c1.055-2.795,1.658-5.813,1.658-8.979s-0.604-6.186-1.658-8.98h-47.63C64.995,54.754,64.39,57.773,64.39,60.939z"/>
+		</g>
+		<g>
+			<g>
+				<path fill="none" stroke="#FFFFFF" stroke-width="4" d="M112.989,114.094c0,0.686-0.555,1.24-1.24,1.24H37.362
+					c-0.682,0-1.24-0.555-1.24-1.24V83.484c0-0.684,0.559-1.238,1.24-1.238h74.387c0.686,0,1.24,0.555,1.24,1.238V114.094z"/>
+				<g>
+					<g>
+						<line fill="none" stroke="#FFFFFF" stroke-width="4" x1="42.381" y1="90.686" x2="48.212" y2="90.686"/>
+						<line fill="none" stroke="#FFFFFF" stroke-width="4" x1="52.133" y1="90.686" x2="57.965" y2="90.686"/>
+						<line fill="none" stroke="#FFFFFF" stroke-width="4" x1="61.89" y1="90.686" x2="67.718" y2="90.686"/>
+						<line fill="none" stroke="#FFFFFF" stroke-width="4" x1="71.644" y1="90.686" x2="77.472" y2="90.686"/>
+						<line fill="none" stroke="#FFFFFF" stroke-width="4" x1="81.397" y1="90.686" x2="87.226" y2="90.686"/>
+						<line fill="none" stroke="#FFFFFF" stroke-width="4" x1="91.151" y1="90.686" x2="96.979" y2="90.686"/>
+						<line fill="none" stroke="#FFFFFF" stroke-width="4" x1="100.901" y1="90.686" x2="106.731" y2="90.686"/>
+					</g>
+					<g>
+						<line fill="none" stroke="#FFFFFF" stroke-width="4" x1="42.381" y1="98.791" x2="48.212" y2="98.791"/>
+						<line fill="none" stroke="#FFFFFF" stroke-width="4" x1="52.133" y1="98.791" x2="57.965" y2="98.791"/>
+						<line fill="none" stroke="#FFFFFF" stroke-width="4" x1="61.89" y1="98.791" x2="67.718" y2="98.791"/>
+						<line fill="none" stroke="#FFFFFF" stroke-width="4" x1="71.644" y1="98.791" x2="77.472" y2="98.791"/>
+						<line fill="none" stroke="#FFFFFF" stroke-width="4" x1="81.397" y1="98.791" x2="87.226" y2="98.791"/>
+						<line fill="none" stroke="#FFFFFF" stroke-width="4" x1="91.151" y1="98.791" x2="96.979" y2="98.791"/>
+						<line fill="none" stroke="#FFFFFF" stroke-width="4" x1="100.901" y1="98.791" x2="106.731" y2="98.791"/>
+					</g>
+					<g>
+						<line fill="none" stroke="#FFFFFF" stroke-width="4" x1="42.381" y1="106.896" x2="48.212" y2="106.896"/>
+						<line fill="none" stroke="#FFFFFF" stroke-width="4" x1="52.133" y1="106.896" x2="57.965" y2="106.896"/>
+						<line fill="none" stroke="#FFFFFF" stroke-width="4" x1="61.89" y1="106.896" x2="97.067" y2="106.896"/>
+						<line fill="none" stroke="#FFFFFF" stroke-width="4" x1="100.901" y1="106.896" x2="106.731" y2="106.896"/>
+					</g>
+				</g>
+			</g>
+		</g>
+		<path fill="none" stroke="#FFFFFF" stroke-width="4" d="M58.628,59.648h-9.814c-2.824,0-5.113,2.289-5.113,5.115l0,0
+			c0,2.824,2.289,5.113,5.113,5.113h17.064"/>
+		<path fill="none" stroke="#FFFFFF" stroke-width="4" d="M112.753,69.877h10.396c5.586,0,10.113,4.527,10.113,10.113l0,0
+			c0,5.586-4.527,10.113-10.113,10.113h-8.598"/>
+	</g>
+</g>
+</svg>

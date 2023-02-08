@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Generator: Adobe Illustrator 16.0.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="170px"
+	 height="170px" viewBox="0 0 170 170" enable-background="new 0 0 170 170" xml:space="preserve">
+<g id="Background">
+</g>
+<g id="Circle">
+	<g>
+		<path fill="#FFFFFF" d="M85,170c-46.869,0-85-38.131-85-85S38.131,0,85,0s85,38.131,85,85S131.869,170,85,170z"/>
+	</g>
+</g>
+<g id="TEXT">
+</g>
+<g id="Icons">
+	<g>
+		<path fill="none" stroke="#282D33" stroke-width="4" d="M43.641,66.544V48.473c0-1.561,1.133-2.825,2.527-2.825h84.217
+			c1.396,0,2.525,1.265,2.525,2.825v11.359"/>
+		<g>
+			<g>
+				<g>
+					<polyline fill="none" stroke="#282D33" stroke-width="4" points="51.252,66.544 51.252,54.335 125.301,54.335 125.301,59.832 
+											"/>
+				</g>
+			</g>
+		</g>
+		<path fill="none" stroke="#282D33" stroke-width="4" d="M108.334,118.654h21.42c1.396,0,2.525-1.267,2.525-2.827l6.316-46.631
+			c0-1.561-1.131-2.824-2.525-2.824H93.361l-3.637,6.596H40.482c-1.393,0-2.527,1.264-2.527,2.825l5.055,40.034
+			c0,1.561,1.133,2.827,2.527,2.827h22.541"/>
+		<g>
+			<g>
+				<path fill="none" stroke="#282D33" stroke-width="4" d="M78.666,107.688v-2.172c0-5.13,3.729-9.305,8.316-9.305h2.588
+					c4.584,0,8.314,4.175,8.314,9.305v2.172"/>
+			</g>
+			<g>
+				<path fill="#282D33" d="M101.027,111.712v21.984H75.525v-21.984H101.027 M105.027,107.712h-4H75.525h-4v4v21.984v4h4h25.502h4
+					v-4v-21.984V107.712L105.027,107.712z"/>
+			</g>
+			<g>
+				<path fill="#282D33" d="M88.277,117.368c-1.299,0-2.354,1.176-2.354,2.632c0,0.959,0.461,1.794,1.146,2.254l-0.533,4.481h1.74
+					h1.736l-0.531-4.481c0.686-0.46,1.146-1.295,1.146-2.254C90.629,118.544,89.574,117.368,88.277,117.368L88.277,117.368z"/>
+			</g>
+		</g>
+		<g>
+			<g>
+				<g>
+					<line fill="none" stroke="#282D33" stroke-width="4" x1="95.551" y1="102.003" x2="97.486" y2="101.502"/>
+					
+						<line fill="none" stroke="#282D33" stroke-width="4" stroke-dasharray="4.2014,4.2014" x1="101.555" y1="100.449" x2="132.06" y2="92.552"/>
+					<line fill="none" stroke="#282D33" stroke-width="4" x1="134.094" y1="92.025" x2="136.029" y2="91.524"/>
+				</g>
+			</g>
+			<g>
+				<g>
+					<line fill="none" stroke="#282D33" stroke-width="4" x1="80.002" y1="102.003" x2="78.066" y2="101.502"/>
+					
+						<line fill="none" stroke="#282D33" stroke-width="4" stroke-dasharray="4.2016,4.2016" x1="73.998" y1="100.449" x2="43.491" y2="92.552"/>
+					<line fill="none" stroke="#282D33" stroke-width="4" x1="41.457" y1="92.025" x2="39.521" y2="91.524"/>
+				</g>
+			</g>
+		</g>
+	</g>
+</g>
+</svg>

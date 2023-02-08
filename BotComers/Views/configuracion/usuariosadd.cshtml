@@ -1,0 +1,116 @@
+﻿
+@{
+    ViewBag.Title = "usuariosadd";
+    Layout = "~/Views/Shared/_LayoutApp.cshtml";
+}
+
+<link href="@Url.Content("~/Content/cssKendo/kendo.common.min.css")" rel="stylesheet" />
+<link href="@Url.Content("~/Content/cssKendo/kendo.dataviz.default.min.css")" rel="stylesheet" />
+<link href="@Url.Content("~/Content/cssKendo/kendo.dataviz.min.css")" rel="stylesheet" />
+<link href="@Url.Content("~/Content/cssKendo/kendo.default.min.css")" rel="stylesheet" />
+
+<div class="slim-mainpanel">
+    <div class="container">
+        <div class="slim-pageheader">
+            <ol class="breadcrumb slim-breadcrumb">
+                <li class="breadcrumb-item"><a href="@Url.Action("usuarios","configuracion")">usuarios</a></li>
+                <li class="breadcrumb-item active" aria-current="page">agregar</li>
+            </ol>
+            <h6 class="slim-pagetitle">Usuario</h6>
+        </div><!-- slim-pageheader -->
+        <div class="section-wrapper">
+            <div class="form-layout">
+               
+                <div style="display:none;" class="alert alert-solid alert-success" role="alert">
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                    <strong>Excelente!</strong> Registro Guardado Correctamente.
+                </div>
+                <div class="row mg-b-25">
+                    <div class="col-lg-4">
+                        <div class="form-group">
+                            <label for="txtUsuario_Nombre" class="form-control-label">Nombres: <span class="tx-danger" id="txtUsuario_Nombre_validation" style="display:none;">* Ingrese nombre</span></label>
+                            <input id="txtUsuario_Nombre" class="form-control form-control-sm" type="text" name="" value="" placeholder="">
+                        </div>
+                        <div class="form-group">
+                            <label for="txtUsuario_Correo" class="form-control-label">Correo: <span class="tx-danger" id="txtUsuario_Correo_validation" style="display:none;">* Ingrese Correo</span></label>
+                            <input id="txtUsuario_Correo" class="form-control form-control-sm" type="text" name="" value="" placeholder="">
+                        </div>
+                        <div class="form-group">
+                            <label for="txtUsuario_usuario" class="form-control-label">Usuario: <span class="tx-danger" id="txtUsuario_usuario_validation" style="display:none;">* Ingrese Usuario</span></label>
+                            <input id="txtUsuario_usuario" class="form-control form-control-sm" type="text" name="" value="" placeholder="">
+                        </div>
+                        <div class="form-group">
+                            <label for="txtUsuario_Contrasenia" class="form-control-label">Contraseña: <span class="tx-danger" id="txtUsuario_Contrasenia_validation" style="display:none;">* Ingrese Contraseña</span></label>
+                            <input id="txtUsuario_Contrasenia" class="form-control form-control-sm" type="text" name="" value="" placeholder="">
+                        </div>                      
+                    </div><!-- col-4 -->
+                    <div class="col-lg-4">
+                        <div class="form-group">
+                            <label for="txtUsuario_Apellido" class="form-control-label">Apellidos: </label>
+                            <input id="txtUsuario_Apellido" class="form-control form-control-sm" type="text" name="" value="" placeholder="">
+                        </div>
+                        <div class="form-group">
+                            <label for="txtUsuario_Celular" class="form-control-label">Celular: </label>
+                            <input id="txtUsuario_Celular" class="form-control form-control-sm" type="text" name="" value="" placeholder="">
+                        </div>
+                        <div class="form-group">
+                            <label for="txtUsuario_CodigoCargo" class="form-control-label">Cargo: </label>
+                            <select id="txtUsuario_CodigoCargo" class="form-control form-control-sm" data-placeholder="">
+                                <option selected value="1">Titular</option>
+                                <option value="2">Gerente</option>
+                                <option value="3">Administrador</option>
+                                <option value="4">Asistente Administrativo</option>
+                                <option value="5">Vendedor</option>
+                                <option value="6">Recepcionista</option>
+                                <option value="7">Docente</option>
+                                <option value="8">Gerente Financiero</option>
+                                <option value="9">Asistente Financiero</option>
+                                <option value="10">Auxiliar Contable</option>
+                                <option value="11">Otro</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="txtUsuario_ConfirmarContrasenia" class="form-control-label">Confirmar Contraseña: <span class="tx-danger" id="txtUsuario_ConfirmarContrasenia_validation" style="display:none;">* Ingrese Contraseña</span></label>
+                            <input id="txtUsuario_ConfirmarContrasenia" class="form-control form-control-sm" type="text" name="" value="" placeholder="">
+                        </div>
+                    </div><!-- col-4 -->
+                    <div class="col-lg-4">
+                     
+                    </div><!-- col-4 -->
+                </div><!-- row -->
+
+                <div class="form-layout-footer">
+                    <button class="btn btn-primary bd-0" onclick="javascript:RegistrarUsuario();">Guardar</button>
+                    <a href="@Url.Action("usuarios","configuracion")"><button class="btn btn-secondary bd-0">Cancelar</button></a>
+                </div><!-- form-layout-footer -->
+            </div><!-- form-layout -->
+        </div><!-- section-wrapper -->
+
+    </div><!-- container -->
+
+    <div class="slim-footer mg-t-0">
+        <div class="container-fluid">
+            <p>Copyright 2020 &copy; All Rights Reserved. Slim Dashboard Template</p>
+            <p>Designed by: <a href="">ThemePixels</a></p>
+        </div><!-- container-fluid -->
+    </div><!-- slim-footer -->
+</div><!-- slim-mainpanel -->
+
+@section Scripts {
+
+    @System.Web.Optimization.Scripts.Render("~/Scripts/plugins/jsKendo/angular.min.js")
+    @System.Web.Optimization.Scripts.Render("~/Scripts/plugins/jsKendo/kendo.all.min.js")
+
+    @System.Web.Optimization.Scripts.Render("~/Scripts/plugins/jquery-ui/jquery-ui.js")
+    @System.Web.Optimization.Scripts.Render("~/Scripts/plugins/jquery-ui/jquery-ui.min.js")
+
+    @System.Web.Optimization.Scripts.Render("~/Resource/UserControl.Helper.js")
+    @System.Web.Optimization.Scripts.Render("~/Resource/configuracion/usuarios.js?cttttd")
+
+    <script type="text/javascript">
+
+    </script>
+
+}

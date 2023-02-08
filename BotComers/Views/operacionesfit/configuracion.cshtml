@@ -1,0 +1,2255 @@
+﻿
+@{
+    ViewBag.Title = "configuracion";
+    Layout = "~/Views/Shared/__LayoutAppFitPlataformaFit.cshtml";
+}
+
+
+<link href="@Url.Content("~/Content/cssKendo/kendo.common.min.css")" rel="stylesheet" />
+<link href="@Url.Content("~/Content/cssKendo/kendo.dataviz.default.min.css")" rel="stylesheet" />
+<link href="@Url.Content("~/Content/cssKendo/kendo.dataviz.min.css")" rel="stylesheet" />
+<link href="@Url.Content("~/Content/cssKendo/kendo.default.min.css")" rel="stylesheet" />
+<link href="@Url.Content("~/Content/cssKendo/kendo.mobile.all.min.css")" rel="stylesheet" />
+
+<link rel="preconnect" href="https://fonts.gstatic.com">
+<link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,500,600,700%7cPoppins:300,400,500,600,700,800,900&amp;display=swap" rel="stylesheet">
+<link href="@Url.Content("~/Content/appsfit_crm/assets/css/theme.min.css")" rel="stylesheet" />
+<link href="@Url.Content("~/Content/appsfit_crm/assets/css/user.min.css")" rel="stylesheet" />
+<link href="@Url.Content("~/Content/appsfit_crm/assets/css/theme-rtl.min.css")" rel="stylesheet" />
+<link href="@Url.Content("~/Content/appsfit_crm/assets/css/user-rtl.min.css")" rel="stylesheet" />
+<link href="@Url.Content("~/Content/apiwhatsapp_css/configuracion.css")" rel="stylesheet" />
+
+
+<script src="https://cdn.tailwindcss.com"></script>
+
+<style type="text/css">
+
+
+    table.gridInformacion tbody {
+        /* Set the height of table body */
+        height: 200px;
+        /* Set vertical scroll */
+        overflow-y: auto;
+        /* Hide the horizontal scroll */
+        overflow-x: hidden;
+    }
+
+    .fotografia {
+        width: 230px;
+        height: 160px;
+        border: 10px solid #333;
+        background: #eee;
+        -webkit-border-radius: 20px;
+        -moz-border-radius: 20px;
+        border-radius: 20px;
+        position: relative;
+    }
+
+    div#camera {
+        width: 300px;
+        height: 200px;
+    }
+
+    #camera video {
+        width: 200px;
+        height: 200px;
+    }
+
+    .k-block, .k-button, .k-textbox, .k-drag-clue, .k-touch-scrollbar, .k-window, .k-window-titleless .k-window-content, .k-window-action, .k-inline-block, .k-grid .k-filter-options, .k-grouping-header .k-group-indicator, .k-autocomplete, .k-multiselect, .k-combobox, .k-dropdown, .k-dropdown-wrap, .k-datepicker, .k-timepicker, .k-colorpicker, .k-datetimepicker, .k-notification, .k-numerictextbox, .k-picker-wrap, .k-numeric-wrap, .k-colorpicker, .k-list-container, .k-calendar-container, .k-calendar td, .k-calendar .k-link, .k-treeview .k-in, .k-editor-inline, .k-tooltip, .k-tile, .k-slider-track, .k-slider-selection, .k-upload {
+        border-radius: 3px;
+    }
+
+    .modal-body {
+    }
+
+    .modal-backdrop {
+        display: none;
+    }
+
+    .card-body {
+        margin-top: -5px;
+        margin-bottom: -5px;
+    }
+
+    .k-dropdown .k-input, .k-selectbox .k-input {
+        /* background: none; */
+        background-color: #fff;
+        font-weight: bold;
+    }
+
+    .k-dropdown-wrap .k-input, .k-picker-wrap .k-input, .k-numeric-wrap .k-input {
+        border-radius: 3px 0 0 3px;
+        font-weight: bold;
+    }
+
+    .k-autocomplete {
+        background-image: url(textures/highlight.png);
+        background-image: none,linear-gradient(to bottom,#e2e1e199 0,#e2e1e199 100%);
+        background-position: 50% 50%;
+        background-color: #e3e3e3;
+        border: 1px solid #cac9c9;
+        color: #fff;
+    }
+
+    .k-header, .k-grid-header, .k-toolbar, .k-dropdown-wrap, .k-picker-wrap, .k-numeric-wrap, .k-grouping-header, .k-pager-wrap, .k-textbox, .k-button, .k-progressbar, .k-draghandle, .k-state-highlight, .k-tabstrip-items .k-item, .k-panelbar .k-tabstrip-items .k-item, .km-pane-wrapper > .km-pane > .km-view > .km-content {
+        background-image: url(textures/highlight.png);
+        background-image: none,-webkit-linear-gradient(top,#0075ff 0,#0075ff 100%);
+        background-image: none,-moz-linear-gradient(top,#0075ff 0,#0075ff 100%);
+        background-image: none,-o-linear-gradient(top,#0075ff 0,#0075ff 100%);
+        background-image: none,linear-gradient(to bottom,#0075ff 0,#0075ff 100%);
+        background-position: 50% 50%;
+        background-color: #e3e3e3;
+        color: #fff;
+    }
+
+        .k-header, .k-grid-header-wrap, .k-grid .k-grouping-header, .k-grid-header, .k-pager-wrap, .k-pager-wrap .k-textbox, .k-pager-wrap .k-link, .k-grouping-header .k-group-indicator, .k-gantt-toolbar .k-state-default {
+            border-color: #e8eaee;
+            background-color: #0075ff;
+            color: #fff;
+        }
+
+    .modal {
+        display: none;
+        background-color: rgba(0, 0, 0, 0.77);
+    }
+
+    .k-block, .k-header, .k-grid-header, .k-toolbar, .k-grouping-header, .k-pager-wrap, .k-button, .k-draghandle, .k-treemap-tile, html .km-pane-wrapper .k-header {
+        background-color: #0075ff;
+        color: #fff;
+    }
+
+        .k-grid-header th.k-header > .k-link {
+            display: block;
+            min-height: 18px;
+            line-height: 18px;
+            margin: -0.5em -0.6em -0.4em -0.6em;
+            padding: .1em .1em .1em .1em;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            color: #fff;
+        }
+
+        .k-grid-header table, .k-grid-content table, .k-grid-footer table, .k-grid-content-locked > table {
+            table-layout: fixed;
+        }
+
+
+
+        .k-grid-toolbar:first-child, .k-grouping-header + .k-grid-toolbar {
+            border-width: 0 0 1px;
+            border-radius: 0px;
+            background-color: #d7eafa;
+            height: 10px;
+        }
+
+    .k-block, .k-header, .k-grid-header, .k-toolbar, .k-grouping-header, .k-pager-wrap, .k-button, .k-draghandle, .k-treemap-tile, html .km-pane-wrapper .k-header {
+        background-color: rgba(227, 227, 227, 0);
+    }
+
+    #txtFechaInicioProcFreezing .k-header, .k-grid-header, .k-toolbar, .k-dropdown-wrap, .k-picker-wrap, .k-numeric-wrap, .k-grouping-header, .k-pager-wrap, .k-textbox, .k-button, .k-progressbar, .k-draghandle, .k-autocomplete, .k-state-highlight, .k-tabstrip-items .k-item, .k-panelbar .k-tabstrip-items .k-item, .km-pane-wrapper > .km-pane > .km-view > .km-content {
+        background-image: url(textures/highlight.png);
+        background-image: none,-webkit-linear-gradient(top,#0075ff 0,#0075ff 100%);
+        background-image: none,-moz-linear-gradient(top,#0075ff 0,#0075ff 100%);
+        background-image: none,-o-linear-gradient(top,#0075ff 0,#0075ff 100%);
+        background-image: none,linear-gradient(to bottom,#0075ff 0,#0075ff 100%);
+        background-position: 50% 50%;
+        background-color: #ffffff;
+    }
+
+    .k-state-selected {
+        color: #FFFFFF;
+        background-color: #0075ff;
+        border-color: #0075ff;
+    }
+
+
+    .k-grid tr td {
+        border-bottom: 1px solid #eaeaea;
+        border-left: 1px solid #eaeaea;
+        border-style: solid;
+    }
+
+    tr {
+        height: 16px;
+        font-size: 13px;
+    }
+
+    .k-textbox, .k-autocomplete, .k-dropdown-wrap, .k-picker-wrap, .k-numeric-wrap {
+        border-width: 1px;
+        border-style: solid;
+        padding: 0 1.9em 0 0;
+        font-weight: bold;
+    }
+
+    .k-state-focused.k-state-selected, .k-list > .k-state-focused.k-state-selected, .k-listview > .k-state-focused.k-state-selected, td.k-state-focused.k-state-selected {
+        webkit-box-shadow: inset 0 0 3px 4px #0075ff;
+        box-shadow: inset 0 0 3px 4px #0075ff;
+    }
+
+    .k-state-selected, .k-state-selected:link, .k-state-selected:visited, .k-list > .k-state-selected, .k-list > .k-state-highlight, .k-panel > .k-state-selected, .k-ghost-splitbar-vertical, .k-ghost-splitbar-horizontal, .k-draghandle.k-state-selected:hover, .k-scheduler .k-scheduler-toolbar .k-state-selected, .k-scheduler .k-today.k-state-selected, .k-marquee-color {
+        color: #fff;
+        background-color: #0075ff;
+        border-color: #0075ff;
+    }
+
+    /** SPINNER CREATION **/
+    .loader {
+        position: relative;
+        text-align: center;
+        margin: 15px auto 35px auto;
+        z-index: 9999;
+        display: block;
+        width: 80px;
+        height: 80px;
+        border: 10px solid rgba(0, 0, 0, .3);
+        border-radius: 50%;
+        border-top-color: #000;
+        animation: spin 1s ease-in-out infinite;
+        -webkit-animation: spin 1s ease-in-out infinite;
+    }
+
+
+    /** MODAL STYLING **/
+    .modal-content {
+        border-radius: 0px;
+        box-shadow: 0 0 20px 8px rgba(0, 0, 0, 0.7);
+    }
+
+
+    [dir=ltr] .modal-lg, [dir=ltr] .modal-xl {
+        max-width: 950px;
+    }
+
+    a {
+        color: transparent;
+        text-decoration: none;
+    }
+
+    .clase:hover {
+        cursor: pointer;
+    }
+
+
+    .seleccionado {
+        background-color: #0075ff;
+        color: #fff;
+    }
+
+    .dseleccionado {
+        background-color: #fff;
+        color: #808080;
+    }
+
+    #customers {
+        border-collapse: collapse;
+        width: 100%;
+    }
+
+        #customers td, #customers th {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: center;
+        }
+
+        #customers tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+
+        #customers tr:hover {
+            background-color: #ddd;
+        }
+
+        #customers th {
+            padding-top: 12px;
+            padding-bottom: 12px;
+            text-align: center;
+            background-color: #434343;
+            color: white;
+        }
+
+
+
+    .k-header, .k-grid-header, .k-toolbar, .k-dropdown-wrap, .k-picker-wrap, .k-numeric-wrap, .k-grouping-header, .k-pager-wrap, .k-textbox, .k-button, .k-progressbar, .k-draghandle, .k-state-highlight, .k-tabstrip-items .k-item, .k-panelbar .k-tabstrip-items .k-item, .km-pane-wrapper > .km-pane > .km-view > .km-content {
+        background-image: url(textures/highlight.png);
+        /* background-image: none,-webkit-linear-gradient(top,#0075ff 0,#0075ff 100%); */
+        background-image: none,-moz-linear-gradient(top,#fff 0,#fff 100%);
+        background-image: none,-o-linear-gradient(top,#fff 0,#fff 100%);
+        /* background-image: none,linear-gradient(to bottom,#0075ff 0,#0075ff 100%); */
+        /* background-position: 50% 50%; */
+        background-color: #fff;
+        color: #fff;
+    }
+</style>
+
+
+<div class="page__header page__header-nav mb-0">
+    <div class="container-fluid page__container">
+        <div class="navbar navbar-secondary navbar-light navbar-expand-sm p-0 d-none d-md-flex" id="secondaryNavbar">
+            <ul class="nav navbar-nav">
+                <li class="nav-item">
+                    <button style="color: #ffffff;background-color: #ff0200;font-size: 1.0rem;border: 0px #ff0200 solid;height: 33px;padding: 5px;cursor:pointer;" class="navbar-toggler navbar-toggler-custom d-flex mr-navbar" type="button" data-toggle="sidebar">
+                        Operaciones
+                    </button>
+                </li>
+                <li class="nav-item" data-controlmodulo="45833cdd-55db-4a67-a879-f1ae9353f8bf">
+                    <a href="@Url.Action("checking","gestionce",new {id= HttpContext.Current.Request.Cookies["_SubDominio_Business"].Value})" class="nav-link">Clientes</a>
+                </li>
+                <li class="nav-item" data-controlmodulo="9e69cfd8-b063-44df-a7f2-a3a10d1eb899" style="display:none;">
+                    <a class="nav-link" href="@Url.Action("posfitness","pos",new {id= HttpContext.Current.Request.Cookies["_SubDominio_Business"].Value})">Punto de venta</a>
+                </li>
+                <li class="nav-item" data-controlmodulo="7611dfbe-186f-4abe-8e2e-e64ad7281728" style="display:none;">
+                    <a class="nav-link" href="@Url.Action("caja","gestionce",new {id= HttpContext.Current.Request.Cookies["_SubDominio_Business"].Value})">Caja</a>
+                </li>
+                <li class="nav-item" data-controlmodulo="93c0d848-83aa-45eb-a83a-ded00a6b6e23" style="display:none;">
+                    <a class="nav-link" href="@Url.Action("nutricion","gestionce",new {id= HttpContext.Current.Request.Cookies["_SubDominio_Business"].Value})">Medidas y Nutrición</a>
+                </li>
+                <li class="nav-item" data-controlmodulo="947dc11f-3e14-4fe7-bedc-ae3d81219bee" style="display:none;">
+                    <a class="nav-link" href="@Url.Action("Index","inventariofit",new {id= HttpContext.Current.Request.Cookies["_SubDominio_Business"].Value})">Inventario</a>
+                </li>
+
+                <li class="nav-item" data-controlmodulo="39497bd3-94ab-4236-a1d4-4623d854f91e" style="display:none;">
+                    <a href="@Url.Action("agendacomercial","gestionce",new {id= HttpContext.Current.Request.Cookies["_SubDominio_Business"].Value})" class="nav-link">Agenda Comercial</a>
+                </li>
+                <li class="nav-item" data-controlmodulo="bbc035e6-68ea-4885-917f-005ad3fcfb66" style="display:none;">
+                    <a href="@Url.Action("metascomerciales","gestionce",new {id= HttpContext.Current.Request.Cookies["_SubDominio_Business"].Value})" class="nav-link">Metas</a>
+                </li>
+                <li class="nav-item" data-controlmodulo="bd61dc23-54d9-4901-9c35-b8d228b3a924" style="display:none;">
+                    <a href="@Url.Action("marketing","gestionce",new {id= HttpContext.Current.Request.Cookies["_SubDominio_Business"].Value})" class="nav-link">Marketing</a>
+                </li>
+                <li class="nav-item" data-controlmodulo="e1eadd0d-39b3-498d-b09b-9b3b28610b9b" style="display:none;">
+                    <a href="@Url.Action("informesfit","gestionce",new {id= HttpContext.Current.Request.Cookies["_SubDominio_Business"].Value})" class="nav-link">Informes</a>
+                </li>
+                <li class="nav-item" data-controlmodulo="600dabf4-7dc3-4dc0-a0ba-74b782955e52" style="display:none;">
+                    <a class="nav-link" href="@Url.Action("pagospersonal","gestionce",new {id= HttpContext.Current.Request.Cookies["_SubDominio_Business"].Value})">Pagos</a>
+                </li>
+
+                <li class="nav-item" data-controlmodulo="b1f65597-fd27-46ca-90d0-a0f2f1039ef7" style="display:none;">
+                    <a class="nav-link" href="@Url.Action("finanzas","gestionce",new {id= HttpContext.Current.Request.Cookies["_SubDominio_Business"].Value})">Finanzas</a>
+                </li>
+
+                <li class="nav-item" data-controlmodulo="4c01e8de-9440-4927-a2f2-d6241d925c39" style="display:none;">
+                    <a class="nav-link" href="@Url.Action("estadisticas","gestionce",new {id= HttpContext.Current.Request.Cookies["_SubDominio_Business"].Value})">Estadísticas</a>
+                </li>
+
+            </ul>
+        </div>
+    </div>
+</div>
+
+<div class="container-fluid" style="background-color: #e4e6e9;">
+    <br />
+    <div class="row justify-content-between">
+        <div class="col-lg-2">
+            <div class="d-flex flex-column align-items-stretch flex-shrink-0 bg-white">
+                <a style="background-color:#fff;color:#000;display:none;" href="#" class="d-flex align-items-center flex-shrink-0 p-3 link-dark text-decoration-none border-bottom" data-controlmodulo="ee13fa35-b9b6-4ebd-8ea9-d636e70a66c5">
+                    <svg class="bi me-2" width="30" height="24"><use xlink:href="#bootstrap"></use></svg>
+                    <span class="fs-3 fw-semibold">Configuración</span>
+                    <br /> <br />
+                </a>
+
+                <div class="list-group list-group-flush border-bottom scrollarea">
+                    <a id="liConfiguracion_comprobantes" onclick="evemt_changeMenu(1);" style="display: none;" href="#" class="list-group-item list-group-item-action active py-3 lh-tight list-configs" aria-current="true" data-controlmodulo="ee13fa35-b9b6-4ebd-8ea9-d636e70a66c5">
+                        <div class="d-flex w-100 align-items-center justify-content-between">
+                            <strong class="mb-1">Comprobantes y nro series</strong>
+                            <small></small>
+                        </div>
+                    </a>
+                    <a id="liConfiguracion_formatoticket" onclick="evemt_changeMenu(2);" href="#" class="list-group-item list-group-item-action py-3 lh-tight list-configs" style="display:none;" data-controlmodulo="010cd55e-6739-4d05-9569-35543d5129d2">
+                        <div class="d-flex w-100 align-items-center justify-content-between">
+                            <strong class="mb-1">Diseño de formato de ticket de venta</strong>
+                            <small class="text-muted"></small>
+                        </div>
+                    </a>
+                    <a id="liConfiguracion_horariosturnoscaja" onclick="evemt_changeMenu(3);" href="#" class="list-group-item list-group-item-action py-3 lh-tight list-configs" style="display: none;" data-controlmodulo="44cd07f4-03af-4c7b-bab8-baf92ffeffce">
+                        <div class="d-flex w-100 align-items-center justify-content-between">
+                            <strong class="mb-1">Turnos de caja de venta</strong>
+                            <small class="text-muted"></small>
+                        </div>
+                    </a>
+                    <a id="liConfiguracion_actividadescaidas" onclick="evemt_changeMenu(4);" href="#" class="list-group-item list-group-item-action py-3 lh-tight list-configs" style="display: none;" data-controlmodulo="23e96f3b-d534-455d-81f9-e2a1a9c2708d">
+                        <div class="d-flex w-100 align-items-center justify-content-between">
+                            <strong class="mb-1">Tiempo actividades caidas del area comercial</strong>
+                            <small class="text-muted"></small>
+                        </div>
+                    </a>
+                    <a id="liConfiguracion_EvitarDucplicacionDNI" onclick="evemt_changeMenu(5);" href="#" class="list-group-item list-group-item-action py-3 lh-tight list-configs" style="display: none;" data-controlmodulo="55035181-6186-4a6c-9024-f8ccef6270d9">
+                        <div class="d-flex w-100 align-items-center justify-content-between">
+                            <strong class="mb-1">Evitar duplicación de  nro de documentos DNI/CCI/CE de clientes y prospectos</strong>
+                            <small class="text-muted"></small>
+                        </div>
+                    </a>
+                    <a id="liConfiguracion_EvitarMuchasAsistencias" onclick="evemt_changeMenu(6);" href="#" class="list-group-item list-group-item-action py-3 lh-tight list-configs" style="display: none;" data-controlmodulo="d9f1f549-29ff-4766-af32-eed3e8bd0d9b">
+                        <div class="d-flex w-100 align-items-center justify-content-between">
+                            <strong class="mb-1">Asistencias de clientes</strong>
+                            <small class="text-muted"></small>
+                        </div>
+                    </a>
+                    <a id="liConfiguracion_ConsultasNumeroDocumentoEntidades" onclick="evemt_changeMenu(7);" href="#" class="list-group-item list-group-item-action py-3 lh-tight list-configs" style="display: none;" data-controlmodulo="226f29ef-00d6-48df-ae68-72a81eceff75">
+                        <div class="d-flex w-100 align-items-center justify-content-between">
+                            <strong class="mb-1">Consultas de números documentos a REINEC</strong>
+                            <small class="text-muted"></small>
+                        </div>
+                    </a>
+                    <a id="liConfiguracion_CodigoclienteAutomatico" onclick="evemt_changeMenu(8);" href="#" class="list-group-item list-group-item-action py-3 lh-tight list-configs" style="display: none;" data-controlmodulo="657909fb-e96a-416e-9696-6d526b3c23f4">
+                        <div class="d-flex w-100 align-items-center justify-content-between">
+                            <strong class="mb-1">Generar codigo de cliente</strong>
+                            <small class="text-muted"></small>
+                        </div>
+                    </a>
+                    <a id="liConfiguracion_TiposContrato" onclick="evemt_changeMenu(9);" href="#" class="list-group-item list-group-item-action py-3 lh-tight list-configs" style="display: none;" data-controlmodulo="8018f13e-c6f5-4bc5-8137-18157c64ad9a">
+                        <div class="d-flex w-100 align-items-center justify-content-between">
+                            <strong class="mb-1">Generar contrato de membresias</strong>
+                            <small class="text-muted"></small>
+                        </div>
+                    </a>
+
+
+                    <a id="liConfiguracion_PasarelaPago" onclick="evemt_changeMenu(10);" href="#" class="list-group-item list-group-item-action py-3 lh-tight list-configs" style="display: none;" data-controlmodulo="8018f13e-c6f5-4bc5-8137-18157c64ad9a">
+                        <div class="d-flex w-100 align-items-center justify-content-between">
+                            <strong class="mb-1">Pasarela de pago</strong>
+                            <small class="text-muted"></small>
+                        </div>
+                    </a>
+
+
+
+
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-10">
+            <div class="card  d-list-configs" id="Configuracion_comprobantes" style="padding:15px;">
+                <div class="row g-5 justify-content-center">
+
+                    <div class="col-md-6 col-lg-6 col-content">
+                        <h4 class="mb-3 title-content-config">Comprobantes y nro series</h4>
+
+                        <div class="form-check">
+                            <input type="checkbox" class="form-check-input" id="chkGenerarSerie_ComprobanteMembresia">
+                            <label class="form-check-label" for="chkGenerarSerie_ComprobanteMembresia">¿Generar nro serie?</label>
+                        </div>
+
+                        <div class="form-check">
+                            <input type="checkbox" class="form-check-input" id="chkGenerarComprobante_ComprobanteMembresia">
+                            <label class="form-check-label" for="chkGenerarComprobante_ComprobanteMembresia">¿Generar comprobante?</label>
+                        </div>
+
+                        <hr class="my-4">
+
+                        <div class="row g-3">
+
+                            <div class="col-md-5">
+                                <label for="ddlTipoComprobante_Membresia" class="form-label">Tipo comprobante</label>
+                                <select id="ddlTipoComprobante_Membresia" class="form-select" required="" style="width:100%;" onchange="listaSubTipoDocumentoSerie();">
+                                    <option value="">Seleccionar...</option>
+                                    <option value="1">Factura</option>
+                                    <option value="2">Boleta</option>
+                                    <option value="3">Recibo</option>
+                                </select>
+                            </div>
+
+                        </div>
+
+                        <hr class="my-4">
+
+                        <div class="row g-3">
+
+                            <div class="col-md-5">
+                                <label for="gridComprobantes_Membresias" class="form-label">Comprobantes</label>
+                                <div id="gridComprobantes_Membresias" style="width:620px;">
+
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <hr class="my-4">
+                        <input id="hdCodigoSerie_ComprobanteMembresia" type="hidden" value="0" />
+                        <input id="hdTipoDocumento_ComprobanteMembresia" type="hidden" value="0" />
+                        <input id="hdsubTipoDocumento_ComprobanteMembresia" type="hidden" value="0" />
+                        <div class="row g-3">
+                            <div class="col-md-5">
+                                <label for="txtInicialSerie_ComprobanteMembresia" class="form-label">Inicial serie</label>
+                                <input id="txtInicialSerie_ComprobanteMembresia" type="text" class="form-control" placeholder="0">
+                            </div>
+                            <div class="col-md-5">
+                                <label for="txtNroCorrelativoActual_ComprobanteMembresia" class="form-label">correlativo actual</label>
+                                <input id="txtNroCorrelativoActual_ComprobanteMembresia" type="text" class="form-control" placeholder="0">
+                            </div>
+
+                        </div>
+                        <div class="row g-3">
+                            <div class="col-md-2">
+                                <div class="form-check">
+                                    <input type="checkbox" class="form-check-input" id="chkEstado_ComprobanteMembresia">
+                                    <label class="form-check-label" for="chkEstado_ComprobanteMembresia">Estado</label>
+                                </div>
+                            </div>
+                        </div>
+                        <hr class="my-4">
+                        <div class="row justify-start">
+                            <div class="col-4">
+                                <button onclick="GuardarSerie();" class="w-100 btn-custom btn-custom-primary btn-lg" type="submit">Guardar cambios</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="card  d-list-configs" id="Configuracion_formatoticket" style="padding:15px;display:none;">
+                <div class="row">
+
+                    <div class="col-lg-6">
+                        <h4 class="mb-3 title-content-config">Formato ticket</h4>
+                        <hr class="my-4">
+
+                        <div id="register" style="margin: auto;">
+                            <div id="ticket" style="background: white; padding: 1em; box-shadow: 0 0 5px rgba(0,0,0,.25);">
+
+                                <br />
+                                <table style="font-family: monospace; width: 100%; border-collapse: collapse;width:100%;">
+                                    <tbody>
+                                        <tr>
+                                            <td style="text-align:center;font-weight:bold;font-size:1.5em;" id="formatoticket_RazonSocial">
+                                                EMPRESA FITNESS
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                    <tfoot style="border-bottom-style: solid; border-bottom-color: #000; border-bottom-width: 1px; ">
+                                        <tr>
+                                            <td style="text-align:center;font-weight:bold;font-size:1.4em;" id="formatoticket_RUC">RUC: 20601916086</td>
+                                        </tr>
+                                        <tr>
+                                            <td style="text-align:center;font-weight:bold;font-size:1.4em;" id="formatoticket_Celular">CELULAR: 999999999</td>
+                                        </tr>
+                                        <tr>
+                                            <td style="text-align:center;font-weight:bold;font-size:1.4em;" id="formatoticket_Telefono">TELEFONO: 012582222</td>
+                                        </tr>
+                                        <tr>
+                                            <td style="text-align:center;font-weight:bold;font-size:1.4em;" id="formatoticket_Direccion">DIRECCION: AV: SURCO LIMA 205</td>
+                                        </tr>
+                                    </tfoot>
+                                </table>
+                                <br />
+                                <table style="font-family: monospace; width: 100%; border-collapse: collapse;width:100%;">
+                                    <tbody>
+                                        <tr>
+                                            <td style="text-align:center;font-weight:bold;font-size:1.5em;">
+                                                CLIENTE: NOMBRE APELLIDO1 APELLIDO2 (COD 8562)
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                    <tfoot style="border-bottom-style: solid; border-bottom-color: #000; border-bottom-width: 1px; ">
+                                        <tr>
+                                            <td style="text-align:center;font-weight:bold;font-size:1.4em;">RUC/DNI/CE: CLIENTE</td>
+                                        </tr>
+                                        <tr>
+                                            <td style="text-align:center;font-weight:bold;font-size:1.4em;">DIRECCION: CLIENTE</td>
+                                        </tr>
+                                    </tfoot>
+                                </table>
+                                <br />
+                                <table style="font-family: monospace; width: 100%; border-collapse: collapse;width:100%;">
+                                    <tbody>
+                                        <tr>
+                                            <td style="text-align:center;font-weight:bold;font-size:1.5em;" colspan="2">
+                                                TICKET NRO: 00-000000
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                    <tfoot>
+                                        <tr>
+                                            <td style="text-align:center;font-size:1.4em;">FECHA: DD/MM/AAAA</td>
+                                            <td style="text-align:center;font-size:1.4em;">HORA: HH:MM:SS</td>
+                                        </tr>
+                                    </tfoot>
+                                </table>
+                                <br />
+                                <table style="font-family: monospace; width: 100%; border-collapse: collapse;width:100%;">
+                                    <thead style=" border-top-style: solid; border-top-color: #000; border-top-width: 1px;">
+                                        <tr>
+                                            <th style="background-color: #b6b8b9; color: #000; font-size: 1.3em; text-align: left;">Descripción</th>
+                                            <th style="background-color: #b6b8b9; color: #000; font-size: 1.3em; text-align: right;">Cant</th>
+                                            <th style="background-color: #b6b8b9; color: #000; font-size: 1.3em; text-align: right;">Importe</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td style="border-bottom: 1px solid #eeee;text-align:left;font-size: 1.2em;">Membresia</td>
+                                            <td style="border-bottom: 1px solid #eeee;text-align:right;font-size: 1.2em;">1</td>
+                                            <td style="border-bottom: 1px solid #eeee;text-align: right;font-size: 1.2em;">400.00</td>
+                                        </tr>
+                                        <tr>
+                                            <td style="border-bottom: 1px solid #eeee;text-align:left;font-size: 1.2em;">Suplemento</td>
+                                            <td style="border-bottom: 1px solid #eeee;text-align:right;font-size: 1.2em;">1</td>
+                                            <td style="border-bottom: 1px solid #eeee;text-align: right;font-size: 1.2em;">100.00</td>
+                                        </tr>
+                                    </tbody>
+                                    <tfoot style="white-space: nowrap;">
+                                        <tr>
+                                            <td></td>
+                                            <td style=" border-bottom: 1px solid #eeee; text-align: right; color: #000; font-weight: bold; font-size: 1.5em;">TOTAL</td>
+                                            <td style="border-top: 1px solid #000;font-weight: bold;
+                                                color: #000;
+                                                background: 0 0;
+                                                border-bottom: 1px solid #eeee;
+                                                white-space: nowrap;
+                                                text-align: right;
+                                                font-size: 1.5em;
+                                        ">
+                                                500.00
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td></td>
+                                            <td style="background: 0 0;
+                                        border-bottom: 1px solid #eeee;
+                                        white-space: nowrap;
+                                        text-align: right;
+                                        font-size: 1.5em;
+                                        color: #5b636a;">
+                                                A CUENTA
+                                            </td>
+                                            <td style="background: 0 0;
+                                        border-bottom: 1px solid #eeee;
+                                        white-space: nowrap;
+                                        text-align: right;
+                                        font-size: 1.5em;
+                                        color: #5b636a;">
+                                                300.00
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td></td>
+                                            <td style="background: 0 0;
+                                        border-bottom: 1px solid #eeee;
+                                        white-space: nowrap;
+                                        text-align: right;
+                                        font-size: 1.5em;
+                                        color: #5b636a;">
+                                                DEBE
+                                            </td>
+                                            <td style="background: 0 0;
+                                        border-bottom: 1px solid #eeee;
+                                        white-space: nowrap;
+                                        text-align: right;
+                                        font-size: 1.5em;
+                                        color: #5b636a;">
+                                                200.00
+                                            </td>
+                                        </tr>
+                                    </tfoot>
+                                </table>
+                                <br />
+                                <table style="font-family: monospace; width: 100%; border-collapse: collapse;width:100%;">
+                                    <tbody>
+                                        <tr>
+                                            <td style="text-align:center;font-size: 1.4em;">
+                                                Responsable: nazarena
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                    <tfoot style="border-bottom-style: solid; border-bottom-color: #000; border-bottom-width: 1px; ">
+                                        <tr>
+                                            <th style="text-align:center;font-size: 1.3em;" id="formatoticket_Frase">GRACIAS POR SU PREFERENCIA</th>
+                                        </tr>
+                                    </tfoot>
+                                </table>
+
+                            </div>
+
+                        </div>
+                        <hr class="my-4">
+
+                    </div>
+                    <div class="col-lg-6">
+
+                        <button id="btnImprimirComprobanteMembresia" class="w-100 btn-custom btn-custom-primary btn-lg" type="button">Imprimir Comprobante</button>
+
+                        <br />
+                        <br />
+                        <h4 class="mb-3 title-content-config">Datos de la empresa</h4>
+                        <hr class="my-4">
+                        <div class="row g-3">
+                            <div class="col-lg-12">
+                                <label for="txtRazonSocial_formatoticket" class="form-label">RAZON SOCIAL</label>
+                                <input id="txtRazonSocial_formatoticket" onkeypress="event_changetext_ticketRazonSocial();" onkeydown="event_changetext_ticketRazonSocial();" onkeyup="event_changetext_ticketRazonSocial();" type="text" class="form-control" placeholder="Ingrese su razon social">
+                            </div>
+                        </div>
+                        <div class="row g-3">
+                            <div class="col-lg-12">
+                                <label for="txtRUC_formatoticket" class="form-label">RUC</label>
+                                <input id="txtRUC_formatoticket" type="text" onkeypress="event_changetext_ticketRUC();" onkeydown="event_changetext_ticketRUC();" onkeyup="event_changetext_ticketRUC();" class="form-control" placeholder="Ingrese su RUC">
+                            </div>
+                        </div>
+                        <div class="row g-3">
+                            <div class="col-lg-12">
+                                <label for="txtCelular_formatoticket" class="form-label">CELULAR</label>
+                                <input id="txtCelular_formatoticket" type="text" onkeypress="event_changetext_ticketCelular();" onkeydown="event_changetext_ticketCelular();" onkeyup="event_changetext_ticketCelular();" class="form-control" placeholder="Ingrese su celular de la empresa">
+                            </div>
+                        </div>
+                        <div class="row g-3">
+                            <div class="col-lg-12">
+                                <label for="txtTelefono_formatoticket" class="form-label">TELEFONO</label>
+                                <input id="txtTelefono_formatoticket" type="text" onkeypress="event_changetext_ticketTelefono();" onkeydown="event_changetext_ticketTelefono();" onkeyup="event_changetext_ticketTelefono();" class="form-control" placeholder="ingrese su telefono">
+                            </div>
+                        </div>
+                        <div class="row g-3">
+                            <div class="col-lg-12">
+                                <label for="txtDireccion_formatoticket" class="form-label">DIRECCIÓN</label>
+                                <input id="txtDireccion_formatoticket" type="text" onkeypress="event_changetext_ticketDireccion();" onkeydown="event_changetext_ticketDireccion();" onkeyup="event_changetext_ticketDireccion();" class="form-control" placeholder="ingrese su direccion">
+                            </div>
+                        </div>
+                        <br />
+                        <h4 class="mb-3">Frase</h4>
+                        <hr class="my-4">
+                        <div class="row g-3">
+                            <div class="col-lg-12">
+                                <label for="txtFrase_formatoticket" class="form-label">FRASE</label>
+                                <textarea id="txtFrase_formatoticket" class="form-control" style="height:150px;width:100%;" placeholder="ingrese su frase">  </textarea>
+                            </div>
+                        </div>
+                        <br />
+                        <button onclick="ActualizarConfiguracionDatosFormatoTicket();" class="w-100 btn-custom btn-custom-primary btn-lg" type="button">Actualizar datos</button>
+
+                    </div>
+
+                </div>
+
+            </div>
+            <div class="card  d-list-configs" id="Configuracion_horariosturnoscaja" style="padding:15px;display:none;">
+                <div class="row">
+                    <div class="col-lg-6">
+                        <h4 class="mb-3 title-content-config">Turno mañana</h4>
+                        <hr class="my-4">
+                        <div class="row g-3">
+                            <div class="col-lg-12">
+                                <label for="txtHoraInicioTurnomanana_horariosturnoscaja" class="form-label">HORA INICIA</label>
+                                <input id="txtHoraInicioTurnomanana_horariosturnoscaja" style="width:100%;" type="text" placeholder="Ingrese hora inicio">
+                            </div>
+                        </div>
+                        <br />
+                        <div class="row g-3">
+                            <div class="col-lg-12">
+                                <label for="txtHoraFinalTurnomanana_horariosturnoscaja" class="form-label">HORA FINAL</label>
+                                <input id="txtHoraFinalTurnomanana_horariosturnoscaja" style="width:100%;" type="text" placeholder="Ingrese hora final">
+                            </div>
+                        </div>
+                        <br />
+                        <button onclick="GuardarTurnoManana();" class="w-100 btn-custom btn-custom-primary btn-lg" type="button">Actualizar turno mañana</button>
+
+                    </div>
+                    <div class="col-lg-6">
+                        <h4 class="mb-3 title-content-config">Turno tarde</h4>
+                        <hr class="my-4">
+                        <div class="row g-3">
+                            <div class="col-lg-12">
+                                <label for="txtHoraInicioTurnotarde_horariosturnoscaja" class="form-label">HORA INICIA</label>
+                                <input id="txtHoraInicioTurnotarde_horariosturnoscaja" style="width:100%;" type="text" placeholder="Ingrese hora inicio">
+                            </div>
+                        </div>
+                        <br />
+                        <div class="row g-3">
+                            <div class="col-lg-12">
+                                <label for="txtHoraFinalTurnotarde_horariosturnoscaja" class="form-label">HORA FINAL</label>
+                                <input id="txtHoraFinalTurnotarde_horariosturnoscaja" style="width:100%;" type="text" placeholder="Ingrese hora final">
+                            </div>
+                        </div>
+                        <br />
+                        <button onclick="GuardarTurnoTarde();" class="w-100 btn-custom btn-custom-primary btn-lg" type="button">Actualizar turno tarde</button>
+
+                    </div>
+                </div>
+            </div>
+            <div id="Configuracion_actividadescaidas" class="card  d-list-configs" style="padding:15px;display:none;">
+
+                <div class="row">
+                    <div class="col-lg-4">
+                        <h4 class="mb-3 title-content-config">Seleccionar día</h4>
+                        <hr class="my-4">
+                        <div class="row g-3">
+                            <div class="col-lg-12">
+                                <label for="dllDiasCitasCaida" class="form-label">DÍA</label>
+                                <select id="dllDiasCitasCaida" style="width: 98%;margin-top:8px;" class="k-list">
+                                    <option value="0">Seleccionar</option>
+                                    <option value="1">1 día</option>
+                                    <option value="2">2 días</option>
+                                    <option value="3">3 días</option>
+                                    <option value="4">4 días</option>
+                                    <option value="5">5 días</option>
+                                    <option value="6">6 días</option>
+                                    <option value="7">1 semana</option>
+                                    <option value="10">10 días</option>
+                                    <option value="15">15 dias</option>
+                                    <option value="30">30 dias</option>
+                                </select>
+                            </div>
+                        </div>
+                        <br />
+                        <br />
+                        <button onclick="ActualizarDiasCitasCaida();" class="w-100 btn-custom btn-custom-primary btn-lg" type="button">Actualizar</button>
+
+                    </div>
+
+                </div>
+
+            </div>
+            <div id="Configuracion_duplicacionDNI" class="card  d-list-configs" style="padding:15px;display:none;">
+
+                <div class="row">
+                    <div class="col-lg-4">
+                        <h4 class="mb-3 title-content-config">EVITAR DUPLICIDAD DE CLIENTES Y PROSPECTOS</h4>
+                        <hr class="my-4">
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <div class="form-check">
+                                    <input class="form-check-input" style="width:20px;height:20px;" id="chkObligatorioDNI" type="checkbox" value="">
+                                    <label class="form-check-label" for="chkObligatorioDNI">Solicitar DNI/CCI/CE obligatorio al guardar clientes y prospectos.</label>
+                                </div>
+                            </div>
+                        </div>
+                        <br />
+                        <br />
+                        <button onclick="ActualizarObligatorioDNI();" class="w-100 btn-custom btn-custom-primary btn-lg" type="button">Actualizar</button>
+
+                    </div>
+
+                </div>
+
+            </div>
+            <div id="Configuracion_EvitarMuchasAsistencias" class="card  d-list-configs" style="padding:15px;display:none;">
+
+                <div class="row">
+                    <div class="col-lg-4">
+                        <h4 class="mb-3 title-content-config">PERMITIR MUCHAS ASISTENCIAS AL DÍA POR CADA CLIENTE</h4>
+                        <hr class="my-4">
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <div class="form-check">
+                                    <input class="form-check-input" style="width:20px;height:20px;" id="chkEvitarMuchasAsistencias" type="checkbox" value="">
+                                    <label class="form-check-label" for="chkEvitarMuchasAsistencias">Permitir</label>
+                                </div>
+                            </div>
+                        </div>
+                        <br />
+                        <br />
+                        <button onclick="ActualizarEvitarMuchasAsistencias();" class="w-100 btn-custom btn-custom-primary btn-lg" type="button">Actualizar</button>
+
+                    </div>
+                    <div class="col-lg-4">
+                        <h4 class="mb-3 title-content-config">OBLIGAR MARCAR A QUE CLASE INGRESARA AL MOMENTO DE MARCAR SU ASISTENCIA</h4>
+                        <hr class="my-4">
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <div class="form-check">
+                                    <input class="form-check-input" style="width:20px;height:20px;" id="chkObligarMarcarIngresoClaseAlMarcarAsistencia" type="checkbox" value="">
+                                    <label class="form-check-label" for="chkObligarMarcarIngresoClaseAlMarcarAsistencia">Obligatorio</label>
+                                </div>
+                            </div>
+                        </div>
+                        <br />
+                        <br />
+                        <button onclick="ActualizarObligarMarcarClaseAsistencia();" class="w-100 btn-custom btn-custom-primary btn-lg" type="button">Actualizar</button>
+
+                    </div>
+                </div>
+
+            </div>
+            <div id="ConsultasNumeroDocumentoEntidades" class="card  d-list-configs" style="padding:15px;display:none;">
+
+                <div class="row">
+                    <div class="col-6">
+                        <h4 class="mb-3 title-content-config">CONSULTA DE NÚMERO DE DOCUMENTOS A RENIEC</h4>
+                        <hr class="my-4">
+                        <div class="row row g-3">
+                            <div class="col-lg-12">
+                                <div class="form-check">
+                                    <input class="form-check-input" style="width:20px;height:20px;" id="chkConsultarRENIEC" type="checkbox" value="">
+                                    <label class="form-check-label" for="chkConsultarRENIEC">Acepto hacer consultas de DNI a RENIEC.</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row g-3 ConsultasNumeroDocumento_Activo" style="display:none;">
+                            <div class="col-lg-12">
+                                <label for="txtConsultasNumeroDocumento_FechaPago" class="form-label">FECHA PAGO</label>
+                                <input id="txtConsultasNumeroDocumento_FechaPago" type="text" class="form-control" placeholder="Fecha de pago" disabled>
+                            </div>
+                        </div>
+                        <div class="row g-3 ConsultasNumeroDocumento_Activo" style="display:none;">
+                            <div class="col-lg-12">
+                                <label for="txtConsultasNumeroDocumento_PrecioAnual" class="form-label">PRECIO ANUAL</label>
+                                <input id="txtConsultasNumeroDocumento_PrecioAnual" type="text" class="form-control" placeholder="Precio anual" disabled>
+                            </div>
+                        </div>
+                        <div class="row g-3 ConsultasNumeroDocumento_Activo" style="display:none;">
+                            <div class="col-lg-12">
+                                <label for="txtConsultasNumeroDocumento_UsuarioCreacion" class="form-label">USUARIO CREADOR</label>
+                                <input id="txtConsultasNumeroDocumento_UsuarioCreacion" type="text" class="form-control" placeholder="Usuario" disabled>
+                            </div>
+                        </div>
+                        <div class="row g-3 ConsultasNumeroDocumento_Activo" style="display:none;">
+                            <div class="col-lg-12">
+                                <label for="txtConsultasNumeroDocumento_FechaCreacion" class="form-label">FECHA CREACION</label>
+                                <input id="txtConsultasNumeroDocumento_FechaCreacion" type="text" class="form-control" placeholder="FechaCreacion" disabled>
+                            </div>
+                        </div>
+                        <div class="row g-3 ConsultasNumeroDocumento_PlanGratisActivo" style="display:none;">
+                            <div class="col-lg-12">
+                                <br />
+
+                                <a onclick="uspActualizarConsultasNumeroDocumentoEntidades_PlanBasico();" class="btn-custom btn-custom-primary d-block w-100" style="text-align: center;background-color: #25d366;color: #fff;
+                                border: 1px #25d366 solid" target="_blank" href="https://wa.me/51957592357?text=Hola%20Appsfit%20quiero%20hacer%20el%20pago%20anual%20de%20consultas%20de%20DNI">Actualizar al plan Básico <span class="fab fa-whatsapp me-1"></span></a>
+
+                            </div>
+                        </div>
+                        <div class="row g-3 ConsultasNumeroDocumento_PlanBasicoActivo" style="display:none;">
+                            <div class="col-lg-12">
+                                <br />
+
+                                <div class="alert alert-success border-2 d-flex align-items-center" role="alert">
+                                    <div class="bg-success me-3 icon-item"><span class="fas fa-check-circle text-white fs-3"></span></div>
+                                    <p class="mb-0 flex-1">Plan básico ACTIVO, hasta 50 mil consultas mensuales</p>
+                                    <button class="btn-close" type="button" data-bs-dismiss="alert" aria-label="Close"></button>
+                                </div>
+                            </div>
+                        </div>
+                        <br /><br />
+                    </div>
+                </div>
+                <div class="row ConsultasNumeroDocumento_PlanGratuitoActivo" style="display:none;">
+                    <div class="col-12">
+                        <br /><br />
+                        <div class="card-body">
+                            <div class="row justify-content-center">
+                                <div class="col-12 text-center mb-4">
+                                    <div class="fs-1">Nuestros planes</div>
+                                    <h3 class="fs-2 fs-md-3">Los precios no incluyen IGV.<br class="d-none d-md-block">Emitimos factura electrónica.</h3>
+
+                                </div>
+                                <div class="col-12 col-lg-9 col-xl-10 col-xxl-8">
+                                    <div class="row">
+                                        <div class="col-md">
+                                            <div class="border rounded-3 overflow-hidden mb-3 mb-md-0">
+                                                <div class="d-flex flex-between-center p-4">
+                                                    <div>
+                                                        <h3 class="fw-light fs-3 mb-0 text-primary">
+                                                            PLAN GRATUITO
+                                                        </h3>
+                                                        <h2 class="fw-light mt-0 text-primary"><sup class="fs-1">$</sup><span class="fs-3">0</span><span class="fs--2 mt-1">/Anual</span></h2>
+                                                    </div>
+                                                    <div class="pe-3"><img src="../../assets/img/icons/free.svg" width="70" alt=""></div>
+                                                </div>
+                                                <div class="p-4 bg-light">
+                                                    <ul class="list-unstyled">
+                                                        <li class="border-bottom py-2"> <span class="fas fa-check" style="color: #0075ff;"></span> 150 consultas al mes</li>
+                                                        <li class="border-bottom py-2"> <span class="fas fa-check" style="color: #0075ff;"></span> Soporte limitado</li>
+                                                    </ul>
+                                                    <button onclick="uspActualizarConsultasNumeroDocumentoEntidades();" class="btn btn-outline-primary d-block w-100" type="button">Inicar GRATIS ahora</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md">
+                                            <div class="border rounded-3 overflow-hidden">
+                                                <div class="d-flex flex-between-center p-4">
+                                                    <div>
+                                                        <h3 class="fw-light text-primary fs-3 mb-0">
+                                                            PLAN BÁSICO
+                                                        </h3>
+                                                        <h2 class="fw-light text-primary mt-0"><sup class="fs-1">$</sup><span class="fs-3">70</span><span class="fs--2 mt-1">/ Anual</span></h2>
+                                                    </div>
+                                                    <div class="pe-3"><img src="../../assets/img/icons/pro.svg" width="70" alt=""></div>
+                                                </div>
+                                                <div class="p-4 bg-light">
+                                                    <ul class="list-unstyled">
+                                                        <li class="border-bottom py-2"> <span class="fas fa-check" style="color: #0075ff;"></span> 50 000 consultas al mes</li>
+                                                        <li class="border-bottom py-2"> <span class="fas fa-check" style="color: #0075ff;"></span> Soporte por whatsapp</li>
+                                                    </ul>
+                                                    <a onclick="uspActualizarConsultasNumeroDocumentoEntidades_PlanBasico();" class="btn-custom btn-custom-primary d-block w-100" style="text-align: center;background-color: #25d366;color: #fff;
+                                                        border: 1px #25d366 solid" target="_blank" href="https://wa.me/51957592357?text=Hola%20Appsfit%20quiero%20hacer%20el%20pago%20anual%20de%20consultas%20de%20DNI">Comprar ahora <span class="fab fa-whatsapp me-1"></span></a>
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+            <div id="Configuracion_CodigoclienteAutomatico" class="card  d-list-configs" style="padding:15px;display:none;">
+                <div class="row">
+                    <div class="col-lg-4">
+                        <h4 class="mb-3 title-content-config">GENERAR AUTOMATICAMENTE CODIGO DE CLIENTE</h4>
+                        <hr class="my-4">
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <div class="form-check">
+                                    <input class="form-check-input" style="width:20px;height:20px;" id="chkCodigoclienteAutomatico" type="checkbox" value="">
+                                    <label class="form-check-label" for="chkCodigoclienteAutomatico">Automatico.</label>
+                                </div>
+                            </div>
+                        </div>
+                        <br />
+                        <br />
+                        <button onclick="Event_GenerarCodigoclienteAutomatico();" class="w-100 btn-custom btn-custom-primary btn-lg" type="button">Actualizar</button>
+                    </div>
+                </div>
+            </div>
+            @*------ div tipos de contrato membresia -------*@
+            <div id="Configuracion_TiposContratoMem" class="card  d-list-configs" style="padding:15px;display:none;">
+                <div class="row">
+                    <div class="col-lg-6">
+                        <h4 class="mb-3 title-content-config">REGISTRAR TIPO DE CONTRATO MEMBRESIA</h4>
+                        <hr class="my-4">
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <input id="txtCodigoC" type="text" class="form-control" hidden>
+                                <div class="row g-3">
+                                    <div class="col-lg-12">
+                                        <label for="txtSerieTC" class="form-label">NRO SERIE</label>
+                                        <input id="txtSerieTC" type="text" class="form-control" placeholder="Ingrese nro serie">
+                                    </div>
+                                </div>
+                                <div class="row g-3">
+                                    <div class="col-lg-12">
+                                        <label for="txtCorrelativoTC" class="form-label">NRO CORRELATIVO ACTUAL</label>
+                                        <input id="txtCorrelativoTC" type="text" class="form-control" value="1" placeholder="Ingrese nro correlativo actual">
+                                    </div>
+                                </div>
+                                <div class="row g-3">
+                                    <div class="col-lg-12">
+                                        <label for="txtDescripcionTC" class="form-label">DESCRIPCIÓN</label>
+                                        <input id="txtDescripcionTC" type="text" class="form-control" placeholder="Ingrese descripción">
+                                    </div>
+                                </div>
+                                <div class="row g-3">
+                                    <div class="col-lg-12">
+                                        <label for="txtClausula" class="form-label">CLAUSULA</label>
+                                        <textarea id="txtClausula" class="form-control" style="height:300px;width:100%;" placeholder="ingrese clausula">  </textarea>
+                                    </div>
+                                </div>
+                                <br />
+                                <div>
+                                    <span>
+                                        Nota: <small>Puedes usar estos parametros para que impriman en el contrato</small>
+                                    </span>
+                                    <ol>
+                                        <li>{codigocliente} </li>
+                                        <li>{nombrecompletocliente}</li>
+                                        <li>{nrodocumentocliente}</li>
+                                        <li>{nombremembresia}</li>
+                                        <li>{nrocontrato}</li>
+                                        <li>{fechainicio}</li>
+                                        <li>{fechafin}</li>
+                                    </ol>
+
+                                </div>
+                                <br />
+                                <button onclick="registerTC()" id="btnRegisterTc" class="w-100 btn-custom btn-custom-primary btn-lg" type="button">Guardar</button>
+                                <button onclick="updateTC()" id="btnUpdateTc" style="display:none" class="w-100 btn-custom btn-custom-primary btn-lg" type="button">Guardar</button>
+                                <button onclick="cancelTC()" id="btnCancelTc" style="display:none;background:#5b636a" class="w-100 btn-custom btn-default mt-1 btn-lg text-white" type="button">Cancelar</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <h4 class="mb-3 title-content-config">TIPOS DE CONTRATO MEMBRESIA</h4>
+                        <hr class="my-4">
+
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <div class="table-responsive scrollbar" style="width:100%;user-select:none;height:400px">
+                                    <table class="table table-dashboard mb-0 table-borderless fs--1 border-200">
+                                        <thead class="bg-light">
+                                            <tr class="text-900">
+                                                <th class="pe-1 align-middle white-space-nowrap" style="background-color: #0075ff;color: #FFF;">#</th>
+                                                <th class="pe-1 align-middle white-space-nowrap" style="background-color: #0075ff;color: #FFF;">NRO SERIE</th>
+                                                <th class="pe-1 align-middle white-space-nowrap" style="background-color: #0075ff;color: #FFF;">NRO CORRELATIVO ACTUAL</th>
+                                                <th class="pe-1 align-middle white-space-nowrap" style="background-color: #0075ff;color: #FFF;">TIPO DE CONTRATO</th>
+                                                <th class="pe-1 align-middle white-space-nowrap" style="background-color: #0075ff;color: #FFF;">ACCIONES</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="tbodyTipoContratos">
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <h4 class="mb-3 title-content-config">¿DESEA QUE SE GENERE AUTOMATICAMENTE EL CONTRATO AL MOMENTO DE MATRICULAR A UN CLIENTE?</h4>
+                                <hr class="my-4">
+                                <div class="row">
+                                    <div class="col-lg-12">
+                                        <div class="form-check">
+                                            <input class="form-check-input" style="width:20px;height:20px;" id="chkActivarImprimirContrato" type="checkbox" value="">
+                                            <label class="form-check-label" for="chkActivarImprimirContrato">Generar contrato.</label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <br>
+                                <br>
+                                <button onclick="Event_ActivarImprimirContrato();" class="w-100 btn-custom btn-custom-primary btn-lg" type="button">Actualizar</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div id="DConfiguracion_PasarelaPago" class="card  d-list-configs" style="padding:15px;display:none;">
+
+                <div class="flex justify-end">
+                    <button class="btn-custom btn-custom-primary" data-toggle="modal" data-target="#modalPasarela" onclick="showModalPEM()"> <i class="fa fa-plus" aria-hidden="true"></i> Agregar pasarela </button>
+                </div>
+
+                <div id="k_list_pasarelaEmpresa" class="mt-3 kendo_header_custom"></div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="loadMe" tabindex="-1" role="dialog" aria-labelledby="loadMeLabel" style="position:absolute;">
+    <br /><br /><br /><br />
+    <div class="modal-dialog modal-sm" role="document">
+        <div class="modal-content">
+            <div class="modal-body text-center">
+                <img src="~/Content/appsfit_img/logoappsfitweb.png" style="width:255px;height:125px;" />
+                <div class="loader"></div>
+                <div clas="loader-txt">
+                    <p>Cargando... <br><br><small>Espere por favor, este proceso puede tardar unos minutos</small></p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modals -->
+<!-- Modal pasarela -->
+<div class="modal fade" id="modalPasarela" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title modal-title-custom" id="title_modal_PEM">Nueva pasarela de pago</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close" id="closeModalPEmpresa">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="col-12" id="colpasarelas" style="display:none">
+                    <label class="label-custom-input"> Selecione pasarela de pago</label>
+                    <div class="flex " id="content_pasarelaoption">
+
+                    </div>
+                </div>
+                <input id="CodigoPlantillaFormaPago" hidden />
+                <div class="col-md-12 mt-3">
+                    <label class="label-custom-input"> Ingrese key público</label>
+                    <div>
+                        <span class="field-icon">60</span>
+                        <input id="ppbusiness_v_one" class="form-control">
+                    </div>
+                </div>
+                <div class="col-md-12 mt-2">
+                    <label class="label-custom-input"> Ingrese key privado</label>
+                    <div>
+                        <span class="field-icon">60</span>
+                        <input id="ppbusiness_v_two" class="form-control">
+                    </div>
+                </div>
+                <div class="col-12 mt-3">
+                    <label class="label-custom-input"> Estado</label>
+                    <div class="flex space-x-2 rounded-xl bg-gray-200 p-2">
+                        <div>
+                            <input type="radio" name="rd_status_pem" id="rd_status_pem_active" class="peer hidden" checked value="1" />
+                            <label for="rd_status_pem_active"
+                                   class="block cursor-pointer select-none rounded-xl p-2 text-center peer-checked:bg-blue-500 peer-checked:font-bold peer-checked:text-white">activo</label>
+                        </div>
+                        <div>
+                            <input type="radio" name="rd_status_pem" id="rd_status_pem_desc" class="peer hidden" value="0" />
+                            <label for="rd_status_pem_desc"
+                                   class="block cursor-pointer select-none rounded-xl p-2 text-center peer-checked:bg-blue-500 peer-checked:font-bold peer-checked:text-white">deshabilitado</label>
+                        </div>
+
+                    </div>
+
+
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn-custom btn-custom-secondary" data-dismiss="modal" onclick="clearCulqui()">Cancelar</button>
+                <button type="button" class="btn-custom btn-custom-primary" id="registerPasarelaEmpresaBtn" onclick="registerPasarelaEmpresa(this)">Guardar</button>
+                <button type="button" class="btn-custom btn-custom-primary" id="updatePasarelaEmpresaBtn" style="display:none" onclick="updatePasarelaEmpresa(this)">Guardar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<!-- Modal show card -->
+<div class="modal fade" id="modalCardDemo" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-scrollable">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title modal-title-custom" id="title_modal_PEM">Demo tarjeta de credito</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close" id="closeModalPEmpresa">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+
+                <div class="row row justify-content-center">
+                    <div class="col-10">
+                        <div class="body-card">
+                            <div class="container-card">
+                                <div class="mGrid">
+                                    <div class="total">
+                                        <p>total</p>
+                                        <p>S/. 299</p>
+                                    </div>
+                                    <div class="detail">
+                                        <p>detalle</p>
+                                        <ul>
+                                            <li>Producto 1</li>
+                                            <li>S/.  200</li>
+                                        </ul>
+                                        <ul>
+                                            <li>Producto 2</li>
+                                            <li>S/. 99</li>
+                                        </ul>
+                                    </div>
+                                    <button class="button-card">Simular pago</button>
+                                </div>
+                                <!-- Small Side Card detail-->
+                                <div class="subContainer">
+                                    <p>Carly Ling</p>
+                                    <!-- svg Logo-->
+                                    <div class="visaCont">
+                                        <svg class="visa" enable-background="new 0 0 291.764 291.764" version="1.1" viewbox="5 70 290 200" xml:space="preserve" xmlns="http://www.w3.org/2000/svg">
+                                        <path class="svgcolor" d="m119.26 100.23l-14.643 91.122h23.405l14.634-91.122h-23.396zm70.598 37.118c-8.179-4.039-13.193-6.765-13.193-10.896 0.1-3.756 4.24-7.604 13.485-7.604 7.604-0.191 13.193 1.596 17.433 3.374l2.124 0.948 3.182-19.065c-4.623-1.787-11.953-3.756-21.007-3.756-23.113 0-39.388 12.017-39.489 29.204-0.191 12.683 11.652 19.721 20.515 23.943 9.054 4.331 12.136 7.139 12.136 10.987-0.1 5.908-7.321 8.634-14.059 8.634-9.336 0-14.351-1.404-21.964-4.696l-3.082-1.404-3.273 19.813c5.498 2.444 15.609 4.595 26.104 4.705 24.563 0 40.546-11.835 40.747-30.152 0.08-10.048-6.165-17.744-19.659-24.035zm83.034-36.836h-18.108c-5.58 0-9.82 1.605-12.236 7.331l-34.766 83.509h24.563l6.765-18.08h27.481l3.51 18.153h21.664l-18.873-90.913zm-26.97 54.514c0.474 0.046 9.428-29.514 9.428-29.514l7.13 29.514h-16.558zm-160.86-54.796l-22.931 61.909-2.498-12.209c-4.24-14.087-17.533-29.395-32.368-36.999l20.998 78.33h24.764l36.799-91.021h-24.764v-0.01z" fill="#FFF"></path>
+                                        <path class="svgtipcolor" d="m51.916 111.98c-1.787-6.948-7.486-11.634-15.226-11.734h-36.316l-0.374 1.686c28.329 6.984 52.107 28.474 59.821 48.688l-7.905-38.64z" fill="#EFC75E"></path>
+                                         </svg>
+                                    </div>
+                                    <div class="cardNum" style="height:30px">
+                                        <ul class="flex">
+                                            <li>4514</li>
+                                            <li>6188</li>
+                                            <li>1234</li>
+                                            <li>5678</li>
+                                        </ul>
+                                    </div>
+                                    <div class="date">
+                                        <p class="datepara">January        2018</p>
+                                    </div>
+                                    <div class="ccv">
+                                        <p>983</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="backlayer"></div>
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn-custom btn-custom-secondary" data-dismiss="modal" onclick="">Cancelar</button>
+                <button type="button" class="btn-custom btn-custom-primary">Guardar</button>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@section Scripts {
+
+    @System.Web.Optimization.Scripts.Render("~/Scripts/jquery.min.js")
+    @System.Web.Optimization.Scripts.Render("~/Scripts/plugins/jsKendo/angular.min.js")
+    @System.Web.Optimization.Scripts.Render("~/Scripts/plugins/jsKendo/kendo.all.min.js")
+
+    @System.Web.Optimization.Scripts.Render("~/Scripts/plugins/jquery-ui/jquery-ui.js")
+    @System.Web.Optimization.Scripts.Render("~/Scripts/plugins/jquery-ui/jquery-ui.min.js")
+
+    @System.Web.Optimization.Scripts.Render("~/Resource/UserControl.Helper.js")
+
+    @System.Web.Optimization.Scripts.Render("~/Scripts/bootstrap-notify-master/bootstrap-notify.js")
+    @System.Web.Optimization.Scripts.Render("~/Scripts/bootstrap-notify-master/bootstrap-notify.min.js")
+    @System.Web.Optimization.Scripts.Render("~/Scripts/jsBootstrap/jquery.bootstrap-growl.js")
+    @System.Web.Optimization.Scripts.Render("~/Resource/configuracion/pasarela.js")
+
+
+    <script type="text/javascript">
+
+        $(document).ready(function (e) {
+
+            SEGListarPerfilMenu();
+
+            $('#dllDiasCitasCaida').kendoDropDownList();
+
+            $('#btnImprimirComprobanteMembresia').click(function () {
+                var ancho = screen.width - 10;
+                var alto = screen.height - 75;
+                var divToPrint = document.getElementById('register');
+                var newWin = window.open('', 'Print-Window', 'directories=no, border=0,scrollbars=yes,status=yes,toolbar=no,titlebar=no, resizable=no, menubar=no,width=' + ancho + ',height=' + alto + ',top=0,left=0');
+                newWin.document.open();
+                newWin.document.write('<html><body onload="window.print()">' + divToPrint.innerHTML + '</body></html>');
+                newWin.document.close();
+                return true;
+            });
+
+            $("#txtFrase_formatoticket").kendoEditor({
+                resizable: {
+                    content: true,
+                    toolbar: true
+                }
+            });
+            $("#txtClausula").kendoEditor({
+                resizable: {
+                    content: true,
+                    toolbar: true
+                }
+            });
+
+            $("#txtHoraInicioTurnomanana_horariosturnoscaja").kendoTimePicker({
+                dateInput: true,
+                format: "hh:mm tt",
+                interval: 60,
+                min: new Date(new Date().setHours(4, 0, 0, 0)),
+                max: new Date(new Date().setHours(16, 0, 0, 0)),
+                change: function () {
+
+                }
+            });
+            $("#txtHoraFinalTurnomanana_horariosturnoscaja").kendoTimePicker({
+                dateInput: true,
+                format: "hh:mm tt",
+                interval: 60,
+                min: new Date(new Date().setHours(11, 0, 0, 0)),
+                max: new Date(new Date().setHours(23, 59, 0, 0)),
+                change: function () {
+
+                }
+            });
+
+            $("#txtHoraInicioTurnotarde_horariosturnoscaja").kendoTimePicker({
+                dateInput: true,
+                format: "hh:mm tt",
+                interval: 60,
+                min: new Date(new Date().setHours(4, 0, 0, 0)),
+                max: new Date(new Date().setHours(16, 0, 0, 0)),
+                change: function () {
+
+                }
+            });
+            $("#txtHoraFinalTurnotarde_horariosturnoscaja").kendoTimePicker({
+                dateInput: true,
+                format: "hh:mm tt",
+                interval: 60,
+                min: new Date(new Date().setHours(11, 0, 0, 0)),
+                max: new Date(new Date().setHours(23, 59, 0, 0)),
+                change: function () {
+
+                }
+            });
+            buscarConfiguracion();
+            ListarTurnosEmpresa();
+            obtenerConfiguracionDiasCitasCaida();
+        });
+
+        function evemt_changeMenu(tipo) {
+            if (tipo == 1) {
+                document.querySelectorAll(".list-configs").forEach(rev => rev.classList.remove("active"))
+                document.querySelectorAll(".d-list-configs").forEach(rev => rev.style.display = 'none')
+                document.getElementById("liConfiguracion_comprobantes").classList.add("active")
+                document.getElementById("Configuracion_comprobantes").style.display = "";
+
+            } else if (tipo == 2) {
+                document.querySelectorAll(".list-configs").forEach(rev => rev.classList.remove("active"))
+                document.querySelectorAll(".d-list-configs").forEach(rev => rev.style.display = 'none')
+                document.getElementById("liConfiguracion_formatoticket").classList.add("active")
+                document.getElementById("Configuracion_formatoticket").style.display = "";
+
+            } else if (tipo == 3) {
+
+                document.querySelectorAll(".list-configs").forEach(rev => rev.classList.remove("active"))
+                document.querySelectorAll(".d-list-configs").forEach(rev => rev.style.display = 'none')
+                document.getElementById("liConfiguracion_horariosturnoscaja").classList.add("active")
+                document.getElementById("Configuracion_horariosturnoscaja").style.display = "";
+
+            } else if (tipo == 4) {
+                document.querySelectorAll(".list-configs").forEach(rev => rev.classList.remove("active"))
+                document.querySelectorAll(".d-list-configs").forEach(rev => rev.style.display = 'none')
+                document.getElementById("liConfiguracion_actividadescaidas").classList.add("active")
+                document.getElementById("Configuracion_actividadescaidas").style.display = "";
+
+            } else if (tipo == 5) {
+                document.querySelectorAll(".list-configs").forEach(rev => rev.classList.remove("active"))
+                document.querySelectorAll(".d-list-configs").forEach(rev => rev.style.display = 'none')
+                document.getElementById("liConfiguracion_EvitarDucplicacionDNI").classList.add("active")
+                document.getElementById("Configuracion_duplicacionDNI").style.display = "";
+
+            } else if (tipo == 6) {
+                document.querySelectorAll(".list-configs").forEach(rev => rev.classList.remove("active"))
+                document.querySelectorAll(".d-list-configs").forEach(rev => rev.style.display = 'none')
+                document.getElementById("liConfiguracion_EvitarMuchasAsistencias").classList.add("active")
+                document.getElementById("Configuracion_EvitarMuchasAsistencias").style.display = "";
+
+            } else if (tipo == 7) {
+                document.querySelectorAll(".list-configs").forEach(rev => rev.classList.remove("active"))
+                document.querySelectorAll(".d-list-configs").forEach(rev => rev.style.display = 'none')
+                document.getElementById("liConfiguracion_ConsultasNumeroDocumentoEntidades").classList.add("active")
+                document.getElementById("ConsultasNumeroDocumentoEntidades").style.display = "";
+
+            } else if (tipo == 8) {
+                document.querySelectorAll(".list-configs").forEach(rev => rev.classList.remove("active"))
+                document.querySelectorAll(".d-list-configs").forEach(rev => rev.style.display = 'none')
+                document.getElementById("liConfiguracion_CodigoclienteAutomatico").classList.add("active")
+                document.getElementById("Configuracion_CodigoclienteAutomatico").style.display = "";
+
+            } else if (tipo == 9) {
+                document.querySelectorAll(".list-configs").forEach(rev => rev.classList.remove("active"))
+                document.querySelectorAll(".d-list-configs").forEach(rev => rev.style.display = 'none')
+                document.getElementById("liConfiguracion_TiposContrato").classList.add("active")
+                document.getElementById("Configuracion_TiposContratoMem").style.display = "";
+
+            } else if (tipo == 10) {
+                document.querySelectorAll(".list-configs").forEach(rev => rev.classList.remove("active"))
+                document.querySelectorAll(".d-list-configs").forEach(rev => rev.style.display = 'none')
+                document.getElementById("liConfiguracion_PasarelaPago").classList.add("active")
+                document.getElementById("DConfiguracion_PasarelaPago").style.display = "";
+                //list
+                getListPEmpresa();
+            }
+        }
+
+        function SEGListarPerfilMenu() {
+
+            var entidad = {};
+
+            document.getElementById('loadMe').style.display = 'block';
+            $('button[type="button"]').attr("disabled", true);
+            var metodoCorrecto = function (msg) {
+
+                $('button[type="button"]').attr("disabled", false);
+                document.getElementById('loadMe').style.display = 'none';
+
+                for (var i = 0; i < msg.length; i++) {
+
+                    if (msg[i].Estado) {
+                        $('[data-controlmodulo="' + msg[i].CodigoMenu + '"]').show('fast');
+
+                        ////if (msg[i].CodigoMenu == '01d9d907-b8a6-4e2f-976a-ac34cb696d62') {
+                        ////    $('#hdPermiso_PagoMembresias').val('1');
+                        ////}
+                        ////if (msg[i].CodigoMenu == '6ad39c4c-cfca-4dc3-a5ce-44963884cbf7') {
+                        ////    $('#hdPermiso_PagoProductos').val('1');
+                        ////}
+                        ////if (msg[i].CodigoMenu == '7f43381c-5c82-45a1-8e52-0a00244cc377') {
+
+                        ////    document.getElementById('divClasesTiempoReal').style.display = '';
+                        ////    uspListarPresencial_HorarioClasesConfiguracionChecking();
+                        ////}
+
+                    }
+                }
+
+            };
+            var metodoError = function (msg) {
+                alert(msg);
+            };
+            var request = {
+
+            };
+            LlamarAJAX("/gestionce/SEGListarPerfilMenu", request, metodoCorrecto, metodoError);
+
+        }
+
+        function listaSubTipoDocumentoSerie() {
+
+            document.getElementById('loadMe').style.display = 'block';
+            var CodTipoDocumento = $('#ddlTipoComprobante_Membresia').val();
+            $('#hdTipoDocumento_ComprobanteMembresia').val(CodTipoDocumento);
+
+            $("#gridComprobantes_Membresias").empty();
+            $("#gridComprobantes_Membresias").kendoGrid({
+                dataSource: {
+                    type: "json",
+                    transport: {
+                        read: function (options) {
+                            $.ajax({
+                                data: '{"CodTipoDocumento":"' + CodTipoDocumento + '"}',
+                                type: "POST",
+                                url: "/operacionesfit/ListarSubTipoDocumentosPorTipoDocumento",
+                                contentType: "application/json; charset=utf-8",
+                                dataType: "json",
+                                success: function (msg) {
+                                    options.success(msg);
+                                }, complete: function () {
+                                    document.getElementById('loadMe').style.display = 'none';
+                                }
+                            });
+                        }
+                    }
+                },
+                selectable: "row",
+                scrollable: true,
+                sortable: true,
+                height: 120,
+                columns: [
+                    {
+                        field: "Codigo",
+                        title: "<b style='font-size:11px;'>Codigo</b>",
+                        width: 50,
+                        attributes: {
+                            style: "font-size:15px;"
+                        }
+                    }, {
+                        field: "Descripcion",
+                        title: "<b style='font-size:11px;'>Descripción</b>",
+                        width: 450,
+                        attributes: {
+                            style: "font-size:15px;"
+                        }
+                    }
+                ], dataBound: function (e) {
+
+                    this.element.find('tbody tr:first').addClass('k-state-selected');
+                    this.select(this.tbody.find('>tr:first'));
+                }
+                , change: function (e) {
+                    var grid = this;
+                    grid.select().each(function () {
+                        var dataItem = grid.dataItem($(this));
+
+                        BuscarSerie(dataItem.Codigo);
+
+
+                    });
+                }
+            });
+
+        }
+
+        function buscarConfiguracion() {
+
+            document.getElementById('loadMe').style.display = 'block';
+
+            $.ajax({
+                type: "POST",
+                url: "/operacionesfit/BuscarConfiguracion",
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function (msg) {
+                    console.log(msg)
+
+                    $('#chkConsultarRENIEC').prop('checked', msg.ConsultasNumeroDocumento_Estado);
+                    if (msg.ConsultasNumeroDocumento_Estado) {
+                        $('.ConsultasNumeroDocumento_Activo').show('fast');
+                        $('#txtConsultasNumeroDocumento_PrecioAnual').val(msg.ConsultasNumeroDocumento_PrecioAnual);
+                        $('#txtConsultasNumeroDocumento_UsuarioCreacion').val(msg.ConsultasNumeroDocumento_UsuarioCreacion);
+                        $('#txtConsultasNumeroDocumento_FechaPago').val(msg.ConsultasNumeroDocumento_FechaPago_Texto);
+                        $('#txtConsultasNumeroDocumento_FechaCreacion').val(msg.ConsultasNumeroDocumento_FechaCreacion_Texto);
+
+                        if (parseFloat(msg.ConsultasNumeroDocumento_PrecioAnual) > 0) {
+                            $('.ConsultasNumeroDocumento_PlanGratisActivo').hide('fast');
+                            $('.ConsultasNumeroDocumento_PlanBasicoActivo').show('fast');
+                            $('.ConsultasNumeroDocumento_PlanGratuitoActivo').hide('fast');
+                        } else {
+                            $('.ConsultasNumeroDocumento_PlanGratisActivo').show('fast');
+                            $('.ConsultasNumeroDocumento_PlanBasicoActivo').hide('fast');
+                            $('.ConsultasNumeroDocumento_PlanGratuitoActivo').hide('fast');
+                        }
+                    } else {
+                        $('.ConsultasNumeroDocumento_Activo').hide('fast');
+                        $('.ConsultasNumeroDocumento_PlanGratuitoActivo').show('fast');
+
+                    }
+
+                    $('#chkCodigoclienteAutomatico').prop('checked', msg.CodigoClienteAuto);
+                    $('#chkActivarImprimirContrato').prop('checked', msg?.ActivarGenerarContratoMembresias);
+
+
+
+                    $('#chkObligarMarcarIngresoClaseAlMarcarAsistencia').prop('checked', msg.ObligatorioMarcarIngresoSalaClase);
+                    $('#chkEvitarMuchasAsistencias').prop('checked', msg.PermitirMuchasAsistenciaPordia);
+                    $('#chkObligatorioDNI').prop('checked', msg.ObligatorioDNIProspectos);
+                    $('#chkGenerarSerie_ComprobanteMembresia').prop('checked', msg.GenerarSerie);
+                    $('#chkGenerarComprobante_ComprobanteMembresia').prop('checked', msg.GenerarComprobante);
+
+                    $('#txtRazonSocial_formatoticket').val(msg.Ticket_RazonSocial);
+                    $('#txtRUC_formatoticket').val(msg.Ticket_RUC);
+                    $('#txtCelular_formatoticket').val(msg.Ticket_Celular);
+                    $('#txtTelefono_formatoticket').val(msg.Ticket_Telefono);
+                    $('#txtDireccion_formatoticket').val(msg.Ticket_Direccion);
+                    $("#txtFrase_formatoticket").data("kendoEditor").value(msg.Frase);
+
+                    //DATOS PARA MOSTRAR EN EL TICKET
+                    //$('#formatoticket_Logo').attr('src',msg.Logo);
+                    $('#formatoticket_RazonSocial').html(msg.Ticket_RazonSocial);
+                    $('#formatoticket_RUC').html('RUC: ' + msg.Ticket_RUC);
+                    $('#formatoticket_Celular').html('Celular: ' + msg.Ticket_Celular);
+                    $('#formatoticket_Telefono').html('Telefono: ' + msg.Ticket_Telefono);
+                    $('#formatoticket_Direccion').html('Dirección: ' + msg.Ticket_Direccion);
+                    $('#formatoticket_Frase').html(msg.Frase);
+
+                    document.getElementById('loadMe').style.display = 'none';
+
+                    //$('#ddlComprobante_Tipo').data("kendoDropDownList").value(msg.d.Tipo_Configuracion);
+
+                    //var valida = msg.d.Int_GenerarComprobante;
+                    //$('#ddlComprobante_Tipo').kendoDropDownList();
+                    //if (valida == 1) {
+                    //    $('#ddlComprobante_Tipo').data("kendoDropDownList").enable(true);
+                    //} else {
+                    //    $('#ddlComprobante_Tipo').data("kendoDropDownList").enable(false);
+                    //}
+
+                    //$('#chkEstadoNotificarDeudasXDia').attr('checked', msg.d.NotificarDeudasXDia);
+                    ////alert("Notificar ? : " + msg.d.NotificarDeudasXDia);
+                    //var notifica = msg.d.NotificarDeudasXDia;
+
+                    //if (notifica) {
+                    //    $("#td_cantidad").show();
+                    //} else {
+                    //    $("#td_cantidad").hide();
+                    //}
+                    //$('#txtCanDiasDeuda').val(msg.d.CantDiasDeuda);
+
+                    //$('#txtConexionDB').val(msg.d.ConexionDB);
+                    //$('#txtRutaCarpetaImagen').val(msg.d.RutaCarpetaImagen);
+                    //$('#txtLongitudSerie').val(msg.d.LongitudSerie);
+                    //$('#txtNombreTicket').val(msg.d.NombreTiquetera);
+                    //$('#txtRazonSocial').val(msg.d.RazonSocial);
+                    //$('#txtDireccion').val(msg.d.Direccion);
+                    //$('#txtDistrito').val(msg.d.Distrito);
+                    //$('#txtCorreo').val(msg.d.Correo);
+                    //$('#txtContrasenia').val(msg.d.Contrasenia);
+                    //$('#txtRucEmpresa').val(msg.d.Ruc);
+                    //$('#txtTelefonoEmpresa').val(msg.d.Telefono);
+                    //$('#txtFraseEmpresa').val(msg.d.Frase);
+                }, complete: function () {
+                    //alert($('#chkConsultarRENIEC').is(':checked'));
+                    if ($('#chkConsultarRENIEC').is(':checked')) {
+
+                    }
+                }
+            });
+
+        }
+
+        function event_changetext_ticketRazonSocial() {
+            var texto = $('#txtRazonSocial_formatoticket').val();
+            $('#formatoticket_RazonSocial').html(texto);
+        }
+
+        function event_changetext_ticketRUC() {
+            var texto = $('#txtRUC_formatoticket').val();
+            $('#formatoticket_RUC').html('RUC: ' + texto);
+        }
+
+        function event_changetext_ticketCelular() {
+            var texto = $('#txtCelular_formatoticket').val();
+            $('#formatoticket_Celular').html('Celular: ' + texto);
+        }
+
+        function event_changetext_ticketTelefono() {
+            var texto = $('#txtTelefono_formatoticket').val();
+            $('#formatoticket_Telefono').html('Telefono: ' + texto);
+        }
+
+        function event_changetext_ticketDireccion() {
+            var texto = $('#txtDireccion_formatoticket').val();
+            $('#formatoticket_Direccion').html('Dirección: ' + texto);
+        }
+
+
+        /*BOTONES SERIE - DOCUMENTO*/
+        function BuscarSerie(codigo) {
+
+            $('#hdsubTipoDocumento_ComprobanteMembresia').val(codigo);
+            document.getElementById('loadMe').style.display = 'block';
+            $.ajax({
+                data: '{"codigo":"' + codigo + '"}',
+                type: "POST",
+                url: "/operacionesfit/BuscarSerie",
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function (msg) {
+
+                    $('#hdCodigoSerie_ComprobanteMembresia').val(msg.CodigoSerie);
+                    $('#txtInicialSerie_ComprobanteMembresia').val(msg.NroSerie);
+                    $('#txtNroCorrelativoActual_ComprobanteMembresia').val(msg.NroCorrelativoActual);
+                    $('#chkEstado_ComprobanteMembresia').prop('checked', msg.Estado);
+
+
+
+
+                }, complete: function () {
+                    document.getElementById('loadMe').style.display = 'none';
+                }
+            });
+
+        }
+
+        function GuardarSerie() {
+
+            var CodigoSerie = $('#hdsubTipoDocumento_ComprobanteMembresia').val();
+            //var CodigoSerie = $('#hdCodigoSerie_ComprobanteMembresia').val() == '' ? 0 : $('#hdCodigoSerie_ComprobanteMembresia').val();
+            var tipoDocumento = $('#hdTipoDocumento_ComprobanteMembresia').val();
+            var subTipoDocumento = $('#hdsubTipoDocumento_ComprobanteMembresia').val();
+            var nroSerie = $('#txtInicialSerie_ComprobanteMembresia').val();
+            var nroActual = $('#txtNroCorrelativoActual_ComprobanteMembresia').val();
+            var estado = $('#chkEstado_ComprobanteMembresia').is(':checked');
+
+            var chkGenerarSerie = $('#chkGenerarSerie_ComprobanteMembresia').is(':checked');
+            var chkGenerarComprobante = $('#chkGenerarComprobante_ComprobanteMembresia').is(':checked');
+
+            document.getElementById('loadMe').style.display = 'block';
+
+            $.ajax({
+                data: '{"CodigoSerie":"' + CodigoSerie + '","tipoDocumento":"' + tipoDocumento + '","subTipoDocumento":"' + subTipoDocumento + '","nroSerie":"' + nroSerie + '","nroActual":"' + nroActual + '","estado":"' + estado + '","chkGenerarSerie":"' + chkGenerarSerie + '","chkGenerarComprobante":"' + chkGenerarComprobante + '"}',
+                type: "POST",
+                url: "/operacionesfit/GuardarSerie",
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function (msg) {
+                    listaSubTipoDocumentoSerie();
+                    $.bootstrapGrowl("Los datos se han guardado correctamente.", { type: 'success', width: 'auto' });
+                    document.getElementById('loadMe').style.display = 'none';
+                }
+            });
+
+        }
+
+        //CONFIGURACION TICKET
+        function ActualizarConfiguracionDatosFormatoTicket() {
+
+            var entidad = {};
+            entidad.Ticket_RazonSocial = $('#txtRazonSocial_formatoticket').val();
+            entidad.Ticket_RUC = $('#txtRUC_formatoticket').val();
+            entidad.Ticket_Direccion = $('#txtDireccion_formatoticket').val();
+            entidad.Ticket_Celular = $('#txtCelular_formatoticket').val();
+            entidad.Ticket_Telefono = $('#txtTelefono_formatoticket').val();
+            entidad.Ticket_Frase = $("#txtFrase_formatoticket").data("kendoEditor").value();
+
+            //alert(entidad.ReservasNormativa);
+            //alert(entidad.ReservasNotas);
+            //return;
+            document.getElementById('loadMe').style.display = 'block';
+            $('button').attr('disabled', 'disabled');
+            var metodoCorrecto = function (msg) {
+                $('button').removeAttr('disabled');
+                document.getElementById('loadMe').style.display = 'none';
+                $.bootstrapGrowl("SE GUARDO CORRECTAMENTE.", { type: 'success', width: 'auto' });
+                buscarConfiguracion();
+            };
+            var metodoError = function (msg) {
+                alert(msg);
+            };
+            var request = {
+                request: entidad
+            };
+
+            LlamarAJAX("/operacionesfit/uspActualizarConfiguracionDatosFormatoTicket", request, metodoCorrecto, metodoError);
+
+        }
+
+        function GuardarTurnoManana() {
+
+            var Codigo = 1; //1 turno mañana
+            var horaInicio = $('#txtHoraInicioTurnomanana_horariosturnoscaja').val();
+            var horaFin = $('#txtHoraFinalTurnomanana_horariosturnoscaja').val();
+            var marcadorI = $("#txtHoraInicioTurnomanana_horariosturnoscaja").data("kendoTimePicker")._oldText.split(':')[1].substring(($("#txtHoraInicioTurnomanana_horariosturnoscaja").data("kendoTimePicker")._oldText.split(':')[1].length - 2));
+            var marcadorF = $("#txtHoraFinalTurnomanana_horariosturnoscaja").data("kendoTimePicker")._oldText.split(':')[1].substring(($("#txtHoraFinalTurnomanana_horariosturnoscaja").data("kendoTimePicker")._oldText.split(':')[1].length - 2));
+
+            if (marcadorI == 'PM') {
+                if (parseInt($("#txtHoraInicioTurnomanana_horariosturnoscaja").data("kendoTimePicker")._oldText.split(':')[0]) == 12) {
+                    var HoraI = $("#txtHoraInicioTurnomanana_horariosturnoscaja").data("kendoTimePicker")._oldText.split(':')[0] + '|' + $("#txtHoraInicioTurnomanana_horariosturnoscaja").data("kendoTimePicker")._oldText.split(':')[1].substring(0, 2) + '|' + 0;
+                } else {
+                    var HoraI = (parseInt($("#txtHoraInicioTurnomanana_horariosturnoscaja").data("kendoTimePicker")._oldText.split(':')[0]) + parseInt(12)) + '|' + $("#txtHoraInicioTurnomanana_horariosturnoscaja").data("kendoTimePicker")._oldText.split(':')[1].substring(0, 2) + '|' + 0;
+                }
+            } else if (marcadorI == 'AM') {
+                var hiam = $("#txtHoraInicioTurnomanana_horariosturnoscaja").data("kendoTimePicker")._oldText.split(':')[0];
+
+                if (hiam == 12) {
+                    hiam = hiam - 12;
+                } else {
+                    hiam;
+                }
+                var HoraI = hiam + '|' + $("#txtHoraInicioTurnomanana_horariosturnoscaja").data("kendoTimePicker")._oldText.split(':')[1].substring(0, 2) + '|' + 0;
+
+            }
+
+            if (marcadorF == 'PM') {
+                if (parseInt($("#txtHoraFinalTurnomanana_horariosturnoscaja").data("kendoTimePicker")._oldText.split(':')[0]) == 12) {
+                    var HoraF = $("#txtHoraFinalTurnomanana_horariosturnoscaja").data("kendoTimePicker")._oldText.split(':')[0] + '|' + $("#txtHoraFinalTurnomanana_horariosturnoscaja").data("kendoTimePicker")._oldText.split(':')[1].substring(0, 2) + '|' + 0;
+                } else {
+                    var HoraF = (parseInt($("#txtHoraFinalTurnomanana_horariosturnoscaja").data("kendoTimePicker")._oldText.split(':')[0]) + parseInt(12)) + '|' + $("#txtHoraFinalTurnomanana_horariosturnoscaja").data("kendoTimePicker")._oldText.split(':')[1].substring(0, 2) + '|' + 0;
+                }
+            } else if (marcadorF == 'AM') {
+                var hiam = $("#txtHoraFinalTurnomanana_horariosturnoscaja").data("kendoTimePicker")._oldText.split(':')[0];
+
+                if (hiam == 12) {
+                    hiam = hiam - 12;
+                } else {
+                    hiam;
+                }
+
+                var HoraF = hiam + '|' + $("#txtHoraFinalTurnomanana_horariosturnoscaja").data("kendoTimePicker")._oldText.split(':')[1].substring(0, 2) + '|' + 0;
+            }
+
+            var horaInicio = 2021 + '|' + 01 + '|' + 01 + '|' + HoraI;
+            var horaFin = 2021 + '|' + 01 + '|' + 01 + '|' + HoraF;
+
+
+            $.ajax({
+                type: "POST",
+                data: '{"Codigo":"' + Codigo + '","Inicio":"' + horaInicio + '","Fin":"' + horaFin + '"}',
+                url: "/operacionesfit/GuardarTurno",
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function (msg) {
+
+                    $.bootstrapGrowl("Los datos se han guardado correctamente.", { type: 'success', width: 'auto' });
+
+                }
+            });
+
+        }
+
+        function GuardarTurnoTarde() {
+
+            var Codigo = 2; //1 turno tarde
+            var horaInicio = $('#txtHoraInicioTurnotarde_horariosturnoscaja').val();
+            var horaFin = $('#txtHoraFinalTurnotarde_horariosturnoscaja').val();
+            var marcadorI = $("#txtHoraInicioTurnotarde_horariosturnoscaja").data("kendoTimePicker")._oldText.split(':')[1].substring(($("#txtHoraInicioTurnotarde_horariosturnoscaja").data("kendoTimePicker")._oldText.split(':')[1].length - 2));
+            var marcadorF = $("#txtHoraFinalTurnotarde_horariosturnoscaja").data("kendoTimePicker")._oldText.split(':')[1].substring(($("#txtHoraFinalTurnotarde_horariosturnoscaja").data("kendoTimePicker")._oldText.split(':')[1].length - 2));
+
+            if (marcadorI == 'PM') {
+                if (parseInt($("#txtHoraInicioTurnotarde_horariosturnoscaja").data("kendoTimePicker")._oldText.split(':')[0]) == 12) {
+                    var HoraI = $("#txtHoraInicioTurnotarde_horariosturnoscaja").data("kendoTimePicker")._oldText.split(':')[0] + '|' + $("#txtHoraInicioTurnotarde_horariosturnoscaja").data("kendoTimePicker")._oldText.split(':')[1].substring(0, 2) + '|' + 0;
+                } else {
+                    var HoraI = (parseInt($("#txtHoraInicioTurnotarde_horariosturnoscaja").data("kendoTimePicker")._oldText.split(':')[0]) + parseInt(12)) + '|' + $("#txtHoraInicioTurnotarde_horariosturnoscaja").data("kendoTimePicker")._oldText.split(':')[1].substring(0, 2) + '|' + 0;
+                }
+            } else if (marcadorI == 'AM') {
+                var hiam = $("#txtHoraInicioTurnotarde_horariosturnoscaja").data("kendoTimePicker")._oldText.split(':')[0];
+
+                if (hiam == 12) {
+                    hiam = hiam - 12;
+                } else {
+                    hiam;
+                }
+                var HoraI = hiam + '|' + $("#txtHoraInicioTurnotarde_horariosturnoscaja").data("kendoTimePicker")._oldText.split(':')[1].substring(0, 2) + '|' + 0;
+
+            }
+
+            if (marcadorF == 'PM') {
+                if (parseInt($("#txtHoraFinalTurnotarde_horariosturnoscaja").data("kendoTimePicker")._oldText.split(':')[0]) == 12) {
+                    var HoraF = $("#txtHoraFinalTurnotarde_horariosturnoscaja").data("kendoTimePicker")._oldText.split(':')[0] + '|' + $("#txtHoraFinalTurnotarde_horariosturnoscaja").data("kendoTimePicker")._oldText.split(':')[1].substring(0, 2) + '|' + 0;
+                } else {
+                    var HoraF = (parseInt($("#txtHoraFinalTurnotarde_horariosturnoscaja").data("kendoTimePicker")._oldText.split(':')[0]) + parseInt(12)) + '|' + $("#txtHoraFinalTurnotarde_horariosturnoscaja").data("kendoTimePicker")._oldText.split(':')[1].substring(0, 2) + '|' + 0;
+                }
+            } else if (marcadorF == 'AM') {
+                var hiam = $("#txtHoraFinalTurnotarde_horariosturnoscaja").data("kendoTimePicker")._oldText.split(':')[0];
+
+                if (hiam == 12) {
+                    hiam = hiam - 12;
+                } else {
+                    hiam;
+                }
+
+                var HoraF = hiam + '|' + $("#txtHoraFinalTurnotarde_horariosturnoscaja").data("kendoTimePicker")._oldText.split(':')[1].substring(0, 2) + '|' + 0;
+            }
+
+            var horaInicio = 2021 + '|' + 01 + '|' + 01 + '|' + HoraI;
+            var horaFin = 2021 + '|' + 01 + '|' + 01 + '|' + HoraF;
+
+            document.getElementById('loadMe').style.display = 'block';
+
+
+            $.ajax({
+                type: "POST",
+                data: '{"Codigo":"' + Codigo + '","Inicio":"' + horaInicio + '","Fin":"' + horaFin + '"}',
+                url: "/operacionesfit/GuardarTurno",
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function (msg) {
+                    document.getElementById('loadMe').style.display = 'none';
+                    $.bootstrapGrowl("Los datos se han guardado correctamente.", { type: 'success', width: 'auto' });
+
+                }, complete: function () {
+                    //ListarTurnosEmpresa();
+                }
+            });
+
+        }
+
+        function ListarTurnosEmpresa() {
+
+            $.ajax({
+                type: "POST",
+                url: "/operacionesfit/ListarTurnosEmpresa",
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function (msg) {
+
+                    for (var i = 0; i < msg.length; i++) {
+                        if (msg[i].Codigo == 1) {
+                            $("#txtHoraInicioTurnomanana_horariosturnoscaja").data("kendoTimePicker").value(msg[i].HoraInicio);
+                            $("#txtHoraFinalTurnomanana_horariosturnoscaja").data("kendoTimePicker").value(msg[i].HoraFin);
+                        }
+                        if (msg[i].Codigo == 2) {
+                            $("#txtHoraInicioTurnotarde_horariosturnoscaja").data("kendoTimePicker").value(msg[i].HoraInicio);
+                            $("#txtHoraFinalTurnotarde_horariosturnoscaja").data("kendoTimePicker").value(msg[i].HoraFin);
+                        }
+                    }
+                    //options.success(msg.d);
+                }
+            });
+        }
+
+        //CONFIGURACION CITAS CAIDAS
+
+        function obtenerConfiguracionDiasCitasCaida() {
+            $.ajax({
+                type: "POST",
+                url: "/operacionesfit/BuscarConfiguracionDiasCitasCaida",
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function (msg) {
+                    $("#dllDiasCitasCaida").data('kendoDropDownList').value(msg.DiaCitasCaida);
+                }
+            });
+        }
+
+        function ActualizarDiasCitasCaida() {
+            var DiaCitasCaida = $("#dllDiasCitasCaida").data('kendoDropDownList').value();
+            document.getElementById('loadMe').style.display = 'block';
+            $.ajax({
+                data: '{"DiaCitasCaida":"' + DiaCitasCaida + '"}',
+                type: "post",
+                url: "/operacionesfit/GuardarDiasCitasCaida",
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function (msg) {
+                    document.getElementById('loadMe').style.display = 'none';
+                }, complete: function () {
+                    $.bootstrapGrowl("se guardo correctamente.", { type: 'success', width: 'auto' });
+                }
+            });
+        }
+
+        function ActualizarObligarMarcarClaseAsistencia() {
+
+            var ObligatorioMarcarIngresoSalaClase = $('#chkObligarMarcarIngresoClaseAlMarcarAsistencia').is(':checked');
+
+            document.getElementById('loadMe').style.display = 'block';
+
+            $.ajax({
+                data: '{"ObligatorioMarcarIngresoSalaClase":"' + ObligatorioMarcarIngresoSalaClase + '"}',
+                type: "POST",
+                url: "/operacionesfit/ActualizarObligarMarcarClaseAsistencia",
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function (msg) {
+                    $.bootstrapGrowl("Los datos se han guardado correctamente.", { type: 'success', width: 'auto' });
+                    document.getElementById('loadMe').style.display = 'none';
+                }
+            });
+        }
+
+        function ActualizarObligatorioDNI() {
+            var ObligatorioDNIProspectos = $('#chkObligatorioDNI').is(':checked');
+
+            document.getElementById('loadMe').style.display = 'block';
+
+            $.ajax({
+                data: '{"ObligatorioDNIProspectos":"' + ObligatorioDNIProspectos + '"}',
+                type: "POST",
+                url: "/operacionesfit/GuardarIngresoDNIObligatorio",
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function (msg) {
+                    $.bootstrapGrowl("Los datos se han guardado correctamente.", { type: 'success', width: 'auto' });
+                    document.getElementById('loadMe').style.display = 'none';
+                }
+            });
+        }
+
+        function ActualizarEvitarMuchasAsistencias() {
+            var EvitarMuchasAsistencias = $('#chkEvitarMuchasAsistencias').is(':checked');
+
+            document.getElementById('loadMe').style.display = 'block';
+
+            $.ajax({
+                data: '{"EvitarMuchasAsistencias":"' + EvitarMuchasAsistencias + '"}',
+                type: "POST",
+                url: "/operacionesfit/ActualizarPermitirMuchasAsistenciasPorCliente",
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function (msg) {
+                    $.bootstrapGrowl("Los datos se han guardado correctamente.", { type: 'success', width: 'auto' });
+                    document.getElementById('loadMe').style.display = 'none';
+                }
+            });
+        }
+
+        function uspActualizarConsultasNumeroDocumentoEntidades() {
+            var ConsultasNumeroDocumentoEntidades = $('#chkConsultarRENIEC').is(':checked');
+            var ConsultasNumeroDocumento_PrecioAnual = 0;
+            document.getElementById('loadMe').style.display = 'block';
+
+            $.ajax({
+                data: '{"ConsultasNumeroDocumentoEntidades":"' + ConsultasNumeroDocumentoEntidades + '","ConsultasNumeroDocumento_PrecioAnual":"' + ConsultasNumeroDocumento_PrecioAnual + '"}',
+                type: "POST",
+                url: "/operacionesfit/uspActualizarConsultasNumeroDocumentoEntidades",
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function (msg) {
+                    $.bootstrapGrowl("FELICIDADES AHORA TIENES EL PLAN GRATUITO DE CONSULTAS DE DOCUMENTOS.", { type: 'success', width: 'auto' });
+                    document.getElementById('loadMe').style.display = 'none';
+                    buscarConfiguracion();
+                }
+            });
+        }
+
+        function uspActualizarConsultasNumeroDocumentoEntidades_PlanBasico() {
+            var ConsultasNumeroDocumentoEntidades = $('#chkConsultarRENIEC').is(':checked');
+            var ConsultasNumeroDocumento_PrecioAnual = 70;
+            document.getElementById('loadMe').style.display = 'block';
+
+            $.ajax({
+                data: '{"ConsultasNumeroDocumentoEntidades":"' + ConsultasNumeroDocumentoEntidades + '","ConsultasNumeroDocumento_PrecioAnual":"' + ConsultasNumeroDocumento_PrecioAnual + '"}',
+                type: "POST",
+                url: "/operacionesfit/uspActualizarConsultasNumeroDocumentoEntidades",
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function (msg) {
+                    $.bootstrapGrowl("FELICIDADES AHORA TIENES EL PLAN BASICO HASTA 50MIL CONSULTAS.", { type: 'success', width: 'auto' });
+                    document.getElementById('loadMe').style.display = 'none';
+                    buscarConfiguracion();
+                }
+            });
+        }
+
+        function Event_GenerarCodigoclienteAutomatico() {
+            var flag = $('#chkCodigoclienteAutomatico').is(':checked');
+
+            document.getElementById('loadMe').style.display = 'block';
+
+            $.ajax({
+                data: '{"CodigoClienteAuto":"' + flag + '"}',
+                type: "POST",
+                url: "/operacionesfit/ActualizarGenerarCodigoclienteAutomatico",
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function (msg) {
+                    $.bootstrapGrowl("Los datos se han guardado correctamente.", { type: 'success', width: 'auto' });
+                    document.getElementById('loadMe').style.display = 'none';
+                }
+            });
+        }
+        //---------------------- tipo de contrato membresia ------------------------
+        //registro
+        function registerTC() {
+            var correlativo = $('#txtCorrelativoTC').val();
+            var serie = $('#txtSerieTC').val();
+            var description = $('#txtDescripcionTC').val();
+            var clausula = $("#txtClausula").data("kendoEditor").value();
+            let data = {
+                description: description,
+                clausula: clausula,
+                serie: serie,
+                correlativo: correlativo,
+            }
+
+            if (description.trim() != '' && clausula.trim() != '' && correlativo.trim() != '' && serie.trim() != '') {
+                $.ajax({
+                    data: JSON.stringify(data),
+                    type: "POST",
+                    url: "/operacionesfit/RegistrarTipoContratos",
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "json",
+                    success: function (msg) {
+                        if (msg.Success) {
+                            $.bootstrapGrowl("Los datos se han guardado correctamente.", { type: 'success', width: 'auto' });
+                            document.getElementById('loadMe').style.display = 'none';
+                            document.getElementById("txtDescripcionTC").value = ''
+                            $("#txtClausula").data("kendoEditor").value('')
+                            getContratos()
+                        } else {
+                            $.bootstrapGrowl("Ocurrió un error en el proceso.", { type: 'danger', width: 'auto' });
+                            document.getElementById('loadMe').style.display = 'none';
+                        }
+
+                    }
+                });
+            } else {
+                $.bootstrapGrowl("Campos requeridos.", { type: 'danger', width: 'auto' });
+            }
+
+
+        }
+        //list
+        function getContratos() {
+            $.ajax({
+                type: "POST",
+                url: "/operacionesfit/ListaTipoContratos",
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function (msg) {
+                    console.log(msg)
+                    if (msg.length > 0) {
+                        var html = '';
+                        msg.forEach((item, index) => {
+                            html += '<tr class="border-bottom border-200">';
+                            html += ' <td class="align-middle white-space-nowrap">' + parseInt(index + 1) + '</td>';
+                            html += '  <td class="align-middle white-space-nowrap">' + item.NroSerie + '</td>';
+                            html += '  <td class="align-middle white-space-nowrap">' + item.NroCorrelativoActual + '</td>';
+                            html += '  <td class="align-middle white-space-nowrap">' + item.Descripcion + '</td>';
+                            html += '  <td class="align-middle white-space-nowrap">';
+                            html += `  <button class="btn btn-custom-primary" onclick="editTc(${item?.Codigo})"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></button>`;
+                            html += `  <button class="btn btn-danger" onclick="destroyTc(${item?.Codigo})"><i class="fa fa-trash text-white" aria-hidden="true"></i></button>`;
+                            html += ' </td>';
+                            html += '</tr>';
+                        });
+                        document.getElementById("tbodyTipoContratos").innerHTML = html
+
+                    }
+                    console.log(msg.length);
+                }
+            });
+        }
+
+        getContratos()
+
+        function editTc(codigo) {
+            document.getElementById("txtCodigoC").value = codigo;
+            $.ajax({
+                type: "POST",
+                url: "/operacionesfit/GetTipoContrato",
+                contentType: "application/json; charset=utf-8",
+                data: JSON.stringify({ codigo: codigo }),
+                dataType: "json",
+                success: function (msg) {
+                    if (msg) {
+                        $('#txtCorrelativoTC').val(msg?.NroCorrelativoActual);
+                        $('#txtSerieTC').val(msg?.NroSerie);
+                        $('#txtDescripcionTC').val(msg?.Descripcion);
+                        $("#txtClausula").data("kendoEditor").value(msg?.Clausula);
+                        document.getElementById("btnRegisterTc").style.display = 'none';
+                        document.getElementById("btnUpdateTc").style.display = 'block';
+                        document.getElementById("btnCancelTc").style.display = 'block';
+                    }
+                }
+            });
+        }
+        function cancelTC() {
+            document.getElementById("txtCodigoC").value = '';
+            document.getElementById("txtCorrelativoTC").value = '';
+            document.getElementById("txtSerieTC").value = '';
+            document.getElementById("txtDescripcionTC").value = '';
+            $("#txtClausula").data("kendoEditor").value('');
+            document.getElementById("btnRegisterTc").style.display = 'block';
+            document.getElementById("btnUpdateTc").style.display = 'none';
+            document.getElementById("btnCancelTc").style.display = 'none';
+        }
+        function updateTC() {
+            var codigo = document.getElementById("txtCodigoC").value;
+
+            var correlativo = $('#txtCorrelativoTC').val();
+            var serie = $('#txtSerieTC').val();
+
+            var description = $('#txtDescripcionTC').val();
+            var clausula = $("#txtClausula").data("kendoEditor").value();
+
+            var data = {
+                codigo: codigo,
+                clausula: clausula,
+                description: description,
+                serie: serie,
+                correlativo: correlativo,
+            }
+
+            $.ajax({
+                data: JSON.stringify(data),
+                type: "POST",
+                url: "/operacionesfit/ActualizarTipoContratos",
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function (msg) {
+
+                    if (msg.Success) {
+                        $.bootstrapGrowl("Los datos se han guardado correctamente.", { type: 'success', width: 'auto' });
+                        document.getElementById('loadMe').style.display = 'none';
+                        //document.getElementById("txtDescripcionTC").value = ''
+                        //$("#txtClausula").data("kendoEditor").value('')
+                        getContratos()
+                    } else {
+                        $.bootstrapGrowl("Ocurrió un error en el proceso.", { type: 'danger', width: 'auto' });
+                        document.getElementById('loadMe').style.display = 'none';
+                    }
+
+                }
+            });
+
+        }
+        function destroyTc(codigo) {
+            var confirm = window.confirm("estas seguro de eliminar?");
+            if (confirm) {
+                $.ajax({
+                    data: JSON.stringify({ codigo: codigo }),
+                    type: "POST",
+                    url: "/operacionesfit/EliminarTipoContratos",
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "json",
+                    success: function (msg) {
+
+                        if (msg.Success) {
+                            $.bootstrapGrowl("Eliminado correctamente.", { type: 'success', width: 'auto' });
+                            document.getElementById('loadMe').style.display = 'none';
+                            //document.getElementById("txtDescripcionTC").value = ''
+                            //$("#txtClausula").data("kendoEditor").value('')
+                            getContratos()
+                        } else {
+                            $.bootstrapGrowl("Ocurrió un error en el proceso.", { type: 'danger', width: 'auto' });
+                            document.getElementById('loadMe').style.display = 'none';
+                        }
+
+                    }
+                });
+            }
+
+
+        }
+        //update DESEA QUE SE GENERE AUTOMATICAMENTE EL CONTRATO AL MOMENTO DE MATRICULAR A UN CLIENTE
+        function Event_ActivarImprimirContrato() {
+
+
+            var activarImprimir = $('#chkActivarImprimirContrato').is(':checked');
+
+            document.getElementById('loadMe').style.display = 'block';
+
+            $.ajax({
+                data: JSON.stringify({ activarImprimir }),
+                type: "POST",
+                url: "/operacionesfit/ActualizarGenerarContratoAutomatico",
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function (msg) {
+                    $.bootstrapGrowl("Los datos se han guardado correctamente.", { type: 'success', width: 'auto' });
+                    document.getElementById('loadMe').style.display = 'none';
+                }
+            });
+        }
+                                                //----------------------end tipo de contrato membresia ------------------------
+    </script>
+
+}
+

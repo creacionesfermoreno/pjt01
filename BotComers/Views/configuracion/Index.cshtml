@@ -1,0 +1,44 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_LayoutApp.cshtml";
+}
+
+<div class="slim-mainpanel">
+    <div class="container">
+        <div class="slim-pageheader">
+            <ol class="breadcrumb slim-breadcrumb">
+              
+            </ol>
+            <h6 class="slim-pagetitle">Configuración</h6>
+        </div><!-- slim-pageheader -->
+
+        <div class="section-wrapper">           
+            <div class="row">
+                <div class="col-md-6 col-lg-4">
+                    <ul class="list-group">
+                        <li class="list-group-item">
+                            <p class="mg-b-0"><strong class="tx-inverse tx-medium">Empresa</strong><br /> <span class="text-muted">Configura la información de tu empresa y adapta Appsfit a tu negocio</span></p>
+                        </li>
+                        <li class="list-group-item">
+                            <p class="mg-b-0"><i class="fa fa-check tx-success mg-r-8"></i><strong class="tx-inverse tx-medium">Empresa</strong> <span class="text-muted"></span></p>
+                        </li>
+                        <li class="list-group-item">
+                            <p class="mg-b-0"><i class="fa fa-check tx-success mg-r-8"></i><strong class="tx-inverse tx-medium"><a href="@Url.Action("usuarios","configuracion")" class="nav-sub-link">Usuarios</a></strong> <span class="text-muted"></span></p>
+                        </li>
+                        <li class="list-group-item">
+                            <p class="mg-b-0"><i class="fa fa-check tx-success mg-r-8"></i><strong class="tx-inverse tx-medium">Permisos</strong> <span class="text-muted"></span></p>
+                        </li>                      
+                    </ul>
+                </div><!-- col-4 -->
+                <div class="col-md-6 col-lg-4 mg-t-20 mg-md-t-0-force">
+                   
+                </div><!-- col-4 -->
+                <div class="col-md-6 col-lg-4 mg-t-20 mg-lg-t-0-force">
+                   
+                </div><!-- col-4 -->
+            </div><!-- row -->
+        </div><!-- section-wrapper -->
+
+    </div><!-- container -->
+</div><!-- slim-mainpanel -->

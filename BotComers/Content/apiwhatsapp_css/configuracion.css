@@ -1,0 +1,284 @@
+﻿.list-configs strong{
+    font-size:15px !important
+}
+.col-content {
+    border: 2px solid #eee;
+    padding: 10px;
+}
+
+.dpp {
+    border: 2px solid #eee;
+    padding: 10px;
+    border-radius: 10px;
+}
+.dpp:hover{
+    background:#eee;
+}
+.dpp-active {
+    border: 2px solid #0075FF;
+}
+
+
+.title-content-config{
+    font-size:20px !important;
+}
+
+
+
+
+
+
+
+.subContainer .cardNum:after, .subContainer .date:after, .subContainer .ccv:after {
+    position: absolute;
+    top: -25px;
+    font-family: "Roboto", sans-serif;
+    left: 0;
+    color: rgba(142, 190, 255, 0.9);
+    font-size: 13px;
+}
+
+.subContainer .date p, .subContainer .ccv p {
+    padding: 0;
+    margin: 0;
+    font-size: 15px;
+    font-family: "Montserrat", sans-serif;
+    font-weight: lighter;
+    text-align: center;
+    padding: 4px 20px;
+    padding-right: 25px;
+}
+
+
+
+.body-card {
+    overflow: hidden;
+}
+
+
+
+
+.container-card {
+    position: absolute;
+    width: 600px;
+    height: 400px;
+    background: #FFF;
+    box-shadow: 0px 0px 40px 1px #eee;
+    /*top: 50%;
+    left: 50%;*/
+    /*transform: translate(-50%, -50%);*/
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    justify-content: space-between;
+    grid-template-areas: 'mGrid card';
+    min-height: 0;
+    min-width: 0;
+    border-radius: 9px;
+    /*z-index: 7;*/
+}
+
+.mGrid {
+    grid-area: mGrid;
+    display: grid;
+    grid-template-rows: repeat(3, 1fr);
+    overflow: hidden;
+    justify-content: center;
+    margin-top: 15px;
+    margin-left: -10px;
+}
+
+.total {
+    padding-top: 50px;
+    align-self: end;
+}
+
+    .total p {
+        text-align: center;
+        font-size: 15px;
+        text-transform: uppercase;
+        font-weight: 400;
+        color: #808eab;
+        letter-spacing: .15rem;
+    }
+
+        .total p:last-child {
+            font-size: 2rem;
+            font-weight: bold;
+            color: #E0342A;
+            padding-top: 10px;
+            font-family: "Roboto", sans-serif;
+        }
+
+.detail {
+    font-family: "Roboto", sans-serif;
+    align-self: start;
+    display: grid;
+    margin-top: 32px;
+    grid-template-rows: repeat(3, 1fr);
+}
+
+    .detail p {
+        text-align: center;
+        font-size: 15px;
+        text-transform: uppercase;
+        font-weight: 400;
+        color: #808eab;
+        letter-spacing: .15rem;
+        margin-bottom: 10px;
+    }
+
+    .detail ul {
+        list-style-type: none;
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        font-family: "Roboto", sans-serif;
+        justify-content: center;
+        align-content: start;
+    }
+
+        .detail ul li {
+            display: inline-block;
+            color: #515860;
+            text-align: left;
+            font-size: 15px;
+        }
+
+            .detail ul li:last-child {
+                text-align: right;
+                color: #FF622D;
+                font-family: "Roboto", sans-serif;
+            }
+
+.button-card {
+    display: block;
+    justify-self: center;
+    align-self: center;
+    font-family: "Open Sans", sans-serif;
+    background: #ffffff;
+    color: #0b82f8;
+    border: 1px solid #0b82f8;
+    text-transform: uppercase;
+    font-size: .97rem;
+    opacity: .8;
+    font-weight: lighter;
+    padding: 7px 40px;
+    border-radius: 1.6rem;
+    cursor: pointer;
+    outline: none;
+    transition: all .2s linear;
+}
+
+.button-card:hover {
+    transition: all .2s linear;
+    background: #0b82f8;
+    color: #FFF;
+}
+
+.subContainer {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    height: 270px;
+    width: 400px;
+    border-radius: 9px;
+    font-family: "Roboto", sans-serif;
+    bottom: 0;
+    color: #fff;
+    min-height: 0;
+    min-width: 0;
+    background: #E0342A;
+    box-shadow: -10px 10px 60px 10px #ADB7C4;
+    grid-area: card;
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    grid-template-rows: repeat(3, 1fr);
+    grid-template-areas: "name name  . . . visa visa " "cardNum cardNum cardNum cardNum cardNum . ." " date date date date . ccv ccv ";
+}
+
+    .subContainer p, .subContainer .visaCont, .subContainer .cardNum, .subContainer .date, .subContainer .ccv {
+        margin-left: 35px;
+        margin-top: -25px;
+    }
+
+    .subContainer p {
+        padding-top: 25px;
+        font-weight: 600;
+        grid-area: name;
+        margin-top: 0px;
+    }
+
+    .subContainer .visaCont {
+        display: grid;
+        grid-area: visa;
+        overflow: hidden;
+        margin: 0;
+        justify-self: center;
+        align-self: center;
+    }
+
+        .subContainer .visaCont svg {
+            height: 50px;
+            width: 100px;
+        }
+
+    .subContainer .cardNum {
+        position: relative;
+        grid-area: cardNum;
+        background: #FF622D;
+        align-self: center;
+        padding: 7px 5px;
+        font-size: 19px;
+    }
+
+        .subContainer .cardNum:after {
+            content: 'Credit  Card  Number';
+            color: #FF622D;
+        }
+
+        .subContainer .cardNum ul {
+            list-style-type: none;
+            text-align: center;
+        }
+
+            .subContainer .cardNum ul li {
+                display: inline-block;
+                font-family: "Montserrat", sans-serif;
+                margin: 0 auto;
+                letter-spacing: 1px;
+            }
+
+                .subContainer .cardNum ul li:last-child {
+                    text-align: right;
+                }
+
+    .subContainer .date {
+        position: relative;
+        grid-area: date;
+        background: #FF622D;
+        align-self: center;
+        justify-self: left;
+    }
+
+        .subContainer .date:after {
+            content: 'Expiration';
+            color: #FF622D;
+        }
+
+    .subContainer .ccv {
+        position: relative;
+        grid-area: ccv;
+        align-self: center;
+        justify-self: left;
+        background: #FF622D;
+        margin-left: 0;
+    }
+
+        .subContainer .ccv:after {
+            content: 'CCV';
+            color: #FF622D;
+        }
+
+        .subContainer .ccv p {
+            padding: 4px 12px;
+            letter-spacing: 1px;
+        }

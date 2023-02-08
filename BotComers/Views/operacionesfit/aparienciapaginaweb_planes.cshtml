@@ -1,0 +1,331 @@
+﻿
+@{
+    ViewBag.Title = "aparienciapaginaweb_planes";
+    Layout = "~/Views/Shared/__LayoutAppFitPlataformaFit.cshtml";
+}
+
+
+<link href="@Url.Content("~/Content/cssKendo/kendo.common.min.css")" rel="stylesheet" />
+<link href="@Url.Content("~/Content/cssKendo/kendo.dataviz.default.min.css")" rel="stylesheet" />
+<link href="@Url.Content("~/Content/cssKendo/kendo.dataviz.min.css")" rel="stylesheet" />
+<link href="@Url.Content("~/Content/cssKendo/kendo.default.min.css")" rel="stylesheet" />
+<style>
+
+    .k-block, .k-header, .k-grid-header, .k-toolbar, .k-grouping-header, .k-pager-wrap, .k-button, .k-draghandle, .k-treemap-tile, html .km-pane-wrapper .k-header {
+        background-color: rgba(227, 227, 227, 0);
+    }
+
+        .k-grid-header table, .k-grid-content table, .k-grid-footer table, .k-grid-content-locked > table {
+            table-layout: fixed;
+        }
+
+    .k-grid tr td {
+        border-bottom: 1px solid #ada9a9;
+        border-style: dashed;
+    }
+
+    .k-grid-toolbar:first-child, .k-grouping-header + .k-grid-toolbar {
+        border-width: 0 0 1px;
+        border-radius: 0px;
+        background-color: #d7eafa;
+        height: 10px;
+    }
+
+    .k-block, .k-header, .k-grid-header, .k-toolbar, .k-grouping-header, .k-pager-wrap, .k-button, .k-draghandle, .k-treemap-tile, html .km-pane-wrapper .k-header {
+        background-color: rgba(227, 227, 227, 0);
+    }
+
+    #txtFechaInicioProcFreezing .k-header, .k-grid-header, .k-toolbar, .k-dropdown-wrap, .k-picker-wrap, .k-numeric-wrap, .k-grouping-header, .k-pager-wrap, .k-textbox, .k-button, .k-progressbar, .k-draghandle, .k-autocomplete, .k-state-highlight, .k-tabstrip-items .k-item, .k-panelbar .k-tabstrip-items .k-item, .km-pane-wrapper > .km-pane > .km-view > .km-content {
+        background-image: url(textures/highlight.png);
+        background-image: none,-webkit-linear-gradient(top,rgba(255,255,255,.6) 0,rgba(255,255,255,.0) 100%);
+        background-image: none,-moz-linear-gradient(top,rgba(255,255,255,.6) 0,rgba(255,255,255,.0) 100%);
+        background-image: none,-o-linear-gradient(top,rgba(255,255,255,.6) 0,rgba(255,255,255,.0) 100%);
+        background-image: none,linear-gradient(to bottom,rgba(255,255,255,.6) 0,rgba(255,255,255,.0) 100%);
+        background-position: 50% 50%;
+        background-color: #ffffff;
+    }
+
+    .k-state-selected {
+        color: #FFFFFF;
+        background-color: #0075ff;
+        border-color: #0075ff;
+    }
+
+    tr {
+        height: 16px;
+        font-size: 13px;
+    }
+
+    /** SPINNER CREATION **/
+    .loader {
+        position: relative;
+        text-align: center;
+        margin: 15px auto 35px auto;
+        z-index: 9999;
+        display: block;
+        width: 80px;
+        height: 80px;
+        border: 10px solid rgba(0, 0, 0, .3);
+        border-radius: 50%;
+        border-top-color: #000;
+        animation: spin 1s ease-in-out infinite;
+        -webkit-animation: spin 1s ease-in-out infinite;
+    }
+</style>
+
+<br /><br /><br />
+
+
+            <div class="container-fluid page__container">
+                <a class="btn btn-primary" href="@Url.Action("aparienciapaginaweb", "operacionesfit", new { id = HttpContext.Current.Request.Cookies["_SubDominio_Business"].Value })">Regresar</a>
+                <br /><br />
+                <div class="row">
+                    <div class="col-lg-5">
+                        <div class="card">
+                            <div style="background-color:#fff;" class="card-header card-header-sm d-flex align-items-center">
+                                <h4 class="card-header__title flex m-0">PRECIOS WEB</h4>
+                            </div>
+                            <div class="card-body tab-content">
+                                <div class="tab-pane active show fade" id="activity_all">
+                                    <div id="gridPlanes"></div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-7">
+                        <div class="card">
+                            <div style="background-color:#fff;" class="card-header card-header-sm d-flex align-items-center">
+                                <h4 class="card-header__title flex m-0">EDICION</h4>
+                            </div>
+                            <div class="card-body tab-content">
+                                <div class="tab-pane active show fade" id="activity_all">
+                                    <div class="button-list">
+                                        <button type="button" onclick="nuevodetalle();" class="btn btn-primary btn-sm" id="btnNuevo" title="Nuevo membresia">1. Nueva precio</button>
+                                        <button type="button" onclick="uspEliminarEdicionPaginaWebDetalle();" class="btn btn-primary btn-sm" id="btnEliminar" title="Eliminar" >Eliminar precio</button>
+                                        <button type="button" onclick="guardardetalle();" class="btn btn-primary btn-sm" id="btnGuardar" title="Guardar membresia">Guardar precio</button>
+                                    </div>
+                                    <div class="row mg-b-25">
+                                        <div class="col-lg-12">
+                                            <input type="hidden" value="" id="txtLink" />
+                                            <input type="hidden" value="" id="hdCodigo" />
+                                            <div class="form-group mg-t-2">
+                                                <div class="input-group input-group-sm input-group-merge">
+                                                    <input id="txtTitulo" type="text" required="" class="form-control form-control-prepended" placeholder="Escriba Nombres" style="width:100%;font-weight:bold;" onkeypress="return validarCamposCadena(event)">
+                                                    <div class="input-group-prepend">
+                                                        <div class="input-group-text">
+                                                            Nombres del plan:
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="form-group mg-t-2">
+                                                <div class="input-group input-group-sm input-group-merge">
+                                                    <input id="txtSubTitulo" type="text" required="" class="form-control form-control-prepended" placeholder="Escriba disciplina" style="width:100%;font-weight:bold;" onkeypress="return validarCamposCadena(event)">
+                                                    <div class="input-group-prepend">
+                                                        <div class="input-group-text">
+                                                            precio:
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="form-group mg-t-2">
+                                                <div class="input-group input-group-sm input-group-merge">
+                                                    <input id="txtLinkPago" type="text" required="" class="form-control form-control-prepended" placeholder="Link" style="width:100%;font-weight:bold;" >
+                                                    <div class="input-group-prepend">
+                                                        <div class="input-group-text">
+                                                            Link pago:
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div><!-- col-4 -->
+
+                                    </div><!-- row -->
+
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- // end .row -->
+            </div>
+
+
+<div class="modal fade" id="loadMe" tabindex="-1" role="dialog" aria-labelledby="loadMeLabel">
+    <div class="modal-dialog modal-sm" role="document">
+        <div class="modal-content">
+            <div class="modal-body text-center">
+                <div class="loader"></div>
+                <div clas="loader-txt">
+                    <p>Cargando... <br><br><small>Espere por favor, este proceso puede tardar unos minutos</small></p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+@section Scripts {
+
+    @System.Web.Optimization.Scripts.Render("~/Scripts/jquery.min.js")
+    @System.Web.Optimization.Scripts.Render("~/Scripts/plugins/jsKendo/angular.min.js")
+    @System.Web.Optimization.Scripts.Render("~/Scripts/plugins/jsKendo/kendo.all.min.js")
+
+    @System.Web.Optimization.Scripts.Render("~/Scripts/plugins/jquery-ui/jquery-ui.js")
+    @System.Web.Optimization.Scripts.Render("~/Scripts/plugins/jquery-ui/jquery-ui.min.js")
+
+    @System.Web.Optimization.Scripts.Render("~/Scripts/bootstrap-notify-master/bootstrap-notify.js")
+    @System.Web.Optimization.Scripts.Render("~/Scripts/bootstrap-notify-master/bootstrap-notify.min.js")
+    @System.Web.Optimization.Scripts.Render("~/Scripts/jsBootstrap/jquery.bootstrap-growl.js")
+    @System.Web.Optimization.Scripts.Render("~/Resource/UserControl.Helper.js")
+
+    <script type="text/javascript">
+
+        $(document).ready(function () {
+
+            ecommerce_uspListarEdicionPaginaWebDetalle_Planes();
+            
+        });
+
+        function nuevodetalle() {
+
+            $("#imgVistaImagen").attr('src', '');
+            $("#txtDetalle").val("");
+            $("#hdheight_imagen").val("");
+            $("#hdwidth_imagen").val("");
+            $("#hdCodigo").val("");
+            $("#txtTitulo").val("");
+            $("#txtSubTitulo").val("");
+            ("#txtLinkPago").val("");
+
+            document.getElementById("btnEliminar").style.display = 'none';
+        }
+
+      
+        var guardardetalle = function () {
+
+            var Codigo = $("#hdCodigo").val();
+            var Titulo = $("#txtTitulo").val();
+            var SubTitulo = $("#txtSubTitulo").val();
+            var Link = $("#txtLinkPago").val();
+          
+            if (Titulo == '') {
+                $.bootstrapGrowl("Falta ingresar el titulo del plan.", { type: 'danger', width: 'auto' });
+                return false;
+            } else if (SubTitulo == '') {
+                $.bootstrapGrowl("Falta ingresar el precio del plan.", { type: 'danger', width: 'auto' });
+                return false;
+            } 
+
+            var data = new FormData;          
+            data.append("Codigo", Codigo);
+            data.append("Titulo", Titulo);
+            data.append("SubTitulo", SubTitulo);
+            data.append("LinkPago", Link);
+            document.getElementById('loadMe').style.display = 'block';
+            $.ajax({
+                type: "Post",
+                url: "/operacionesfit/ecommerce_uspRegistrarEdicionPaginaWebDetalle_Planes",
+                data: data,
+                contentType: false,
+                processData: false,
+                success: function (response) {
+                    $.bootstrapGrowl("El precio " + Titulo + " ha sido guardada correctamente.", { type: 'success', width: 'auto' });
+                }, complete: function () {
+                    ecommerce_uspListarEdicionPaginaWebDetalle_Planes();
+                    document.getElementById('loadMe').style.display = 'none';
+                }
+            })
+
+        }
+
+        function ecommerce_uspListarEdicionPaginaWebDetalle_Planes() {
+
+            $("#gridPlanes").empty();
+            $("#gridPlanes").kendoGrid({
+                dataSource: {
+                    type: "json",
+                    transport: {
+                        read: function (options) {
+                            $.ajax({
+                                type: "POST",
+                                url: "/operacionesfit/ecommerce_uspListarEdicionPaginaWebDetalle_Planes",
+                                contentType: "application/json; charset=utf-8",
+                                dataType: "json",
+                                success: function (msg) {
+                                    options.success(msg);
+                                }
+                            });
+                        }
+                    }
+                },
+                selectable: "row",
+                scrollable: true,
+                height: 250,
+                columns: [
+                    {
+                        field: "Titulo",
+                        title: "<center style='color:black;'><b>Plan</b></center>",
+                        width: 9,
+                        attributes: {
+                            style: "font-size:13px;text-align:center;"
+                        }
+                    }, {
+                        field: "SubTitulo",
+                        title: "<center style='color:black;'><b>Precio</b></center>",
+                        width: 9,
+                        attributes: {
+                            style: "font-size:13px;text-align:center;"
+                        }
+                    }],
+                dataBound: function (e) {
+
+                    this.element.find('tbody tr:first').addClass('k-state-selected');
+                    this.select(this.tbody.find('>tr:first'));
+                }, change: function (e) {
+
+                    var grid = this;
+                    grid.select().each(function () {
+                        var dataItem = grid.dataItem($(this));
+
+                        $("#hdCodigo").val(dataItem.Codigo);
+                        $("#txtTitulo").val(dataItem.Titulo);
+                        $("#txtSubTitulo").val(dataItem.SubTitulo); 
+                        $("#txtLinkPago").val(dataItem.LinkPago); 
+                        document.getElementById("btnEliminar").style.display = '';
+                    });
+
+                }
+            });
+
+        }
+
+        function uspEliminarEdicionPaginaWebDetalle() {
+            document.getElementById('loadMe').style.display = 'block';
+            var Codigo = $("#hdCodigo").val();
+            var data = new FormData;
+            data.append("Codigo", Codigo);
+
+            $.ajax({
+                type: "POST",
+                url: "/operacionesfit/ecommerce_uspEliminarEdicionPaginaWebDetalle",
+                data: data,
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function (msg) {
+                    $.bootstrapGrowl("La información ha sido eliminada correctamente.", { type: 'success', width: 'auto' });
+                }, complete: function () {
+                    ecommerce_uspListarEdicionPaginaWebDetalle_Trinner();
+                    document.getElementById('loadMe').style.display = 'none';
+                }
+            });
+        }
+
+    </script>
+
+}
+
+
