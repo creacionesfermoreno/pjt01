@@ -42,7 +42,7 @@ using iTextSharp.tool.xml.parser;
 using iTextSharp.tool.xml.pipeline.end;
 using iTextSharp.tool.xml.pipeline.html;
 using System.Web.UI;
-using static NUnit.Framework.Constraints.Tolerance;
+//using static NUnit.Framework.Constraints.Tolerance;
 using Rectangle = iTextSharp.text.Rectangle;
 using Document = iTextSharp.text.Document;
 using PageSize = iTextSharp.text.PageSize;
