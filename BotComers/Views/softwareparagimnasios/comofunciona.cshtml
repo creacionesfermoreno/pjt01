@@ -30,8 +30,8 @@
         --clr-1: #000;
         --clr-2: #fff;
         --body-bgclr: #fff;
-        --bgclr-1: #FF622D;
-        --bgclr-2: #E0342B;
+        --bgclr-1: #E0342B;
+        --bgclr-2: #FF622D;
     }
 
     h1 {
@@ -99,60 +99,100 @@
 <section class="explore_more" id="testimonios" style="background-color: #000000;">
 
     <!--begin container -->
-    <div class="container">
+    <div class="container text-center" >
+        <div class="content_box text-center">
+            <img src="~/Content/appsfit_img/Appsfit_Logo_A-color-sin-fondocortado.png" style="height:80px;" />
 
+            <h1> <br class="disp_none_md" /> <span>¡FELICITACIONES HAS GANADO 75% DE DESCUENTO!</span> </h1>
+        </div>
+        <br />
+        <h4 style="color:#fff;font-size: 30px;font-weight:bold;" class="section-title">POR TIEMPO LIMITADO!!</h4>
+        <br />
+        <div id="clockdiv" class="row">
+            <div>
+                <span class="days" id="day"></span>
+                <div class="smalltext">Días</div>
+            </div>
+            <div>
+                <span class="hours" id="hour"></span>
+                <div class="smalltext">Horas</div>
+            </div>
+            <div>
+                <span class="minutes" id="minute"></span>
+                <div class="smalltext">Minutos</div>
+            </div>
+            <div>
+                <span class="seconds" id="second"></span>
+                <div class="smalltext">Segundos</div>
+            </div>
+        </div>
+        <p id="demo"></p>
+
+        <br />
         <!--begin row -->
         <div class="row">
 
             <!--begin col-md-12 -->
             <div class="col-md-12 text-center">
-                <div class="content_box text-center">
-                    <img src="~/Content/appsfit_img/Appsfit_Logo_A-color-sin-fondocortado.png" style="height:80px;" />
 
-                    <h1> <br class="disp_none_md" /> <span>¡FELICITACIONES HAS GANADO 75% DE DESCUENTO!</span> </h1>
-                </div>
-                <br />
-                <h4 style="color:#fff;font-size: 30px;font-weight:bold;" class="section-title">POR TIEMPO LIMITADO!!</h4>
-                <br />
-                <div id="clockdiv">
-                    <div>
-                        <span class="days" id="day"></span>
-                        <div class="smalltext">Días</div>
-                    </div>
-                    <div>
-                        <span class="hours" id="hour"></span>
-                        <div class="smalltext">Horas</div>
-                    </div>
-                    <div>
-                        <span class="minutes" id="minute"></span>
-                        <div class="smalltext">Minutos</div>
-                    </div>
-                    <div>
-                        <span class="seconds" id="second"></span>
-                        <div class="smalltext">Segundos</div>
-                    </div>
-                </div>
-                <p id="demo"></p>
-
-                <br />
                 <br />
                 <h4 style="color:#fff;font-size: 30px;font-weight:bold;" class="section-title">*Solo para dueños de gimnasio que aún no han realizado su primer pago de algún plan de Appsfit...</h4>
                 <br />
-                <div class="" style="background: linear-gradient(90deg, #25D366 0%, #25D366 35%, #25D366 100%); border-radius: 20px; ">
+                <div style="background: linear-gradient(90deg, #25D366 0%, #38ff20 35%,#128C7E 100%); border-radius: 20px;padding:25px; ">
                     <div class="text-center p-4">
-                        <h3 class="fw-normal my-0">WHATSAPP MARKETING</h3>
-                        <span class="fa fa-whatsapp" style="font-size: 35px;color:#fff;"></span>  <span class="fa fa-whatsapp" style="font-size: 35px;color:#fff;"></span> <span class="fa fa-whatsapp" style="font-size: 35px;color:#fff;"></span> <span class="fa fa-whatsapp" style="font-size: 35px;color:#fff;"></span>
-                        <p class="mt-1" style="color:#000;">Hasta los 7500 clientes.</p>
-                        <p class="mt-1" style="color:#000;">Solo por los 3 primeros meses.</p>
-                        <p class="mt-1" style="color:#000;">Solo para los 10 primeros gimnasios que lo adquieran.</p>
-                        <p class="mt-1" style="color:#000;">Promoción valida hasta el 15 de enero 2023.</p>
-                        <br />
-                        <h3 class="fw-medium fs-0">*Plan trimestral</h3>
-                        <h3 class="fw-medium fs-0" style="text-decoration: line-through;">*360 Dolares Americanos</h3>
-                        <h3 class="fw-medium fs-0">*169 Dolares Americanos</h3>
-                        <br />
+                        <h3 class="fw-normal my-0">APP DE RESERVAS DE CLASES Y PAGOS</h3>
+                        <span class="fa fa-mobile-phone" style="font-size: 35px;color:#fff;"></span>  <span class="fa fa-mobile-phone" style="font-size: 35px;color:#fff;"></span> <span class="fa fa-whatsapp" style="font-size: 35px;color:#fff;"></span> <span class="fa fa-whatsapp" style="font-size: 35px;color:#fff;"></span>
+                        <p class="mt-3" style="color:#000;">Hasta los 7500 clientes.</p>
+                        <h2 class="fw-medium my-4" style="font-size: 36px; text-decoration: line-through">
+                            <sup class="fw-normal fs-2 me-1">$</sup>119.99<small class="fs--1 text-700">/ mensual</small>
+                        </h2>
+                        <h2 class="fw-medium my-4" style="font-size: 36px;">
+                            <sup class="fw-bold fs-3 me-2">$</sup>99.00<small class="fs--1 text-800">/ mensual</small>
+                        </h2>
+                        <h2 class="fw-medium my-4" style="font-size: 36px;">
+                            <sup class="fw-bold fs-3 me-2">Solo para los primeros 10 gimnasios</sup>
+                        </h2>
+                        <h2 class="fw-medium my-4" style="font-size: 36px;">
+                            <sup class="fw-bold fs-3 me-2">Promoción valida hasta el 15 de febrero 2023</sup>
+                        </h2>
+                        <button onclick="EnviarDatos();" class="" type="button" style="--tw-gradient-from: #ff0200; font-size: 28px; position: relative; color: #fff; --tw-gradient-from: #128c7e; --tw-gradient-stops: #ff0200, #ff0200; background-image: linear-gradient(to bottom right,var(--tw-gradient-stops)); display: inline-block; width: 100%; height: 70px; line-height: 50px; font-weight: 500; transition: all .5s ease; text-align: center; font-family: 'Poppins', sans-serif; border-radius: 50px; background-size: 300% 100%; box-shadow: 0px; border: 0px !important; ">Solicitar promoción <span style="font-size: 35px;" class="fa fa-whatsapp"></span></button>
 
                     </div>
+                    <hr class="border-bottom-0 m-0" />
+                    <div class="text-start px-sm-4 py-4">
+                        <h5 class="fw-medium">Prueba 7 días GRATIS:</h5>
+                        <h3 class="fw-medium fs-0">Aplicación y Marketing por whatsapp</h3>
+                    </div>
+                    <ul class="p-2 mb-3 background-gris-0 list-style-none">
+                        <li class="contiene-li-precio-nuevo d-flex flex-row">
+                        <li class="contiene-li-precio-nuevo d-flex flex-row" style="color: #000;">
+                            <span class="text-color-primary mr-2"><i aria-hidden="true" class="fas fa-check-circle" style="color:#000;"></i></span> Soporte Online.
+                        </li>
+                        <li class="contiene-li-precio-nuevo d-flex flex-row" style="color: #000;">
+                            <span class="text-color-primary mr-2"><i aria-hidden="true" class="fas fa-check-circle" style="color:#000;"></i></span> Capacitación Online.
+                        </li>
+                        <li class="contiene-li-precio-nuevo border d-flex flex-row border-success" style="padding:5px;margin-bottom:2px;border: 1px solid #575c53!important;border-radius:8px;"><span class="text-color-primary mr-2"><i aria-hidden="true" class="fas fa-check-circle" style="color:#000;"></i></span> <span style="font-family: eurostib;color:#000;"><i class="fab fa-google-play"></i> APP CLIENTES FITNESS, CONTROL DE MEMBRESIAS Y CONGELAMIENTO, GESTIÓN DE RESERVAS DE CLASES, PROGRESO FISICO.</span></li>
+                        <li class="contiene-li-precio-nuevo border d-flex flex-row border-success" style="padding:5px;margin-bottom:2px;border: 1px solid #575c53!important;border-radius:8px;"><span class="text-color-primary mr-2"><i aria-hidden="true" class="fas fa-check-circle" style="color:#000;"></i></span> <span style="font-family: eurostib;color:#000;"><i class="fab fa-google-play"></i>APP CLIENTES FITNESS: VENTA DE MEMBRESIAS Y MATRICULAS, PAGOS CON PAYPAL, CULQI, MERCADO DE PAGO.</span></li>
+                        <li class="contiene-li-precio-nuevo border d-flex flex-row border-success" style="padding:5px;margin-bottom:2px;border: 1px solid #575c53!important;border-radius:8px;"><span class="text-color-primary mr-2"><i aria-hidden="true" class="fas fa-check-circle" style="color:#000;"></i></span> <span style="font-family: eurostib;color: #000;">DASHBOARD + KPI DE GESTIÓN AVANZADA + ESTADÍSTICAS</span></li>
+                        <li class="contiene-li-precio-nuevo border d-flex flex-row border-success" style="padding:5px;margin-bottom:2px;border: 1px solid #575c53!important;border-radius:8px;"><span class="text-color-primary mr-2"><i aria-hidden="true" class="fas fa-check-circle" style="color:#000;"></i></span> <span style="font-family: eurostib;color: #000;">CONTROL DE ACCESO + ASISTENCIAS DE CLIENTES Y STAFF</span></li>
+                        <li class="contiene-li-precio-nuevo border d-flex flex-row border-success" style="padding:5px;margin-bottom:2px;border: 1px solid #575c53!important;border-radius:8px;"><span class="text-color-primary mr-2"><i aria-hidden="true" class="fas fa-check-circle" style="color:#000;"></i></span> <span style="font-family: eurostib;color: #000;">SISTEMA DE GESTIÓN DE MEMBRESÍAS + RENOVACIONES, REINSCRIPCIONES, PAGOS Y COBRANZA.</span></li>
+                        <li class="contiene-li-precio-nuevo border d-flex flex-row border-success" style="padding:5px;margin-bottom:2px;border: 1px solid #575c53!important;border-radius:8px;"><span class="text-color-primary mr-2"><i aria-hidden="true" class="fas fa-check-circle" style="color:#000;"></i></span> <span style="font-family: eurostib;color: #000;">SISTEMA DE PUNTO DE VENTA DE PRODUCTOS + CATALOGO + INVENTARIO + COBRANZAS.</span></li>
+                        <li class="contiene-li-precio-nuevo border d-flex flex-row border-success" style="padding:5px;margin-bottom:2px;border: 1px solid #575c53!important;border-radius:8px;"><span class="text-color-primary mr-2"><i aria-hidden="true" class="fas fa-check-circle" style="color:#000;"></i></span> <span style="font-family: eurostib;color: #000;">FLUJO DE CAJA + VENTAS, GASTOS Y FINANZAS.</span></li>
+                        <li class="contiene-li-precio-nuevo border d-flex flex-row border-success" style="padding:5px;margin-bottom:2px;border: 1px solid #575c53!important;border-radius:8px;"><span class="text-color-primary mr-2"><i aria-hidden="true" class="fas fa-check-circle" style="color:#000;"></i></span> <span style="font-family: eurostib;color: #000;">SISTEMA DE CONTROL DE EVALUACIONES + CITAS.</span></li>
+                        <li class="contiene-li-precio-nuevo border d-flex flex-row border-success" style="padding:5px;margin-bottom:2px;border: 1px solid #575c53!important;border-radius:8px;"><span class="text-color-primary mr-2"><i aria-hidden="true" class="fas fa-check-circle" style="color:#000;"></i></span> <span style="font-family: eurostib;color: #000;">CRM - SISTEMA DE GESTIÓN COMERCIAL.</span></li>
+                        <li class="contiene-li-precio-nuevo border d-flex flex-row border-success" style="padding:5px;margin-bottom:2px;border: 1px solid #575c53!important;border-radius:8px;"><span class="text-color-primary mr-2"><i aria-hidden="true" class="fas fa-check-circle" style="color:#000;"></i></span> <span style="font-family: eurostib;color: #000;">SISTEMA DE METAS DE MEMBRESIAS, OBJETIVOS, COMISIONES, BONOS Y AUDITORIA DE VENDEDORES.</span></li>
+                        <li class="contiene-li-precio-nuevo border d-flex flex-row border-success" style="padding:5px;margin-bottom:2px;border: 1px solid #575c53!important;border-radius:8px;"><span class="text-color-primary mr-2"><i aria-hidden="true" class="fas fa-check-circle" style="color:#000;"></i></span> <span style="font-family: eurostib;color: #000;"><i class="far fa-envelope"></i> MARKETING - ENVIO DE CORREOS MASIVOS A ACTIVOS, INACTIVOS Y POR VENCER + PLANTILLAS DE CORREO.</span></li>
+                        <li class="contiene-li-precio-nuevo border d-flex flex-row border-success" style="padding:5px;margin-bottom:2px;border: 1px solid #575c53!important;border-radius:8px;"><span class="text-color-primary mr-2"><i aria-hidden="true" class="fas fa-check-circle" style="color:#000;"></i></span> <span style="font-family: eurostib;color: #000;"><i class="far fa-envelope"></i> ENVIO DE CORREO DE CONTRATO DIGITAL DE MEMBRESIAS AUTOMATIZADO + </span></li>
+                        <li class="contiene-li-precio-nuevo border d-flex flex-row border-success" style="padding:5px;margin-bottom:2px;border: 1px solid #575c53!important;border-radius:8px;"><span class="text-color-primary mr-2"><i aria-hidden="true" class="fas fa-check-circle" style="color:#000;"></i></span> <span style="font-family: eurostib;color: #000;"><i class="far fa-envelope"></i> ENVIO DE CORREO DE COMPROBANTES DE PAGO FACTURA, BOLETA Y RECIBO.</span></li>
+
+                        <li class="contiene-li-precio-nuevo border d-flex flex-row border-success" style="padding:5px;margin-bottom:2px;border: 1px solid #575c53!important;border-radius:8px;"><span class="text-color-primary mr-2"><i aria-hidden="true" class="fas fa-check-circle" style="color:#000;"></i></span> <span style="font-family: eurostib;color:#000;"><i class="fab fa-whatsapp"></i>CAMPAÑAS DE WHATSAPP</span></li>
+                        <li class="contiene-li-precio-nuevo border d-flex flex-row border-success" style="padding:5px;margin-bottom:2px;border: 1px solid #575c53!important;border-radius:8px;"><span class="text-color-primary mr-2"><i aria-hidden="true" class="fas fa-check-circle" style="color:#000;"></i></span> <span style="font-family: eurostib; color: #000; "><i class="far fa-envelope"></i>CAMPAÑAS DE CORREO MASIVO</span></li>
+                        <li class="contiene-li-precio-nuevo border d-flex flex-row border-success" style="padding:5px;margin-bottom:2px;border: 1px solid #575c53!important;border-radius:8px;display:none;"><span class="text-color-primary mr-2"><i aria-hidden="true" class="fas fa-check-circle" style="color:#000;"></i></span> <span style="font-family: eurostib; color: #000;">EMBUDOS DE VENTA Y PIPELINES EN TÚ CRM.</span></li>
+
+                        <li class="contiene-li-precio-nuevo border d-flex flex-row border-success" style="padding:5px;margin-bottom:2px;border: 1px solid #575c53!important;border-radius:8px;"><span class="text-color-primary mr-2"><i aria-hidden="true" class="fas fa-check-circle" style="color:#000;"></i></span> <span style="font-family: eurostib;color:#000;">SISTEMA DE METAS DE SUPLEMENTOS, COMISIONES, BONOS DE VENDEDORES.</span></li>
+                        <li class="contiene-li-precio-nuevo border d-flex flex-row border-success" style="padding:5px;margin-bottom:2px;border: 1px solid #575c53!important;border-radius:8px;"><span class="text-color-primary mr-2"><i aria-hidden="true" class="fas fa-check-circle" style="color:#000;"></i></span> <span style="font-family: eurostib;color:#000;">INTEGRACIÓN CON HUELLERO BIOMETRICO, TORNIQUETES DE ACCESO.</span></li>
+
+                    </ul>
                 </div>
 
                 <br />
@@ -614,7 +654,6 @@
                 }
             }, 1000);
 
-
         });
 
         function eventContactoFacebook() {
@@ -624,7 +663,7 @@
 
         function EnviarDatos() {
 
-            var Link = "https://api.whatsapp.com/send?phone=51957592357&text=👍%20Hola%20Appsfit,%20quiero%20mi%20promoción%20trimestral";
+            var Link = "https://api.whatsapp.com/send?phone=51957592357&text=👍%20Hola%20Appsfit,%20quiero%20mi%20promoción";
 
             eventContactoFacebook();
 
