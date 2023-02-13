@@ -55,6 +55,45 @@ namespace E_DataLayer
             return lista;
         }
 
+        //************************************** API *****************************************
+
+        public List<CategoriasDTO> CategoryListApi(CategoriasDTO oFiltro)
+        {
+            List<CategoriasDTO> lista = new List<CategoriasDTO>();
+            using (var conn = new SqlConnection(Helper.Conexion()))
+            {
+                conn.Open();
+                using (var cmd = new SqlCommand("ecommerce_uspListarCategoriasApp", conn))
+                {
+                    cmd.CommandType = System.Data.CommandType.StoredProcedure;
+
+                    using (SqlDataReader oIDataReader = cmd.ExecuteReader())
+                    {
+                        if (oIDataReader.HasRows)
+                        {
+                            while (oIDataReader.Read())
+                            {
+                                lista.Add(new CategoriasDTO()
+                                {
+                                    CodigoMenu = Convert.ToInt32(oIDataReader[oIDataReader.GetOrdinal("CodigoMenu")]),
+                                    CodigoMenuSuperior = Convert.ToInt32(oIDataReader[oIDataReader.GetOrdinal("CodigoMenuSuperior")]),
+                                    Descripcion = oIDataReader[oIDataReader.GetOrdinal("Descripcion")].ToString(),
+                                    UrlUbicacion = oIDataReader[oIDataReader.GetOrdinal("UrlUbicacion")].ToString(),
+                                    UrlImagen = oIDataReader[oIDataReader.GetOrdinal("UrlImagen")].ToString(),
+                                    CodigoImagenPortada = oIDataReader[oIDataReader.GetOrdinal("CodigoImagenPortada")].ToString(),
+                                });
+                            }
+                        }
+                    }
+                }
+            }
+            return lista;
+        }
+
+
+        //************************************** API *****************************************
+
+
         public CategoriasDTO ecommerce_uspBuscarCategorias(CategoriasDTO oFiltro)
         {
             CategoriasDTO itemDTO = null;

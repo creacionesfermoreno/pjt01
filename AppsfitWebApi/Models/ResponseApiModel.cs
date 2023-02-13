@@ -24,6 +24,7 @@ namespace AppsfitWebApi.Models
         public bool Success { set; get; }
         public object Date { set; get; }
         public object Errors { set; get; }
+        public int Total { set; get; }
     }
 
     public class ResponseCulqi

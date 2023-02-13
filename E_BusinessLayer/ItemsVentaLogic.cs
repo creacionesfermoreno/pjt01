@@ -62,6 +62,17 @@ namespace E_BusinessLayer
 
                     switch (oReqFilter.FilterCase)
                     {
+                        //*********************** API *************************
+                        case filterCaseItemsVenta.ecommerce_productbycate:
+
+                            if (!oReqFilter.Paging.All && oReqFilter.Paging.PageRecords == 0)
+                            {
+                                oReqFilter.Paging.PageRecords = Convert.ToUInt32(ConfigurationManager.AppSettings["RecordNumForPage"]);
+                            }
+                            CategoriaDTOList = oItemsVentaData.ListProductByCategory(oReqFilter.Item);
+                            break;
+                        //*********************** API *************************
+
                         case filterCaseItemsVenta.ecommerce_uspListarItemsVenta_Paginacion:
 
                             if (!oReqFilter.Paging.All && oReqFilter.Paging.PageRecords == 0)
@@ -97,8 +108,6 @@ namespace E_BusinessLayer
                                 oReqFilter.Paging.PageRecords = Convert.ToUInt32(ConfigurationManager.AppSettings["RecordNumForPage"]);
                             }
                             CategoriaDTOList = oItemsVentaData.ecommerce_uspListarItemsVenta_PorCategoriaPaginacion(oReqFilter.Item, oReqFilter.Paging);
-
-
 
                             break;
                     

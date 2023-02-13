@@ -89,6 +89,46 @@ namespace E_DataLayer
 
             }
         }
-        
+
+
+        //***************************** API ***********************************
+        public int ecommerce_uspRegistrarComprobantePagoApp(ComprobantePagoDTO item)
+        {
+            int resultado = 0;
+            using (var conn = new SqlConnection(Helper.Conexion()))
+            {
+                conn.Open();
+                using (var cmd = new SqlCommand("ecommerce_uspRegistrarComprobantePagoApp", conn))
+                {
+                    cmd.CommandType = System.Data.CommandType.StoredProcedure;
+                    cmd.Parameters.Add(new SqlParameter("@DefaultKeyEmpresa", System.Data.SqlDbType.VarChar)).Value = item.DefaultKeyEmpresa;
+                    cmd.Parameters.Add(new SqlParameter("@CodigoComprobantePago", System.Data.SqlDbType.Int)).Direction = ParameterDirection.Output;
+                    cmd.Parameters.Add(new SqlParameter("@CodigoComprobante", System.Data.SqlDbType.Int)).Value = item.CodigoComprobante;
+                    cmd.Parameters.Add(new SqlParameter("@CodigoComprobanteDetalle", System.Data.SqlDbType.Int)).Value = item.CodigoComprobanteDetalle;
+                    cmd.Parameters.Add(new SqlParameter("@CodigoCuentaBancaria", System.Data.SqlDbType.Int)).Value = item.CodigoCuentaBancaria;
+                    cmd.Parameters.Add(new SqlParameter("@CodigoMetodoPago", System.Data.SqlDbType.Int)).Value = item.CodigoMetodoPago;
+                    cmd.Parameters.Add(new SqlParameter("@TipoMoneda", System.Data.SqlDbType.Int)).Value = item.TipoMoneda;
+                    cmd.Parameters.Add(new SqlParameter("@Monto", System.Data.SqlDbType.Decimal)).Value = item.Monto;
+
+                    if (item.Nota == null)
+                    {
+                        cmd.Parameters.Add(new SqlParameter("@Nota", System.Data.SqlDbType.VarChar, 100)).Value = string.Empty;
+                    }
+                    else
+                    {
+                        cmd.Parameters.Add(new SqlParameter("@Nota", System.Data.SqlDbType.VarChar, 100)).Value = item.Nota;
+                    }
+                    cmd.Parameters.Add(new SqlParameter("@Estado", System.Data.SqlDbType.Int)).Value = item.Estado;
+                    cmd.ExecuteNonQuery();
+                    resultado = Convert.ToInt32(cmd.Parameters["@CodigoComprobantePago"].Value);
+                }
+
+            }
+            return resultado;
+        }
+
+
+        //***************************** API ***********************************
+
     }
 }

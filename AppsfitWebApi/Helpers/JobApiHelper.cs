@@ -14,7 +14,7 @@ namespace AppsfitWebApi.Helpers
     public class JobApiHelper
     {
 
-        public static async Task SendReceiptJob(int CodigoSede, int CodigoUnidadNegocio,int Venta, string Email, string baseUrl)
+        public static async Task SendReceiptJob(string key,int CodigoSede, int CodigoUnidadNegocio,int Venta, string Email, string baseUrl,int type)
         {
             // 1. Create a scheduler Factory
             StdSchedulerFactory factory = new StdSchedulerFactory();
@@ -26,10 +26,12 @@ namespace AppsfitWebApi.Helpers
             IJobDetail job = JobBuilder.Create<BackgroundJob>()
                     .WithIdentity("sendemail", "sendemailgroup")
                     .UsingJobData("CodigoSede", CodigoSede)
+                    .UsingJobData("key", key)
                     .UsingJobData("CodigoUnidadNegocio", CodigoUnidadNegocio)
                     .UsingJobData("Venta", Venta)
                     .UsingJobData("Email", Email)
                     .UsingJobData("baseUrl", baseUrl)
+                    .UsingJobData("type", type)
                     .Build();
 
 
@@ -53,17 +55,29 @@ namespace AppsfitWebApi.Helpers
         {
 
             var jobDataMap = context.MergedJobDataMap;
+            var key = jobDataMap.GetString("key");
             var CodigoSede = jobDataMap.GetInt("CodigoSede");
             var CodigoUnidadNegocio = jobDataMap.GetInt("CodigoUnidadNegocio");
             var Venta = jobDataMap.GetInt("Venta");
             var Email = jobDataMap.GetString("Email");
             var baseUrl = jobDataMap.GetString("baseUrl");
+            int type = jobDataMap.GetInt("type");
 
             //Random ram = new Random();
             //var name = ram.Next() + "-"+ CodigoSede + "-" + CodigoUnidadNegocio + "-" + Venta + "-" + Email;
             //var path = System.Web.Hosting.HostingEnvironment.MapPath($"~/Content/assets/pdf/{name}.txt");
             //File.CreateText(path);
-            MembresiaApiRepository.sendEmailValiateAccount(CodigoSede, CodigoUnidadNegocio, Venta, Email, baseUrl);
+            if (type == 2)
+            {
+                //membresia
+                MembresiaApiRepository.sendEmailValiateAccount(CodigoSede, CodigoUnidadNegocio, Venta, Email, baseUrl);
+            }
+            else
+            {
+                //comprobante
+                PostApiRepository.sendEmailValiateAccountComp(key,CodigoSede, CodigoUnidadNegocio, Venta, Email, baseUrl);
+            }
+           
         }
     }
 

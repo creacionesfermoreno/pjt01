@@ -50,6 +50,9 @@ namespace E_BusinessLayer
                                 case Operation.Create:
                                     oComprobantePagoData.ecommerce_uspRegistrarComprobantePago(item);                                   
                                     break;
+                                case Operation.RegisterCPApi:
+                                    oComprobantePagoData.ecommerce_uspRegistrarComprobantePagoApp(item);                                   
+                                    break;
                                 case Operation.Update:
                                     //oComprobantePagoData.ecommerce_uspActualizarComprobantePago(item);
                                     //if (item.CodigoTipoItem == 1 && item.ItemInventariable == 1)

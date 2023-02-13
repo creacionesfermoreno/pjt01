@@ -169,8 +169,8 @@ namespace AppsfitWebApi.Repository
         }
 
 
-        //generate Ticket
-        public ResponseApi generatePDF(int codigo, int CodigoUnidadNegocio, int CodigoSede,string baseUrl)
+        //generate Ticket Membresia
+        public ResponseApi generatePDF(int codigo, int CodigoUnidadNegocio, int CodigoSede, string baseUrl)
         {
             ResponseApi _objResponseModel = new ResponseApi();
             var config = getConfiguracionRepository(CodigoSede, CodigoUnidadNegocio);
@@ -231,6 +231,9 @@ namespace AppsfitWebApi.Repository
 
         }
 
+
+
+     
         public ResponseApi generatePDFTicket(HeaderItem item, List<DetailV> list, string baseUrl)
         {
             ResponseApi _objResponseModel = new ResponseApi();
@@ -362,7 +365,7 @@ namespace AppsfitWebApi.Repository
 
 
         //send comprobante venta app
-        public static void sendEmailValiateAccount (int CodigoSede, int CodigoUnidadNegocio,int Venta, string Email, string baseUrl)
+        public static void sendEmailValiateAccount(int CodigoSede, int CodigoUnidadNegocio, int Venta, string Email, string baseUrl)
         {
             MembresiaApiRepository repositoryMem = new MembresiaApiRepository();
             //validate config email account
@@ -383,10 +386,11 @@ namespace AppsfitWebApi.Repository
             }
 
         }
+     
 
-    //***********************************************   VENTAS *******************************************
-    //venta by codigo
-    public VentasDTO BuscarVentaPorCodigo(int codigo, int CodigoUnidadNegocio ,int CodigoSede)
+        //***********************************************   VENTAS *******************************************
+        //venta by codigo
+        public VentasDTO BuscarVentaPorCodigo(int codigo, int CodigoUnidadNegocio, int CodigoSede)
         {
             VentasDTO oVentasDTO = new VentasDTO();
             oVentasDTO.CodigoVenta = codigo;
@@ -410,14 +414,13 @@ namespace AppsfitWebApi.Repository
             return oVentasDTO;
         }
 
-
         //venta detail by venta
         public List<VentasDTO> DetalleDeVentaPorCodigo(int CodigoVenta, int CodigoUnidadNegocio, int CodigoSede)
         {
             List<VentasDTO> lista = null;
             VentasDTO oVentasDTO = new VentasDTO();
             oVentasDTO.CodigoVenta = CodigoVenta;
-            oVentasDTO.CodigoUnidadNegocio =CodigoUnidadNegocio;
+            oVentasDTO.CodigoUnidadNegocio = CodigoUnidadNegocio;
             oVentasDTO.CodigoSede = CodigoSede;
             ReqFilterVentasDTO oReq = new ReqFilterVentasDTO()
             {

@@ -231,6 +231,7 @@ namespace E_DataLayer
                 conn.Open();
                 using (var cmd = new SqlCommand("ecommerce_uspListarValorInventario_PuntoVenta", conn))
                 {
+                    
                     cmd.CommandType = System.Data.CommandType.StoredProcedure;
                     cmd.Parameters.Add(new SqlParameter("@CodigoUnidadNegocio", System.Data.SqlDbType.Int)).Value = oFiltro.CodigoUnidadNegocio;
                     cmd.Parameters.Add(new SqlParameter("@CodigoSede", System.Data.SqlDbType.Int)).Value = oFiltro.CodigoSede;
@@ -276,7 +277,63 @@ namespace E_DataLayer
             return lista;
         }
 
+        //*********************************************** API *******************************************
 
+        public List<ItemsVentaDTO> ListProductByCategory(ItemsVentaDTO oFiltro)
+        {
+            List<ItemsVentaDTO> lista = new List<ItemsVentaDTO>();
+            using (var conn = new SqlConnection(Helper.Conexion()))
+            {
+                conn.Open();
+                using (var cmd = new SqlCommand("ecommerce_uspListarValorInventario_PuntoVentaApp", conn))
+                {
+
+                    cmd.CommandType = System.Data.CommandType.StoredProcedure;
+                    cmd.Parameters.Add(new SqlParameter("@CodigoUnidadNegocio", System.Data.SqlDbType.Int)).Value = oFiltro.CodigoUnidadNegocio;
+                    cmd.Parameters.Add(new SqlParameter("@CodigoSede", System.Data.SqlDbType.Int)).Value = oFiltro.CodigoSede;
+                    cmd.Parameters.Add(new SqlParameter("@CodigoMenuSuperior", System.Data.SqlDbType.Int)).Value = oFiltro.CodigoMenu;
+                    if (oFiltro.Nombre == string.Empty || oFiltro.Nombre == null)
+                    {
+                        cmd.Parameters.Add(new SqlParameter("@Buscador", System.Data.SqlDbType.VarChar)).Value = DBNull.Value;
+                    }
+                    else
+                    {
+                        cmd.Parameters.Add(new SqlParameter("@Buscador", System.Data.SqlDbType.VarChar)).Value = oFiltro.Nombre;
+                    }
+
+                    using (SqlDataReader oIDataReader = cmd.ExecuteReader())
+                    {
+                        if (oIDataReader.HasRows)
+                        {
+                            while (oIDataReader.Read())
+                            {
+                                lista.Add(new ItemsVentaDTO()
+                                {
+                                    CodigoUnidadNegocio = Convert.ToInt32(oIDataReader[oIDataReader.GetOrdinal("CodigoUnidadNegocio")]),
+                                    CodigoSede = Convert.ToInt32(oIDataReader[oIDataReader.GetOrdinal("CodigoSede")]),
+                                    CodigoAlmacen = Convert.ToInt32(oIDataReader[oIDataReader.GetOrdinal("CodigoAlmacen")]),
+                                    CodigoItemVenta = Convert.ToInt32(oIDataReader[oIDataReader.GetOrdinal("CodigoItemVenta")]),
+                                    Nombre = oIDataReader[oIDataReader.GetOrdinal("Nombre")].ToString(),
+                                    UrlImagen = oIDataReader[oIDataReader.GetOrdinal("UrlImagen")].ToString(),
+                                    CodigoImagen = oIDataReader[oIDataReader.GetOrdinal("CodigoImagen")].ToString(),
+                                    PrecioVenta = Convert.ToDecimal(oIDataReader[oIDataReader.GetOrdinal("PrecioVenta")].ToString()),
+                                    Referencia = oIDataReader[oIDataReader.GetOrdinal("Referencia")].ToString(),
+                                    Descripcion = oIDataReader[oIDataReader.GetOrdinal("Descripcion")].ToString(),
+                                    d_CantidadActual = Convert.ToDecimal(oIDataReader[oIDataReader.GetOrdinal("CantidadActual")].ToString()),
+                                    CodigoUnidadMedida = Convert.ToInt32(oIDataReader[oIDataReader.GetOrdinal("CodigoUnidadMedida")]),
+                                    Estado = Convert.ToInt32(oIDataReader[oIDataReader.GetOrdinal("Estado")]),
+                                    VisualizarTiendaVirtual = Convert.ToInt32(oIDataReader[oIDataReader.GetOrdinal("VisualizarTiendaVirtual")])
+                                });
+                            }
+                        }
+
+                    }
+                }
+            }
+            return lista;
+        }
+
+        //*********************************************** API *******************************************
         public ItemsVentaDTO ecommerce_uspBuscarItemsVentas(ItemsVentaDTO oFiltro)
         {
             ItemsVentaDTO itemDTO = null;

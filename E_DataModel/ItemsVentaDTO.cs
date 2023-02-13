@@ -26,6 +26,7 @@ namespace E_DataModel
         public string UrlImagen { get; set; }
         public string CodigoImagen { get; set; }
         public int Estado { get; set; }
+        public int CodigoMenu { get; set; }
 
         public int VisualizarTiendaVirtual { get; set; }
         public List<ItemsVentaInventarioDTO> lista_ItemsVentaInventarioDTO { get; set; }
