@@ -69,12 +69,18 @@ namespace E_BusinessLayer
                             }
                             CategoriaDTOList = oComprobanteDetalleData.CentroEntrenamiento_uspReporteVentasProductosTotalesRangoFechas_Paginacion(oReqFilter.Item, oReqFilter.Paging);
                             break;
-                        case filterCaseComprobanteDetalle.CentroEntrenamiento_uspListarDeudasCliente:                           
+                        case filterCaseComprobanteDetalle.CentroEntrenamiento_uspListarDeudasCliente:
                             CategoriaDTOList = oComprobanteDetalleData.CentroEntrenamiento_uspListarDeudasCliente(oReqFilter.Item);
                             break;
-                        case filterCaseComprobanteDetalle.CentroEntrenamiento_uspListarComprobanteDetalleParaAnular:                           
+
+                        case filterCaseComprobanteDetalle.CentroEntrenamiento_uspListarComprobanteDetalleParaAnular:
                             CategoriaDTOList = oComprobanteDetalleData.CentroEntrenamiento_uspListarComprobanteDetalleParaAnular(oReqFilter.Item);
                             break;
+
+                        case filterCaseComprobanteDetalle.detalleCompApp:
+                            CategoriaDTOList = oComprobanteDetalleData.ecommerce_uspListarComprobantePagoDetalleApp(oReqFilter.Item);
+                            break;
+
                         default:
                             {
                                 // CategoriaDTOList = oComprobanteDetalleData.uspListarSocios_PorVendedor_Paginacion(oReqFilter.Paging);
@@ -133,7 +139,9 @@ namespace E_BusinessLayer
                                 oItem = new ComprobanteDetalleDTO();
                                 oItem = oComprobanteDetalleData.CentroEntrenamiento_uspReporteVentasProductosTotalesRangoFechas_NumeroRegistros(oReqFilter.Item);
                             }
-                            break;                     
+                            break;
+
+
                     }
 
                     oRespItem.Item = new ComprobanteDetalleDTO();

@@ -294,6 +294,12 @@
            RegisterControlSalidaAPP = 183,
            RegisterSFPagoAPP = 184,
 
+       //api - pago registro
+       api_registerComprobante = 185,
+
+        //api - comprobante pago
+        RegisterCPApi = 186,
+
     }
 
     public enum TipoMensaje
@@ -356,7 +362,8 @@
     {
         ecommerce_uspListarCategorias_Edit = 1,
         ecommerce_uspBuscarCategorias = 2,
-        ecommerce_uspBuscarCategoriasTiendaVirutal = 3
+        ecommerce_uspBuscarCategoriasTiendaVirutal = 3,
+        api_listCategories = 4,
     }
 
     public enum filterCaseItemsVenta
@@ -369,7 +376,8 @@
         ecommerce_uspListarValorInventario_PuntoVenta = 6,
         ecommerce_uspListarItemsVenta_PorCategoriaPaginacion = 7,
         ecommerce_uspBuscarItemsVentasTienda = 8,
-        ecommerce_uspBuscarItemsVentasParaGuardarFoto = 9
+        ecommerce_uspBuscarItemsVentasParaGuardarFoto = 9,
+        ecommerce_productbycate = 10,
     }
 
     public enum filterCaseItemsVentaIncluidosKit
@@ -402,7 +410,8 @@
     public enum filterCaseComprobante
     {
         ecommerce_uspListarComprobante = 1,
-        ecommerce_uspListarComprobanteParaAnular = 2
+        ecommerce_uspListarComprobanteParaAnular = 2,
+        ItemCompCabezeraApp = 3,
     }
 
     public enum filterCaseFECabecera
@@ -415,7 +424,8 @@
         CentroEntrenamiento_uspReporteVentasProductosTotalesRangoFechas_Paginacion = 1,
         CentroEntrenamiento_uspReporteVentasProductosTotalesRangoFechas_NumeroRegistros = 2,
         CentroEntrenamiento_uspListarDeudasCliente = 3,
-        CentroEntrenamiento_uspListarComprobanteDetalleParaAnular = 4
+        CentroEntrenamiento_uspListarComprobanteDetalleParaAnular = 4,
+        detalleCompApp = 5
         //ecommerce_uspListarAlmacenes_Paginacion = 1
     }
     public enum filterCaseTipoComprobante

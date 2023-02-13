@@ -14,6 +14,7 @@ namespace E_DataModel
         public int CodigoAlmacen { get; set; }
         public int CodigoMenuSuperior { get; set; }
         public int CodigoItemsVenta { get; set; }
+        public int CodigoItemVenta { get; set; }
         public string Referencia { get; set; }
         public Decimal Precio { get; set; }
         public Decimal Descuento { get; set; }

@@ -201,6 +201,7 @@ namespace BotComers.Repository.Ingresos
                 Estado = oItem.Estado,
                 UsuarioCreacion = oItem.UsuarioCreacion,
                 Operation = oItem.Accion == "N" ? Operation.Create : Operation.Update,
+                
 
             });
 

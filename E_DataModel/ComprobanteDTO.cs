@@ -58,6 +58,28 @@ namespace E_DataModel
         public DateTime? b_FechaEmisionFin { get; set; }
 
         public string UrlPDF { get; set; }
+        public string DesFechaEmision { get; set; }
+        public string DesHourEmision { get; set; }
+        public string DesFormaPago { get; set; }
+        public int Debe { get; set; }
+
+        public string DateParse(DateTime? date = null)
+        {
+            if (date != null)
+            {
+                return date?.ToString("dd/MM/yyyy");
+            }
+            return "";
+        }
+        
+        public string HourParse(DateTime? date = null)
+        {
+            if (date != null)
+            {
+                return date?.ToString("HH:mm tt");
+            }
+            return "";
+        }
 
     }
 

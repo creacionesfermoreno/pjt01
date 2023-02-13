@@ -234,6 +234,81 @@ namespace E_DataLayer
             return resultado;
         }
 
+        //********************************* API ************************************************
+        public int ecommerce_uspRegistrarComprobanteDetalleApp(ComprobanteDetalleDTO item)
+        {
+            int resultado = 0;
+            using (var conn = new SqlConnection(Helper.Conexion()))
+            {
+                conn.Open();
+                using (var cmd = new SqlCommand("ecommerce_uspRegistrarComprobanteDetalleApp", conn))
+                {
+                    cmd.CommandType = System.Data.CommandType.StoredProcedure;
+                    cmd.Parameters.Add(new SqlParameter("@DefaultKeyEmpresa", System.Data.SqlDbType.VarChar)).Value = item.DefaultKeyEmpresa;
+                    cmd.Parameters.Add(new SqlParameter("@CodigoComprobante", System.Data.SqlDbType.Int)).Value = item.CodigoComprobante;
+                    cmd.Parameters.Add(new SqlParameter("@CodigoComprobanteDetalle", System.Data.SqlDbType.Int)).Direction = ParameterDirection.Output;
+                    cmd.Parameters.Add(new SqlParameter("@CodigoMenuSuperior", System.Data.SqlDbType.Int)).Value = item.CodigoMenuSuperior;
+                    cmd.Parameters.Add(new SqlParameter("@CodigoItemsVenta", System.Data.SqlDbType.Int)).Value = item.CodigoItemsVenta;
+                    cmd.Parameters.Add(new SqlParameter("@Referencia", System.Data.SqlDbType.VarChar, 100)).Value = item.Referencia;
+                    cmd.Parameters.Add(new SqlParameter("@Precio", System.Data.SqlDbType.Decimal)).Value = item.Precio;
+                    cmd.Parameters.Add(new SqlParameter("@Descuento", System.Data.SqlDbType.Decimal)).Value = item.Descuento;
+                    cmd.Parameters.Add(new SqlParameter("@CodigoTipoImpuesto", System.Data.SqlDbType.Int)).Value = item.CodigoTipoImpuesto;
+                    cmd.Parameters.Add(new SqlParameter("@Descripcion", System.Data.SqlDbType.VarChar, 100)).Value = item.Descripcion;
+                    cmd.Parameters.Add(new SqlParameter("@Cantidad", System.Data.SqlDbType.Decimal)).Value = item.Cantidad;
+                    cmd.Parameters.Add(new SqlParameter("@Total", System.Data.SqlDbType.Decimal)).Value = item.Total;
+                    cmd.Parameters.Add(new SqlParameter("@Estado", System.Data.SqlDbType.Int)).Value = item.Estado;
+                    cmd.ExecuteNonQuery();
+                    resultado = Convert.ToInt32(cmd.Parameters["@CodigoComprobanteDetalle"].Value);
+                }
+               
+            }
+            return resultado;
+        }
+
+        public List<ComprobanteDetalleDTO> ecommerce_uspListarComprobantePagoDetalleApp(ComprobanteDetalleDTO oFiltro)
+        {
+            List<ComprobanteDetalleDTO> lista = new List<ComprobanteDetalleDTO>();
+            using (var conn = new SqlConnection(Helper.Conexion()))
+            {
+                conn.Open();
+                using (var cmd = new SqlCommand("ecommerce_uspListarComprobantePagoDetalleApp", conn))
+                {
+                    cmd.CommandType = System.Data.CommandType.StoredProcedure;
+                    cmd.Parameters.Add(new SqlParameter("@DefaultKeyEmpresa ", System.Data.SqlDbType.VarChar)).Value = oFiltro.DefaultKeyEmpresa;
+                    cmd.Parameters.Add(new SqlParameter("@CodigoComprobante", System.Data.SqlDbType.Int)).Value = oFiltro.CodigoComprobante;
+                    
+
+                    using (SqlDataReader oIDataReader = cmd.ExecuteReader())
+                    {
+                        if (oIDataReader.HasRows)
+                        {
+                            while (oIDataReader.Read())
+                            {
+                                lista.Add(new ComprobanteDetalleDTO()
+                                {
+                                    CodigoUnidadNegocio = Convert.ToInt32(oIDataReader[oIDataReader.GetOrdinal("CodigoComprobante")]),
+                                    CodigoSede = Convert.ToInt32(oIDataReader[oIDataReader.GetOrdinal("CodigoSede")]),
+                                    CodigoComprobante = Convert.ToInt32(oIDataReader[oIDataReader.GetOrdinal("CodigoComprobante")]),
+                                    CodigoComprobanteDetalle = Convert.ToInt32(oIDataReader[oIDataReader.GetOrdinal("CodigoComprobanteDetalle")]),
+                                   
+                                    Cantidad = Convert.ToInt32(oIDataReader[oIDataReader.GetOrdinal("Cantidad")]),
+                                    Precio = Convert.ToDecimal(oIDataReader[oIDataReader.GetOrdinal("Precio")]),
+                                    CodigoItemsVenta = Convert.ToInt32(oIDataReader[oIDataReader.GetOrdinal("CodigoItemsVenta")]),
+                                    Descripcion = oIDataReader[oIDataReader.GetOrdinal("Descripcion")].ToString(),
+                                    Total = Convert.ToDecimal(oIDataReader[oIDataReader.GetOrdinal("Total")]),
+                                    UsuarioCreacion = oIDataReader[oIDataReader.GetOrdinal("UsuarioCreacion")].ToString(),
+                                });
+                            }
+                        }
+
+                    }
+                }
+            }
+            return lista;
+        }
+
+
+        //********************************* API ************************************************
         public int ecommerce_uspRegistrarComprobanteDetalleTiendaVirtual(ComprobanteDetalleDTO item)
         {
             int resultado = 0;
