@@ -114,6 +114,76 @@ namespace E_BusinessLayer
 
         }
 
+
+        public RespItemComprobanteDTO GetItem(ReqFilterComprobanteDTO oReqFilterComprobanteDTO)
+        {
+            RespItemComprobanteDTO oRespItemNotificacionDTO = new RespItemComprobanteDTO();
+
+            oRespItemNotificacionDTO.Success = false;
+            oRespItemNotificacionDTO.Item = null;
+            oRespItemNotificacionDTO.User = oReqFilterComprobanteDTO.User;
+            oRespItemNotificacionDTO.MessageList = new List<Mensaje>();
+
+            if (String.IsNullOrEmpty(oReqFilterComprobanteDTO.User))
+            {
+                oRespItemNotificacionDTO.MessageList.Add(new E_DataModel.Common.Mensaje()
+                {
+                    Codigo = 100,
+                    Detalle = "La cuenta de Configuracion no es válida.",
+                    Tipo = TipoMensaje.Error
+                });
+            }
+
+            if (oRespItemNotificacionDTO.MessageList.Count == 0)
+            {
+                ComprobanteDTO oComprobanteDTO = null;
+                try
+                {
+                    switch (oReqFilterComprobanteDTO.FilterCase)
+                    {
+                        case filterCaseComprobante.ItemCompCabezeraApp:
+                            {
+                                oComprobanteDTO = new ComprobanteDTO();
+                                oComprobanteDTO = oComprobanteData.ecommerce_uspListarComprobantePagoCabeceraApp(oReqFilterComprobanteDTO.Item);
+                            }
+                            break;
+                        
+
+                        default:
+                            {
+                                oComprobanteDTO = new ComprobanteDTO();
+                            }
+                            break;
+                    }
+
+                    oRespItemNotificacionDTO.Item = new ComprobanteDTO();
+                    oRespItemNotificacionDTO.Item = oComprobanteDTO;
+                    oRespItemNotificacionDTO.Success = true;
+                    oRespItemNotificacionDTO.MessageList.Add(new E_DataModel.Common.Mensaje()
+                    {
+                        Codigo = 100,
+                        Detalle = "Correcto.",
+                        Tipo = TipoMensaje.Informacion
+                    });
+
+                }
+                catch (Exception ex)
+                {
+                    oRespItemNotificacionDTO.Success = false;
+                    oRespItemNotificacionDTO.MessageList.Add(new E_DataModel.Common.Mensaje()
+                    {
+                        Codigo = 100,
+                        Detalle = ex.Message,
+                        Tipo = TipoMensaje.Error
+                    });
+                }
+
+            }
+            return oRespItemNotificacionDTO;
+        }
+
+
+
         public RespComprobanteDTO ExecuteTransac(ReqComprobanteDTO oReq)
         {
             RespComprobanteDTO oResp = new RespComprobanteDTO();
@@ -143,6 +213,78 @@ namespace E_BusinessLayer
                         {
                             switch (item.Operation)
                             {
+                                //********************* API ***********************//
+
+                                case Operation.api_registerComprobante:
+
+                                   
+                                    //register comprobante
+                                    CodigoOutput = oComprobanteData.ecommerce_uspRegistrarComprobanteApp(item);
+
+                                    //VERIFICAR PAGO
+                                    ComprobantePagoDTO oComprobantePagoDTO_ = new ComprobantePagoDTO();
+
+                                    decimal TotalVenta_ = 0;
+                                    decimal TotalPago_ = 0;
+                                    decimal PagoRestante_ = 0;
+                                    //OBTENEMOS EL TOTAL VENTA
+                                    foreach (ComprobanteDetalleDTO itemComprobanteDetalle in item.listaDetalle)
+                                    {
+                                        TotalVenta_ = TotalVenta_ + itemComprobanteDetalle.Total;
+                                    }
+
+                                    //OBTENEMOS TOTAL PAGO
+                                    if (item.listaDetallePago.Count > 0)
+                                    {
+                                        foreach (ComprobantePagoDTO itemPago in item.listaDetallePago)
+                                        {
+                                            TotalPago_ = TotalPago_ + itemPago.Monto;
+                                            PagoRestante_ = PagoRestante_ + itemPago.Monto;
+                                        }
+
+                                        foreach (ComprobantePagoDTO itemPago in item.listaDetallePago)
+                                        {
+                                            oComprobantePagoDTO_.DefaultKeyEmpresa = itemPago.DefaultKeyEmpresa;
+                                            oComprobantePagoDTO_.CodigoComprobantePago = itemPago.CodigoComprobantePago;
+                                            oComprobantePagoDTO_.CodigoCuentaBancaria = itemPago.CodigoCuentaBancaria;
+                                            oComprobantePagoDTO_.CodigoMetodoPago = itemPago.CodigoMetodoPago;
+                                            oComprobantePagoDTO_.TipoMoneda = itemPago.TipoMoneda;
+                                            oComprobantePagoDTO_.Nota = itemPago.Nota;
+                                            oComprobantePagoDTO_.Estado = itemPago.Estado;
+                                            oComprobantePagoDTO_.UsuarioCreacion = itemPago.UsuarioCreacion;
+                                            oComprobantePagoDTO_.FechaCreacion = item.FechaEmision;
+                                        }
+                                    }
+
+                                    ComprobanteDetalleData oComprobanteDetalleData_ = new ComprobanteDetalleData();
+                                    foreach (ComprobanteDetalleDTO itemComprobanteDetalle in item.listaDetalle)
+                                    {
+                                        int CodigoComprobanteDetalle = 0;
+                                        itemComprobanteDetalle.CodigoComprobante = CodigoOutput;
+                                        itemComprobanteDetalle.FechaCreacion = item.FechaEmision;
+
+                                        //comprobante detail
+                                        CodigoComprobanteDetalle = oComprobanteDetalleData_.ecommerce_uspRegistrarComprobanteDetalleApp(itemComprobanteDetalle);
+
+
+                                        if (TotalVenta_ == TotalPago_)
+                                        {
+                                            ComprobantePagoData ComprobantePagoData = new ComprobantePagoData();
+                                            oComprobantePagoDTO_.CodigoComprobante = CodigoOutput;
+                                            oComprobantePagoDTO_.CodigoComprobanteDetalle = CodigoComprobanteDetalle;
+                                            oComprobantePagoDTO_.Monto = itemComprobanteDetalle.Total;
+                                            ComprobantePagoData.ecommerce_uspRegistrarComprobantePagoApp(oComprobantePagoDTO_);
+                                        }
+                                    }
+
+
+
+
+                                    break;
+
+                                //********************* API ***********************//
+
+
                                 case Operation.Create:
 
                                     if (item.NroIdentificacion == string.Empty || item.NroIdentificacion == "0")
@@ -252,8 +394,12 @@ namespace E_BusinessLayer
                                         }
 
                                     }
+
                                     
                                     break;
+
+
+
                                 case Operation.ecommerce_uspRegistrarPagoComprobante:
                                                                     
                                     if (item.listaDetallePago.Count > 0)

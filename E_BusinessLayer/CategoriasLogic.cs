@@ -70,6 +70,16 @@ namespace E_BusinessLayer
                             }
                             CategoriaDTOList = oCategoriasData.ecommerce_uspListarCategorias_Edit(oReqFilter.Item);
                             break;
+                        
+                        case filterCaseCategorias.api_listCategories:
+
+                            if (!oReqFilter.Paging.All && oReqFilter.Paging.PageRecords == 0)
+                            {
+                                oReqFilter.Paging.PageRecords = Convert.ToUInt32(ConfigurationManager.AppSettings["RecordNumForPage"]);
+                            }
+                            CategoriaDTOList = oCategoriasData.CategoryListApi(oReqFilter.Item);
+                            break;
+
                         default:
                             {
                                 // CategoriaDTOList = oCategoriasData.uspListarSocios_PorVendedor_Paginacion(oReqFilter.Paging);

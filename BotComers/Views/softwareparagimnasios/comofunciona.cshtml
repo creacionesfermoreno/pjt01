@@ -18,18 +18,159 @@
         border-radius: 100px !important;
     }
 
-        img.btn-whatsapp:hover {
-            border-radius: 100px !important;
-            -webkit-box-shadow: 0px 0px 15px 0px rgba(7,94,84,1);
-            -moz-box-shadow: 0px 0px 15px 0px rgba(7,94,84,1);
-            box-shadow: 0px 0px 15px 0px rgba(7,94,84,1);
-            transition-duration: 1s;
-        }
-</style>
+    img.btn-whatsapp:hover {
+        border-radius: 100px !important;
+        -webkit-box-shadow: 0px 0px 15px 0px rgba(7,94,84,1);
+        -moz-box-shadow: 0px 0px 15px 0px rgba(7,94,84,1);
+        box-shadow: 0px 0px 15px 0px rgba(7,94,84,1);
+        transition-duration: 1s;
+    }
 
+    :root {
+        --clr-1: #000;
+        --clr-2: #fff;
+        --body-bgclr: #fff;
+        --bgclr-1: #FF622D;
+        --bgclr-2: #E0342B;
+    }
+
+    h1 {
+        color: var(--clr-1);
+        font-size: 3rem;
+        font-weight: 700;
+        margin: 40px 0 10px;
+    }
+
+    p #deadline {
+        color: var(--clr-1);
+        font-weight: bold;
+        text-transform: uppercase;
+    }
+
+    #clockdiv {
+        color: var(--clr-2);
+        display: inline-block;
+        font-size: 5em;
+        font-weight: 300;
+        text-align: center;
+    }
+
+        #clockdiv > div {
+            background-color: var(--bgclr-1);
+            border-radius: 4px;
+            display: inline-block;
+            padding: 10px;
+        }
+
+        #clockdiv div > span {
+            background-color: var(--bgclr-2);
+            border-radius: 4px;
+            display: inline-block;
+            padding: 25px;
+        }
+
+    .smalltext {
+        font-size: 1rem;
+        padding-top: 5px;
+    }
+
+    #demo {
+        color: red;
+        font-weight: bold;
+    }
+
+</style>
 
 <img class="btn-whatsapp Class_btnWhatsapp" src="https://clientes.dongee.com/whatsapp.png" width="64" height="64" alt="Whatsapp" onclick="window.location.href='https://wa.me/51957592357?text=Hola%20Appsfit!%20estoy%20interesado%20en%20el%20software%20para%20mi%20gimnasio'">
 
+<div class="explore_more" id="testimonios" style="background-color: #000000;display:none;">
+    <div class="container">
+        <div class="row">
+
+            <p class="smalltext">
+                Deadline:
+                <span id="deadline"></span>
+            </p>
+
+        </div>
+    </div>
+</div>
+
+<section class="explore_more" id="testimonios" style="background-color: #000000;">
+
+    <!--begin container -->
+    <div class="container">
+
+        <!--begin row -->
+        <div class="row">
+
+            <!--begin col-md-12 -->
+            <div class="col-md-12 text-center">
+                <div class="content_box text-center">
+                    <img src="~/Content/appsfit_img/Appsfit_Logo_A-color-sin-fondocortado.png" style="height:80px;" />
+
+                    <h1> <br class="disp_none_md" /> <span>¡FELICITACIONES HAS GANADO 75% DE DESCUENTO!</span> </h1>
+                </div>
+                <br />
+                <h4 style="color:#fff;font-size: 30px;font-weight:bold;" class="section-title">POR TIEMPO LIMITADO!!</h4>
+                <br />
+                <div id="clockdiv">
+                    <div>
+                        <span class="days" id="day"></span>
+                        <div class="smalltext">Días</div>
+                    </div>
+                    <div>
+                        <span class="hours" id="hour"></span>
+                        <div class="smalltext">Horas</div>
+                    </div>
+                    <div>
+                        <span class="minutes" id="minute"></span>
+                        <div class="smalltext">Minutos</div>
+                    </div>
+                    <div>
+                        <span class="seconds" id="second"></span>
+                        <div class="smalltext">Segundos</div>
+                    </div>
+                </div>
+                <p id="demo"></p>
+
+                <br />
+                <br />
+                <h4 style="color:#fff;font-size: 30px;font-weight:bold;" class="section-title">*Solo para dueños de gimnasio que aún no han realizado su primer pago de algún plan de Appsfit...</h4>
+                <br />
+                <div class="" style="background: linear-gradient(90deg, #25D366 0%, #25D366 35%, #25D366 100%); border-radius: 20px; ">
+                    <div class="text-center p-4">
+                        <h3 class="fw-normal my-0">WHATSAPP MARKETING</h3>
+                        <span class="fa fa-whatsapp" style="font-size: 35px;color:#fff;"></span>  <span class="fa fa-whatsapp" style="font-size: 35px;color:#fff;"></span> <span class="fa fa-whatsapp" style="font-size: 35px;color:#fff;"></span> <span class="fa fa-whatsapp" style="font-size: 35px;color:#fff;"></span>
+                        <p class="mt-1" style="color:#000;">Hasta los 7500 clientes.</p>
+                        <p class="mt-1" style="color:#000;">Solo por los 3 primeros meses.</p>
+                        <p class="mt-1" style="color:#000;">Solo para los 10 primeros gimnasios que lo adquieran.</p>
+                        <p class="mt-1" style="color:#000;">Promoción valida hasta el 15 de enero 2023.</p>
+                        <br />
+                        <h3 class="fw-medium fs-0">*Plan trimestral</h3>
+                        <h3 class="fw-medium fs-0" style="text-decoration: line-through;">*360 Dolares Americanos</h3>
+                        <h3 class="fw-medium fs-0">*169 Dolares Americanos</h3>
+                        <br />
+
+                    </div>
+                </div>
+
+                <br />
+                <h4 style="color:#fff;font-size: 28px;font-weight:bold;" class="section-title"><b style="color: #E0342B;">IMPORTANTE:</b> Para solicitar la promoción, tienes que darle clic en el botón de whatsapp👇👇👇</h4>
+                <br />
+                <i style="font-size: 50px;" class="fas fa-arrow-circle-down"></i>
+                <br /><br /><br />
+                <button onclick="EnviarDatos();" class="" type="button" style="--tw-gradient-from: #128c7e; font-size: 28px; position: relative; color: #fff; --tw-gradient-from: #128c7e; --tw-gradient-stops: #25d366, #128c7e; background-image: linear-gradient(to bottom right,var(--tw-gradient-stops)); display: inline-block; width: 80%; height: 70px; line-height: 50px; font-weight: 500; transition: all .5s ease; text-align: center; font-family: 'Poppins', sans-serif; border-radius: 50px; background-size: 300% 100%; box-shadow: 0px; border: 0px !important; ">Solicitar promoción <span style="font-size: 35px;" class="fa fa-whatsapp"></span></button>
+
+            </div>
+            <!--end col-md-12 -->
+
+        </div>
+        <!--end row -->
+
+    </div>
+
+</section>
 
 <section class="section-white section-bottom-border" style="padding-top: 0px;padding-bottom: 5px; border: 0px solid #fff;">
     <!--begin pricing-wrapper -->
@@ -410,244 +551,17 @@
             <!--end col-md-4 -->
 
         </div>
-        <!--end row -->
+
+        <br /><br /><br />
         <div class="row">
-
-            <!--begin col-md-12 -->
-            <div class="col-md-12 text-center padding-top-40">
-                <br />
-                <h1 style="color: #E0342B; font-size: 45px; font-weight: bold;" class="section-title">¿Aún lo sigues pensando?</h1>
-                <br />
-                <h3 style="color:#fff;font-size: 35px;font-weight:bold;" class="section-title">Recuerda que "La innovación es lo que distingue a los líderes de los seguidores" -Steve Jobs-</h3>
-                <br />
-                <a href="#register" class="theme_btn tp_one"> Inicia Tu Prueba Gratis <span style="font-size: 22px;" class="fa fa-whatsapp"></span></a>
-
+            <div class="col-md-12 text-center">
+                <button onclick="EnviarDatos();" class="" type="button" style="--tw-gradient-from: #128c7e; font-size: 28px; position: relative; color: #fff; --tw-gradient-from: #128c7e; --tw-gradient-stops: #25d366, #128c7e; background-image: linear-gradient(to bottom right,var(--tw-gradient-stops)); display: inline-block; width: 80%; height: 70px; line-height: 50px; font-weight: 500; transition: all .5s ease; text-align: center; font-family: 'Poppins', sans-serif; border-radius: 50px; background-size: 300% 100%; box-shadow: 0px; border: 0px !important; ">Solicitar promoción <span style="font-size: 35px;" class="fa fa-whatsapp"></span></button>
             </div>
-            <!--end col-md-12 -->
-
         </div>
+        
     </div>
     <!--end container -->
 
-</section>
-<section class="" style="position: relative; padding: 100px 0px 70px; background-color:#000; ">
-    <!--begin container -->
-    <!--begin container -->
-    <div class="container">
-        <!--begin row -->
-        <div class="row">
-            <!--begin col-md-12 -->
-            <div class="col-md-12 text-center padding-top-50 padding-bottom-40">
-                <h1 class="section-title text-orange">30 DÍAS DE GARANTÍA</h1>
-                <p class="section-subtitle" style="color: #FFF;">El primer mes de haber adquirido el servicio del software appsfit cuentas con una garantia de satisfacción de 30 días sin condiciones: si no te gusta el servicio o simplemente no supera tus espectativas te devolveremos el 100% de tu inversión del primer mes sin hacer preguntas.</p>
-            </div>
-        </div>
-        <!--end row -->
-        <!--end container -->
-        <div class="row">
-            <div class="col-lg-12 text-center">
-                <CENTER>
-                    <img src="~/Content/appsfit_img/sello-de-garantia.png" />
-                </CENTER>
-            </div>
-        </div>
-        <br />
-
-        <div class="row">
-            <div class="col-lg-12">
-                <h1 class="white-text" style="color:#000;font-weight:bold;text-align:center">¡SOLICITA HOY UNA DEMO GRATIS POR 15 DÍAS!</h1>
-            </div>
-        </div>
-        <div class="row">
-
-            <div class="col-md-12 text-center" style="position: relative;text-align:center;">
-                <br />
-                <a href="#register" class="theme_btn tp_one"> Inicia Tu Prueba Gratis <span style="font-size: 22px;" class="fa fa-whatsapp"></span></a>
-
-            </div>
-
-        </div>
-
-    </div>
-
-</section>
-
-
-<section class="contact_form faq type_two" id="register">
-    <br /><br /><br />
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-6 col-md-12">
-                <div class="contact_form_box type_two" style="background-color: #afadac;">
-                    <h2>Solicita tu demo y precios</h2>
-                    <form>
-                        <div class="row">
-
-                            <div class="col-lg-6 col-md-6">
-                                <div class="form-group">
-                                    <label> E-mail</label>
-                                    <input id="txtform_correo" type="email" name="form_emailbusiness" placeholder="" class="form-control">
-                                </div>
-                            </div>
-                            <div class="col-lg-6 col-md-6">
-                                <div class="form-group">
-                                    <label> Nombre de la empresa</label>
-                                    <input id="txtform_nombreempresa" type="text" name="form_business" placeholder="" class="form-control">
-                                </div>
-                            </div>
-                            <div class="col-lg-6 col-md-6">
-                                <div class="form-group">
-                                    <label>
-                                        Situación de la empresa
-                                    </label>
-                                    <select id="ddlform_select_situacionempresa" class="register-input" required="" name="form_select_situacionempresa">
-                                        <option value="Seleccionar">Seleccione por favor</option>
-                                        <option value="1">Tengo un negocio</option>
-                                        <option value="2">Me gustaría iniciar un negocio</option>
-                                        <option value="3">No tengo negocio</option>
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="col-lg-6 col-md-6">
-                                <div class="form-group">
-                                    <label>Tipo de empresa</label>
-                                    <select id="ddlform_select_tipoempresa" class="register-input" required="" name="form_select_tipoempresa">
-                                        <option value="Seleccionar">Seleccione por favor</option>
-                                        <option value="1">Gimnasio</option>
-                                        <option value="2">Cadenas</option>
-                                        <option value="3">CrossFit</option>
-                                        <option value="4">Yoga o Pilates</option>
-                                        <option value="5">Baile</option>
-                                        <option value="6">Boxeo</option>
-                                        <option value="7">Box de CrossFit</option>
-                                        <option value="8">Entrenador Personal</option>
-                                        <option value="9">Profesor de clases grupales</option>
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="col-lg-6 col-md-6">
-                                <div class="form-group">
-                                    <label>Número de ubicaciones</label>
-                                    <select id="ddlform_select_nroubicaciones" class="register-input" required="" name="form_select_nroubicaciones">
-                                        <option value="Seleccionar">Seleccione por favor</option>
-                                        <option value="1">0</option>
-                                        <option value="2">1</option>
-                                        <option value="3">2-4</option>
-                                        <option value="4">5+</option>
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="col-lg-6 col-md-6">
-                                <div class="form-group">
-                                    <label> Nombre del dueño</label>
-                                    <input id="txtform_nameduenio" type="text" name="form_nameduenio" placeholder="" class="form-control">
-                                </div>
-                            </div>
-                            <div class="col-lg-12 col-md-12">
-                                <div class="form-group">
-                                    <label> ¿En que te podemos ayudar?</label>
-                                    <textarea id="txtform_asunto" name="form_mensaje" placeholder="" class="form-control textarea required" rows="5"></textarea>
-                                </div>
-                            </div>
-                            <div class="col-lg-12 col-md-12">
-                                <div class="lower_button_box">
-                                    <div class="row">
-                                        <div class="col-lg-12">
-                                            <div class="form-group text-center">
-
-                                                <button class="theme_btn tp_one" onclick="EnviarDatos();" type="button" style=" --tw-gradient-from: #128c7e; --tw-gradient-stops: #25d366, #128c7e; background-image: linear-gradient(to bottom right,var(--tw-gradient-stops));">Demo gratis & precios<span style="font-size: 22px;" class="fa fa-whatsapp"></span></button>
-
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-lg-12 text-center">
-                                            <span id="js-validacionregistro" style="color: #E0342B;display:none;"></span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </form>
-                </div>
-            </div>
-            <div class="col-lg-6 col-md-12">
-                <div class="faq_content">
-                    <div class="heading icon_dark  tp_three">
-                        <h6 class="text-orange">¿Alguna duda?</h6>
-                        <h1><b class="text-orange">Preguntas </b> <b class="text-black">frecuentes</b></h1>
-                    </div>
-                    <div id="accordion">
-                        <div class="card faq_box type_four">
-                            <div class="card-header" id="headingOne">
-                                <h5 class="mb-0">
-                                    <button class="faq_btn" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                                        <span style="font-size: 22px;" class="fa fa-question-circle-o"></span> ¿Por qué necesita mi gimnasio un software de gestión?
-                                    </button>
-                                </h5>
-                            </div>
-                            <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordion">
-                                <div class="card-body" style="font-weight:bold;">
-                                    Confiar en un software de gestión para centros fitness significa dedicar menos tiempo a realizar tareas rutinarias.<br />
-
-                                    Además, es una oportunidad para diversificar los flujos de ingresos y reforzar tu marca. Para obtener resultados significativos, el software de gestión para centros fitness de Appsfit es la opción número uno.
-                                </div>
-                            </div>
-                        </div>
-                        <div class="card faq_box type_four">
-                            <div class="card-header" id="headingTwo">
-                                <h5 class="mb-0">
-                                    <button class="faq_btn collapsed" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-                                        <span style="font-size: 22px;" class="fa fa-question-circle-o"></span> ¿Hará crecer mi negocio el software para centros fitness?
-                                    </button>
-                                </h5>
-                            </div>
-                            <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordion">
-                                <div class="card-body" style="font-weight:bold;">
-                                    Un software de gestión para centros fitness te ayudará a aumentar los ingresos reduciendo los gastos generales, ofrecer nuevos servicios y mejorar la retención.<br />
-                                    Las herramientas de Appsfit permiten ofrecer un servicio inigualable que tus socios valorarán.
-                                </div>
-                            </div>
-                        </div>
-                        <div class="card faq_box type_four">
-                            <div class="card-header" id="headingThree">
-                                <h5 class="mb-0">
-                                    <button class="faq_btn collapsed" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-                                        <span style="font-size: 22px;" class="fa fa-question-circle-o"></span> ¿Qué debo tener en cuenta antes de adquirir un software de gestión para centros fitness?
-                                    </button>
-                                </h5>
-                            </div>
-                            <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordion">
-                                <div class="card-body" style="font-weight:bold;">
-                                    Un buen proveedor de software para centros fitness no se limitará a venderte un producto, será un aliado.<br />
-                                    El software que elijas deberá tener todas las funciones que necesitas para gestionar tu negocio. Pero lo más importante es que el equipo que está detrás te apoye en todo momento.<br />
-                                    Ponte en contacto con nosotros para saber cómo ayudamos a nuestros clientes.
-                                </div>
-                            </div>
-                        </div>
-                        <div class="card faq_box type_four">
-                            <div class="card-header" id="headingCuatro">
-                                <h5 class="mb-0">
-                                    <button class="faq_btn collapsed" data-toggle="collapse" data-target="#collapseCuatro" aria-expanded="false" aria-controls="collapseCuatro">
-                                        <span style="font-size: 22px;" class="fa fa-question-circle-o"></span> No entiendo bien la tecnología, ¿me ayudan a configurar mi negocio?
-                                    </button>
-                                </h5>
-                            </div>
-                            <div id="collapseCuatro" class="collapse" aria-labelledby="headingCuatro" data-parent="#accordion">
-                                <div class="card-body" style="font-weight:bold;">
-                                    ¡Te ayudamos con toda la puesta en marcha de tu negocio! En menos de 30 minutos tendrás todo configurado.<br />
-
-                                    Además, todos los días del año, las 24 horas del día, nuestro equipo de expertos estará disponible para darte soporte y resolver todas tus dudas.<br />
-
-                                    O, si lo prefieres, podrás contratar packs de sesiones con expertos en digitalización, que te brindarán sesiones personalizadas para sacar el máximo partido a la tecnología y mejorar los resultados de tu negocio.
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
 </section>
 
 @section Scripts {
@@ -667,7 +581,39 @@
 
         $(document).ready(function () {
 
-            fbq('trackCustom', 'ViewVideoPresentsAppsfit');            
+            fbq('trackCustom', 'ViewVideoPresentsAppsfit');
+
+            /* Enter here your End date in this format! */
+            var endDate = "Feb 15, 2023 00:00:00";
+
+            /* ***** Do not change this code below. ***** */
+            var deadline = new Date(endDate).getTime();
+
+            var x = setInterval(function () {
+                var now = new Date().getTime();
+                var t = deadline - now;
+                var days = Math.floor(t / (1000 * 60 * 60 * 24));
+                var hours = Math.floor((t % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                var minutes = Math.floor((t % (1000 * 60 * 60)) / (1000 * 60));
+                var seconds = Math.floor((t % (1000 * 60)) / 1000);
+                document.getElementById("day").innerHTML = days;
+                document.getElementById("hour").innerHTML = hours;
+                document.getElementById("minute").innerHTML = minutes;
+                document.getElementById("second").innerHTML = seconds;
+
+                /* Output the End date. (Only for Demo) */
+                document.getElementById("deadline").innerHTML = endDate;
+
+                if (t < 0) {
+                    clearInterval(x);
+                    document.getElementById("demo").innerHTML = "PROMOCIÓN TERMINADA";
+                    document.getElementById("day").innerHTML = "0";
+                    document.getElementById("hour").innerHTML = "0";
+                    document.getElementById("minute").innerHTML = "0";
+                    document.getElementById("second").innerHTML = "0";
+                }
+            }, 1000);
+
 
         });
 
@@ -678,76 +624,11 @@
 
         function EnviarDatos() {
 
-            var correo = $('#txtform_correo').val();
-            var nombreempresa = $('#txtform_nombreempresa').val();
-            var situacionempresa = $('select[id="ddlform_select_situacionempresa"] option:selected').text();
-            var tipoempresa = $('select[id="ddlform_select_tipoempresa"] option:selected').text();
-            var nroubicaciones = $('select[id="ddlform_select_nroubicaciones"] option:selected').text();
-            var nombregerente = $('#txtform_nameduenio').val();
-            var asunto = $('#txtform_asunto').val();
-
-            if (correo == '') {
-                $('#js-validacionregistro').html('Falta ingresar el correo de la empresa.');
-                document.getElementById("js-validacionregistro").style.display = 'block';
-                $('#txtform_correo').select();
-                return;
-            } else if (nombreempresa == '') {
-                $('#js-validacionregistro').html('Falta ingresar el nombre de la empresa.');
-                document.getElementById("js-validacionregistro").style.display = 'block';
-                $('#txtform_nombreempresa').select();
-                return;
-            } else if (situacionempresa == 'Seleccione por favor') {
-                $('#js-validacionregistro').html('Falta seleccionar la situación de su empresa.');
-                document.getElementById("js-validacionregistro").style.display = 'block';
-                $('select[id="ddlform_select_situacionempresa"] option:selected').focus();
-                return;
-            } else if (tipoempresa == 'Seleccione por favor') {
-                $('#js-validacionregistro').html('Falta seleccionar el tipo de su empresa.');
-                document.getElementById("js-validacionregistro").style.display = 'block';
-                $('select[id="ddlform_select_tipoempresa"] option:selected').focus();
-                return;
-            } else if (nroubicaciones == 'Seleccione por favor') {
-                $('#js-validacionregistro').html('Falta seleccionar el nro de ubicaciones de su empresa.');
-                document.getElementById("js-validacionregistro").style.display = 'block';
-                $('select[id="ddlform_select_nroubicaciones"] option:selected').focus();
-                return;
-            } else if (nombregerente == '') {
-                $('#js-validacionregistro').html('Falta ingresar su nombre y apellidos.');
-                document.getElementById("js-validacionregistro").style.display = 'block';
-                $('#txtform_nameduenio').select();
-                return;
-            } else if (asunto == '') {
-                $('#js-validacionregistro').html('Falta ingresar el asunto.');
-                document.getElementById("js-validacionregistro").style.display = 'block';
-                $('#txtform_asunto').select();
-                return;
-            }
-
-            document.getElementById("js-validacionregistro").style.display = 'none';
-
-            correo = correo.replace(' ', '%20').replace(' ', '%20').replace(' ', '%20').replace(' ', '%20').replace(' ', '%20').replace(' ', '%20').replace(' ', '%20').replace(' ', '%20');
-            nombreempresa = nombreempresa.replace(' ', '%20').replace(' ', '%20').replace(' ', '%20').replace(' ', '%20').replace(' ', '%20').replace(' ', '%20').replace(' ', '%20').replace(' ', '%20');
-            situacionempresa = situacionempresa.replace(' ', '%20').replace(' ', '%20').replace(' ', '%20').replace(' ', '%20').replace(' ', '%20').replace(' ', '%20').replace(' ', '%20').replace(' ', '%20');
-            tipoempresa = tipoempresa.replace(' ', '%20').replace(' ', '%20').replace(' ', '%20').replace(' ', '%20').replace(' ', '%20').replace(' ', '%20').replace(' ', '%20').replace(' ', '%20');
-            nroubicaciones = nroubicaciones.replace(' ', '%20').replace(' ', '%20').replace(' ', '%20').replace(' ', '%20').replace(' ', '%20').replace(' ', '%20').replace(' ', '%20').replace(' ', '%20');
-            nombregerente = nombregerente.replace(' ', '%20').replace(' ', '%20').replace(' ', '%20').replace(' ', '%20').replace(' ', '%20').replace(' ', '%20').replace(' ', '%20').replace(' ', '%20');
-            asunto = asunto.replace(' ', '%20').replace(' ', '%20').replace(' ', '%20').replace(' ', '%20').replace(' ', '%20').replace(' ', '%20').replace(' ', '%20').replace(' ', '%20').replace(' ', '%20').replace(' ', '%20').replace(' ', '%20').replace(' ', '%20').replace(' ', '%20').replace(' ', '%20').replace(' ', '%20').replace(' ', '%20');
-
-            var mensaje = '';
-
-            mensaje = mensaje + 'Mi%20empresa%20se%20llama:%20' + nombreempresa + '%0A';
-            mensaje = mensaje + 'Mi%20correo%20es:%20' + correo + '%0A';
-            mensaje = mensaje + 'Tengo:%20' + nroubicaciones + '%0A';
-            mensaje = mensaje + 'La%20situacion%20de%20mi%20empresa%20es:%20' + situacionempresa + '%0A';
-            mensaje = mensaje + 'Mi%20tipo%20de%20empresa%20es:%20' + tipoempresa + '%0A';
-            mensaje = mensaje + 'Asunto:%20' + asunto;
-
-            var Link = "https://api.whatsapp.com/send?phone=51957592357&text=👍%20Hola%20Appsfit,%20mi%20nombre%20es%20" + nombregerente + "%0A" + mensaje;
+            var Link = "https://api.whatsapp.com/send?phone=51957592357&text=👍%20Hola%20Appsfit,%20quiero%20mi%20promoción%20trimestral";
 
             eventContactoFacebook();
 
-            window.open(Link, '_blank');
-
+            window.open(Link, '_self');
         }
 
 
