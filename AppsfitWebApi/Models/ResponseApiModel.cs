@@ -122,6 +122,9 @@ namespace AppsfitWebApi.Models
         [Range(0, int.MaxValue)]
         public int FrezenDisponibles { get; set; }
         public string Observacion { get; set; }
+
+        [Required]
+        public string name { get; set; }
         public string Descripcion { get; set; }
         public int CodigoMebresiaOrigen { get; set; }
         public int TipoIngreso { get; set; }
@@ -174,5 +177,10 @@ namespace AppsfitWebApi.Models
         [RegularExpression(@"^\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$", ErrorMessage = "Email No es válida")]
 
         public string Email { get; set; }
+    }
+
+    public class RequestSimple
+    {
+        public string DefaultKeyEmpresa { get; set; }
     }
 }

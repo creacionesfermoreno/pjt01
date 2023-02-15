@@ -2,6 +2,7 @@
 using AppsfitWebApi.Models;
 using AppsfitWebApi.Repository;
 using AppsfitWebApi.Repository.CulqiServices;
+using AppsfitWebApi.Repository.Services;
 using AppsfitWebApi.ViewModels;
 using E_BusinessLayer;
 using E_BusinessLayer.CentroEntrenamiento;
@@ -11,7 +12,9 @@ using E_DataModel.CentroEntrenamiento;
 using E_DataModel.Common;
 using E_DataModel.Gimnasio;
 using iTextSharp.text;
+using Microsoft.Ajax.Utilities;
 using Newtonsoft.Json;
+using Org.BouncyCastle.Ocsp;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -22,7 +25,9 @@ using System.Reflection;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Web;
+using System.Web.Helpers;
 using System.Web.Http;
+using System.Web.Http.Controllers;
 using System.Web.Http.ModelBinding;
 
 namespace AppsfitWebApi.Controllers
@@ -30,7 +35,7 @@ namespace AppsfitWebApi.Controllers
     [RoutePrefix("api/marketplace")]
     public class MarketplaceController : ApiController
     {
-        
+
 
         //*********************************************** PLANES **********************************************
 
@@ -117,7 +122,8 @@ namespace AppsfitWebApi.Controllers
             return HttpResponseJson(_objResponseModel);
         }
 
-
+        //***************************************************************   MEMBRESIA PAY ***********************************
+        //culqi - membresia
         [HttpPost]
         [Route("membresia/compra")]
         public async Task<HttpResponseMessage> ChargePost([FromBody] RequestCharge request)
@@ -217,7 +223,7 @@ namespace AppsfitWebApi.Controllers
                                 //************************* BackgroundJob *********************
                                 var Request = HttpContext.Current.Request;
                                 string baseUrl = Request.Url.Scheme + "://" + Request.Url.Authority + Request.ApplicationPath.TrimEnd('/') + "/";
-                                _ = JobApiHelper.SendReceiptJob("",request.CodigoSede, request.CodigoUnidadNegocio, int.Parse(pay.Message1), request.Email, baseUrl,2);
+                                _ = JobApiHelper.SendReceiptJob("", request.CodigoSede, request.CodigoUnidadNegocio, int.Parse(pay.Message1), request.Email, baseUrl, 2);
                                 //************************* BackgroundJob *********************
                                 _objResponseModel.Message1 = "Su compra ha sido exitosa.";
                                 _objResponseModel.Success = true;
@@ -260,7 +266,38 @@ namespace AppsfitWebApi.Controllers
             return HttpResponseJson(_objResponseModel);
 
         }
+       
 
+        //membresia - Paypal
+        [HttpPost]
+        [Route("membresia/compra/paypal")]
+        public async Task<HttpResponseMessage> MembresiaPaypal(RequestCapture req)
+        {
+            ResponseApi responseApi = new ResponseApi();
+
+            PaypalRepository paypalRepository = new PaypalRepository();
+
+            //HttpContent requestContent = Request.Content;
+            //string jsonContent =  requestContent.ReadAsStringAsync().Result;
+
+            if (!ModelState.IsValid)
+            {
+                //validate inputs
+                IEnumerable<ModelError> allErrors = ModelState.Values.SelectMany(v => v.Errors);
+                responseApi.Success = false;
+                responseApi.Status = 2;
+                responseApi.Errors = allErrors;
+            }
+            else
+            {
+                var Request = HttpContext.Current.Request;
+                string baseUrl = Request.Url.Scheme + "://" + Request.Url.Authority + Request.ApplicationPath.TrimEnd('/') + "/";
+                responseApi = await paypalRepository.CaptureOrderRepo(req, baseUrl);
+            }
+
+            return HttpResponseJson(responseApi);
+        }
+        //***************************************************************   MEMBRESIA PAY ***********************************
 
         [HttpGet]
         [Route("categories")]
@@ -384,7 +421,7 @@ namespace AppsfitWebApi.Controllers
             }
             else
             {
-                
+
                 bool validator = true;
                 CulqiService services = new CulqiService();
                 PasarelaEmpresaApiRepository oRepository = new PasarelaEmpresaApiRepository();
@@ -440,7 +477,7 @@ namespace AppsfitWebApi.Controllers
                             //************************* BackgroundJob *********************
                             var Request = HttpContext.Current.Request;
                             string baseUrl = Request.Url.Scheme + "://" + Request.Url.Authority + Request.ApplicationPath.TrimEnd('/') + "/";
-                            _ = JobApiHelper.SendReceiptJob(req.DefaultKeyEmpresa,req.CodigoSede, req.CodigoUnidadNegocio, codePost, req.Email, baseUrl, 1);
+                            _ = JobApiHelper.SendReceiptJob(req.DefaultKeyEmpresa, req.CodigoSede, req.CodigoUnidadNegocio, codePost, req.Email, baseUrl, 1);
                             //************************* BackgroundJob *********************
 
                             _objResponseModel.Message1 = "Su compra ha sido exitosa.";
@@ -478,15 +515,83 @@ namespace AppsfitWebApi.Controllers
         }
 
 
+        //generar order paypal
+        [HttpPost]
+        [Route("paypal/order")]
+        public async Task<HttpResponseMessage> PaypalOrder([FromBody] RequestOrder req)
+        {
+            ResponseApi responseApi = new ResponseApi();
+           
+            PaypalService paypalService = new PaypalService();
+            PaypalHelper paypalHelper = new PaypalHelper();
+
+            if (!ModelState.IsValid)
+            {
+                //validate inputs
+                IEnumerable<ModelError> allErrors = ModelState.Values.SelectMany(v => v.Errors);
+                responseApi.Success = false;
+                responseApi.Status = 2;
+                responseApi.Errors = allErrors;
+            }
+            else
+            {
+                HomeRepository homeRepository = new HomeRepository();
+
+                var token = await homeRepository.ValidPasarelaRepo(req.DefaultKeyEmpresa, req.CodigoPlantillaFormaPago);
+                if (token.Success == true)
+                {
+                    //order
+                    List<ItemPaypal> items = new List<ItemPaypal>();
+                    UnitAmount unitAmount = new UnitAmount() { currency_code = "USD",value = req.membresia.Costo};
+                    items.Add(new ItemPaypal() {name = req.membresia.name,description = req.membresia.Descripcion,quantity = 1, unit_amount = unitAmount });
+                    var data = paypalHelper.OrderHelper(items);
+                    responseApi = await paypalService.PaypalOrderService(data, token?.Message1);
+
+                    var links = (List<Link>)responseApi.Date;
+                    if (links.Count > 0) { responseApi.Date = links.Where(e => e.rel == "approve"); }
+
+                }
+                else { responseApi = token; }
+            }
+
+            return HttpResponseJson(responseApi);
+        }
+
+
+        //list account payments by business
+        [HttpGet]
+        [Route("account/payments")]
+        public HttpResponseMessage AccountPayments([FromBody] RequestSimple req)
+        {
+            ResponseApi responseApi = new ResponseApi();
+            if (!string.IsNullOrEmpty(req.DefaultKeyEmpresa))
+            {
+                responseApi.Message3 = req.DefaultKeyEmpresa;
+                HomeRepository homeRepository = new HomeRepository();
+                responseApi =  homeRepository.AccountPaymentsRepo(req.DefaultKeyEmpresa);
+            }
+            else
+            {
+                responseApi.Message1= "Campo DefaultKeyEmpresa requerida";
+                responseApi.Success = false;
+                responseApi.Status = 2;
+            }
+            
+            return HttpResponseJson(responseApi);  
+        }    
+        
+        
+      
+        
         
         [HttpGet]
         [Route("dev")]
         public HttpResponseMessage dev()
         {
-            ResponseApi _objResponseModel = new ResponseApi();
-            _objResponseModel.Message1 = "dev api success";
-            _objResponseModel.Status = 0;
-            return HttpResponseJson(_objResponseModel);
+            ResponseApi responseApi = new ResponseApi();
+            responseApi.Message1 = "dev api success";
+            responseApi.Status = 0;
+            return HttpResponseJson(responseApi);
         }
 
 

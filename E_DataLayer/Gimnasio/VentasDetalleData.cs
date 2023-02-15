@@ -1960,6 +1960,7 @@ namespace E_DataLayer.Gimnasio
                     cmd.CommandTimeout = 180;
                     cmd.ExecuteNonQuery();
                 }
+                conn.Close();
             }
         }
 
