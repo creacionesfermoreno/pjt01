@@ -2443,5 +2443,7 @@
         SearchByCode = 1,
         List = 2,
         ListActive = 3,
+        ListApi = 4,
+        SearchCodeApi = 5,
     }
 }

@@ -395,6 +395,7 @@
     <Compile Include="Repository\Inventario\PlantillaFormaPagoRepository.cs" />
     <Compile Include="Repository\Inventario\TarifasEnvioRepository.cs" />
     <Compile Include="Repository\PasarelaEmpresaServices\PasarelaEmpresaService.cs" />
+    <Compile Include="Repository\PasarelaRepository.cs" />
     <Compile Include="Repository\WhatsappServices\TemplateUtil.cs" />
     <Compile Include="Repository\WhatsappServices\WhatsappTemplateServices.cs" />
     <Compile Include="ViewModels\BannerProductoViewModel.cs" />
@@ -6626,21 +6627,6 @@
     <Content Include="Content\tienda2\img\staff\.DS_Store" />
     <Content Include="Content\tienda2\js\.DS_Store" />
     <Content Include="Content\tienda2\sass\.DS_Store" />
-    <Content Include="Content\tienda2\sass\.sass-cache\9863ecefae601619269a32b4941e7b84b0edf77b\about.scssc" />
-    <Content Include="Content\tienda2\sass\.sass-cache\9863ecefae601619269a32b4941e7b84b0edf77b\account.scssc" />
-    <Content Include="Content\tienda2\sass\.sass-cache\9863ecefae601619269a32b4941e7b84b0edf77b\blog.scssc" />
-    <Content Include="Content\tienda2\sass\.sass-cache\9863ecefae601619269a32b4941e7b84b0edf77b\cart.scssc" />
-    <Content Include="Content\tienda2\sass\.sass-cache\9863ecefae601619269a32b4941e7b84b0edf77b\checkout.scssc" />
-    <Content Include="Content\tienda2\sass\.sass-cache\9863ecefae601619269a32b4941e7b84b0edf77b\contact.scssc" />
-    <Content Include="Content\tienda2\sass\.sass-cache\9863ecefae601619269a32b4941e7b84b0edf77b\error_track.scssc" />
-    <Content Include="Content\tienda2\sass\.sass-cache\9863ecefae601619269a32b4941e7b84b0edf77b\faq.scssc" />
-    <Content Include="Content\tienda2\sass\.sass-cache\9863ecefae601619269a32b4941e7b84b0edf77b\home_1.scssc" />
-    <Content Include="Content\tienda2\sass\.sass-cache\9863ecefae601619269a32b4941e7b84b0edf77b\leave_review.scssc" />
-    <Content Include="Content\tienda2\sass\.sass-cache\9863ecefae601619269a32b4941e7b84b0edf77b\listing.scssc" />
-    <Content Include="Content\tienda2\sass\.sass-cache\9863ecefae601619269a32b4941e7b84b0edf77b\product_page.scssc" />
-    <Content Include="Content\tienda2\sass\.sass-cache\9863ecefae601619269a32b4941e7b84b0edf77b\style.scssc" />
-    <Content Include="Content\tienda2\sass\.sass-cache\9863ecefae601619269a32b4941e7b84b0edf77b\_mixin.scssc" />
-    <Content Include="Content\tienda2\sass\.sass-cache\9863ecefae601619269a32b4941e7b84b0edf77b\_variables.scssc" />
     <Content Include="Content\tienda2\sass\about.scss" />
     <Content Include="Content\tienda2\sass\account.scss" />
     <Content Include="Content\tienda2\sass\blog.scss" />
@@ -7261,6 +7247,7 @@
     <Folder Include="Content\corporativo\lib\echarts\extension\" />
     <Folder Include="Content\corporativo\lib\summernote\lang\" />
     <Folder Include="Content\files_excel_appsfit\" />
+    <Folder Include="Content\tienda2\sass\.sass-cache\" />
     <Folder Include="Content\tienda\sass\components\Mixins\" />
     <Folder Include="Views\gastos\" />
   </ItemGroup>

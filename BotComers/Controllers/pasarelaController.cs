@@ -25,6 +25,9 @@ using E_BusinessLayer;
 using BotComers.Repository.PasarelaEmpresaServices;
 using Microsoft.Ajax.Utilities;
 using Org.BouncyCastle.Bcpg;
+using BotComers.Repository;
+using System.Threading.Tasks;
+using DocumentFormat.OpenXml.Wordprocessing;
 
 namespace BotComers.Controllers
 {
@@ -235,10 +238,9 @@ namespace BotComers.Controllers
 
 
         //register pasarela empresa - CULQUI
-        public ActionResult registerPasarela(string code, string keypublic,string keyprivate,int status)
+        public async Task<ActionResult> registerPasarela(string code, string keypublic,string keyprivate,int status, string type)
         {
             ResponseModel responseModel = new ResponseModel();
-
             bool validator = true;
 
             if (string.IsNullOrEmpty(code))
@@ -258,75 +260,61 @@ namespace BotComers.Controllers
                 responseModel.Message1 = "Campo clave privada  requerido";
                 validator = false;
                 responseModel.Status = 1;
+            } 
+            
+            if (string.IsNullOrEmpty(type))
+            {
+                responseModel.Message1 = "Campo tipo methodo  requerido";
+                validator = false;
+                responseModel.Status = 1;
             }
             if (!validator)
             {
                 return Json(responseModel, JsonRequestBehavior.AllowGet);
             }
 
-            var key = pasareleSevices.validatekeyService(keypublic);
-            var keyPrivate = pasareleSevices.validatekeyPrivateService(keyprivate);
-            if(key.Success == false)
+            //****************************************** validate crendentiales **********************************
+            string typeP = type.ToUpper();
+            ResponseModel respValid = new ResponseModel() ;
+            PasarelaRepository prepo = new PasarelaRepository();
+            
+            switch (typeP)
             {
-                responseModel.Message1 = "la clave publica ingresado es inválida";
-                validator = false;
-                responseModel.Status = 1;
-            }          
-            if(keyPrivate.Success == false)
-            {
-                responseModel.Message1 = "la clave privada ingresado es inválida";
-                validator = false;
-                responseModel.Status = 1;
+                case "CULQI":
+                    respValid = prepo.ValidCredentialCulqRep(keypublic, keyprivate);
+                    break;
+                
+                case "PAYPAL":  
+                    respValid = await prepo.ValidCredentialPaypalRep(keypublic, keyprivate);
+                    break;  
+                default:
+                    break;
             }
 
-            if (!validator)
+            //****************************************** validate crendentiales **********************************
+           
+            if (!respValid.Success)
             {
-                return Json(responseModel, JsonRequestBehavior.AllowGet);
+                return Json(respValid, JsonRequestBehavior.AllowGet);
             }
 
+            //save
+            Dictionary<string,dynamic> tdata = new Dictionary<string, dynamic>();
+            tdata.Add("code", code);
+            tdata.Add("kpublic", keypublic);
+            tdata.Add("kpri", keyprivate);
+            tdata.Add("status", status);
+            responseModel = prepo.registerAccountPay(tdata);
 
-            try
-            {
-                List<PasarelaEmpresaDTO> list = new List<PasarelaEmpresaDTO>();
-                list.Add(new PasarelaEmpresaDTO()
-                {
-                    CodigoUnidadNegocio = Commun.CodigoUnidadNegocio,
-                    CodigoSede = Commun.CodigoSede,
-                    UsuarioCreacion = Commun.Usuario,
-                    CodigoPlantillaFormaPago = code,
-                    Valor1 = keypublic,
-                    Valor2 = keyprivate,
-                    Valor3 = "--",
-                    Estado = Convert.ToBoolean(status),
-                    Operation = Operation.RegisterPEmpresa,
-                }); ;
-                ReqPasarelaEmpresaDTO oReq = new ReqPasarelaEmpresaDTO()
-                {
-                    List = list,
-                    User = Commun.Usuario
-                };
 
-                RespPasarelaEmpresaDTO oResp = null;
-                using (PasarelaEmpresaLogic logic = new PasarelaEmpresaLogic())
-                {
-                    oResp = logic.ExecuteTransac(oReq);
-                }
-                if (oResp.Success)
-                {
-                    responseModel.Message1 = oResp.MessageList[0].Detalle;
-                    responseModel.Status = 0;
-                }
-            }
-            catch (Exception ex)
-            {
-                responseModel.Status =1;
-                responseModel.Message1 = ex.Message;
-            }
             return Json(responseModel, JsonRequestBehavior.AllowGet);
         }
 
+
+
+
         //update pasarela empresa - CULQUI
-        public ActionResult updatePasarela(string code, string keypublic,string keyprivate,int status)
+        public async Task<ActionResult> updatePasarela(string code, string keypublic,string keyprivate,int status ,string type )
         {
             ResponseModel responseModel = new ResponseModel();
 
@@ -350,69 +338,49 @@ namespace BotComers.Controllers
                 validator = false;
                 responseModel.Status = 1;
             }
+            if (string.IsNullOrEmpty(type))
+            {
+                responseModel.Message1 = "Campo tipo pasarela de pago  requerido";
+                validator = false;
+                responseModel.Status = 1;
+            }
             if (!validator)
             {
                 return Json(responseModel, JsonRequestBehavior.AllowGet);
             }
 
-            var key = pasareleSevices.validatekeyService(keypublic);
-            var keyPrivate = pasareleSevices.validatekeyPrivateService(keyprivate);
-            if(key.Success == false)
+            //****************************************** validate crendentiales **********************************
+            string typeP = type.ToUpper();
+            ResponseModel respValid = new ResponseModel();
+            PasarelaRepository prepo = new PasarelaRepository();
+
+            switch (typeP)
             {
-                responseModel.Message1 = "la clave publica ingresado es inválida";
-                validator = false;
-                responseModel.Status = 1;
-            }          
-            if(keyPrivate.Success == false)
-            {
-                responseModel.Message1 = "la clave privada ingresado es inválida";
-                validator = false;
-                responseModel.Status = 1;
+                case "CULQI":
+                    respValid = prepo.ValidCredentialCulqRep(keypublic, keyprivate);
+                    break;
+
+                case "PAYPAL":
+                    respValid = await prepo.ValidCredentialPaypalRep(keypublic, keyprivate);
+                    break;
+                default:
+                    break;
             }
 
-            if (!validator)
+            //****************************************** validate crendentiales **********************************
+
+            if (!respValid.Success)
             {
-                return Json(responseModel, JsonRequestBehavior.AllowGet);
+                return Json(respValid, JsonRequestBehavior.AllowGet);
             }
 
-
-            try
-            {
-                List<PasarelaEmpresaDTO> list = new List<PasarelaEmpresaDTO>();
-                list.Add(new PasarelaEmpresaDTO()
-                {
-                    CodigoUnidadNegocio = Commun.CodigoUnidadNegocio,
-                    CodigoSede = Commun.CodigoSede,
-                    UsuarioCreacion = Commun.Usuario,
-                    CodigoPlantillaFormaPago = code,
-                    Valor1 = keypublic,
-                    Valor2 = keyprivate,
-                    Valor3 = "--",
-                    Estado = Convert.ToBoolean(status),
-                    Operation = Operation.UpdatePEmpresa,
-                }); ;
-                ReqPasarelaEmpresaDTO oReq = new ReqPasarelaEmpresaDTO()
-                {
-                    List = list,
-                    User = Commun.Usuario
-                };
-
-                RespPasarelaEmpresaDTO oResp = null;
-                using (PasarelaEmpresaLogic logic = new PasarelaEmpresaLogic())
-                {
-                    oResp = logic.ExecuteTransac(oReq);
-                }
-                if (oResp.Success)
-                {
-                    responseModel.Message1 = oResp.MessageList[0].Detalle;
-                    responseModel.Status = 0;
-                }
-            }
-            catch (Exception ex)
-            {
-                responseModel.Status =1;
-                responseModel.Message1 = ex.Message;
-            }
+            //update
+            Dictionary<string, dynamic> tdata = new Dictionary<string, dynamic>();
+            tdata.Add("code", code);
+            tdata.Add("kpublic", keypublic);
+            tdata.Add("kpri", keyprivate);
+            tdata.Add("status", status);
+            responseModel = prepo.updateAccountPay(tdata);
             return Json(responseModel, JsonRequestBehavior.AllowGet);
         }
 
