@@ -96,6 +96,8 @@ namespace E_DataLayer
         }
 
         //active
+        //*********************************************************** API ***********************************************
+
         public PasarelaEmpresaDTO ListPasarelaEMActive(PasarelaEmpresaDTO oItem)
         {
             PasarelaEmpresaDTO itemDTO = new PasarelaEmpresaDTO();
@@ -137,6 +139,89 @@ namespace E_DataLayer
             return itemDTO;
         }
 
+        //get pasareal by code
+        public PasarelaEmpresaDTO GetItemPasarelaByCode(PasarelaEmpresaDTO oItem)
+        {
+            PasarelaEmpresaDTO itemDTO = new PasarelaEmpresaDTO();
+
+            using (var conn = new SqlConnection(Helper.Conexion()))
+            {
+                conn.Open();
+                using (var cmd = new SqlCommand("ecommerce_uspBuscarPasarelaPagoEmpresaAppi", conn))
+                {
+                    cmd.CommandType = System.Data.CommandType.StoredProcedure;
+                    cmd.Parameters.Add(new SqlParameter("@DefaultKeyEmpresa", System.Data.SqlDbType.VarChar)).Value = oItem.DefaultKeyEmpresa;
+                    cmd.Parameters.Add(new SqlParameter("@CodigoPlantillaFormaPago", System.Data.SqlDbType.VarChar)).Value = oItem.CodigoPlantillaFormaPago;
+                    using (SqlDataReader oIDataReader = cmd.ExecuteReader())
+                    {
+                        if (oIDataReader.HasRows)
+                        {
+                            while (oIDataReader.Read())
+                            {
+                                itemDTO = new PasarelaEmpresaDTO()
+                                {
+                                    CodigoUnidadNegocio = Convert.ToInt32(oIDataReader[oIDataReader.GetOrdinal("CodigoUnidadNegocio")]),
+                                    CodigoSede = Convert.ToInt32(oIDataReader[oIDataReader.GetOrdinal("CodigoSede")]),
+                                    CodigoPlantillaFormaPago = oIDataReader[oIDataReader.GetOrdinal("CodigoPlantillaFormaPago")].ToString(),
+                                    Valor1 = oIDataReader[oIDataReader.GetOrdinal("Valor1")].ToString(),
+                                    Valor2 = oIDataReader[oIDataReader.GetOrdinal("Valor2")].ToString(),
+                                    Valor3 = oIDataReader[oIDataReader.GetOrdinal("Valor3")].ToString(),
+                                    Estado = Convert.ToBoolean(oIDataReader[oIDataReader.GetOrdinal("Estado")]),
+                                    UsuarioCreacion = oIDataReader[oIDataReader.GetOrdinal("UsuarioCreacion")].ToString(),
+                                    DesFormaPago = oIDataReader[oIDataReader.GetOrdinal("DesFormaPago")].ToString(),
+                                };
+                            }
+                        }
+                    }
+                }
+            }
+            return itemDTO;
+        }
+
+
+        //list pasarela account by gym
+        public List<PasarelaEmpresaDTO> ListPasarelaByEM(PasarelaEmpresaDTO oFiltro)
+        {
+            List<PasarelaEmpresaDTO> lista = new List<PasarelaEmpresaDTO>();
+
+            using (var conn = new SqlConnection(Helper.Conexion()))
+            {
+                conn.Open();
+                using (var cmd = new SqlCommand("ecommerce_uspListarPasarelaPagoEmpresaActivoAppi", conn))
+                {
+                    cmd.CommandType = System.Data.CommandType.StoredProcedure;
+                    cmd.Parameters.Add(new SqlParameter("@DefaultKeyEmpresa", System.Data.SqlDbType.VarChar)).Value = oFiltro.DefaultKeyEmpresa;
+
+                    using (SqlDataReader oIDataReader = cmd.ExecuteReader())
+                    {
+                        if (oIDataReader.HasRows)
+                        {
+                            while (oIDataReader.Read())
+                            {
+                                lista.Add(new PasarelaEmpresaDTO()
+                                {
+                                    CodigoUnidadNegocio = Convert.ToInt32(oIDataReader[oIDataReader.GetOrdinal("CodigoUnidadNegocio")]),
+                                    CodigoSede = Convert.ToInt32(oIDataReader[oIDataReader.GetOrdinal("CodigoSede")]),
+                                    CodigoPlantillaFormaPago = oIDataReader[oIDataReader.GetOrdinal("CodigoPlantillaFormaPago")].ToString(),
+                                   
+                                    DesFormaPago = oIDataReader[oIDataReader.GetOrdinal("DesFormaPago")].ToString(),
+                                    UrlImagenFormaPago = oIDataReader[oIDataReader.GetOrdinal("UrlImagenFormaPago")].ToString(),
+                                    Estado = Convert.ToBoolean(oIDataReader[oIDataReader.GetOrdinal("Estado")]),
+                                    DesFechaCreacion = oFiltro.DateParse(Convert.ToDateTime(oIDataReader[oIDataReader.GetOrdinal("FechaCreacion")])),
+                                    UsuarioCreacion = oIDataReader[oIDataReader.GetOrdinal("UsuarioCreacion")].ToString(),
+                                });
+                            }
+                        }
+
+                    }
+                }
+            }
+
+            return lista;
+        }
+
+
+        //*********************************************************** END API ***********************************************
         public void Register(PasarelaEmpresaDTO item)
         {
             using (var conn = new SqlConnection(Helper.Conexion()))
@@ -152,7 +237,7 @@ namespace E_DataLayer
                     cmd.Parameters.Add(new SqlParameter("@Valor2", System.Data.SqlDbType.VarChar)).Value = item.Valor2;
                     cmd.Parameters.Add(new SqlParameter("@Valor3", System.Data.SqlDbType.VarChar)).Value = item.Valor3;
                     cmd.Parameters.Add(new SqlParameter("@Estado", System.Data.SqlDbType.Bit)).Value = item.Estado;
-          
+
                     if (!string.IsNullOrEmpty(item.UsuarioCreacion))
                     {
                         cmd.Parameters.Add(new SqlParameter("@UsuarioCreacion", System.Data.SqlDbType.VarChar, 100)).Value = item.UsuarioCreacion;

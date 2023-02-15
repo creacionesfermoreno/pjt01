@@ -10,10 +10,11 @@ async function getTypesPasarela() {
         });
         let html = "";
         resp?.data?.forEach((item, index) => {
+            console.log(item)
             html += `<div>
                 <label class="cursor-pointer" id="key_ppt_${index}">
                     <input hidden type="radio" value="${item?.CodigoPlantillaFormaPago}" name="radio_types_pasarelas" id="key_ppt_${index}" />
-                    <div class="flex flex-col text-center dpp" style="" onclick="activeRadioButton(this)">
+                    <div class="flex flex-col text-center dpp" style="" onclick="activeRadioButton(this,'${item?.Descripcion}')">
                         <img src="https://img.freepik.com/premium-vector/key-icon-image_188544-4745.jpg?w=2000" width="50px" />
                         <p class="p-0 m-0">${item?.Descripcion}</p>
                     </div>
@@ -156,10 +157,10 @@ async function registerPasarelaEmpresa(e) {
     let keyprivate = document.getElementById("ppbusiness_v_two").value;
     let code = document.querySelector('input[name="radio_types_pasarelas"]:checked') ? document.querySelector('input[name="radio_types_pasarelas"]:checked').value : "";
     let status = document.querySelector('input[name="rd_status_pem"]:checked').value;
+    let type = document.querySelector('#PayMethodType').value;
     let data = {
-        keypublic, keyprivate, code, status
+        keypublic, keyprivate, code, status, type
     };
-    console.log(data)
     try {
         const resp = await axios({
             method: "post",
@@ -319,7 +320,27 @@ async function updatePasarelaEmpresa(e) {
 
 //*************************generales***********************
 //active selecte types pasarela 
-function activeRadioButton(e) {
+function activeRadioButton(e,method) {
     document.querySelectorAll(".dpp").forEach(item => item.classList.remove("dpp-active"));
-    e.classList.add("dpp-active")
+    e.classList.add("dpp-active");
+  
+    let p = document.querySelector("#label_public");
+    let pr = document.querySelector("#label_private");
+    let type = document.querySelector('#PayMethodType');
+    let meth = method.toUpperCase();
+    switch (meth) {
+        case "CULQI":
+            p.innerHTML = "Ingrese key público";
+            pr.innerHTML = "Ingrese key privado";
+            type.value = meth;
+            break;
+        case "PAYPAL":
+            p.innerHTML = "Ingrese client id";
+            pr.innerHTML = "Ingrese client secret";
+            type.value = meth;
+            break;
+        default:
+            type.value = "";
+            break;
+    }
 }

@@ -70,6 +70,10 @@ namespace E_BusinessLayer.Gimnasio
                     {
                         case FilterCasePasarelaEmpresa.List:
                             NotificacionDTOList = oPasarelaEmpresaData.List(oReqFilterPasarelaEmpresaDTO.Item);
+                            break; 
+                        
+                        case FilterCasePasarelaEmpresa.ListApi:
+                            NotificacionDTOList = oPasarelaEmpresaData.ListPasarelaByEM(oReqFilterPasarelaEmpresaDTO.Item);
                             break;                      
                     }
 
@@ -126,6 +130,13 @@ namespace E_BusinessLayer.Gimnasio
                             {
                                 oNotificacionDTO = new PasarelaEmpresaDTO();
                                 oNotificacionDTO = oPasarelaEmpresaData.ListPasarelaEMActive(oReqFilterPasarelaEmpresaDTO.Item);
+                            }
+                            break; 
+                        
+                        case FilterCasePasarelaEmpresa.SearchCodeApi:
+                            {
+                                oNotificacionDTO = new PasarelaEmpresaDTO();
+                                oNotificacionDTO = oPasarelaEmpresaData.GetItemPasarelaByCode(oReqFilterPasarelaEmpresaDTO.Item);
                             }
                             break;
 

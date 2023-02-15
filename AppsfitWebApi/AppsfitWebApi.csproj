@@ -224,20 +224,25 @@
     <Compile Include="Helpers\AspNetHelper.cs" />
     <Compile Include="Helpers\ITextApiHelper.cs" />
     <Compile Include="Helpers\JobApiHelper.cs" />
+    <Compile Include="Helpers\PaypalHelper.cs" />
     <Compile Include="Models\AspNetUsersModel.cs" />
     <Compile Include="Models\CategoryApiModel.cs" />
     <Compile Include="Models\HorariosModel.cs" />
     <Compile Include="Models\ModelsApi.cs" />
+    <Compile Include="Models\PaypalApiModel.cs" />
     <Compile Include="Models\PlanesApiModel.cs" />
     <Compile Include="Models\RequestBody.cs" />
     <Compile Include="Models\ResponseApiModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repository\AspNetUsersRepository.cs" />
     <Compile Include="Repository\CheckingRepository.cs" />
-    <Compile Include="Repository\CulqiServices\CulqiService.cs" />
+    <Compile Include="Repository\HomeRepository.cs" />
+    <Compile Include="Repository\PaypalRepository.cs" />
+    <Compile Include="Repository\Services\CulqiService.cs" />
     <Compile Include="Repository\MembresiaApiRepository.cs" />
     <Compile Include="Repository\PasarelaEmpresaApiRepository.cs" />
     <Compile Include="Repository\PostApiRepository.cs" />
+    <Compile Include="Repository\Services\PaypalService.cs" />
     <Compile Include="ViewModels\ComprobanteRequestModel.cs" />
     <Compile Include="ViewModels\EmpresaViewEditModel.cs" />
   </ItemGroup>
