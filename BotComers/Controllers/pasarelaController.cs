@@ -38,6 +38,8 @@ namespace BotComers.Controllers
         {
             pasareleSevices = new PasarelaEmpresaService();
         }
+
+
         public ActionResult getTypePasarelas()
         {
             List<PlantillaFormaPagoDTO> lista = new List<PlantillaFormaPagoDTO>();
@@ -112,50 +114,46 @@ namespace BotComers.Controllers
             return Json(lista, JsonRequestBehavior.AllowGet);
         }
 
+
         //getItem pem
         public ActionResult getItemPasarelaEm(string code)
         {
 
-            ResponseModel _objResponseModel = new ResponseModel();
+            ResponseModel response = new ResponseModel();
             bool validadorParametros = true;
             if (string.IsNullOrEmpty(code))
             {
-                _objResponseModel.Status = 2;
-                _objResponseModel.Message1 = "Es obligatorio codigo.";
-                _objResponseModel.Message2 = "Vuelve a intentarlo más tarde.";
+                response.Status = 2;
+                response.Message1 = "Es obligatorio codigo.";
+                response.Message2 = "Vuelve a intentarlo más tarde.";
                 validadorParametros = false;
             }
 
             if (!validadorParametros)
             {
-                return Json(_objResponseModel, JsonRequestBehavior.AllowGet);
+                return Json(response, JsonRequestBehavior.AllowGet);
             }
 
-            PasarelaEmpresaDTO oPasarelaEmpresaDTO = new PasarelaEmpresaDTO();
-            oPasarelaEmpresaDTO.CodigoSede = Commun.CodigoSede;
-            oPasarelaEmpresaDTO.CodigoUnidadNegocio = Commun.CodigoUnidadNegocio;
-            oPasarelaEmpresaDTO.CodigoPlantillaFormaPago = code;
-            ReqFilterPasarelaEmpresaDTO oReq = new ReqFilterPasarelaEmpresaDTO()
-            {
-                FilterCase = FilterCasePasarelaEmpresa.SearchByCode,
-                Item = oPasarelaEmpresaDTO,
-                User = Commun.Usuario,
-            };
-            RespItemPasarelaEmpresaDTO oResp = null;
-            using (PasarelaEmpresaLogic oPasarelaEmpresaLogic = new PasarelaEmpresaLogic())
-            {
-                oResp = oPasarelaEmpresaLogic.GetItem(oReq);
-            }
-            if (oResp.Success)
-            {
-                _objResponseModel.Date = oResp.Item;
-                _objResponseModel.Status = 0;
-            }
+            PasarelaRepository repository = new PasarelaRepository();
 
-
-            return Json(_objResponseModel, JsonRequestBehavior.AllowGet);
+            var data = repository.getItemAccount(code);
+            if (!string.IsNullOrEmpty(data.Valor1))
+            {
+                response.Date = data;
+                response.Status = 0;
+                response.Success = true;
+            }
+            else
+            {
+                response.Status = 1;
+                response.Success = false;
+                response.Message1 = "No se encontro data";
+            }
+            return Json(response, JsonRequestBehavior.AllowGet);
         }
-          //getItem pem active
+
+
+        //getItem pem active
         public ActionResult getItemPasarelaEmActive()
         {
 
@@ -237,8 +235,8 @@ namespace BotComers.Controllers
         }
 
 
-        //register pasarela empresa - CULQUI
-        public async Task<ActionResult> registerPasarela(string code, string keypublic,string keyprivate,int status, string type)
+        //register and update pasarela empresa 
+        public async Task<ActionResult> registerPasarela(string code, string keypublic, string keyprivate, int status, string type, bool created)
         {
             ResponseModel responseModel = new ResponseModel();
             bool validator = true;
@@ -254,93 +252,17 @@ namespace BotComers.Controllers
                 responseModel.Message1 = "Campo clave publica  requerido";
                 validator = false;
                 responseModel.Status = 1;
-            }           
+            }
             if (string.IsNullOrEmpty(keyprivate))
             {
                 responseModel.Message1 = "Campo clave privada  requerido";
                 validator = false;
                 responseModel.Status = 1;
-            } 
-            
+            }
+
             if (string.IsNullOrEmpty(type))
             {
                 responseModel.Message1 = "Campo tipo methodo  requerido";
-                validator = false;
-                responseModel.Status = 1;
-            }
-            if (!validator)
-            {
-                return Json(responseModel, JsonRequestBehavior.AllowGet);
-            }
-
-            //****************************************** validate crendentiales **********************************
-            string typeP = type.ToUpper();
-            ResponseModel respValid = new ResponseModel() ;
-            PasarelaRepository prepo = new PasarelaRepository();
-            
-            switch (typeP)
-            {
-                case "CULQI":
-                    respValid = prepo.ValidCredentialCulqRep(keypublic, keyprivate);
-                    break;
-                
-                case "PAYPAL":  
-                    respValid = await prepo.ValidCredentialPaypalRep(keypublic, keyprivate);
-                    break;  
-                default:
-                    break;
-            }
-
-            //****************************************** validate crendentiales **********************************
-           
-            if (!respValid.Success)
-            {
-                return Json(respValid, JsonRequestBehavior.AllowGet);
-            }
-
-            //save
-            Dictionary<string,dynamic> tdata = new Dictionary<string, dynamic>();
-            tdata.Add("code", code);
-            tdata.Add("kpublic", keypublic);
-            tdata.Add("kpri", keyprivate);
-            tdata.Add("status", status);
-            responseModel = prepo.registerAccountPay(tdata);
-
-
-            return Json(responseModel, JsonRequestBehavior.AllowGet);
-        }
-
-
-
-
-        //update pasarela empresa - CULQUI
-        public async Task<ActionResult> updatePasarela(string code, string keypublic,string keyprivate,int status ,string type )
-        {
-            ResponseModel responseModel = new ResponseModel();
-
-            bool validator = true;
-
-            if (string.IsNullOrEmpty(code))
-            {
-                responseModel.Message1 = "Campo pasarela de pago requerido";
-                validator = false;
-                responseModel.Status = 1;
-            }
-            if (string.IsNullOrEmpty(keypublic))
-            {
-                responseModel.Message1 = "Campo clave publica  requerido";
-                validator = false;
-                responseModel.Status = 1;
-            }           
-            if (string.IsNullOrEmpty(keyprivate))
-            {
-                responseModel.Message1 = "Campo clave privada  requerido";
-                validator = false;
-                responseModel.Status = 1;
-            }
-            if (string.IsNullOrEmpty(type))
-            {
-                responseModel.Message1 = "Campo tipo pasarela de pago  requerido";
                 validator = false;
                 responseModel.Status = 1;
             }
@@ -374,16 +296,158 @@ namespace BotComers.Controllers
                 return Json(respValid, JsonRequestBehavior.AllowGet);
             }
 
-            //update
+            //save or update
             Dictionary<string, dynamic> tdata = new Dictionary<string, dynamic>();
             tdata.Add("code", code);
             tdata.Add("kpublic", keypublic);
             tdata.Add("kpri", keyprivate);
             tdata.Add("status", status);
-            responseModel = prepo.updateAccountPay(tdata);
+            tdata.Add("created", created);
+            responseModel = prepo.registerUpAccountPay(tdata);
             return Json(responseModel, JsonRequestBehavior.AllowGet);
         }
 
+
+        //demo pay
+        public async Task<ActionResult> DemoPayCard(string code, string type)
+        {
+            ResponseModel response = new ResponseModel();
+            PasarelaRepository repository = new PasarelaRepository();
+
+            bool validator = true;
+
+            var account = repository.getItemAccount(code);
+            if (string.IsNullOrEmpty(account.Valor1))
+            {
+                response.Message1 = "Campo tipo metodo pago  requerido";
+                validator = false;
+                response.Status = 1;
+            }
+
+            if (!validator)
+            {
+                return Json(response, JsonRequestBehavior.AllowGet);
+            }
+
+
+            //****************************************** validate crendentiales **********************************
+            string typeP = type.ToUpper();
+            ResponseModel respValid = new ResponseModel();
+            PasarelaRepository prepo = new PasarelaRepository();
+            PasarelaEmpresaService pemserv = new PasarelaEmpresaService();
+
+            switch (typeP)
+            {
+                case "CULQI":
+                    respValid = prepo.ValidCredentialCulqRep(account?.Valor1, account?.Valor2);
+                    if (!respValid.Success)
+                    {
+                        return Json(respValid, JsonRequestBehavior.AllowGet);
+                    }
+
+                    string idT = respValid.Message1;
+
+                    object dt = new
+                    {
+                        amount = "1500",
+                        currency_code = "PEN",
+                        email = "richard@piedpiper.com",
+                        source_id = idT,
+                        metadata = new
+                        {
+                            documentNumber = "77723083"
+                        }
+                    };
+
+                    var charge = await pemserv.chargeCulqiServ(dt, account?.Valor2);
+                    if (charge.Success)
+                    {
+                        response.Status = 0;
+                        response.Success = true;
+                        response.Message1 = "Su compra ha sido exitosa.";
+
+                    }
+                    else { response = charge; }
+
+                    break;
+
+                case "PAYPAL":
+                    var vpaypal = await prepo.ValidCredentialPaypalRep(account?.Valor1, account?.Valor2);
+                    if (vpaypal.Success)
+                    {
+                        PasarelaHelper pasarelaHelper = new PasarelaHelper();
+
+                        List<ItemPaypal> items = new List<ItemPaypal>();
+                        UnitAmount unitAmount = new UnitAmount() { currency_code = "USD", value = decimal.Parse("5.00") };
+                        items.Add(new ItemPaypal() { name = "T-Shirt", description = "Green XL", quantity = 1, unit_amount = unitAmount });
+
+                        object header = pasarelaHelper.OrderHelper(items);
+                        //generate order
+                        var order = await pemserv.PaypalOrderServ(header, vpaypal.Message1);
+                        if (order.Success)
+                        {
+                            response.Status = 0;
+                            response.Message1 = order.Message1;
+                            response.Success = true;
+
+                        }
+                        else { response = order; };
+
+
+                    }
+                    else { response = vpaypal; }
+
+                    break;
+
+                default:
+                    break;
+            }
+
+            //****************************************** validate crendentiales **********************************
+            return Json(response, JsonRequestBehavior.AllowGet);
+        }
+
+
+        //capture order payed paypal
+        public async Task<ActionResult> CaptureOrder(string token, string order)
+        {
+            ResponseModel response = new ResponseModel();
+            if (!string.IsNullOrEmpty(token) && !string.IsNullOrEmpty(order))
+            {
+                try
+                {
+                    PasarelaEmpresaService peserv = new PasarelaEmpresaService();
+                    var capture = await peserv.PaypalOrderCaptureServ(model: new { }, token: token, orderId: order);
+                    if (capture.Success)
+                    {
+                        response.Status = 0;
+                        response.Success = true;
+                        response.Message1 = "Pago realizo correctamente";
+                    }
+                    else
+                    {
+                        response = capture;
+                    }
+                }
+                catch (Exception ex)
+                {
+
+                    response.Success = false;
+                    response.Status = 1;
+                    response.Message1 = ex.Message;
+                }
+            }
+            else
+            {
+                response.Success = false;
+                response.Status = 1;
+                response.Message1 = "token, order requeridos";
+            }
+
+            return Json(response, JsonRequestBehavior.AllowGet);
+        }
+
+        
 
     }
 

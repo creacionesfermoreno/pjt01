@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Net.Http.Headers;
 using System.Text;
 using System.Threading.Tasks;
 using System.Web;
@@ -16,8 +17,11 @@ namespace BotComers.Repository.PasarelaEmpresaServices
 {
     public class PasarelaEmpresaService
     {
-        private string hostCulqui = "https://secure.culqi.com/v2/";
-        private string apiCulqui = "https://api.culqi.com/v2/";
+        private string hostCulqui = "https://secure.culqi.com/v2";
+        private string apiCulqui = "https://api.culqi.com/v2";
+
+
+
 
         private string hostPaypal = "https://api-m.sandbox.paypal.com";
 
@@ -29,7 +33,7 @@ namespace BotComers.Repository.PasarelaEmpresaServices
             {
                 ServicePointManager.Expect100Continue = true;
                 ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
-                var client = new RestClient($"{hostCulqui}tokens");
+                var client = new RestClient($"{hostCulqui}/tokens");
                 client.Timeout = -1;
                 var request = new RestRequest(Method.POST);
                 request.AddHeader("Authorization", $"Bearer {key}");
@@ -56,14 +60,16 @@ namespace BotComers.Repository.PasarelaEmpresaServices
                 if (numericStatusCode > 0)
                 {
                     var resp = JsonConvert.DeserializeObject<RespondeCheckCulqui>(response.Content);
-                    if(resp.id != null)
+                    if (resp.id != null)
                     {
                         responseModel.Success = true;
                         responseModel.Date = resp.id;
+                        responseModel.Message1 = resp.id;
                     }
-                    else {  responseModel.Success = false;}
+                    else { responseModel.Success = false; }
 
-                }else { responseModel.Success = false; }
+                }
+                else { responseModel.Success = false; }
             }
             catch (Exception)
             {
@@ -71,7 +77,7 @@ namespace BotComers.Repository.PasarelaEmpresaServices
             }
             return responseModel;
         }
-       
+
         public ResponseModel validatekeyPrivateService(string key)
         {
             ResponseModel responseModel = new ResponseModel();
@@ -79,7 +85,7 @@ namespace BotComers.Repository.PasarelaEmpresaServices
             {
                 ServicePointManager.Expect100Continue = true;
                 ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
-                var client = new RestClient($"{apiCulqui}charges");
+                var client = new RestClient($"{apiCulqui}/charges");
                 client.Timeout = -1;
                 var request = new RestRequest(Method.GET);
                 request.AddHeader("Authorization", $"Bearer {key}");
@@ -91,13 +97,14 @@ namespace BotComers.Repository.PasarelaEmpresaServices
                 if (numericStatusCode > 0)
                 {
                     var resp = JsonConvert.DeserializeObject<RespondeCheckCulqui>(response.Content);
-                    if(resp.data != null)
+                    if (resp.data != null)
                     {
                         responseModel.Success = true;
                     }
-                    else {  responseModel.Success = false;}
+                    else { responseModel.Success = false; }
 
-                }else { responseModel.Success = false; }
+                }
+                else { responseModel.Success = false; }
             }
             catch (Exception)
             {
@@ -105,6 +112,40 @@ namespace BotComers.Repository.PasarelaEmpresaServices
             }
             return responseModel;
         }
+
+
+        //charge 
+        public async Task<ResponseModel> chargeCulqiServ(object model, string token)
+        {
+            ResponseModel responseModel = new ResponseModel();
+            var client = new HttpClient();
+            var byteData = Encoding.UTF8.GetBytes(JsonConvert.SerializeObject(model));
+
+            using (var content = new ByteArrayContent(byteData))
+            {
+                string Uri = $"{apiCulqui}/charges";
+                content.Headers.ContentType = new MediaTypeHeaderValue("application/json");
+                client.DefaultRequestHeaders.Add("Authorization", $"Bearer {token}");
+                var response = await client.PostAsync(Uri, content);
+
+                var result = await response.Content.ReadAsStringAsync();
+                var resp = JsonConvert.DeserializeObject<ResponseCulqi>(result);
+                if (response.IsSuccessStatusCode)
+                {
+                    responseModel.Success = true;
+                    responseModel.Message1 = resp.id;
+                }
+                else
+                {
+                    responseModel.Message1 = resp.merchant_message;
+                    responseModel.Success = false;
+                    responseModel.Status = 1;
+                }
+            }
+            return responseModel;
+        }
+
+
         //*************************************** END SERVICES CULQI *******************************
 
 
@@ -161,6 +202,76 @@ namespace BotComers.Repository.PasarelaEmpresaServices
             return responseModel;
         }
 
+
+        //generate order
+        public async Task<ResponseModel> PaypalOrderServ(object model, string token)
+        {
+            ResponseModel responseModel = new ResponseModel();
+            var client = new HttpClient();
+            var byteData = Encoding.UTF8.GetBytes(JsonConvert.SerializeObject(model));
+
+            using (var content = new ByteArrayContent(byteData))
+            {
+                string Uri = $"{hostPaypal}/v2/checkout/orders";
+                content.Headers.ContentType = new MediaTypeHeaderValue("application/json");
+                client.DefaultRequestHeaders.Add("Authorization", $"Bearer {token}");
+                var response = await client.PostAsync(Uri, content);
+
+                var result = await response.Content.ReadAsStringAsync();
+                var resp = JsonConvert.DeserializeObject<ResponsePaypay>(result);
+                if (response.IsSuccessStatusCode)
+                {
+                    responseModel.Success = true;
+                    responseModel.Message1 = resp.id;
+                    responseModel.Message2 = resp.status;
+                    responseModel.Date = resp.links;
+                }
+                else
+                {
+                    responseModel.Message1 = resp.message;
+                    responseModel.Success = false;
+                    responseModel.Status = 1;
+                }
+            }
+            return responseModel;
+        }
+
+
+        //capture order
+        public async Task<ResponseModel> PaypalOrderCaptureServ(object model, string token, string orderId)
+        {
+            ResponseModel responseModel = new ResponseModel();
+            var client = new HttpClient();
+            var byteData = Encoding.UTF8.GetBytes(JsonConvert.SerializeObject(model));
+
+            using (var content = new ByteArrayContent(byteData))
+            {
+                string Uri = $"{hostPaypal}/v2/checkout/orders/{orderId}/capture";
+                content.Headers.ContentType = new MediaTypeHeaderValue("application/json");
+                client.DefaultRequestHeaders.Add("Authorization", $"Bearer {token}");
+                var response = await client.PostAsync(Uri, content);
+
+                var result = await response.Content.ReadAsStringAsync();
+                var resp = JsonConvert.DeserializeObject<ResponsePaypay>(result);
+                if (response.IsSuccessStatusCode)
+                {
+                    responseModel.Success = true;
+                    responseModel.Message1 = resp.id;
+                    responseModel.Message2 = resp.status;
+                }
+                else
+                {
+                    responseModel.Message1 = resp.name;
+                    responseModel.Message2 = resp.message;
+                    responseModel.Success = false;
+                    responseModel.Status = 1;
+                   
+                }
+            }
+            return responseModel;
+        }
+
+
         //***************************************  END SERVICES PAYPAL *******************************
 
     }
@@ -190,5 +301,11 @@ namespace BotComers.Repository.PasarelaEmpresaServices
         public string href { get; set; }
         public string rel { get; set; }
         public string method { get; set; }
+    }
+    public class ResponseCulqi
+    {
+        public string id { get; set; }
+        public string merchant_message { get; set; }
+
     }
 }

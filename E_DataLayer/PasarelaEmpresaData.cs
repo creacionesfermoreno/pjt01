@@ -82,6 +82,7 @@ namespace E_DataLayer
                                     Valor1 = oIDataReader[oIDataReader.GetOrdinal("Valor1")].ToString(),
                                     Valor2 = oIDataReader[oIDataReader.GetOrdinal("Valor2")].ToString(),
                                     Valor3 = oIDataReader[oIDataReader.GetOrdinal("Valor3")].ToString(),
+                                    DesFormaPago = oIDataReader[oIDataReader.GetOrdinal("DesFormaPago")].ToString(),
                                     Estado = Convert.ToBoolean(oIDataReader[oIDataReader.GetOrdinal("Estado")]),
                                     DesFechaCreacion = oItem.DateParse(Convert.ToDateTime(oIDataReader[oIDataReader.GetOrdinal("FechaCreacion")])),
                                     UsuarioCreacion = oIDataReader[oIDataReader.GetOrdinal("UsuarioCreacion")].ToString(),
