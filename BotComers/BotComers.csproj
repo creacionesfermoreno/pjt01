@@ -359,6 +359,7 @@
     <Compile Include="Helpers\ITextPdf.cs" />
     <Compile Include="Helpers\NubeFact-json.cs" />
     <Compile Include="Helpers\NubefactService.cs" />
+    <Compile Include="Helpers\PasarelaHelper.cs" />
     <Compile Include="Helpers\UploadImgageAzure.cs" />
     <Compile Include="Models\apiwhatsapp\ResponseItemTemplate.cs" />
     <Compile Include="Models\apiwhatsapp\ResponseTemplate.cs" />

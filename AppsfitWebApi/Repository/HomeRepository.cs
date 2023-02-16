@@ -42,11 +42,13 @@ namespace AppsfitWebApi.Repository
                 switch (type.ToUpper())
                 {
                     case "PAYPAL":
-                        responseModel = await paypalService.PaypalTokenService(CLIENT_ID, CLIENT_SECRET);
+                        responseModel = await paypalService.PaypalTokenService(pasarela?.Valor1, pasarela?.Valor2);
                         break; 
                     
                     case "CULQI":
-                        responseModel = await paypalService.PaypalTokenService(CLIENT_ID, CLIENT_SECRET);
+                        responseModel.Message1 = pasarela.Valor1;
+                        responseModel.Message2 = pasarela.Valor2;
+                        responseModel.Success = true;
                         break;
 
                     default:

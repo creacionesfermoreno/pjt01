@@ -123,10 +123,12 @@ namespace AppsfitWebApi.Controllers
         }
 
         //***************************************************************   MEMBRESIA PAY ***********************************
+
+
         //culqi - membresia
         [HttpPost]
-        [Route("membresia/compra")]
-        public async Task<HttpResponseMessage> ChargePost([FromBody] RequestCharge request)
+        [Route("membresia/buy/culqi")]
+        public async Task<HttpResponseMessage> BuyMembresiaCulqi([FromBody] RequestCharge request)
         {
             ResponseApi _objResponseModel = new ResponseApi();
             if (!ModelState.IsValid)
@@ -139,31 +141,24 @@ namespace AppsfitWebApi.Controllers
             }
             else
             {
-                bool validator = true;
+
                 CulqiService services = new CulqiService();
                 PasarelaEmpresaApiRepository repository = new PasarelaEmpresaApiRepository();
 
                 try
                 {
                     //search acount pasarela
-                    var accountPasarela = repository.PasarelaActiveRepository(request.DefaultKeyEmpresa);
-                    if (string.IsNullOrEmpty(accountPasarela?.Valor1))
-                    {
-                        _objResponseModel.Message1 = "No tiene una cuenta de pasarela registrada";
-                        _objResponseModel.Status = 1;
-                        _objResponseModel.Success = false;
-                        validator = false;
-                    }
+                    HomeRepository homeRepository = new HomeRepository();
+                    var validAccount = await homeRepository.ValidPasarelaRepo(request.DefaultKeyEmpresa, request.CodigoPlantillaFormaPago);
 
-                    if (!validator)
+                    if (!validAccount.Success)
                     {
-                        return HttpResponseJson(_objResponseModel);
+                        return HttpResponseJson(validAccount);
                     }
-
 
                     //validate card return token id
                     request.card.email = request.Email;
-                    var validate = await services.validateCardTokenService(request.card, accountPasarela?.Valor1);
+                    var validate = await services.validateCardTokenService(request.card, validAccount?.Message1);
 
                     if (validate.Success == true)
                     {
@@ -181,7 +176,7 @@ namespace AppsfitWebApi.Controllers
                         };
 
                         //charge culqi
-                        var charge = await services.chargeService(ocharge, accountPasarela?.Valor2);
+                        var charge = await services.chargeService(ocharge, validAccount?.Message2);
 
 
                         if (charge.Success == true)
@@ -266,12 +261,12 @@ namespace AppsfitWebApi.Controllers
             return HttpResponseJson(_objResponseModel);
 
         }
-       
+
 
         //membresia - Paypal
         [HttpPost]
-        [Route("membresia/compra/paypal")]
-        public async Task<HttpResponseMessage> MembresiaPaypal(RequestCapture req)
+        [Route("membresia/buy/paypal")]
+        public async Task<HttpResponseMessage> BuyMembresiaPaypal(RequestCapture req)
         {
             ResponseApi responseApi = new ResponseApi();
 
@@ -405,9 +400,10 @@ namespace AppsfitWebApi.Controllers
         }
 
 
+        //product - culqi
         [HttpPost]
-        [Route("products/post")]
-        public async Task<HttpResponseMessage> RegisterPost([FromBody] ComprobanteRequestModel req)
+        [Route("products/buy/culqi")]
+        public async Task<HttpResponseMessage> BuyProductCulqi([FromBody] ComprobanteRequestModel req)
         {
             ResponseApi _objResponseModel = new ResponseApi();
 
@@ -422,28 +418,20 @@ namespace AppsfitWebApi.Controllers
             else
             {
 
-                bool validator = true;
                 CulqiService services = new CulqiService();
-                PasarelaEmpresaApiRepository oRepository = new PasarelaEmpresaApiRepository();
 
                 //search acount pasarela
-                var accountPasarela = oRepository.PasarelaActiveRepository(req.DefaultKeyEmpresa);
-                if (string.IsNullOrEmpty(accountPasarela?.Valor1))
-                {
-                    _objResponseModel.Message1 = "No tiene una cuenta de pasarela registrada";
-                    _objResponseModel.Status = 1;
-                    _objResponseModel.Success = false;
-                    validator = false;
-                }
+                HomeRepository homeRepository = new HomeRepository();
+                var validAccount = await homeRepository.ValidPasarelaRepo(req.DefaultKeyEmpresa, req.CodigoPlantillaFormaPago);
 
-                if (!validator)
+                if (!validAccount.Success)
                 {
-                    return HttpResponseJson(_objResponseModel);
+                    return HttpResponseJson(validAccount);
                 }
 
                 //validate card return token id
                 req.card.email = req.Email;
-                var validate = await services.validateCardTokenService(req.card, accountPasarela?.Valor1);
+                var validate = await services.validateCardTokenService(req.card, validAccount?.Message1);
 
                 if (validate.Success == true)
                 {
@@ -462,7 +450,7 @@ namespace AppsfitWebApi.Controllers
 
 
                     //charge culqi
-                    var charge = await services.chargeService(ocharge, accountPasarela?.Valor2);
+                    var charge = await services.chargeService(ocharge, validAccount?.Message2);
 
                     if (charge.Success == true)
                     {
@@ -515,13 +503,45 @@ namespace AppsfitWebApi.Controllers
         }
 
 
-        //generar order paypal
+        //product - paypal
         [HttpPost]
-        [Route("paypal/order")]
-        public async Task<HttpResponseMessage> PaypalOrder([FromBody] RequestOrder req)
+        [Route("products/buy/paypal")]
+        public async Task<HttpResponseMessage> BuyProductPaypal([FromBody] RequestProductCapturePaypal req)
         {
             ResponseApi responseApi = new ResponseApi();
-           
+
+            PaypalRepository paypalRepository = new PaypalRepository();
+
+            //HttpContent requestContent = Request.Content;
+            //string jsonContent =  requestContent.ReadAsStringAsync().Result;
+
+            if (!ModelState.IsValid)
+            {
+                //validate inputs
+                IEnumerable<ModelError> allErrors = ModelState.Values.SelectMany(v => v.Errors);
+                responseApi.Success = false;
+                responseApi.Status = 2;
+                responseApi.Errors = allErrors;
+            }
+            else
+            {
+                var Request = HttpContext.Current.Request;
+                string baseUrl = Request.Url.Scheme + "://" + Request.Url.Authority + Request.ApplicationPath.TrimEnd('/') + "/";
+                responseApi = await paypalRepository.CaptureOrderProductRepo(req, baseUrl);
+            }
+
+            return HttpResponseJson(responseApi);
+
+        }
+
+
+        //generar order membresia - paypal
+        [HttpPost]
+        [Route("paypal/order")]
+        public async Task<HttpResponseMessage> PaypalOrderMembresia([FromBody] RequestOrder req)
+        {
+            ResponseApi responseApi = new ResponseApi();
+
             PaypalService paypalService = new PaypalService();
             PaypalHelper paypalHelper = new PaypalHelper();
 
@@ -542,8 +562,56 @@ namespace AppsfitWebApi.Controllers
                 {
                     //order
                     List<ItemPaypal> items = new List<ItemPaypal>();
-                    UnitAmount unitAmount = new UnitAmount() { currency_code = "USD",value = req.membresia.Costo};
-                    items.Add(new ItemPaypal() {name = req.membresia.name,description = req.membresia.Descripcion,quantity = 1, unit_amount = unitAmount });
+                    UnitAmount unitAmount = new UnitAmount() { currency_code = "USD", value = req.membresia.Costo };
+                    items.Add(new ItemPaypal() { name = req.membresia.name, description = req.membresia.Descripcion, quantity = 1, unit_amount = unitAmount });
+                    var data = paypalHelper.OrderHelper(items);
+                    responseApi = await paypalService.PaypalOrderService(data, token?.Message1);
+
+                    var links = (List<Link>)responseApi.Date;
+                    if (links.Count > 0) { responseApi.Date = links.Where(e => e.rel == "approve"); }
+
+                }
+                else { responseApi = token; }
+            }
+
+            return HttpResponseJson(responseApi);
+        }
+
+
+        //generar order product - paypal
+        [HttpPost]
+        [Route("paypal/order/product")]
+        public async Task<HttpResponseMessage> PaypalOrderProduct([FromBody] RequestProductOrderPaypal req)
+        {
+            ResponseApi responseApi = new ResponseApi();
+
+            PaypalService paypalService = new PaypalService();
+            PaypalHelper paypalHelper = new PaypalHelper();
+
+            if (!ModelState.IsValid)
+            {
+                //validate inputs
+                IEnumerable<ModelError> allErrors = ModelState.Values.SelectMany(v => v.Errors);
+                responseApi.Success = false;
+                responseApi.Status = 2;
+                responseApi.Errors = allErrors;
+            }
+            else
+            {
+                HomeRepository homeRepository = new HomeRepository();
+
+                var token = await homeRepository.ValidPasarelaRepo(req.DefaultKeyEmpresa, req.CodigoPlantillaFormaPago);
+                if (token.Success == true)
+                {
+                    //order
+                    List<ItemPaypal> items = new List<ItemPaypal>();
+
+                    foreach (ComprobanteDetalleRequestAPI item in req.listaDetalle)
+                    {
+                        UnitAmount unitAmount = new UnitAmount() { currency_code = "USD", value = item.Total };
+                        items.Add(new ItemPaypal() { name = item.Descripcion, description = item.Descripcion, quantity = item.Cantidad, unit_amount = unitAmount });
+                    }
+
                     var data = paypalHelper.OrderHelper(items);
                     responseApi = await paypalService.PaypalOrderService(data, token?.Message1);
 
@@ -568,22 +636,19 @@ namespace AppsfitWebApi.Controllers
             {
                 responseApi.Message3 = req.DefaultKeyEmpresa;
                 HomeRepository homeRepository = new HomeRepository();
-                responseApi =  homeRepository.AccountPaymentsRepo(req.DefaultKeyEmpresa);
+                responseApi = homeRepository.AccountPaymentsRepo(req.DefaultKeyEmpresa);
             }
             else
             {
-                responseApi.Message1= "Campo DefaultKeyEmpresa requerida";
+                responseApi.Message1 = "Campo DefaultKeyEmpresa requerida";
                 responseApi.Success = false;
                 responseApi.Status = 2;
             }
-            
-            return HttpResponseJson(responseApi);  
-        }    
-        
-        
-      
-        
-        
+
+            return HttpResponseJson(responseApi);
+        }
+
+
         [HttpGet]
         [Route("dev")]
         public HttpResponseMessage dev()
