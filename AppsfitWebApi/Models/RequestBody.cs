@@ -1,4 +1,5 @@
 ﻿using AppsfitWebApi.Helpers;
+using AppsfitWebApi.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -40,7 +41,7 @@ namespace AppsfitWebApi.Models
         public string CodigoPlantillaFormaPago { get; set; }
         public MembresiaAPI membresia { get; set; }
     }
-    
+
     public class RequestCapture : RequestBody
     {
         [Required]
@@ -56,5 +57,45 @@ namespace AppsfitWebApi.Models
         public MembresiaAPI membresia { get; set; }
         public SaleAPI sale { get; set; }
     }
+    
+   
+
+
+    public class RequestProductCapturePaypal : RequestBody
+    {
+        [Required]
+        public int CodigoAlmacen { get; set; }
+
+        [Required]
+        public string NroIdentificacion { get; set; }
+
+        [Range(0, float.MaxValue)]
+        public decimal Total { get; set; }
+
+        [Required]
+        public int Estado { get; set; }       
+        [Required]
+        public string CodigoPlantillaFormaPago { get; set; }
+        [Required]
+        public string OrderId { get; set; }
+
+        public List<ComprobanteDetalleRequestAPI> listaDetalle { get; set; }
+
+
+    }
+
+    public class RequestProductOrderPaypal
+    {
+
+        [Required]
+        public string DefaultKeyEmpresa { get; set; }
+        [Required]
+        public string CodigoPlantillaFormaPago { get; set; }
+
+        public List<ComprobanteDetalleRequestAPI> listaDetalle { get; set; }
+
+    }  
+    
+   
     //******************************************** PAYPAL ***********************************************
 }

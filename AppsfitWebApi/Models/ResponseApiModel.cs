@@ -162,6 +162,8 @@ namespace AppsfitWebApi.Models
 
         [Required]
         public string DefaultKeyEmpresa { get; set; }
+        [Required]
+        public string CodigoPlantillaFormaPago { get; set; }
 
         [Range(1, int.MaxValue)]
         public int CodigoUnidadNegocio { get; set; }
