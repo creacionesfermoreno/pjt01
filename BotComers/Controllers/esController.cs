@@ -15,7 +15,7 @@ namespace BotComers.Controllers
             return View();
         }
 
-        public ActionResult preciosecuadordolares()
+        public ActionResult precioslatamdolares()
         {
             return View();
         }

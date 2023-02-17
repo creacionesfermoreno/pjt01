@@ -7224,7 +7224,7 @@
     <Content Include="Views\corporativo\importardatos_solosocios.cshtml" />
     <Content Include="Views\corporativo\importardatos_actualizarsolosocios.cshtml" />
     <Content Include="Views\corporativo\mensajeswhatsapp.cshtml" />
-    <Content Include="Views\es\preciosecuadordolares.cshtml" />
+    <Content Include="Views\es\precioslatamdolares.cshtml" />
     <Content Include="Views\softwareparagimnasios\comofunciona.cshtml" />
     <Content Include="Views\softwareparagimnasios\blog.cshtml" />
     <Content Include="Views\es\precioscolombiadolares.cshtml" />
