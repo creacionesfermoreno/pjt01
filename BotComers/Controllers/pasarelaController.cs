@@ -28,6 +28,8 @@ using Org.BouncyCastle.Bcpg;
 using BotComers.Repository;
 using System.Threading.Tasks;
 using DocumentFormat.OpenXml.Wordprocessing;
+using DocumentFormat.OpenXml.Bibliography;
+using E_DataModel.Base;
 
 namespace BotComers.Controllers
 {
@@ -236,10 +238,11 @@ namespace BotComers.Controllers
 
 
         //register and update pasarela empresa 
-        public async Task<ActionResult> registerPasarela(string code, string keypublic, string keyprivate, int status, string type, bool created)
+        public async Task<ActionResult> registerPasarela(string code, string keypublic, string keyprivate, int status, string type, bool created, int entorProd = 0)
         {
             ResponseModel responseModel = new ResponseModel();
             bool validator = true;
+            bool entorno = Convert.ToBoolean(entorProd);
 
             if (string.IsNullOrEmpty(code))
             {
@@ -256,6 +259,13 @@ namespace BotComers.Controllers
             if (string.IsNullOrEmpty(keyprivate))
             {
                 responseModel.Message1 = "Campo clave privada  requerido";
+                validator = false;
+                responseModel.Status = 1;
+            }
+
+            if (string.IsNullOrEmpty(type))
+            {
+                responseModel.Message1 = "Campo tipo methodo  requerido";
                 validator = false;
                 responseModel.Status = 1;
             }
@@ -283,7 +293,7 @@ namespace BotComers.Controllers
                     break;
 
                 case "PAYPAL":
-                    respValid = await prepo.ValidCredentialPaypalRep(keypublic, keyprivate);
+                    respValid = await prepo.ValidCredentialPaypalRep(clientId: keypublic, secretId: keyprivate, entorno: entorno);
                     break;
                 default:
                     break;
@@ -303,6 +313,7 @@ namespace BotComers.Controllers
             tdata.Add("kpri", keyprivate);
             tdata.Add("status", status);
             tdata.Add("created", created);
+            tdata.Add("entorno", entorno);
             responseModel = prepo.registerUpAccountPay(tdata);
             return Json(responseModel, JsonRequestBehavior.AllowGet);
         }
@@ -372,28 +383,25 @@ namespace BotComers.Controllers
                     break;
 
                 case "PAYPAL":
-                    var vpaypal = await prepo.ValidCredentialPaypalRep(account?.Valor1, account?.Valor2);
+                    var vpaypal = await prepo.ValidCredentialPaypalRep(account?.Valor1, account?.Valor2, account.EstadoProduccion);
                     if (vpaypal.Success)
                     {
                         PasarelaHelper pasarelaHelper = new PasarelaHelper();
 
                         List<ItemPaypal> items = new List<ItemPaypal>();
-                        UnitAmount unitAmount = new UnitAmount() { currency_code = "USD", value = decimal.Parse("5.00") };
+                        UnitAmount unitAmount = new UnitAmount() { currency_code = "USD", value = 5 };
                         items.Add(new ItemPaypal() { name = "T-Shirt", description = "Green XL", quantity = 1, unit_amount = unitAmount });
 
                         object header = pasarelaHelper.OrderHelper(items);
                         //generate order
-                        var order = await pemserv.PaypalOrderServ(header, vpaypal.Message1);
+                        var order = await pemserv.PaypalOrderServ(header, vpaypal.Message1, account.EstadoProduccion);
                         if (order.Success)
                         {
                             response.Status = 0;
                             response.Message1 = order.Message1;
                             response.Success = true;
-
                         }
                         else { response = order; };
-
-
                     }
                     else { response = vpaypal; }
 
@@ -409,7 +417,7 @@ namespace BotComers.Controllers
 
 
         //capture order payed paypal
-        public async Task<ActionResult> CaptureOrder(string token, string order)
+        public async Task<ActionResult> CaptureOrder(string token, string order, bool business = false, bool entornoP = false)
         {
             ResponseModel response = new ResponseModel();
             if (!string.IsNullOrEmpty(token) && !string.IsNullOrEmpty(order))
@@ -417,12 +425,38 @@ namespace BotComers.Controllers
                 try
                 {
                     PasarelaEmpresaService peserv = new PasarelaEmpresaService();
-                    var capture = await peserv.PaypalOrderCaptureServ(model: new { }, token: token, orderId: order);
+                    var capture = await peserv.PaypalOrderCaptureServ(model: new { }, token: token, orderId: order, entornoP);
                     if (capture.Success)
                     {
-                        response.Status = 0;
-                        response.Success = true;
-                        response.Message1 = "Pago realizo correctamente";
+                        //************************* solo para pagos de negocios en dolares********************
+                        if (business == true)
+                        {
+                            //register pago business
+                            List<PurchaseUnit> dataCap = (List<PurchaseUnit>)capture.Date;
+                            var transaction = dataCap[0].payments.captures[0].id;
+                            decimal amount = decimal.Parse(dataCap[0].payments.captures[0].amount.value);
+                            var save = MonthlyPayment(monto: amount, operacion: transaction);
+
+                            if (save.Success)
+                            {
+                                response.Status = 0;
+                                response.Success = true;
+                                response.Message1 = "Pago realizo correctamente";
+                            }
+                            else
+                            {
+                                response.Status = 1;
+                                response.Success = false;
+                                response.Message1 = save.Message1;
+                            }
+                            //************************* solo para pagos de negocios en dolares********************
+                        }
+                        else
+                        {
+                            response.Status = 0;
+                            response.Success = true;
+                            response.Message1 = "Pago realizo correctamente";
+                        }
                     }
                     else
                     {
@@ -447,7 +481,120 @@ namespace BotComers.Controllers
             return Json(response, JsonRequestBehavior.AllowGet);
         }
 
-        
+
+        //save buy businnes db - paypal
+        public ResponseModel MonthlyPayment(decimal monto = 0, string operacion = "")
+        {
+            string mensaje = string.Empty;
+            ResponseModel response = new ResponseModel();
+
+            if (monto == 0 || String.IsNullOrEmpty(operacion))
+            {
+                response.Message1 = "Campos monto, operacion requeridas";
+                response.Status = 1;
+                response.Success = false;
+                return response;
+            }
+
+            try
+            {
+                ConfiguracionDTO oConfiguracionDTO = new ConfiguracionDTO();
+                oConfiguracionDTO.CodigoUnidadNegocio = Commun.CodigoUnidadNegocio;
+                oConfiguracionDTO.CodigoSede = Commun.CodigoSede;
+                oConfiguracionDTO.FechaPago = DateTime.Now;
+                oConfiguracionDTO.MontoMes = monto;
+                oConfiguracionDTO.MontoAcuenta = monto;
+                oConfiguracionDTO.NroOperacion = operacion;
+                oConfiguracionDTO.CodigoNroCuenta = "96D64C87-8F4A-4B41-A177-7ED05C88057D";
+                oConfiguracionDTO.UsuarioCreacion = "Paypal";
+                oConfiguracionDTO.Operation = Operation.uspRegistrarConfiguracionPagosMensualidades;
+
+                List<ConfiguracionDTO> lista = new List<ConfiguracionDTO>();
+                lista.Add(oConfiguracionDTO);
+
+                ReqConfiguracionDTO oReq = new ReqConfiguracionDTO()
+                {
+                    List = lista,
+                    User = "Admin"
+                };
+                RespConfiguracionDTO oResp = null;
+
+                ConfiguracionLogic oConfiguracionLogic = new ConfiguracionLogic();
+                oResp = oConfiguracionLogic.ExecuteTransac(oReq);
+
+                if (oResp.Success)
+                {
+                    response.Message1 = "Datos Guardados Correctamente";
+                    response.Status = 0;
+                    response.Success = true;
+                }
+            }
+            catch (Exception ex)
+            {
+                response.Message1 = ex.Message;
+                response.Status = 1;
+                response.Success = false;
+
+            }
+            return response;
+
+        }
+
+
+        //*******************************************   PAY BUSINESS ************************************
+
+        //buy - business - order
+        public async Task<ActionResult> PaypalOrderBusiness(decimal monto = 0, string description = "", string clientP = "", string secretP = "", bool entornoP = false)
+        {
+            ResponseModel response = new ResponseModel();
+            PasarelaRepository prepo = new PasarelaRepository();
+
+            if (monto == 0 || String.IsNullOrEmpty(description) || String.IsNullOrEmpty(clientP) || String.IsNullOrEmpty(secretP))
+            {
+                response.Status = 1;
+                response.Message1 = "Campos monto ,  descripcion requeridos";
+                response.Success = false;
+                return Json(response, JsonRequestBehavior.AllowGet);
+            }
+
+            try
+            {
+                //generate token
+                var vpaypal = await prepo.ValidCredentialPaypalRep(clientId: clientP, secretId: secretP, entorno: entornoP);
+                if (vpaypal.Success)
+                {
+                    PasarelaHelper pasarelaHelper = new PasarelaHelper();
+
+                    List<ItemPaypal> items = new List<ItemPaypal>();
+                    UnitAmount unitAmount = new UnitAmount() { currency_code = "USD", value = monto };
+                    items.Add(new ItemPaypal() { name = "Software Appsfit", description = description, quantity = 1, unit_amount = unitAmount });
+
+                    object header = pasarelaHelper.OrderHelper(items);
+
+                    //generate order
+                    PasarelaEmpresaService pemserv = new PasarelaEmpresaService();
+                    var order = await pemserv.PaypalOrderServ(header, vpaypal.Message1,entornoP);
+                    if (order.Success)
+                    {
+                        response.Status = 0;
+                        response.Message1 = order.Message1;
+                        response.Success = true;
+                    }
+                    else { response = order; };
+                }
+                else { response = vpaypal; }
+            }
+            catch (Exception ex)
+            {
+                response.Status = 1;
+                response.Message1 = ex.Message;
+                response.Success = false;
+
+            }
+
+            return Json(response, JsonRequestBehavior.AllowGet);
+        }
+        //*******************************************   END PAY BUSINESS ************************************
 
     }
 

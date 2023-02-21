@@ -565,10 +565,18 @@ namespace AppsfitWebApi.Controllers
                     UnitAmount unitAmount = new UnitAmount() { currency_code = "USD", value = req.membresia.Costo };
                     items.Add(new ItemPaypal() { name = req.membresia.name, description = req.membresia.Descripcion, quantity = 1, unit_amount = unitAmount });
                     var data = paypalHelper.OrderHelper(items);
-                    responseApi = await paypalService.PaypalOrderService(data, token?.Message1);
+                    var orderServ = await paypalService.PaypalOrderService(data, token?.Message1,token.Production);
 
-                    var links = (List<Link>)responseApi.Date;
-                    if (links.Count > 0) { responseApi.Date = links.Where(e => e.rel == "approve"); }
+                    if (orderServ.Success)
+                    {
+                        responseApi = orderServ;
+                        var links = (List<Link>)orderServ.Date;
+                        if (links.Count > 0) {responseApi.Date = links.Where(e => e.rel == "approve");}
+                    }
+                    else
+                    {
+                        responseApi = orderServ;
+                    }
 
                 }
                 else { responseApi = token; }
@@ -613,11 +621,18 @@ namespace AppsfitWebApi.Controllers
                     }
 
                     var data = paypalHelper.OrderHelper(items);
-                    responseApi = await paypalService.PaypalOrderService(data, token?.Message1);
+                    var orderServ = await paypalService.PaypalOrderService(data, token?.Message1,token.Production);
 
-                    var links = (List<Link>)responseApi.Date;
-                    if (links.Count > 0) { responseApi.Date = links.Where(e => e.rel == "approve"); }
-
+                    if (orderServ.Success)
+                    {
+                        responseApi = orderServ;
+                        var links = (List<Link>)orderServ.Date;
+                        if (links.Count > 0) { responseApi.Date = links.Where(e => e.rel == "approve"); }
+                    }
+                    else
+                    {
+                        responseApi = orderServ;
+                    }
                 }
                 else { responseApi = token; }
             }

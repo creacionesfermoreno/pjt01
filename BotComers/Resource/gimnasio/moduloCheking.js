@@ -3154,9 +3154,9 @@ function VerMembresia_Cliente(codigoMembresia) {
 
                     var flagAsistencia = $('#flagMarcarAsistencia').val();
                     if (flagAsistencia == 1) {
-                        
+
                         $.bootstrapGrowl("No se puede marcar la Asistencia ..! Membresia Inactiva , Traspasado o congelado .. ¡", { type: 'danger', width: 'auto', align: 'center' });
-                        $('#txtBuscadorGeneral').val(''); 
+                        $('#txtBuscadorGeneral').val('');
                         verAsistencias(codigoMembresia);
                         BuscarAsistenciaEfectiva(codigoMembresia, CodigoSocio);
                     }
@@ -7046,7 +7046,7 @@ function NuevoVentaDiario() {
 
 
         $('#lblRealizarPago_Diario').click(function () {
-          
+
             var total = $('#lblTotal_Diario').html();
             var aporte = $('#txtTotalPagado_Diario').val();
             var count = 0;
@@ -8712,8 +8712,8 @@ function guardarVentaDiario() {
                         }
 
 
-                       // ImprimeVentaRapida()
-                      
+                        // ImprimeVentaRapida()
+
                     }
                     else if (msg.split('|')[1] == "2") {
                         var urlPDFComprobante = msg.split('|')[2];
@@ -8768,7 +8768,7 @@ function generatepdfDiario(code) {
         contentType: "application/json; charset=utf-8",
         dataType: "json",
         success: function (msg) {
-            
+
             if (msg.Status == 0) {
 
                 //document.getElementById("btnVentaDiariaClose").click();
@@ -8785,7 +8785,7 @@ function generatepdfDiario(code) {
                     }
                 })
 
-                
+
 
 
 
@@ -10125,6 +10125,12 @@ function uspValidarPagosClientes_AppFitnes() {
         contentType: "application/json; charset=utf-8",
         dataType: "json",
         success: function (msg) {
+            console.log(msg)
+            let monto = msg?.MontoMensualidad;
+            let description = msg?.PlanEmpresa;
+            let clientP = msg?.ClientIdPaypal;
+            let secretP = msg?.SecretIdPaypal;
+            let entornoP = msg?.StatuProdPaypal;
 
             if (msg.CodigoUnidadNegocio == 183) {//URSULA TELLES de jhonatan
                 msg.NroCuenta = '';
@@ -10138,6 +10144,11 @@ function uspValidarPagosClientes_AppFitnes() {
                 if (msg.Existe == 1) { //muestra el modal con boton de cerrar el mensaje
                     document.getElementById('MyModalMembresiaCulminada').style.display = 'block';
                     document.getElementById("btnAvisoCobranza_AppsFit").style.display = 'block';
+
+                    document.getElementById("MyModalMembresiaCulminadaPaypal").style.display = 'none';
+                    document.getElementById("MyModalMembresiaCulminadaBody").style.display = '';
+                    document.getElementById("bodymculmModal").style.background = "";
+
                     $('#lblFechaPago_AppsFit').html(msg.FechaPagoTexto);
                     $('#lblFechaVence_AppsFit').html(msg.FechaVencimientoPagoTexto);
                     $('#lblMonto_AppsFit').html(msg.TipoMoneda + '' + msg.MontoMensualidad);
@@ -10152,11 +10163,105 @@ function uspValidarPagosClientes_AppFitnes() {
                         document.getElementById('MyModalMembresiaCulminada').style.display = 'none';
                     });
 
+
+                    //show modal paypal $
+                    if (msg?.TipoMoneda == "$" && msg.MontoMensualidad > 0 && msg?.ClientIdPaypal != "") {
+                        document.getElementById("MyModalMembresiaCulminadaPaypal").style.display = '';
+                        document.getElementById("MyModalMembresiaCulminadaBody").style.display = 'none';
+
+                        document.getElementById("amountTotalPay").innerText = msg?.MontoMensualidad;
+                        document.getElementById("amountTotalPayItem").innerText = msg?.MontoMensualidad;
+                        document.getElementById("bodymculmModal").style.background = "#D9D9D9";
+
+                        document.getElementById("closeModalPaypalActiveShowDiv").style.display = "";
+
+                        document.getElementById("fpbuyp").innerText = msg?.FechaPagoTexto;
+                        document.getElementById("fpbuypv").innerText = msg?.FechaVencimientoPagoTexto;
+                        document.getElementById("buypaldescription").innerText = `${msg?.PlanEmpresa}`;
+                        //*********************************************** USD **************************************/
+                        //paypal 
+
+                      
+                        var script = document.createElement('script');
+                        script.type = 'text/javascript';
+                        script.src = `https://www.paypal.com/sdk/js?client-id=${msg?.ClientIdPaypal}&components=buttons&currency=USD`;
+                        document.head.appendChild(script);
+                        setTimeout(() => {
+                            try {
+                                paypal.Buttons({
+                                    style: {
+                                        layout: 'vertical',
+                                        color: 'white',
+                                        shape: 'pill',
+                                        label: 'paypal',
+                                        tagline: false,
+                                    },
+                                    createOrder: async function () {
+                                        let data = {
+                                            monto, description, clientP, secretP, entornoP
+                                        };
+                                        const resp = await axios({
+                                            method: "post",
+                                            url: "/pasarela/PaypalOrderBusiness",
+                                            data: data,
+                                            headers: { "Content-Type": "application/json" },
+                                        });
+
+                                        return resp?.data?.Message1;
+
+                                    },
+                                    onApprove: async function (data) {
+
+                                        let order = data?.orderID;
+                                        let token = data?.facilitatorAccessToken;
+                                        let business = true;
+                                        let datax = {
+                                            token, order, business, monto, entornoP
+                                        };
+                                        const capture = await axios({
+                                            method: "post",
+                                            url: "/pasarela/CaptureOrder",
+                                            data: datax,
+                                            headers: { "Content-Type": "application/json" },
+                                        });
+
+                                        if (capture.data?.Success) {
+                                            document.getElementById('MyModalMembresiaCulminada').style.display = 'none';
+                                            document.getElementById("BtnModalBuyPal").style.display = "block";
+                                        } else {
+
+                                            $.bootstrapGrowl(capture.data?.Message1, { type: 'danger', width: 'auto' });
+                                        }
+                                        return true;
+                                    }, onCancel: async function () {
+
+                                    }, onError: async function (err) {
+                                        console.log("Log Paypal:", err)
+                                    },
+
+                                }).render('#paypal-button-container-buy');
+
+                            } catch (e) {
+                                location.reload()
+                            }
+                        }, 300);
+                    }
+                    //*********************************************** END USD **************************************/
+
+
+
+
                     SEGListarPerfilMenu();
                 } else if (msg.Existe == 2) {//muestra el modal sin boton de cerrar el mensaje
 
                     document.getElementById('MyModalMembresiaCulminada').style.display = 'block';
                     document.getElementById("btnAvisoCobranza_AppsFit").style.display = 'none';
+
+                    document.getElementById("MyModalMembresiaCulminadaPaypal").style.display = 'none';
+                    document.getElementById("MyModalMembresiaCulminadaBody").style.display = '';
+                    document.getElementById("bodymculmModal").style.background = "";
+
+
                     $('#lblFechaPago_AppsFit').html(msg.FechaPagoTexto);
                     $('#lblFechaVence_AppsFit').html(msg.FechaVencimientoPagoTexto);
                     $('#lblMonto_AppsFit').html(msg.MontoMensualidad);
@@ -10167,6 +10272,95 @@ function uspValidarPagosClientes_AppFitnes() {
 
                     $('#lblMensaje1_AppsFit').attr('href', 'https://api.whatsapp.com/send?phone=51' + msg.CelularEnviarVoucher + '&text=hola,%20soy%20la%20empresa%20' + msg.RazonSocial);
                     $('#lblMensaje2_AppsFit').attr('href', 'https://api.whatsapp.com/send?phone=51' + msg.CelularEnviarVoucher + '&text=hola,%20soy%20la%20empresa%20' + msg.RazonSocial);
+
+                    //show modal paypal $
+                    if (msg?.TipoMoneda == "$" && msg.MontoMensualidad > 0 && msg?.ClientIdPaypal != "") {
+                        document.getElementById("MyModalMembresiaCulminadaPaypal").style.display = '';
+                        document.getElementById("MyModalMembresiaCulminadaBody").style.display = 'none';
+
+                        document.getElementById("closeModalPaypalActiveShowDiv").style.display = "none";
+
+                        document.getElementById("amountTotalPay").innerText = msg?.MontoMensualidad;
+                        document.getElementById("amountTotalPayItem").innerText = msg?.MontoMensualidad;
+                        document.getElementById("bodymculmModal").style.background = "#D9D9D9";
+
+                        document.getElementById("fpbuyp").innerText = msg?.FechaPagoTexto;
+                        document.getElementById("fpbuypv").innerText = msg?.FechaVencimientoPagoTexto;
+                        document.getElementById("buypaldescription").innerText = `${msg?.PlanEmpresa}`;
+                        //*********************************************** USD **************************************/
+                        //paypal 
+                       
+                        var script = document.createElement('script');
+                        script.type = 'text/javascript';
+                        script.src = `https://www.paypal.com/sdk/js?client-id=${msg?.ClientIdPaypal}&components=buttons&currency=USD`;
+                        document.head.appendChild(script);
+
+                        setTimeout(() => {
+                            try {
+                                paypal.Buttons({
+                                    style: {
+                                        layout: 'vertical',
+                                        color: 'white',
+                                        shape: 'pill',
+                                        label: 'paypal',
+                                        tagline: false,
+                                    },
+                                    createOrder: async function () {
+                                        let data = {
+                                            monto, description, clientP, secretP, entornoP
+                                        };
+                                        const resp = await axios({
+                                            method: "post",
+                                            url: "/pasarela/PaypalOrderBusiness",
+                                            data: data,
+                                            headers: { "Content-Type": "application/json" },
+                                        });
+                                        console.log(`Order Id: ${resp?.data?.Message1}`)
+                                        return resp?.data?.Message1;
+
+                                    },
+                                    onApprove: async function (data) {
+
+                                        let order = data?.orderID;
+                                        let token = data?.facilitatorAccessToken;
+                                        let business = true;
+                                        let datax = {
+                                            token, order, business, monto
+                                        };
+                                        const capture = await axios({
+                                            method: "post",
+                                            url: "/pasarela/CaptureOrder",
+                                            data: datax,
+                                            headers: { "Content-Type": "application/json" },
+                                        });
+
+                                        if (capture.data?.Success) {
+                                            document.getElementById('MyModalMembresiaCulminada').style.display = 'none';
+                                            document.getElementById("BtnModalBuyPal").style.display = "block";
+                                        } else {
+
+                                            $.bootstrapGrowl(capture.data?.Message1, { type: 'danger', width: 'auto' });
+                                        }
+                                        return true;
+                                    }, onCancel: async function () {
+
+                                    }, onError: async function (err) {
+                                        console.log("Log Paypal:", err)
+                                    },
+
+                                }).render('#paypal-button-container-buy');
+                            } catch (e) {
+                                location.reload()
+                            }
+
+                        }, 300);
+                    }
+                    //*********************************************** END USD **************************************/
+
+
+
+
+
 
                 } else if (msg.Existe == 0) { //ES DEMOSTRACION
                     document.getElementById('MyModalMembresiaCulminada').style.display = 'none';
@@ -10190,6 +10384,99 @@ function uspValidarPagosClientes_AppFitnes() {
                         $('#btnAvisoDemo_AppsFit').click(function () {
                             document.getElementById('MyModalDemostracion').style.display = 'none';
                         });
+
+
+                        if (msg?.TipoMoneda == "$" && msg.MontoMensualidad > 0 && msg?.ClientIdPaypal != "") {
+                            document.getElementById('MyModalDemostracion').style.display = 'none';
+                            document.getElementById('ModalByPaypalCustom').style.display = 'block';
+
+
+                            document.getElementById("amountTotalPayC").innerText = msg?.MontoMensualidad;
+                            document.getElementById("amountTotalPayItemC").innerText = msg?.MontoMensualidad;
+
+
+                            //**************** start validate close button************/
+                            if (msg?.EstadoFinPrueba == 'none') {
+                                document.getElementById("ModalByPaypalCustomClose").style.display = "none";
+                            } else {
+                                document.getElementById("ModalByPaypalCustomClose").style.display = "";
+                            }
+                            //**************** end validate close button************/
+
+
+                            //document.getElementById("fpbuypC").innerText = msg?.FechaPagoTexto;
+                            document.getElementById("fpbuypvC").innerText = msg?.FechaVencimientoDemoTexto;
+                            document.getElementById("buypaldescriptionC").innerText = `${msg?.PlanEmpresa}`;
+                            //*********************************************** USD **************************************/
+                            //paypal 
+                           
+                            var script = document.createElement('script');
+                            script.type = 'text/javascript';
+                            script.src = `https://www.paypal.com/sdk/js?client-id=${msg?.ClientIdPaypal}&components=buttons&currency=USD`;
+                            document.head.appendChild(script);
+
+                            setTimeout(() => {
+                                try {
+                                    paypal.Buttons({
+                                        style: {
+                                            layout: 'vertical',
+                                            color: 'white',
+                                            shape: 'pill',
+                                            label: 'paypal',
+                                            tagline: false,
+                                        },
+                                        createOrder: async function () {
+                                            let data = {
+                                                monto, description, clientP, secretP, entornoP
+                                            };
+                                            const resp = await axios({
+                                                method: "post",
+                                                url: "/pasarela/PaypalOrderBusiness",
+                                                data: data,
+                                                headers: { "Content-Type": "application/json" },
+                                            });
+                                            console.log(`Order Id: ${resp?.data?.Message1}`)
+                                            return resp?.data?.Message1;
+
+                                        },
+                                        onApprove: async function (data) {
+
+                                            let order = data?.orderID;
+                                            let token = data?.facilitatorAccessToken;
+                                            let business = true;
+                                            let datax = {
+                                                token, order, business, monto
+                                            };
+                                            const capture = await axios({
+                                                method: "post",
+                                                url: "/pasarela/CaptureOrder",
+                                                data: datax,
+                                                headers: { "Content-Type": "application/json" },
+                                            });
+
+                                            if (capture.data?.Success) {
+                                                document.getElementById('ModalByPaypalCustom').style.display = 'none';
+                                                document.getElementById("BtnModalBuyPal").style.display = "block";
+                                            } else {
+
+                                                $.bootstrapGrowl(capture.data?.Message1, { type: 'danger', width: 'auto' });
+                                            }
+                                            return true;
+                                        }, onCancel: async function () {
+
+                                        }, onError: async function (err) {
+                                            console.log("Log Paypal:", err)
+                                        },
+
+                                    }).render('#paypal-button-container-buy-custom');
+                                } catch (e) {
+                                    location.reload()
+                                }
+
+                            }, 300);
+
+                            //*********************************************** END USD **************************************/
+                        }
                     }
 
                     SEGListarPerfilMenu();
@@ -10215,6 +10502,19 @@ function uspValidarPagosClientes_AppFitnes() {
         }
     });
 }
+
+function showTogleBuySuccessClose() {
+    document.getElementById("BtnModalBuyPal").style.display = 'none';
+    location.reload();
+}
+function closeModalPaypalActiveShow() {
+    document.getElementById("MyModalMembresiaCulminada").style.display = 'none'
+}
+function ModalByPaypalCustomClose() {
+    document.getElementById("ModalByPaypalCustom").style.display = 'none'
+
+}
+
 
 //---Amador 05/01/2023----
 //funciones globales
@@ -10276,7 +10576,7 @@ function sendEmailPDFGeneral(e) {
         }
     });
 
-   
+
 }
 
 function removePdfGeneral() {

@@ -16,11 +16,6 @@ namespace AppsfitWebApi.Repository
     public class HomeRepository
     {
 
-        string CLIENT_ID = "AbmZirpHBl-LcoP8oxKIzar_0A-U-uEGZMD1HQ-_I5Jcuv_jWXgBscRHLMuZQ2ioiO6HbFNP59G5VZae";
-        string CLIENT_SECRET = "ELckHiGwNjKxSMxudP9XvvAUMowBEpSHqvgYKTNu2ndmphvcdy3JtZQjW1DJ4p9nH1c-GwK5DqCyfPPX";
-
-
-
         //validate Pasarela
         public async Task<ResponseApi> ValidPasarelaRepo(string DefaultKeyEmpresa,string CodigoPlantillaFormaPago)
         {
@@ -42,7 +37,10 @@ namespace AppsfitWebApi.Repository
                 switch (type.ToUpper())
                 {
                     case "PAYPAL":
-                        responseModel = await paypalService.PaypalTokenService(pasarela?.Valor1, pasarela?.Valor2);
+                        responseModel = await paypalService.PaypalTokenService(pasarela?.Valor1, pasarela?.Valor2,pasarela.EstadoProduccion);
+                        responseModel.Production = pasarela.EstadoProduccion;
+
+
                         break; 
                     
                     case "CULQI":

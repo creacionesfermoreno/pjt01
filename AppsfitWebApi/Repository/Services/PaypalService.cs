@@ -11,15 +11,19 @@ using System.Web;
 using System.Text.Json.Serialization;
 using static iTextSharp.text.pdf.AcroFields;
 using AppsfitWebApi.Helpers;
+using System.Configuration;
 
 namespace AppsfitWebApi.Repository.Services
 {
     public class PaypalService
     {
-        private string host = "https://api-m.sandbox.paypal.com";
+        
+        public string PAYPAL_DEMO = ConfigurationManager.AppSettings["HOST_PAYPAL_DEMO"];
+        public string PAYPAL_PROD = ConfigurationManager.AppSettings["HOST_PAYPAL"];
+
 
         //generate token
-        public async Task<ResponseApi> PaypalTokenService(string clientId, string secretId)
+        public async Task<ResponseApi> PaypalTokenService(string clientId, string secretId,bool entorno = false)
         {
             object model = new { };
             ResponseApi responseModel = new ResponseApi();
@@ -28,7 +32,8 @@ namespace AppsfitWebApi.Repository.Services
 
             using (var content = new ByteArrayContent(byteData))
             {
-                string Uri = $"{host}/v1/oauth2/token";
+
+                string Uri = entorno? $"{PAYPAL_PROD}/v1/oauth2/token": $"{PAYPAL_DEMO}/v1/oauth2/token"; 
 
                 var authenticationString = $"{clientId}:{secretId}";
                 var credentials = Convert.ToBase64String(System.Text.ASCIIEncoding.ASCII.GetBytes(authenticationString));
@@ -59,7 +64,7 @@ namespace AppsfitWebApi.Repository.Services
 
 
         //generate order
-        public async Task<ResponseApi> PaypalOrderService(object model, string token)
+        public async Task<ResponseApi> PaypalOrderService(object model, string token,bool entorno = false)
         {
             ResponseApi responseModel = new ResponseApi();
             var client = new HttpClient();
@@ -67,7 +72,9 @@ namespace AppsfitWebApi.Repository.Services
 
             using (var content = new ByteArrayContent(byteData))
             {
-                string Uri = $"{host}/v2/checkout/orders";
+
+                string Uri = entorno ? $"{PAYPAL_PROD}/v2/checkout/orders" : $"{PAYPAL_DEMO}/v2/checkout/orders";
+
                 content.Headers.ContentType = new MediaTypeHeaderValue("application/json");
                 client.DefaultRequestHeaders.Add("Authorization", $"Bearer {token}");
                 var response = await client.PostAsync(Uri, content);
@@ -84,6 +91,7 @@ namespace AppsfitWebApi.Repository.Services
                 else
                 {
                     responseModel.Message1 = resp.message;
+                    responseModel.Message2 = resp.error_description;
                     responseModel.Success = false;
                     responseModel.Status = 1;
                 }
@@ -92,7 +100,7 @@ namespace AppsfitWebApi.Repository.Services
         }
 
         //capture order
-        public async Task<ResponseApi> PaypalOrderCaptureService(object model, string token, string orderId)
+        public async Task<ResponseApi> PaypalOrderCaptureService(object model, string token, string orderId,bool entorno = false)
         {
             ResponseApi responseModel = new ResponseApi();
             var client = new HttpClient();
@@ -100,7 +108,9 @@ namespace AppsfitWebApi.Repository.Services
 
             using (var content = new ByteArrayContent(byteData))
             {
-                string Uri = $"{host}/v2/checkout/orders/{orderId}/capture";
+
+                string Uri = entorno ? $"{PAYPAL_PROD}/v2/checkout/orders/{orderId}/capture" : $"{PAYPAL_DEMO}/v2/checkout/orders/{orderId}/capture";
+
                 content.Headers.ContentType = new MediaTypeHeaderValue("application/json");
                 client.DefaultRequestHeaders.Add("Authorization", $"Bearer {token}");
                 var response = await client.PostAsync(Uri, content);
@@ -127,12 +137,13 @@ namespace AppsfitWebApi.Repository.Services
 
 
         //show order items
-        public async Task<ResponseApi> PaypalOrderDetailService(string token, string orderId)
+        public async Task<ResponseApi> PaypalOrderDetailService(string token, string orderId,bool entorno = false)
         {
             ResponseApi responseModel = new ResponseApi();
             var client = new HttpClient();
 
-            string Uri = $"{host}/v2/checkout/orders/{orderId}";
+            string Uri = entorno ? $"{PAYPAL_PROD}/v2/checkout/orders/{orderId}" : $"{PAYPAL_DEMO}/v2/checkout/orders/{orderId}";
+
 
             client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
             client.DefaultRequestHeaders.Add("Authorization", $"Bearer {token}");

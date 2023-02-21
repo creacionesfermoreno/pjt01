@@ -22,6 +22,7 @@ namespace AppsfitWebApi.Models
         public string Message3 { set; get; }
         public int Status { set; get; }
         public bool Success { set; get; }
+        public bool Production { set; get; }
         public object Date { set; get; }
         public object Errors { set; get; }
         public int Total { set; get; }
