@@ -23,8 +23,9 @@ namespace AppsfitWebApi.Repository.CulqiServices
 {
     public class CulqiService 
     {
-        private string culqiApiPublic = "https://secure.culqi.com/v2";
-        private string culqiApiPrivate = "https://api.culqi.com/v2";
+ 
+        private string CULQISECUREV2 = ConfigurationManager.AppSettings["SECURE_CULQI_V2"];
+        private string CULQIV2 = ConfigurationManager.AppSettings["CULQI_V2"];
 
 
         //validate card return source Id
@@ -38,7 +39,7 @@ namespace AppsfitWebApi.Repository.CulqiServices
 
             using (var content = new ByteArrayContent(byteData))
             {
-                string Uri = $"{culqiApiPublic}/tokens";
+                string Uri = $"{CULQISECUREV2}/tokens";
                 content.Headers.ContentType = new MediaTypeHeaderValue("application/json");
                 client.DefaultRequestHeaders.Add("Authorization", $"Bearer {token}");
                 var response = await client.PostAsync(Uri,content);
@@ -69,7 +70,7 @@ namespace AppsfitWebApi.Repository.CulqiServices
 
             using (var content = new ByteArrayContent(byteData))
             {
-                string Uri = $"{culqiApiPrivate}/charges";
+                string Uri = $"{CULQIV2}/charges";
                 content.Headers.ContentType = new MediaTypeHeaderValue("application/json");
                 client.DefaultRequestHeaders.Add("Authorization", $"Bearer {token}");
                 var response = await client.PostAsync(Uri, content);

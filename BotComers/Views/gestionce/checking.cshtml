@@ -640,381 +640,394 @@
             color: white;
         }
 
-        .page {
-          width: 100%;
-          height: 100%;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-        }
+    .page {
+        width: 100%;
+        height: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
 
-        .marvel-device .screen {
-          text-align: left;
-        }
+    .marvel-device .screen {
+        text-align: left;
+    }
 
-        .screen-container {
-          height: 100%;
-        }
+    .screen-container {
+        height: 100%;
+    }
 
-        /* Status Bar */
+    /* Status Bar */
 
-        .status-bar {
-          height: 25px;
-          background: #004e45;
-          color: #fff;
-          font-size: 14px;
-          padding: 0 8px;
-        }
+    .status-bar {
+        height: 25px;
+        background: #004e45;
+        color: #fff;
+        font-size: 14px;
+        padding: 0 8px;
+    }
 
         .status-bar:after {
-          content: "";
-          display: table;
-          clear: both;
+            content: "";
+            display: table;
+            clear: both;
         }
 
         .status-bar div {
-          float: right;
-          position: relative;
-          top: 50%;
-          transform: translateY(-50%);
-          margin: 0 0 0 8px;
-          font-weight: 600;
+            float: right;
+            position: relative;
+            top: 50%;
+            transform: translateY(-50%);
+            margin: 0 0 0 8px;
+            font-weight: 600;
         }
 
-        /* Chat */
+    /* Chat */
 
-        .chat {
-          height: calc(100% - 69px);
-        }
+    .chat {
+        height: calc(100% - 69px);
+    }
 
-        .chat-container {
-          height: 100%;
-        }
+    .chat-container {
+        height: 100%;
+    }
 
-        /* User Bar */
+    /* User Bar */
 
-        .user-bar {
-          height: 55px;
-          background: #005e54;
-          color: #fff;
-          padding: 0 8px;
-          font-size: 24px;
-          position: relative;
-          z-index: 1;
-        }
+    .user-bar {
+        height: 55px;
+        background: #005e54;
+        color: #fff;
+        padding: 0 8px;
+        font-size: 24px;
+        position: relative;
+        z-index: 1;
+    }
 
         .user-bar:after {
-          content: "";
-          display: table;
-          clear: both;
+            content: "";
+            display: table;
+            clear: both;
         }
 
         .user-bar div {
-          float: left;
-          transform: translateY(-50%);
-          position: relative;
-          top: 50%;
+            float: left;
+            transform: translateY(-50%);
+            position: relative;
+            top: 50%;
         }
 
         .user-bar .actions {
-          float: right;
-          margin: 0 0 0 20px;
+            float: right;
+            margin: 0 0 0 20px;
         }
 
-        .user-bar .actions.more {
-          margin: 0 12px 0 32px;
-        }
+            .user-bar .actions.more {
+                margin: 0 12px 0 32px;
+            }
 
-        .user-bar .actions.attachment {
-          margin: 0 0 0 30px;
-        }
+            .user-bar .actions.attachment {
+                margin: 0 0 0 30px;
+            }
 
-        .user-bar .actions.attachment i {
-          display: block;
-          transform: rotate(-45deg);
-        }
+                .user-bar .actions.attachment i {
+                    display: block;
+                    transform: rotate(-45deg);
+                }
 
         .user-bar .avatar {
-          margin: 0 0 0 5px;
-          width: 36px;
-          height: 36px;
+            margin: 0 0 0 5px;
+            width: 36px;
+            height: 36px;
         }
 
-        .user-bar .avatar img {
-          border-radius: 50%;
-          box-shadow: 0 1px 0 rgba(255, 255, 255, 0.1);
-          display: block;
-          width: 100%;
-        }
+            .user-bar .avatar img {
+                border-radius: 50%;
+                box-shadow: 0 1px 0 rgba(255, 255, 255, 0.1);
+                display: block;
+                width: 100%;
+            }
 
         .user-bar .name {
-          font-size: 17px;
-          font-weight: 600;
-          text-overflow: ellipsis;
-          letter-spacing: 0.3px;
-          margin: 0 0 0 8px;
-          overflow: hidden;
-          white-space: nowrap;
-          width: 110px;
+            font-size: 17px;
+            font-weight: 600;
+            text-overflow: ellipsis;
+            letter-spacing: 0.3px;
+            margin: 0 0 0 8px;
+            overflow: hidden;
+            white-space: nowrap;
+            width: 110px;
         }
 
         .user-bar .status {
-          display: block;
-          font-size: 13px;
-          font-weight: 400;
-          letter-spacing: 0;
+            display: block;
+            font-size: 13px;
+            font-weight: 400;
+            letter-spacing: 0;
         }
 
-        /* Conversation */
+    /* Conversation */
 
-        .conversation {
-          border-radius:10px;
-          height: 120px;
-          position: relative;
-          background: #efe7dd url("https://cloud.githubusercontent.com/assets/398893/15136779/4e765036-1639-11e6-9201-67e728e86f39.jpg") repeat;
-          z-index: 0;
-        }
+    .conversation {
+        border-radius: 10px;
+        height: 120px;
+        position: relative;
+        background: #efe7dd url("https://cloud.githubusercontent.com/assets/398893/15136779/4e765036-1639-11e6-9201-67e728e86f39.jpg") repeat;
+        z-index: 0;
+    }
 
         .conversation ::-webkit-scrollbar {
-          transition: all .5s;
-          width: 5px;
-          height: 1px;
-          z-index: 10;
+            transition: all .5s;
+            width: 5px;
+            height: 1px;
+            z-index: 10;
         }
 
         .conversation ::-webkit-scrollbar-track {
-          background: transparent;
+            background: transparent;
         }
 
         .conversation ::-webkit-scrollbar-thumb {
-          background: #b3ada7;
+            background: #b3ada7;
         }
 
         .conversation .conversation-container {
-          height: calc(100% - 68px);
-          box-shadow: inset 0 10px 10px -10px #000000;
-          overflow-x: hidden;
-          padding: 0 16px;
-          margin-bottom: 5px;
+            height: calc(100% - 68px);
+            box-shadow: inset 0 10px 10px -10px #000000;
+            overflow-x: hidden;
+            padding: 0 16px;
+            margin-bottom: 5px;
         }
 
-        .conversation .conversation-container:after {
-          content: "";
-          display: table;
-          clear: both;
-        }
+            .conversation .conversation-container:after {
+                content: "";
+                display: table;
+                clear: both;
+            }
 
-        /* Messages */
+    /* Messages */
 
-        .message {
-          color: #000;
-          clear: both;
-          line-height: 18px;
-          font-size: 15px;
-          padding: 8px;
-          position: relative;
-          margin: 8px 0;
-          max-width: 85%;
-          word-wrap: break-word;
-          z-index: -1;
-        }
+    .message {
+        color: #000;
+        clear: both;
+        line-height: 18px;
+        font-size: 15px;
+        padding: 8px;
+        position: relative;
+        margin: 8px 0;
+        max-width: 85%;
+        word-wrap: break-word;
+        z-index: -1;
+    }
 
         .message:after {
-          position: absolute;
-          content: "";
-          width: 0;
-          height: 0;
-          border-style: solid;
+            position: absolute;
+            content: "";
+            width: 0;
+            height: 0;
+            border-style: solid;
         }
 
-        .metadata {
-          display: inline-block;
-          float: right;
-          padding: 0 0 0 7px;
-          position: relative;
-          bottom: -4px;
-        }
+    .metadata {
+        display: inline-block;
+        float: right;
+        padding: 0 0 0 7px;
+        position: relative;
+        bottom: -4px;
+    }
 
         .metadata .time {
-          color: rgba(0, 0, 0, .45);
-          font-size: 11px;
-          display: inline-block;
+            color: rgba(0, 0, 0, .45);
+            font-size: 11px;
+            display: inline-block;
         }
 
         .metadata .tick {
-          display: inline-block;
-          margin-left: 2px;
-          position: relative;
-          top: 4px;
-          height: 16px;
-          width: 16px;
+            display: inline-block;
+            margin-left: 2px;
+            position: relative;
+            top: 4px;
+            height: 16px;
+            width: 16px;
         }
 
-        .metadata .tick svg {
-          position: absolute;
-          transition: .5s ease-in-out;
-        }
+            .metadata .tick svg {
+                position: absolute;
+                transition: .5s ease-in-out;
+            }
 
-        .metadata .tick svg:first-child {
-          -webkit-backface-visibility: hidden;
-                  backface-visibility: hidden;
-          -webkit-transform: perspective(800px) rotateY(180deg);
-                  transform: perspective(800px) rotateY(180deg);
-        }
+                .metadata .tick svg:first-child {
+                    -webkit-backface-visibility: hidden;
+                    backface-visibility: hidden;
+                    -webkit-transform: perspective(800px) rotateY(180deg);
+                    transform: perspective(800px) rotateY(180deg);
+                }
 
-        .metadata .tick svg:last-child {
-          -webkit-backface-visibility: hidden;
-                  backface-visibility: hidden;
-          -webkit-transform: perspective(800px) rotateY(0deg);
-                  transform: perspective(800px) rotateY(0deg);
-        }
+                .metadata .tick svg:last-child {
+                    -webkit-backface-visibility: hidden;
+                    backface-visibility: hidden;
+                    -webkit-transform: perspective(800px) rotateY(0deg);
+                    transform: perspective(800px) rotateY(0deg);
+                }
 
         .metadata .tick-animation svg:first-child {
-          -webkit-transform: perspective(800px) rotateY(0);
-                  transform: perspective(800px) rotateY(0);
+            -webkit-transform: perspective(800px) rotateY(0);
+            transform: perspective(800px) rotateY(0);
         }
 
         .metadata .tick-animation svg:last-child {
-          -webkit-transform: perspective(800px) rotateY(-179.9deg);
-                  transform: perspective(800px) rotateY(-179.9deg);
+            -webkit-transform: perspective(800px) rotateY(-179.9deg);
+            transform: perspective(800px) rotateY(-179.9deg);
         }
 
-        .message:first-child {
-          margin: 16px 0 8px;
-        }
+    .message:first-child {
+        margin: 16px 0 8px;
+    }
 
-        .message.received {
-          background: #fff;
-          border-radius: 0px 5px 5px 5px;
-          float: left;
-        }
+    .message.received {
+        background: #fff;
+        border-radius: 0px 5px 5px 5px;
+        float: left;
+    }
 
         .message.received .metadata {
-          padding: 0 0 0 16px;
+            padding: 0 0 0 16px;
         }
 
         .message.received:after {
-          border-width: 0px 10px 10px 0;
-          border-color: transparent #fff transparent transparent;
-          top: 0;
-          left: -10px;
+            border-width: 0px 10px 10px 0;
+            border-color: transparent #fff transparent transparent;
+            top: 0;
+            left: -10px;
         }
 
-        .message.sent {
-          background: #e1ffc7;
-          border-radius: 5px 0px 5px 5px;
-          float: right;
-        }
+    .message.sent {
+        background: #e1ffc7;
+        border-radius: 5px 0px 5px 5px;
+        float: right;
+    }
 
         .message.sent:after {
-          border-width: 0px 0 10px 10px;
-          border-color: transparent transparent transparent #e1ffc7;
-          top: 0;
-          right: -10px;
+            border-width: 0px 0 10px 10px;
+            border-color: transparent transparent transparent #e1ffc7;
+            top: 0;
+            right: -10px;
         }
 
-        /* Compose */
+    /* Compose */
 
-        .conversation-compose {
-          display: flex;
-          flex-direction: row;
-          align-items: flex-end;
-          overflow: hidden;
-          height: 50px;
-          width: 100%;
-          z-index: 2;
-        }
+    .conversation-compose {
+        display: flex;
+        flex-direction: row;
+        align-items: flex-end;
+        overflow: hidden;
+        height: 50px;
+        width: 100%;
+        z-index: 2;
+    }
 
         .conversation-compose div,
         .conversation-compose input {
-          background: #fff;
-          height: 100%;
+            background: #fff;
+            height: 100%;
         }
 
         .conversation-compose .emoji {
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          background: white;
-          border-radius: 5px 0 0 5px;
-          flex: 0 0 auto;
-          margin-left: 8px;
-          width: 48px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: white;
+            border-radius: 5px 0 0 5px;
+            flex: 0 0 auto;
+            margin-left: 8px;
+            width: 48px;
         }
 
         .conversation-compose .input-msg {
-          border: 0;
-          flex: 1 1 auto;
-          font-size: 16px;
-          margin: 0;
-          outline: none;
-          min-width: 50px;
+            border: 0;
+            flex: 1 1 auto;
+            font-size: 16px;
+            margin: 0;
+            outline: none;
+            min-width: 50px;
         }
 
         .conversation-compose .photo {
-          flex: 0 0 auto;
-          border-radius: 0 0 5px 0;
-          text-align: center;
-          position: relative;
-          width: 48px;
+            flex: 0 0 auto;
+            border-radius: 0 0 5px 0;
+            text-align: center;
+            position: relative;
+            width: 48px;
         }
 
-        .conversation-compose .photo:after {
-          border-width: 0px 0 10px 10px;
-          border-color: transparent transparent transparent #fff;
-          border-style: solid;
-          position: absolute;
-          width: 0;
-          height: 0;
-          content: "";
-          top: 0;
-          right: -10px;
-        }
+            .conversation-compose .photo:after {
+                border-width: 0px 0 10px 10px;
+                border-color: transparent transparent transparent #fff;
+                border-style: solid;
+                position: absolute;
+                width: 0;
+                height: 0;
+                content: "";
+                top: 0;
+                right: -10px;
+            }
 
-        .conversation-compose .photo i {
-          display: block;
-          color: #7d8488;
-          font-size: 24px;
-          transform: translate(-50%, -50%);
-          position: relative;
-          top: 50%;
-          left: 50%;
-        }
+            .conversation-compose .photo i {
+                display: block;
+                color: #7d8488;
+                font-size: 24px;
+                transform: translate(-50%, -50%);
+                position: relative;
+                top: 50%;
+                left: 50%;
+            }
 
         .conversation-compose .send {
-          background: transparent;
-          border: 0;
-          cursor: pointer;
-          flex: 0 0 auto;
-          margin-left: 8px;
-          margin-right: 8px;
-          padding: 0;
-          position: relative;
-          outline: none;
+            background: transparent;
+            border: 0;
+            cursor: pointer;
+            flex: 0 0 auto;
+            margin-left: 8px;
+            margin-right: 8px;
+            padding: 0;
+            position: relative;
+            outline: none;
         }
 
-        .conversation-compose .send .circle {
-          background: #008a7c;
-          border-radius: 50%;
-          color: #fff;
-          position: relative;
-          width: 48px;
-          height: 48px;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-        }
+            .conversation-compose .send .circle {
+                background: #008a7c;
+                border-radius: 50%;
+                color: #fff;
+                position: relative;
+                width: 48px;
+                height: 48px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
 
-        .conversation-compose .send .circle i {
-          font-size: 24px;
-          margin-left: 5px;
-        }
+                .conversation-compose .send .circle i {
+                    font-size: 24px;
+                    margin-left: 5px;
+                }
 
-        /* Small Screens */
-
-        
+    /* Small Screens */
 
 
+    .dbodyPayBuyDetail {
+        background: white;
+        border-top-left-radius: 20px;
+        border-bottom-left-radius: 20px;
+        /*-webkit-box-shadow: 0px 0 3px 1px #474747;
+        box-shadow: 0px 0 3px 1px #474747;*/
+    }
+
+    .dbodyPayBuyDetailP {
+        background: #9ba9af;
+        border-top-right-radius: 20px;
+        border-bottom-right-radius: 20px;
+        /* -webkit-box-shadow: 1px 0 3px 1px #474747;
+        box-shadow: 1px 0 3px 1px #474747;*/
+    }
 </style>
 
 
@@ -1212,7 +1225,7 @@
                         </div>
                     </div>
                     <div id="div_ChatWhatsapp" class="row" style="text-align:center;padding:10px;">
-                       
+
                         <div class="marvel-device nexus5">
                             <div class="screen">
                                 <div class="screen-container">
@@ -1225,11 +1238,11 @@
                                                 </div>
                                                 <div class="conversation-compose">
                                                     <div class="emoji">
-                                                        <span class="fab fa-whatsapp"></span>                                                        
+                                                        <span class="fab fa-whatsapp"></span>
                                                     </div>
-                                                    
+
                                                     <input id="txtmensajeWHatsapp" onkeypress="event_escribiendo_mensajewhatsapp();" onkeydown="event_escribiendo_mensajewhatsapp();" onkeyup="event_noescribiendo_mensajewhatsapp();" class="input-msg" name="input" placeholder="Escribe un mensaje aquí" autocomplete="off" autofocus />
-                                                   
+
                                                     <button class="send" onclick="event_enviarmensajewhatsap();">
                                                         <div class="circle">
                                                             <i class="fas fa-paper-plane"></i>
@@ -4338,120 +4351,301 @@
 
 <div id="MyModalMembresiaCulminada" class="modal fade" style="display: none;" tabindex="-1" role="dialog" aria-labelledby="MyModalMembresiaCulminada">
 
-    <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-dialog modal-lg modal-dialog-scrollable" role="document">
 
-        <div class="modal-content">
+        <div class="modal-content" style="margin-top:0px">
 
-            <div class="modal-body">
-                <br />
-                <div class="row">
-                    <div class="col-8">
+            <div class="modal-body " id="bodymculmModal">
 
+                <div id="MyModalMembresiaCulminadaBody">
+                    <br />
+                    <div class="row">
+                        <div class="col-8">
+
+                        </div>
+                        <div class="col-4">
+                            <div id="btnAvisoCobranza_AppsFit" title="Cerrar Aviso" style="background-color:#434343;color:#fff;padding: 2px 12px;border-radius:6px;cursor:pointer;text-align:center;font-size: 17px;">
+                                Cerrar mensaje
+                            </div>
+                        </div>
                     </div>
-                    <div class="col-4">
-                        <div id="btnAvisoCobranza_AppsFit" title="Cerrar Aviso" style="background-color:#434343;color:#fff;padding: 2px 12px;border-radius:6px;cursor:pointer;text-align:center;font-size: 17px;">
-                            Cerrar mensaje
+                    <br />
+                    <div class="row">
+                        <div class="col-12" style="text-align:center;text-decoration: underline;">
+                            <h6 class="mb-0 chat-contact-title">ESTIMADO CLIENTE, LE RECORDAMOS QUE SU FECHA DE CORTE ESTÁ PROXIMÁ.</h6>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-12" style="text-align:center;text-decoration: underline;">
+                            <h6 class="mb-0 chat-contact-title">Para continuar disfrutando de APPSFIT le sugerimos hacer el pago de forma puntual.</h6>
+                        </div>
+                    </div>
+                    <br />
+                    <div class="row">
+                        <div class="col-12">
+                            <h6>A continuación le informamos  los datos bancarios para el depósito.</h6>
+                            <table id="customers">
+                                <tr>
+                                    <th>Fecha de pagos</th>
+                                    <th>Fecha desconexión</th>
+                                    <th>Monto</th>
+                                    <th>Banco</th>
+                                    <th>Depositar a nro Cuenta</th>
+                                    <th>Nombre</th>
+                                    <th>CCI</th>
+                                </tr>
+                                <tr>
+                                    <td id="lblFechaPago_AppsFit"></td>
+                                    <td id="lblFechaVence_AppsFit"></td>
+                                    <td id="lblMonto_AppsFit"></td>
+                                    <td id="lblBanco_AppsFit"></td>
+                                    <td id="lblNroCuenta_AppsFit"></td>
+                                    <td id="lblNombre_AppsFit"></td>
+                                    <td id="lblCCI_AppsFit"></td>
+                                </tr>
+                            </table>
+                            <b style="font-size:12px;"> *Si realiza su depósito desde ventanilla en provincia, tiene que agregar S/7.50 por gastos de comisión bancarios. </b>
+                        </div>
+                    </div>
+                    <br />
+                    <div class="row">
+                        <div class="col-12" style="text-align:center;font-size:12px;">
+                            Una vez realizado el depósito por favor enviar su comprobante de pago al siguiente número: <b style="color:black;font-size:17px;">+51 957592357</b>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-12" style="text-align:center;font-size:12px;">
+                            ó también puede enviar haciendo clic en el botón verde
+                        </div>
+                    </div>
+                    <br />
+                    <div class="row">
+                        <div class="col-12" style="text-align:center;">
+                            <a id="lblMensaje1_AppsFit" href="https://api.whatsapp.com/send?phone=51957592357" style="background-color: #25d366;color: #FFF;border-radius: 50px;text-align: center;font-size: 15px;width:100%;padding:5px;" target="_blank">
+                                <div class="fab fa-whatsapp"></div> Enviar foto del voucher por whatsapp
+                            </a>
+                        </div>
+                    </div>
+                    <br />
+                    <div class="row">
+                        <div class="col-12" style="text-align:left;font-size:11px;">
+                            <b>Nota Importante:</b>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-12" style="text-align:left;font-size:11px;">
+                            <b>1. </b> Los pagos mensuales serán controlados automáticamente por el sistema mostrando este aviso 2 días antes de la fecha de pago y hasta 2 días después de la fecha de pago, después de este tiempo se desconectará el servicio automáticamente.
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-12" style="text-align:left;font-size:11px;">
+                            <b>2. </b> El número de cuenta a depositar y el monto de la mensualidad aparece en el cuadro de este aviso.
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-12" style="text-align:left;font-size:11px;">
+                            <b>3. </b> Es importante depositar al nro. de cuenta que se le muestra en el cuadro para evitar esperas de 25 días de reconexión del servicio.
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-12" style="text-align:left;font-size:11px;">
+                            <b>4. </b> El voucher de pago deberá ser enviado al número de WhatsApp que muestra en este aviso para evitar esperas de 10 días de reconexión del servicio.
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-12" style="text-align:left;font-size:11px;">
+                            <b>5. </b> Una persona encargada de los pagos, validara el número de operación y si este es correcto ingresara los pagos y ya no se mostrará el aviso o se activara el servicio.
+                        </div>
+                    </div>
+                    <div class="row" style="display: none;">
+                        <div class="col-12" style="text-align:left;font-size:11px;">
+                            <b>6. </b> Sus recibos serán emitidos 2 días después de la fecha de pago.
                         </div>
                     </div>
                 </div>
-                <br />
-                <div class="row">
-                    <div class="col-12" style="text-align:center;text-decoration: underline;">
-                        <h6 class="mb-0 chat-contact-title">ESTIMADO CLIENTE, LE RECORDAMOS QUE SU FECHA DE CORTE ESTÁ PROXIMÁ.</h6>
+
+                <div id="MyModalMembresiaCulminadaPaypal" style="display: none;" class="p-5">
+                    <div class="row my-3 justify-content-center" style="display:none" id="closeModalPaypalActiveShowDiv">
+                        <div class="col-12 col-md-6">
+
+                        </div>
+                        <div class="col-12 col-md-4">
+                            <div onclick="closeModalPaypalActiveShow()" title="Cerrar Aviso" style="background-color:#434343;color:#fff;padding: 2px 12px;border-radius:6px;cursor:pointer;text-align:center;font-size: 17px;">
+                                Cerrar mensaje
+                            </div>
+                        </div>
                     </div>
-                </div>
-                <div class="row">
-                    <div class="col-12" style="text-align:center;text-decoration: underline;">
-                        <h6 class="mb-0 chat-contact-title">Para continuar disfrutando de APPSFIT le sugerimos hacer el pago de forma puntual.</h6>
-                    </div>
-                </div>
-                <br />
-                <div class="row">
-                    <div class="col-12">
-                        <h6>A continuación le informamos  los datos bancarios para el depósito.</h6>
-                        <table id="customers">
-                            <tr>
-                                <th>Fecha de pagos</th>
-                                <th>Fecha desconexión</th>
-                                <th>Monto</th>
-                                <th>Banco</th>
-                                <th>Depositar a nro Cuenta</th>
-                                <th>Nombre</th>
-                                <th>CCI</th>
-                            </tr>
-                            <tr>
-                                <td id="lblFechaPago_AppsFit"></td>
-                                <td id="lblFechaVence_AppsFit"></td>
-                                <td id="lblMonto_AppsFit"></td>
-                                <td id="lblBanco_AppsFit"></td>
-                                <td id="lblNroCuenta_AppsFit"></td>
-                                <td id="lblNombre_AppsFit"></td>
-                                <td id="lblCCI_AppsFit"></td>
-                            </tr>
-                        </table>
-                        <b style="font-size:12px;"> *Si realiza su depósito desde ventanilla en provincia, tiene que agregar S/7.50 por gastos de comisión bancarios. </b>
-                    </div>
-                </div>
-                <br />
-                <div class="row">
-                    <div class="col-12" style="text-align:center;font-size:12px;">
-                        Una vez realizado el depósito por favor enviar su comprobante de pago al siguiente número: <b style="color:black;font-size:17px;">+51 957592357</b>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-12" style="text-align:center;font-size:12px;">
-                        ó también puede enviar haciendo clic en el botón verde
-                    </div>
-                </div>
-                <br />
-                <div class="row">
-                    <div class="col-12" style="text-align:center;">
-                        <a id="lblMensaje1_AppsFit" href="https://api.whatsapp.com/send?phone=51957592357" style="background-color: #25d366;color: #FFF;border-radius: 50px;text-align: center;font-size: 15px;width:100%;padding:5px;" target="_blank">
-                            <div class="fab fa-whatsapp"></div> Enviar foto del voucher por whatsapp
-                        </a>
-                    </div>
-                </div>
-                <br />
-                <div class="row">
-                    <div class="col-12" style="text-align:left;font-size:11px;">
-                        <b>Nota Importante:</b>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-12" style="text-align:left;font-size:11px;">
-                        <b>1. </b> Los pagos mensuales serán controlados automáticamente por el sistema mostrando este aviso 2 días antes de la fecha de pago y hasta 2 días después de la fecha de pago, después de este tiempo se desconectará el servicio automáticamente.
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-12" style="text-align:left;font-size:11px;">
-                        <b>2. </b> El número de cuenta a depositar y el monto de la mensualidad aparece en el cuadro de este aviso.
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-12" style="text-align:left;font-size:11px;">
-                        <b>3. </b> Es importante depositar al nro. de cuenta que se le muestra en el cuadro para evitar esperas de 25 días de reconexión del servicio.
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-12" style="text-align:left;font-size:11px;">
-                        <b>4. </b> El voucher de pago deberá ser enviado al número de WhatsApp que muestra en este aviso para evitar esperas de 10 días de reconexión del servicio.
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-12" style="text-align:left;font-size:11px;">
-                        <b>5. </b> Una persona encargada de los pagos, validara el número de operación y si este es correcto ingresara los pagos y ya no se mostrará el aviso o se activara el servicio.
-                    </div>
-                </div>
-                <div class="row" style="display: none;">
-                    <div class="col-12" style="text-align:left;font-size:11px;">
-                        <b>6. </b> Sus recibos serán emitidos 2 días después de la fecha de pago.
+                    <div class="row justify-content-center ">
+                        <div class="col-12 col-md-6 dbodyPayBuyDetail p-4">
+
+                            <div class="row  mb-3 p-2">
+                                <div class="col-12" style="text-align:center;text-decoration: underline;">
+                                    <h6 class="mb-0 chat-contact-title">ESTIMADO CLIENTE, LE RECORDAMOS QUE SU FECHA DE CORTE ESTÁ PROXIMÁ.</h6>
+                                </div>
+                                <div class="col-12" style="text-align:center;text-decoration: underline;">
+                                    <h6 class="mb-0 chat-contact-title">Para continuar disfrutando de APPSFIT le sugerimos hacer el pago de forma puntual.</h6>
+                                </div>
+                            </div>
+
+
+                            <div style="height: 1px; width: 100%; background: #DDDDDD" class=""></div>
+
+                            <div class="row mt-2">
+                                <div class="col-12" style="text-align:left;font-size:11px;">
+                                    <b>Nota Importante:</b>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-12" style="text-align:left;font-size:11px;">
+                                    <b>1. </b> Los pagos mensuales serán controlados automáticamente por el sistema mostrando este aviso 2 días antes de la fecha de pago y hasta 2 días después de la fecha de pago, después de este tiempo se desconectará el servicio automáticamente.
+                                </div>
+                            </div>
+                            <div class="row mb-2">
+                                <div class="col-12" style="text-align:left;font-size:11px;">
+                                    <b>2. </b> El número de cuenta a depositar y el monto de la mensualidad aparece en el cuadro de este aviso.
+                                </div>
+                            </div>
+                            <div style="height: 1px; width: 100%; background: #DDDDDD" class="my-3"></div>
+                            <div class="row justify-content-around">
+                                <div class="col-5 text-center"><span style="font-size:14px">Fecha de pago: <b id="fpbuyp">12/02/2025</b></span></div>
+                                <div class="col-5 text-center"><span style="font-size:14px">Fecha de desconexión: <b id="fpbuypv">12/02/2025</b></span></div>
+                            </div>
+                            <p class="text-center m-0 py-1 mt-3" style="color:#393636"><b>Detalle Pago</b></p>
+
+                            <div style="height: 1px; width: 100%; background: #DDDDDD" class=""></div>
+                            <div class="row justify-content-around align-items-center my-3">
+                                <div class="col">
+                                    <img src="https://contenidosappsfit.blob.core.windows.net/empresas/35001.png" width="50" style="border-radius:50%" />
+                                </div>
+                                <div class="col-6">Software AppsFit <br /> <small id="buypaldescription"></small></div>
+                                <div class="col text-end">$ <b id="amountTotalPayItem"></b></div>
+                            </div>
+                            <div style="height: 1px; width: 100%; background: #DDDDDD" class=""></div>
+
+                            <div class="row justify-content-around align-items-center my-2">
+                                <div class="col"><h3>Total</h3></div>
+                                <div class="col text-end">$ <b id="amountTotalPay"></b></div>
+                            </div>
+                        </div>
+                        <div class="col-12 col-md-4  dbodyPayBuyDetailP p-4">
+                            <div id="paypal-button-container-buy" class=""></div>
+                        </div>
                     </div>
                 </div>
 
-            </div> <!-- // END .modal-body -->
+
+            </div>
+            <!-- // END .modal-body -->
         </div> <!-- // END .modal-content -->
     </div> <!-- // END .modal-dialog -->
 </div>
+
+
+
+<div id="BtnModalBuyPal" class="modal fade" style="display: none;" tabindex="-1" role="dialog" aria-labelledby="BtnModalBuyPal">
+    <div class="modal-dialog modal-m " role="document">
+        <div class="modal-content" style="margin-top: 150px">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLongTitle"></h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close" onclick="showTogleBuySuccessClose()">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body p-0 mt-5" id="bodymculmModal">
+                <div class=" jumbotron-fluid">
+                    <div class="container text-center">
+                        <p class="text-center"><i class="fa fa-check-circle fa-5x text-center text-success" aria-hidden="true"></i></p>
+                        <h1 class="display-6">Su pago se ha realizado correctamente.</h1>
+                        <p class="lead mb-5">Muchas gracias por usar AppsFit.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+@*---------Modal buy Paypal------*@
+<div id="ModalByPaypalCustom" class="modal fade" style="display: none;" tabindex="-1" role="dialog" aria-labelledby="ModalByPaypalCustom">
+    <div class="modal-dialog modal-lg " role="document">
+        <div class="modal-content" style="margin-top: 150px">
+
+            <div class="modal-body p-0" id="bodymculmModal" style="background: #D9D9D9">
+                <div class="p-5">
+                    <div class="row my-3 justify-content-center" style="display:none" id="ModalByPaypalCustomClose">
+                        <div class="col-12 col-md-6">
+                        </div>
+                        <div class="col-12 col-md-4">
+                            <div onclick="ModalByPaypalCustomClose()" title="Cerrar Aviso" style="background-color:#434343;color:#fff;padding: 2px 12px;border-radius:6px;cursor:pointer;text-align:center;font-size: 17px;">
+                                Cerrar mensaje
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row justify-content-center ">
+                        <div class="col-12 col-md-6 dbodyPayBuyDetail p-4">
+
+                            <div class="row  mb-3 p-2">
+                                <div class="col-12" style="text-align:center;text-decoration: none;">
+                                    <h6 class="mb-0 chat-contact-title">ESTIMADO CLIENTE, LE RECORDAMOS QUE ESTÁS EN PERIODO DE PRUEBA.</h6>
+                                    <h6 class="mb-0 chat-contact-title">FINALIZA EL <b id="fpbuypvC"></b></h6>
+                                </div>
+                                <div class="col-12" style="text-align: center; text-decoration: none;">
+                                    <h6 class="mb-0 chat-contact-title">Para pasar a una linea activa realize su pago.</h6>
+                                </div>
+                            </div>
+
+
+                            <div style="height: 1px; width: 100%; background: #DDDDDD" class=""></div>
+
+                            <div class="row mt-2">
+                                <div class="col-12" style="text-align:left;font-size:11px;">
+                                    <b>Nota Importante:</b>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-12" style="text-align:left;font-size:11px;">
+                                    <b>1. </b> Los pagos mensuales serán controlados automáticamente por el sistema mostrando este aviso 2 días antes de la fecha de pago y hasta 2 días después de la fecha de pago, después de este tiempo se desconectará el servicio automáticamente.
+                                </div>
+                            </div>
+                            <div class="row mb-2">
+                                <div class="col-12" style="text-align:left;font-size:11px;">
+                                    <b>2. </b>Puedes realizar el pago con cuenta paypal, tarjeta de crédito y débito.
+                                </div>
+                            </div>
+                            <div style="height: 1px; width: 100%; background: #DDDDDD" class="my-3"></div>
+                            
+                            <p class="text-center m-0 py-1 mt-3" style="color:#393636"><b>Detalle Pago</b></p>
+
+                            <div style="height: 1px; width: 100%; background: #DDDDDD" class=""></div>
+                            <div class="row justify-content-around align-items-center my-3">
+                                <div class="col">
+                                    <img src="https://contenidosappsfit.blob.core.windows.net/empresas/35001.png" width="50" style="border-radius:50%" />
+                                </div>
+                                <div class="col-6">Software AppsFit <br /> <small id="buypaldescriptionC"></small></div>
+                                <div class="col text-end">$ <b id="amountTotalPayItemC"></b></div>
+                            </div>
+                            <div style="height: 1px; width: 100%; background: #DDDDDD" class=""></div>
+
+                            <div class="row justify-content-around align-items-center my-2">
+                                <div class="col"><h3>Total</h3></div>
+                                <div class="col text-end">$ <b id="amountTotalPayC"></b></div>
+                            </div>
+                        </div>
+                        <div class="col-12 col-md-4  dbodyPayBuyDetailP p-4">
+                            <div id="paypal-button-container-buy-custom" class=""></div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
 
 <div id="MyModalDemostracion" class="modal center fade" tabindex="-1" role="dialog" aria-labelledby="MyModalDemostracion">
     <br /><br /><br /><br />
@@ -4951,7 +5145,7 @@
         }
 
         function event_mostrarChatWhatsapp() {
-           
+
             $('#tab_ChatWhatsapp').css('background-color', '#0075ff');
             $('#tab_ChatWhatsapp').css('color', '#fff');
             $('#tab_carnetVacunacion').css('background-color', '#fff');
@@ -4964,7 +5158,7 @@
         }
 
         function event_mostrarCarnet() {
-          
+
             $('#tab_ChatWhatsapp').css('background-color', '#fff');
             $('#tab_ChatWhatsapp').css('color', '#000');
             $('#tab_carnetVacunacion').css('background-color', '#0075ff');
@@ -4977,7 +5171,7 @@
         }
 
         function event_mostrarLectorQR() {
-         
+
             $('#tab_ChatWhatsapp').css('background-color', '#fff');
             $('#tab_ChatWhatsapp').css('color', '#000');
             $('#tab_camaraLectorCodigoQR').css('background-color', '#0075ff');
@@ -5571,19 +5765,19 @@
 
         function event_enviarmensajewhatsap() {
 
-           $('#flagEscribiendo').val('1');
-           var asunto = $('#txtmensajeWHatsapp').val();
-           var numerodestino = $('#infoCelular').html();
-           
-           if (asunto == '') {
-               $.bootstrapGrowl("Falta ingresar un mensaje.", { type: 'danger', width: 'auto' });               
+            $('#flagEscribiendo').val('1');
+            var asunto = $('#txtmensajeWHatsapp').val();
+            var numerodestino = $('#infoCelular').html();
+
+            if (asunto == '') {
+                $.bootstrapGrowl("Falta ingresar un mensaje.", { type: 'danger', width: 'auto' });
                 $('#txtmensajeWHatsapp').select();
                 return;
-           } else if (parseInt(numerodestino.length) <= 4) {
-               $.bootstrapGrowl("El cliente no tiene un número de whatsapp registrado.", { type: 'danger', width: 'auto' });
-               $('#txtmensajeWHatsapp').select();
-               return;
-           }
+            } else if (parseInt(numerodestino.length) <= 4) {
+                $.bootstrapGrowl("El cliente no tiene un número de whatsapp registrado.", { type: 'danger', width: 'auto' });
+                $('#txtmensajeWHatsapp').select();
+                return;
+            }
 
             asunto = asunto.replace(' ', '%20').replace(' ', '%20').replace(' ', '%20').replace(' ', '%20').replace(' ', '%20').replace(' ', '%20').replace(' ', '%20').replace(' ', '%20').replace(' ', '%20').replace(' ', '%20').replace(' ', '%20').replace(' ', '%20').replace(' ', '%20').replace(' ', '%20').replace(' ', '%20').replace(' ', '%20').replace(' ', '%20').replace(' ', '%20').replace(' ', '%20').replace(' ', '%20').replace(' ', '%20').replace(' ', '%20').replace(' ', '%20').replace(' ', '%20').replace(' ', '%20').replace(' ', '%20');
 

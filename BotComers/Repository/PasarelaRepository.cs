@@ -52,11 +52,11 @@ namespace BotComers.Repository
         //***************************************** PAYPAL ***************************
 
         //validate credencial paypal
-        public async Task<ResponseModel> ValidCredentialPaypalRep(string clientId, string secretId)
+        public async Task<ResponseModel> ValidCredentialPaypalRep(string clientId, string secretId, bool entorno)
         {
             ResponseModel response = new ResponseModel();
             PasarelaEmpresaService pservice = new PasarelaEmpresaService();
-            var resp = await pservice.PaypalTokenService(clientId, secretId);
+            var resp = await pservice.PaypalTokenService(clientId, secretId, entorno);
 
             if (resp.Success == false)
             {
@@ -92,6 +92,7 @@ namespace BotComers.Repository
                     Valor2 = parms["kpri"],
                     Valor3 = "--",
                     Estado = Convert.ToBoolean(parms["status"]),
+                    EstadoProduccion = Convert.ToBoolean(parms["entorno"]),
                     Operation = Convert.ToBoolean(parms["created"]) ? Operation.RegisterPEmpresa: Operation.UpdatePEmpresa,
                     
                 });

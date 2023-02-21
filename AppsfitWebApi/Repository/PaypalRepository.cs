@@ -27,22 +27,13 @@ namespace AppsfitWebApi.Repository
             HomeRepository homeRepository = new HomeRepository();
 
             var token = await homeRepository.ValidPasarelaRepo(req.DefaultKeyEmpresa, req.CodigoPlantillaFormaPago);
+           
             if (token.Success)
             {
                 //capture order
-                var capture = await paypalService.PaypalOrderCaptureService(new { }, token?.Message1, req.OrderId);
+                var capture = await paypalService.PaypalOrderCaptureService(new { }, token?.Message1, req.OrderId,token.Production);
                 if (capture.Success)
                 {
-                    //show detail order
-                    //var show = await paypalService.PaypalOrderDetailService(token?.Message1, req.OrderId);
-                    //if (show.Success)
-                    //{
-
-                    //    var details = (List<PurchaseUnit>)show.Date;
-                    //    responseApi.Date = details[0].items;
-                    //    responseApi.Message1 = details[0].amount.value;
-                    //    responseApi.Message2 = details[0].reference_id;
-                    //}
 
                     //********************* last process register bd ********************
 
@@ -116,22 +107,10 @@ namespace AppsfitWebApi.Repository
             if (token.Success)
             {
                 //capture order
-                var capture = await paypalService.PaypalOrderCaptureService(new { }, token?.Message1, req.OrderId);
+                var capture = await paypalService.PaypalOrderCaptureService(new { }, token?.Message1, req.OrderId, token.Production);
                 if (capture.Success)
                 {
-                    //show detail order
-                    //var show = await paypalService.PaypalOrderDetailService(token?.Message1, req.OrderId);
-                    //if (show.Success)
-                    //{
-
-                    //    var details = (List<PurchaseUnit>)show.Date;
-                    //    responseApi.Date = details[0].items;
-                    //    responseApi.Message1 = details[0].amount.value;
-                    //    responseApi.Message2 = details[0].reference_id;
-                    //}
-
                     //********************* last process register bd ********************
-
 
                     //save post bd
                     PostApiRepository repository = new PostApiRepository();
