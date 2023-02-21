@@ -181,6 +181,10 @@ namespace E_DataLayer.Gimnasio
                                 itemDTO.EstadoEmpresa = oIDataReader[oIDataReader.GetOrdinal("DesEstadoGym")].ToString();
                                 itemDTO.EstadoFinPrueba = oIDataReader[oIDataReader.GetOrdinal("EstadoFinPrueba")].ToString();
 
+                                itemDTO.SecretIdPaypal = oIDataReader[oIDataReader.GetOrdinal("SecredId_paypal")].ToString();
+                                itemDTO.ClientIdPaypal = oIDataReader[oIDataReader.GetOrdinal("ClientId_paypal")].ToString();
+                                itemDTO.StatuProdPaypal = Convert.ToBoolean(oIDataReader[oIDataReader.GetOrdinal("StatuProd_paypal")]);
+
                             }
                         }
                     }

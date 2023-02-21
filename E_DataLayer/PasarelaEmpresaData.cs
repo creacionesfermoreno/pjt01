@@ -41,6 +41,7 @@ namespace E_DataLayer
                                     DesFormaPago = oIDataReader[oIDataReader.GetOrdinal("DesFormaPago")].ToString(),
                                     UrlImagenFormaPago = oIDataReader[oIDataReader.GetOrdinal("UrlImagenFormaPago")].ToString(),
                                     Estado = Convert.ToBoolean(oIDataReader[oIDataReader.GetOrdinal("Estado")]),
+                                    EstadoProduccion = Convert.ToBoolean(oIDataReader[oIDataReader.GetOrdinal("EstadoProduccion")]),
                                     DesFechaCreacion = oFiltro.DateParse(Convert.ToDateTime(oIDataReader[oIDataReader.GetOrdinal("FechaCreacion")])),
                                     UsuarioCreacion = oIDataReader[oIDataReader.GetOrdinal("UsuarioCreacion")].ToString(),
                                 });
@@ -84,6 +85,7 @@ namespace E_DataLayer
                                     Valor3 = oIDataReader[oIDataReader.GetOrdinal("Valor3")].ToString(),
                                     DesFormaPago = oIDataReader[oIDataReader.GetOrdinal("DesFormaPago")].ToString(),
                                     Estado = Convert.ToBoolean(oIDataReader[oIDataReader.GetOrdinal("Estado")]),
+                                    EstadoProduccion = Convert.ToBoolean(oIDataReader[oIDataReader.GetOrdinal("EstadoProduccion")]),
                                     DesFechaCreacion = oItem.DateParse(Convert.ToDateTime(oIDataReader[oIDataReader.GetOrdinal("FechaCreacion")])),
                                     UsuarioCreacion = oIDataReader[oIDataReader.GetOrdinal("UsuarioCreacion")].ToString(),
 
@@ -238,6 +240,7 @@ namespace E_DataLayer
                     cmd.Parameters.Add(new SqlParameter("@Valor2", System.Data.SqlDbType.VarChar)).Value = item.Valor2;
                     cmd.Parameters.Add(new SqlParameter("@Valor3", System.Data.SqlDbType.VarChar)).Value = item.Valor3;
                     cmd.Parameters.Add(new SqlParameter("@Estado", System.Data.SqlDbType.Bit)).Value = item.Estado;
+                    cmd.Parameters.Add(new SqlParameter("@EstadoProduccion", System.Data.SqlDbType.Bit)).Value = item.EstadoProduccion;
 
                     if (!string.IsNullOrEmpty(item.UsuarioCreacion))
                     {
@@ -263,6 +266,7 @@ namespace E_DataLayer
                     cmd.Parameters.Add(new SqlParameter("@Valor2", System.Data.SqlDbType.VarChar)).Value = item.Valor2;
                     cmd.Parameters.Add(new SqlParameter("@Valor3", System.Data.SqlDbType.VarChar)).Value = item.Valor3;
                     cmd.Parameters.Add(new SqlParameter("@Estado", System.Data.SqlDbType.Bit)).Value = item.Estado;
+                    cmd.Parameters.Add(new SqlParameter("@EstadoProduccion", System.Data.SqlDbType.Bit)).Value = item.EstadoProduccion;
                     if (!string.IsNullOrEmpty(item.UsuarioCreacion))
                     {
                         cmd.Parameters.Add(new SqlParameter("@UsuarioCreacion", System.Data.SqlDbType.VarChar, 100)).Value = item.UsuarioCreacion;

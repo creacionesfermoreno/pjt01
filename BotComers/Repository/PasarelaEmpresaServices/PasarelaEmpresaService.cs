@@ -1,10 +1,12 @@
 ﻿using BotComers.Controllers;
 using BotComers.Repository.WhatsappServices;
 using MercadoPago.DataStructures.PaymentMethod;
+using Microsoft.Ajax.Utilities;
 using Newtonsoft.Json;
 using RestSharp;
 using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
@@ -17,13 +19,12 @@ namespace BotComers.Repository.PasarelaEmpresaServices
 {
     public class PasarelaEmpresaService
     {
-        private string hostCulqui = "https://secure.culqi.com/v2";
-        private string apiCulqui = "https://api.culqi.com/v2";
+        private string CULQISECUREV2 = ConfigurationManager.AppSettings["SECURE_CULQI_V2"];
+        private string CULQIV2 = ConfigurationManager.AppSettings["CULQI_V2"];
 
-
-
-
-        private string hostPaypal = "https://api-m.sandbox.paypal.com";
+        
+        public string PAYPAL_DEMO = ConfigurationManager.AppSettings["HOST_PAYPAL_DEMO"];
+        public string PAYPAL_PROD = ConfigurationManager.AppSettings["HOST_PAYPAL"];
 
         //*************************************** SERVICES CULQI *******************************
         public ResponseModel validatekeyService(string key)
@@ -33,7 +34,7 @@ namespace BotComers.Repository.PasarelaEmpresaServices
             {
                 ServicePointManager.Expect100Continue = true;
                 ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
-                var client = new RestClient($"{hostCulqui}/tokens");
+                var client = new RestClient($"{CULQISECUREV2}/tokens");
                 client.Timeout = -1;
                 var request = new RestRequest(Method.POST);
                 request.AddHeader("Authorization", $"Bearer {key}");
@@ -85,7 +86,7 @@ namespace BotComers.Repository.PasarelaEmpresaServices
             {
                 ServicePointManager.Expect100Continue = true;
                 ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
-                var client = new RestClient($"{apiCulqui}/charges");
+                var client = new RestClient($"{CULQIV2}/charges");
                 client.Timeout = -1;
                 var request = new RestRequest(Method.GET);
                 request.AddHeader("Authorization", $"Bearer {key}");
@@ -113,7 +114,6 @@ namespace BotComers.Repository.PasarelaEmpresaServices
             return responseModel;
         }
 
-
         //charge 
         public async Task<ResponseModel> chargeCulqiServ(object model, string token)
         {
@@ -123,7 +123,7 @@ namespace BotComers.Repository.PasarelaEmpresaServices
 
             using (var content = new ByteArrayContent(byteData))
             {
-                string Uri = $"{apiCulqui}/charges";
+                string Uri = $"{CULQIV2}/charges";
                 content.Headers.ContentType = new MediaTypeHeaderValue("application/json");
                 client.DefaultRequestHeaders.Add("Authorization", $"Bearer {token}");
                 var response = await client.PostAsync(Uri, content);
@@ -152,7 +152,7 @@ namespace BotComers.Repository.PasarelaEmpresaServices
         //***************************************  SERVICES PAYPAL *******************************
 
         //generate token
-        public async Task<ResponseModel> PaypalTokenService(string clientId, string secretId)
+        public async Task<ResponseModel> PaypalTokenService(string clientId, string secretId,bool entorno = false)
         {
             object model = new { };
             ResponseModel responseModel = new ResponseModel();
@@ -165,7 +165,10 @@ namespace BotComers.Repository.PasarelaEmpresaServices
             {
                 using (var content = new ByteArrayContent(byteData))
                 {
-                    string Uri = $"{hostPaypal}/v1/oauth2/token";
+                    string Uri;
+                    if (entorno == false)  {  Uri = $"{PAYPAL_DEMO}/v1/oauth2/token";}
+                    else {   Uri = $"{PAYPAL_PROD}/v1/oauth2/token";}
+                     
 
                     var authenticationString = $"{clientId}:{secretId}";
                     var credentials = Convert.ToBase64String(System.Text.ASCIIEncoding.ASCII.GetBytes(authenticationString));
@@ -204,7 +207,7 @@ namespace BotComers.Repository.PasarelaEmpresaServices
 
 
         //generate order
-        public async Task<ResponseModel> PaypalOrderServ(object model, string token)
+        public async Task<ResponseModel> PaypalOrderServ(object model, string token,bool entorno = false)
         {
             ResponseModel responseModel = new ResponseModel();
             var client = new HttpClient();
@@ -212,7 +215,11 @@ namespace BotComers.Repository.PasarelaEmpresaServices
 
             using (var content = new ByteArrayContent(byteData))
             {
-                string Uri = $"{hostPaypal}/v2/checkout/orders";
+                
+                string Uri;
+                if (entorno == false) { Uri = $"{PAYPAL_DEMO}/v2/checkout/orders"; }
+                else { Uri = $"{PAYPAL_PROD}/v2/checkout/orders"; }
+
                 content.Headers.ContentType = new MediaTypeHeaderValue("application/json");
                 client.DefaultRequestHeaders.Add("Authorization", $"Bearer {token}");
                 var response = await client.PostAsync(Uri, content);
@@ -238,7 +245,7 @@ namespace BotComers.Repository.PasarelaEmpresaServices
 
 
         //capture order
-        public async Task<ResponseModel> PaypalOrderCaptureServ(object model, string token, string orderId)
+        public async Task<ResponseModel> PaypalOrderCaptureServ(object model, string token, string orderId , bool entorno = false)
         {
             ResponseModel responseModel = new ResponseModel();
             var client = new HttpClient();
@@ -246,7 +253,11 @@ namespace BotComers.Repository.PasarelaEmpresaServices
 
             using (var content = new ByteArrayContent(byteData))
             {
-                string Uri = $"{hostPaypal}/v2/checkout/orders/{orderId}/capture";
+                
+                string Uri;
+                if (entorno == false) { Uri = $"{PAYPAL_DEMO}/v2/checkout/orders/{orderId}/capture"; }
+                else { Uri = $"{PAYPAL_PROD}/v2/checkout/orders/{orderId}/capture"; }
+
                 content.Headers.ContentType = new MediaTypeHeaderValue("application/json");
                 client.DefaultRequestHeaders.Add("Authorization", $"Bearer {token}");
                 var response = await client.PostAsync(Uri, content);
@@ -258,6 +269,7 @@ namespace BotComers.Repository.PasarelaEmpresaServices
                     responseModel.Success = true;
                     responseModel.Message1 = resp.id;
                     responseModel.Message2 = resp.status;
+                    responseModel.Date = resp.purchase_units;
                 }
                 else
                 {
@@ -294,6 +306,7 @@ namespace BotComers.Repository.PasarelaEmpresaServices
         public string name { get; set; }
         public string message { get; set; }
         public List<Link> links { get; set; }
+        public List<PurchaseUnit> purchase_units { get; set; }
     }
 
     public class Link
@@ -302,6 +315,38 @@ namespace BotComers.Repository.PasarelaEmpresaServices
         public string rel { get; set; }
         public string method { get; set; }
     }
+
+
+
+    //**************************************************************
+    public class Amount
+    {
+        public string currency_code { get; set; }
+        public string value { get; set; }
+    }
+
+    public class Capture
+    {
+        public string id { get; set; }
+        public string status { get; set; }
+        public Amount amount { get; set; }
+    }
+
+    public class Payments
+    {
+        public List<Capture> captures { get; set; }
+    }
+
+    public class PurchaseUnit
+    {
+        public Payments payments { get; set; }
+    }
+
+    
+
+
+
+    //**************************************************************************
     public class ResponseCulqi
     {
         public string id { get; set; }

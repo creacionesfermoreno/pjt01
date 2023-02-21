@@ -94,6 +94,9 @@ namespace E_DataModel.Gimnasio
         public string EstadoEmpresa { get; set; }
 
         public string EstadoFinPrueba { get; set; }
+        public string SecretIdPaypal { get; set; }
+        public string ClientIdPaypal { get; set; }
+        public bool StatuProdPaypal { get; set; }
 
 
         public Common.Operation Operation { get; set; } 

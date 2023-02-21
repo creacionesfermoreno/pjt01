@@ -14,6 +14,7 @@ namespace E_DataModel.Gimnasio
         public string Valor2 { get; set; }
         public string Valor3 { get; set; }
         public bool Estado { get; set; }
+        public bool EstadoProduccion { get; set; }
         public string DesFormaPago { get; set; }
         public string UrlImagenFormaPago { get; set; }
 

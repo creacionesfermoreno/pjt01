@@ -125,10 +125,13 @@ function getListPEmpresa() {
                                 <button type="button"  class="" data-toggle="modal" data-target="#modalPasarela" onclick="editPasarelaEm('${item?.CodigoPlantillaFormaPago}')" >
                                      <i class="fa fa-pencil-square-o icon-kendo_ icon-btn-accion" aria-hidden="true"></i>
                                 </button>
-                                <button type="button"  class="" data-toggle="modal" data-target="#modalCardDemo" onclick="showModalPay('${item?.CodigoPlantillaFormaPago}','${item?.DesFormaPago}','${item?.Valor1}')" >
-                                    <i class="fa fa-credit-card icon-kendo_ icon-btn-accion" aria-hidden="true"></i>
-                                </button>
+                                
                                 `;
+                    if (item?.EstadoProduccion == false) {
+                        html += `<button type="button"  class="" data-toggle="modal" data-target="#modalCardDemo" onclick="showModalPay('${item?.CodigoPlantillaFormaPago}','${item?.DesFormaPago}','${item?.Valor1}')" >
+                                    <i class="fa fa-credit-card icon-kendo_ icon-btn-accion" aria-hidden="true"></i>
+                                </button>`;
+                    }
                     html += '</div>'
                     return html;
                 },
@@ -157,10 +160,11 @@ async function registerPasarelaEmpresa(e) {
     let keyprivate = document.getElementById("ppbusiness_v_two").value;
     let code = document.querySelector('input[name="radio_types_pasarelas"]:checked') ? document.querySelector('input[name="radio_types_pasarelas"]:checked').value : "";
     let status = document.querySelector('input[name="rd_status_pem"]:checked').value;
+    let entorProd = document.querySelector('input[name="rd_status_pem_entorn"]:checked').value;
     let type = document.querySelector('#PayMethodType').value;
     let created = true;
     let data = {
-        keypublic, keyprivate, code, status, type, created
+        keypublic, keyprivate, code, status, type, created, entorProd
     };
     try {
         const resp = await axios({
@@ -258,10 +262,17 @@ async function editPasarelaEm(code) {
             document.getElementById("PayMethodType").value = data?.DesFormaPago;
 
             document.getElementsByName("rd_status_pem").forEach(item => {
-
                 if (item.value == data?.Estado) {
                     item.checked = true;
                 }
+            });
+
+            document.getElementsByName("rd_status_pem_entorn").forEach(itemx => {
+
+                if (itemx.value == data?.EstadoProduccion) {
+                    itemx.checked = true;
+                }
+                console.log(itemx.value == data?.EstadoProduccion)
             });
         }
     } catch (e) {
@@ -293,10 +304,13 @@ async function updatePasarelaEmpresa(e) {
     let status = document.querySelector('input[name="rd_status_pem"]:checked').value;
     //let code = document.querySelector('input[name="radio_types_pasarelas"]:checked') ? document.querySelector('input[name="radio_types_pasarelas"]:checked').value : "";
     let type = document.querySelector('#PayMethodType').value;
+    let entorProd = document.querySelector('input[name="rd_status_pem_entorn"]:checked').value;
+
     let created = false;
     let data = {
-        keypublic, keyprivate, code, status, type, created
+        keypublic, keyprivate, code, status, type, created, entorProd
     };
+    console.log(data)
     try {
         const resp = await axios({
             method: "post",
@@ -342,67 +356,73 @@ async function showModalPay(code, type, valor) {
 
             var script = document.createElement('script');
             script.type = 'text/javascript';
+            script.id = "payDemoScript";
             script.src = `https://www.paypal.com/sdk/js?client-id=${valor}&components=buttons&currency=USD`;
             document.head.appendChild(script);
-
-            let setTime = setTimeout(() => {
-                paypal.Buttons({
-                    style: {
-                        layout: 'vertical',
-                        color: 'white',
-                        shape: 'pill',
-                        label: 'paypal',
-                        tagline: false,
-                    },
-                    createOrder: async function () {
-                        let type = document.querySelector('#PayMethodType').value;
-                        let code = document.getElementById("CodigoPlantillaFormaPago").value;
-                        let data = {
-                            code, type
-                        };
-                        const resp = await axios({
-                            method: "post",
-                            url: "/pasarela/DemoPayCard",
-                            data: data,
-                            headers: { "Content-Type": "application/json" },
-                        });
-                        
-                        return resp?.data?.Message1;
-                    },
-                    onApprove: async function (data) {
-                        console.log(data)
-                        let order = data?.orderID;
-                        let token = data?.facilitatorAccessToken;
-                        let datax = {
-                            token, order
-                        };
-                        const capture = await axios({
-                            method: "post",
-                            url: "/pasarela/CaptureOrder",
-                            data: datax,
-                            headers: { "Content-Type": "application/json" },
-                        });
-                        if (capture.data?.Success) {
-
-                            $.bootstrapGrowl(capture.data?.Message1, { type: 'success', width: 'auto' });
-                        } else {
-
-                            $.bootstrapGrowl(capture.data?.Message1, { type: 'danger', width: 'auto' });
-                        }
-                        return true;
-                    }, onCancel: async function () {
-
-                    }, onError: async function (err) {
-                        console.log("Log Paypal:", err)
-                    },
-
-                }).render('#paypal-button-container');
-
-            }, 250)
+            renderPaypal();
+           
             //clearTimeout(setTime);
             break
         default:
     }
+}
+
+function renderPaypal() {
+    let setTime = setTimeout(() => {
+        paypal.Buttons({
+            style: {
+                layout: 'vertical',
+                color: 'white',
+                shape: 'pill',
+                label: 'paypal',
+                tagline: false,
+            },
+            createOrder: async function () {
+                let type = document.querySelector('#PayMethodType').value;
+                let code = document.getElementById("CodigoPlantillaFormaPago").value;
+                let data = {
+                    code, type
+                };
+                const resp = await axios({
+                    method: "post",
+                    url: "/pasarela/DemoPayCard",
+                    data: data,
+                    headers: { "Content-Type": "application/json" },
+                });
+
+                return resp?.data?.Message1;
+            },
+            onApprove: async function (data) {
+                let order = data?.orderID;
+                let token = data?.facilitatorAccessToken;
+                let datax = {
+                    token, order
+                };
+                const capture = await axios({
+                    method: "post",
+                    url: "/pasarela/CaptureOrder",
+                    data: datax,
+                    headers: { "Content-Type": "application/json" },
+                });
+                if (capture.data?.Success) {
+
+                    $.bootstrapGrowl(capture.data?.Message1, { type: 'success', width: 'auto' });
+                } else {
+
+                    $.bootstrapGrowl(capture.data?.Message1, { type: 'danger', width: 'auto' });
+                }
+                return true;
+            }, onCancel: async function () {
+
+            }, onError: async function (err) {
+                console.log("Log Paypal:", err)
+            },
+
+        }).render('#paypal-button-container');
+
+    }, 250)
+
+
 }
 
 
