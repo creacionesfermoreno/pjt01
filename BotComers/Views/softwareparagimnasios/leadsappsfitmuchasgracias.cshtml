@@ -6,6 +6,27 @@
 
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 
+<!-- Meta Pixel Code -->
+<script>
+    !function (f, b, e, v, n, t, s) {
+        if (f.fbq) return; n = f.fbq = function () {
+            n.callMethod ?
+            n.callMethod.apply(n, arguments) : n.queue.push(arguments)
+        };
+        if (!f._fbq) f._fbq = n; n.push = n; n.loaded = !0; n.version = '2.0';
+        n.queue = []; t = b.createElement(e); t.async = !0;
+        t.src = v; s = b.getElementsByTagName(e)[0];
+        s.parentNode.insertBefore(t, s)
+    }(window, document, 'script',
+        'https://connect.facebook.net/en_US/fbevents.js');
+    fbq('init', '651319655944723');
+    fbq('track', 'Lead');
+</script>
+<noscript>
+    <img height="1" width="1" style="display:none"
+         src="https://www.facebook.com/tr?id=651319655944723&ev=PageView&noscript=1" />
+</noscript>
+<!-- End Meta Pixel Code -->
 <section class="explore_more" id="testimonios" style="background-color: #000000;">
 
     <!--begin container -->
@@ -62,21 +83,22 @@
     <script type="text/javascript">
 
         $(document).ready(function () {
-           
+
             eventContactoFacebook();
-           
+
         });
 
         function eventContactoFacebook() {
-            let eventolead = localStorage.getItem('eventolead') || false;
-            if (!eventolead) {
-                fbq('track', 'Lead');
-                localStorage.setItem('eventolead', true);
-            }
+            //fbq('track', 'Lead');
+            //let eventolead = localStorage.getItem('eventolead') || false;
+            //if (!eventolead) {
+
+            //    localStorage.setItem('eventolead', true);
+            //}
         }
 
         function EnviarDatos() {
-            
+
             var correo = localStorage.getItem('correo');
             var nombreempresa = localStorage.getItem('nombreempresa');
             var situacionempresa = localStorage.getItem('situacionempresa');
@@ -102,7 +124,7 @@
             mensaje = mensaje + 'La%20situacion%20de%20mi%20empresa%20es:%20' + situacionempresa + '%0A';
             mensaje = mensaje + 'Mi%20tipo%20de%20empresa%20es:%20' + tipoempresa + '%0A';
             mensaje = mensaje + 'Asunto:%20' + asunto;
-           
+
             var Link = "https://api.whatsapp.com/send?phone=51957592357&text=👍%20Hola%20Appsfit,%20mi%20nombre%20es%20" + nombregerente + "%0A" + mensaje;
 
             window.open(Link, '_self');

@@ -39,7 +39,7 @@
     @if (IsSectionDefined("Styles"))
     {@RenderSection("Styles", required: false)}
 
-    
+
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
     <!-- Loading Template CSS -->
     <link href="@Url.Content("~/Content/paginaappsfit1/css2/style.css")" rel="stylesheet" />
@@ -60,7 +60,6 @@
     <link href="@Url.Content("~/Content/paginaappsfit2/css/style.css")" rel="stylesheet" />
     <link href="@Url.Content("~/Content/paginaappsfit2/css/fonts/font/flaticon.css")" rel="stylesheet" />
 
-
     <script src="https://kit.fontawesome.com/1e97400d15.js" crossorigin="anonymous"></script>
     <style>
         :root {
@@ -69,7 +68,6 @@
         }
 
         .css_select {
-           
             margin-bottom: 0.5rem;
             width: 100%;
             border-radius: 0.40rem;
@@ -88,7 +86,6 @@
             font-weight: inherit;
             line-height: inherit;
         }
-
     </style>
     <!-- Meta Pixel Code Facebook AppsfitPaginaWeb_Principal -->
     <script>
@@ -107,11 +104,21 @@
         fbq('track', 'PageView');
 
     </script>
+
     <noscript>
         <img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=651319655944723&ev=PageView&noscript=1" />
     </noscript>
     <!-- End Meta Pixel Code -->
 
+    <!-- smartlook GRABADOR DE PANTALLA -->
+    <script type='text/javascript'>
+        window.smartlook || (function (d) {
+            var o = smartlook = function () { o.api.push(arguments) }, h = d.getElementsByTagName('head')[0];
+            var c = d.createElement('script'); o.api = new Array(); c.async = true; c.type = 'text/javascript';
+            c.charset = 'utf-8'; c.src = 'https://web-sdk.smartlook.com/recorder.js'; h.appendChild(c);
+        })(document);
+        smartlook('init', 'e1a41bfb2c00a357a095b43c0415f143caba7228', { region: 'eu' });
+    </script>
 
 </head>
 
@@ -173,9 +180,8 @@
     <!-- Handler for local scripts -->
     @RenderSection("scripts", required: false)
 
-    
     <!--Start of Tawk.to Script ESTE ES EL CHAT DEL LORO-->
-    <script type="text/javascript">
+    @*<script type="text/javascript">
         var Tawk_API = Tawk_API || {}, Tawk_LoadStart = new Date();
         (function () {
             var s1 = document.createElement("script"), s0 = document.getElementsByTagName("script")[0];
@@ -185,7 +191,7 @@
             s1.setAttribute('crossorigin', '*');
             s0.parentNode.insertBefore(s1, s0);
         })();
-    </script>
+    </script>*@
     <!--End of Tawk.to Script-->
 </body>
 </html>
