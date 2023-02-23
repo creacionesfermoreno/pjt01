@@ -616,7 +616,7 @@
 
                                 <div class="form-group mg-t-2">
                                     <div class="input-group input-group-sm input-group-merge">
-                                        <input id="txtContactoCobranza" type="text" value="@Model.ContactoCobranza"  class="form-control form-control-prepended" style="width:100%;font-weight:bold;">
+                                        <input id="txtContactoCobranza" type="text" value="@Model.ContactoCobranza" class="form-control form-control-prepended" style="width:100%;font-weight:bold;">
                                         <div class="input-group-prepend">
                                             <div class="input-group-text">
                                                 Contacto cobranza:
@@ -626,7 +626,7 @@
                                 </div>
                                 <div class="form-group mg-t-2">
                                     <div class="input-group input-group-sm input-group-merge">
-                                        <input id="txtWhatsappCobranza" type="text" value="@Model.CelularCobranza"  class="form-control form-control-prepended" style="width:100%;font-weight:bold;">
+                                        <input id="txtWhatsappCobranza" type="text" value="@Model.CelularCobranza" class="form-control form-control-prepended" style="width:100%;font-weight:bold;">
                                         <div class="input-group-prepend">
                                             <div class="input-group-text">
                                                 Whatsapp Cobranza:
@@ -731,7 +731,41 @@
                                     </div>
                                 </div>
                             </div>
-                            
+
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-4">
+                                <div class="form-group mg-t-2">
+                                    <div class="input-group input-group-sm input-group-merge">
+                                        <label style="color:#0075ff;font-weight:bold;">ACCESO A LA APP DE CLIENTES:</label>
+                                    </div>
+                                </div>
+                                <div class="form-group mg-t-2">
+                                    <div class="input-group input-group-sm input-group-merge">
+                                        <div class="form-check">
+                                            <input class="form-check-input" style="width:20px;height:20px;" id="chkAppClientesDisponible" type="checkbox" value="" @( Model.AplicacionDisponible ? "checked" : "" )>
+                                            <label class="form-check-label" for="chkAppClientesDisponible">&nbsp; App Clientes Disponible.</label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group mg-t-2">
+                                    <div class="input-group input-group-sm input-group-merge">
+                                        <div class="form-check">
+                                            <input class="form-check-input" style="width:20px;height:20px;" id="chkAppClientesTiendaDisponible" type="checkbox" value="" @( Model.TiendaAplicacion ? "checked" : "" )>
+                                            <label class="form-check-label" for="chkAppClientesTiendaDisponible">&nbsp; App Clientes - Tienda Disponible.</label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group mg-t-2">
+                                    <div class="input-group input-group-sm input-group-merge">
+                                        <div class="form-check">
+                                            <input class="form-check-input" style="width:20px;height:20px;" id="chkAppClientesRutinasDisponible" type="checkbox" value="" @( Model.RutinasAplicacion ? "checked" : "" )>
+                                            <label class="form-check-label" for="chkAppClientesRutinasDisponible">&nbsp; App Clientes - Rutinas Disponible.</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
                         </div>
                         <br /><br />
                         <div class="form-layout-footer">
@@ -1599,8 +1633,13 @@
             var NombreGerente = $("#txtGerenteGeneral").val();
             var ContactoCobranza = $("#txtContactoCobranza").val();
             var CelularCobranza = $("#txtWhatsappCobranza").val();
-            
+
+            var chkAppClientesDisponible = $('#chkAppClientesDisponible').prop('checked') == 1 ? 1 : 0;
+            var chkAppClientesTiendaDisponible = $('#chkAppClientesTiendaDisponible').prop('checked') == 1 ? 1 : 0;
+            var chkAppClientesRutinasDisponible = $('#chkAppClientesRutinasDisponible').prop('checked') == 1 ? 1 : 0;
+
             data = {
+               
                 CodigoUnidadNegocio: CodigoUnidadNegocio,
                 CodigoSede: CodigoSede,
                 RazonSocial: RazonSocial,
@@ -1650,7 +1689,11 @@
                 TokenSunafact: txtToken_FacturacionElectronica,
                 NombreGerente: NombreGerente,
                 ContactoCobranza: ContactoCobranza,
-                CelularCobranza: CelularCobranza
+                CelularCobranza: CelularCobranza,
+                AplicacionDisponible: chkAppClientesDisponible,
+                TiendaAplicacion: chkAppClientesTiendaDisponible,
+                RutinasAplicacion: chkAppClientesRutinasDisponible
+
             }
 
             $.ajax({

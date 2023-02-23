@@ -1205,6 +1205,10 @@ namespace E_DataLayer.Gimnasio
                     cmd.Parameters.Add(new SqlParameter("@NombreGerente", System.Data.SqlDbType.VarChar, 100)).Value = item.NombreGerente;
                     cmd.Parameters.Add(new SqlParameter("@ContactoCobranza", System.Data.SqlDbType.VarChar, 100)).Value = item.ContactoCobranza;
                     cmd.Parameters.Add(new SqlParameter("@CelularCobranza", System.Data.SqlDbType.VarChar, 100)).Value = item.CelularCobranza;
+
+                    cmd.Parameters.Add(new SqlParameter("@AplicacionDisponible", System.Data.SqlDbType.Bit)).Value = item.AplicacionDisponible;
+                    cmd.Parameters.Add(new SqlParameter("@TiendaAplicacion", System.Data.SqlDbType.Bit)).Value = item.TiendaAplicacion;
+                    cmd.Parameters.Add(new SqlParameter("@RutinasAplicacion", System.Data.SqlDbType.Bit)).Value = item.RutinasAplicacion;
                     cmd.ExecuteNonQuery();
                 }
             }
@@ -1683,7 +1687,12 @@ namespace E_DataLayer.Gimnasio
 
                                     NombreGerente = oIDataReader[oIDataReader.GetOrdinal("NombreGerente")].ToString(),
                                     ContactoCobranza = oIDataReader[oIDataReader.GetOrdinal("ContactoCobranza")].ToString(),
-                                    CelularCobranza = oIDataReader[oIDataReader.GetOrdinal("CelularCobranza")].ToString()
+                                    CelularCobranza = oIDataReader[oIDataReader.GetOrdinal("CelularCobranza")].ToString(),
+
+                                    AplicacionDisponible = Convert.ToBoolean(oIDataReader[oIDataReader.GetOrdinal("AplicacionDisponible")]),
+                                    TiendaAplicacion = Convert.ToBoolean(oIDataReader[oIDataReader.GetOrdinal("TiendaAplicacion")]),
+                                    RutinasAplicacion = Convert.ToBoolean(oIDataReader[oIDataReader.GetOrdinal("RutinasAplicacion")])
+
                                 };
                             }
                         }

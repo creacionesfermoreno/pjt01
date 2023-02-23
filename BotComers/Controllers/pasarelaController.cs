@@ -31,6 +31,15 @@ using DocumentFormat.OpenXml.Wordprocessing;
 using DocumentFormat.OpenXml.Bibliography;
 using E_DataModel.Base;
 
+using MercadoPago.Config;
+
+
+using BotComers.Repository.Services;
+using MercadoPago.Client.Preference;
+using MercadoPago.Resource.Preference;
+using System.Security.Policy;
+using Org.BouncyCastle.Asn1.Ocsp;
+
 namespace BotComers.Controllers
 {
     public class pasarelaController : Controller
@@ -238,7 +247,7 @@ namespace BotComers.Controllers
 
 
         //register and update pasarela empresa 
-        public async Task<ActionResult> registerPasarela(string code, string keypublic, string keyprivate, int status, string type, bool created, int entorProd = 0)
+        public async Task<ActionResult> registerPasarela(string code, string keypublic, string keyprivate, int status, string type, bool created, int entorProd = 0, string current = "")
         {
             ResponseModel responseModel = new ResponseModel();
             bool validator = true;
@@ -276,6 +285,17 @@ namespace BotComers.Controllers
                 validator = false;
                 responseModel.Status = 1;
             }
+
+            if (type == "MERCADO PAGO")
+            {
+                if (string.IsNullOrEmpty(current))
+                {
+                    responseModel.Message1 = "Campo tipo moneda  requerido";
+                    validator = false;
+                    responseModel.Status = 1;
+                }
+            }
+
             if (!validator)
             {
                 return Json(responseModel, JsonRequestBehavior.AllowGet);
@@ -294,6 +314,10 @@ namespace BotComers.Controllers
 
                 case "PAYPAL":
                     respValid = await prepo.ValidCredentialPaypalRep(clientId: keypublic, secretId: keyprivate, entorno: entorno);
+                    break;
+                case "MERCADO PAGO":
+                    MpagoService mpagoService = new MpagoService();
+                    respValid = await mpagoService.TypeIdentificatonsMPServ(token: keyprivate);
                     break;
                 default:
                     break;
@@ -314,6 +338,7 @@ namespace BotComers.Controllers
             tdata.Add("status", status);
             tdata.Add("created", created);
             tdata.Add("entorno", entorno);
+            tdata.Add("current", current);
             responseModel = prepo.registerUpAccountPay(tdata);
             return Json(responseModel, JsonRequestBehavior.AllowGet);
         }
@@ -404,6 +429,42 @@ namespace BotComers.Controllers
                         else { response = order; };
                     }
                     else { response = vpaypal; }
+
+                    break;
+
+                case "MERCADO PAGO":
+                    MercadoPagoConfig.AccessToken = account.Valor2;
+               
+                    var Request = System.Web.HttpContext.Current.Request;
+                    string hostAddress = Request.Url.Scheme + "://" + Request.Url.Authority + Request.ApplicationPath.TrimEnd('/') + "/";
+
+                    var request = new PreferenceRequest
+                    {
+                        Items = new List<PreferenceItemRequest>
+                        { new PreferenceItemRequest {
+                            Title = "Mi producto",
+                            Quantity = 1,
+                            CurrencyId = account.Valor3,
+                            UnitPrice = 10,
+                        },
+                        },
+                        AutoReturn= "approved",
+                        BackUrls= new PreferenceBackUrlsRequest
+                        {
+                            Success = $"{hostAddress}/operacionesfit/configuracion/success",
+                            Failure = $"{hostAddress}/operacionesfit/configuracion/failure",
+                            Pending = $"{hostAddress}/operacionesfit/configuracion/pending",
+                        },
+                        
+                    };
+
+                    // Crea la preferencia usando el client
+                    var client = new PreferenceClient();
+                    Preference preference = await client.CreateAsync(request);
+                    response.Message1 = preference.Id;
+                    response.Message2 = preference.InitPoint;
+                    response.Message3 = hostAddress;
+                    response.Success = true;
 
                     break;
 
@@ -573,7 +634,7 @@ namespace BotComers.Controllers
 
                     //generate order
                     PasarelaEmpresaService pemserv = new PasarelaEmpresaService();
-                    var order = await pemserv.PaypalOrderServ(header, vpaypal.Message1,entornoP);
+                    var order = await pemserv.PaypalOrderServ(header, vpaypal.Message1, entornoP);
                     if (order.Success)
                     {
                         response.Status = 0;
@@ -595,6 +656,16 @@ namespace BotComers.Controllers
             return Json(response, JsonRequestBehavior.AllowGet);
         }
         //*******************************************   END PAY BUSINESS ************************************
+
+
+
+        public async Task<ActionResult> DemoMPago()
+        {
+            ResponseModel response = new ResponseModel();
+
+
+            return Json(response, JsonRequestBehavior.AllowGet);
+        }
 
     }
 

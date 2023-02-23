@@ -348,12 +348,15 @@ namespace E_DataModel.Gimnasio
         public string ContactoCobranza { get; set; }
         public string CelularCobranza { get; set; }
 
-
         public string EmailHost { get; set; }
         public string EmailPort { get; set; }
         public string EmailUser { get; set; }
         public string EmailKey { get; set; }
 
+
+        public bool AplicacionDisponible { get; set; }
+        public bool TiendaAplicacion { get; set; }
+        public bool RutinasAplicacion { get; set; }
     }
 
     

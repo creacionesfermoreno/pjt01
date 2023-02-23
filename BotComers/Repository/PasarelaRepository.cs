@@ -90,7 +90,7 @@ namespace BotComers.Repository
                     CodigoPlantillaFormaPago = parms["code"],
                     Valor1 = parms["kpublic"],
                     Valor2 = parms["kpri"],
-                    Valor3 = "--",
+                    Valor3 = parms["current"],//use current in mpago
                     Estado = Convert.ToBoolean(parms["status"]),
                     EstadoProduccion = Convert.ToBoolean(parms["entorno"]),
                     Operation = Convert.ToBoolean(parms["created"]) ? Operation.RegisterPEmpresa: Operation.UpdatePEmpresa,

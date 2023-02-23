@@ -153,19 +153,27 @@ function getListPEmpresa() {
 //********************************************************QULQUI*******************************/
 //register
 async function registerPasarelaEmpresa(e) {
-
-    e.disabled = true;
-
     let keypublic = document.getElementById("ppbusiness_v_one").value;
     let keyprivate = document.getElementById("ppbusiness_v_two").value;
     let code = document.querySelector('input[name="radio_types_pasarelas"]:checked') ? document.querySelector('input[name="radio_types_pasarelas"]:checked').value : "";
     let status = document.querySelector('input[name="rd_status_pem"]:checked').value;
     let entorProd = document.querySelector('input[name="rd_status_pem_entorn"]:checked').value;
     let type = document.querySelector('#PayMethodType').value;
+    let current = document.querySelector('#select_current').value;
     let created = true;
     let data = {
-        keypublic, keyprivate, code, status, type, created, entorProd
+        keypublic, keyprivate, code, status, type, created, entorProd, current
     };
+
+    //*************************** only Mpago*****************/
+    if (type == "MERCADO PAGO") {
+        if (current == "" || current == null) {
+            $.bootstrapGrowl("Selecione tipo de moneda", { type: 'danger', width: 'auto' });
+            return;
+        }
+    }
+
+    e.disabled = true;
     try {
         const resp = await axios({
             method: "post",
@@ -241,7 +249,7 @@ function deletePasarelaEm(code) {
 
 //edit pasarelaEm
 async function editPasarelaEm(code) {
-    document.getElementById("title_modal_PEM").innerText = "Editar pasarela de pago"
+
     document.getElementById("registerPasarelaEmpresaBtn").style.display = "none";
     document.getElementById("updatePasarelaEmpresaBtn").style.display = "";
     try {
@@ -254,12 +262,14 @@ async function editPasarelaEm(code) {
         if (resp?.data) {
             let data = await resp?.data?.Date;
             console.log(data)
+            document.getElementById("title_modal_PEM").innerText = "Editar pasarela de pago " + data?.DesFormaPago
+
             document.getElementById("colpasarelas").style.display = "none";
 
             document.getElementById("ppbusiness_v_one").value = data?.Valor1;
             document.getElementById("ppbusiness_v_two").value = data?.Valor2;
             document.getElementById("CodigoPlantillaFormaPago").value = data?.CodigoPlantillaFormaPago;
-            document.getElementById("PayMethodType").value = data?.DesFormaPago;
+            document.getElementById("PayMethodType").value = data?.DesFormaPago.toUpperCase();
 
             document.getElementsByName("rd_status_pem").forEach(item => {
                 if (item.value == data?.Estado) {
@@ -274,6 +284,30 @@ async function editPasarelaEm(code) {
                 }
                 console.log(itemx.value == data?.EstadoProduccion)
             });
+
+            //****************************************shows************************************ */
+            document.getElementById("dtxt_currents").style.display = "none";
+            document.getElementById("select_current").value = "";
+            let meth = data?.DesFormaPago;
+            switch (meth.toUpperCase()) {
+                case "CULQI":
+                    document.getElementById("label_public").innerHTML = "Ingrese key público";
+                    document.getElementById("label_private").innerHTML = "Ingrese key privado";
+                    break;
+                case "PAYPAL":
+                    document.getElementById("label_public").innerHTML = "Ingrese client id";
+                    document.getElementById("label_private").innerHTML = "Ingrese client secret";
+                    break;
+                case "MERCADO PAGO":
+                    document.getElementById("dtxt_currents").style.display = "";
+                    document.getElementById("select_current").value = data?.Valor3;
+                    document.getElementById("label_public").innerHTML = "Ingrese key público";
+                    document.getElementById("label_private").innerHTML = "Ingrese token";
+                    break;
+                default:
+                    break;
+            }
+            //****************************************shows************************************ */
         }
     } catch (e) {
     }
@@ -297,7 +331,7 @@ async function getItemPasarelaEmActive(code) {
 getItemPasarelaEmActive()
 //update pararelaEm
 async function updatePasarelaEmpresa(e) {
-    e.disabled = true;
+
     let keypublic = document.getElementById("ppbusiness_v_one").value;
     let keyprivate = document.getElementById("ppbusiness_v_two").value;
     let code = document.getElementById("CodigoPlantillaFormaPago").value;
@@ -305,12 +339,23 @@ async function updatePasarelaEmpresa(e) {
     //let code = document.querySelector('input[name="radio_types_pasarelas"]:checked') ? document.querySelector('input[name="radio_types_pasarelas"]:checked').value : "";
     let type = document.querySelector('#PayMethodType').value;
     let entorProd = document.querySelector('input[name="rd_status_pem_entorn"]:checked').value;
+    let current = document.querySelector('#select_current').value;
+
+
+    //*************************** only Mpago*****************/
+    if (type == "MERCADO PAGO") {
+        if (current == "" || current == null) {
+            $.bootstrapGrowl("Selecione tipo de moneda", { type: 'danger', width: 'auto' });
+            return;
+        }
+    }
 
     let created = false;
     let data = {
-        keypublic, keyprivate, code, status, type, created, entorProd
+        keypublic, keyprivate, code, status, type, created, entorProd, current
     };
-    console.log(data)
+
+    e.disabled = true;
     try {
         const resp = await axios({
             method: "post",
@@ -338,7 +383,7 @@ async function updatePasarelaEmpresa(e) {
 //show modal
 
 async function showModalPay(code, type, valor) {
-    document.querySelector('#PayMethodType').value = type;
+    document.querySelector('#PayMethodType').value = type.toUpperCase();
     document.getElementById("CodigoPlantillaFormaPago").value = code;
 
     document.querySelectorAll(".demorows").forEach((item, index) => {
@@ -346,6 +391,7 @@ async function showModalPay(code, type, valor) {
     });
 
     let paymet = type.toUpperCase();
+
     switch (paymet) {
         case "CULQI":
             document.getElementById("PaymetCulqiDemo").style.display = "";
@@ -360,9 +406,38 @@ async function showModalPay(code, type, valor) {
             script.src = `https://www.paypal.com/sdk/js?client-id=${valor}&components=buttons&currency=USD`;
             document.head.appendChild(script);
             renderPaypal();
-           
+
             //clearTimeout(setTime);
-            break
+            break;
+        case "MERCADO PAGO":
+            document.getElementById("PaymetMPagoDemo").style.display = "";
+            //document.getElementById("cho-container").innerHTML = "";
+
+            //const mp = new MercadoPago(valor, {
+            //    locale: "es-PE"
+            //});
+            const resp = await axios({
+                method: "post",
+                url: "/pasarela/DemoPayCard",
+                data: { code: code, type: paymet },
+                headers: { "Content-Type": "application/json" },
+            });
+
+            document.getElementById("cho_container_link").href = resp?.data?.Message2;
+            //if (resp.data?.Success) {
+            //    console.log("preferenceId :", resp?.data?.Message1)
+            //    mp.checkout({
+            //        preference: {
+            //            id: resp?.data?.Message1
+            //        },
+            //        render: {
+            //            container: '.cho-container',
+            //            label: 'Pagar',
+            //        }
+            //    });
+            //}
+
+            break;
         default:
     }
 }
@@ -464,11 +539,13 @@ async function DemoPayed(e) {
 function activeRadioButton(e, method) {
     document.querySelectorAll(".dpp").forEach(item => item.classList.remove("dpp-active"));
     e.classList.add("dpp-active");
+    document.getElementById("dtxt_currents").style.display = "none"
 
     let p = document.querySelector("#label_public");
     let pr = document.querySelector("#label_private");
     let type = document.querySelector('#PayMethodType');
     let meth = method.toUpperCase();
+
     switch (meth) {
         case "CULQI":
             p.innerHTML = "Ingrese key público";
@@ -479,6 +556,13 @@ function activeRadioButton(e, method) {
             p.innerHTML = "Ingrese client id";
             pr.innerHTML = "Ingrese client secret";
             type.value = meth;
+            break;
+
+        case "MERCADO PAGO":
+            p.innerHTML = "Ingrese  key público";
+            pr.innerHTML = "Ingrese  token";
+            type.value = meth;
+            document.getElementById("dtxt_currents").style.display = ""
             break;
         default:
             type.value = "";
