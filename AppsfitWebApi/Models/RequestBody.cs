@@ -57,8 +57,8 @@ namespace AppsfitWebApi.Models
         public MembresiaAPI membresia { get; set; }
         public SaleAPI sale { get; set; }
     }
-    
-   
+
+
 
 
     public class RequestProductCapturePaypal : RequestBody
@@ -73,14 +73,13 @@ namespace AppsfitWebApi.Models
         public decimal Total { get; set; }
 
         [Required]
-        public int Estado { get; set; }       
+        public int Estado { get; set; }
         [Required]
         public string CodigoPlantillaFormaPago { get; set; }
         [Required]
         public string OrderId { get; set; }
 
         public List<ComprobanteDetalleRequestAPI> listaDetalle { get; set; }
-
 
     }
 
@@ -94,8 +93,102 @@ namespace AppsfitWebApi.Models
 
         public List<ComprobanteDetalleRequestAPI> listaDetalle { get; set; }
 
-    }  
-    
-   
+    }
+
+
     //******************************************** PAYPAL ***********************************************
+
+
+    //************************************** MPAGO **********************************************************
+
+    public class RequestMPagoPref : RequestBody
+    {
+
+        [Required]
+        public string CodigoPlantillaFormaPago { get; set; }
+        [Required]
+        public int CodigoSocio { get; set; }
+
+        [Required]
+        public MembresiaAPI membresia { get; set; }
+
+        [Required]
+        public ReqPayer payer { get; set; }
+
+    } 
+    
+    public class RequestMPagoPayment : RequestBody
+    {
+
+        [Required]
+        public string CodigoPlantillaFormaPago { get; set; }
+        [Required]
+        public int CodigoSocio { get; set; }
+
+        [Required]
+        public string PaymentId { get; set; }
+
+        [Required]
+        public string CodeRef { get; set; }
+
+        [Required]
+        public MembresiaAPI membresia { get; set; }
+
+        [Required]
+        public ReqPayer payer { get; set; }
+
+
+    }
+
+    public class ReqPayer
+    {
+        [Required]
+        public string Name { get; set; }
+        [Required]
+        public string Surname { get; set; }
+
+        public string Phone { get; set; }
+        [Required]
+        public string Type_doc { get; set; }
+        [Required]
+        public string Number_doc { get; set; }
+        public string Address { get; set; }
+    }
+
+    public class ReqMPRefProduct:RequestBody
+    {
+
+        [Required]
+        public string CodigoPlantillaFormaPago { get; set; }
+
+        [Required]
+        public List<ComprobanteDetalleRequestAPI> listaDetalle { get; set; }
+
+        [Required]
+        public ReqPayer payer {get;set; }
+    }
+
+    public class ReqProductMP : RequestBody
+    {
+        [Required]
+        public int CodigoAlmacen { get; set; }
+        [Required]
+        public int Estado { get; set; }
+        [Required]
+        public string CodigoPlantillaFormaPago { get; set; }
+        [Required]
+        public string PaymentId { get; set; }
+        [Required]
+        public string CodeRef { get; set; }
+        [Required]
+        public List<ComprobanteDetalleRequestAPI> listaDetalle { get; set; }
+        [Required]
+        public ReqPayer payer { get; set; }
+
+    }
+
+    //************************************** MPAGO **********************************************************
+
+
+
 }

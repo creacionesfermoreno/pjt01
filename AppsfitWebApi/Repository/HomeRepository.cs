@@ -16,6 +16,8 @@ namespace AppsfitWebApi.Repository
     public class HomeRepository
     {
 
+        private string  access_token = "APP_USR-103350409472305-022210-bd31fe007fac95416baa342dc4a58e40-1315218268";
+
         //validate Pasarela
         public async Task<ResponseApi> ValidPasarelaRepo(string DefaultKeyEmpresa,string CodigoPlantillaFormaPago)
         {
@@ -37,15 +39,19 @@ namespace AppsfitWebApi.Repository
                 switch (type.ToUpper())
                 {
                     case "PAYPAL":
-                        responseModel = await paypalService.PaypalTokenService(pasarela?.Valor1, pasarela?.Valor2,pasarela.EstadoProduccion);
+                        responseModel = await paypalService.PaypalTokenService(pasarela?.Valor1, pasarela?.Valor2, pasarela.EstadoProduccion);
                         responseModel.Production = pasarela.EstadoProduccion;
+                        break;
 
-
-                        break; 
-                    
                     case "CULQI":
                         responseModel.Message1 = pasarela.Valor1;
                         responseModel.Message2 = pasarela.Valor2;
+                        responseModel.Success = true;
+                        break;
+
+                    case "MERCADO PAGO":
+                        responseModel.Message1 = pasarela?.Valor2;
+                        responseModel.Message2 = pasarela?.Valor3;
                         responseModel.Success = true;
                         break;
 

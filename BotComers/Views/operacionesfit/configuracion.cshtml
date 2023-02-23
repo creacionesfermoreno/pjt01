@@ -1159,6 +1159,24 @@
                         <input id="ppbusiness_v_two" class="form-control">
                     </div>
                 </div>
+                
+                <div class="col-md-12 mt-2" id="dtxt_currents" style="display:none">
+                    <label class="label-custom-input" id="label_private"> Seleccionar moneda</label>
+                    <div>
+                        <select class="form-control" id="select_current">
+                            <option value="">-- selecionar --</option>
+                            <option value="ARS">Peso Argentino</option>
+                            <option value="BRL">Real Brasileño</option>
+                            <option value="CLP">Peso Chileno</option>
+                            <option value="MXN">Peso Mexicano</option>
+                            <option value="COP">Peso Colombiano</option>
+                            <option value="PEN">Nuevo Sol</option>
+                            <option value="UYU">Peso Uruguayo</option>
+                            <option value="USD">Dolar Estadounidense</option>
+                        </select>
+                    </div>
+                   
+                </div>
                 <div class="col-12 mt-3">
                     <label class="label-custom-input"> Estado</label>
                     <div class="flex space-x-2 rounded-xl bg-gray-200 p-2">
@@ -1213,6 +1231,7 @@
                 </button>
             </div>
             <div class="modal-body">
+                @*<script src="https://sdk.mercadopago.com/js/v2"></script>*@
                 @*demo culqi*@
                 <div class="row row justify-content-center demorows" id="PaymetCulqiDemo" style="display:none">
                     <div class="col-10">
@@ -1275,9 +1294,17 @@
                 @* demo paypal *@
                 <div class="demorows text-center" id="PaymetPaypalDemo">
                     <div id="paypal-button-container"></div>
-
-
                 </div>
+
+                @*mercado pago*@
+            <div class="demorows  text-center" id="PaymetMPagoDemo">
+                @*<div class="cho-container" id="cho-container"></div>*@
+
+                <a href="" class="btn-custom btn-custom-primary" id="cho_container_link" target="_blank">
+                    SIMULAR PAGO
+                </a>
+
+            </div>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn-custom btn-custom-secondary" data-dismiss="modal" onclick="">Cancelar</button>

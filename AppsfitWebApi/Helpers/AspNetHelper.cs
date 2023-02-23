@@ -5,6 +5,7 @@ using MimeKit;
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Web.Mvc;
@@ -55,14 +56,12 @@ namespace AppsfitWebApi.Helpers
               sbHTML.ToString(), "<[^>]*>", "");
         }
 
-
         private bool IsValidEmail(string email)
         {
             string regex = @"^[^@\s]+@[^@\s]+\.(com|net|org|gov)$";
 
             return Regex.IsMatch(email, regex, RegexOptions.IgnoreCase);
         }
-
 
         public ResponseModel SendEmailMassive(List<AspNetUsersModel> person, string email_asunto, string email_mensajecorreo)
         {
@@ -124,7 +123,6 @@ namespace AppsfitWebApi.Helpers
             return _objResponseModel;
         }
 
-
         public static ResponseApi SendEmailOne(ConfiguracionDTO config, string to,string subject, string HtmlBody, string fileName)
         {
             ResponseApi _objResponseModel = new ResponseApi();
@@ -173,8 +171,6 @@ namespace AppsfitWebApi.Helpers
             return _objResponseModel;
         }
 
-
-
         public static bool removeFile(string path)
         {
 
@@ -189,7 +185,6 @@ namespace AppsfitWebApi.Helpers
             }
 
         }
-
 
         public void Dispose()
         {
@@ -206,6 +201,18 @@ namespace AppsfitWebApi.Helpers
             }
             return Value;
         }
+
+        //generate string
+        private static Random random = new Random();
+
+        public static string RandomString(int length)
+        {
+            const string chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+            return new string(Enumerable.Repeat(chars, length)
+                .Select(s => s[random.Next(s.Length)]).ToArray());
+        }
+
+
     }
 
 

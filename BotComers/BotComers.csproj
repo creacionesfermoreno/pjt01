@@ -397,6 +397,7 @@
     <Compile Include="Repository\Inventario\TarifasEnvioRepository.cs" />
     <Compile Include="Repository\PasarelaEmpresaServices\PasarelaEmpresaService.cs" />
     <Compile Include="Repository\PasarelaRepository.cs" />
+    <Compile Include="Repository\Services\MpagoService.cs" />
     <Compile Include="Repository\WhatsappServices\TemplateUtil.cs" />
     <Compile Include="Repository\WhatsappServices\WhatsappTemplateServices.cs" />
     <Compile Include="ViewModels\BannerProductoViewModel.cs" />

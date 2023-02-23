@@ -122,6 +122,7 @@ namespace E_DataLayer
                     cmd.ExecuteNonQuery();
                     resultado = Convert.ToInt32(cmd.Parameters["@CodigoComprobantePago"].Value);
                 }
+                conn.Close();
 
             }
             return resultado;
