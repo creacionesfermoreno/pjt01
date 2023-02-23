@@ -292,6 +292,311 @@ namespace AppsfitWebApi.Controllers
 
             return HttpResponseJson(responseApi);
         }
+
+        //---Start Mercado Pago ---
+        //membresia generate preferences - Mercado Pago
+        [HttpPost]
+        [Route("mercadopago/preferences")]
+        public async Task<HttpResponseMessage> MPagoPrefMembresia([FromBody] RequestMPagoPref req)
+        {
+            ResponseApi responseApi = new ResponseApi();
+            if (!ModelState.IsValid || req == null)
+            {
+                //validate inputs
+                IEnumerable<ModelError> allErrors = ModelState.Values.SelectMany(v => v.Errors);
+                responseApi.Success = false;
+                responseApi.Status = 2;
+                responseApi.Errors = allErrors;
+            }
+            else
+            {
+                //search acount pasarela
+                HomeRepository homeRepository = new HomeRepository();
+                var validAccount = await homeRepository.ValidPasarelaRepo(req.DefaultKeyEmpresa, req.CodigoPlantillaFormaPago);
+
+                if (!validAccount.Success)
+                {
+                    return HttpResponseJson(validAccount);
+                }
+
+
+                MercadoPagoService service = new MercadoPagoService();
+                MPagoModel mPagoModel = new MPagoModel();
+
+                //set membresia
+                List<ItemMP> items = new List<ItemMP>() {
+                (new ItemMP() { id = "1", title = req.membresia.name, currency_id = validAccount?.Message2, description = req.membresia.Descripcion, category_id = validAccount?.Message2, quantity = 1, unit_price = req.membresia.Costo })
+
+                    };
+
+                mPagoModel.payer = new Payer()
+                {
+                    name = req.payer.Name,
+                    surname = req.payer.Surname,
+                    email = req.Email,
+                    identification = new Identification()
+                    {
+                        type = req.payer.Type_doc,
+                        number = req.payer.Number_doc
+                    }
+                };
+                mPagoModel.back_urls = new BackUrls() { success = "www.example.com/success", failure = "www.example.com/failure", pending = "www.example.com/pending" };
+                mPagoModel.auto_return = "approved";
+                mPagoModel.external_reference = AspNetHelper.RandomString(10);
+                mPagoModel.statement_descriptor = "Software AppsFit";
+                mPagoModel.items = items;
+
+                responseApi = await service.PreferencesMpagoServ(mPagoModel, validAccount?.Message1);
+
+            }
+
+            return HttpResponseJson(responseApi);
+        }
+
+
+        //membresia - Mercado Pago
+        [HttpPost]
+        [Route("membresia/buy/mercadopago")]
+        public async Task<HttpResponseMessage> BuyMembresiaMPago([FromBody] RequestMPagoPayment req)
+        {
+            ResponseApi responseApi = new ResponseApi();
+            if (!ModelState.IsValid || req == null)
+            {
+                //validate inputs
+                IEnumerable<ModelError> allErrors = ModelState.Values.SelectMany(v => v.Errors);
+                responseApi.Success = false;
+                responseApi.Status = 2;
+                responseApi.Errors = allErrors;
+            }
+            else
+            {
+                //search acount pasarela
+                HomeRepository homeRepository = new HomeRepository();
+                var validAccount = await homeRepository.ValidPasarelaRepo(req.DefaultKeyEmpresa, req.CodigoPlantillaFormaPago);
+
+                if (!validAccount.Success)
+                {
+                    return HttpResponseJson(validAccount);
+                }
+
+                //state preferences
+                MercadoPagoService service = new MercadoPagoService();
+                var statePref = await service.StatePaymentMpagoServ(token: validAccount?.Message1, payment: req.PaymentId);
+                if (statePref.Success && statePref.Message1 == "approved")
+                {
+                    //processs finish
+
+                    //********************* last process register bd ********************
+
+                    MembresiaApiRepository repositoryMem = new MembresiaApiRepository();
+                    AspNetHelper oHelper = new AspNetHelper();
+
+                    var membresia = req.membresia;
+
+                    //save membresia
+                    int value = oHelper.ValidateInputMembresia(membresia.FechaFinMembresia);
+                    membresia.TipoIngreso = value;
+                    membresia.CodigoMebresiaOrigen = value;
+                    membresia.DefaultKeyEmpresa = req.DefaultKeyEmpresa;
+                    membresia.CodigoSocio = req.CodigoSocio;
+                    int IdMembresia = repositoryMem.GuardarMembresiaContratoRepository(membresia);
+
+                    //pay
+                    MembresiaAPI membresiaAPI = new MembresiaAPI();
+                    membresiaAPI.CodigoMembresia = IdMembresia;
+                    membresiaAPI.Costo = membresia.Costo;
+                    membresiaAPI.Descripcion = membresia.Descripcion;
+
+                    VentasDTO oVentasDTO = new VentasDTO();
+                    oVentasDTO.DefaultKeyEmpresa = req.DefaultKeyEmpresa;
+                    oVentasDTO.CodigoSocio = req.CodigoSocio;
+                    oVentasDTO.RazonSocial_Sr = req.payer.Name;
+                    oVentasDTO.RUC_DNI = req.payer.Number_doc;
+                    oVentasDTO.Direccion = req.payer.Address ?? "--";
+                    oVentasDTO.TotalNeto = membresia.Costo;
+                    oVentasDTO.Comentario = $"Mercado Pago, IdTransacion :{req.PaymentId}, Correo:{req.Email}";
+                    oVentasDTO.NroTarjeta = "Mercado Pago";
+                    oVentasDTO.NroBoucher = req.PaymentId;
+
+                    var pay = repositoryMem.PayMembresiaRepository(oVentasDTO, req.CodigoSede, req.CodigoUnidadNegocio, membresiaAPI);
+                    if (pay.Success == true)
+                    {
+
+                        //************************* BackgroundJob *********************
+                        var Request = HttpContext.Current.Request;
+                        string baseUrl = Request.Url.Scheme + "://" + Request.Url.Authority + Request.ApplicationPath.TrimEnd('/') + "/";
+                        _ = JobApiHelper.SendReceiptJob("", req.CodigoSede, req.CodigoUnidadNegocio, int.Parse(pay.Message1), req.Email, baseUrl, 2);
+                        //************************* BackgroundJob *********************
+                        responseApi.Message1 = "Su compra ha sido exitosa.";
+                        responseApi.Success = true;
+                        responseApi.Status = 0;
+                    }
+                    else
+                    {
+                        responseApi.Message1 = "Ocurrio un error en el proceso, intentelo más tarde";
+                        responseApi.Success = false;
+                        responseApi.Status = 1;
+                    }
+
+                }
+                else
+                {
+                    responseApi = statePref;
+                }
+            }
+
+            return HttpResponseJson(responseApi);
+        }
+
+        //product - generate preferences - mercado pago
+        [HttpPost]
+        [Route("mercadopago/preferences/product")]
+        public async Task<HttpResponseMessage> MPagoPrefProduct([FromBody] ReqMPRefProduct req)
+        {
+            ResponseApi responseApi = new ResponseApi();
+            if (!ModelState.IsValid || req == null)
+            {
+                //validate inputs
+                IEnumerable<ModelError> allErrors = ModelState.Values.SelectMany(v => v.Errors);
+                responseApi.Success = false;
+                responseApi.Status = 2;
+                responseApi.Errors = allErrors;
+            }
+            else
+            {
+                //search acount pasarela
+                HomeRepository homeRepository = new HomeRepository();
+                var validAccount = await homeRepository.ValidPasarelaRepo(req.DefaultKeyEmpresa, req.CodigoPlantillaFormaPago);
+
+                if (!validAccount.Success)
+                {
+                    return HttpResponseJson(validAccount);
+                }
+
+
+                MercadoPagoService service = new MercadoPagoService();
+                MPagoModel mPagoModel = new MPagoModel();
+
+                //set membresia
+                List<ItemMP> items = new List<ItemMP>();
+
+                int index = 1;
+                foreach (ComprobanteDetalleRequestAPI prod in req.listaDetalle)
+                {
+                    items.Add(new ItemMP() { id = $"{index}", title = prod.Descripcion, currency_id = validAccount?.Message2, description = prod.Descripcion, category_id = validAccount?.Message2, quantity = prod.Cantidad, unit_price = prod.Total });
+                    index++;
+                }
+
+                mPagoModel.payer = new Payer()
+                {
+                    name = req.payer.Name,
+                    surname = req.payer.Surname,
+                    email = req.Email,
+                    identification = new Identification()
+                    {
+                        type = req.payer.Type_doc,
+                        number = req.payer.Number_doc
+                    }
+                };
+                mPagoModel.back_urls = new BackUrls() { success = "www.example.com/success", failure = "www.example.com/failure", pending = "www.example.com/pending" };
+                mPagoModel.auto_return = "approved";
+                mPagoModel.external_reference = AspNetHelper.RandomString(10);
+                mPagoModel.statement_descriptor = "Software AppsFit";
+                mPagoModel.items = items;
+
+                responseApi = await service.PreferencesMpagoServ(mPagoModel, validAccount?.Message1);
+
+            }
+
+            return HttpResponseJson(responseApi);
+        }
+
+
+        //product - Mercado Pago
+        [HttpPost]
+        [Route("product/buy/mercadopago")]
+        public async Task<HttpResponseMessage> BuyProductMPago([FromBody] ReqProductMP req)
+    {
+            ResponseApi responseApi = new ResponseApi();
+            if (!ModelState.IsValid)
+            {
+                //validate inputs
+                IEnumerable<ModelError> allErrors = ModelState.Values.SelectMany(v => v.Errors);
+                responseApi.Success = false;
+                responseApi.Status = 2;
+                responseApi.Errors = allErrors;
+            }
+            else
+            { 
+                //search acount pasarela
+                HomeRepository homeRepository = new HomeRepository();
+                var validAccount = await homeRepository.ValidPasarelaRepo(req.DefaultKeyEmpresa, req.CodigoPlantillaFormaPago);
+
+                if (!validAccount.Success)
+                {
+                    return HttpResponseJson(validAccount);
+                }
+
+                //state preferences
+                MercadoPagoService service = new MercadoPagoService();
+                var statePref = await service.StatePaymentMpagoServ(token: validAccount?.Message1, payment: req.PaymentId);
+
+                if (statePref.Success && statePref.Message1 == "approved")
+                {
+                    //********************* last process register bd ********************
+
+                    //save post bd
+                    PostApiRepository repository = new PostApiRepository();
+                    decimal total = 0;
+                    foreach (ComprobanteDetalleRequestAPI prodItem in req.listaDetalle)
+                    {
+                        total += prodItem.Total;
+                    }
+
+                    ComprobanteRequestModel compro = new ComprobanteRequestModel();
+                    compro.DefaultKeyEmpresa = req.DefaultKeyEmpresa;
+                    compro.CodigoPlantillaFormaPago = req.CodigoPlantillaFormaPago;
+                    compro.CodigoUnidadNegocio = req.CodigoUnidadNegocio;
+                    compro.CodigoSede = req.CodigoSede;
+                    compro.CodigoAlmacen = req.CodigoAlmacen;
+                    compro.Total = total;
+                    compro.Estado = req.Estado;
+                    compro.NroIdentificacion = req.payer.Number_doc;
+                    compro.Email = req.Email;
+                    compro.listaDetalle = req.listaDetalle;
+                    var codePost = repository.RegisterComprobanteRepo(compro);
+                    if (codePost > 0)
+                    {
+                        var Request = HttpContext.Current.Request;
+                        string baseUrl = Request.Url.Scheme + "://" + Request.Url.Authority + Request.ApplicationPath.TrimEnd('/') + "/";
+
+                        //************************* BackgroundJob *********************
+                        _ = JobApiHelper.SendReceiptJob(req.DefaultKeyEmpresa, req.CodigoSede, req.CodigoUnidadNegocio, codePost, req.Email, baseUrl, 1);
+                        //************************* BackgroundJob *********************
+
+                        responseApi.Message1 = "Su compra ha sido exitosa.";
+                        responseApi.Message2 = codePost.ToString();
+                        responseApi.Success = true;
+                        responseApi.Status = 0;
+                    }
+                    else
+                    {
+                        responseApi.Message1 = "Ocurrio un error en el proceso, intentelo más tarde";
+                        responseApi.Success = false;
+                        responseApi.Status = 1;
+                    }
+                }
+                else
+                {
+                    responseApi = statePref;
+                }
+
+            }
+
+            return HttpResponseJson(responseApi);
+        }
+
+        //---End Mercado Pago ---
         //***************************************************************   MEMBRESIA PAY ***********************************
 
         [HttpGet]
@@ -565,13 +870,13 @@ namespace AppsfitWebApi.Controllers
                     UnitAmount unitAmount = new UnitAmount() { currency_code = "USD", value = req.membresia.Costo };
                     items.Add(new ItemPaypal() { name = req.membresia.name, description = req.membresia.Descripcion, quantity = 1, unit_amount = unitAmount });
                     var data = paypalHelper.OrderHelper(items);
-                    var orderServ = await paypalService.PaypalOrderService(data, token?.Message1,token.Production);
+                    var orderServ = await paypalService.PaypalOrderService(data, token?.Message1, token.Production);
 
                     if (orderServ.Success)
                     {
                         responseApi = orderServ;
                         var links = (List<Link>)orderServ.Date;
-                        if (links.Count > 0) {responseApi.Date = links.Where(e => e.rel == "approve");}
+                        if (links.Count > 0) { responseApi.Date = links.Where(e => e.rel == "approve"); }
                     }
                     else
                     {
@@ -621,7 +926,7 @@ namespace AppsfitWebApi.Controllers
                     }
 
                     var data = paypalHelper.OrderHelper(items);
-                    var orderServ = await paypalService.PaypalOrderService(data, token?.Message1,token.Production);
+                    var orderServ = await paypalService.PaypalOrderService(data, token?.Message1, token.Production);
 
                     if (orderServ.Success)
                     {
