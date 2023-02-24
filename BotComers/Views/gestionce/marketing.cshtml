@@ -4,9 +4,6 @@
     Layout = "~/Views/Shared/__LayoutAppFitPlataformaFit.cshtml";
 }
 
-
-
-
 <link href="@Url.Content("~/Content/cssKendo/kendo.common.min.css")" rel="stylesheet" />
 <link href="@Url.Content("~/Content/cssKendo/kendo.dataviz.default.min.css")" rel="stylesheet" />
 <link href="@Url.Content("~/Content/cssKendo/kendo.dataviz.min.css")" rel="stylesheet" />
@@ -14,6 +11,7 @@
 <link href="@Url.Content("~/Content/apiwhatsapp_css/campana.css")" rel="stylesheet" />
 <link href="@Url.Content("~/Content/apiwhatsapp_css/template.css")" rel="stylesheet" />
 <link href="@Url.Content("~/Content/apiwhatsapp_css/campana_desing.css")" rel="stylesheet" />
+<link href="@Url.Content("~/Content/apiwhatsapp_css/app.css")" rel="stylesheet" />
 
 
 <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
@@ -998,29 +996,37 @@
                                 @*tab correos*@
                                 <div class="container-fluid page__container">
                                     <div class="row">
-                                        <div class="col-lg-3">
-                                            <div class="d-flex flex-column align-items-stretch flex-shrink-0 bg-white">
+                                        <div class="col-lg-2">
+                                            <div class="menu-sidebar-custom d-flex flex-column align-items-stretch flex-shrink-0 ">
 
                                                 <div class="list-group list-group-flush border-bottom scrollarea">
-                                                    <a id="liConfiguracion_comprobantes" onclick="evemt_changeMenu(this,1);" href="#" class="list-group-item list-group-item-action active py-3 lh-tight item_menu_sd" aria-current="true">
+                                                    <a id="" onclick="evemt_changeMenu(this,3);" href="#" class="list-group-item list-group-item-action active py-2 lh-tight item_menu_sd" aria-current="true">
                                                         <div class="d-flex w-100 align-items-center justify-content-between">
-                                                            <strong class="mb-1">Envio de correos masivos</strong>
+                                                            <strong class="mb-1"><i class="fa fa-calendar-o" aria-hidden="true"></i> Campaña correo</strong>
                                                             <small></small>
                                                         </div>
                                                     </a>
                                                 </div>
                                                 <div class="list-group list-group-flush border-bottom scrollarea">
-                                                    <a id="liConfiguracion_comprobantes" onclick="evemt_changeMenu(this,2);" href="#" class="list-group-item list-group-item-action  py-3 lh-tight item_menu_sd" aria-current="true">
+                                                    <a id="" onclick="evemt_changeMenu(this,1);" href="#" class="list-group-item list-group-item-action  py-2 lh-tight item_menu_sd" aria-current="true">
                                                         <div class="d-flex w-100 align-items-center justify-content-between">
-                                                            <strong class="mb-1">Configuración</strong>
+                                                            <strong class="mb-1"><i class="fa fa-envelope" aria-hidden="true"></i> Envio de correos masivos</strong>
+                                                            <small></small>
+                                                        </div>
+                                                    </a>
+                                                </div>
+                                                <div class="list-group list-group-flush border-bottom scrollarea">
+                                                    <a id="" onclick="evemt_changeMenu(this,2);" href="#" class="list-group-item list-group-item-action  py-2 lh-tight item_menu_sd" aria-current="true">
+                                                        <div class="d-flex w-100 align-items-center justify-content-between">
+                                                            <strong class="mb-1"><i class="fa fa-light fa-gear"></i> Configuración</strong>
                                                             <small></small>
                                                         </div>
                                                     </a>
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="col-lg-9">
-                                            <div id="Configuracion_EnvioCorreos" style="">
+                                        <div class="col-lg-10">
+                                            <div id="Configuracion_EnvioCorreos" >
                                                 <div class="card">
                                                     <div class="card-header bg-light">
                                                         <h5 class="mb-0">Nuevo mensaje</h5>
@@ -1647,40 +1653,14 @@
         <script src="https://cdn.jsdelivr.net/npm/picmo@latest/dist/umd/index.js"></script>
 
 
+        @System.Web.Optimization.Scripts.Render("~/Resource/gimnasio/Marketing.js")
         @System.Web.Optimization.Scripts.Render("~/Resource/whatsapp/ConfigWhatsapp.js")
         @System.Web.Optimization.Scripts.Render("~/Resource/whatsapp/vanillaEmojiPicker.js")
         @System.Web.Optimization.Scripts.Render("~/Resource/whatsapp/templates.js")
         @System.Web.Optimization.Scripts.Render("~/Resource/whatsapp/Campana.js")
 
         <script type="text/javascript">
-            /*menu*/
-            function evemt_changeMenu(e, num) {
-                switch (num) {
-                    case 1:
-                        var d = document.getElementById("Configuracion_EnvioCorreos");
-                        d.style.display = 'block';
-
-                        document.querySelectorAll(".item_menu_sd").forEach((item, index) => {
-                            item.classList.remove("active")
-                        })
-                        e.classList.add("active");
-                        document.getElementById("Dconfiguration").style.display = 'none';
-                        break;
-                    case 2:
-                        var d = document.getElementById("Dconfiguration");
-                        d.style.display = 'block';
-                        document.querySelectorAll(".item_menu_sd").forEach((item, index) => {
-                            item.classList.remove("active")
-                        })
-                        e.classList.add("active");
-                        document.getElementById("Configuracion_EnvioCorreos").style.display = 'none'
-                        break;
-                    default:
-                        break;
-                }
-
-
-            }
+           
 
             function sendConfigHost() {
 
@@ -1735,9 +1715,7 @@
             $(document).ready(function (e) {
                 SEGListarPerfilMenu();
 
-
                 //get config
-
                 function getConfig() {
                     $.ajax({
                         type: "POST",

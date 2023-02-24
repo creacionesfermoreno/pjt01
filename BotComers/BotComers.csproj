@@ -5994,6 +5994,7 @@
     <Content Include="Resource\configuracion\pasarela.js" />
     <Content Include="Resource\configuracion\usuarios.js" />
     <Content Include="Resource\corporativo\Empresa.js" />
+    <Content Include="Resource\gimnasio\Marketing.js" />
     <Content Include="Resource\gimnasio\moduloAgendaComercial.js" />
     <Content Include="Resource\gimnasio\moduloCaja.js" />
     <Content Include="Resource\gimnasio\moduloCheking.js" />
