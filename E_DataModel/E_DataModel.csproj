@@ -99,6 +99,7 @@
     <Compile Include="Gimnasio\ContratoMensajeDTO.cs" />
     <Compile Include="Gimnasio\ControlMedidasDTO.cs" />
     <Compile Include="Gimnasio\ControlSalidaFormaPagoDTO.cs" />
+    <Compile Include="Gimnasio\EmailCampaingDTO.cs" />
     <Compile Include="Gimnasio\EncuestaNuevo1DTO.cs" />
     <Compile Include="Gimnasio\EnvioCorreoBienvenidaDTO.cs" />
     <Compile Include="Gimnasio\EnvioCorreoDTO.cs" />

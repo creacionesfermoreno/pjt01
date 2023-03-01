@@ -9338,9 +9338,6 @@ namespace BotComers.Controllers
                 ClienteSmtp.Send(mensaje);
                 ClienteSmtp.Disconnect(true);
 
-                
-                ClienteSmtp.Disconnect(true);
-
 
                 _objResponseModel.Status = 2;
                 _objResponseModel.Message1 = "correo enviado correctamente.";
@@ -10980,14 +10977,6 @@ namespace BotComers.Controllers
 
             return list;
         }
-
-
- 
-
-
-
-
-
     }
 
 

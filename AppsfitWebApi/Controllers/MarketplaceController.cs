@@ -483,7 +483,7 @@ namespace AppsfitWebApi.Controllers
                 int index = 1;
                 foreach (ComprobanteDetalleRequestAPI prod in req.listaDetalle)
                 {
-                    items.Add(new ItemMP() { id = $"{index}", title = prod.Descripcion, currency_id = validAccount?.Message2, description = prod.Descripcion, category_id = validAccount?.Message2, quantity = prod.Cantidad, unit_price = prod.Total });
+                    items.Add(new ItemMP() { id = $"{index}", title = prod.Descripcion, currency_id = validAccount?.Message2, description = prod.Descripcion, category_id = validAccount?.Message2, quantity = prod.Cantidad, unit_price = prod.Precio });
                     index++;
                 }
 
@@ -499,6 +499,10 @@ namespace AppsfitWebApi.Controllers
                     }
                 };
                 mPagoModel.back_urls = new BackUrls() { success = "www.example.com/success", failure = "www.example.com/failure", pending = "www.example.com/pending" };
+                mPagoModel.payment_methods = new PaymentMethods()
+                {
+                    installments = 1,
+                };
                 mPagoModel.auto_return = "approved";
                 mPagoModel.external_reference = AspNetHelper.RandomString(10);
                 mPagoModel.statement_descriptor = "Software AppsFit";
