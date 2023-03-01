@@ -11,6 +11,86 @@ namespace E_DataLayer.CentroEntrenamiento
 {
     public class CentroEntrenamiento_Presencial_HorarioClasesConfiguracionData
     {
+
+        public List<CentroEntrenamiento_Presencial_HorarioClasesConfiguracionDTO> CentroEntrenamiento_uspListarPresencial_HorarioClasesConfiguracionCalendarioChecking(CentroEntrenamiento_Presencial_HorarioClasesConfiguracionDTO request)
+        {
+            List<CentroEntrenamiento_Presencial_HorarioClasesConfiguracionDTO> lista = new List<CentroEntrenamiento_Presencial_HorarioClasesConfiguracionDTO>();
+
+            using (var conn = new SqlConnection(Helper.Conexion()))
+            {
+                conn.Open();
+                using (var cmd = new SqlCommand("CentroEntrenamiento_uspListarPresencial_HorarioClasesConfiguracionCalendarioChecking", conn))
+                {
+                    cmd.CommandType = System.Data.CommandType.StoredProcedure;
+                    cmd.Parameters.Add(new SqlParameter("@CodigoUnidadNegocio", System.Data.SqlDbType.Int, 10)).Value = request.CodigoUnidadNegocio;
+                    cmd.Parameters.Add(new SqlParameter("@CodigoSede", System.Data.SqlDbType.Int, 10)).Value = request.CodigoSede;
+                    cmd.Parameters.Add(new SqlParameter("@CodigoSala", System.Data.SqlDbType.Int)).Value = request.CodigoSala;
+                    cmd.Parameters.Add(new SqlParameter("@TipoSala", System.Data.SqlDbType.Int)).Value = 1;
+
+                    using (SqlDataReader oIDataReader = cmd.ExecuteReader(System.Data.CommandBehavior.SingleResult))
+                    {
+                        if (oIDataReader.HasRows)
+                        {
+                            while (oIDataReader.Read())
+                            {
+                                var itemDTO = new CentroEntrenamiento_Presencial_HorarioClasesConfiguracionDTO();
+
+                                if (!oIDataReader.IsDBNull(oIDataReader.GetOrdinal("CodigoHorarioClasesConfiguracion")))
+                                {
+                                    itemDTO.CodigoHorarioClasesConfiguracion = oIDataReader[oIDataReader.GetOrdinal("CodigoHorarioClasesConfiguracion")].ToString();
+                                }
+                                if (!oIDataReader.IsDBNull(oIDataReader.GetOrdinal("CodigoProfesional")))
+                                {
+                                    itemDTO.CodigoProfesional = oIDataReader[oIDataReader.GetOrdinal("CodigoProfesional")].ToString();
+                                }
+                                if (!oIDataReader.IsDBNull(oIDataReader.GetOrdinal("CapacidadPermitida")))
+                                {
+                                    itemDTO.CapacidadPermitida = Convert.ToInt32(oIDataReader[oIDataReader.GetOrdinal("CapacidadPermitida")]);
+                                }
+                                if (!oIDataReader.IsDBNull(oIDataReader.GetOrdinal("DiaNumero")))
+                                {
+                                    itemDTO.DiaNumero = Convert.ToInt32(oIDataReader[oIDataReader.GetOrdinal("DiaNumero")]);
+                                }
+                                if (!oIDataReader.IsDBNull(oIDataReader.GetOrdinal("ProfesionalNombre")))
+                                {
+                                    itemDTO.NombreProfesionalFitness = (oIDataReader[oIDataReader.GetOrdinal("ProfesionalNombre")].ToString());
+                                }
+                                if (!oIDataReader.IsDBNull(oIDataReader.GetOrdinal("NroDocumento")))
+                                {
+                                    itemDTO.DNIProfesionalFitness = oIDataReader[oIDataReader.GetOrdinal("NroDocumento")].ToString();
+                                }
+                                if (!oIDataReader.IsDBNull(oIDataReader.GetOrdinal("Disciplina")))
+                                {
+                                    itemDTO.Disciplina = oIDataReader[oIDataReader.GetOrdinal("Disciplina")].ToString();
+                                }
+                                if (!oIDataReader.IsDBNull(oIDataReader.GetOrdinal("FechaHoraInicio")))
+                                {
+                                    itemDTO.HoraInicio = Convert.ToDateTime(oIDataReader[oIDataReader.GetOrdinal("FechaHoraInicio")]);
+                                }
+                                if (!oIDataReader.IsDBNull(oIDataReader.GetOrdinal("FechaHoraFin")))
+                                {
+                                    itemDTO.HoraFin = Convert.ToDateTime(oIDataReader[oIDataReader.GetOrdinal("FechaHoraFin")]);
+                                }
+                                if (!oIDataReader.IsDBNull(oIDataReader.GetOrdinal("ProfesionalPhoto")))
+                                {
+                                    itemDTO.PhotoProfesionalFitness = oIDataReader[oIDataReader.GetOrdinal("ProfesionalPhoto")].ToString();
+                                }
+                                if (!oIDataReader.IsDBNull(oIDataReader.GetOrdinal("Color")))
+                                {
+                                    itemDTO.Color = oIDataReader[oIDataReader.GetOrdinal("Color")].ToString();
+                                }
+
+                                lista.Add(itemDTO);
+                            }
+                        }
+                    }
+                }
+            }
+
+            return lista;
+        }
+
+
         public List<CentroEntrenamiento_Presencial_HorarioClasesConfiguracionDTO> CentroEntrenamiento_uspListarPresencial_HorarioClasesConfiguracionCalendario(CentroEntrenamiento_Presencial_HorarioClasesConfiguracionDTO request)
         {
             List<CentroEntrenamiento_Presencial_HorarioClasesConfiguracionDTO> lista = new List<CentroEntrenamiento_Presencial_HorarioClasesConfiguracionDTO>();

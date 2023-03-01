@@ -2316,7 +2316,8 @@
         CentroEntrenamiento_uspListarPresencial_HorarioClasesConfiguracion_HISTORIALCLASES = 15,
         CentroEntrenamiento_uspListarPresencial_HorarioClasesConfiguracion_HISTORIALCLASES_NroRegistros = 16,
         CentroEntrenamiento_uspListarPresencial_SalaMaquinas_SALAMAQUINAS_VALIDACIONEXISTE = 17,
-        CentroEntrenamiento_uspListarPresencial_HorarioClasesConfiguracionPaginaWeb_Hoy = 18
+        CentroEntrenamiento_uspListarPresencial_HorarioClasesConfiguracionPaginaWeb_Hoy = 18,
+        CentroEntrenamiento_uspListarPresencial_HorarioClasesConfiguracionCalendarioChecking = 19
     }
 
     public enum filterCaseCentroEntrenamiento_Presencial_DisciplinaSala
@@ -2333,7 +2334,8 @@
     {
         CentroEntrenamiento_uspBuscarProfesorPorNombres = 1,
         CentroEntrenamiento_uspBuscarReservasPresencial_HorarioClasesPorSocio = 2,
-        CentroEntrenamiento_uspListarPresencial_HorarioClasesAsistenciasGestion = 3
+        CentroEntrenamiento_uspListarPresencial_HorarioClasesAsistenciasGestion = 3,
+        CentroEntrenamiento_uspListarPresencial_HorarioClasesAsistenciasGestion_Cheking = 4
     }
     public enum filterCaseCentroEntrenamiento_Presencial_ConfiguracionSalaFitness
     {

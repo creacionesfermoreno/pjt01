@@ -23,7 +23,7 @@ namespace BotComers.Controllers
 
         public ActionResult EnviarCorreoLeadsappsfit(contactoLead request)
         {
-            string validador = "";
+            string validador = String.Empty;
             
             string correo = request.correo;
             string nombreempresa = request.nombreempresa;
@@ -45,65 +45,95 @@ namespace BotComers.Controllers
 
             try
             {
-                String servidor = "smtp.gmail.com";
-                int puerto = 587;
+                if (correo == String.Empty)
+                {
+                    validador = "Falta ingresar su correo.";
+                }else if (nombreempresa == String.Empty)
+                {
+                    validador = "Falta ingresar el nombre de su empresa.";
+                }
+                else if (situacionempresa == String.Empty)
+                {
+                    validador = "Falta ingresar la situación de su empresa.";
+                }
+                else if (tipoempresa == String.Empty)
+                {
+                    validador = "Falta ingresar el tipo de su empresa.";
+                }
+                else if (nombregerente == String.Empty)
+                {
+                    validador = "Falta ingresar su nombre de gerente.";
+                }
+                else if (celular == String.Empty)
+                {
+                    validador = "Falta ingresar su nro de celular.";
+                }else if (asunto == String.Empty)
+                {
+                    validador = "Falta ingresar el asunto, ¿en que le podemos ayudar?.";
+                }
 
-                String GmailUser = "softwareparagimnasios@gmail.com";
-                String GmailPass = "lpdyobnigzksdhvl";
+                if (validador == String.Empty)
+                {
+                    String servidor = "smtp.gmail.com";
+                    int puerto = 587;
 
-                MimeMessage mensaje = new MimeMessage();
-                mensaje.From.Add(new MailboxAddress("Appsfit Leads", "softwareparagimnasios@gmail.com"));
-                mensaje.To.Add(new MailboxAddress("Appsfit Leads", "softwareparagimnasios@gmail.com")); //barberosnet@gmail.com
-                mensaje.Subject = "✅ " +  nombreempresa + ", nuevo leads appsfit";
+                    String GmailUser = "softwareparagimnasios@gmail.com";
+                    String GmailPass = "lpdyobnigzksdhvl";
 
-                BodyBuilder CuerpoMensaje = new BodyBuilder();
-                //CuerpoMensaje.TextBody = "Hola";
-                
-                CuerpoMensaje.HtmlBody = "<table border='0' cellpadding='1' cellspacing='1' style='width:100%'>" +
-                "<thead>" +
-                    "<tr>" +
-                        "<th scope='col' style='background-color:#E0342B;color:#fff;'>Hola Appsfit, haz recibido un nuevo Leads</th>" +
-                    "</tr>" +
-                "</thead>" +
-                "<tbody>" +
-                "    <tr>" +
-                "        <td>&nbsp;</td>" +
-                "    </tr>" +
-                "    <tr>" +
-                "        <td>Correo: <span style='font-size:20px'>" + correo + "</td>" +
-                "    </tr>" +
-                "    <tr>" +
-                "        <td>Empresa: <span style='font-size:20px'>" + nombreempresa + "</td>" +
-                "    </tr>" +
+                    MimeMessage mensaje = new MimeMessage();
+                    mensaje.From.Add(new MailboxAddress("Appsfit Leads", "softwareparagimnasios@gmail.com"));
+                    mensaje.To.Add(new MailboxAddress("Appsfit Leads", "softwareparagimnasios@gmail.com")); //barberosnet@gmail.com
+                    mensaje.Subject = "✅ " + nombreempresa + ", nuevo leads appsfit";
+
+                    BodyBuilder CuerpoMensaje = new BodyBuilder();
+                    //CuerpoMensaje.TextBody = "Hola";
+
+                    CuerpoMensaje.HtmlBody = "<table border='0' cellpadding='1' cellspacing='1' style='width:100%'>" +
+                    "<thead>" +
+                        "<tr>" +
+                            "<th scope='col' style='background-color:#E0342B;color:#fff;'>Hola Appsfit, haz recibido un nuevo Leads</th>" +
+                        "</tr>" +
+                    "</thead>" +
+                    "<tbody>" +
                     "    <tr>" +
-                "        <td>Situación: <span style='font-size:20px'>" + situacionempresa + "</td>" +
-                "    </tr>" +
-                "    <tr>" +
-                "        <td>Tipo: <span style='font-size:20px'>" + tipoempresa + "</td>" +
-                "    </tr>" +
-                "    <tr>" +
-                "        <td>Nro sedes: <span style='font-size:20px'>" + nroubicaciones + "</td>" +
-                "    </tr>" +
-                "    <tr>" +
-                "        <td>Nombre gerente: <span style='font-size:20px'>" + nombregerente + "</td>" +
-                "    </tr>" +
-                "    <tr>" +
-                "        <td>asunto: <span style='font-size:20px'>" + asunto + "</td>" +
-                "    </tr>" +
-                "   <tr>" +
-                "        <td><a href='https://api.whatsapp.com/send?phone="+ celular + "' target='_blank'><button type='button' style='--tw - gradient - from: #128c7e; font-size: 28px; position: relative; color: #fff; --tw-gradient-from: #128c7e; --tw-gradient-stops: #25d366, #128c7e; background-image: linear-gradient(to bottom right,var(--tw-gradient-stops)); display: inline-block; width: 80%; height: 70px; line-height: 50px; font-weight: 500; transition: all .5s ease; text-align: center; border-radius: 50px; background-size: 300% 100%; box-shadow: 0px; border: 0px !important; '>Conversemos ahora <span style='font-size: 35px;' class='fa fa-whatsapp'></span></button></a></td>" +
-                "   </tr>" +
-                "</tbody>" +
-                "</table>";
+                    "        <td>&nbsp;</td>" +
+                    "    </tr>" +
+                    "    <tr>" +
+                    "        <td>Correo: <span style='font-size:20px'>" + correo + "</td>" +
+                    "    </tr>" +
+                    "    <tr>" +
+                    "        <td>Empresa: <span style='font-size:20px'>" + nombreempresa + "</td>" +
+                    "    </tr>" +
+                        "    <tr>" +
+                    "        <td>Situación: <span style='font-size:20px'>" + situacionempresa + "</td>" +
+                    "    </tr>" +
+                    "    <tr>" +
+                    "        <td>Tipo: <span style='font-size:20px'>" + tipoempresa + "</td>" +
+                    "    </tr>" +
+                    "    <tr>" +
+                    "        <td>Nro sedes: <span style='font-size:20px'>" + nroubicaciones + "</td>" +
+                    "    </tr>" +
+                    "    <tr>" +
+                    "        <td>Nombre gerente: <span style='font-size:20px'>" + nombregerente + "</td>" +
+                    "    </tr>" +
+                    "    <tr>" +
+                    "        <td>asunto: <span style='font-size:20px'>" + asunto + "</td>" +
+                    "    </tr>" +
+                    "   <tr>" +
+                    "        <td><a href='https://api.whatsapp.com/send?phone=" + celular + "' target='_blank'><button type='button' style='--tw - gradient - from: #128c7e; font-size: 28px; position: relative; color: #fff; --tw-gradient-from: #128c7e; --tw-gradient-stops: #25d366, #128c7e; background-image: linear-gradient(to bottom right,var(--tw-gradient-stops)); display: inline-block; width: 80%; height: 70px; line-height: 50px; font-weight: 500; transition: all .5s ease; text-align: center; border-radius: 50px; background-size: 300% 100%; box-shadow: 0px; border: 0px !important; '>Conversemos ahora <span style='font-size: 35px;' class='fa fa-whatsapp'></span></button></a></td>" +
+                    "   </tr>" +
+                    "</tbody>" +
+                    "</table>";
 
-                mensaje.Body = CuerpoMensaje.ToMessageBody();
+                    mensaje.Body = CuerpoMensaje.ToMessageBody();
 
-                SmtpClient ClienteSmtp = new SmtpClient();
-                ClienteSmtp.CheckCertificateRevocation = false;
-                ClienteSmtp.Connect(servidor, puerto, MailKit.Security.SecureSocketOptions.StartTls);
-                ClienteSmtp.Authenticate(GmailUser, GmailPass);
-                ClienteSmtp.Send(mensaje);
-                ClienteSmtp.Disconnect(true);
+                    SmtpClient ClienteSmtp = new SmtpClient();
+                    ClienteSmtp.CheckCertificateRevocation = false;
+                    ClienteSmtp.Connect(servidor, puerto, MailKit.Security.SecureSocketOptions.StartTls);
+                    ClienteSmtp.Authenticate(GmailUser, GmailPass);
+                    ClienteSmtp.Send(mensaje);
+                    ClienteSmtp.Disconnect(true);
+                }
 
             }
             catch (Exception ex)

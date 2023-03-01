@@ -397,9 +397,6 @@ namespace BotComers.Controllers
             return View(listaCLientes);
         }
 
-
-
-
         #region ADMINISTRACION GIMNASIOS
 
         public JsonResult uspListarConfiguracion_apfitness_Paginacion(int estado, int PageNumber, string filtro)
@@ -521,7 +518,24 @@ namespace BotComers.Controllers
         }
 
 
-        public JsonResult GuardarConfiguracion_adFitness(int CodigoUnidadNegocio, int CodigoSede, string RazonSocial, string Pais, string Departamento, string Distrito, string Direccion, string Dominio, string Ruc, string Correo, string Telefono, string NombreComercial, int GenerarSerie, int GenerarComprobante, int Estado, int PermitirMuchasAsistenciasDia, int DescontarfreezengDisponiblesFlag, int DescontarfreezengDisponiblesNumero, int ClientesxVendedorAleatorio, int NumeroDiaMesEjecucionAleatorio, int NotificarDeudasxDia, int CantDiasDeudas, int MostrarVentasOtros, int ActivarCorreoBienvenida, int ActivarImprimirContrato, int TiempoMarcarAsistencia, int DiasCitasCaida, Decimal Igv, int TipoDescuento, int Tipo, string RutaCarpetaImagen, string Contrasenia, string ConexionDB, string LongitudSerie, string NombreTiquetera, DateTime FechaVencimiento, string Frase, string accion, DateTime FechaPago, string Ubicaciones, decimal MontoMensualidadPago, string CodigoCuenta, int CodigoPlan, string TipoMoneda,bool TieneFacturacionElectronica, string UrlAPISunafact, string TokenSunafact, string NombreGerente, string ContactoCobranza, string CelularCobranza, bool AplicacionDisponible, bool TiendaAplicacion, bool RutinasAplicacion)
+        public JsonResult GuardarConfiguracion_adFitness(int CodigoUnidadNegocio, int CodigoSede, string RazonSocial, 
+                                                         string Pais, string Departamento, string Distrito, 
+                                                         string Direccion, string Dominio, string Ruc, 
+                                                         string Correo, string Telefono, string NombreComercial, 
+                                                         int GenerarSerie, int GenerarComprobante, int Estado, 
+                                                         int PermitirMuchasAsistenciasDia, int DescontarfreezengDisponiblesFlag, int DescontarfreezengDisponiblesNumero,
+                                                         int ClientesxVendedorAleatorio, int NumeroDiaMesEjecucionAleatorio, int NotificarDeudasxDia,
+                                                         int CantDiasDeudas, int MostrarVentasOtros, int ActivarCorreoBienvenida,
+                                                         int ActivarImprimirContrato, int TiempoMarcarAsistencia, int DiasCitasCaida,
+                                                         Decimal Igv, int TipoDescuento, int Tipo,
+                                                         string RutaCarpetaImagen, string Contrasenia, string ConexionDB, 
+                                                         string LongitudSerie, string NombreTiquetera, DateTime FechaVencimiento,
+                                                         string Frase, string accion, DateTime FechaPago,
+                                                         string Ubicaciones, decimal MontoMensualidadPago, string CodigoCuenta,
+                                                         int CodigoPlan, string TipoMoneda,bool TieneFacturacionElectronica,
+                                                         string UrlAPISunafact, string TokenSunafact, string NombreGerente, 
+                                                         string ContactoCobranza, string CelularCobranza, bool AplicacionDisponible,
+                                                         bool TiendaAplicacion, bool RutinasAplicacion)
         {
             string mensaje = string.Empty;
 

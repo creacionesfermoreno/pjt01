@@ -4,7 +4,6 @@
     Layout = "~/Views/Shared/__LayoutAppFitCorporativo.cshtml";
 }
 
-
 @section Styles {
 
     <link href="@Url.Content("~/Content/cssKendo/kendo.common.min.css")" rel="stylesheet" />
@@ -143,8 +142,6 @@
                             </div>
                         </div>
                     </div>
-                   
-
 
                     <div class="form-group mg-t-2">
                         <div class="input-group input-group-sm input-group-merge">
@@ -213,6 +210,40 @@
                     </div>
                 </div><!-- col-4 -->
             </div>
+            <div class="row">
+                <div class="col-lg-4">
+                    <div class="form-group mg-t-2">
+                        <div class="input-group input-group-sm input-group-merge">
+                            <label style="color:#0075ff;font-weight:bold;">ACCESO A LA APP DE CLIENTES:</label>
+                        </div>
+                    </div>
+                    <div class="form-group mg-t-2">
+                        <div class="input-group input-group-sm input-group-merge">
+                            <div class="form-check">
+                                <input class="form-check-input" style="width:20px;height:20px;" id="chkAppClientesDisponible" type="checkbox" value="">
+                                <label class="form-check-label" for="chkAppClientesDisponible">&nbsp; App Clientes Disponible.</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group mg-t-2">
+                        <div class="input-group input-group-sm input-group-merge">
+                            <div class="form-check">
+                                <input class="form-check-input" style="width:20px;height:20px;" id="chkAppClientesTiendaDisponible" type="checkbox" value="">
+                                <label class="form-check-label" for="chkAppClientesTiendaDisponible">&nbsp; App Clientes - Tienda Disponible.</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group mg-t-2">
+                        <div class="input-group input-group-sm input-group-merge">
+                            <div class="form-check">
+                                <input class="form-check-input" style="width:20px;height:20px;" id="chkAppClientesRutinasDisponible" type="checkbox" value="">
+                                <label class="form-check-label" for="chkAppClientesRutinasDisponible">&nbsp; App Clientes - Rutinas Disponible.</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <br /><br />
             <div class="form-layout-footer">
                 <button class="btn btn-primary bd-0" onclick="javascript:GuardarConfiguracion();">Guardar</button>
                 <a href="@Url.Action("Empresas","corporativo")"><button class="btn btn-secondary bd-0">Cancelar</button></a>
@@ -560,11 +591,33 @@
             var UrlAPISunafact = "";
             var TokenSunafact = "";
 
-            //alert('{"CodigoUnidadNegocio":"' + CodigoUnidadNegocio + '","CodigoSede":"' + CodigoSede + '","RazonSocial":"' + RazonSocial + '","Pais":"' + Pais + '","Departamento":"' + Departamento + '","Distrito":"' + Distrito + '","Direccion":"' + Direccion + '","Dominio":"' + Dominio + '","Ruc":"' + Ruc + '","Correo":"' + Correo + '","Telefono":"' + Telefono + '","NombreComercial":"' + NombreComercial + '","GenerarSerie":"' + GenerarSerie + '","GenerarComprobante":"' + GenerarComprobante + '","Estado":"' + Estado + '","PermitirMuchasAsistenciasDia":"' + PermitirMuchasAsistenciasDia + '","DescontarfreezengDisponiblesFlag":"' + DescontarfreezengDisponiblesFlag + '","DescontarfreezengDisponiblesNumero":"' + DescontarfreezengDisponiblesNumero + '","ClientesxVendedorAleatorio":"' + ClientesxVendedorAleatorio + '","NumeroDiaMesEjecucionAleatorio":"' + NumeroDiaMesEjecucionAleatorio + '","NotificarDeudasxDia":"' + NotificarDeudasxDia + '","CantDiasDeudas":"' + CantDiasDeudas + '","MostrarVentasOtros":"' + MostrarVentasOtros + '","ActivarCorreoBienvenida":"' + ActivarCorreoBienvenida + '","ActivarImprimirContrato":"' + ActivarImprimirContrato + '","TiempoMarcarAsistencia":"' + TiempoMarcarAsistencia + '","DiasCitasCaida":"' + DiasCitasCaida + '","Igv":"' + Igv + '","TipoDescuento":"' + TipoDescuento + '","Tipo":"' + Tipo + '","RutaCarpetaImagen":"' + RutaCarpetaImagen + '","Contrasenia":"' + Contrasenia + '","ConexionDB":"' + ConexionDB + '","LongitudSerie":"' + LongitudSerie + '","NombreTiquetera":"' + NombreTiquetera + '","FechaVencimiento":"' + FechaVencimiento + '","Frase":"' + Frase + '","accion":"' + Accion + '","FechaPago":"' + FechaPago + '","Ubicaciones":"' + Ubicaciones + '","MontoMensualidadPago":"' + MontoMensualidadPago + '","CodigoCuenta":"' + CodigoCuenta + '"}');
+            var chkAppClientesDisponible = $('#chkAppClientesDisponible').prop('checked') ? true : false;
+            var chkAppClientesTiendaDisponible = $('#chkAppClientesTiendaDisponible').prop('checked') ? true: false;
+            var chkAppClientesRutinasDisponible = $('#chkAppClientesRutinasDisponible').prop('checked') ? true : false;
+
+            //alert('{"CodigoUnidadNegocio":"' + CodigoUnidadNegocio + '","CodigoSede":"' + CodigoSede + '","RazonSocial":"' + RazonSocial + '","Pais":"' + Pais + '","Departamento":"' + Departamento + '","Distrito":"' + Distrito + '","Direccion":"' + Direccion + '","Dominio":"' + Dominio + '","Ruc":"' + Ruc + '","Correo":"' + Correo + '","Telefono":"' + Telefono + '","NombreComercial":"' + NombreComercial + '","GenerarSerie":"' + GenerarSerie + '","GenerarComprobante":"' + GenerarComprobante + '","Estado":"' + Estado + '","PermitirMuchasAsistenciasDia":"' + PermitirMuchasAsistenciasDia + '","DescontarfreezengDisponiblesFlag":"' + DescontarfreezengDisponiblesFlag + '","DescontarfreezengDisponiblesNumero":"' + DescontarfreezengDisponiblesNumero + '","ClientesxVendedorAleatorio":"' + ClientesxVendedorAleatorio + '","NumeroDiaMesEjecucionAleatorio":"' + NumeroDiaMesEjecucionAleatorio + '","NotificarDeudasxDia":"' + NotificarDeudasxDia + '","CantDiasDeudas":"' + CantDiasDeudas + '","MostrarVentasOtros":"' + MostrarVentasOtros + '","ActivarCorreoBienvenida":"' + ActivarCorreoBienvenida + '","ActivarImprimirContrato":"' + ActivarImprimirContrato + '","TiempoMarcarAsistencia":"' + TiempoMarcarAsistencia + '","DiasCitasCaida":"' + DiasCitasCaida + '","Igv":"' + Igv + '","TipoDescuento":"' + TipoDescuento + '","Tipo":"' + Tipo + '","RutaCarpetaImagen":"' + RutaCarpetaImagen + '","Contrasenia":"' + Contrasenia + '","ConexionDB":"' + ConexionDB + '","LongitudSerie":"' + LongitudSerie + '","NombreTiquetera":"' + NombreTiquetera + '","FechaVencimiento":"' + FechaVencimiento + '","Frase":"' + Frase + '","accion":"' + Accion + '","FechaPago":"' + FechaPago + '","Ubicaciones":"' + Ubicaciones + '","MontoMensualidadPago":"' + MontoMensualidadPago + '","CodigoCuenta":"' + CodigoCuenta + '","TieneFacturacionElectronica":"' + TieneFacturacionElectronica + '","UrlAPISunafact":"' + UrlAPISunafact + '","TokenSunafact":"' + TokenSunafact + '","NombreGerente":"' + NombreGerente + '","ContactoCobranza":"' + ContactoCobranza + '","CelularCobranza":"' + CelularCobranza + '"}');
+            //alert('AplicacionDisponible: ' + chkAppClientesDisponible + ', TiendaAplicacion: ' + chkAppClientesTiendaDisponible + ', RutinasAplicacion: ' + chkAppClientesRutinasDisponible)
 
             $.ajax({
                 type: "POST",
-                data: '{"CodigoUnidadNegocio":"' + CodigoUnidadNegocio + '","CodigoSede":"' + CodigoSede + '","RazonSocial":"' + RazonSocial + '","Pais":"' + Pais + '","Departamento":"' + Departamento + '","Distrito":"' + Distrito + '","Direccion":"' + Direccion + '","Dominio":"' + Dominio + '","Ruc":"' + Ruc + '","Correo":"' + Correo + '","Telefono":"' + Telefono + '","NombreComercial":"' + NombreComercial + '","GenerarSerie":"' + GenerarSerie + '","GenerarComprobante":"' + GenerarComprobante + '","Estado":"' + Estado + '","PermitirMuchasAsistenciasDia":"' + PermitirMuchasAsistenciasDia + '","DescontarfreezengDisponiblesFlag":"' + DescontarfreezengDisponiblesFlag + '","DescontarfreezengDisponiblesNumero":"' + DescontarfreezengDisponiblesNumero + '","ClientesxVendedorAleatorio":"' + ClientesxVendedorAleatorio + '","NumeroDiaMesEjecucionAleatorio":"' + NumeroDiaMesEjecucionAleatorio + '","NotificarDeudasxDia":"' + NotificarDeudasxDia + '","CantDiasDeudas":"' + CantDiasDeudas + '","MostrarVentasOtros":"' + MostrarVentasOtros + '","ActivarCorreoBienvenida":"' + ActivarCorreoBienvenida + '","ActivarImprimirContrato":"' + ActivarImprimirContrato + '","TiempoMarcarAsistencia":"' + TiempoMarcarAsistencia + '","DiasCitasCaida":"' + DiasCitasCaida + '","Igv":"' + Igv + '","TipoDescuento":"' + TipoDescuento + '","Tipo":"' + Tipo + '","RutaCarpetaImagen":"' + RutaCarpetaImagen + '","Contrasenia":"' + Contrasenia + '","ConexionDB":"' + ConexionDB + '","LongitudSerie":"' + LongitudSerie + '","NombreTiquetera":"' + NombreTiquetera + '","FechaVencimiento":"' + FechaVencimiento + '","Frase":"' + Frase + '","accion":"' + Accion + '","FechaPago":"' + FechaPago + '","Ubicaciones":"' + Ubicaciones + '","MontoMensualidadPago":"' + MontoMensualidadPago + '","CodigoCuenta":"' + CodigoCuenta + '","CodigoPlan":"' + 1 + '","TipoMoneda":"S/","TieneFacturacionElectronica":"' + TieneFacturacionElectronica + '","UrlAPISunafact":"' + UrlAPISunafact + '","TokenSunafact":"' + TokenSunafact + '","NombreGerente":"' + NombreGerente + '","ContactoCobranza":"' + ContactoCobranza + '","CelularCobranza":"' + CelularCobranza + '"}',
+                data: '{"CodigoUnidadNegocio":"' + CodigoUnidadNegocio + '","CodigoSede":"' + CodigoSede + '","RazonSocial":"' + RazonSocial +
+                    '","Pais":"' + Pais + '","Departamento":"' + Departamento + '","Distrito":"' + Distrito +
+                    '","Direccion":"' + Direccion + '","Dominio":"' + Dominio + '","Ruc":"' + Ruc +
+                    '","Correo":"' + Correo + '","Telefono":"' + Telefono + '","NombreComercial":"' + NombreComercial +
+                    '","GenerarSerie":"' + GenerarSerie + '","GenerarComprobante":"' + GenerarComprobante + '","Estado":"' + Estado +
+                    '","PermitirMuchasAsistenciasDia":"' + PermitirMuchasAsistenciasDia + '","DescontarfreezengDisponiblesFlag":"' + DescontarfreezengDisponiblesFlag + '","DescontarfreezengDisponiblesNumero":"' + DescontarfreezengDisponiblesNumero +
+                    '","ClientesxVendedorAleatorio":"' + ClientesxVendedorAleatorio + '","NumeroDiaMesEjecucionAleatorio":"' + NumeroDiaMesEjecucionAleatorio + '","NotificarDeudasxDia":"' + NotificarDeudasxDia +
+                    '","CantDiasDeudas":"' + CantDiasDeudas + '","MostrarVentasOtros":"' + MostrarVentasOtros + '","ActivarCorreoBienvenida":"' + ActivarCorreoBienvenida +
+                    '","ActivarImprimirContrato":"' + ActivarImprimirContrato + '","TiempoMarcarAsistencia":"' + TiempoMarcarAsistencia + '","DiasCitasCaida":"' + DiasCitasCaida +
+                    '","Igv":"' + Igv + '","TipoDescuento":"' + TipoDescuento + '","Tipo":"' + Tipo +
+                    '","RutaCarpetaImagen":"' + RutaCarpetaImagen + '","Contrasenia":"' + Contrasenia + '","ConexionDB":"' + ConexionDB +
+                    '","LongitudSerie":"' + LongitudSerie + '","NombreTiquetera":"' + NombreTiquetera + '","FechaVencimiento":"' + FechaVencimiento +
+                    '","Frase":"' + Frase + '","accion":"' + Accion + '","FechaPago":"' + FechaPago +
+                    '","Ubicaciones":"' + Ubicaciones + '","MontoMensualidadPago":"' + MontoMensualidadPago + '","CodigoCuenta":"' + CodigoCuenta +
+                    '","CodigoPlan":"' + 1 + '","TipoMoneda":"S/","TieneFacturacionElectronica":"' + TieneFacturacionElectronica +
+                    '","UrlAPISunafact":"' + UrlAPISunafact + '","TokenSunafact":"' + TokenSunafact + '","NombreGerente":"' + NombreGerente +
+                    '","ContactoCobranza":"' + ContactoCobranza + '","CelularCobranza":"' + CelularCobranza + '","AplicacionDisponible":"' + chkAppClientesDisponible +
+                    '","TiendaAplicacion":"' + chkAppClientesTiendaDisponible + '","RutinasAplicacion":"' + chkAppClientesRutinasDisponible + '"}',
                 url: "/corporativo/GuardarConfiguracion_adFitness",
                 contentType: "application/json; charset=utf-8",
                 dataType: "json",
