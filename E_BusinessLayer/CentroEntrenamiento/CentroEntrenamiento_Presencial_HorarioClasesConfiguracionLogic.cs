@@ -63,6 +63,10 @@ namespace E_BusinessLayer.CentroEntrenamiento
 
                     switch (oReqFilter.FilterCase)
                     {
+                        case filterCaseCentroEntrenamiento_Presencial_HorarioClasesConfiguracion.CentroEntrenamiento_uspListarPresencial_HorarioClasesConfiguracionCalendarioChecking:
+
+                            CategoriaDTOList = oCentroEntrenamiento_Presencial_HorarioClasesConfiguracionData.CentroEntrenamiento_uspListarPresencial_HorarioClasesConfiguracionCalendarioChecking(oReqFilter.Item);
+                            break;
                         case filterCaseCentroEntrenamiento_Presencial_HorarioClasesConfiguracion.CentroEntrenamiento_uspListarPresencial_HorarioClasesConfiguracionCalendario:
                             
                             CategoriaDTOList = oCentroEntrenamiento_Presencial_HorarioClasesConfiguracionData.CentroEntrenamiento_uspListarPresencial_HorarioClasesConfiguracionCalendario(oReqFilter.Item);

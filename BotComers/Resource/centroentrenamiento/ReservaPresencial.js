@@ -99,11 +99,11 @@ function uspListarSala_Presencial() {
                 $('#hdCodigoSala').val(data[i].CodigoSala);
                 uspListarPresencial_HorarioClasesConfiguracionCalendario(data[i].CodigoSala);
 
-                content_Salas.push('<li onclick="uspListarPresencial_HorarioClasesConfiguracionCalendario(' + data[i].CodigoSala + ')" class="nav-item active"><a style="font-weight: bold;" class="nav-link active" data-toggle="tab" href="#" role="tab">');
+                content_Salas.push('<li onclick="uspListarPresencial_HorarioClasesConfiguracionCalendario(' + data[i].CodigoSala + ')" class="nav-item active"><a style="color:#000;" class="nav-link active" data-toggle="tab" href="#" role="tab">');
                 content_Salas.push(data[i].Descripcion);
                 content_Salas.push('</a></li>');
             } else {
-                content_Salas.push('<li onclick="uspListarPresencial_HorarioClasesConfiguracionCalendario(' + data[i].CodigoSala + ')" class="nav-item"><a style="font-weight: bold;" class="nav-link" data-toggle="tab" href="#" role="tab">');
+                content_Salas.push('<li onclick="uspListarPresencial_HorarioClasesConfiguracionCalendario(' + data[i].CodigoSala + ')" class="nav-item"><a style="color:#000;" class="nav-link" data-toggle="tab" href="#" role="tab">');
                 content_Salas.push(data[i].Descripcion);
                 content_Salas.push('</a></li>');
             }
@@ -590,7 +590,7 @@ function ListarCalendario(data) {
         minTime: '05:00:00',
         maxTime: '23:30:00',  
         eventClick: function (event, calEvent, jsEvent, view) {            
-            alert(event.id);
+           
             uspBuscarHorarioClasesConfiguracionPresencial_PorCodigo(event.id);
         },
         eventLimit: true,
@@ -698,7 +698,7 @@ function ListarCalendario(data) {
                     //alert(event.end._d);
                     var _hora = kendo.toString(event.start._d, "hh:mm tt") + " - " + kendo.toString(event.end._d, "hh:mm tt");
                     
-                    detalle.push('<div style="width: 100%;background-color:#fff;padding:3px;border-left-width: thick;border-left-color: ' + event.backgroundColor + ';color:#000;border-left-style: solid;">');
+                    detalle.push('<div style="width: 100%;height: 100%;background-color:#fff;padding:3px;border-left-width: thick;border-left-color: ' + event.backgroundColor + ';color:#000;border-left-style: solid;">');
                     detalle.push('<div style="text-align:left;">');
                     detalle.push('<h5 class="card-title mg-b-5" style="color:#000;font-size:9px;font-weight: bold;">' + event.title + '</h5>');
                     detalle.push('<p class="card-subtitle" style="color:#000;font-size:9px;font-weight: bold;">' + event.nombreCorto + '</p>');
@@ -750,7 +750,7 @@ function event_nuevaclaseBotoNuevo() {
     $("#txtClase_HoraFin").data("kendoTimePicker").enable();
 
     event_nuevoProfesor();
-   
+    event_nuevaclase();
 }
 
 function ObtenerDiaSemanaSQLSERVER(dia) {
@@ -774,8 +774,119 @@ function uspRegistrarPresencial_HorarioClasesConfiguracion() {
     var entidad = {};
     
     if ($('#hdCodigoHorarioClasesConfiguracion').val() != '') {
-        Accion = 'E';
+        uspActualizarPresencial_HorarioClasesConfiguracion();
+    } else {
+
+        entidad.CodigoHorarioClasesConfiguracion = $('#hdCodigoHorarioClasesConfiguracion').val();
+        entidad.CodigoDisciplinaSala = $('input[id="hdCodigoDisciplinaSala"]').val();
+        entidad.CodigoProfesional = $('input[id="txtProfesor_CodigoProfesional"]').val();
+        entidad.CodigoSala = $('input[id="hdCodigoSala"]').val();
+        entidad.HoraInicio = $('input[id="txtClase_HoraInicio"]').val();
+        entidad.HoraFin = $('input[id="txtClase_HoraFin"]').val();
+        entidad.CapacidadPermitida = $('input[id="txtClase_NroPlaza"]').val();
+
+        entidad.DiaNombre = '';
+        $('.csschkDiaSemanaClase:checked').each(
+            function () {
+                //alert("El checkbox con valor " + $(this).val() + " está seleccionado");
+                entidad.DiaNombre += $(this).val() + '|';  //entidad.DiaNombre + $(this).val() + '|';
+                
+            }
+        );
+        
+        //alert(entidad.DiaNombre);
+        //return;
+
+        //entidad.DiaNumero = ConvertToStringFromObject($('select[id="txtClase_Dia"] option:selected').val());
+        //entidad.DiaNombre = ConvertToStringFromObject($('select[id="txtClase_Dia"] option:selected').text());
+
+        entidad.CostoPorClase = $('input[id="txtClase_CostoPorClase"]').val();
+        entidad.DescuentoPorminuto = $('input[id="txtClase_DescuentoPorminuto"]').val();
+        entidad.CompartirLinkSala = $('#chkCompartirLinkSala').prop('checked');
+        entidad.LinkSala = $('input[id="txtClase_linkSala"]').val();
+        entidad.Accion = Accion;
+
+        var horaInicio = moment(entidad.HoraInicio, 'h:mma');
+        var horaFin = moment(entidad.HoraFin, 'h:mma');
+
+        if (entidad.CodigoDisciplinaSala == '0') {
+            $.bootstrapGrowl("Falta seleccionar una disciplina", { type: 'danger', width: 'auto' });
+            return;
+        } if (IsUndefinedOrNullOrEmpty(entidad.CodigoDisciplinaSala)) {
+            $.bootstrapGrowl("Falta seleccionar una disciplina", { type: 'danger', width: 'auto' });
+            return;
+        } else if (IsUndefinedOrNullOrEmpty(entidad.CodigoProfesional)) {
+            $.bootstrapGrowl("Falta seleccionar el profesor", { type: 'danger', width: 'auto' });
+            return;
+        } else if (IsUndefinedOrNullOrEmpty(entidad.CodigoSala)) {
+            $.bootstrapGrowl("Falta seleccionar una sala", { type: 'danger', width: 'auto' });
+            return;
+        } else if (IsUndefinedOrNullOrEmpty(entidad.HoraInicio)) {
+            $.bootstrapGrowl("Falta seleccionar la hora de inicio", { type: 'danger', width: 'auto' });
+            return;
+        } else if (IsUndefinedOrNullOrEmpty(entidad.HoraFin)) {
+            $.bootstrapGrowl("Falta seleccionar la hora de fin", { type: 'danger', width: 'auto' });
+            return;
+        } else if (horaFin.isBefore(horaInicio)) {
+            $.bootstrapGrowl("La hora fin no puede ser menor a la hora inicio", { type: 'danger', width: 'auto' });
+            return;
+        } else if (entidad.HoraInicio == entidad.HoraFin) {
+            $.bootstrapGrowl("aviso, la hora fin no puede ser igual a la hora inicio", { type: 'danger', width: 'auto' });
+            return;
+        } else if (IsUndefinedOrNullOrEmpty(entidad.CapacidadPermitida)) {
+            $.bootstrapGrowl("Falta ingresar el nro de plaza", { type: 'danger', width: 'auto' });
+            return;
+        } else if (IsUndefinedOrNullOrEmpty(entidad.DiaNombre)) {
+            $.bootstrapGrowl("Falta seleccionar el día", { type: 'danger', width: 'auto' });
+            return;
+        } else if (IsUndefinedOrNullOrEmpty(entidad.CostoPorClase)) {
+            $.bootstrapGrowl("Falta ingresar el costo de la clase", { type: 'danger', width: 'auto' });
+            return;
+        } else if (IsUndefinedOrNullOrEmpty(entidad.DescuentoPorminuto)) {
+            $.bootstrapGrowl("Falta ingresar el monto de descuento por minuto de tardanza", { type: 'danger', width: 'auto' });
+            return;
+        }
+
+        $('button[type="button"]').attr("disabled", true);
+        document.getElementById('loadMe').style.display = 'block';
+        var metodoCorrecto = function (msg) {
+
+            if (Accion == "N") {
+                $('button[type="button"]').attr("disabled", false);
+                $('input[id="hdCodigoHorarioClasesConfiguracion"]').val(msg);
+                $.bootstrapGrowl("Se guardo correctamente una nueva clase.", { type: 'success', width: 'auto' });
+                uspListarPresencial_HorarioClasesConfiguracionCalendario(entidad.CodigoSala);
+            } else if (Accion == "E") {
+                $('button[type="button"]').attr("disabled", false);
+                $.bootstrapGrowl("Se actualizo correctamente la clase.", { type: 'success', width: 'auto' });
+                uspListarPresencial_HorarioClasesConfiguracionCalendario(entidad.CodigoSala);
+            }
+            else {
+                $('button[type="button"]').attr("disabled", false);
+                $.bootstrapGrowl("Error, vuelva a intentar nuevamente!", { type: 'danger', width: 'auto' });
+            }
+
+            document.getElementById('loadMe').style.display = 'none';
+            document.getElementById('modalClase').style.display = 'none';
+
+        };
+        var metodoError = function (msg) {
+            alert(msg);
+        };
+        var request = {
+            request: entidad
+        };
+        LlamarAJAX("/reservapresencial/uspRegistrarPresencial_HorarioClasesConfiguracion", request, metodoCorrecto, metodoError);
+
     }
+    
+}
+
+
+function uspActualizarPresencial_HorarioClasesConfiguracion() {
+
+    var Accion = 'E';
+    var entidad = {};   
 
     entidad.CodigoHorarioClasesConfiguracion = $('#hdCodigoHorarioClasesConfiguracion').val();
     entidad.CodigoDisciplinaSala = $('input[id="hdCodigoDisciplinaSala"]').val();
@@ -794,23 +905,23 @@ function uspRegistrarPresencial_HorarioClasesConfiguracion() {
 
     var horaInicio = moment(entidad.HoraInicio, 'h:mma');
     var horaFin = moment(entidad.HoraFin, 'h:mma');
-        
+
     if (entidad.CodigoDisciplinaSala == '0') {
         $.bootstrapGrowl("Falta seleccionar una disciplina", { type: 'danger', width: 'auto' });
         return;
-    } if (entidad.CodigoDisciplinaSala == '') {
+    } if (IsUndefinedOrNullOrEmpty(entidad.CodigoDisciplinaSala)) {
         $.bootstrapGrowl("Falta seleccionar una disciplina", { type: 'danger', width: 'auto' });
         return;
-    } else if (entidad.CodigoProfesional == '') {
+    } else if (IsUndefinedOrNullOrEmpty(entidad.CodigoProfesional)) {
         $.bootstrapGrowl("Falta seleccionar el profesor", { type: 'danger', width: 'auto' });
         return;
-    } else if (entidad.CodigoSala == '') {
+    } else if (IsUndefinedOrNullOrEmpty(entidad.CodigoSala)) {
         $.bootstrapGrowl("Falta seleccionar una sala", { type: 'danger', width: 'auto' });
         return;
-    } else if (entidad.HoraInicio == '') {
+    } else if (IsUndefinedOrNullOrEmpty(entidad.HoraInicio)) {
         $.bootstrapGrowl("Falta seleccionar la hora de inicio", { type: 'danger', width: 'auto' });
         return;
-    } else if (entidad.HoraFin == '') {
+    } else if (IsUndefinedOrNullOrEmpty(entidad.HoraFin)) {
         $.bootstrapGrowl("Falta seleccionar la hora de fin", { type: 'danger', width: 'auto' });
         return;
     } else if (horaFin.isBefore(horaInicio)) {
@@ -819,27 +930,22 @@ function uspRegistrarPresencial_HorarioClasesConfiguracion() {
     } else if (entidad.HoraInicio == entidad.HoraFin) {
         $.bootstrapGrowl("aviso, la hora fin no puede ser igual a la hora inicio", { type: 'danger', width: 'auto' });
         return;
-    }else if (entidad.CapacidadPermitida == '') {
+    } else if (IsUndefinedOrNullOrEmpty(entidad.CapacidadPermitida)) {
         $.bootstrapGrowl("Falta ingresar el nro de plaza", { type: 'danger', width: 'auto' });
         return;
-    } else if (entidad.DiaNumero == '') {
+    } else if (IsUndefinedOrNullOrEmpty(entidad.DiaNumero)) {
         $.bootstrapGrowl("Falta seleccionar el día", { type: 'danger', width: 'auto' });
         return;
-    } else if (entidad.CostoPorClase == '') {
+    } else if (IsUndefinedOrNullOrEmpty(entidad.CostoPorClase)) {
         $.bootstrapGrowl("Falta ingresar el costo de la clase", { type: 'danger', width: 'auto' });
         return;
-    } else if (entidad.DescuentoPorminuto == '') {
+    } else if (IsUndefinedOrNullOrEmpty(entidad.DescuentoPorminuto)) {
         $.bootstrapGrowl("Falta ingresar el monto de descuento por minuto de tardanza", { type: 'danger', width: 'auto' });
         return;
-    }  
-    
-    //console.log(beginningTime.isBefore(endTime)); // deberá aparecer true
+    }
 
-    ////alert(entidad.HoraInicio);
-    ////alert(entidad.HoraFin);
-    ////return;
     $('button[type="button"]').attr("disabled", true);
-
+    document.getElementById('loadMe').style.display = 'block';
     var metodoCorrecto = function (msg) {
 
         if (Accion == "N") {
@@ -857,6 +963,7 @@ function uspRegistrarPresencial_HorarioClasesConfiguracion() {
             $.bootstrapGrowl("Error, vuelva a intentar nuevamente!", { type: 'danger', width: 'auto' });
         }
 
+        document.getElementById('loadMe').style.display = 'none';
         document.getElementById('modalClase').style.display = 'none';
 
     };
@@ -866,7 +973,7 @@ function uspRegistrarPresencial_HorarioClasesConfiguracion() {
     var request = {
         request: entidad
     };
-    LlamarAJAX("/reservapresencial/uspRegistrarPresencial_HorarioClasesConfiguracion", request, metodoCorrecto, metodoError);
+    LlamarAJAX("/reservapresencial/uspActualizarPresencial_HorarioClasesConfiguracion", request, metodoCorrecto, metodoError);
 
 }
 
@@ -928,7 +1035,7 @@ function uspBuscarHorarioClasesConfiguracionPresencial_PorCodigo(CodigoHorarioCl
     document.getElementById('loadMe').style.display = 'block';
 
     var CodigoSala = $('input[id="hdCodigoSala"]').val();
-    alert(CodigoSala);
+   
     var entidad = {
         request: {
             CodigoHorarioClasesConfiguracion: CodigoHorarioClasesConfiguracion,
@@ -967,7 +1074,8 @@ function uspBuscarHorarioClasesConfiguracionPresencial_PorCodigo(CodigoHorarioCl
             var item = msg;
          
             if (item != null) {
-                
+
+                event_editarclase();
                 document.getElementById('btnDesactivarClase').style.display = 'block';
                 
                 $('#txtProfesor_Accion').val("E");
@@ -1052,3 +1160,18 @@ function uspBuscarHorarioClasesConfiguracionPresencial_PorCodigo(CodigoHorarioCl
     });
 
 };
+
+function event_cerrarModalClase() {
+    document.getElementById('modalClase').style.display = 'none';
+
+}
+
+function event_nuevaclase() {
+    document.getElementById('form-check-diasemana-nuevo').style.display = '';
+    document.getElementById('form-check-diasemana-editar').style.display = 'none';
+}
+
+function event_editarclase() {
+    document.getElementById('form-check-diasemana-nuevo').style.display = 'none';
+    document.getElementById('form-check-diasemana-editar').style.display = '';
+}

@@ -315,24 +315,21 @@
 </div><!-- modal -->
 
 <div id="modalClase" class="modal">
-    <div class="modal-dialog modal-xl" role="document" style="">
-        <div class="modal-content tx-size-sm">
-            <div class="modal-header-sm pd-x-20" style="background-color:#e9ebee;">
-                <h6 class="tx-11 mg-b-0 tx-uppercase tx-bold" style="margin-top:20px;">Configuración de la clase</h6>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
+    <div class="modal-dialog modal-xl modal-dialog-scrollable" role="document" style="">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Configuración de la clase</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" onclick="event_cerrarModalClase();"></button>
             </div>
             <div class="modal-body" style="background-color:#e9ebee;">
 
-
-                <div class="row mg-b-25">
-                    <div class="col-lg-6">
+                <div class="row">
+                    <div class="col-lg-5">
                         <div class="card">
                             <div class="card-header card-header-sm d-flex align-items-center" style="background-color:#fff;">
                                 <h4 class="card-header__title flex m-0">PASO 1 : BUSQUE O AGREGUE UN PROFESOR</h4>
                             </div>
-                            <div class="card-body tab-content" style="height: 400px;">
+                            <div class="card-body tab-content" style="">
                                 <div class="tab-pane active show fade" id="activity_all">
 
                                     <div class="button-list" data-controlmodulo="f2ae9b24-a0f3-4313-b7d3-1969dd901544" style="display:none;">
@@ -346,22 +343,22 @@
                                                 <td style="width:5%;">
                                                     <h style="font-size: 11px;color:#0075ff;">Nombres:</h>
                                                 </td>
-                                                <td style="width:25%;">
+                                                <td style="width:15%;">
                                                     <input id="txtProfesorBuscador_Nombres" class="form-control form-control-sm" style="border-color: #c5c5c5;font-size:12px;" type="text" value="" placeholder="Buscador Nombre">
                                                 </td>
                                                 <td style="width:5%;">
                                                     <h style="font-size: 11px;color:#0075ff;">Apellidos:</h>
                                                 </td>
-                                                <td style="width:25%;">
+                                                <td style="width:15%;">
                                                     <input id="txtProfesorBuscador_Apellidos" class="form-control form-control-sm" style="border-color: #c5c5c5;font-size:12px;" type="text" value="" placeholder="Buscador Apellido">
                                                 </td>
-                                                <td style="width:5%;">
-                                                    <h style="font-size: 11px;color:#0075ff;">Dni:</h>
+                                                <td style="width:15%;">
+                                                    <h style="font-size: 11px;color:#0075ff;">Nro doc:</h>
                                                 </td>
-                                                <td style="width:25%;">
+                                                <td style="width:20%;">
                                                     <input id="txtProfesorBuscador_NroDocumento" class="form-control form-control-sm" style="border-color: #c5c5c5;font-size:12px;" type="text" value="" placeholder="Buscador Documento">
                                                 </td>
-                                                <td style="width:5%;" align="center">
+                                                <td style="width:15%;" align="center">
                                                     <button id="btnBuscarProfesor" onclick="uspBuscarProfesorPorNombres();" type="button" class="btn btn-primary btn-sm" style="background-color:#0075ff;border-color: #0075ff;font-size:11px;">Buscar</button>
                                                 </td>
                                             </tr>
@@ -371,10 +368,10 @@
                                     <input id="txtProfesor_Accion" type="hidden" value="N" />
                                     <input id="txtProfesor_CodigoProfesional" type="hidden" value="" />
                                     <div class="row mg-b-25">
-                                        <div class="col-lg-6">
+                                        <div class="col-lg-12">
                                             <div class="form-group mg-t-2">
-                                                <div class="input-group input-group-sm input-group-merge">
-                                                    <input id="txtProfesor_Nombres" type="text" placeholder="Ingrese Nombres" class="form-control form-control-prepended" style="width:100%;font-weight:bold;" onkeypress="return validarCamposCadena(event)">
+                                                <div class="input-group input-group-lg input-group-merge">
+                                                    <input id="txtProfesor_Nombres" type="text" placeholder="Ingrese Nombres" class="form-control form-control-prepended" style="width:100%;" onkeypress="return validarCamposCadena(event)">
                                                     <div class="input-group-prepend">
                                                         <div class="input-group-text">
                                                             Nombres:
@@ -383,8 +380,8 @@
                                                 </div>
                                             </div>
                                             <div class="form-group mg-t-2">
-                                                <div class="input-group input-group-sm input-group-merge">
-                                                    <input id="txtProfesor_Apellidos" type="text" placeholder="Ingrese apellidos" class="form-control form-control-prepended" style="width:100%;font-weight:bold;" onkeypress="return validarCamposCadena(event)">
+                                                <div class="input-group input-group-lg input-group-merge">
+                                                    <input id="txtProfesor_Apellidos" type="text" placeholder="Ingrese apellidos" class="form-control form-control-prepended" style="width:100%;" onkeypress="return validarCamposCadena(event)">
                                                     <div class="input-group-prepend">
                                                         <div class="input-group-text">
                                                             Apellidos:
@@ -393,23 +390,8 @@
                                                 </div>
                                             </div>
                                             <div class="form-group mg-t-2">
-                                                <div class="input-group input-group-sm input-group-merge">
-                                                    <select id="txtProfesor_Genero" class="form-control form-control-sm" style="border-color: #c5c5c5;font-size:12px;">
-                                                        <option selected value="">SELECCIONE GÉNERO</option>
-                                                        <option value="M">MASCULINO</option>
-                                                        <option value="F">FEMENINO</option>
-                                                    </select>
-                                                </div>
-                                            </div>
-                                            <div class="form-group mg-t-2">
-                                                <div class="input-group input-group-sm input-group-merge">
-                                                    <label class="form-control-label">Fecha Nacimiento: <span class="tx-danger">*</span></label>
-                                                    <input id="txtProfesor_FechaNacimiento" style="border-color: #c5c5c5;font-size:12px;width:100%;" class="" type="text" value="" placeholder="">
-                                                </div>
-                                            </div>
-                                            <div class="form-group mg-t-2">
-                                                <div class="input-group input-group-sm input-group-merge">
-                                                    <select id="txtProfesor_TipoDocumento" class="form-control form-control-sm" style="border-color: #c5c5c5;font-size:12px;" data-placeholder="">
+                                                <div class="input-group input-group-lg input-group-merge">
+                                                    <select id="txtProfesor_TipoDocumento" class="form-control form-control-lg" style="border-color: #c5c5c5;" data-placeholder="">
                                                         <option selected value="0">SELECCIONE TIPO DOCUMENTO</option>
                                                         <option value="1">SIN RUC - no domiciliado sin ruc</option>
                                                         <option value="2">DNI - Documento Nacional de Identidad</option>
@@ -421,8 +403,8 @@
                                                 </div>
                                             </div>
                                             <div class="form-group mg-t-2">
-                                                <div class="input-group input-group-sm input-group-merge">
-                                                    <input id="txtProfesor_NroDocumento" type="text" placeholder="Ingrese nro documento" class="form-control form-control-prepended" style="width:100%;font-weight:bold;" onkeypress="return validarCamposCadena(event)">
+                                                <div class="input-group input-group-lg input-group-merge">
+                                                    <input id="txtProfesor_NroDocumento" type="text" placeholder="Ingrese nro documento" class="form-control form-control-prepended" style="width:100%;" onkeypress="return validarCamposCadena(event)">
                                                     <div class="input-group-prepend">
                                                         <div class="input-group-text">
                                                             Nro Documento:
@@ -430,12 +412,24 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                        </div>
-                                        <div class="col-lg-6">
-
                                             <div class="form-group mg-t-2">
                                                 <div class="input-group input-group-sm input-group-merge">
-                                                    <input id="txtProfesor_Direccion" type="text" placeholder="Ingrese dirección" class="form-control form-control-prepended" style="width:100%;font-weight:bold;" onkeypress="return validarCamposCadena(event)">
+                                                    <select id="txtProfesor_Genero" class="form-control form-control-lg" style="border-color: #c5c5c5;">
+                                                        <option selected value="">SELECCIONE GÉNERO</option>
+                                                        <option value="M">MASCULINO</option>
+                                                        <option value="F">FEMENINO</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="form-group mg-t-2">
+                                                <div class="input-group input-group-lg input-group-merge">
+                                                    <label class="form-control-label">Fecha Nacimiento: <span class="tx-danger">*</span></label>
+                                                    <input id="txtProfesor_FechaNacimiento" style="border-color: #c5c5c5;width:100%;" class="" type="text" value="" placeholder="">
+                                                </div>
+                                            </div>
+                                            <div class="form-group mg-t-2">
+                                                <div class="input-group input-group-lg input-group-merge">
+                                                    <input id="txtProfesor_Direccion" type="text" placeholder="Ingrese dirección" class="form-control form-control-prepended" style="width:100%;" onkeypress="return validarCamposCadena(event)">
                                                     <div class="input-group-prepend">
                                                         <div class="input-group-text">
                                                             Dirección:
@@ -444,8 +438,8 @@
                                                 </div>
                                             </div>
                                             <div class="form-group mg-t-2">
-                                                <div class="input-group input-group-sm input-group-merge">
-                                                    <input id="txtProfesor_Distrito" type="text" placeholder="Ingrese distrito" class="form-control form-control-prepended" style="width:100%;font-weight:bold;" onkeypress="return validarCamposCadena(event)">
+                                                <div class="input-group input-group-lg input-group-merge">
+                                                    <input id="txtProfesor_Distrito" type="text" placeholder="Ingrese distrito" class="form-control form-control-prepended" style="width:100%;" onkeypress="return validarCamposCadena(event)">
                                                     <div class="input-group-prepend">
                                                         <div class="input-group-text">
                                                             Distrito:
@@ -454,8 +448,8 @@
                                                 </div>
                                             </div>
                                             <div class="form-group mg-t-2">
-                                                <div class="input-group input-group-sm input-group-merge">
-                                                    <input id="txtProfesor_Celular" type="text" placeholder="Ingrese celular" class="form-control form-control-prepended" style="width:100%;font-weight:bold;" onkeypress="return validarCamposCadena(event)">
+                                                <div class="input-group input-group-lg input-group-merge">
+                                                    <input id="txtProfesor_Celular" type="text" placeholder="Ingrese celular" class="form-control form-control-prepended" style="width:100%;" onkeypress="return validarCamposCadena(event)">
                                                     <div class="input-group-prepend">
                                                         <div class="input-group-text">
                                                             Celular:
@@ -464,8 +458,8 @@
                                                 </div>
                                             </div>
                                             <div class="form-group mg-t-2">
-                                                <div class="input-group input-group-sm input-group-merge">
-                                                    <input id="txtProfesor_Telefono" type="text" placeholder="Ingrese telefono" class="form-control form-control-prepended" style="width:100%;font-weight:bold;" onkeypress="return validarCamposCadena(event)">
+                                                <div class="input-group input-group-lg input-group-merge">
+                                                    <input id="txtProfesor_Telefono" type="text" placeholder="Ingrese telefono" class="form-control form-control-prepended" style="width:100%;" onkeypress="return validarCamposCadena(event)">
                                                     <div class="input-group-prepend">
                                                         <div class="input-group-text">
                                                             Telefono:
@@ -474,8 +468,8 @@
                                                 </div>
                                             </div>
                                             <div class="form-group mg-t-2">
-                                                <div class="input-group input-group-sm input-group-merge">
-                                                    <input id="txtProfesor_Correo" type="text" placeholder="Ingrese correo" class="form-control form-control-prepended" style="width:100%;font-weight:bold;" onkeypress="return validarCamposCadena(event)">
+                                                <div class="input-group input-group-lg input-group-merge">
+                                                    <input id="txtProfesor_Correo" type="text" placeholder="Ingrese correo" class="form-control form-control-prepended" style="width:100%;" onkeypress="return validarCamposCadena(event)">
                                                     <div class="input-group-prepend">
                                                         <div class="input-group-text">
                                                             Correo:
@@ -484,8 +478,8 @@
                                                 </div>
                                             </div>
                                             <div class="form-group mg-t-2">
-                                                <div class="input-group input-group-sm input-group-merge">
-                                                    <input id="txtProfesor_CostoPorClase" placeholder="Ingrese Costo por clase" type="text" class="form-control form-control-prepended" style="width:100%;font-weight:bold;" onkeypress="return validarCamposCadena(event)">
+                                                <div class="input-group input-group-lg input-group-merge">
+                                                    <input id="txtProfesor_CostoPorClase" placeholder="Ingrese Costo por clase" type="text" class="form-control form-control-prepended" style="width:100%;" onkeypress="return validarCamposCadena(event)">
                                                     <div class="input-group-prepend">
                                                         <div class="input-group-text">
                                                             Costo por clase:
@@ -494,8 +488,8 @@
                                                 </div>
                                             </div>
                                             <div class="form-group mg-t-2">
-                                                <div class="input-group input-group-sm input-group-merge">
-                                                    <input id="txtProfesor_DescuentoPorminuto" placeholder="Ingrese monto Dsto" type="text" class="form-control form-control-prepended" style="width:100%;font-weight:bold;" onkeypress="return validarCamposCadena(event)">
+                                                <div class="input-group input-group-lg input-group-merge">
+                                                    <input id="txtProfesor_DescuentoPorminuto" placeholder="Ingrese monto Dsto" type="text" class="form-control form-control-prepended" style="width:100%;" onkeypress="return validarCamposCadena(event)">
                                                     <div class="input-group-prepend">
                                                         <div class="input-group-text">
                                                             Dsto min. tardanza:
@@ -511,17 +505,102 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-lg-3">
+                    <div class="col-lg-4">
                         <div class="card">
                             <div class="card-header card-header-sm d-flex align-items-center" style="background-color:#fff;">
                                 <h4 class="card-header__title flex m-0">PASO 2 : HORARIO DE LA CLASE</h4>
                             </div>
-                            <div class="card-body tab-content" style="height: 400px;">
+                            <div class="card-body tab-content" style="">
                                 <div class="tab-pane active show fade" id="activity_all">
 
+                                    <div class="button-list" data-controlmodulo="c0dc566e-e7d5-4639-9545-6823a36e8ec7" style="display:none;">
+                                        <div class="form-row">
+                                            <div class="col-6 col-md-6 mb-3">
+                                                <button onclick="uspRegistrarPresencial_HorarioClasesConfiguracion();" type="button" class="btn btn-primary btn-sm">Guardar Clase</button>
+                                            </div>
+                                            <div class="col-6 col-md-6 mb-3">
+                                                <button id="btnDesactivarClase" onclick="event_confirmarDesactivarClase();" type="button" class="btn btn-primary btn-sm" style="background-color:#fff;border:1px #0075ff solid;color:#0075ff;display:none;">Desactivar Clase</button>
+                                            </div>
+                                        </div>
+                                    </div>
+
                                     <div class="form-group mg-t-2">
-                                        <div class="input-group input-group-sm input-group-merge">
-                                            <select id="txtClase_Dia" class="form-control form-control-sm" style="border-color: #c5c5c5;font-size:12px;" data-placeholder="">
+                                        <div class="input-group input-group-lg input-group-merge">
+                                            <input type="hidden" value="" id="hdCodigoDisciplinaSala" />
+                                            <select id="txtClase_Disciplina" onchange="eventChange_DisciplinaSala_Presencial()" class="form-control form-control-sm" style="border-color: #c5c5c5;" data-placeholder=""></select>
+                                        </div>
+                                    </div>
+                                    <div class="form-group mg-t-2">
+                                        <div class="input-group input-group-lg input-group-merge">
+                                            <input id="txtClase_NroPlaza" type="text" value="0" class="form-control form-control-prepended" placeholder="Escriba Cupos" style="width:100%;" onkeypress="return validarCamposCadena(event)">
+                                            <div class="input-group-prepend">
+                                                <div class="input-group-text">
+                                                    Cupos:
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group mg-t-2">
+                                        <div class="input-group input-group-lg input-group-merge">
+                                            <input id="txtClase_CostoPorClase" placeholder="Ingrese Costo por clase" type="text" class="form-control form-control-prepended" style="width:100%;" onkeypress="return validarCamposCadena(event)">
+                                            <div class="input-group-prepend">
+                                                <div class="input-group-text">
+                                                    Costo por clase:
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group mg-t-2">
+                                        <div class="input-group input-group-lg input-group-merge">
+                                            <input id="txtClase_DescuentoPorminuto" placeholder="Ingrese monto Dsto" type="text" class="form-control form-control-prepended" style="width:100%;" onkeypress="return validarCamposCadena(event)">
+                                            <div class="input-group-prepend">
+                                                <div class="input-group-text">
+                                                    Dsto min. tardanza:
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group mg-t-2">
+                                        <label class="custom-control input-group-lg" style="font-size: 15px; color: #0075ff;">
+                                            ¿Que días de la semana se dictara la clase?
+                                        </label>
+                                    </div>
+                                    <div class="form-group mg-t-2" id="form-check-diasemana-nuevo" style="display:none;">
+                                        <div class="custom-control input-group-lg custom-checkbox">
+                                            <div class="form-check">
+                                                <input class="form-check-input csschkDiaSemanaClase" id="chkDiaSemanaClase2" type="checkbox" value="2" />
+                                                <label class="form-check-label" for="chkDiaSemanaClase2">Lunes</label>
+                                            </div>
+                                            <div class="form-check">
+                                                <input class="form-check-input csschkDiaSemanaClase" id="chkDiaSemanaClase3" type="checkbox" value="3" />
+                                                <label class="form-check-label" for="chkDiaSemanaClase3">Martes</label>
+                                            </div>
+                                            <div class="form-check">
+                                                <input class="form-check-input csschkDiaSemanaClase" id="chkDiaSemanaClase4" type="checkbox" value="4" />
+                                                <label class="form-check-label" for="chkDiaSemanaClase4">Miercoles</label>
+                                            </div>
+                                            <div class="form-check">
+                                                <input class="form-check-input csschkDiaSemanaClase" id="chkDiaSemanaClase5" type="checkbox" value="5" />
+                                                <label class="form-check-label" for="chkDiaSemanaClase5">Jueves</label>
+                                            </div>
+                                            <div class="form-check">
+                                                <input class="form-check-input csschkDiaSemanaClase" id="chkDiaSemanaClase6" type="checkbox" value="6" />
+                                                <label class="form-check-label" for="chkDiaSemanaClase6">Viernes</label>
+                                            </div>
+                                            <div class="form-check">
+                                                <input class="form-check-input csschkDiaSemanaClase" id="chkDiaSemanaClase7" type="checkbox" value="7" />
+                                                <label class="form-check-label" for="chkDiaSemanaClase7">Sabado</label>
+                                            </div>
+                                            <div class="form-check">
+                                                <input class="form-check-input csschkDiaSemanaClase" id="chkDiaSemanaClase1" type="checkbox" value="1" />
+                                                <label class="form-check-label" for="chkDiaSemanaClase1">Domingo</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="form-group mg-t-2" id="form-check-diasemana-editar" style="display:none;">
+                                        <div class="input-group input-group-lg input-group-merge">
+                                            <select id="txtClase_Dia" class="form-control form-control-sm" style="border-color: #c5c5c5;" data-placeholder="">
                                                 <option selected value="2">Lunes</option>
                                                 <option value="3">Martes</option>
                                                 <option value="4">Miercoles</option>
@@ -533,64 +612,29 @@
                                         </div>
                                     </div>
                                     <div class="form-group mg-t-2">
-                                        <div class="input-group input-group-sm input-group-merge">
+                                        <div class="input-group input-group-lg input-group-merge">
                                             <b style="font-size:12px;">Hora Inicio:</b>
-                                            <input id="txtClase_HoraInicio" type="text" style="color: #0075ff;border-color: #c5c5c5;font-size:12px;width:100%;" class="" placeholder="">
+                                            <input id="txtClase_HoraInicio" type="text" style="color: #0075ff;border-color: #c5c5c5;width:100%;" class="" placeholder="">
                                         </div>
                                     </div>
                                     <div class="form-group mg-t-2">
-                                        <div class="input-group input-group-sm input-group-merge">                                            
+                                        <div class="input-group input-group-lg input-group-merge">
                                             <b style="font-size:12px;">Hora Fin:</b>
-                                            <input id="txtClase_HoraFin" type="text" style="color: #0075ff;border-color: #c5c5c5;font-size:12px;width:100%;" class="" placeholder="">
+                                            <input id="txtClase_HoraFin" type="text" style="color: #0075ff;border-color: #c5c5c5;width:100%;" class="" placeholder="">
                                         </div>
                                     </div>
+
                                     <div class="form-group mg-t-2">
-                                        <div class="input-group input-group-sm input-group-merge">
-                                            <input type="hidden" value="" id="hdCodigoDisciplinaSala" />
-                                            <select id="txtClase_Disciplina" onchange="eventChange_DisciplinaSala_Presencial()" class="form-control form-control-sm" style="border-color: #c5c5c5;font-size:12px;" data-placeholder=""></select>
-                                        </div>
-                                    </div>
-                                    <div class="form-group mg-t-2">
-                                        <div class="input-group input-group-sm input-group-merge">
-                                            <input id="txtClase_NroPlaza" type="text" value="0" class="form-control form-control-prepended" placeholder="Escriba Nombres" style="width:100%;font-weight:bold;" onkeypress="return validarCamposCadena(event)">
-                                            <div class="input-group-prepend">
-                                                <div class="input-group-text">
-                                                    Cupos:
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="form-group mg-t-2">
-                                        <div class="input-group input-group-sm input-group-merge">
-                                            <input id="txtClase_CostoPorClase" placeholder="Ingrese Costo por clase" type="text" class="form-control form-control-prepended" style="width:100%;font-weight:bold;" onkeypress="return validarCamposCadena(event)">
-                                            <div class="input-group-prepend">
-                                                <div class="input-group-text">
-                                                    Costo por clase:
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="form-group mg-t-2">
-                                        <div class="input-group input-group-sm input-group-merge">
-                                            <input id="txtClase_DescuentoPorminuto" placeholder="Ingrese monto Dsto" type="text" class="form-control form-control-prepended" style="width:100%;font-weight:bold;" onkeypress="return validarCamposCadena(event)">
-                                            <div class="input-group-prepend">
-                                                <div class="input-group-text">
-                                                    Dsto min. tardanza:
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="form-group mg-t-2">
-                                        <div class="custom-control custom-checkbox">
-                                            <input class="custom-control-input" type="checkbox" value="" id="chkCompartirLinkSala" onclick="event_activarCompartirLink();" >
+                                        <div class="custom-control input-group-lg custom-checkbox">
+                                            <input class="custom-control-input" type="checkbox" value="" id="chkCompartirLinkSala" onclick="event_activarCompartirLink();">
                                             <label class="custom-control-label" for="chkCompartirLinkSala" style="font-size:12px;">
                                                 Compartir link reunión.
                                             </label>
                                         </div>
                                     </div>
                                     <div class="form-group mg-t-2">
-                                        <div class="input-group input-group-sm input-group-merge">
-                                            <input id="txtClase_linkSala" placeholder="Ingrese link" type="text" class="form-control form-control-prepended" style="width:100%;font-weight:bold;" onkeypress="return validarCamposCadena(event)" disabled>
+                                        <div class="input-group input-group-lg input-group-merge">
+                                            <input id="txtClase_linkSala" placeholder="Ingrese link" type="text" class="form-control form-control-prepended" style="width:100%;" onkeypress="return validarCamposCadena(event)" disabled>
                                             <div class="input-group-prepend">
                                                 <div class="input-group-text">
                                                     link:
@@ -598,18 +642,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="button-list" data-controlmodulo="c0dc566e-e7d5-4639-9545-6823a36e8ec7" style="display:none;">
-                                        <div class="form-row">
-                                            <div class="col-6 col-md-6 mb-3">
-                                                <button onclick="uspRegistrarPresencial_HorarioClasesConfiguracion();" type="button" class="btn btn-primary btn-sm">Guardar Clase</button>
-                                            </div>
-                                            <div class="col-6 col-md-6 mb-3">
-                                                <button id="btnDesactivarClase" onclick="event_confirmarDesactivarClase();" type="button" class="btn btn-primary btn-sm" style="background-color:#fff;border:1px #0075ff solid;color:#0075ff;display:none;">Desactivar Clase</button>
-                                            </div>
-                                        </div>
 
-                                        
-                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -619,15 +652,15 @@
                             <div class="card-header card-header-sm d-flex align-items-center" style="background-color:#fff;">
                                 <h4 class="card-header__title flex m-0">(OPCIONAL) : AGREGA DISCIPLINAS</h4>
                             </div>
-                            <div class="card-body tab-content" style="height: 400px;">
+                            <div class="card-body tab-content" style="">
                                 <div class="tab-pane active show fade" id="activity_all">
                                     <input type="hidden" value="" id="hdCodigoHorarioClasesConfiguracion" />
 
                                     <div class="form-layout form-layout-5">
 
                                         <div class="form-group mg-t-2">
-                                            <div class="input-group input-group-sm input-group-merge">
-                                                <input id="txtDisciplina_Nombre" type="text" class="form-control form-control-prepended" placeholder="Escriba Nombres" style="width:100%;font-weight:bold;" onkeypress="return validarCamposCadena(event)">
+                                            <div class="input-group input-group-lg input-group-merge">
+                                                <input id="txtDisciplina_Nombre" type="text" class="form-control form-control-prepended" placeholder="Escriba Disciplina" style="width:100%;" onkeypress="return validarCamposCadena(event)">
                                                 <div class="input-group-prepend">
                                                     <div class="input-group-text">
                                                         Disciplina:
@@ -636,8 +669,8 @@
                                             </div>
                                         </div>
                                         <div class="form-group mg-t-2">
-                                            <div class="input-group input-group-sm input-group-merge">
-                                                <input id="txtDisciplina_Plazas" type="text" class="form-control form-control-prepended" placeholder="Escriba Nombres" style="width:100%;font-weight:bold;" onkeypress="return validarCamposCadena(event)">
+                                            <div class="input-group input-group-lg input-group-merge">
+                                                <input id="txtDisciplina_Plazas" type="text" class="form-control form-control-prepended" placeholder="Escriba Cupos" style="width:100%;" onkeypress="return validarCamposCadena(event)">
                                                 <div class="input-group-prepend">
                                                     <div class="input-group-text">
                                                         Cupos:
@@ -646,8 +679,8 @@
                                             </div>
                                         </div>
                                         <div class="form-group mg-t-2">
-                                            <div class="input-group input-group-sm input-group-merge">
-                                                <input id="txtDisciplina_Color" type="color" value="#ff3b00" class="form-control form-control-prepended" placeholder="Escriba Nombres" style="width:100%;font-weight:bold;" onkeypress="return validarCamposCadena(event)">
+                                            <div class="input-group input-group-lg input-group-merge">
+                                                <input id="txtDisciplina_Color" type="color" value="#ff3b00" class="form-control form-control-prepended" placeholder="Color" style="width:100%;" onkeypress="return validarCamposCadena(event)">
                                                 <div class="input-group-prepend">
                                                     <div class="input-group-text">
                                                         Color:
@@ -667,14 +700,14 @@
                         </div>
                     </div>
 
-                </div>
-
+                </div>                
             </div><!-- modal-body -->
         </div>
     </div><!-- modal-dialog -->
 </div><!-- modal -->
 
 <div id="modaldesactivarclase" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="modal-small-title" style="padding-right: 17px;" aria-modal="true">
+    <br /><br /><br />
     <div class="modal-dialog modal-sm" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -815,7 +848,7 @@
     @System.Web.Optimization.Scripts.Render("~/Scripts/bootstrap-notify-master/bootstrap-notify.min.js")
     @System.Web.Optimization.Scripts.Render("~/Scripts/jsBootstrap/jquery.bootstrap-growl.js")
     @System.Web.Optimization.Scripts.Render("~/Scripts/maskedinput.js")
-    @System.Web.Optimization.Scripts.Render("~/Resource/centroentrenamiento/ReservaPresencial.js?deded")
+    @System.Web.Optimization.Scripts.Render("~/Resource/centroentrenamiento/ReservaPresencial.js?2xx")
 
     <script src="https://unpkg.com/fullcalendar@3.10.1/dist/locale-all.js"></script>
     <script src="~/Scripts/default/moment.min.js"></script>
@@ -824,8 +857,6 @@
 
     <script src="~/Scripts/default/bootstrap3-typeahead.min.js"></script>
     <script src="~/Scripts/print.min.js"></script>
-
-
 
     <script type="text/javascript">
         $(document).ready(function () {

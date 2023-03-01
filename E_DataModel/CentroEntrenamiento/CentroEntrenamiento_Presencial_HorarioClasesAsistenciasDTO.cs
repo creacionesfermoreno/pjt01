@@ -46,6 +46,7 @@ namespace E_DataModel.CentroEntrenamiento
         public string PlanMembresia { get; set; }
         public DateTime FechaInicio { get; set; }
         public DateTime FechaFin { get; set; }
+        public string ObtenerTiempoVencimiento { get; set; }
         public Common.Operation Operation { get; set; }
 
         public string Accion { get; set; }

@@ -6374,6 +6374,19 @@ namespace BotComers.Controllers
             }
         }
 
+        public JsonResult uspListarPresencial_HorarioClasesAsistenciasGestion_Cheking(string CodigoHorarioClasesConfiguracion)
+        {
+            using (CentroEntrenamiento_Presencial_HorarioClasesAsistenciasRepository oRepository = new CentroEntrenamiento_Presencial_HorarioClasesAsistenciasRepository())
+            {
+                CentroEntrenamiento_Presencial_HorarioClasesAsistenciasDTO request = new CentroEntrenamiento_Presencial_HorarioClasesAsistenciasDTO();
+                request.CodigoUnidadNegocio = Commun.CodigoUnidadNegocio;
+                request.CodigoSede = Commun.CodigoSede;
+                request.UsuarioCreacion = Commun.Usuario;
+                request.CodigoHorarioClasesConfiguracion = CodigoHorarioClasesConfiguracion;
+                return Json(oRepository.CentroEntrenamiento_uspListarPresencial_HorarioClasesAsistenciasGestion_Cheking(request), JsonRequestBehavior.AllowGet);
+            }
+        }
+
 
         #endregion
 
