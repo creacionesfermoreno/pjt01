@@ -100,7 +100,6 @@ function getCampaigns() {
                         contentType: "application/json; charset=utf-8",
                         dataType: "json",
                         success: function (msg) {
-
                             options.success(msg);
                         }, complete: function () {
 
@@ -250,6 +249,8 @@ function getCampaigns() {
     });
 
 }
+
+
 
 function sdaaaaaa(s) {
 

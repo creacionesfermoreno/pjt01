@@ -405,3 +405,11 @@ secondary: #252526;
 .modal-title-custom{
     font-size:16px !important;
 }
+
+
+/*sidebar menu custom*/
+.menu-sidebar-custom {
+    background: #fff;
+    padding: 2px;
+    border: 2px solid #EEEEEE !important;
+}

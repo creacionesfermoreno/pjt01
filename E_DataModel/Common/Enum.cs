@@ -300,6 +300,12 @@
         //api - comprobante pago
         RegisterCPApi = 186,
 
+        //email campaing
+        UpdateSendCampaing = 187,
+        CampaingRegisterFile = 188,
+        CampaingDestroyFile = 189,
+        CampaingRegisterDetail = 190,
+
     }
 
     public enum TipoMensaje
@@ -2445,5 +2451,12 @@
         ListActive = 3,
         ListApi = 4,
         SearchCodeApi = 5,
+    }
+    public enum FilterEmailCampaing
+    {
+        ListPagination = 1,
+        Search = 2,
+        ListFiles = 3,
+        ListPaginationDetail = 4,
     }
 }

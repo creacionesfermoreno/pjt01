@@ -93,6 +93,7 @@
     <Compile Include="Gimnasio\ContratoMensajeLogic.cs" />
     <Compile Include="Gimnasio\ControlMedidasLogic.cs" />
     <Compile Include="Gimnasio\ControlSalidaFormaPagoLogic.cs" />
+    <Compile Include="Gimnasio\EmailCampaingLogic.cs" />
     <Compile Include="Gimnasio\EncuestaNuevo1Logic.cs" />
     <Compile Include="Gimnasio\EnvioCorreoBienvenidaLogic.cs" />
     <Compile Include="Gimnasio\EnvioCorreoLogic.cs" />
