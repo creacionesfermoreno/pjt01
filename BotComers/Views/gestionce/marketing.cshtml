@@ -896,17 +896,17 @@
                         <table class="table">
                             <thead class="">
                                 <tr>
-                                    <th scope="col" style=" background: #eee;color: #444141;"  class="p-3 font-bold uppercase  border border-gray-500">#</th>
-                                    <th scope="col" style=" background: #eee;color: #444141;"  class="p-3 font-bold uppercase  border border-gray-500">Destinario</th>
-                                    <th scope="col" style=" background: #eee;color: #444141;"  class="p-3 font-bold uppercase  border border-gray-500">Numero</th>
-                                    <th scope="col" style=" background: #eee;color: #444141;"  class="p-3 font-bold uppercase  border border-gray-500">Estado</th>
-                                    <th scope="col" style=" background: #eee;color: #444141;"  class="p-3 font-bold uppercase  border border-gray-500">Fecha</th>
+                                    <th scope="col" style=" background: #eee;color: #444141;" class="p-3 font-bold uppercase  border border-gray-500">#</th>
+                                    <th scope="col" style=" background: #eee;color: #444141;" class="p-3 font-bold uppercase  border border-gray-500">Destinario</th>
+                                    <th scope="col" style=" background: #eee;color: #444141;" class="p-3 font-bold uppercase  border border-gray-500">Numero</th>
+                                    <th scope="col" style=" background: #eee;color: #444141;" class="p-3 font-bold uppercase  border border-gray-500">Estado</th>
+                                    <th scope="col" style=" background: #eee;color: #444141;" class="p-3 font-bold uppercase  border border-gray-500">Fecha</th>
                                 </tr>
                             </thead>
                             <tbody id="body_campaign_detail">
                             </tbody>
                         </table>
-                        
+
                     </div>
                 </div>
             </div>
@@ -979,13 +979,122 @@
 
 
 
+<!-- Modal email campaign -->
+<div class="modal fade" id="ModalECamp" tabindex="-1" role="dialog" aria-labelledby="ModalECampLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-scrollable" role="document">
+        <div class="modal-content">
+            <div class="modal-header modal-header_">
+                <h5 class="modal-title" id="ModalECampLabel">Registro de campaña</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+
+                <div>
+                    <div class="row">
+                        <div class="col-12 col-md-6">
+                            <div class="form-group">
+                                <label for="ecamp_name">Nombre de la campaña</label>
+                                <input type="text" class="form-control" id="ecamp_name" placeholder="">
+                            </div>
+                        </div>
+                        <div class="col-12 col-md-6">
+                            <div class="form-group">
+                                <label for="ecamp_execel">Destinatarios <small>(.xls)</small></label>
+                                <small class="text-secondary">
+                                    <a href="~/Content/apiwhatsapp_doc/formato_email.xlsx" class="text-secondary">descargar formato</a>
+                                </small>
+                                <input type="file" class="form-control" onchange="uploadfileExecelECamp(this)" id="ecamp_execel" placeholder="">
+                            </div>
+                        </div>
+
+                        <div class="col-12">
+                            <label for="ecamp_editor">Cuerpo del correo</label>
+                            <textarea id="ecamp_editor" rows="10" cols="30" style="width:100%; height:500px" aria-label="editor">
+
+                            </textarea>
+                        </div>
+                    </div>
+                    <div class="row mt-3">
+                        <div class="col-12">
+                            <div class="form-group">
+                                <label for="ecamp_execel_files">Adjuntar archivos <small>(opcional)</small></label>
+                                <input type="file" class="form-control" onchange="addFileEmailCamp(this)" id="ecamp_execel_files" placeholder="">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row" id="DRenderFilesECamp">
+
+                    </div>
+
+                    <div class="row mt-2 align-items-center">
+                        <div class="col-12">
+                            <label for="ecamp_execel_files">Programacion <small>(opcional)</small></label>
+                            <div class="content-option-p-3">
+                                <input type="hidden" id="toption_ecamp" value="0">
+                                <div class="item-option-ecamp item-option-prog item-option-prog-active" id="opsennowEcamp" onclick="ModeSendOption(this,0)">Enviar ahora</div>
+                                <div class="item-option-ecamp item-option-prog" id="opsaveEcamp" onclick="ModeSendOption(this,1)">
+                                    Guardar borrador
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            <div class="modal-footer" id="footerECamp">
+                <button type="button" class="btn-custom btn-custom-secondary" data-dismiss="modal">Cancelar</button>
+                <button type="button" class="btn-custom btn-custom-primary" id="BtnSaveECamp" onclick="registerECamp(this)">Enviar ahora</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal email campaign detail emails -->
+<div class="modal fade" id="ModalECampEmails" tabindex="-1" role="dialog" aria-labelledby="ModalECampLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-scrollable" role="document">
+        <div class="modal-content">
+            <div class="modal-header modal-header_">
+
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <input id="codeECamp_" hidden/>
+                <div class="row justify-content-around">
+                    <div class="col-6">Total : <strong id="totalEcampDetail"></strong></div>
+                    <div class="col-6">
+                        <div class="row justify-content-center align-content-center align-items-center">
+                            <div class="col-6 text-end">Pagina :</div>
+                            <div class="col-6">
+                                <select id="kgrid_email_campanas_page_detail" onchange="paginateChangeDetail()" class="form-select">
+                                    <option value="1"> 1</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mt-3" id="dkendoEmailsDetailECamp">
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
 <div class="container-fluid page__container" style="z-index:auto">
 
     <div class="row">
         <div class="col-lg-12">
             <div class="card">
                 <div class="card-header card-header-tabs-basic nav" role="tablist" style="background-color:#fff">
-                    <a style="" href="#divContentCorreos" class="active" data-toggle="tab" role="tab" aria-selected="true">&nbsp;Correos</a>
+                    <a style="" href="#divContentCorreos" onclick="setEmail()" class="active" data-toggle="tab" role="tab" aria-selected="true">&nbsp;Correos</a>
                     <a style="" href="#divWhatsapp" data-toggle="tab" role="tab" aria-selected="false">&nbsp;Whatsapp</a>
                     <a style="" href="#divNotificationsApp" data-toggle="tab" role="tab" aria-selected="false">&nbsp;Notificaciones App</a>
                 </div>
@@ -1000,7 +1109,7 @@
                                             <div class="menu-sidebar-custom d-flex flex-column align-items-stretch flex-shrink-0 ">
 
                                                 <div class="list-group list-group-flush border-bottom scrollarea">
-                                                    <a id="" onclick="evemt_changeMenu(this,3);" href="#" class="list-group-item list-group-item-action active py-2 lh-tight item_menu_sd" aria-current="true">
+                                                    <a id="CampaingEmailItem" onclick="evemt_changeMenu(this,1);" href="#" class="list-group-item list-group-item-action active py-2 lh-tight item_menu_sd" aria-current="true">
                                                         <div class="d-flex w-100 align-items-center justify-content-between">
                                                             <strong class="mb-1"><i class="fa fa-calendar-o" aria-hidden="true"></i> Campaña correo</strong>
                                                             <small></small>
@@ -1008,7 +1117,7 @@
                                                     </a>
                                                 </div>
                                                 <div class="list-group list-group-flush border-bottom scrollarea">
-                                                    <a id="" onclick="evemt_changeMenu(this,1);" href="#" class="list-group-item list-group-item-action  py-2 lh-tight item_menu_sd" aria-current="true">
+                                                    <a id="" onclick="evemt_changeMenu(this,2);" href="#" class="list-group-item list-group-item-action  py-2 lh-tight item_menu_sd" aria-current="true">
                                                         <div class="d-flex w-100 align-items-center justify-content-between">
                                                             <strong class="mb-1"><i class="fa fa-envelope" aria-hidden="true"></i> Envio de correos masivos</strong>
                                                             <small></small>
@@ -1016,7 +1125,7 @@
                                                     </a>
                                                 </div>
                                                 <div class="list-group list-group-flush border-bottom scrollarea">
-                                                    <a id="" onclick="evemt_changeMenu(this,2);" href="#" class="list-group-item list-group-item-action  py-2 lh-tight item_menu_sd" aria-current="true">
+                                                    <a id="" onclick="evemt_changeMenu(this,3);" href="#" class="list-group-item list-group-item-action  py-2 lh-tight item_menu_sd" aria-current="true">
                                                         <div class="d-flex w-100 align-items-center justify-content-between">
                                                             <strong class="mb-1"><i class="fa fa-light fa-gear"></i> Configuración</strong>
                                                             <small></small>
@@ -1026,15 +1135,13 @@
                                             </div>
                                         </div>
                                         <div class="col-lg-10">
-                                            <div id="Configuracion_EnvioCorreos" >
+                                            <div id="DSendEmailMasive" class="DItemsEmails">
                                                 <div class="card">
                                                     <div class="card-header bg-light">
                                                         <h5 class="mb-0">Nuevo mensaje</h5>
                                                     </div>
                                                     <div class="card-body p-0">
-
                                                         <div class="border border-top-0 border-200" style="padding:10px;">
-
                                                             <div class="form-check form-check-inline">
                                                                 <input class="form-check-input" id="group_to_personas100" checked="true" type="radio" name="emailgroup_to_personas" value="100" onclick="event_clicktipocliente(100)" />
                                                                 <label class="form-check-label" for="group_to_personas100">Prueba</label>
@@ -1052,7 +1159,6 @@
                                                                 <input class="form-check-input" id="group_to_personas3" type="radio" name="emailgroup_to_personas" value="3" onclick="event_clicktipocliente(3)" />
                                                                 <label class="form-check-label" for="group_to_personas3">Clientes vencidos</label>
                                                             </div>
-
 
                                                             <div style="display: flex; flex-direction: row;flex-wrap:wrap;display:none" id="dfiltersEmail">
                                                                 <div class="form-check form-check-inline">
@@ -1235,7 +1341,7 @@
 
                                             </div>
                                             @*div configuracion*@
-                                            <div id="Dconfiguration" style="display:none">
+                                            <div id="Dconfiguration" style="display:none" class="DItemsEmails">
                                                 <div class="card">
                                                     <div class="card-body">
                                                         <form class="p-2">
@@ -1263,6 +1369,57 @@
                                                                 <button type="button" onclick="sendConfigHost()" class="btn btn-primary">Guardar</button>
                                                             </div>
                                                         </form>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            @*div campaña correo *@
+                                            <div id="DCampaingEmail" style="display:none" class="DItemsEmails">
+                                                <div class="card p-3">
+                                                    <div class="card-body">
+
+                                                        <div class="row">
+                                                            <div class="col-12">
+                                                                <span class="sub-tile-contents" style="font-weight:600">CAMPAÑAS DE CORREOS</span>
+                                                            </div>
+                                                        </div>
+                                                        <div class="row justify-content-end">
+                                                            <div class="col-6 text-end">
+                                                                <button data-toggle="modal" id="BtnModalECamp" data-target="#ModalECamp" class="btn-custom btn-custom-primary " style="color:none" onclick="showModalEcamp()">
+                                                                    <i class="fa fa-plus" aria-hidden="true"></i> Nueva campaña de correo
+                                                                </button>
+                                                            </div>
+                                                        </div>
+                                                        @*<div class="row mt-3 align-items-center">
+                                                            <div class="col-md-5">
+                                                                <label>Fecha desde</label>
+                                                                <div>
+                                                                    <input type="date" id="filter_date_start_camp" class="form-control" value="2023-02-01">
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-5">
+                                                                <label>Fecha hasta</label>
+                                                                <div>
+                                                                    <input type="date" id="filter_date_end_camp" class="form-control" value="2023-02-28">
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-2 text-end">
+                                                                <label></label>
+                                                                <div>
+                                                                    <button class="btn-custom btn-custom-secondary" style="color:none" onclick="getCampaigns()">
+                                                                        <i class="fa fa-search" aria-hidden="true"></i> Filtrar
+                                                                    </button>
+                                                                </div>
+                                                            </div>
+                                                        </div>*@
+                                                        <div class="row justify-content-end mt-3">
+                                                            <div class="col-6 col-md-2 text-end">
+                                                                <select id="kgrid_email_campanas_page" class="form-select" onchange="paginateChange()">
+                                                                    <option value="1">1</option>
+                                                                </select>
+                                                            </div>
+                                                        </div>
+                                                        <div id="kgrid_email_campanas_body" class="kgrid_whatsapp_campanas_body mt-3"></div>
+
                                                     </div>
                                                 </div>
                                             </div>
@@ -1654,13 +1811,14 @@
 
 
         @System.Web.Optimization.Scripts.Render("~/Resource/gimnasio/Marketing.js")
+        @System.Web.Optimization.Scripts.Render("~/Resource/gimnasio/MarketingCampaingEmail.js")
         @System.Web.Optimization.Scripts.Render("~/Resource/whatsapp/ConfigWhatsapp.js")
         @System.Web.Optimization.Scripts.Render("~/Resource/whatsapp/vanillaEmojiPicker.js")
         @System.Web.Optimization.Scripts.Render("~/Resource/whatsapp/templates.js")
         @System.Web.Optimization.Scripts.Render("~/Resource/whatsapp/Campana.js")
 
         <script type="text/javascript">
-           
+
 
             function sendConfigHost() {
 
@@ -1912,10 +2070,10 @@
                 files.forEach(function (element, index) {
                     let kb = Number.parseFloat(element?.size * 0.000977).toFixed(2);
                     html += ` <div class="border px-2 rounded-3 d-flex flex-between-center bg-white dark__bg-1000 my-1 fs--1">
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            <span class="fs-1 fas fa-paperclip fs-1 text-white" aria-hidden="true"></span><span class="ms-2 text-white">${element?.name} (${kb}kb)</span>
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            <a class="text-300 p-1 ms-6" onClick="removeFile(${index})" data-bs-toggle="tooltip" data-bs-placement="right" title="Detach">
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                <span class="fas fa-times" aria-hidden="true"></span></a>
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        </div>`;
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            <span class="fs-1 fas fa-paperclip fs-1 text-white" aria-hidden="true"></span><span class="ms-2 text-white">${element?.name} (${kb}kb)</span>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            <a class="text-300 p-1 ms-6" onClick="removeFile(${index})" data-bs-toggle="tooltip" data-bs-placement="right" title="Detach">
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                <span class="fas fa-times" aria-hidden="true"></span></a>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        </div>`;
                 });
                 document.getElementById("contentItemsFiles").innerHTML = html;
             }
@@ -2162,15 +2320,15 @@
 
                         msg?.forEach((item, index) => {
                             html += `
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                <tr class="border-bottom border-200">
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    <td class="align-middle white-space-nowrap">`+ (index + 1) + `</td>
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    <td class="align-middle white-space-nowrap">`+ item.Asunto + `</td>
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    <td class="align-middle white-space-nowrap">`+ item.DesFechaHoraEnvio + `</td>
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    <td class="align-middle white-space-nowrap">
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        <button class="btn btn-primary"
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            onclick="NotificacionAppByCodigo('`+ item.CodigoNotificacionesApp + `')"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></button>
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        <button class="btn btn-danger" onclick="destroyNotificacionApp('`+ item.CodigoNotificacionesApp + `')"><i class="fa fa-trash text-white" aria-hidden="true"></i></button>
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    </td></tr>`
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                <tr class="border-bottom border-200">
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    <td class="align-middle white-space-nowrap">`+ (index + 1) + `</td>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    <td class="align-middle white-space-nowrap">`+ item.Asunto + `</td>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    <td class="align-middle white-space-nowrap">`+ item.DesFechaHoraEnvio + `</td>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    <td class="align-middle white-space-nowrap">
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        <button class="btn btn-primary"
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            onclick="NotificacionAppByCodigo('`+ item.CodigoNotificacionesApp + `')"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></button>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        <button class="btn btn-danger" onclick="destroyNotificacionApp('`+ item.CodigoNotificacionesApp + `')"><i class="fa fa-trash text-white" aria-hidden="true"></i></button>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    </td></tr>`
                         })
                         document.getElementById("notitbodyList").innerHTML = html;
 
@@ -2477,7 +2635,7 @@
             }
             //get list config whatsapp devices
             getListConfigWhatsapp();
-            
+
         </script>
 
     }

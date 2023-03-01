@@ -114,6 +114,7 @@
     <Compile Include="Gimnasio\DLHelper\ConnectionStrings.cs" />
     <Compile Include="Gimnasio\DLHelper\Conversion.cs" />
     <Compile Include="Gimnasio\DLHelper\Procedimientos.cs" />
+    <Compile Include="Gimnasio\EmailCampaingData.cs" />
     <Compile Include="Gimnasio\EncuestaNuevo1Data.cs" />
     <Compile Include="Gimnasio\EnvioCorreoBienvenidaData.cs" />
     <Compile Include="Gimnasio\EnvioCorreoData.cs" />
