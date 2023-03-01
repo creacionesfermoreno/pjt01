@@ -218,6 +218,7 @@ namespace E_DataModel.CentroEntrenamiento
 
         public int TipoSala { get; set; }
         public int CodigoSala { get; set; }
+
         public int DiaNumero { get; set; }
         public string DiaNombre { get; set; }
         public bool Estado { get; set; }

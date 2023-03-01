@@ -7,7 +7,46 @@ using System.Collections.Generic;
 namespace BotComers.Repository.CentroEntrenamiento
 {
     public class CentroEntrenamiento_Presencial_HorarioClasesConfiguracionRepository : IDisposable
-    {
+    {   
+        
+        public List<CentroEntrenamiento_Presencial_HorarioClasesConfiguracionDTO> uspListarPresencial_HorarioClasesConfiguracionCalendarioChecking(CentroEntrenamiento_Presencial_HorarioClasesConfiguracionDTO request)
+        {
+            List<CentroEntrenamiento_Presencial_HorarioClasesConfiguracionDTO> lista = null;
+
+            ReqFilterCentroEntrenamiento_Presencial_HorarioClasesConfiguracionDTO oReq = new ReqFilterCentroEntrenamiento_Presencial_HorarioClasesConfiguracionDTO()
+            {
+                Item = new CentroEntrenamiento_Presencial_HorarioClasesConfiguracionDTO()
+                {
+                    CodigoUnidadNegocio = request.CodigoUnidadNegocio,
+                    CodigoSede = request.CodigoSede,
+                    CodigoSala = request.CodigoSala
+                },
+                FilterCase = filterCaseCentroEntrenamiento_Presencial_HorarioClasesConfiguracion.CentroEntrenamiento_uspListarPresencial_HorarioClasesConfiguracionCalendarioChecking,
+                User = "Admin",
+                Paging = new E_DataModel.Common.Paging()
+                {
+                    All = false,
+                    PageNumber = Convert.ToUInt32(1),
+                    PageRecords = 0
+                }
+            };
+
+            RespListCentroEntrenamiento_Presencial_HorarioClasesConfiguracionDTO oResp = null;
+
+            using (CentroEntrenamiento_Presencial_HorarioClasesConfiguracionLogic oCentroEntrenamiento_Presencial_HorarioClasesConfiguracionLogic = new CentroEntrenamiento_Presencial_HorarioClasesConfiguracionLogic())
+            {
+                oResp = oCentroEntrenamiento_Presencial_HorarioClasesConfiguracionLogic.CentroEntrenamiento_Presencial_HorarioClasesConfiguracionGetList(oReq);
+            }
+
+            if (oResp.Success)
+            {
+                lista = new List<CentroEntrenamiento_Presencial_HorarioClasesConfiguracionDTO>();
+                lista = oResp.List;
+            }
+
+            return lista;
+        }
+
         public List<CentroEntrenamiento_Presencial_HorarioClasesConfiguracionDTO> CentroEntrenamiento_uspListarPresencial_HorarioClasesConfiguracionCalendario(CentroEntrenamiento_Presencial_HorarioClasesConfiguracionDTO request)
         {
             List<CentroEntrenamiento_Presencial_HorarioClasesConfiguracionDTO> lista = null;
@@ -479,7 +518,77 @@ namespace BotComers.Repository.CentroEntrenamiento
             return lista;
         }
 
+        private string convertirDiaNumeroaNombreSemana(string dia)
+        {
+            switch (dia)
+            {
+                case "1": dia = "Domingo"; break;
+                case "2": dia = "Lunes"; break;
+                case "3": dia = "Martes"; break;
+                case "4": dia = "Miercoles"; break;
+                case "5": dia = "Jueves"; break;
+                case "6": dia = "Viernes"; break;
+                case "7": dia = "Sabado"; break;
+                default: dia = ""; break;
+            }
+
+            return dia;
+        }
+
         public int CentroEntrenamiento_uspRegistrarPresencial_HorarioClasesConfiguracion(CentroEntrenamiento_Presencial_HorarioClasesConfiguracionDTO request)
+        {
+            int mensaje = 0;
+
+            List<CentroEntrenamiento_Presencial_HorarioClasesConfiguracionDTO> list = new List<CentroEntrenamiento_Presencial_HorarioClasesConfiguracionDTO>();
+
+            string[] dias = request.DiaNombre.Split('|');
+            foreach (var dia in dias)
+            {
+                if (dia != String.Empty)
+                {
+                    list.Add(new CentroEntrenamiento_Presencial_HorarioClasesConfiguracionDTO()
+                    {
+                        CodigoUnidadNegocio = request.CodigoUnidadNegocio,
+                        CodigoSede = request.CodigoSede,
+                        CodigoHorarioClasesConfiguracion = request.CodigoHorarioClasesConfiguracion,
+                        CodigoDisciplinaSala = request.CodigoDisciplinaSala,
+                        CodigoProfesional = request.CodigoProfesional == null ? string.Empty : request.CodigoProfesional,
+                        CodigoSala = request.CodigoSala,
+                        HoraInicio = request.HoraInicio,
+                        HoraFin = request.HoraFin,
+                        CapacidadPermitida = request.CapacidadPermitida,
+                        DiaNumero = Convert.ToInt32(dia),
+                        DiaNombre = convertirDiaNumeroaNombreSemana(dia),
+                        CostoPorClase = request.CostoPorClase,
+                        DescuentoPorminuto = request.DescuentoPorminuto,
+                        CompartirLinkSala = request.CompartirLinkSala,
+                        LinkSala = request.LinkSala,
+                        UsuarioCreacion = request.UsuarioCreacion,
+                        Operation = Operation.Create
+                    });
+                }
+               
+            }
+
+            ReqCentroEntrenamiento_Presencial_HorarioClasesConfiguracionDTO oReq = new ReqCentroEntrenamiento_Presencial_HorarioClasesConfiguracionDTO()
+            {
+                List = list,
+                User = "admin"
+            };
+            RespCentroEntrenamiento_Presencial_HorarioClasesConfiguracionDTO oResp = null;
+            using (CentroEntrenamiento_Presencial_HorarioClasesConfiguracionLogic oCentroEntrenamiento_Presencial_HorarioClasesConfiguracionLogic = new CentroEntrenamiento_Presencial_HorarioClasesConfiguracionLogic())
+            {
+                oResp = oCentroEntrenamiento_Presencial_HorarioClasesConfiguracionLogic.ExecuteTransac(oReq);
+            }
+            if (oResp.Success)
+            {
+                mensaje = oResp.MessageList[0].Codigo;
+            }
+
+            return mensaje;
+        }
+
+        public int CentroEntrenamiento_uspActualizarPresencial_HorarioClasesConfiguracion(CentroEntrenamiento_Presencial_HorarioClasesConfiguracionDTO request)
         {
             int mensaje = 0;
 
@@ -523,6 +632,7 @@ namespace BotComers.Repository.CentroEntrenamiento
 
             return mensaje;
         }
+
 
         public int CentroEntrenamiento_uspDesactivarPresencial_HorarioClasesConfiguracion(CentroEntrenamiento_Presencial_HorarioClasesConfiguracionDTO request)
         {

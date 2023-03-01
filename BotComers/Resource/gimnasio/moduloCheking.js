@@ -1158,6 +1158,100 @@ function Confirmar_UspActualizarPresencial_MarcarAsistenciaHorarioClasesAsistenc
 
 }
 
+function Confirmar_UspActualizarPresencial_MarcarAsistenciaHorarioClasesAsistencias_CheckingMasivo(id, id_tiemporeal, id_asistencia, CodigoSocio, CodigoMembresia) {
+
+    var entidad = {};
+    entidad.CodigoHorarioClasesConfiguracion = id;
+    entidad.CodigoHorarioClasesConfiguracionTiempoReal = id_tiemporeal;
+    entidad.CodigoHorarioClasesConfiguracionAsistencias = id_asistencia;
+    entidad.CodigoSocio = CodigoSocio;
+    entidad.CodigoMembresia = CodigoMembresia;
+    // entidad.CodigoSocio = $('#hdCodigo').val();
+
+    if (entidad.CodigoSocio == '' || entidad.CodigoSocio == 0) {
+        $.bootstrapGrowl("Falta buscar un cliente.", { type: 'danger', width: 'auto' });
+        return;
+    } else if (entidad.CodigoHorarioClasesConfiguracion == '') {
+        $.bootstrapGrowl("Falta selecionar una clase", { type: 'danger', width: 'auto' });
+        return;
+    } else if (entidad.CodigoHorarioClasesConfiguracionTiempoReal == '') {
+        $.bootstrapGrowl("Falta selecionar una clase real", { type: 'danger', width: 'auto' });
+        return;
+    } else if (entidad.CodigoHorarioClasesConfiguracionAsistencias == '') {
+        $.bootstrapGrowl("No tienes clase reservada", { type: 'danger', width: 'auto' });
+        return;
+    }
+
+    document.getElementById('loadMe').style.display = 'block';
+    $('button[type="button"]').attr("disabled", true);
+
+    var metodoCorrecto = function (msg) {
+        document.getElementById('loadMe').style.display = 'none';
+        $('button[type="button"]').attr("disabled", false);
+
+        var Codigo = msg.split('|')[0];
+        var Mensaje = msg.split('|')[1];
+
+        if (Codigo == 0) {
+            $.bootstrapGrowl("NRO ASISTENCIAS LLEGO A SU LIMITE, REVISA EL NRO DE SESIONES DE LA MEMBRESIA", { type: 'danger', width: 'auto' });
+        } else {
+
+            $.bootstrapGrowl("SE MARCO LA ASISTENCIA CORRECTAMENTE", { type: 'success', width: 'auto', align: 'center' });
+            //verAsistencias(CodigoMenbresia);
+            //verReservas(CodigoMenbresia);
+            //var chkMarcadorAutomatico = $('#chkMarcadorAutomatico').is(':checked');
+            //if (chkMarcadorAutomatico == true) {
+            //    $('#txtBuscadorGeneral').val('');
+            //    $('#txtBuscadorGeneral').focus();
+            //}
+
+        }
+
+    };
+    var metodoError = function (msg) {
+        alert(msg);
+    };
+    var request = {
+        request: entidad
+    };
+    LlamarAJAX("/gestionce/CentroEntrenamiento_UspActualizarPresencial_MarcarAsistenciaHorarioClasesAsistencias", request, metodoCorrecto, metodoError);
+
+
+    //var flagPaqueteSedePermiso = $('#hdflagPaqueteSedePermiso').val();
+    //if (flagPaqueteSedePermiso == 1) {//PERMISO PARA INGRESAR A LA SEDE
+
+    //    //VALIDAR ACCESO AL HORARIO DEL PLAN ADQUIRIDO
+    //    var ObtenerDisponibilidadHorarioPaquete = $('#hdflagDisponibilidadHorarioPaquete').val();
+    //    if (ObtenerDisponibilidadHorarioPaquete > 0) {
+
+    //        var CantDiasEfec = $('#hdCantidadTotalAsistenciaEfectivo').val();
+    //        var NroIngresoActual = $('#hdNroIngresoActual').val();
+
+    //        if (parseInt(CantDiasEfec) < parseInt(NroIngresoActual)) {
+    //            $.bootstrapGrowl("NRO ASISTENCIAS LLEGO A SU LIMITE, REVISA EL NRO DE SESIONES DE LA MEMBRESIA", { type: 'danger', width: 'auto' });
+    //            return;
+    //        }
+
+    //    } else if (ObtenerDisponibilidadHorarioPaquete == 0) {
+    //        document.getElementById("tabla_Info_Inicio_Cliente").style.display = '';
+    //        $('#lblMensajeInicio_Cliente').html('HORARIO NO DISPONIBLE');
+    //        $('#lblEstadoCliente').html('SU PLAN NO TIENE ACCESO EN ESTE HORARIO');
+    //        $.bootstrapGrowl("EL PLAN DEL CLIENTE NO TIENE ACCESO PARA INGRESAR EN ESTE HORARIO", { type: 'danger', width: 'auto' });
+    //        $('#btnMarcarAsistencia_Cliente').hide('fast');
+    //        $('#btnMarcarAsistenciaClaseHorario_Cliente').hide('fast');
+    //        $('#InforMembresias_Cliente').css('background-color', 'red');
+    //        return;
+    //    }
+
+        
+    //} else {
+    //    $.bootstrapGrowl("LA MEMBRESIA DEL CLIENTE NO TIENE PERMISO PARA INGRESAR A ESTA SEDE.", { type: 'danger', width: 'auto' });
+    //}
+
+}
+
+
+
 //REGISTRAR RESERVA MAQUINAS
 function UspRegistrarPresencial_HorarioClasesAsistencias(id, id_tiemporeal, dia, disciplina, horainicio, horafin, fecha, tipo) {
     document.getElementById('loadMe').style.display = 'block';
@@ -10043,11 +10137,7 @@ function CargarCamaraLectorQR() {
 
 }
 
-
-
-function SEGListarPerfilMenu() {
-
-    var entidad = {};
+function SEGListarPerfilMenu() {    
 
     document.getElementById('loadMe').style.display = 'block';
     $('button[type="button"]').attr("disabled", true);
@@ -10069,8 +10159,13 @@ function SEGListarPerfilMenu() {
                 }
                 if (msg[i].CodigoMenu == '7f43381c-5c82-45a1-8e52-0a00244cc377') {
 
-                    document.getElementById('divClasesTiempoReal').style.display = '';
-                    uspListarPresencial_HorarioClasesConfiguracionChecking();
+                    //RESERVAR CLASES CON RESERVAS EN TIEMPO REAL
+                    //document.getElementById('divClasesTiempoReal').style.display = '';
+                    //uspListarPresencial_HorarioClasesConfiguracionChecking();
+                    //RESERVAS DE CLASES MANUALES
+                    uspListarSalas();
+                    //LISTAR SALAS DE CLASES GRUPALES
+                    uspListarSala_Presencial();
                 }
 
             }
@@ -10093,6 +10188,443 @@ function SEGListarPerfilMenu() {
     };
     LlamarAJAX("/gestionce/SEGListarPerfilMenu", request, metodoCorrecto, metodoError);
 
+}
+
+//PARA VER LAS SALAS DE LAS CLASES GRUPALES AL INICIO
+function uspListarSala_Presencial() {
+
+    var metodoCorrecto = function (data) {
+        var content_Salas = new Array();
+
+        for (var i = 0; i < data.length; i++) {
+
+            if (i == 0) {
+                //$('#hdCodigoSala').val(data[i].CodigoSala);
+                //uspListarPresencial_HorarioClasesConfiguracionCalendario(data[i].CodigoSala);
+
+                content_Salas.push('<li onclick="uspListarPresencial_HorarioClasesConfiguracionCalendario(' + data[i].CodigoSala + ')" class="nav-item active"><a style="color:#000;" class="nav-link active" data-toggle="tab" href="#" role="tab">');
+                content_Salas.push(data[i].Descripcion);
+                content_Salas.push('</a></li>');
+            } else {
+                content_Salas.push('<li onclick="uspListarPresencial_HorarioClasesConfiguracionCalendario(' + data[i].CodigoSala + ')" class="nav-item"><a style="color:#000;" class="nav-link" data-toggle="tab" href="#" role="tab">');
+                content_Salas.push(data[i].Descripcion);
+                content_Salas.push('</a></li>');
+            }
+        }
+        //uspListarPresencial_HorarioClasesConfiguracionCalendario
+
+        $('#ulSalas').html(content_Salas.join(' '));
+
+
+        //uspListarDisciplinaSala_Presencial();
+    };
+
+    var metodoError = function (msg) {
+        alert(msg);
+    };
+    var request = {
+    };
+
+    LlamarAJAX('/reservapresencial/uspListarSala_Presencial', request, metodoCorrecto, metodoError);
+}
+
+function uspListarPresencial_HorarioClasesConfiguracionCalendario(CodigoSala) {
+    $('#hdCodigoSala').val(CodigoSala);
+    document.getElementById('loadMe').style.display = 'block';
+    $('#calendario').fullCalendar('destroy');
+    var entidad = {
+        request: {
+            CodigoSala: ConvertToInt32(CodigoSala)
+        }
+    };
+    $.ajax({
+        type: "POST",
+        data: JSON.stringify(entidad),
+        url: "/reservapresencial/uspListarPresencial_HorarioClasesConfiguracionCalendarioChecking",
+        contentType: "application/json; charset=utf-8",
+        dataType: "json",
+        success: function (msg) {
+            //uspListarDisciplinaSala_Presencial();
+            ListarCalendario(msg);
+        }, complete: function () {
+            document.getElementById('loadMe').style.display = 'none';
+        }
+    });
+
+    //IniciarSalaHorarios(CodigoSala)
+};
+
+function ListarCalendario(data) {
+
+    var alto = $('#divCalendarioClasesHorario').height();
+    alto = window.innerHeight - 120;
+    $('#calendario').fullCalendar({
+        monthNames: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'],
+        monthNamesShort: ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic'],
+        dayNames: ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado'],
+        dayNamesShort: ['Dom', 'Lun', 'Mar', 'Mié', 'Jue', 'Vie', 'Sáb'],
+        header: {
+            right: 'myCustomButton',
+            center: 'agendaWeek',
+            left: 'today'
+        },
+        customButtons: {
+            estatus: {
+                text: '°',
+                //type:'html',
+                click: function () {
+                    alert('clicked the custom button!');
+                },
+                //html:'<button style="color:red;border:solid 1px #aaa;">Update</button>'
+            }
+        },
+        axisFormat: 'h(:mm)a',
+        height: alto,
+        defaultView: 'agendaWeek',
+        lang: 'es',
+        locale: 'es-us',
+        aultDate: new Date(),
+        schedulerLicenseKey: 'GPL-My-Project-Is-Open-Source',
+        aultDate: new Date(),
+        selectable: true,
+        allDaySlot: false,
+        minTime: '05:00:00',
+        maxTime: '23:59:00',
+        eventClick: function (event, calEvent, jsEvent, view) {
+            //BUSCAR
+            //uspBuscarHorarioClasesConfiguracionPresencial_PorCodigo(event.id);
+            
+            var _hora = kendo.toString(event.start._d, "hh:mm tt") + " - " + kendo.toString(event.end._d, "hh:mm tt");
+
+            $('#modal-large-title-modalAsistencias').html('CLASE: ' + event.title + ' DE ' + _hora +  ' CON ' + event.nombreProfesional);
+            uspListarPresencial_HorarioClasesAsistenciasGestion(event.id);
+
+        },
+        eventLimit: true,
+        eventResize: function (event, delta, revertFunc) {
+            //if (confirm("¿Desea actualizar la fecha de reserva?")) {
+            //    var dataupdate = {
+            //        CodigoWellnessConfiguracion: event.resourceId,
+            //        CodigoWellnessServicioReserva: event.id,
+            //        FechaInicio: event.start._d.addHours(5).yyyymmdd(),
+            //        FechaFin: event.end._d.addHours(5).yyyymmdd(),
+            //        TipoWellnessTm: 2
+            //    };
+            //    ActualizarFechasReserva(dataupdate);
+            //    toastr.success("Actualizando los datos de la reserva", 'Resultado!');
+            //}
+            //else {
+            //    toastr.error("Revertiendo los cambios de reserva", 'Resultado!');
+            //    revertFunc();
+            //}
+        },
+        eventDrop: function (event, delta, revertFunc) {
+            //debugger;
+            //if (confirm('¿Desea mover la reserva?')) {
+            //    var dataupdate = {
+            //        CodigoWellnessConfiguracion: event.resourceId,
+            //        CodigoWellnessServicioReserva: event.id,
+            //        FechaInicio: event.start._d.addHours(5).yyyymmdd(),
+            //        FechaFin: event.end._d.addHours(5).yyyymmdd(),
+            //        TipoWellnessTm: 2
+            //    };
+            //    ActualizarFechasReserva(dataupdate);
+            //    toastr.success("Actualizando los datos de la reserva", 'Resultado!');
+            //}
+            //else {
+            //    toastr.error("Revertiendo los cambios de reserva", 'Resultado!');
+            //    revertFunc();
+            //}
+        },
+        select: function (startDate, endDate) {
+
+            //$('#hdCodigoHorarioClasesConfiguracion').val('');
+            //document.getElementById('btnDesactivarClase').style.display = 'none';
+            //$('#txtClase_Dia').removeAttr('disabled');
+
+            //var fecha = new Date(startDate);
+            //fecha.setHours(fecha.getHours() + 5);
+
+            //var timepickerInicio = $("#txtClase_HoraInicio").data("kendoTimePicker");
+            //timepickerInicio.value(fecha);
+
+            //var fecha = new Date(startDate);
+            //fecha.setHours(fecha.getHours() + 6);
+
+            //var timepickerFin = $("#txtClase_HoraFin").data("kendoTimePicker");
+            //timepickerFin.value(fecha);
+
+            //var dia = fecha.getDay();
+
+            //dia = ObtenerDiaSemanaSQLSERVER(dia);
+
+            //$('select[id="txtClase_Dia"]').val(dia);
+            //$("#txtClase_HoraInicio").data("kendoTimePicker").enable();
+            //$("#txtClase_HoraFin").data("kendoTimePicker").enable();
+
+            //event_nuevoProfesor();
+
+            //document.getElementById("btnAbrirModalClase").click();
+        },
+        loading: function (isLoading, view) {
+            if (isLoading) {
+                document.getElementById('loadMe').style.display = 'block';
+            }
+            else {
+                document.getElementById('loadMe').style.display = 'none';
+            }
+        },
+        events: $.map(data, function (item, i) {
+            var event = {};
+
+            event.id = item.CodigoHorarioClasesConfiguracion;
+            event.start = new Date(parseInt(item.HoraInicio.replace('/Date(', '')));
+            event.end = new Date(parseInt(item.HoraFin.replace('/Date(', '')));
+            event.title = item.Disciplina;
+            if (item.Color != null && item.Color != '') {
+                event.backgroundColor = item.Color;
+            }
+            else {
+                event.backgroundColor = "#9501fc";
+            }
+            event.borderColor = "#000";
+            event.urlPhoto = item.PhotoProfesionalFitness;
+            event.dni = item.DNIProfesionalFitness;
+            event.nombreProfesional = item.NombreProfesionalFitness;
+            event.nombreCorto = item.NombreProfesionalFitness;//.split(' ').length > 0 ? item.NombreProfesionalFitness.split(' ')[0] : '';
+            return event;
+        }),
+        eventRender: function (event, element, view) {
+            if (true) {
+
+                var el = element.html();
+                var ancho = $(element).width();
+                var alto = $(element).height();
+                if (event.urlPhoto != null && event.urlPhoto != '') {
+                    var detalle = new Array();
+                    //alert(event.end._d);
+                    var _hora = kendo.toString(event.start._d, "hh:mm tt") + " - " + kendo.toString(event.end._d, "hh:mm tt");
+
+                    detalle.push('<div style="width: 100%;height: 100%;background-color:#fff;padding:3px;border-left-width: thick;border-left-color: ' + event.backgroundColor + ';color:#000;border-left-style: solid;">');
+                    detalle.push('<div style="text-align:left;">');
+                    detalle.push('<h5 class="card-title mg-b-5" style="color:#000;font-size:9px;font-weight: bold;">' + event.title + '</h5>');
+                    detalle.push('<p class="card-subtitle" style="color:#000;font-size:9px;font-weight: bold;">' + event.nombreCorto + '</p>');
+                    detalle.push('<p style="color:#000;font-size:10px;font-weight: bold;">' + _hora + '</p>');
+                    detalle.push('</div>');
+                    detalle.push('</div>');
+
+                    element.html(detalle.join(' '));
+                }
+                else {
+                    element.html(el);
+                }
+            }
+
+        },
+        dayclick: function (event, allday, jsevent, view) {
+
+            var fecha = new Date(event._d);
+            fecha.setHours(fecha.getHours() + 5);
+
+        }
+    });
+
+}
+
+function uspListarPresencial_HorarioClasesAsistenciasGestion(CodigoHorarioClasesConfiguracion) {
+
+    document.getElementById('loadMe').style.display = 'block';
+    var codigo = CodigoHorarioClasesConfiguracion;
+
+    $.ajax({
+        type: "POST",
+        data: '{"CodigoHorarioClasesConfiguracion":"' + codigo + '"}',
+        url: "/gestionce/uspListarPresencial_HorarioClasesAsistenciasGestion_Cheking",
+        contentType: "application/json; charset=utf-8",
+        dataType: "json",
+        success: function (msg) {
+            //options.success(msg);
+            if (msg.length > 0) {
+                document.getElementById('modalAsistencias').style.display = 'block';
+                var controlHtml = '';
+                //RECORRER LAS FILAS
+                for (var i = 0; i < msg.length; i++) {
+
+                    controlHtml += '<div class="col-12 p-card" style="border: 1px #ccc solid;">';
+                    controlHtml += '    <div class="row">';
+                    controlHtml += '        <div class="col-sm-3 col-md-3">';
+                    controlHtml += '            <div class="position-relative h-sm-100">';
+                    controlHtml += '                <img style="height: 120px;width: 120px;" class="fit-cover rounded-1 absolute-sm-centered" src="' + msg[i].ImagenUrl + '" alt="">';                    
+                    controlHtml += '            </div>';
+                    controlHtml += '        </div>';
+                    controlHtml += '        <div class="col-sm-9 col-md-9">';
+                    controlHtml += '            <div class="row">';
+                    controlHtml += '                <div class="col-lg-8">';
+                    controlHtml += '                    <h5 class="mt-3 mt-sm-0">' + msg[i].Nombres + ' ' + msg[i].Apellidos + '</h5>';
+
+                    controlHtml += '                    <ul class="list-unstyled d-lg-block">';
+                    controlHtml += '                        <li><span style="color:#000;font-size:13px;">Codigo: ' + msg[i].CodigoSocio + '</span></li>';
+                    controlHtml += '                        <li><span style="color:#000;font-size:13px;">Nro documento: ' + msg[i].DNI + '</span></li>';
+                    controlHtml += '                        <li><span style="color:#000;font-size:13px;">Celular: ' + msg[i].Celular + '</span></li>';
+                    controlHtml += '                        <li><span style="color:#000;font-size:13px;">Correo: ' + msg[i].Correo + '</span></li>';                    
+                    controlHtml += '                        <li><span style="color:#000;font-size:13px;"><strong class="text-success">Fecha reserva: ' + kendo.toString(kendo.parseDate(msg[i].FechaHoraReserva, 'yyyy-MM-dd'), 'dd/MM/yyyy HH:mm tt') + '</strong></span></li>';                    
+                    controlHtml += '                    </ul>';
+                    controlHtml += '                </div>';
+                    controlHtml += '                <div class="col-lg-4 d-flex justify-content-between flex-column">';
+                    controlHtml += '                    <div>';
+                    controlHtml += '                        <h4 style="display:none;" class="fs-1 fs-md-2 text-warning mb-0">$1199.5</h4>';
+                    controlHtml += '                        <h5 style="display:none;" class="fs--1 text-500 mb-0 mt-1">';
+                    controlHtml += '                            <del>$2399 </del><span class="ms-1">-50%</span>';
+                    controlHtml += '                        </h5>';
+                    controlHtml += '                        <div class="d-lg-block">';
+                    controlHtml += '                            <p class="fs--1 mb-1"><strong>' + msg[i].PlanMembresia + '</strong></p>';
+                    controlHtml += '                            <p class="fs--1 mb-1">Inicio: <strong>' + kendo.toString(kendo.parseDate(msg[i].FechaInicio, 'yyyy-MM-dd'), 'dd/MM/yyyy') + '</strong></p>';
+                    controlHtml += '                            <p class="fs--1 mb-1">Finaliza: <strong>' + kendo.toString(kendo.parseDate(msg[i].FechaFin, 'yyyy-MM-dd'), 'dd/MM/yyyy') + '</strong></p>';
+                    controlHtml += '                            <p class="fs--1 mb-1">';
+                    controlHtml += '                                <strong class="text-success">' + msg[i].ObtenerTiempoVencimiento + '</strong>';
+                    controlHtml += '                            </p>';
+                    controlHtml += '                        </div>';
+                    controlHtml += '                    </div>';
+                    controlHtml += '                    <div class="mt-2">';
+                    controlHtml += '                        <button onclick="Confirmar_UspActualizarPresencial_MarcarAsistenciaHorarioClasesAsistencias_CheckingMasivo(\"' + msg[i].CodigoHorarioClasesConfiguracion + '\",\"' + msg[i].CodigoHorarioClasesConfiguracionTiempoReal + '\",\"' + msg[i].CodigoHorarioClasesConfiguracionAsistencias + '\",' + msg[i].CodigoSocio + ',' + msg[i].CodigoMembresia + ');" class="btn btn-primary btn-sm me-1 mb-1" type="button" style="display:' + msg[i].flagVistaBotonMarcarAsistencia + '">';
+                    controlHtml += '                            <i class="fa-solid fa-check"></i>&nbsp;Marcar Asistencia';
+                    controlHtml += '                        </button>';
+                    controlHtml += '                        <div style="display:' + msg[i].flagVistaImagenAsistio + '"><i class="fa-solid fa-check"></i>&nbsp;' + kendo.toString(kendo.parseDate(msg[i].FechaHoraAsistio, 'yyyy-MM-dd '), 'dd/MM/yyyy hh:mm:ss tt') + '</div>';
+                    controlHtml += '                    </div> ';
+                    controlHtml += '                </div>';
+                    controlHtml += '            </div>';
+                    controlHtml += '        </div>';
+                    controlHtml += '    </div>';
+                    controlHtml += '</div> ';
+
+                }
+                $("#gvListaAsistencias").empty();
+                $("#gvListaAsistencias").html(controlHtml);
+
+            } else {
+                $.bootstrapGrowl("No se encontro reservas en esta clase.", { type: 'danger', width: 'auto' });
+                document.getElementById('modalAsistencias').style.display = 'none';
+            }
+        }, complete: function () {
+            document.getElementById('loadMe').style.display = 'none';
+        }
+    });
+
+    return;
+
+    $("#gvListaAsistencias").empty();
+    $("#gvListaAsistencias").kendoGrid({
+        dataSource: {
+            type: "json",
+            transport: {
+                read: function (options) {
+                    $.ajax({
+                        type: "POST",
+                        data: '{"CodigoHorarioClasesConfiguracion":"' + codigo + '"}',
+                        url: "/gestionce/uspListarPresencial_HorarioClasesAsistenciasGestion_Cheking",
+                        contentType: "application/json; charset=utf-8",
+                        dataType: "json",
+                        success: function (msg) {
+                            options.success(msg);
+                            if (msg.length > 0) {
+                                document.getElementById('modalAsistencias').style.display = 'block';
+
+                                
+                            } else {
+                                $.bootstrapGrowl("No se encontro reservas en esta clase.", { type: 'danger', width: 'auto' });
+                                document.getElementById('modalAsistencias').style.display = 'none';
+                            }
+                        }, complete: function () {
+                            document.getElementById('loadMe').style.display = 'none';
+                        }
+                    });
+                }
+            }
+        },
+        selectable: "row",
+        sortable: true,
+        height: 400,
+        width: 900,
+        columns: [{
+            template: "<img style='margin-top: 0px; height: 36px; width: 36px; border-radius: 20px;' src='#: ImagenUrl #' alt='Cliente'>",
+            title: "<center style='color:#fff;font-weight:bold'>Foto</center>",
+            width: 5,
+            attributes: {
+                style: "font-size:10px;text-align:center;"
+            }
+        }, {
+            field: "CodigoSocio",
+            title: "<center style='color:#fff;font-weight:bold'>Codigo</center>",
+            width: 6,
+            attributes: {
+                style: "font-size:10px;text-align:center;"
+            }
+        }, {
+            field: "Nombres",
+            title: "<center style='color:#fff;font-weight:bold'>Nombres</center>",
+            width: 10,
+            attributes: {
+                style: "font-size:10px;text-align:center;"
+            }
+        }, {
+            field: "Apellidos",
+            title: "<center style='color:#fff;font-weight:bold'>Apellidos</center>",
+            width: 10,
+            attributes: {
+                style: "font-size:10px;text-align:center;"
+            }
+        }, {
+            field: "DNI",
+            title: "<center style='color:#fff;font-weight:bold'>Nro Doc.</center>",
+            width: 8,
+            attributes: {
+                style: "font-size:10px;text-align:center;"
+            }
+        }, {
+            field: "Celular",
+            title: "<center style='color:#fff;font-weight:bold'>Celular</center>",
+            width: 8,
+            attributes: {
+                style: "font-size:10px;text-align:center;"
+            }
+        }, {
+            field: "PlanMembresia",
+            title: "<center style='color:#fff;font-weight:bold'>Membresia</center>",
+            width: 10,
+            attributes: {
+                style: "font-size:10px;text-align:center;text-transform: uppercase;"
+            }
+        }, {
+            field: "FechaInicio",
+            title: "<center style='color:#fff;'><b>Fecha inicio</b></center>",
+            template: "#= kendo.toString(kendo.parseDate(FechaInicio, 'yyyy-MM-dd'), 'dd/MM/yyyy') #",
+            width: 10,
+            attributes: {
+                style: "font-size:12px;text-align:center;"
+            }
+        }, {
+            field: "FechaFin",
+            title: "<center style='color:#fff;'><b>Fecha fin</b></center>",
+            template: "#= kendo.toString(kendo.parseDate(FechaFin, 'yyyy-MM-dd'), 'dd/MM/yyyy') #",
+            width: 10,
+            attributes: {
+                style: "font-size:12px;text-align:center;"
+            }
+        }, {
+            field: "FechaHoraReserva",
+            title: "<center style='color:#fff;'><b>Fecha reserva</b></center>",
+            template: "#= kendo.toString(kendo.parseDate(FechaHoraReserva, 'yyyy-MM-dd'), 'dd/MM/yyyy HH:mm tt') #",
+            width: 10,
+            attributes: {
+                style: "font-size:12px;text-align:center;"
+            }
+        }]
+    });
+
+}
+
+function event_cerrarModalAsistencias() {
+    document.getElementById('modalAsistencias').style.display = 'none';
 }
 
 
@@ -10515,7 +11047,6 @@ function ModalByPaypalCustomClose() {
 
 }
 
-
 //---Amador 05/01/2023----
 //funciones globales
 
@@ -10593,13 +11124,6 @@ function removePdfGeneral() {
         });
     }
 }
-
-
-
-
-
-
-
 
 window.onafterprint = function () {
     console.log("sdfsdfsdfdsf")

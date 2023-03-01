@@ -143,6 +143,10 @@ namespace E_BusinessLayer.CentroEntrenamiento
 
                             CategoriaDTOList = oCentroEntrenamiento_Presencial_HorarioClasesAsistenciasData.CentroEntrenamiento_uspListarPresencial_HorarioClasesAsistenciasGestion(oReqFilter.Item);
                             break;
+                        case filterCaseCentroEntrenamiento_Presencial_HorarioClasesAsistencias.CentroEntrenamiento_uspListarPresencial_HorarioClasesAsistenciasGestion_Cheking:
+
+                            CategoriaDTOList = oCentroEntrenamiento_Presencial_HorarioClasesAsistenciasData.CentroEntrenamiento_uspListarPresencial_HorarioClasesAsistenciasGestion_Cheking(oReqFilter.Item);
+                            break;
                         default:
                             {
                                 // CategoriaDTOList = oCentroEntrenamiento_Presencial_HorarioClasesAsistenciasData.uspListarSocios_PorVendedor_Paginacion(oReqFilter.Paging);

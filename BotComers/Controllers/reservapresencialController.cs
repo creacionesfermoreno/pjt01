@@ -180,6 +180,17 @@ namespace BotComers.Controllers
         }
 
         //CALENDARIO
+
+        public ActionResult uspListarPresencial_HorarioClasesConfiguracionCalendarioChecking(CentroEntrenamiento_Presencial_HorarioClasesConfiguracionDTO request)
+        {
+            using (CentroEntrenamiento_Presencial_HorarioClasesConfiguracionRepository oRepository = new CentroEntrenamiento_Presencial_HorarioClasesConfiguracionRepository())
+            {
+                request.CodigoUnidadNegocio = Commun.CodigoUnidadNegocio;
+                request.CodigoSede = Commun.CodigoSede;
+                request.UsuarioCreacion = Commun.Usuario;
+                return Json(oRepository.uspListarPresencial_HorarioClasesConfiguracionCalendarioChecking(request), JsonRequestBehavior.AllowGet);
+            }
+        }
         public ActionResult uspListarPresencial_HorarioClasesConfiguracionCalendario(CentroEntrenamiento_Presencial_HorarioClasesConfiguracionDTO request)
         {
             using (CentroEntrenamiento_Presencial_HorarioClasesConfiguracionRepository oRepository = new CentroEntrenamiento_Presencial_HorarioClasesConfiguracionRepository())
@@ -212,6 +223,18 @@ namespace BotComers.Controllers
                 return Json(oRepository.CentroEntrenamiento_uspRegistrarPresencial_HorarioClasesConfiguracion(request), JsonRequestBehavior.AllowGet);
             }
         }
+
+        public ActionResult uspActualizarPresencial_HorarioClasesConfiguracion(CentroEntrenamiento_Presencial_HorarioClasesConfiguracionDTO request)
+        {
+            using (CentroEntrenamiento_Presencial_HorarioClasesConfiguracionRepository oRepository = new CentroEntrenamiento_Presencial_HorarioClasesConfiguracionRepository())
+            {
+                request.CodigoUnidadNegocio = Commun.CodigoUnidadNegocio;
+                request.CodigoSede = Commun.CodigoSede;
+                request.UsuarioCreacion = Commun.Usuario;
+                return Json(oRepository.CentroEntrenamiento_uspActualizarPresencial_HorarioClasesConfiguracion(request), JsonRequestBehavior.AllowGet);
+            }
+        }
+
 
         public ActionResult CentroEntrenamiento_uspDesactivarPresencial_HorarioClasesConfiguracion(CentroEntrenamiento_Presencial_HorarioClasesConfiguracionDTO request)
         {
