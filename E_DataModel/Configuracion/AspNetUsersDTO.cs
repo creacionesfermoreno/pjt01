@@ -39,6 +39,9 @@ namespace E_DataModel.Configuracion
 
         public string PasswordHashActual { get; set; }
         public string PasswordHashNueva { get; set; }
+        //campo adicional
+        public string TokenDevice { get; set; }
+
 
     }
 

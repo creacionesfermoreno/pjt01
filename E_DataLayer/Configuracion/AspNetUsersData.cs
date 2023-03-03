@@ -87,7 +87,8 @@ namespace E_DataLayer.Configuracion
                     cmd.Parameters.Add(new SqlParameter("@UserName", System.Data.SqlDbType.VarChar)).Value = oFiltro.UserName;
                     cmd.Parameters.Add(new SqlParameter("@Email", System.Data.SqlDbType.VarChar)).Value = oFiltro.Email;
                     cmd.Parameters.Add(new SqlParameter("@PasswordHash", System.Data.SqlDbType.VarChar)).Value = oFiltro.PasswordHash;
-                 
+                    cmd.Parameters.Add(new SqlParameter("@TokenDevice", System.Data.SqlDbType.VarChar)).Value = oFiltro.TokenDevice;
+
                     using (SqlDataReader oIDataReader = cmd.ExecuteReader())
                     {
                         if (oIDataReader.HasRows)
@@ -268,6 +269,9 @@ namespace E_DataLayer.Configuracion
                     cmd.Parameters.Add(new SqlParameter("@PhoneNumber", System.Data.SqlDbType.VarChar)).Value = item.PhoneNumber;
 
                     cmd.Parameters.Add(new SqlParameter("@UsuarioCreacion", System.Data.SqlDbType.VarChar, 100)).Value = item.UsuarioCreacion;
+
+                    cmd.Parameters.Add(new SqlParameter("@TokenDevice", System.Data.SqlDbType.VarChar, 500)).Value = item.UsuarioCreacion;
+
 
                     cmd.ExecuteNonQuery();
                     LoginValidation = cmd.Parameters["@CodigoUsuario"].Value.ToString();
