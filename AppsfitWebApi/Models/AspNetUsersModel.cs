@@ -39,5 +39,8 @@ namespace AppsfitWebApi.Models
         public string PasswordHashNueva { get; set; }
 
         public string SubDominio { get; set; }
+
+        //
+        public string TokenDevice { get; set; }
     }
 }

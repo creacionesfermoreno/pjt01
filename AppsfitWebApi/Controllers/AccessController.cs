@@ -193,6 +193,7 @@ namespace AppsfitWebApi.Controllers
                 CodigoCargo = 0,
                 UsuarioCreacion = "appsfit",
                 Operation = Operation.ecommerce_uspRegistrar_AspNetUsers_AppFitness,
+                TokenDevice = oitem.TokenDevice
 
             });
 
@@ -442,6 +443,8 @@ namespace AppsfitWebApi.Controllers
             oAspNetUsersDTO.Email = oitem.Email;
             oAspNetUsersDTO.UserName = oitem.UserName;
             oAspNetUsersDTO.PasswordHash = oitem.PasswordHash;
+            oAspNetUsersDTO.TokenDevice = oitem.TokenDevice;
+
 
             ReqFilterAspNetUsersDTO oReq = new ReqFilterAspNetUsersDTO()
             {
