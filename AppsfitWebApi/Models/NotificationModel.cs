@@ -11,14 +11,15 @@ namespace AppsfitWebApi.Models
 {
     public class NotificationModel
     {
+
         [Required]
-        public string token { get; set; }
-        public string priority { get; set; }
+        public string Title { get; set; }
         [Required]
-        public string title { get; set; }
+        public string Body { get; set; }
+        public string UrlImage { get; set; }
+       // public Data data { get; set; }
+
         [Required]
-        public string body { get; set; }
-        public Data data { get; set; }
         public List<string> tokens { get; set; }
 
 
@@ -44,6 +45,43 @@ namespace AppsfitWebApi.Models
         public string status { get; set; }
         public string status_detail { get; set; }
         public string error { get; set; }
+    }
+
+    public class NotiApp
+    {
+        [Required]
+        public string DefaultKeyEmpresa { get; set; }
+        [Required]
+        public string DefaultKeyUser { get; set; }
+        
+    }
+
+    public class NotiApi
+    {
+        public string Title { get; set; }
+        public string Body { get; set; }
+        public string UrlImage { get; set; }
+        public string DescriptionHtml { get; set; }
+        public bool Read { get; set; }
+        public string DescFechaCreacion { get; set; }
+        public int CodigoNotificacionesAppDestinatarios { get; set; }
+        public string IdUser { get; set; }
+        public string CodigoNotificacionesApp { get; set; }
+
+    }
+
+    public class NotiRead
+    {
+        [Required]
+        public int CodigoUnidadNegocio { get; set; }
+        [Required]
+        public int CodigoSede { get; set; }
+        [Required]
+        public string CodigoNotificacionesApp { get; set; }
+        [Required]
+        public int CodigoNotificacionesAppDestinatarios { get; set; }
+        [Required]
+        public string IdUser { get; set; }
     }
 
 }

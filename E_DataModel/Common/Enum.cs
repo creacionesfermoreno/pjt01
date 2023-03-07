@@ -306,6 +306,10 @@
         CampaingDestroyFile = 189,
         CampaingRegisterDetail = 190,
 
+        //notisapp
+        NotiAppRegisterDetail = 191,
+        NotiAppReadUpdate = 192,
+
     }
 
     public enum TipoMensaje
@@ -2431,6 +2435,11 @@
     {
         BuscarPorCodigo = 1,
         Listar = 2,
+        ListActive = 3,
+        ListByVencer = 4,
+        ListVencids = 5,
+        listAddressPaginate = 6,
+        listNotisByUser = 7,
     }
     public enum FilterCaseWhatsapp
     {
