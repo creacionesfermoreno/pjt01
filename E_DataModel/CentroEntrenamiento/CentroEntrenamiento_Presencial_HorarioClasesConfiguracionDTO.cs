@@ -317,6 +317,11 @@ namespace E_DataModel.CentroEntrenamiento
 
         public bool CompartirLinkSala { get; set; }
         public string LinkSala { get; set; }
+
+
+        public string DesflagAsistio { get; set; }
+        public string flagVistaBotonMarcarAsistencia { get; set; }
+        public string flagVistaImagenAsistio { get; set; }
     }
 
 

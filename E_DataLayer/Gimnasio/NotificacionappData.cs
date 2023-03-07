@@ -55,10 +55,6 @@ namespace E_DataLayer
             return lista;
         }
 
-
-
-
-
         public NotificacionDTO BuscarPorCodigoNotificacionApp(NotificacionDTO oNotificacionDTO)
         {
             NotificacionDTO itemDTO = new NotificacionDTO();
@@ -104,8 +100,6 @@ namespace E_DataLayer
             return itemDTO;
         }
 
-
-
         public void Registrar(NotificacionDTO item)
         {
             using (var conn = new SqlConnection(Helper.Conexion()))
@@ -131,7 +125,6 @@ namespace E_DataLayer
                 }
             }
         }
-
 
         public void Actualizar(NotificacionDTO item)
         {
@@ -160,7 +153,6 @@ namespace E_DataLayer
             }
 
         }
-
 
         public void Eliminar(NotificacionDTO item)
         {

@@ -698,11 +698,11 @@ function ListarCalendario(data) {
                     //alert(event.end._d);
                     var _hora = kendo.toString(event.start._d, "hh:mm tt") + " - " + kendo.toString(event.end._d, "hh:mm tt");
                     
-                    detalle.push('<div style="width: 100%;height: 100%;background-color:#fff;padding:3px;border-left-width: thick;border-left-color: ' + event.backgroundColor + ';color:#000;border-left-style: solid;">');
+                    detalle.push('<div class="estilohorariocalendar pb-card" style="width: 100%;height: 100%;background-color:#fff;padding:3px;border-left-width: thick;border-left-color: ' + event.backgroundColor + ';color:#000;border-left-style: solid;">');
                     detalle.push('<div style="text-align:left;">');
-                    detalle.push('<h5 class="card-title mg-b-5" style="color:#000;font-size:9px;font-weight: bold;">' + event.title + '</h5>');
-                    detalle.push('<p class="card-subtitle" style="color:#000;font-size:9px;font-weight: bold;">' + event.nombreCorto + '</p>');
-                    detalle.push('<p style="color:#000;font-size:10px;font-weight: bold;">' + _hora + '</p>');
+                    detalle.push('<h5 class="card-title mg-b-5" style="color:#000;font-size:13px;font-weight: bold;">' + event.title + '</h5>');
+                    detalle.push('<p class="card-subtitle" style="color:#000;font-size:11px;margin-top:-12px;">' + event.nombreCorto + '</p>');
+                    detalle.push('<p style="color:#000;font-size:13px;font-weight: bold;margin-top:-12px;">' + _hora + '</p>');
                     detalle.push('</div>');
                     detalle.push('</div>');
                     
