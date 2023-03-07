@@ -196,8 +196,7 @@ function listECamp(PageNumber = 1) {
                         success: function (msg) {
                             let data = msg?.List;
                             options.success(data);
-                            console.log(msg?.Paging)
-
+                          
                             var CantidadPaginas = parseInt(msg?.Paging.TotalRecord / msg?.Paging.PageRecords);
                             if (PageNumber == 1 && CantidadPaginas > 0) {
                                 var htmlOpcion = "";
@@ -297,6 +296,8 @@ function paginateChange() {
     let page = document.getElementById("kgrid_email_campanas_page").value;
     listECamp(parseInt(page));
 }
+
+
 //--register
 async function registerECamp(e) {
 
