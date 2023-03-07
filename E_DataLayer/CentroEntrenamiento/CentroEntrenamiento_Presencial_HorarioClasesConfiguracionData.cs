@@ -47,6 +47,10 @@ namespace E_DataLayer.CentroEntrenamiento
                                 {
                                     itemDTO.CapacidadPermitida = Convert.ToInt32(oIDataReader[oIDataReader.GetOrdinal("CapacidadPermitida")]);
                                 }
+                                if (!oIDataReader.IsDBNull(oIDataReader.GetOrdinal("CantidadReservas")))
+                                {
+                                    itemDTO.CantidadAsistencias = Convert.ToInt32(oIDataReader[oIDataReader.GetOrdinal("CantidadReservas")]);
+                                }
                                 if (!oIDataReader.IsDBNull(oIDataReader.GetOrdinal("DiaNumero")))
                                 {
                                     itemDTO.DiaNumero = Convert.ToInt32(oIDataReader[oIDataReader.GetOrdinal("DiaNumero")]);
@@ -375,11 +379,13 @@ namespace E_DataLayer.CentroEntrenamiento
                             while (oIDataReader.Read())
                             {
                                 var itemDTO = new CentroEntrenamiento_Presencial_HorarioClasesConfiguracionDTO();
-                                    
+
+                                itemDTO.CodigoHorarioClasesConfiguracion = oIDataReader[oIDataReader.GetOrdinal("CodigoHorarioClasesConfiguracion")].ToString();
                                 itemDTO.CodigoHorarioClasesTiempoReal = oIDataReader[oIDataReader.GetOrdinal("CodigoHorarioClasesConfiguracionTiempoReal")].ToString();
                                 itemDTO.CodigoHorarioClasesConfiguracionAsistencias = oIDataReader[oIDataReader.GetOrdinal("CodigoHorarioClasesConfiguracionAsistencias")].ToString();
                                 itemDTO.FechaHoraReserva = Convert.ToDateTime(oIDataReader[oIDataReader.GetOrdinal("FechaHoraReserva")]);
                                 itemDTO.CodigoSocio = Convert.ToInt32(oIDataReader[oIDataReader.GetOrdinal("CodigoSocio")]);
+                                itemDTO.CodigoMembresia = Convert.ToInt32(oIDataReader[oIDataReader.GetOrdinal("CodigoMembresia")]);
                                 itemDTO.Nombres = oIDataReader[oIDataReader.GetOrdinal("Nombres")].ToString();
                                 itemDTO.Apellidos = oIDataReader[oIDataReader.GetOrdinal("Apellidos")].ToString();
                                 itemDTO.Celular = oIDataReader[oIDataReader.GetOrdinal("Celular")].ToString();
@@ -400,6 +406,11 @@ namespace E_DataLayer.CentroEntrenamiento
                                // itemDTO.DesEstado = oIDataReader[oIDataReader.GetOrdinal("DesEstado")].ToString();
                                 itemDTO.EstadoAlarma = oIDataReader[oIDataReader.GetOrdinal("EstadoAlarma")].ToString();
                                 itemDTO.NotaAlarma = oIDataReader[oIDataReader.GetOrdinal("NotaAlarma")].ToString();
+
+                                itemDTO.DesflagAsistio = oIDataReader[oIDataReader.GetOrdinal("DesflagAsistio")].ToString();
+                                itemDTO.flagVistaBotonMarcarAsistencia = oIDataReader[oIDataReader.GetOrdinal("flagVistaBotonMarcarAsistencia")].ToString();
+                                itemDTO.flagVistaImagenAsistio = oIDataReader[oIDataReader.GetOrdinal("flagVistaImagenAsistio")].ToString();
+
                                 lista.Add(itemDTO);
                             }
                         }

@@ -1,4 +1,4 @@
-﻿using E_DataModel;
+using E_DataModel;
 using E_DataModel.Common;
 using E_DataModel.Gimnasio;
 using System;

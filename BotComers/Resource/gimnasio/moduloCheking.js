@@ -1158,15 +1158,20 @@ function Confirmar_UspActualizarPresencial_MarcarAsistenciaHorarioClasesAsistenc
 
 }
 
-function Confirmar_UspActualizarPresencial_MarcarAsistenciaHorarioClasesAsistencias_CheckingMasivo(id, id_tiemporeal, id_asistencia, CodigoSocio, CodigoMembresia) {
-
+function Confirmar_UspActualizarPresencial_MarcarAsistenciaHorarioClasesAsistencias_CheckingMasivo(id, id_tiemporeal, id_asistencia, CodigoSocio, CodigoMembresia, controlBoton) {
+    
     var entidad = {};
-    entidad.CodigoHorarioClasesConfiguracion = id;
-    entidad.CodigoHorarioClasesConfiguracionTiempoReal = id_tiemporeal;
-    entidad.CodigoHorarioClasesConfiguracionAsistencias = id_asistencia;
+    entidad.CodigoHorarioClasesConfiguracion = id.toString().replace('/', '').replace('/', '').replace('/', '');
+    entidad.CodigoHorarioClasesConfiguracionTiempoReal = id_tiemporeal.toString().replace('/', '').replace('/', '').replace('/', '');
+    entidad.CodigoHorarioClasesConfiguracionAsistencias = id_asistencia.toString().replace('/', '').replace('/', '').replace('/', '');
     entidad.CodigoSocio = CodigoSocio;
     entidad.CodigoMembresia = CodigoMembresia;
     // entidad.CodigoSocio = $('#hdCodigo').val();
+    //alert("CodigoHorarioClasesConfiguracionTiempoReal: " + id.toString().replace('/', ''));
+    //alert("CodigoHorarioClasesConfiguracionTiempoReal: " + id_tiemporeal.toString().replace('/', ''));
+    //alert("CodigoHorarioClasesConfiguracionAsistencias: " + id_asistencia.toString().replace('/', ''));
+    //alert("CodigoSocio: " + CodigoSocio);
+    //alert("CodigoMembresia: " + CodigoMembresia);
 
     if (entidad.CodigoSocio == '' || entidad.CodigoSocio == 0) {
         $.bootstrapGrowl("Falta buscar un cliente.", { type: 'danger', width: 'auto' });
@@ -1197,6 +1202,7 @@ function Confirmar_UspActualizarPresencial_MarcarAsistenciaHorarioClasesAsistenc
         } else {
 
             $.bootstrapGrowl("SE MARCO LA ASISTENCIA CORRECTAMENTE", { type: 'success', width: 'auto', align: 'center' });
+            $(controlBoton).attr("disabled", true);            
             //verAsistencias(CodigoMenbresia);
             //verReservas(CodigoMenbresia);
             //var chkMarcadorAutomatico = $('#chkMarcadorAutomatico').is(':checked');
@@ -1249,7 +1255,6 @@ function Confirmar_UspActualizarPresencial_MarcarAsistenciaHorarioClasesAsistenc
     //}
 
 }
-
 
 
 //REGISTRAR RESERVA MAQUINAS
@@ -1335,7 +1340,6 @@ function uspListarPresencial_HorarioClasesConfiguracionChecking() {
         contentType: "application/json; charset=utf-8",
         dataType: "json",
         success: function (msg) {
-
             if (msg.length == 0) {
                 document.getElementById('divClasesTiempoReal').style.display = 'none';
             } else {
@@ -1343,7 +1347,7 @@ function uspListarPresencial_HorarioClasesConfiguracionChecking() {
             }
 
             //1. crear lista de encabezados
-            var listaEncabezado = new Array();
+            var listaEncabezado = []; // new Array();
             var indexPrimeraFila = 0;
             var idReal = '';
             for (var i = 0; i < msg.length; i++) {
@@ -1415,7 +1419,7 @@ function uspListarPresencial_HorarioClasesConfiguracionChecking() {
             //2. Anexar armar clases grupales
 
             if (listaEncabezado.length > 0) {
-                var content_clasegrupal = new Array();
+                var content_clasegrupal = [];
 
                 for (var a = 0; a < listaEncabezado.length; a++) {
 
@@ -1428,19 +1432,19 @@ function uspListarPresencial_HorarioClasesConfiguracionChecking() {
                         //content_clasegrupal.push('<p class="tx-center" style="font-weight: bold;font-size: 18px;color:red;">' + listaEncabezado[a].NotaAlarma + '</p>');
                         //content_clasegrupal.push('</div>');
 
-                        content_clasemaquina.push('<div class="row" style="border-radius:6px;background-color: #0075ff;color:#fff;padding-bottom: 6px;margin-bottom: 10px;margin-left: 0px;margin-right: 0px;">');
-                        content_clasemaquina.push('<div class="col-5 border-right text-center tx-18" style="margin-top: 8px;font-weight:bold;font-size: 17px;"> HORA: ' + listaEncabezado[a].HoraInicioTexto + ' - ' + listaEncabezado[a].HoraFinTexto + '</div>');
-                        content_clasemaquina.push('<div class="col-4 border-right text-center tx-18" style="margin-top: 8px;font-weight:bold;font-size: 17px;"> FECHA: ' + listaEncabezado[a].FechaInicioTexto + '</div>');
-                        content_clasemaquina.push('<div class="col-3 text-center tx-18" style="margin-top: 8px;font-weight:bold;font-size: 17px;"> AFORO: ' + listaEncabezado[a].CantidadPlazas + '</div>');
-                        content_clasemaquina.push('</div>');
-                        content_clasemaquina.push('<div class="row" style="color:#000;padding-bottom: 6px;margin-bottom: 10px;margin-left: 0px;margin-right: 0px;">');
-                        content_clasemaquina.push('<div class="col-12 text-center tx-18" style="font-weight: bold;font-size: 16px;color:#ff0000;text-transform: uppercase;">' + listaEncabezado[a].NotaAlarma + '</div>');
-                        content_clasemaquina.push('</div>');
+                        content_clasegrupal.push('<div class="row" style="border-radius:6px;background-color: #0075ff;color:#fff;padding-bottom: 6px;margin-bottom: 10px;margin-left: 0px;margin-right: 0px;">');
+                        content_clasegrupal.push('<div class="col-5 border-right text-center tx-18" style="margin-top: 8px;font-weight:bold;font-size: 17px;"> HORA: ' + listaEncabezado[a].HoraInicioTexto + ' - ' + listaEncabezado[a].HoraFinTexto + '</div>');
+                        content_clasegrupal.push('<div class="col-4 border-right text-center tx-18" style="margin-top: 8px;font-weight:bold;font-size: 17px;"> FECHA: ' + listaEncabezado[a].FechaInicioTexto + '</div>');
+                        content_clasegrupal.push('<div class="col-3 text-center tx-18" style="margin-top: 8px;font-weight:bold;font-size: 17px;"> AFORO: ' + listaEncabezado[a].CantidadPlazas + '</div>');
+                        content_clasegrupal.push('</div>');
+                        content_clasegrupal.push('<div class="row" style="color:#000;padding-bottom: 6px;margin-bottom: 10px;margin-left: 0px;margin-right: 0px;">');
+                        content_clasegrupal.push('<div class="col-12 text-center tx-18" style="font-weight: bold;font-size: 16px;color:#ff0000;text-transform: uppercase;">' + listaEncabezado[a].NotaAlarma + '</div>');
+                        content_clasegrupal.push('</div>');
 
-                        content_clasemaquina.push('<div class="row" style="color:#000;padding-bottom: 6px;margin-bottom: 10px;margin-left: 0px;margin-right: 0px;">');
-                        content_clasemaquina.push('<div class="col-8 border-right text-center tx-18" style="font-weight:bold;font-size: 17px;">' + listaEncabezado[a].Disciplina + ' - ' + listaEncabezado[a].DesSala + '</div>');
-                        content_clasemaquina.push('<div class="col-4 text-center tx-18" style="font-weight: bold;font-size: 17px;"> ESTADO: ' + listaEncabezado[a].CantidadAsistencias + ' de ' + listaEncabezado[a].CapacidadPermitida + '</div>');
-                        content_clasemaquina.push('</div>');
+                        content_clasegrupal.push('<div class="row" style="color:#000;padding-bottom: 6px;margin-bottom: 10px;margin-left: 0px;margin-right: 0px;">');
+                        content_clasegrupal.push('<div class="col-8 border-right text-center tx-18" style="font-weight:bold;font-size: 17px;">' + listaEncabezado[a].Disciplina + ' - ' + listaEncabezado[a].DesSala + '</div>');
+                        content_clasegrupal.push('<div class="col-4 text-center tx-18" style="font-weight: bold;font-size: 17px;"> ESTADO: ' + listaEncabezado[a].CantidadAsistencias + ' de ' + listaEncabezado[a].CapacidadPermitida + '</div>');
+                        content_clasegrupal.push('</div>');
 
                         content_clasegrupal.push('<div style="background-color:#fff;color:#000;text-align:center;padding:3px;font-weight: bold;">');
 
@@ -1474,7 +1478,12 @@ function uspListarPresencial_HorarioClasesConfiguracionChecking() {
                                 content_clasegrupal.push('                    <td><small class="text-muted" style="font-size:13px;font-weight:bold;">' + msg[cl].CodigoSocio + '</small></td>');
                                 content_clasegrupal.push('                    <td><small class="text-muted" style="font-size:13px;font-weight:bold;">' + msg[cl].DNI + '</small></td>');
                                 content_clasegrupal.push('                    <td><span class="badge" style="font-size:13px;font-weight:bold;display:' + msg[cl].EstadoCelular + '"><a target="_blank" style="color:#000;" href="https://api.whatsapp.com/send?phone=' + msg[cl].Whatsapp + '"><img style="height:18px;" src="/Content/iconos/whatsapp-icono-negro.png" />' + msg[cl].Celular + '</a></span></td>');
-                                content_clasegrupal.push('                    <td><span class="badge badge-primary">' + msg[cl].EstadoAlarma + '</span></td>');
+                                content_clasegrupal.push('                    <td>');                                
+                                content_clasegrupal.push('                      <button onclick="Confirmar_UspActualizarPresencial_MarcarAsistenciaHorarioClasesAsistencias_CheckingMasivo(/' + msg[cl].CodigoHorarioClasesConfiguracion + '/,/' + msg[cl].CodigoHorarioClasesTiempoReal + '/,/' + msg[cl].CodigoHorarioClasesConfiguracionAsistencias + '/,' + msg[cl].CodigoSocio + ',' + msg[cl].CodigoMembresia + ',this);" class="btn btn-primary btn-sm me-1 mb-1" type="button" style="display:' + msg[cl].flagVistaBotonMarcarAsistencia + '">');
+                                content_clasegrupal.push('                          <i class="fa-solid fa-check"></i>&nbsp;Marcar Asistencia');
+                                content_clasegrupal.push('                      </button>');
+                                content_clasegrupal.push('                      <div style="display:' + msg[cl].flagVistaImagenAsistio + '"><i class="fa-solid fa-check"></i>&nbsp;</div>');
+                                content_clasegrupal.push('                    </td>');
                                 content_clasegrupal.push('            </tr>');
 
                             }
@@ -1555,7 +1564,12 @@ function uspListarPresencial_HorarioClasesConfiguracionChecking() {
                                 content_clasemaquina.push('                    <td><small class="text-muted" style="font-size:13px;font-weight:bold;">' + msg[cl].CodigoSocio + '</small></td>');
                                 content_clasemaquina.push('                    <td><small class="text-muted" style="font-size:13px;font-weight:bold;">' + msg[cl].DNI + '</small></td>');
                                 content_clasemaquina.push('                    <td><span class="badge" style="font-size:13px;font-weight:bold;display:' + msg[cl].EstadoCelular + '"><a target="_blank" style="color:#000;" href="https://api.whatsapp.com/send?phone=' + msg[cl].Whatsapp + '"><img style="height:18px;" src="/Content/iconos/whatsapp-icono-negro.png" />' + msg[cl].Celular + '</a></span></td>');
-                                content_clasemaquina.push('                    <td><span class="badge badge-primary">' + msg[cl].EstadoAlarma + '</span></td>');
+                                content_clasemaquina.push('                     <td>');
+                                content_clasemaquina.push('                       <button onclick="Confirmar_UspActualizarPresencial_MarcarAsistenciaHorarioClasesAsistencias_CheckingMasivo(/' + msg[cl].CodigoHorarioClasesConfiguracion + '/,/' + msg[cl].CodigoHorarioClasesTiempoReal + '/,/' + msg[cl].CodigoHorarioClasesConfiguracionAsistencias + '/,' + msg[cl].CodigoSocio + ',' + msg[cl].CodigoMembresia + ',this);" class="btn btn-primary btn-sm me-1 mb-1" type="button" style="display:' + msg[cl].flagVistaBotonMarcarAsistencia + '">');
+                                content_clasemaquina.push('                           <i class="fa-solid fa-check"></i>&nbsp;Marcar Asistencia');
+                                content_clasemaquina.push('                       </button>');
+                                content_clasemaquina.push('                       <div style="display:' + msg[cl].flagVistaImagenAsistio + '"><i class="fa-solid fa-check"></i>&nbsp;</div>');
+                                content_clasemaquina.push('                     </td>');
                                 content_clasemaquina.push('            </tr>');
 
                             }
@@ -10161,7 +10175,7 @@ function SEGListarPerfilMenu() {
 
                     //RESERVAR CLASES CON RESERVAS EN TIEMPO REAL
                     //document.getElementById('divClasesTiempoReal').style.display = '';
-                    //uspListarPresencial_HorarioClasesConfiguracionChecking();
+                    uspListarPresencial_HorarioClasesConfiguracionChecking();
                     //RESERVAS DE CLASES MANUALES
                     uspListarSalas();
                     //LISTAR SALAS DE CLASES GRUPALES
@@ -10193,14 +10207,16 @@ function SEGListarPerfilMenu() {
 //PARA VER LAS SALAS DE LAS CLASES GRUPALES AL INICIO
 function uspListarSala_Presencial() {
 
+    document.getElementById('loadMe').style.display = 'block';
+
     var metodoCorrecto = function (data) {
         var content_Salas = new Array();
 
         for (var i = 0; i < data.length; i++) {
 
             if (i == 0) {
-                //$('#hdCodigoSala').val(data[i].CodigoSala);
-                //uspListarPresencial_HorarioClasesConfiguracionCalendario(data[i].CodigoSala);
+                $('#hdCodigoSala').val(data[i].CodigoSala);
+                uspListarPresencial_HorarioClasesConfiguracionCalendario(data[i].CodigoSala);
 
                 content_Salas.push('<li onclick="uspListarPresencial_HorarioClasesConfiguracionCalendario(' + data[i].CodigoSala + ')" class="nav-item active"><a style="color:#000;" class="nav-link active" data-toggle="tab" href="#" role="tab">');
                 content_Salas.push(data[i].Descripcion);
@@ -10215,8 +10231,8 @@ function uspListarSala_Presencial() {
 
         $('#ulSalas').html(content_Salas.join(' '));
 
+        document.getElementById('loadMe').style.display = 'none';
 
-        //uspListarDisciplinaSala_Presencial();
     };
 
     var metodoError = function (msg) {
@@ -10293,12 +10309,15 @@ function ListarCalendario(data) {
         eventClick: function (event, calEvent, jsEvent, view) {
             //BUSCAR
             //uspBuscarHorarioClasesConfiguracionPresencial_PorCodigo(event.id);
+            if (parseInt(event.CantidadAsistencias) > 0) {
+                var _hora = kendo.toString(event.start._d, "hh:mm tt") + " - " + kendo.toString(event.end._d, "hh:mm tt");
+
+                $('#modal-large-title-modalAsistencias').html('CLASE: ' + event.title + ' DE ' + _hora + ' CON ' + event.nombreProfesional);
+                uspListarPresencial_HorarioClasesAsistenciasGestion(event.id);
+            } else {
+                $.bootstrapGrowl("No se encontro reservas en esta clase.", { type: 'danger', width: 'auto' });
+            }
             
-            var _hora = kendo.toString(event.start._d, "hh:mm tt") + " - " + kendo.toString(event.end._d, "hh:mm tt");
-
-            $('#modal-large-title-modalAsistencias').html('CLASE: ' + event.title + ' DE ' + _hora +  ' CON ' + event.nombreProfesional);
-            uspListarPresencial_HorarioClasesAsistenciasGestion(event.id);
-
         },
         eventLimit: true,
         eventResize: function (event, delta, revertFunc) {
@@ -10388,6 +10407,8 @@ function ListarCalendario(data) {
                 event.backgroundColor = "#9501fc";
             }
             event.borderColor = "#000";
+            event.CapacidadPermitida = item.CapacidadPermitida;
+            event.CantidadAsistencias = item.CantidadAsistencias;
             event.urlPhoto = item.PhotoProfesionalFitness;
             event.dni = item.DNIProfesionalFitness;
             event.nombreProfesional = item.NombreProfesionalFitness;
@@ -10405,11 +10426,18 @@ function ListarCalendario(data) {
                     //alert(event.end._d);
                     var _hora = kendo.toString(event.start._d, "hh:mm tt") + " - " + kendo.toString(event.end._d, "hh:mm tt");
 
-                    detalle.push('<div style="width: 100%;height: 100%;background-color:#fff;padding:3px;border-left-width: thick;border-left-color: ' + event.backgroundColor + ';color:#000;border-left-style: solid;">');
+                    detalle.push('<div class="estilohorariocalendar pb-card" style="width: 100%;height: 100%;background-color:#fff;padding:3px;border-left-width: thick;border-left-color: ' + event.backgroundColor + ';color:#000;border-left-style: solid;">');
                     detalle.push('<div style="text-align:left;">');
-                    detalle.push('<h5 class="card-title mg-b-5" style="color:#000;font-size:9px;font-weight: bold;">' + event.title + '</h5>');
-                    detalle.push('<p class="card-subtitle" style="color:#000;font-size:9px;font-weight: bold;">' + event.nombreCorto + '</p>');
-                    detalle.push('<p style="color:#000;font-size:10px;font-weight: bold;">' + _hora + '</p>');
+                    if (parseInt(event.CantidadAsistencias) > 0) {
+                        detalle.push('<span class="badge rounded-pill bg-success dark__bg-dark" style="position: absolute;right: 13px;font-size: 8px;">' + event.CantidadAsistencias + '/' + event.CapacidadPermitida + '</span>');
+
+                    } else {
+                        detalle.push('<span class="badge rounded-pill bg-dark dark__bg-dark" style="position: absolute;right: 13px;font-size: 8px;">' + event.CantidadAsistencias + '/' + event.CapacidadPermitida + '</span>');
+                    }
+                    
+                    detalle.push('<h5 class="card-title mg-b-5" style="color:#000;font-size:12px;font-weight: bold;">' + event.title + '</h5>');
+                    detalle.push('<p class="card-subtitle" style="color:#000;font-size:11px;margin-top:-12px;">' + event.nombreCorto + '</p>');
+                    detalle.push('<p style="color:#000;font-size:13px;font-weight: bold;margin-top:-12px;">' + _hora + '</p>');
                     detalle.push('</div>');
                     detalle.push('</div>');
 
@@ -10486,10 +10514,10 @@ function uspListarPresencial_HorarioClasesAsistenciasGestion(CodigoHorarioClases
                     controlHtml += '                        </div>';
                     controlHtml += '                    </div>';
                     controlHtml += '                    <div class="mt-2">';
-                    controlHtml += '                        <button onclick="Confirmar_UspActualizarPresencial_MarcarAsistenciaHorarioClasesAsistencias_CheckingMasivo(\"' + msg[i].CodigoHorarioClasesConfiguracion + '\",\"' + msg[i].CodigoHorarioClasesConfiguracionTiempoReal + '\",\"' + msg[i].CodigoHorarioClasesConfiguracionAsistencias + '\",' + msg[i].CodigoSocio + ',' + msg[i].CodigoMembresia + ');" class="btn btn-primary btn-sm me-1 mb-1" type="button" style="display:' + msg[i].flagVistaBotonMarcarAsistencia + '">';
+                    controlHtml += '                        <button onclick="Confirmar_UspActualizarPresencial_MarcarAsistenciaHorarioClasesAsistencias_CheckingMasivo(/' + msg[i].CodigoHorarioClasesConfiguracion + '/,/' + msg[i].CodigoHorarioClasesConfiguracionTiempoReal + '/,/' + msg[i].CodigoHorarioClasesConfiguracionAsistencias + '/,' + msg[i].CodigoSocio + ',' + msg[i].CodigoMembresia + ',this);" class="btn btn-primary btn-sm me-1 mb-1" type="button" style="display:' + msg[i].flagVistaBotonMarcarAsistencia + '">';
                     controlHtml += '                            <i class="fa-solid fa-check"></i>&nbsp;Marcar Asistencia';
                     controlHtml += '                        </button>';
-                    controlHtml += '                        <div style="display:' + msg[i].flagVistaImagenAsistio + '"><i class="fa-solid fa-check"></i>&nbsp;' + kendo.toString(kendo.parseDate(msg[i].FechaHoraAsistio, 'yyyy-MM-dd '), 'dd/MM/yyyy hh:mm:ss tt') + '</div>';
+                    controlHtml += '                        <div style="display:' + msg[i].flagVistaImagenAsistio + '"><i class="fa-solid fa-check"></i>&nbsp;Asistencia: &nbsp;' + kendo.toString(kendo.parseDate(msg[i].FechaHoraAsistio, 'yyyy-MM-dd '), 'dd/MM/yyyy hh:mm:ss tt') + '</div>';
                     controlHtml += '                    </div> ';
                     controlHtml += '                </div>';
                     controlHtml += '            </div>';
@@ -10512,114 +10540,114 @@ function uspListarPresencial_HorarioClasesAsistenciasGestion(CodigoHorarioClases
 
     return;
 
-    $("#gvListaAsistencias").empty();
-    $("#gvListaAsistencias").kendoGrid({
-        dataSource: {
-            type: "json",
-            transport: {
-                read: function (options) {
-                    $.ajax({
-                        type: "POST",
-                        data: '{"CodigoHorarioClasesConfiguracion":"' + codigo + '"}',
-                        url: "/gestionce/uspListarPresencial_HorarioClasesAsistenciasGestion_Cheking",
-                        contentType: "application/json; charset=utf-8",
-                        dataType: "json",
-                        success: function (msg) {
-                            options.success(msg);
-                            if (msg.length > 0) {
-                                document.getElementById('modalAsistencias').style.display = 'block';
+    //$("#gvListaAsistencias").empty();
+    //$("#gvListaAsistencias").kendoGrid({
+    //    dataSource: {
+    //        type: "json",
+    //        transport: {
+    //            read: function (options) {
+    //                $.ajax({
+    //                    type: "POST",
+    //                    data: '{"CodigoHorarioClasesConfiguracion":"' + codigo + '"}',
+    //                    url: "/gestionce/uspListarPresencial_HorarioClasesAsistenciasGestion_Cheking",
+    //                    contentType: "application/json; charset=utf-8",
+    //                    dataType: "json",
+    //                    success: function (msg) {
+    //                        options.success(msg);
+    //                        if (msg.length > 0) {
+    //                            document.getElementById('modalAsistencias').style.display = 'block';
 
                                 
-                            } else {
-                                $.bootstrapGrowl("No se encontro reservas en esta clase.", { type: 'danger', width: 'auto' });
-                                document.getElementById('modalAsistencias').style.display = 'none';
-                            }
-                        }, complete: function () {
-                            document.getElementById('loadMe').style.display = 'none';
-                        }
-                    });
-                }
-            }
-        },
-        selectable: "row",
-        sortable: true,
-        height: 400,
-        width: 900,
-        columns: [{
-            template: "<img style='margin-top: 0px; height: 36px; width: 36px; border-radius: 20px;' src='#: ImagenUrl #' alt='Cliente'>",
-            title: "<center style='color:#fff;font-weight:bold'>Foto</center>",
-            width: 5,
-            attributes: {
-                style: "font-size:10px;text-align:center;"
-            }
-        }, {
-            field: "CodigoSocio",
-            title: "<center style='color:#fff;font-weight:bold'>Codigo</center>",
-            width: 6,
-            attributes: {
-                style: "font-size:10px;text-align:center;"
-            }
-        }, {
-            field: "Nombres",
-            title: "<center style='color:#fff;font-weight:bold'>Nombres</center>",
-            width: 10,
-            attributes: {
-                style: "font-size:10px;text-align:center;"
-            }
-        }, {
-            field: "Apellidos",
-            title: "<center style='color:#fff;font-weight:bold'>Apellidos</center>",
-            width: 10,
-            attributes: {
-                style: "font-size:10px;text-align:center;"
-            }
-        }, {
-            field: "DNI",
-            title: "<center style='color:#fff;font-weight:bold'>Nro Doc.</center>",
-            width: 8,
-            attributes: {
-                style: "font-size:10px;text-align:center;"
-            }
-        }, {
-            field: "Celular",
-            title: "<center style='color:#fff;font-weight:bold'>Celular</center>",
-            width: 8,
-            attributes: {
-                style: "font-size:10px;text-align:center;"
-            }
-        }, {
-            field: "PlanMembresia",
-            title: "<center style='color:#fff;font-weight:bold'>Membresia</center>",
-            width: 10,
-            attributes: {
-                style: "font-size:10px;text-align:center;text-transform: uppercase;"
-            }
-        }, {
-            field: "FechaInicio",
-            title: "<center style='color:#fff;'><b>Fecha inicio</b></center>",
-            template: "#= kendo.toString(kendo.parseDate(FechaInicio, 'yyyy-MM-dd'), 'dd/MM/yyyy') #",
-            width: 10,
-            attributes: {
-                style: "font-size:12px;text-align:center;"
-            }
-        }, {
-            field: "FechaFin",
-            title: "<center style='color:#fff;'><b>Fecha fin</b></center>",
-            template: "#= kendo.toString(kendo.parseDate(FechaFin, 'yyyy-MM-dd'), 'dd/MM/yyyy') #",
-            width: 10,
-            attributes: {
-                style: "font-size:12px;text-align:center;"
-            }
-        }, {
-            field: "FechaHoraReserva",
-            title: "<center style='color:#fff;'><b>Fecha reserva</b></center>",
-            template: "#= kendo.toString(kendo.parseDate(FechaHoraReserva, 'yyyy-MM-dd'), 'dd/MM/yyyy HH:mm tt') #",
-            width: 10,
-            attributes: {
-                style: "font-size:12px;text-align:center;"
-            }
-        }]
-    });
+    //                        } else {
+    //                            $.bootstrapGrowl("No se encontro reservas en esta clase.", { type: 'danger', width: 'auto' });
+    //                            document.getElementById('modalAsistencias').style.display = 'none';
+    //                        }
+    //                    }, complete: function () {
+    //                        document.getElementById('loadMe').style.display = 'none';
+    //                    }
+    //                });
+    //            }
+    //        }
+    //    },
+    //    selectable: "row",
+    //    sortable: true,
+    //    height: 400,
+    //    width: 900,
+    //    columns: [{
+    //        template: "<img style='margin-top: 0px; height: 36px; width: 36px; border-radius: 20px;' src='#: ImagenUrl #' alt='Cliente'>",
+    //        title: "<center style='color:#fff;font-weight:bold'>Foto</center>",
+    //        width: 5,
+    //        attributes: {
+    //            style: "font-size:10px;text-align:center;"
+    //        }
+    //    }, {
+    //        field: "CodigoSocio",
+    //        title: "<center style='color:#fff;font-weight:bold'>Codigo</center>",
+    //        width: 6,
+    //        attributes: {
+    //            style: "font-size:10px;text-align:center;"
+    //        }
+    //    }, {
+    //        field: "Nombres",
+    //        title: "<center style='color:#fff;font-weight:bold'>Nombres</center>",
+    //        width: 10,
+    //        attributes: {
+    //            style: "font-size:10px;text-align:center;"
+    //        }
+    //    }, {
+    //        field: "Apellidos",
+    //        title: "<center style='color:#fff;font-weight:bold'>Apellidos</center>",
+    //        width: 10,
+    //        attributes: {
+    //            style: "font-size:10px;text-align:center;"
+    //        }
+    //    }, {
+    //        field: "DNI",
+    //        title: "<center style='color:#fff;font-weight:bold'>Nro Doc.</center>",
+    //        width: 8,
+    //        attributes: {
+    //            style: "font-size:10px;text-align:center;"
+    //        }
+    //    }, {
+    //        field: "Celular",
+    //        title: "<center style='color:#fff;font-weight:bold'>Celular</center>",
+    //        width: 8,
+    //        attributes: {
+    //            style: "font-size:10px;text-align:center;"
+    //        }
+    //    }, {
+    //        field: "PlanMembresia",
+    //        title: "<center style='color:#fff;font-weight:bold'>Membresia</center>",
+    //        width: 10,
+    //        attributes: {
+    //            style: "font-size:10px;text-align:center;text-transform: uppercase;"
+    //        }
+    //    }, {
+    //        field: "FechaInicio",
+    //        title: "<center style='color:#fff;'><b>Fecha inicio</b></center>",
+    //        template: "#= kendo.toString(kendo.parseDate(FechaInicio, 'yyyy-MM-dd'), 'dd/MM/yyyy') #",
+    //        width: 10,
+    //        attributes: {
+    //            style: "font-size:12px;text-align:center;"
+    //        }
+    //    }, {
+    //        field: "FechaFin",
+    //        title: "<center style='color:#fff;'><b>Fecha fin</b></center>",
+    //        template: "#= kendo.toString(kendo.parseDate(FechaFin, 'yyyy-MM-dd'), 'dd/MM/yyyy') #",
+    //        width: 10,
+    //        attributes: {
+    //            style: "font-size:12px;text-align:center;"
+    //        }
+    //    }, {
+    //        field: "FechaHoraReserva",
+    //        title: "<center style='color:#fff;'><b>Fecha reserva</b></center>",
+    //        template: "#= kendo.toString(kendo.parseDate(FechaHoraReserva, 'yyyy-MM-dd'), 'dd/MM/yyyy HH:mm tt') #",
+    //        width: 10,
+    //        attributes: {
+    //            style: "font-size:12px;text-align:center;"
+    //        }
+    //    }]
+    //});
 
 }
 
@@ -10781,8 +10809,6 @@ function uspValidarPagosClientes_AppFitnes() {
                     //*********************************************** END USD **************************************/
 
 
-
-
                     SEGListarPerfilMenu();
                 } else if (msg.Existe == 2) {//muestra el modal sin boton de cerrar el mensaje
 
@@ -10888,10 +10914,6 @@ function uspValidarPagosClientes_AppFitnes() {
                         }, 300);
                     }
                     //*********************************************** END USD **************************************/
-
-
-
-
 
 
                 } else if (msg.Existe == 0) { //ES DEMOSTRACION
