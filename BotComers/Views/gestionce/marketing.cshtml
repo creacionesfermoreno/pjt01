@@ -853,10 +853,6 @@
                     <button type="button" class="btn-custom btn-custom-primary" onclick="nextStep(4)">Siguente</button>
                 </div>
 
-
-
-
-
                 <div class="row p-1 justify-content-end text-end" style="display:none" id="mfooter_for">
                     <div class="col-12">
                         <button type="button" class="btn-custom btn-custom-secondary" onclick="prevStep(3)">Atras</button>
@@ -913,9 +909,6 @@
         </div>
     </div>
 </div>
-
-
-
 
 
 <div class="page__header page__header-nav mb-0">
@@ -1063,7 +1056,7 @@
                 </button>
             </div>
             <div class="modal-body">
-                <input id="codeECamp_" hidden/>
+                <input id="codeECamp_" hidden />
                 <div class="row justify-content-around">
                     <div class="col-6">Total : <strong id="totalEcampDetail"></strong></div>
                     <div class="col-6">
@@ -1087,6 +1080,147 @@
 </div>
 
 
+<!-- Modal notis push -->
+<div class="modal fade" id="ModalNotisPush" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-scrollable" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel"></h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body" id="mbodyNotisApp">
+                <div>
+                    <input id="TxtCodigoNotificacionesApp" type="hidden" />
+                    <div class="row mt-3">
+                        <div class="col-lg-6">
+                            <label for="" class="form-label">Tipo envio</label>
+
+                            <select class="form-control" id="ntis_type">
+                                <option value="">------</option>
+                                <option value="1">Aviso</option>
+                                <option value="2">Pago</option>
+                                <option value="3">Deuda</option>
+                                <option value="4">Promoción</option>
+                            </select>
+                        </div>
+                        <div class="col-lg-6">
+                            <label for="" class="form-label">Grupo de clientes</label>
+
+                            <select class="form-control" id="ntis_group">
+                                <option value="">------</option>
+                                <option value="ac-1">Clientes activos hace 1 día</option>
+                                <option value="ac-7">Clientes activos hace 7 días</option>
+                                <option value="ac-15">Clientes activos hace 15 días</option>
+                                <option value="ac-30">Clientes activos hace 30 días</option>
+                                <option value=""></option>
+                                <option value="xven">Clientes por vencer hoy</option>
+                                <option value="xven-3">Clientes por vencer en 3 días</option>
+                                <option value="xven-7">Clientes por vencer en 7 días</option>
+                                <option value="xven-15">Clientes por vencer en 15 días</option>
+                                <option value=""></option>
+                                <option value="ven-3">Clientes vencidos hace 3 días</option>
+                                <option value="ven-7">Clientes vencidos hace 7 días</option>
+                                <option value="ven-15">Clientes vencidos hace 15 días</option>
+                                <option value="ven-30">Clientes vencidos hace 30 días</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="row mt-3">
+                        <div class="col-lg-6">
+                            <label for="ntis_title" class="form-label">Titulo</label>
+                            <input id="ntis_title" type="text" class="form-control" placeholder="ingrese titulo">
+                        </div>
+                        <div class="col-lg-6">
+                            <label for="ntis_body" class="form-label">Asunto</label>
+                            <input id="ntis_body" type="text" class="form-control" placeholder="ingrese asunto">
+                        </div>
+                    </div>
+
+                    <div class="row mt-3">
+                        <div class="col-12">
+                            <div class="form-group">
+                                <label for="ntis_image">Imagen</label> <span id="ntis_icon" style="display:none"><i class="fa fa-check-circle-o text-success" aria-hidden="true"></i></span>
+                                <input type="file" class="form-control" onchange="uploadImageNotis(this)" id="ntis_image" placeholder="">
+                                <input id="ntis_urlimage" hidden />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <label for="ntis_recurrente" class="form-label">Recurrente</label>
+                            <div class="row">
+                                <div class="col">
+                                    <input id="ntis_recurrente" type="checkbox">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row mt-3">
+                        <div class="col-12">
+                            <label for="kendo_editor_notis">Descripción</label>
+                            <textarea id="kendo_editor_notis" rows="10" cols="30" style="width:100%; height:350px" aria-label="editor">
+
+                            </textarea>
+                        </div>
+                    </div>
+                    <div class="row mt-3 align-items-center">
+                        <div class="col-12">
+                            <label for="">Programacion <small>(opcional)</small></label>
+                            <div class="content-option-p-3">
+                                <input type="hidden" id="toption_ntis" value="0">
+                                <div class="item-option-ecamp item-option-prog item-option-prog-active" id="opsennowNtis" onclick="ModeSendOptionNtis(this,1)">Enviar ahora</div>
+                                <div class="item-option-ecamp item-option-prog" id="opsaveNtis" onclick="ModeSendOptionNtis(this,2)">
+                                    Guardar borrador
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer" id="NotisAppFooter" style="display:none">
+                <button type="button" class="btn-custom btn-custom-secondary" id="btnCloseNotis" data-dismiss="modal">Cancelar</button>
+                <button type="button" class="btn-custom btn-custom-primary" onclick="RegisterNotisApp(this)" id="BtnSaveNotis">Enviar ahora</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal notipush address -->
+<div class="modal fade" id="ModalNotisAddress" tabindex="-1" role="dialog" aria-labelledby="ModalNotisAddress" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-scrollable" role="document">
+        <div class="modal-content">
+            <div class="modal-header modal-header_">
+
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <input id="codeECamp_" hidden />
+                <div class="row justify-content-around">
+                    <div class="col-6">Total : <strong id="totalnotiaddress"></strong></div>
+                    <div class="col-6">
+                        <div class="row justify-content-center align-content-center align-items-center">
+                            <div class="col-6 text-end">Pagina :</div>
+                            <div class="col-6">
+                                <select id="kgrid_noti_address_page_detail" onchange="pChangeDetailNotisAddress()" class="form-select">
+                                    <option value="1"> 1</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <input hidden id="codeNotiPuhs"/>
+                <div class="mt-3" id="dkendo_body_notisAddress">
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
 
 <div class="container-fluid page__container" style="z-index:auto">
 
@@ -1096,7 +1230,7 @@
                 <div class="card-header card-header-tabs-basic nav" role="tablist" style="background-color:#fff">
                     <a style="" href="#divContentCorreos" onclick="setEmail()" class="active" data-toggle="tab" role="tab" aria-selected="true">&nbsp;Correos</a>
                     <a style="" href="#divWhatsapp" data-toggle="tab" role="tab" aria-selected="false">&nbsp;Whatsapp</a>
-                    <a style="" href="#divNotificationsApp" data-toggle="tab" role="tab" aria-selected="false">&nbsp;Notificaciones App</a>
+                    <a style="" href="#divNotificationsApp" onclick="evemt_changeApp(this,1)" data-toggle="tab" role="tab" aria-selected="false">&nbsp;Notificaciones App</a>
                 </div>
                 <div class="card-body tab-content" style="background-color: #f5f5f5;">
                     <div class="tab-pane active show fade" id="divContentCorreos">
@@ -1390,27 +1524,27 @@
                                                             </div>
                                                         </div>
                                                         @*<div class="row mt-3 align-items-center">
-                                                            <div class="col-md-5">
-                                                                <label>Fecha desde</label>
-                                                                <div>
-                                                                    <input type="date" id="filter_date_start_camp" class="form-control" value="2023-02-01">
+                                                                <div class="col-md-5">
+                                                                    <label>Fecha desde</label>
+                                                                    <div>
+                                                                        <input type="date" id="filter_date_start_camp" class="form-control" value="2023-02-01">
+                                                                    </div>
                                                                 </div>
-                                                            </div>
-                                                            <div class="col-md-5">
-                                                                <label>Fecha hasta</label>
-                                                                <div>
-                                                                    <input type="date" id="filter_date_end_camp" class="form-control" value="2023-02-28">
+                                                                <div class="col-md-5">
+                                                                    <label>Fecha hasta</label>
+                                                                    <div>
+                                                                        <input type="date" id="filter_date_end_camp" class="form-control" value="2023-02-28">
+                                                                    </div>
                                                                 </div>
-                                                            </div>
-                                                            <div class="col-md-2 text-end">
-                                                                <label></label>
-                                                                <div>
-                                                                    <button class="btn-custom btn-custom-secondary" style="color:none" onclick="getCampaigns()">
-                                                                        <i class="fa fa-search" aria-hidden="true"></i> Filtrar
-                                                                    </button>
+                                                                <div class="col-md-2 text-end">
+                                                                    <label></label>
+                                                                    <div>
+                                                                        <button class="btn-custom btn-custom-secondary" style="color:none" onclick="getCampaigns()">
+                                                                            <i class="fa fa-search" aria-hidden="true"></i> Filtrar
+                                                                        </button>
+                                                                    </div>
                                                                 </div>
-                                                            </div>
-                                                        </div>*@
+                                                            </div>*@
                                                         <div class="row justify-content-end mt-3">
                                                             <div class="col-6 col-md-2 text-end">
                                                                 <select id="kgrid_email_campanas_page" class="form-select" onchange="paginateChange()">
@@ -1436,155 +1570,47 @@
                                 @* notifications app start*@
                                 <div class="container-fluid page__container">
                                     <div class="row">
-                                        <div class="col-lg-3">
-                                            <div class="d-flex flex-column align-items-stretch flex-shrink-0 bg-white">
+                                        <div class="col-lg-2">
+                                            <div class="menu-sidebar-custom d-flex flex-column align-items-stretch flex-shrink-0 ">
                                                 <div class="list-group list-group-flush border-bottom scrollarea">
-                                                    <a id="dregistrodenotificacionhref" onclick="evemt_changeApp(this,1);" class="list-group-item list-group-item-action active py-3 lh-tight item_menu_sd" aria-current="true">
+                                                    <a id="dlistadodenotificacionhref" onclick="evemt_changeApp(this,1);" class="list-group-item list-group-item-action py-2 lh-tight item_menu_sd" aria-current="true">
                                                         <div class="d-flex w-100 align-items-center justify-content-between">
-                                                            <strong class="mb-1">Registro</strong>
-                                                            <small></small>
-                                                        </div>
-                                                    </a>
-                                                </div>
-                                                <div class="list-group list-group-flush border-bottom scrollarea">
-                                                    <a id="dlistadodenotificacionhref" onclick="evemt_changeApp(this,2);" class="list-group-item list-group-item-action  py-3 lh-tight item_menu_sd" aria-current="true">
-                                                        <div class="d-flex w-100 align-items-center justify-content-between">
-                                                            <strong class="mb-1">Configuraciones</strong>
+                                                            <strong class="mb-1"> <i class="fa fa-bell" aria-hidden="true"></i> Notificacions push</strong>
                                                             <small></small>
                                                         </div>
                                                     </a>
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="col-lg-9">
-                                            <div id="dregistrodenotificacion" style="">
-                                                sdfsdf
-                                            </div>
+                                        <div class="col-lg-10">
+                                            <div id="dlistadodenotificacion" class="ItemNotis" style="display:none">
+                                                <div id="" class="card p-3">
+                                                    <div class="card-body">
 
-                                            <div id="dlistadodenotificacion" style="display:none">
-                                                @*configuraciones*@
-
-                                                <div id="" class="card mr-10" style="padding: 15px;">
-                                                    <div class="row">
-                                                        <div class="col-lg-6">
-                                                            <h4 class="mb-3 text-center">Registro de notificacion</h4>
-                                                            <hr class="my-4">
-                                                            <div class="row">
-                                                                <div class="col-lg-12">
-                                                                    <input id="TxtCodigoNotificacionesApp" type="hidden" />
-
-                                                                    <div class="row mb-3">
-                                                                        <div class="col-lg-12">
-                                                                            <label for="" class="form-label">Tipo envio</label>
-                                                                            <div class="row mt-1">
-                                                                                <div class="col">
-                                                                                    <input type="radio" name="tipoenvioNoti" value="1" id="option1" checked> App
-                                                                                </div>
-                                                                                <div class="col">
-                                                                                    <input type="radio" name="tipoenvioNoti" value="2" id="option2"> Correo
-                                                                                </div>
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-
-
-                                                                    <div class="row mb-3">
-                                                                        <div class="col-lg-12">
-                                                                            <label for="" class="form-label">Grupo de clientes</label>
-                                                                            <div class="row mt-1">
-                                                                                <div class="col">
-                                                                                    <input type="radio" name="grupo_customer_notiapp" value="1" id="" checked> Clientes activos
-                                                                                </div>
-                                                                                <div class="col">
-                                                                                    <input type="radio" name="grupo_customer_notiapp" value="2" id=""> Clientes inactivos
-                                                                                </div>
-
-                                                                                <div class="col">
-                                                                                    <input type="radio" name="grupo_customer_notiapp" value="3" id=""> Clientes por vencer
-                                                                                </div>
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-
-
-                                                                    <div class="row mb-3">
-                                                                        <div class="col-lg-12">
-                                                                            <label for="txtAsuntoNoti" class="form-label">Asunto</label>
-                                                                            <input id="txtAsuntoNoti" type="text" class="form-control" placeholder="Ingrese asunto">
-                                                                        </div>
-                                                                    </div>
-                                                                    <div class="row mb-3">
-                                                                        <div class="col-lg-12">
-                                                                            <label for="" class="form-label">Fecha y Hora</label>
-                                                                            <div class="row">
-                                                                                <div class="col-6"><input id="txtDateNoti" type="date" class="form-control" placeholder="Ingrese descripción"></div>
-                                                                                <div class="col-6"><input id="txtHourNoti" type="time" class="form-control" placeholder="Ingrese descripción"></div>
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-                                                                    <div class="row mb-3">
-                                                                        <div class="col-lg-12">
-                                                                            <label for="txtMensajeNoti" class="form-label">Mensaje</label>
-                                                                            <textarea id="txtMensajeNoti" type="text" class="form-control" placeholder="Ingrese mensaje"></textarea>
-                                                                        </div>
-                                                                    </div>
-                                                                    <div class="row mb-3">
-                                                                        <div class="col-lg-12">
-                                                                            <label for="txtRecurrenteNoti" class="form-label">Recurrente</label>
-                                                                            <div class="row">
-                                                                                <div class="col">
-                                                                                    <input id="txtRecurrenteNoti" type="checkbox">
-                                                                                </div>
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-                                                                    <div class="row mb-3" id="rowEstadoNoti" style="display:none">
-                                                                        <div class="col-lg-12">
-                                                                            <label for="txtEstadoNoti" class="form-label">Estado</label>
-                                                                            <div class="row">
-                                                                                <div class="col">
-                                                                                    <input id="txtEstadoNoti" type="checkbox">
-                                                                                </div>
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-
-                                                                    <br>
-                                                                    <button onclick="RegisterNotificacionApp(this)" id="registerNotiBtn" class="w-100 btn btn-primary btn-lg" type="button">Guardar</button>
-                                                                    <button onclick="ActualizarNotificacionApp(this)" id="updateNotiBtn" style="display:none" class="w-100 btn btn-primary btn-lg" type="button">Guardar</button>
-                                                                    <button onclick="CancelarNotificacionApp()" id="cancelNotiBtn" style="display:none;background:#5b636a" class="w-100 btn btn-default mt-1 btn-lg text-white" type="button">Cancelar</button>
-                                                                </div>
+                                                        <div class="row">
+                                                            <div class="col-12">
+                                                                <span class="sub-tile-contents" style="font-weight:600">NOFITICACIONES</span>
                                                             </div>
                                                         </div>
-                                                        <div class="col-lg-6">
-                                                            <h4 class="mb-3 text-center">Listado</h4>
-                                                            <hr class="my-4">
-
-                                                            <div class="row">
-                                                                <div class="col-lg-12">
-                                                                    <div class="table-responsive scrollbar" style="width:100%;user-select:none;height:400px">
-                                                                        <table class="table table-dashboard mb-0 table-borderless fs--1 border-200">
-                                                                            <thead class="bg-light">
-                                                                                <tr class="text-900">
-                                                                                    <th class="pe-1 align-middle white-space-nowrap" style="background-color: #0075ff;color: #FFF;">#</th>
-                                                                                    <th class="pe-1 align-middle white-space-nowrap" style="background-color: #0075ff;color: #FFF;">ASUNTO</th>
-                                                                                    <th class="pe-1 align-middle white-space-nowrap" style="background-color: #0075ff;color: #FFF;">FECHA Y HORA</th>
-                                                                                    <th class="pe-1 align-middle white-space-nowrap" style="background-color: #0075ff;color: #FFF;">ACCIONES</th>
-                                                                                </tr>
-                                                                            </thead>
-                                                                            <tbody id="notitbodyList">
-                                                                            </tbody>
-                                                                        </table>
-                                                                    </div>
-                                                                </div>
+                                                        <div class="row justify-content-end ">
+                                                            <div class="col-6 text-end">
+                                                                <button data-toggle="modal" id="BtnAddNotisPush" data-target="#ModalNotisPush" class="btn-custom btn-custom-primary " style="color:none" onclick="showModalNtis()">
+                                                                    <i class="fa fa-plus" aria-hidden="true"></i> Nueva notificación
+                                                                </button>
                                                             </div>
                                                         </div>
+                                                        <div class="row justify-content-end mt-3">
+                                                            <div class="col-6 col-md-2 text-end">
+                                                                <select id="kgrid_list_notispush_page" class="form-select" onchange="paginateChangeNtis()">
+                                                                    <option value="1">1</option>
+                                                                </select>
+                                                            </div>
+                                                        </div>
+                                                        <div id="kgrid_list_notispush" class="mt-3"></div>
+
+
                                                     </div>
                                                 </div>
-
-                                                @*configuraciones end*@
-
-
                                             </div>
                                         </div>
                                     </div>
@@ -1816,6 +1842,7 @@
         @System.Web.Optimization.Scripts.Render("~/Resource/whatsapp/vanillaEmojiPicker.js")
         @System.Web.Optimization.Scripts.Render("~/Resource/whatsapp/templates.js")
         @System.Web.Optimization.Scripts.Render("~/Resource/whatsapp/Campana.js")
+        @System.Web.Optimization.Scripts.Render("~/Resource/gimnasio/MarketingNoti.js")
 
         <script type="text/javascript">
 
@@ -2070,10 +2097,10 @@
                 files.forEach(function (element, index) {
                     let kb = Number.parseFloat(element?.size * 0.000977).toFixed(2);
                     html += ` <div class="border px-2 rounded-3 d-flex flex-between-center bg-white dark__bg-1000 my-1 fs--1">
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            <span class="fs-1 fas fa-paperclip fs-1 text-white" aria-hidden="true"></span><span class="ms-2 text-white">${element?.name} (${kb}kb)</span>
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            <a class="text-300 p-1 ms-6" onClick="removeFile(${index})" data-bs-toggle="tooltip" data-bs-placement="right" title="Detach">
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                <span class="fas fa-times" aria-hidden="true"></span></a>
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        </div>`;
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    <span class="fs-1 fas fa-paperclip fs-1 text-white" aria-hidden="true"></span><span class="ms-2 text-white">${element?.name} (${kb}kb)</span>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    <a class="text-300 p-1 ms-6" onClick="removeFile(${index})" data-bs-toggle="tooltip" data-bs-placement="right" title="Detach">
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        <span class="fas fa-times" aria-hidden="true"></span></a>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                </div>`;
                 });
                 document.getElementById("contentItemsFiles").innerHTML = html;
             }
@@ -2265,259 +2292,7 @@
             }
 
 
-            function evemt_changeApp(e, type) {
-                if (type == 1) {
-                    document.getElementById("dregistrodenotificacion").style.display = 'block';
-                    document.getElementById("dlistadodenotificacion").style.display = 'none';
-                    document.getElementById("dlistadodenotificacionhref").classList.remove("active");
-                    document.getElementById("dregistrodenotificacionhref").classList.add("active");
 
-                } else if (type == 2) {
-                    document.getElementById("dregistrodenotificacion").style.display = 'none';
-                    document.getElementById("dlistadodenotificacion").style.display = 'block';
-                    document.getElementById("dlistadodenotificacionhref").classList.add("active");
-                    document.getElementById("dregistrodenotificacionhref").classList.remove("active");
-                } else {
-
-                }
-
-            }
-
-            //NOTIFICACIONES
-            //REGISTER
-            function registerNoti() {
-                const tipo = document.querySelector("input[name='tipoenvioNoti']:checked").value;
-                var asunto = document.getElementById("txtAsuntoNoti").value;
-                var date = document.getElementById("txtDateNoti").value;
-                var hour = document.getElementById("txtHourNoti").value;
-                var mensaje = document.getElementById("txtMensajeNoti").value;
-                var recurrente = document.getElementById("txtRecurrenteNoti").checked;
-
-
-                var data = {
-                    tipo: 1,
-                    asunto: asunto,
-                    date: `${date} ${hour}`,
-                    mensaje: mensaje,
-                    recurrente: 0,
-                };
-            }
-
-            function listNotificacionesApp() {
-
-
-                $.ajax({
-                    data: JSON.stringify({}),
-                    type: "POST",
-                    url: "/gestionce/ListarNotificacionesApp",
-                    contentType: "application/json; charset=utf-8",
-                    dataType: "json",
-
-                    success: function (msg) {
-                        console.log(msg)
-
-                        var html = "";
-
-                        msg?.forEach((item, index) => {
-                            html += `
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                <tr class="border-bottom border-200">
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    <td class="align-middle white-space-nowrap">`+ (index + 1) + `</td>
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    <td class="align-middle white-space-nowrap">`+ item.Asunto + `</td>
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    <td class="align-middle white-space-nowrap">`+ item.DesFechaHoraEnvio + `</td>
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    <td class="align-middle white-space-nowrap">
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        <button class="btn btn-primary"
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            onclick="NotificacionAppByCodigo('`+ item.CodigoNotificacionesApp + `')"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></button>
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        <button class="btn btn-danger" onclick="destroyNotificacionApp('`+ item.CodigoNotificacionesApp + `')"><i class="fa fa-trash text-white" aria-hidden="true"></i></button>
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    </td></tr>`
-                        })
-                        document.getElementById("notitbodyList").innerHTML = html;
-
-
-
-
-                    }
-                });
-            }
-
-            function RegisterNotificacionApp(e) {
-
-                var grupo = document.querySelector('input[name="grupo_customer_notiapp"]:checked').value;
-                var tipo = document.querySelector('input[name="tipoenvioNoti"]:checked').value;
-                var asunto = document.getElementById("txtAsuntoNoti").value;
-                var date = document.getElementById("txtDateNoti").value;
-                var hora = document.getElementById("txtHourNoti").value;
-                var message = document.getElementById("txtMensajeNoti").value;
-                var recurrente = document.getElementById("txtRecurrenteNoti").checked;
-
-                var data = {
-                    tipo: tipo,
-                    asunto: asunto,
-                    date: date + " " + hora,
-                    message: message,
-                    recurrente: recurrente,
-                    grupo: grupo,
-                }
-                e.disabled = true;
-
-
-                $.ajax({
-                    data: JSON.stringify(data),
-                    type: "POST",
-                    url: "/gestionce/RegisterNotificacionApp",
-                    contentType: "application/json; charset=utf-8",
-                    dataType: "json",
-
-                    success: function (msg) {
-                        if (msg.Status == 0) {
-                            $.bootstrapGrowl(msg?.Message1, { type: 'success', width: 'auto' });
-
-                            //document.querySelector('input[name="grupo_customer_notiapp"]:checked').value;
-                            // document.querySelector('input[name="tipoenvioNoti"]:checked').value;
-                            document.getElementById("txtAsuntoNoti").value = "";
-                            document.getElementById("txtDateNoti").value = "";
-                            document.getElementById("txtHourNoti").value = "";
-                            document.getElementById("txtMensajeNoti").value = "";
-                            document.getElementById("txtRecurrenteNoti").checked = false;
-
-                        } else {
-                            $.bootstrapGrowl(msg?.Message1, { type: 'danger', width: 'auto' });
-                        }
-                        e.disabled = false;
-                        listNotificacionesApp();
-                    }
-                });
-            }
-
-
-            function NotificacionAppByCodigo(codigo) {
-
-                console.log(codigo)
-                $.ajax({
-                    data: JSON.stringify({ codigo: codigo }),
-                    type: "POST",
-                    url: "/gestionce/NotificacionAppByCodigo",
-                    contentType: "application/json; charset=utf-8",
-                    dataType: "json",
-
-                    success: function (msg) {
-                        console.log(msg?.Date)
-
-                        if (msg?.Status == 0) {
-
-                            document.querySelectorAll('input[name="tipoenvioNoti"]').forEach((item, index) => {
-                                if (item.value == msg?.Date?.TipoEnvio) {
-                                    item.checked = true;
-                                }
-                            });
-                            document.querySelectorAll('input[name="grupo_customer_notiapp"]').forEach((item, index) => {
-                                if (item.value == msg?.Date?.GrupoPersonas) {
-                                    item.checked = true;
-                                }
-                            });
-                            document.getElementById("TxtCodigoNotificacionesApp").value = msg?.Date?.CodigoNotificacionesApp;
-                            document.getElementById("txtAsuntoNoti").value = msg?.Date?.Asunto;
-                            var date = msg?.Date.DesFechaHoraEnvio;
-                            var dateSplit = date.split(" ");
-                            document.getElementById("txtDateNoti").value = dateSplit[0];
-                            document.getElementById("txtHourNoti").value = dateSplit[1];
-                            document.getElementById("txtMensajeNoti").value = msg?.Date?.Mensaje;
-                            document.getElementById("txtRecurrenteNoti").checked = msg?.Date?.Recurrente;
-
-                            document.getElementById("txtEstadoNoti").checked = msg?.Date?.Estado;
-
-                            document.getElementById("registerNotiBtn").style.display = 'none';
-                            document.getElementById("updateNotiBtn").style.display = 'block';
-                            document.getElementById("cancelNotiBtn").style.display = 'block';
-                            document.getElementById("rowEstadoNoti").style.display = 'block';
-                        }
-
-                    }
-                });
-            }
-
-
-            function ActualizarNotificacionApp(e) {
-                var codigo = document.getElementById("TxtCodigoNotificacionesApp").value;
-                var grupo = document.querySelector('input[name="grupo_customer_notiapp"]:checked').value;
-                var tipo = document.querySelector('input[name="tipoenvioNoti"]:checked').value;
-                var asunto = document.getElementById("txtAsuntoNoti").value;
-                var date = document.getElementById("txtDateNoti").value;
-                var hora = document.getElementById("txtHourNoti").value;
-                var message = document.getElementById("txtMensajeNoti").value;
-                var recurrente = document.getElementById("txtRecurrenteNoti").checked;
-                var estado = document.getElementById("txtEstadoNoti").checked;
-
-                var data = {
-                    codigo: codigo,
-                    tipo: tipo,
-                    asunto: asunto,
-                    date: date + " " + hora,
-                    message: message,
-                    recurrente: recurrente,
-                    grupo: grupo,
-                    estado: estado,
-                }
-                e.disabled = true;
-
-                $.ajax({
-                    data: JSON.stringify(data),
-                    type: "POST",
-                    url: "/gestionce/ActualizarNotificacionApp",
-                    contentType: "application/json; charset=utf-8",
-                    dataType: "json",
-
-                    success: function (msg) {
-                        if (msg?.Status == 0) {
-                            $.bootstrapGrowl(msg?.Message1, { type: 'success', width: 'auto' });
-                        } else {
-
-                            $.bootstrapGrowl(msg?.Message1, { type: 'danger', width: 'auto' });
-                        }
-                        listNotificacionesApp();
-                        e.disabled = false;
-                    }
-                });
-            }
-            function CancelarNotificacionApp() {
-                document.getElementById("txtAsuntoNoti").value = '';
-                document.getElementById("txtDateNoti").value = '';
-                document.getElementById("txtHourNoti").value = '';
-                document.getElementById("txtMensajeNoti").value = '';
-                document.getElementById("txtRecurrenteNoti").checked = false;
-
-
-                document.getElementById("txtEstadoNoti").checked;
-
-
-                document.getElementById("registerNotiBtn").style.display = 'block';
-                document.getElementById("updateNotiBtn").style.display = 'none';
-                document.getElementById("cancelNotiBtn").style.display = 'none';
-                document.getElementById("rowEstadoNoti").style.display = 'none';
-            }
-
-            function destroyNotificacionApp(codigo) {
-                $.ajax({
-                    data: JSON.stringify({ codigo: codigo }),
-                    type: "POST",
-                    url: "/gestionce/DeleteNotificacionApp",
-                    contentType: "application/json; charset=utf-8",
-                    dataType: "json",
-
-                    success: function (msg) {
-                        if (msg?.Status == 0) {
-                            $.bootstrapGrowl(msg?.Message1, { type: 'success', width: 'auto' });
-                        } else {
-
-                            $.bootstrapGrowl(msg?.Message1, { type: 'danger', width: 'auto' });
-                        }
-                        listNotificacionesApp();
-                        e.disabled = false;
-                    }
-                });
-
-            }
-
-            listNotificacionesApp();
 
 
 

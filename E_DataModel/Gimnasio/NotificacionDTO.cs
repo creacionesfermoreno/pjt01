@@ -9,38 +9,43 @@ using System.Threading.Tasks;
 
 namespace E_DataModel.Gimnasio
 {
-    
+
     public class NotificacionDTO : AuditoriaDTO
     {
-       public int CodigoEntidadNegocio { get; set; }
-
         public string CodigoNotificacionesApp { get; set; }
-        public int TipoEnvio { get; set; }
-        public string Asunto { get; set; }
-        public DateTime FechaHoraEnvio { get; set; }
-        public string DesFechaHoraEnvio { get; set; }
-        public string Mensaje { get; set; }
 
-        public bool Estado { get; set; }
-
-        public bool Recurrente { get; set; }
-        public int GrupoPersonas { get; set; }
-
-
-        
-       public bool Enviado { get; set; }
-
+        public string Title { get; set; }
+        public string Body { get; set; }
+        public string UrlImage { get; set; }
+        public string DescriptionHtml { get; set; }
+        public string Group { get; set; }
+        public int TipeNoty { get; set; }
+        public bool Recurrent { get; set; }
+        public bool Send { get; set; }
         public Common.Operation Operation { get; set; }
-
 
 
         public string DateParse(DateTime date)
         {
-            
+
             return date.ToString("dd/MM/yyyy HH:mm tt");
         }
 
-       
+
+        //for user token devices
+        public string TokenDevice { get; set; }
+        public string IdUser { get; set; }
+        public int Days { get; set; }
+
+        //details
+        public int CodigoNotificacionesAppDestinatarios { get; set; }
+        public bool Read { get; set; }
+        public string FullName { get; set; }
+        
+        
+        
+
+
     }
 
     public class ReqNotificacionDTO : Request
@@ -60,7 +65,7 @@ namespace E_DataModel.Gimnasio
 
 
 
-   
+
 
 
     public class RespNotificacionDTO : Response

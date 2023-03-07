@@ -15,7 +15,7 @@ namespace E_BusinessLayer.Gimnasio
     public class NotificacionappLogic : IDisposable
     {
 
-        
+
         NotificacionappData oNotificacionappData = null;
         public NotificacionappLogic()
         {
@@ -23,18 +23,18 @@ namespace E_BusinessLayer.Gimnasio
         }
 
 
-        public RespListNotificacionDTO NotificacionappGetList(ReqFilterNotificacionDTO oReqFilterNotificacionDTO)
+        public RespListNotificacionDTO GetList(ReqFilterNotificacionDTO oReqFilter)
         {
 
-            RespListNotificacionDTO oRespListNotificacionDTO = new RespListNotificacionDTO();
+            RespListNotificacionDTO oRespList = new RespListNotificacionDTO();
 
-            oRespListNotificacionDTO.List = new List<NotificacionDTO>();
-            oRespListNotificacionDTO.User = oReqFilterNotificacionDTO.User;
-            oRespListNotificacionDTO.MessageList = new List<Mensaje>();
+            oRespList.List = new List<NotificacionDTO>();
+            oRespList.User = oReqFilter.User;
+            oRespList.MessageList = new List<Mensaje>();
 
-            if (String.IsNullOrEmpty(oReqFilterNotificacionDTO.User))
+            if (String.IsNullOrEmpty(oReqFilter.User))
             {
-                oRespListNotificacionDTO.MessageList.Add(new E_DataModel.Common.Mensaje()
+                oRespList.MessageList.Add(new E_DataModel.Common.Mensaje()
                 {
                     Codigo = 100,
                     Detalle = "La cuenta de Configuracion no es válida.",
@@ -42,42 +42,75 @@ namespace E_BusinessLayer.Gimnasio
                 });
             }
 
-            if (oReqFilterNotificacionDTO.Paging == null)
+            if (oReqFilter.Paging == null)
             {
-                oRespListNotificacionDTO.MessageList.Add(new E_DataModel.Common.Mensaje()
+                oRespList.MessageList.Add(new E_DataModel.Common.Mensaje()
                 {
                     Codigo = 100,
                     Detalle = "Error en el parámetro de Paginación.",
                     Tipo = TipoMensaje.Error
                 });
             }
-            if (oRespListNotificacionDTO.MessageList.Count == 0)
+            if (oRespList.MessageList.Count == 0)
             {
                 try
                 {
-                    if (!oReqFilterNotificacionDTO.Paging.All && oReqFilterNotificacionDTO.Paging.PageRecords == 0)
+                    if (!oReqFilter.Paging.All && oReqFilter.Paging.PageRecords == 0)
                     {
-                        oReqFilterNotificacionDTO.Paging.PageRecords = Convert.ToUInt32(ConfigurationManager.AppSettings["RecordNumForPage"]);
+                        oReqFilter.Paging.PageRecords = Convert.ToUInt32(ConfigurationManager.AppSettings["RecordNumForPage_custom"]);
                     }
 
                     List<NotificacionDTO> NotificacionDTOList = new List<NotificacionDTO>();
 
-                    switch (oReqFilterNotificacionDTO.FilterCase)
+                    switch (oReqFilter.FilterCase)
                     {
                         case filterCaseNotificacionApp.Listar:
-                            NotificacionDTOList = oNotificacionappData.Listado(oReqFilterNotificacionDTO.Item);
+                            uint NRegisters = 0;
+                            NotificacionDTOList = oNotificacionappData.ListPagination(oReqFilter.Item, oReqFilter.Paging, out NRegisters);
+                            oRespList.Paging = new Paging();
+                            oRespList.Paging.TotalRecord = NRegisters;
+                            oRespList.Paging.PageRecords = Convert.ToUInt32(ConfigurationManager.AppSettings["RecordNumForPage_custom"]);
+                            oRespList.Paging.PageNumber = oReqFilter.Paging.PageNumber;
                             break;
-                       
+                        
+                        case filterCaseNotificacionApp.listAddressPaginate:
+                            uint NroRegisters = 0;
+                            NotificacionDTOList = oNotificacionappData.ListPaginationAddress(oReqFilter.Item, oReqFilter.Paging, out NroRegisters);
+                            oRespList.Paging = new Paging();
+                            oRespList.Paging.TotalRecord = NroRegisters;
+                            oRespList.Paging.PageRecords = Convert.ToUInt32(ConfigurationManager.AppSettings["RecordNumForPage_custom"]);
+                            oRespList.Paging.PageNumber = oReqFilter.Paging.PageNumber;
+                            break;
+                            
+                        case filterCaseNotificacionApp.listNotisByUser:
+                            
+                            NotificacionDTOList = oNotificacionappData.ListPaginationAppByUser(oReqFilter.Item);
+                            
+                            break;
+
+                        case filterCaseNotificacionApp.ListActive:
+                            NotificacionDTOList = oNotificacionappData.ListCustomerActive(oReqFilter.Item);
+                            break;
+
+                        case filterCaseNotificacionApp.ListByVencer:
+                            NotificacionDTOList = oNotificacionappData.ListCustomerByVencer(oReqFilter.Item);
+                            break;
+
+                        case filterCaseNotificacionApp.ListVencids:
+                            NotificacionDTOList = oNotificacionappData.ListCustomerVencids(oReqFilter.Item);
+                            break;
+
+
                     }
 
-                    oRespListNotificacionDTO.List = NotificacionDTOList;
-                    oRespListNotificacionDTO.Success = true;
+                    oRespList.List = NotificacionDTOList;
+                    oRespList.Success = true;
 
                 }
                 catch (Exception ex)
                 {
-                    oRespListNotificacionDTO.Success = false;
-                    oRespListNotificacionDTO.MessageList.Add(new E_DataModel.Common.Mensaje()
+                    oRespList.Success = false;
+                    oRespList.MessageList.Add(new E_DataModel.Common.Mensaje()
                     {
                         Codigo = 100,
                         Detalle = ex.Message,
@@ -85,24 +118,23 @@ namespace E_BusinessLayer.Gimnasio
                     });
                 }
             }
-            return oRespListNotificacionDTO;
+            return oRespList;
 
         }
 
 
-
-        public RespItemNotificacionDTO NotificacionAppGetItem(ReqFilterNotificacionDTO oReqFilterNotificacionDTO)
+        public RespItemNotificacionDTO GetItem(ReqFilterNotificacionDTO oReqFilter)
         {
-            RespItemNotificacionDTO oRespItemNotificacionDTO = new RespItemNotificacionDTO();
+            RespItemNotificacionDTO oRespItem = new RespItemNotificacionDTO();
 
-            oRespItemNotificacionDTO.Success = false;
-            oRespItemNotificacionDTO.Item = null;
-            oRespItemNotificacionDTO.User = oReqFilterNotificacionDTO.User;
-            oRespItemNotificacionDTO.MessageList = new List<Mensaje>();
+            oRespItem.Success = false;
+            oRespItem.Item = null;
+            oRespItem.User = oReqFilter.User;
+            oRespItem.MessageList = new List<Mensaje>();
 
-            if (String.IsNullOrEmpty(oReqFilterNotificacionDTO.User))
+            if (String.IsNullOrEmpty(oReqFilter.User))
             {
-                oRespItemNotificacionDTO.MessageList.Add(new E_DataModel.Common.Mensaje()
+                oRespItem.MessageList.Add(new E_DataModel.Common.Mensaje()
                 {
                     Codigo = 100,
                     Detalle = "La cuenta de Configuracion no es válida.",
@@ -110,20 +142,20 @@ namespace E_BusinessLayer.Gimnasio
                 });
             }
 
-            if (oRespItemNotificacionDTO.MessageList.Count == 0)
+            if (oRespItem.MessageList.Count == 0)
             {
                 NotificacionDTO oNotificacionDTO = null;
                 try
                 {
-                    switch (oReqFilterNotificacionDTO.FilterCase)
+                    switch (oReqFilter.FilterCase)
                     {
                         case filterCaseNotificacionApp.BuscarPorCodigo:
                             {
                                 oNotificacionDTO = new NotificacionDTO();
-                                oNotificacionDTO = oNotificacionappData.BuscarPorCodigoNotificacionApp(oReqFilterNotificacionDTO.Item);
+                                oNotificacionDTO = oNotificacionappData.SearchNotiApp(oReqFilter.Item);
                             }
                             break;
-                      
+
                         default:
                             {
                                 oNotificacionDTO = new NotificacionDTO();
@@ -131,10 +163,10 @@ namespace E_BusinessLayer.Gimnasio
                             break;
                     }
 
-                    oRespItemNotificacionDTO.Item = new NotificacionDTO();
-                    oRespItemNotificacionDTO.Item = oNotificacionDTO;
-                    oRespItemNotificacionDTO.Success = true;
-                    oRespItemNotificacionDTO.MessageList.Add(new E_DataModel.Common.Mensaje()
+                    oRespItem.Item = new NotificacionDTO();
+                    oRespItem.Item = oNotificacionDTO;
+                    oRespItem.Success = true;
+                    oRespItem.MessageList.Add(new E_DataModel.Common.Mensaje()
                     {
                         Codigo = 100,
                         Detalle = "Correcto.",
@@ -144,8 +176,8 @@ namespace E_BusinessLayer.Gimnasio
                 }
                 catch (Exception ex)
                 {
-                    oRespItemNotificacionDTO.Success = false;
-                    oRespItemNotificacionDTO.MessageList.Add(new E_DataModel.Common.Mensaje()
+                    oRespItem.Success = false;
+                    oRespItem.MessageList.Add(new E_DataModel.Common.Mensaje()
                     {
                         Codigo = 100,
                         Detalle = ex.Message,
@@ -154,7 +186,7 @@ namespace E_BusinessLayer.Gimnasio
                 }
 
             }
-            return oRespItemNotificacionDTO;
+            return oRespItem;
         }
 
 
@@ -179,6 +211,7 @@ namespace E_BusinessLayer.Gimnasio
             if (respNotificacionDTO.MessageList.Count == 0)
             {
                 int Estado = 0;
+                string code = "";
                 using (TransactionScope tx = new TransactionScope(TransactionScopeOption.Required))
                 {
                     try
@@ -188,13 +221,20 @@ namespace E_BusinessLayer.Gimnasio
                             switch (item.Operation)
                             {
                                 case Operation.Create:
-                                    oNotificacionappData.Registrar(item);
-                                    break;
+                                    code = oNotificacionappData.Registrar(item);
+                                    break; 
+                                
                                 case Operation.Update:
-                                    oNotificacionappData.Actualizar(item);
+                                    oNotificacionappData.UpdateSend(item);
                                     break;
-                                case Operation.Eliminarfiltro:
-                                    oNotificacionappData.Eliminar(item);
+                                case Operation.NotiAppReadUpdate:
+                                    oNotificacionappData.UpdateReadUser(item);
+                                    break;
+                                case Operation.Delete:
+                                    oNotificacionappData.Destroy(item);
+                                    break;
+                                case Operation.NotiAppRegisterDetail:
+                                    oNotificacionappData.RegisterDetail(item);
                                     break;
                             }
                         }
@@ -204,7 +244,8 @@ namespace E_BusinessLayer.Gimnasio
                         {
                             Codigo = Estado,
                             Detalle = "Proceso Grabado Correctamente.",
-                            Tipo = TipoMensaje.Informacion
+                            Tipo = TipoMensaje.Informacion,
+                            Code = code,
                         });
 
                     }
@@ -216,16 +257,15 @@ namespace E_BusinessLayer.Gimnasio
                         {
                             Codigo = 100,
                             Detalle = ex.Message,
-                            Tipo = TipoMensaje.Error
+                            Tipo = TipoMensaje.Error,
+
                         });
                     }
                 }
-
             }
 
             return respNotificacionDTO;
         }
-
 
 
         public void Dispose()

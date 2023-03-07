@@ -64,6 +64,30 @@
     <Reference Include="ExcelDataReader.DataSet, Version=3.6.0.0, Culture=neutral, PublicKeyToken=93517dbe6a4012fa, processorArchitecture=MSIL">
       <HintPath>..\packages\ExcelDataReader.DataSet.3.6.0\lib\net35\ExcelDataReader.DataSet.dll</HintPath>
     </Reference>
+    <Reference Include="FirebaseAdmin, Version=2.3.0.0, Culture=neutral, PublicKeyToken=97c8d00c348326ed, processorArchitecture=MSIL">
+      <HintPath>..\packages\FirebaseAdmin.2.3.0\lib\net461\FirebaseAdmin.dll</HintPath>
+    </Reference>
+    <Reference Include="Google.Api.Gax, Version=3.2.0.0, Culture=neutral, PublicKeyToken=3ec5ea7f18953e47, processorArchitecture=MSIL">
+      <HintPath>..\packages\Google.Api.Gax.3.2.0\lib\net461\Google.Api.Gax.dll</HintPath>
+    </Reference>
+    <Reference Include="Google.Api.Gax.Rest, Version=3.2.0.0, Culture=neutral, PublicKeyToken=3ec5ea7f18953e47, processorArchitecture=MSIL">
+      <HintPath>..\packages\Google.Api.Gax.Rest.3.2.0\lib\net461\Google.Api.Gax.Rest.dll</HintPath>
+    </Reference>
+    <Reference Include="Google.Apis, Version=1.49.0.0, Culture=neutral, PublicKeyToken=4b01fa6e34db77ab, processorArchitecture=MSIL">
+      <HintPath>..\packages\Google.Apis.1.49.0\lib\net45\Google.Apis.dll</HintPath>
+    </Reference>
+    <Reference Include="Google.Apis.Auth, Version=1.49.0.0, Culture=neutral, PublicKeyToken=4b01fa6e34db77ab, processorArchitecture=MSIL">
+      <HintPath>..\packages\Google.Apis.Auth.1.49.0\lib\net45\Google.Apis.Auth.dll</HintPath>
+    </Reference>
+    <Reference Include="Google.Apis.Auth.PlatformServices, Version=1.49.0.0, Culture=neutral, PublicKeyToken=4b01fa6e34db77ab, processorArchitecture=MSIL">
+      <HintPath>..\packages\Google.Apis.Auth.1.49.0\lib\net45\Google.Apis.Auth.PlatformServices.dll</HintPath>
+    </Reference>
+    <Reference Include="Google.Apis.Core, Version=1.49.0.0, Culture=neutral, PublicKeyToken=4b01fa6e34db77ab, processorArchitecture=MSIL">
+      <HintPath>..\packages\Google.Apis.Core.1.49.0\lib\net45\Google.Apis.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Google.Apis.PlatformServices, Version=1.49.0.0, Culture=neutral, PublicKeyToken=4b01fa6e34db77ab, processorArchitecture=MSIL">
+      <HintPath>..\packages\Google.Apis.1.49.0\lib\net45\Google.Apis.PlatformServices.dll</HintPath>
+    </Reference>
     <Reference Include="itextsharp, Version=5.5.13.3, Culture=neutral, PublicKeyToken=8354ae6d2174ddca, processorArchitecture=MSIL">
       <HintPath>..\packages\iTextSharp.5.5.13.3\lib\itextsharp.dll</HintPath>
     </Reference>
@@ -134,6 +158,9 @@
     <Reference Include="System" />
     <Reference Include="System.Buffers, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Buffers.4.5.1\lib\net461\System.Buffers.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Collections.Immutable, Version=1.2.5.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Collections.Immutable.1.7.1\lib\net461\System.Collections.Immutable.dll</HintPath>
     </Reference>
     <Reference Include="System.ComponentModel.Annotations, Version=4.2.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>..\packages\System.ComponentModel.Annotations.4.7.0\lib\net461\System.ComponentModel.Annotations.dll</HintPath>
@@ -286,6 +313,7 @@
     <Compile Include="Controllers\esController.cs" />
     <Compile Include="Controllers\esfitController.cs" />
     <Compile Include="Controllers\gestionceController.cs" />
+    <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\inventarioajusteController.cs" />
     <Compile Include="Controllers\inventarioajustefitController.cs" />
     <Compile Include="Controllers\inventarioController.cs" />
@@ -294,6 +322,7 @@
     <Compile Include="Controllers\itemsventaController.cs" />
     <Compile Include="Controllers\itemsventafitController.cs" />
     <Compile Include="Controllers\managementController.cs" />
+    <Compile Include="Controllers\notiappController.cs" />
     <Compile Include="Controllers\operacionesfitController.cs" />
     <Compile Include="Controllers\pasarelaController.cs" />
     <Compile Include="Controllers\pgController.cs" />
@@ -401,9 +430,11 @@
     <Compile Include="Repository\Inventario\ItemsVentaRepository.cs" />
     <Compile Include="Repository\Inventario\PlantillaFormaPagoRepository.cs" />
     <Compile Include="Repository\Inventario\TarifasEnvioRepository.cs" />
+    <Compile Include="Repository\NotiAppRepository.cs" />
     <Compile Include="Repository\PasarelaEmpresaServices\PasarelaEmpresaService.cs" />
     <Compile Include="Repository\PasarelaRepository.cs" />
     <Compile Include="Repository\Services\MpagoService.cs" />
+    <Compile Include="Repository\Services\NotiappServices.cs" />
     <Compile Include="Repository\WhatsappServices\TemplateUtil.cs" />
     <Compile Include="Repository\WhatsappServices\WhatsappTemplateServices.cs" />
     <Compile Include="ViewModels\BannerProductoViewModel.cs" />
@@ -6002,6 +6033,7 @@
     <Content Include="Resource\corporativo\Empresa.js" />
     <Content Include="Resource\gimnasio\Marketing.js" />
     <Content Include="Resource\gimnasio\MarketingCampaingEmail.js" />
+    <Content Include="Resource\gimnasio\MarketingNoti.js" />
     <Content Include="Resource\gimnasio\moduloAgendaComercial.js" />
     <Content Include="Resource\gimnasio\moduloCaja.js" />
     <Content Include="Resource\gimnasio\moduloCheking.js" />
@@ -6752,6 +6784,7 @@
     <Content Include="ExportarExcel\Appsfit\ExportarSinSeguimientoAgendaComercial.ashx" />
     <Content Include="Content\apiwhatsapp_doc\template_envio.xlsx" />
     <Content Include="Content\apiwhatsapp_doc\formato_email.xlsx" />
+    <Content Include="Content\file\private_key.json" />
     <None Include="Properties\PublishProfiles\appsfit - Web Deploy.pubxml" />
     <None Include="Properties\PublishProfiles\appsfit - Web Deploy1.pubxml" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
@@ -7262,6 +7295,8 @@
     <Folder Include="Content\tienda\sass\components\Mixins\" />
     <Folder Include="Views\emailcampaing\" />
     <Folder Include="Views\gastos\" />
+    <Folder Include="Views\Home\" />
+    <Folder Include="Views\notiapp\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />

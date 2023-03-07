@@ -20,14 +20,11 @@ namespace AppsfitWebApi.Repository.Services
         // Autenticación con la API de Firebase
         public FirebaseApp getFirebaseApp()
         {
+            string path = System.Web.Hosting.HostingEnvironment.MapPath("~/Content/file/private_key.json");
             var credentials = FirebaseApp.Create(new AppOptions()
             {
-                Credential = GoogleCredential.FromFile("C:/Users/David/Desktop/SOFTWAREFITS/pjt01/AppsfitWebApi/Content/file/private_key.json"),
-               // Credential = GoogleCredential.FromFile(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "../Content/file/private_key.json")),
-
-
-        });
-
+                Credential = GoogleCredential.FromFile(path),
+            });
             return credentials;
         }
     }
