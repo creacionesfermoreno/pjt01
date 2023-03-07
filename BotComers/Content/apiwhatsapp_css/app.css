@@ -413,3 +413,9 @@ secondary: #252526;
     padding: 2px;
     border: 2px solid #EEEEEE !important;
 }
+
+/*disable div*/
+.disabledDiv {
+    pointer-events: none;
+    opacity: 0.9;
+}

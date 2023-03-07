@@ -92,7 +92,7 @@ namespace BotComers.Repository
 
 
         //upload azure
-        public ResponseModel uploadFileRepo(ClienteViewModel request,string azureFolder)
+        public ResponseModel uploadFileRepo(ClienteViewModel request, string azureFolder)
         {
             ResponseModel _response = new ResponseModel();
             Random random = new Random();
