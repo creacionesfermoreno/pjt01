@@ -140,6 +140,9 @@ namespace E_DataLayer.Gimnasio
                                     FechaVencimiento = Convert.ToDateTime(oIDataReader[oIDataReader.GetOrdinal("FechaVencimiento")]),
                                     desNomProfesor = oIDataReader[oIDataReader.GetOrdinal("desNomProfesor")].ToString(),
                                     DesTipoPaquete = oIDataReader[oIDataReader.GetOrdinal("DesTipoPaquete")].ToString(),
+                                    UrlImage = oIDataReader[oIDataReader.GetOrdinal("UrlImage")].ToString(),
+                                    Suscripcion = Convert.ToBoolean(oIDataReader[oIDataReader.GetOrdinal("Suscripcion")]),
+
                                 });
                             }
                         }

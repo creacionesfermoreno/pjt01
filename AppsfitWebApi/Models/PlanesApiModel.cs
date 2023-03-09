@@ -20,5 +20,7 @@ namespace AppsfitWebApi.Models
         public int NroCupo { get; set; }
         public DateTime FechaVencimiento { get; set; }
         public string DesNomProfesor { get; set; }
+        public string UrlImage { get; set; }
+        public bool Suscripcion { get; set; }
     }
 }
