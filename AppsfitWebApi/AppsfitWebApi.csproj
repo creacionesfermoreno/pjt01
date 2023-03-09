@@ -247,6 +247,7 @@
     <Compile Include="Controllers\AccessController.cs" />
     <Compile Include="Controllers\MarketplaceController.cs" />
     <Compile Include="Controllers\NotificationController.cs" />
+    <Compile Include="Controllers\WebHookController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -330,6 +331,7 @@
     <Folder Include="App_Data\" />
     <Folder Include="Views\Booking\" />
     <Folder Include="Views\Estate\" />
+    <Folder Include="Views\WebHook\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

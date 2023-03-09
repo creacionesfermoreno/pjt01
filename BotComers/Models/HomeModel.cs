@@ -24,4 +24,11 @@ namespace BotComers.Models
         public string MimeType { get; set; }
     }
     //************************************ FILES ************************************/
+
+    public class PlanHome
+    {
+        public string Name { get; set; }
+        public string Id { get; set; }
+        public double Price { get; set; }
+    }
 }

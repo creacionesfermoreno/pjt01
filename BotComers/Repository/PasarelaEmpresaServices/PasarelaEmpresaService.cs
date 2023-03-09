@@ -22,7 +22,7 @@ namespace BotComers.Repository.PasarelaEmpresaServices
         private string CULQISECUREV2 = ConfigurationManager.AppSettings["SECURE_CULQI_V2"];
         private string CULQIV2 = ConfigurationManager.AppSettings["CULQI_V2"];
 
-        
+
         public string PAYPAL_DEMO = ConfigurationManager.AppSettings["HOST_PAYPAL_DEMO"];
         public string PAYPAL_PROD = ConfigurationManager.AppSettings["HOST_PAYPAL"];
 
@@ -146,13 +146,47 @@ namespace BotComers.Repository.PasarelaEmpresaServices
         }
 
 
+        //CULQI PLANS
+        public async Task<ResponseModel> PlanesCulqiServ(string token)
+        {
+            ResponseModel responseModel = new ResponseModel();
+            try
+            {
+                var client = new HttpClient();
+                string Uri = $"{CULQIV2}/plans";
+                client.DefaultRequestHeaders.Add("Authorization", $"Bearer {token}");
+                var response = await client.GetAsync(Uri);
+                var result = await response.Content.ReadAsStringAsync();
+                var resp = JsonConvert.DeserializeObject<PlanCulqi>(result);
+                if (response.IsSuccessStatusCode)
+                {
+                    responseModel.Success = true;
+                    responseModel.Date = resp.data;
+                }
+                else
+                {
+                    responseModel.Success = false;
+                    responseModel.Status = 1;
+                }
+            }
+            catch (Exception ex)
+            {
+                responseModel.Status = 1;
+                responseModel.Message1 = ex.Message;
+            }
+
+            return responseModel;
+
+        }
+
+
         //*************************************** END SERVICES CULQI *******************************
 
 
         //***************************************  SERVICES PAYPAL *******************************
 
         //generate token
-        public async Task<ResponseModel> PaypalTokenService(string clientId, string secretId,bool entorno = false)
+        public async Task<ResponseModel> PaypalTokenService(string clientId, string secretId, bool entorno = false)
         {
             object model = new { };
             ResponseModel responseModel = new ResponseModel();
@@ -166,9 +200,9 @@ namespace BotComers.Repository.PasarelaEmpresaServices
                 using (var content = new ByteArrayContent(byteData))
                 {
                     string Uri;
-                    if (entorno == false)  {  Uri = $"{PAYPAL_DEMO}/v1/oauth2/token";}
-                    else {   Uri = $"{PAYPAL_PROD}/v1/oauth2/token";}
-                     
+                    if (entorno == false) { Uri = $"{PAYPAL_DEMO}/v1/oauth2/token"; }
+                    else { Uri = $"{PAYPAL_PROD}/v1/oauth2/token"; }
+
 
                     var authenticationString = $"{clientId}:{secretId}";
                     var credentials = Convert.ToBase64String(System.Text.ASCIIEncoding.ASCII.GetBytes(authenticationString));
@@ -207,7 +241,7 @@ namespace BotComers.Repository.PasarelaEmpresaServices
 
 
         //generate order
-        public async Task<ResponseModel> PaypalOrderServ(object model, string token,bool entorno = false)
+        public async Task<ResponseModel> PaypalOrderServ(object model, string token, bool entorno = false)
         {
             ResponseModel responseModel = new ResponseModel();
             var client = new HttpClient();
@@ -215,7 +249,7 @@ namespace BotComers.Repository.PasarelaEmpresaServices
 
             using (var content = new ByteArrayContent(byteData))
             {
-                
+
                 string Uri;
                 if (entorno == false) { Uri = $"{PAYPAL_DEMO}/v2/checkout/orders"; }
                 else { Uri = $"{PAYPAL_PROD}/v2/checkout/orders"; }
@@ -245,7 +279,7 @@ namespace BotComers.Repository.PasarelaEmpresaServices
 
 
         //capture order
-        public async Task<ResponseModel> PaypalOrderCaptureServ(object model, string token, string orderId , bool entorno = false)
+        public async Task<ResponseModel> PaypalOrderCaptureServ(object model, string token, string orderId, bool entorno = false)
         {
             ResponseModel responseModel = new ResponseModel();
             var client = new HttpClient();
@@ -253,7 +287,7 @@ namespace BotComers.Repository.PasarelaEmpresaServices
 
             using (var content = new ByteArrayContent(byteData))
             {
-                
+
                 string Uri;
                 if (entorno == false) { Uri = $"{PAYPAL_DEMO}/v2/checkout/orders/{orderId}/capture"; }
                 else { Uri = $"{PAYPAL_PROD}/v2/checkout/orders/{orderId}/capture"; }
@@ -277,7 +311,7 @@ namespace BotComers.Repository.PasarelaEmpresaServices
                     responseModel.Message2 = resp.message;
                     responseModel.Success = false;
                     responseModel.Status = 1;
-                   
+
                 }
             }
             return responseModel;
@@ -342,7 +376,7 @@ namespace BotComers.Repository.PasarelaEmpresaServices
         public Payments payments { get; set; }
     }
 
-    
+
 
 
 
@@ -353,4 +387,28 @@ namespace BotComers.Repository.PasarelaEmpresaServices
         public string merchant_message { get; set; }
 
     }
+
+
+    public class Datum
+    {
+        public string id { get; set; }
+        public long creation_date { get; set; }
+        public string name { get; set; }
+        public int amount { get; set; }
+        public string currency_code { get; set; }
+        public int interval_count { get; set; }
+        public string interval { get; set; }
+        public int limit { get; set; }
+        public int trial_days { get; set; }
+        public int total_subscriptions { get; set; }
+
+    }
+
+
+
+    public class PlanCulqi
+    {
+        public List<Datum> data { get; set; }
+    }
+
 }

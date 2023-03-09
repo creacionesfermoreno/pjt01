@@ -2202,7 +2202,7 @@ namespace BotComers.Controllers
             return Json(mensaje, JsonRequestBehavior.AllowGet);
         }
 
-        public ActionResult GuardarPaquete(int codigo, string descripcion, int valor, int FrezenDisponibles, decimal costo, string accion, bool estado, DateTime FechaVencimiento, int CodTipCli, int CodigoTipoPaquete, int TiempoMembresia, int NroCupo, DateTime FechaInicio, int EstadoFecha, int NroIngresoDia, bool EstadoMembresiaInterdiaria,bool showapp)
+        public ActionResult GuardarPaquete(int codigo, string descripcion, int valor, int FrezenDisponibles, decimal costo, string accion, bool estado, DateTime FechaVencimiento, int CodTipCli, int CodigoTipoPaquete, int TiempoMembresia, int NroCupo, DateTime FechaInicio, int EstadoFecha, int NroIngresoDia, bool EstadoMembresiaInterdiaria,bool showapp ,string urlimage = "",bool Suscripcion = false)
         {
             int mensaje = 0;
             DateTime fechaAyer = DateTime.Now;
@@ -2238,6 +2238,9 @@ namespace BotComers.Controllers
                         NroIngresoDia = NroIngresoDia,
                         EstadoMembresiaInterdiaria = EstadoMembresiaInterdiaria,
                         ShowApp = showapp,
+                        UrlImage  = urlimage,
+                        Suscripcion = Suscripcion,
+                        
                     });
                 }
                 else
@@ -2265,6 +2268,8 @@ namespace BotComers.Controllers
                         NroIngresoDia = NroIngresoDia,
                         EstadoMembresiaInterdiaria = EstadoMembresiaInterdiaria,
                         ShowApp = showapp,
+                        UrlImage = urlimage,
+                        Suscripcion = Suscripcion,
                     });
                 }
 
@@ -2294,6 +2299,8 @@ namespace BotComers.Controllers
                     NroIngresoDia = NroIngresoDia,
                     EstadoMembresiaInterdiaria = EstadoMembresiaInterdiaria,
                     ShowApp = showapp,
+                    UrlImage = urlimage,
+                    Suscripcion = Suscripcion,
                 });
             }
             ReqPlanesDTO oReq = new ReqPlanesDTO()
@@ -2312,6 +2319,8 @@ namespace BotComers.Controllers
             }
             return Json(mensaje, JsonRequestBehavior.AllowGet);
         }
+
+
 
         public ActionResult EliminarHoraPaquete(int CodHPD)
         {

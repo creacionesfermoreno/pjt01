@@ -96,6 +96,12 @@ namespace E_BusinessLayer.Gimnasio
                             {
                                 PlanesDTOList = oPaquetesData.ListarPaquetesApp(oReqFilterPlanesDTO.Item);
                             }
+                            break;  
+                        
+                        case filterCasePlanes.ListPlanPasarelaByPaquete:
+                            {
+                                PlanesDTOList = oPaquetesData.ListPlanPasarelaByPaquete(oReqFilterPlanesDTO.Item);
+                            }
                             break;
                       
                     }
@@ -237,6 +243,16 @@ namespace E_BusinessLayer.Gimnasio
 
                                     CodigoIngreso = 100;
                                     oPaquetesData.Actualizar(item);
+
+                                    break;  
+                                case Operation.PlanSuscriptionRegister:
+                                    CodigoIngreso = 100;
+                                    oPaquetesData.RegisterPlanPasarela(item);
+
+                                    break;
+                                case Operation.PlanSuscriptionDestroy:
+                                    CodigoIngreso = 100;
+                                    oPaquetesData.DestroyPlanPaquete(item);
 
                                     break;
                                 case Operation.Delete:
