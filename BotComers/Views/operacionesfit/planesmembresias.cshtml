@@ -203,6 +203,47 @@
     }
 </style>
 
+<script src="https://cdn.tailwindcss.com"></script>
+
+
+<!-- Modal suscription-->
+<div class="modal fade" id="ModalSuscription" tabindex="-1" role="dialog" aria-labelledby="ModalSuscription" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Planes pasarela de pago</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-6">
+                        <label>Pasarela de pago</label>
+                        <select id="selectedSuscriptionPa" class="form-control" onchange="changeSelectedPago(this)"></select>
+                    </div>
+                    <div class="col-6">
+                        <label>Planes</label>
+                        <select id="selectedPlanList" class="form-control"></select>
+                        <input id="selectedPlanListName" hidden />
+
+                    </div>
+                </div>
+
+                <div class="mt-3" id="kendogridPlanbyPaquetebody">
+
+                </div>
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn-custom btn-custom-secondary" data-dismiss="modal" id="btnClosePlPasa">Cancelar</button>
+                <button type="button" class="btn-custom btn-custom-primary" onclick="registerPlanPasarela(this)">Guardar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
 
 <div class="page__header page__header-nav mb-0">
     <div class="container-fluid page__container">
@@ -416,6 +457,7 @@
                                                 </div>
                                             </div>
                                             <br />
+
                                             <div class="row mb-1">
                                                 <label for="ddlTiempoMembresiaPaquete" class="col-sm-4 col-form-label" style="font-weight: bold; font-size: 13px;color: #000;">Tiempo del plan:</label>
                                                 <div class="col-sm-8">
@@ -487,7 +529,7 @@
                                             <div class="row mb-1">
                                                 <label for="txtNumeroCupo" class="col-sm-4 col-form-label" style="font-weight: bold; font-size: 13px;color: #000;"># Cupos: opcional</label>
                                                 <div class="col-sm-8">
-                                                    <input id="txtNumeroCupo" type="text" value="2" class="form-control" style="width: 50%; font-size: 13px; font-weight: bold;" tabindex="7" onkeydown="return validarNumeros(event)" />                                                    
+                                                    <input id="txtNumeroCupo" type="text" value="2" class="form-control" style="width: 50%; font-size: 13px; font-weight: bold;" tabindex="7" onkeydown="return validarNumeros(event)" />
                                                 </div>
                                             </div>
 
@@ -497,6 +539,24 @@
                                                     <input id="chkshowApp" type="checkbox" tabindex="10" class="cursor-pointer" /> <label for="chkshowApp" class="cursor-pointer">Visualizar</label>
                                                 </div>
                                             </div>
+
+
+                                            @* suscripcion *@
+                                            <div class="row mb-1 align-content-center align-items-center">
+                                                <label for="chksuscription" class="col-sm-4 col-form-label" style="font-weight: bold; font-size: 13px;color: #000;">¿Suscripción?</label>
+                                                <div class="col-sm-8">
+                                                    <input id="chksuscription" type="checkbox" tabindex="10" class="cursor-pointer" /> <label for="chksuscription" class="cursor-pointer">Si</label>
+                                                </div>
+                                            </div>
+
+                                            <div class="row mb-1 align-content-center align-items-center" style="display:none" id="dgestionSuscriptionxxx">
+                                                <label for="" class="col-sm-4 col-form-label" style="font-weight: bold; font-size: 13px;color: #000;">Gestión Suscripción</label>
+                                                <div class="col-sm-8">
+                                                    <button class="btn-custom btn-custom-primary" data-toggle="modal" data-target="#ModalSuscription" onclick="showModalSuscription(this)">Gestionar</button>
+                                                </div>
+                                            </div>
+
+
                                             <div class="row mb-1" style="display: none;">
                                                 <label for="chkNuncavence" class="col-sm-4 col-form-label" style="font-weight: bold; font-size: 13px;color: #000;">T. Cliente:</label>
                                                 <div class="col-sm-8">
@@ -512,7 +572,7 @@
                                             <div class="row mb-1" style="display: none;">
                                                 <input id="txtCodigoPaquete" type="text" value="0" class="k-textbox" style="width: 100%;" tabindex="0" />
                                                 <input id="chkUsarFInicioFin" type="checkbox" onclick="UsarFInicioFin()" data-bind="checked: checkboxListValue" />
-                                                
+
                                                 <label class="toggle">
                                                     <input id="chkEstadoPaquete" type="checkbox" checked>
                                                     <span class="handle"></span>
@@ -530,6 +590,25 @@
                                                     * Para las matriculas, cuando el plan creado es de tipo membresia se usara el nro de sesiones para sumar a la fecha de inicio, cuando es de tipo nutrición o personalizado se usara los días según el tiempo del plan para sumar a la fecha de inicio.
                                                 </div>
                                             </div>
+
+                                            <br />
+                                            <div class="row my-3">
+                                                <label for="fileImagenPlan" class="col-sm-4 col-form-label" style="font-weight: bold; font-size: 13px;color: #000;">Imagen Plan</label>
+                                                <div class="col-md-12">
+                                                    <input id="fileImagenPlan" onchange="uploadImagePl(this)" type="file" value="0" style="width: 100%; font-size: 13px; font-weight: bold;" tabindex="1" />
+                                                    <input id="fileImagenPlanUrl" hidden>
+                                                </div>
+
+                                            </div>
+                                            <div class="row mt-3">
+                                                <div class="col-md-6">
+                                                    <img src="" id="fileImagenPlanUrlRender" width="200" />
+                                                </div>
+                                            </div>
+                                            <br />
+
+
+
                                             <div id="divHorariosysedesplanes" style="display:none;">
                                                 <div class="row">
                                                     <div class="col-12">
@@ -573,7 +652,7 @@
                                             </div>
 
                                         </div>
-                                       
+
                                     </div>
                                 </div>
                             </div>
@@ -618,12 +697,12 @@
                                                 </tr>
                                             </table>
 
-                                          
+
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                           
+
                         </div>
                     </div>
                     <div class="tab-pane fade" id="divDiario">
@@ -882,6 +961,7 @@
     @System.Web.Optimization.Scripts.Render("~/Scripts/bootstrap-notify-master/bootstrap-notify.min.js")
     @System.Web.Optimization.Scripts.Render("~/Scripts/jsBootstrap/jquery.bootstrap-growl.js")
     @System.Web.Optimization.Scripts.Render("~/Scripts/maskedinput.js")
+    @System.Web.Optimization.Scripts.Render("~/Resource/gimnasio/PlanesMembresia.js")
 
     <script type="text/javascript">
 
@@ -1339,7 +1419,7 @@
                     attributes: {
                         style: "font-size:13px;"
                     },
-                },{
+                }, {
                     field: "Descripcion",
                     title: "<b style='font-size:12px;'>Nombre del plan</b>",
                     width: 40,
@@ -1580,7 +1660,7 @@
                             style: "font-size:13px;"
                         }
                     }, {
-                        template: "<button type='button' onclick='ListarHorario(#: CodigoHP #,#: Dia #)' class='btn btn-primary btn-sm' ><i class='fa-solid fa-pen-to-square'></i>Cambiar horario</button>",                       
+                        template: "<button type='button' onclick='ListarHorario(#: CodigoHP #,#: Dia #)' class='btn btn-primary btn-sm' ><i class='fa-solid fa-pen-to-square'></i>Cambiar horario</button>",
                         title: "",
                         width: 10
                     }]
@@ -1696,6 +1776,7 @@
 
 
                     $('#chkshowApp').prop('checked', msg?.ShowApp);
+                    $('#chksuscription').prop('checked', msg?.Suscripcion);
 
 
                     $('#txtValorPaquete').val(msg.valor);
@@ -1706,6 +1787,14 @@
                     $('#txtFechaVencimientoPaquete').data('kendoDatePicker').value(msg.FechaVencimiento);
                     $('#hdAccionCrearPaquetes').val('E');
                     $('#cboTipoPaquete').data("kendoDropDownList").value(msg.CodigoTipoPaquete);
+
+                    document.getElementById("fileImagenPlanUrlRender").src = msg.UrlImage;
+
+                    document.getElementById("dgestionSuscriptionxxx").style.display = "";
+
+
+
+
 
                     var tipo = msg.CodigoTipoPaquete;
                     if (tipo == 2) {
@@ -1892,17 +1981,19 @@
             var EstadoFecha = $('#chkUsarFInicioFin').is(':checked') ? 1 : 0;
             var NroIngresoDia = $('#txtNroIngresoDia').val() == '' ? 0 : $('#txtNroIngresoDia').val();
             var showapp = document.getElementById("chkshowApp").checked;
+            let urlimage = document.getElementById("fileImagenPlanUrl").value;
+            var Suscripcion = document.getElementById("chksuscription").checked;
 
             document.getElementById('loadMe').style.display = 'block';
             let data = {
                 codigo, descripcion, valor, FrezenDisponibles, costo, accion, estado, FechaVencimiento,
-                CodTipCli, CodigoTipoPaquete, TiempoMembresia, NroCupo, FechaInicio, EstadoFecha, NroIngresoDia, EstadoMembresiaInterdiaria, showapp
+                CodTipCli, CodigoTipoPaquete, TiempoMembresia, NroCupo, FechaInicio, EstadoFecha, NroIngresoDia, EstadoMembresiaInterdiaria, showapp, urlimage, Suscripcion
             };
 
             console.log(data)
             $.ajax({
                 data: JSON.stringify(data),
-               // data: '{"codigo":"' + codigo + '","descripcion":"' + descripcion + '","valor":"' + valor + '","FrezenDisponibles":"' + FrezenDisponibles + '","costo":"' + costo + '","accion":"' + accion + '","estado":"' + estado + '","FechaVencimiento":"' + FechaVencimiento + '","CodTipCli":"' + CodTipCli + '","CodigoTipoPaquete":"' + CodigoTipoPaquete + '","TiempoMembresia":"' + TiempoMembresia + '","NroCupo":"' + NroCupo + '","FechaInicio":"' + FechaInicio + '","EstadoFecha":"' + EstadoFecha + '","NroIngresoDia":"' + NroIngresoDia + '","EstadoMembresiaInterdiaria":"' + EstadoMembresiaInterdiaria + '"}',
+                // data: '{"codigo":"' + codigo + '","descripcion":"' + descripcion + '","valor":"' + valor + '","FrezenDisponibles":"' + FrezenDisponibles + '","costo":"' + costo + '","accion":"' + accion + '","estado":"' + estado + '","FechaVencimiento":"' + FechaVencimiento + '","CodTipCli":"' + CodTipCli + '","CodigoTipoPaquete":"' + CodigoTipoPaquete + '","TiempoMembresia":"' + TiempoMembresia + '","NroCupo":"' + NroCupo + '","FechaInicio":"' + FechaInicio + '","EstadoFecha":"' + EstadoFecha + '","NroIngresoDia":"' + NroIngresoDia + '","EstadoMembresiaInterdiaria":"' + EstadoMembresiaInterdiaria + '"}',
                 type: "POST",
                 url: "/operacionesfit/GuardarPaquete",
                 contentType: "application/json; charset=utf-8",

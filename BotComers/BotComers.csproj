@@ -6037,6 +6037,7 @@
     <Content Include="Resource\gimnasio\moduloAgendaComercial.js" />
     <Content Include="Resource\gimnasio\moduloCaja.js" />
     <Content Include="Resource\gimnasio\moduloCheking.js" />
+    <Content Include="Resource\gimnasio\PlanesMembresia.js" />
     <Content Include="Resource\Inventario.js" />
     <Content Include="Resource\InventarioEdit.js" />
     <Content Include="Resource\paginacliente\reservasonline.js" />
