@@ -108,6 +108,8 @@ namespace AppsfitWebApi.Controllers
                         modelApi.FechaVencimiento = item.FechaVencimiento;
                         modelApi.DesNomProfesor = item.desNomProfesor;
                         modelApi.DesTipoPaquete = item.DesTipoPaquete;
+                        modelApi.UrlImage = item.UrlImage;
+                        modelApi.Suscripcion = item.Suscripcion;
                         list.Add(modelApi);
                     }
 
