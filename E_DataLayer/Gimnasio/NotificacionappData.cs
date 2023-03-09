@@ -465,7 +465,7 @@ namespace E_DataLayer
                                     UrlImage = oIDataReader[oIDataReader.GetOrdinal("UrlImagen")].ToString(),
                                     DescriptionHtml = oIDataReader[oIDataReader.GetOrdinal("DescripcionHtml")].ToString(),
                                     DescFechaCreacion = item.DateParse(Convert.ToDateTime(oIDataReader[oIDataReader.GetOrdinal("FechaCreacion")])),
-                                    Send = Convert.ToBoolean(oIDataReader[oIDataReader.GetOrdinal("Leido")]),
+                                    Read = Convert.ToBoolean(oIDataReader[oIDataReader.GetOrdinal("Leido")]),
                                     CodigoNotificacionesAppDestinatarios  = Convert.ToInt32(oIDataReader[oIDataReader.GetOrdinal("CodigoNotificacionesAppDestinatarios")]),
                                     IdUser = oIDataReader[oIDataReader.GetOrdinal("IdUser")].ToString(),
                                     

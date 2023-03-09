@@ -169,7 +169,7 @@ async function RegisterNotisApp(e) {
     var body = document.getElementById("ntis_body").value;
     var image = document.getElementById("ntis_urlimage").value;
     var recurrent = document.getElementById("ntis_recurrente").checked;
-    var description = $("#kendo_editor_notis").data("kendoEditor").value();
+    var description = document.getElementById("kendo_editor_notis").value; // $("#kendo_editor_notis").data("kendoEditor").value();
     var optionMode = document.getElementById("toption_ntis").value;
 
     var data = {
@@ -226,7 +226,8 @@ function cleanNotiRegister() {
     document.getElementById("ntis_body").value = "";
     document.getElementById("ntis_urlimage").value = "";
     document.getElementById("ntis_recurrente").checked = false;
-    $("#kendo_editor_notis").data("kendoEditor").value("");
+    //$("#kendo_editor_notis").data("kendoEditor").value("");
+    document.getElementById("kendo_editor_notis").value = "";
     document.getElementById("toption_ntis").value = 1;
     ModeSendOptionNtis(document.getElementById("opsennowNtis"), 1);
 
@@ -288,7 +289,8 @@ async function ShowGetItem(code) {
             document.getElementById("ntis_body").value = item?.Body;
             document.getElementById("ntis_urlimage").value = item?.UrlImage;
             document.getElementById("ntis_recurrente").checked = item?.Recurrent;
-            $("#kendo_editor_notis").data("kendoEditor").value(item?.DescriptionHtml);
+           // $("#kendo_editor_notis").data("kendoEditor").value(item?.DescriptionHtml);
+            document.getElementById("kendo_editor_notis").value = item?.DescriptionHtml;
 
             document.getElementById("toption_ntis").value = item?.Send;
 
@@ -537,76 +539,80 @@ function ModeSendOptionNtis(e, value) {
 
 
 //******************************************************* RENDER EDITOR*************************************************/
-var editor = $("#kendo_editor_notis").kendoEditor({
-    stylesheets: [
-        "../content/shared/styles/editor.css",
-    ], imageBrowser: {
-        messages: {
-            dropFilesHere: "Drop files here"
-        },
-        transport: {
-            read: "~/Content/appsfit_img/",
-            destroy: {
-                url: "/kendo-ui/service/ImageBrowser/Destroy",
-                type: "POST"
-            },
-            create: {
-                url: "/kendo-ui/service/ImageBrowser/Create",
-                type: "POST"
-            },
-            thumbnailUrl: "/kendo-ui/service/ImageBrowser/Thumbnail",
-            uploadUrl: "/kendo-ui/service/ImageBrowser/Upload",
-            imageUrl: "/kendo-ui/service/ImageBrowser/Image?path={0}"
-        }
-    },
-    tools: [
-        "bold",
-        "italic",
-        "underline",
-        "undo",
-        "redo",
-        "strikethrough",
-        "justifyLeft",
-        "justifyCenter",
-        "justifyRight",
-        "justifyFull",
-        "insertUnorderedList",
-        "insertOrderedList",
-        "insertUpperRomanList",
-        "insertLowerRomanList",
-        "indent",
-        "outdent",
-        "createLink",
-        "unlink",
-        "insertImage",
-        "insertFile",
-        "subscript",
-        "superscript",
-        "tableWizard",
-        "createTable",
-        "addRowAbove",
-        "addRowBelow",
-        "addColumnLeft",
-        "addColumnRight",
-        "deleteRow",
-        "deleteColumn",
-        "mergeCellsHorizontally",
-        "mergeCellsVertically",
-        "splitCellHorizontally",
-        "splitCellVertically",
-        "tableAlignLeft",
-        "tableAlignCenter",
-        "tableAlignRight",
-        "viewHtml",
-        "cleanFormatting",
-        "copyFormat",
-        "applyFormat",
-        "fontName",
-        "fontSize",
-        "foreColor",
-        "backColor",
-        "print",
-        "formatting"
-    ]
-});
+
+
+//var editor = $("#kendo_editor_notis").kendoEditor({
+//    stylesheets: [
+//        "../content/shared/styles/editor.css",
+//    ], imageBrowser: {
+//        messages: {
+//            dropFilesHere: "Drop files here"
+//        },
+//        transport: {
+//            read: "~/Content/appsfit_img/",
+//            destroy: {
+//                url: "/kendo-ui/service/ImageBrowser/Destroy",
+//                type: "POST"
+//            },
+//            create: {
+//                url: "/kendo-ui/service/ImageBrowser/Create",
+//                type: "POST"
+//            },
+//            thumbnailUrl: "/kendo-ui/service/ImageBrowser/Thumbnail",
+//            uploadUrl: "/kendo-ui/service/ImageBrowser/Upload",
+//            imageUrl: "/kendo-ui/service/ImageBrowser/Image?path={0}"
+//        }
+//    },
+//    tools: [
+//        "bold",
+//        "italic",
+//        "underline",
+//        "undo",
+//        "redo",
+//        "strikethrough",
+//        "justifyLeft",
+//        "justifyCenter",
+//        "justifyRight",
+//        "justifyFull",
+//        "insertUnorderedList",
+//        "insertOrderedList",
+//        "insertUpperRomanList",
+//        "insertLowerRomanList",
+//        "indent",
+//        "outdent",
+//        "createLink",
+//        "unlink",
+//        "insertImage",
+//        "insertFile",
+//        "subscript",
+//        "superscript",
+//        "tableWizard",
+//        "createTable",
+//        "addRowAbove",
+//        "addRowBelow",
+//        "addColumnLeft",
+//        "addColumnRight",
+//        "deleteRow",
+//        "deleteColumn",
+//        "mergeCellsHorizontally",
+//        "mergeCellsVertically",
+//        "splitCellHorizontally",
+//        "splitCellVertically",
+//        "tableAlignLeft",
+//        "tableAlignCenter",
+//        "tableAlignRight",
+//        "viewHtml",
+//        "cleanFormatting",
+//        "copyFormat",
+//        "applyFormat",
+//        "fontName",
+//        "fontSize",
+//        "foreColor",
+//        "backColor",
+//        "print",
+//        "formatting"
+//    ]
+//});
+
+
 //******************************************************* RENDER EDITOR*************************************************//

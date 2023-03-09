@@ -361,6 +361,9 @@ namespace E_DataLayer.Gimnasio
                                     NroIngresoDia = Convert.ToInt32(reader[reader.GetOrdinal("NroIngresoDia")]),
                                     ValorDias_Tiempo = Convert.ToInt32(reader[reader.GetOrdinal("ValorDias")]),
                                     ShowApp = Convert.ToBoolean(reader[reader.GetOrdinal("VisualizarTienda")]),
+                                    UrlImage = reader[reader.GetOrdinal("UrlImage")].ToString(),
+                                    Suscripcion = Convert.ToBoolean(reader[reader.GetOrdinal("Suscripcion")]),
+
                                 };
                             }
                         }
@@ -438,6 +441,8 @@ namespace E_DataLayer.Gimnasio
                     cmd.Parameters.Add(new SqlParameter("@NroIngresoDia", System.Data.SqlDbType.Int)).Value = item.NroIngresoDia;
                     cmd.Parameters.Add(new SqlParameter("@CodigoInicioSesion", System.Data.SqlDbType.Int)).Value = item.CodigoInicioSesion;
                     cmd.Parameters.Add(new SqlParameter("@VisualizarTienda", System.Data.SqlDbType.Bit)).Value = item.ShowApp;
+                    cmd.Parameters.Add(new SqlParameter("@UrlImage", System.Data.SqlDbType.VarChar,100)).Value = item.UrlImage;
+                    cmd.Parameters.Add(new SqlParameter("@Suscripcion", System.Data.SqlDbType.Bit)).Value = item.Suscripcion;
 
                     cmd.ExecuteNonQuery();
                 }
@@ -475,6 +480,8 @@ namespace E_DataLayer.Gimnasio
                     cmd.Parameters.Add(new SqlParameter("@CodigoSede", System.Data.SqlDbType.Int)).Value = item.CodigoSede;
                     cmd.Parameters.Add(new SqlParameter("@CodigoInicioSesion", System.Data.SqlDbType.Int)).Value = item.CodigoInicioSesion;
                     cmd.Parameters.Add(new SqlParameter("@VisualizarTienda", System.Data.SqlDbType.Bit)).Value = item.ShowApp;
+                    cmd.Parameters.Add(new SqlParameter("@UrlImage", System.Data.SqlDbType.VarChar, 100)).Value = item.UrlImage;
+                    cmd.Parameters.Add(new SqlParameter("@Suscripcion", System.Data.SqlDbType.Bit)).Value = item.Suscripcion;
 
                     cmd.ExecuteNonQuery();
                 }
@@ -526,6 +533,98 @@ namespace E_DataLayer.Gimnasio
             }
             return Convert.ToInt32(campoRetorno);
         }
+
+
+        //********************************************************** SUSCRIPCIONES ****************************************************
+
+        //list plan pasarela by paquete
+        public List<PlanesDTO> ListPlanPasarelaByPaquete(PlanesDTO oitem)
+        {
+            List<PlanesDTO> lista = new List<PlanesDTO>();
+
+            using (var conn = new SqlConnection(Helper.Conexion()))
+            {
+                conn.Open();
+                using (var cmd = new SqlCommand("uspListarPaquetesSuscripcion", conn))
+                {
+                    cmd.CommandType = System.Data.CommandType.StoredProcedure;
+                    cmd.Parameters.Add(new SqlParameter("@CodigoUnidadNegocio", System.Data.SqlDbType.Int)).Value = oitem.CodigoUnidadNegocio;
+                    cmd.Parameters.Add(new SqlParameter("@CodigoSede", System.Data.SqlDbType.Int)).Value = oitem.CodigoSede;
+                    cmd.Parameters.Add(new SqlParameter("@CodigoPaquete", System.Data.SqlDbType.Int)).Value = oitem.CodigoPaquete;
+
+                    using (SqlDataReader oIDataReader = cmd.ExecuteReader())
+                    {
+                        if (oIDataReader.HasRows)
+                        {
+                            while (oIDataReader.Read())
+                            {
+                                lista.Add(new PlanesDTO()
+                                {
+                                    CodigoPaqueteSuscripcion = oIDataReader[oIDataReader.GetOrdinal("CodigoPaqueteSuscripcion")].ToString(),
+                                    CodigoPlantillaFormaPago = oIDataReader[oIDataReader.GetOrdinal("CodigoPlantillaFormaPago")].ToString(),
+                                    IdSuscripcionPasarela = oIDataReader[oIDataReader.GetOrdinal("IdSuscripcionPasarela")].ToString(),
+                                    CodigoPaquete = Convert.ToInt32(oIDataReader[oIDataReader.GetOrdinal("CodigoPaquete")]),
+                                    DesSuscripcionPlan = oIDataReader[oIDataReader.GetOrdinal("DesSuscripcionPlan")].ToString(),
+                                    DesPasarelaPago = oIDataReader[oIDataReader.GetOrdinal("DesPasarelaPago")].ToString(),
+                                });
+                            }
+                        }
+
+                    }
+                }
+            }
+            return lista;
+        }
+
+
+
+        //register paquete plan - pasarela
+        public void RegisterPlanPasarela(PlanesDTO item)
+        {
+            using (var conn = new SqlConnection(Helper.Conexion()))
+            {
+                conn.Open();
+                using (var cmd = new SqlCommand("uspRegistrarPaquetesSuscripcion", conn))
+                {
+                    cmd.CommandType = System.Data.CommandType.StoredProcedure;
+                    cmd.Parameters.Add(new SqlParameter("@CodigoUnidadNegocio", System.Data.SqlDbType.Int)).Value = item.CodigoUnidadNegocio;
+                    cmd.Parameters.Add(new SqlParameter("@CodigoSede", System.Data.SqlDbType.Int)).Value = item.CodigoSede;
+                    cmd.Parameters.Add(new SqlParameter("@CodigoPaquete", System.Data.SqlDbType.Int)).Value = item.CodigoPaquete;
+
+                    cmd.Parameters.Add(new SqlParameter("@CodigoPaqueteSuscripcion", System.Data.SqlDbType.VarChar, 100)).Value = 0;
+                    cmd.Parameters.Add(new SqlParameter("@CodigoPlantillaFormaPago", System.Data.SqlDbType.VarChar, 100)).Value = item.CodigoPlantillaFormaPago;
+                    cmd.Parameters.Add(new SqlParameter("@IdSuscripcionPasarela", System.Data.SqlDbType.VarChar, 100)).Value = item.IdSuscripcionPasarela;
+                    cmd.Parameters.Add(new SqlParameter("@Descripcion", System.Data.SqlDbType.VarChar, 100)).Value = item.Descripcion;
+                    if (!string.IsNullOrEmpty(item.UsuarioCreacion))
+                    {
+                        cmd.Parameters.Add(new SqlParameter("@UsuarioCreacion", System.Data.SqlDbType.VarChar, 100)).Value = item.UsuarioCreacion;
+                    }
+                    cmd.ExecuteNonQuery();
+                }
+            }
+        }
+
+
+        //destroy plan paquete
+        public void DestroyPlanPaquete(PlanesDTO item)
+        {
+            
+            using (var conn = new SqlConnection(Helper.Conexion()))
+            {
+                conn.Open();
+                using (var cmd = new SqlCommand("uspEliminarPaquetesSuscripcion", conn))
+                {
+                    cmd.CommandType = System.Data.CommandType.StoredProcedure;
+                    cmd.Parameters.Add(new SqlParameter("@CodigoUnidadNegocio", System.Data.SqlDbType.Int)).Value = item.CodigoUnidadNegocio;
+                    cmd.Parameters.Add(new SqlParameter("@CodigoSede", System.Data.SqlDbType.Int)).Value = item.CodigoSede;
+                    cmd.Parameters.Add(new SqlParameter("@CodigoPaquete", System.Data.SqlDbType.Int)).Value = item.CodigoPaquete;
+                    cmd.Parameters.Add(new SqlParameter("@CodigoPaqueteSuscripcion", System.Data.SqlDbType.VarChar, 100)).Value = item.CodigoPaqueteSuscripcion;
+                    cmd.ExecuteNonQuery();
+
+                }
+            }
+        }
+        //********************************************************** SUSCRIPCIONES ****************************************************
 
     }
 }

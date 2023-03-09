@@ -69,6 +69,7 @@ namespace E_DataModel.Gimnasio
 
         
         public string DesPaquete { get; set; }
+        public string UrlImage { get; set; }
 
         
         public decimal ImporteTotal { get; set; }
@@ -142,6 +143,14 @@ namespace E_DataModel.Gimnasio
         public int ValorTiempoPlan { get; set; }
         public int ValorSesiones { get; set; }
         public string DesTipoPaquete { get; set; }
+
+        //suscripcion
+        public string CodigoPlantillaFormaPago { get; set; }
+        public string IdSuscripcionPasarela { get; set; }
+        public string CodigoPaqueteSuscripcion { get; set; }
+        public string DesPasarelaPago { get; set; }
+        public string DesSuscripcionPlan { get; set; }
+        public bool Suscripcion { get; set; }
     }
 	
 	

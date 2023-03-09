@@ -310,6 +310,10 @@
         NotiAppRegisterDetail = 191,
         NotiAppReadUpdate = 192,
 
+        //suscripcion plan
+        PlanSuscriptionRegister = 193,
+        PlanSuscriptionDestroy = 194,
+
     }
 
     public enum TipoMensaje
@@ -857,6 +861,7 @@
 
         uspListarPaquetesMenbresiasCursos_NumeroRegistros = 18,
         listApp = 19,
+        ListPlanPasarelaByPaquete = 20,
 
     }
 
