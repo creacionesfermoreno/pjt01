@@ -305,6 +305,7 @@
     <Compile Include="Controllers\admintiendafitController.cs" />
     <Compile Include="Controllers\almacenesController.cs" />
     <Compile Include="Controllers\BotComersController.cs" />
+    <Compile Include="Controllers\capacitacionesappsfitController.cs" />
     <Compile Include="Controllers\categoriasController.cs" />
     <Compile Include="Controllers\configuracionController.cs" />
     <Compile Include="Controllers\corporativoController.cs" />
@@ -7286,6 +7287,7 @@
     <Content Include="Views\gestionce\marketing.cshtml" />
     <Content Include="Views\softwareparagimnasios\politicadeprivacidad.cshtml" />
     <Content Include="Views\softwareparagimnasios\leadsappsfitmuchasgracias.cshtml" />
+    <Content Include="Views\capacitacionesappsfit\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -93,6 +93,24 @@
             background-position-x: center;
         }
 
+    .estilo3dmirandoizquierda {
+        transform: perspective(1000px) rotateX(4deg) rotateY(-16deg) rotateZ(4deg);
+        box-shadow: 24px 16px 64px 0 rgba(0, 0, 0, 0.08);
+        border-radius: 2px;
+    }
+
+    .estilo3dmirandoderecha {
+        transform: perspective(800px) rotateY(25deg) scale(0.9) rotateX(10deg);       
+        transition: 0.6s ease all;
+    }
+
+    .estiloformulario3d {
+        transform: perspective(75em) rotateX(7deg);
+        box-shadow: rgb(22 31 39 / 42%) 0px 60px 123px -25px, rgb(19 26 32 / 8%) 0px 35px 75px -35px;
+        border-radius: 10px;
+        border: 1px solid;
+        border-color: rgb(213, 220, 226) rgb(213, 220, 226) rgb(184, 194, 204);
+    }
 </style>
 <!--begin home section -->
 
@@ -139,7 +157,7 @@
                                                 </div>
                                             </div>
                                             <div class="col-lg-6 col-sm-6 col-xs-12">
-                                                <div class="contact_form_box type_two" style="--tw-gradient-from: #3e3e3e; --tw-gradient-stops: #3e3e3e, #3e3e3e; background-image: linear-gradient(to bottom right,var(--tw-gradient-stops)); ">
+                                                <div class="contact_form_box type_two estiloformulario3d" style="--tw-gradient-from: #3e3e3e; --tw-gradient-stops: #3e3e3e, #3e3e3e; background-image: linear-gradient(to bottom right,var(--tw-gradient-stops)); ">
                                                     <div class="row">
                                                         <div class="text-center ">
                                                             <h1> <span class="text-orange">&#161;Solicita tu demo gratis y precios&#33;</span> </h1>
@@ -431,7 +449,7 @@
                             <h1><b class="text-orange">Dashboard </b><b class="text-black">+ kpi de gesti&oacute;n avanzada + </b> <b class="text-orange">estad&iacute;sticas</b></h1>
                             <span class="flaticon-virus icon"></span>
                         </div>
-                        <img src="~/Content/appsfit_img/mokacappsfitweb2.png" class="img-fluid" alt="img">
+                        <img src="~/Content/appsfit_img/mokacappsfitweb2.png" class="img-fluid estilo3dmirandoderecha" alt="img">
                     </div>
                 </div>
                 <div class="col-lg-6">
@@ -528,7 +546,7 @@
                 <div class="col-lg-6">
                     <div class="image_box">
                         <br /><br />
-                        <img src="~/Content/appsfit_img/mokacappsfitweb3.png" class="img-fluid" alt="img">
+                        <img src="~/Content/appsfit_img/mokacappsfitweb3.png" class="img-fluid estilo3dmirandoizquierda" alt="img">
                         <br /><br />
                         <a href="#inicio" class="theme_btn tp_one" style="width:100%;padding-left:8px;padding-right:8px;"> Demo gratis y Precios <span style="font-size: 19px;" class="fa fa-whatsapp"></span></a>
                         <br /><br />
@@ -545,7 +563,7 @@
                             <h1><b class="text-orange">Sistema de gesti&oacute;n de membres&iacute;as</b> </h1>
                             <span class="flaticon-virus icon"></span>
                         </div>
-                        <img style="margin-top: -119px;" src="~/Content/paginaappsfit2/image/sistema-de-membresias.png" class="img-fluid" alt="img">
+                        <img style="margin-top: -119px;" src="~/Content/paginaappsfit2/image/sistema-de-membresias.png" class="img-fluid estilo3dmirandoderecha"  alt="img">
                     </div>
                 </div>
                 <div class="col-lg-6">
@@ -619,7 +637,7 @@
                 <div class="col-lg-6">
                     <div class="image_box">
                         <br /><br />
-                        <img src="~/Content/appsfit_img/mokacappsfitweb4.png" class="img-fluid" alt="img">
+                        <img src="~/Content/appsfit_img/mokacappsfitweb4.png" class="img-fluid estilo3dmirandoizquierda" alt="img">
                         <br /><br />
                         <a href="#inicio" class="theme_btn tp_one" style="width:100%;padding-left:8px;padding-right:8px;"> Demo gratis y Precios <span style="font-size: 19px;" class="fa fa-whatsapp"></span></a>
                         <br /><br />
@@ -673,7 +691,7 @@
                             <h1><b class="text-orange">CRM - Sistema de gesti&oacute;n comercial</b> <b class="text-black">+ Integraci&oacute;n a whatsapp.</b></h1>
                             <span class="flaticon-virus icon"></span>
                         </div>
-                        <img src="~/Content/paginaappsfit2/image/correo-masivos.png" class="img-fluid" alt="img" />
+                        <img src="~/Content/paginaappsfit2/image/correo-masivos.png" class="img-fluid estilo3dmirandoderecha" alt="img" />
                     </div>
                 </div>
                 <div class="col-lg-6">
@@ -794,7 +812,7 @@
                 <div class="col-lg-6">
                     <div class="image_box">
                         <br /><br />
-                        <img src="~/Content/paginaappsfit2/image/sistema-de-metas.png" />
+                        <img src="~/Content/paginaappsfit2/image/sistema-de-metas.png" class="estilo3dmirandoizquierda" />
                         <br /><br />
                         <a href="#inicio" class="theme_btn tp_one" style="width:100%;padding-left:8px;padding-right:8px;"> Demo gratis y Precios <span style="font-size: 19px;" class="fa fa-whatsapp"></span></a>
                         <br /><br />
@@ -813,7 +831,7 @@
                             <h1><b class="text-orange">Envio de correos masivos</b><b class="text-black"> + Segmentaci&oacute;n</b> </h1>
                             <span class="flaticon-virus icon"></span>
                         </div>
-                        <img src="~/Content/appsfit_img/mokacappsfitweb8.png" class="img-fluid" alt="img">
+                        <img src="~/Content/appsfit_img/mokacappsfitweb8.png" class="img-fluid estilo3dmirandoderecha" alt="img">
                     </div>
                 </div>
                 <div class="col-lg-6">
@@ -907,7 +925,7 @@
                 <div class="col-lg-6">
                     <div class="image_box">
                         <br /><br />
-                        <img src="~/Content/appsfit_img/mokacappsfitweb7.png" class="img-fluid" alt="img" />
+                        <img src="~/Content/appsfit_img/mokacappsfitweb7.png" class="img-fluid estilo3dmirandoizquierda" alt="img" />
                         <br /><br />
                         <a href="#inicio" class="theme_btn tp_one" style="width:100%;padding-left:8px;padding-right:8px;"> Demo gratis y Precios <span style="font-size: 19px;" class="fa fa-whatsapp"></span></a>
                         <br /><br />
@@ -926,7 +944,7 @@
                             <h1><b class="text-orange">Sistema de ejercicios</b> <b class="text-black">+ Rutinas de entrenamiento.</b></h1>
                             <span class="flaticon-virus icon"></span>
                         </div>
-                        <img src="~/Content/paginaappsfit2/image/sistema-de-ejercicios.png" class="img-fluid" alt="img">
+                        <img src="~/Content/paginaappsfit2/image/sistema-de-ejercicios.png" class="img-fluid estilo3dmirandoderecha" alt="img">
                     </div>
                 </div>
                 <div class="col-lg-6">
@@ -1007,7 +1025,7 @@
                             <h1>Recibe pagos recurrentes todos los meses de tus clientes</h1>
                             <span class="flaticon-virus icon"></span>
                         </div>
-                        <img src="~/Content/appsfit_img/mokacappsfitweb9.png" class="img-fluid" alt="img">
+                        <img src="~/Content/appsfit_img/mokacappsfitweb9.png" class="img-fluid estilo3dmirandoizquierda" alt="img">
                         <br /><br />
                         <a href="#inicio" class="theme_btn tp_one" style="width:100%;padding-left:8px;padding-right:8px;"> Demo gratis y Precios <span style="font-size: 19px;" class="fa fa-whatsapp"></span></a>
                         <br /><br />
