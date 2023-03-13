@@ -20,7 +20,7 @@
     @if (IsSectionDefined("Styles"))
     {@RenderSection("Styles", required: false)}
 
-    
+
     <link href="@Url.Content("~/Content/appfitplataformapersonafit/assets/vendor/perfect-scrollbar.css")" rel="stylesheet" />
     <link href="@Url.Content("~/Content/appfitplataformapersonafit/assets/css/app.css")" rel="stylesheet" />
     @*<link href="@Url.Content("~/Content/appfitplataformapersonafit/assets/css/app.rtl.css")" rel="stylesheet" />*@
@@ -36,6 +36,10 @@
     <link href="@Url.Content("~/Content/appsfit_crm/assets/js/config.js")" rel="stylesheet" />
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,500,600,700%7cPoppins:300,400,500,600,700,800,900&amp;display=swap" rel="stylesheet">
+
+
+    
+    <link href="@Url.Content("~/Content/appsfit_crm/vendors/plyr/plyr.css")" rel="stylesheet" />
     <link href="@Url.Content("~/Content/appsfit_crm/vendors/overlayscrollbars/OverlayScrollbars.min.css")" rel="stylesheet" />
     <link href="@Url.Content("~/Content/appsfit_crm/assets/css/theme-rtl.min.css")" rel="stylesheet" />
     <link href="@Url.Content("~/Content/appsfit_crm/assets/css/theme.min.css")" rel="stylesheet" />
@@ -46,6 +50,33 @@
     <link href="@Url.Content("~/Content/apiwhatsapp_css/app.css")" rel="stylesheet" />
 
     <style>
+
+        .borderMenuAppsfit_principal {
+            border: 1px solid #2e2721;
+            border-radius: 12px;
+            padding: 5px;
+            margin: 2px;
+        }
+
+        .borderMenuAppsfit_option {
+            border: 1px solid #321900;
+            border-radius: 12px;
+            padding: 5px;
+            margin: 2px;
+        }
+
+        .sizeMenuAppsfit_icon {
+            font-size: 9px;
+        }
+
+        .sizeMenuAppsfit_text {
+            font-size: 15px;
+        }
+
+        .estiloMenuAppsfit_a {
+            text-decoration: none;
+        }
+
         .bg-primary {
             background-image: linear-gradient(to right, #ff0200 80%, #ff0200 100%);
         }
@@ -328,11 +359,15 @@
         <!-- // END header-layout__content -->
     </div>
     <!-- // END header-layout -->
-    <div class="mdk-drawer  js-mdk-drawer" id="default-drawer" data-align="end">
+
+    <div class="mdk-drawer js-mdk-drawer" id="default-drawer" data-align="end">
+
         <div class="mdk-drawer__content">
+
             <div class="sidebar sidebar-light sidebar-left" data-perfect-scrollbar>
 
                 <div class="sidebar-block p-0 m-0">
+
                     <div class="d-flex align-items-center sidebar-p-a border-bottom bg-light">
                         <a href="#" class="flex d-flex align-items-center text-body text-underline-0">
                             <span class="avatar avatar-sm mr-2">
@@ -341,9 +376,7 @@
                                 </span>
                             </span>
                             <span class="flex d-flex flex-column">
-                                <strong>@HttpContext.Current.Request.Cookies["_urlCorporativo_EstadoEmpresa"].Value</strong><br />
-
-                                <small class="text-muted text-uppercase">Plan: @HttpContext.Current.Request.Cookies["_urlCorporativo_PlanEmpresa"].Value</small>
+                                <strong>@HttpContext.Current.Request.Cookies["_urlCorporativo_EstadoEmpresa"].Value</strong>
                             </span>
                         </a>
                         <div class="dropdown ml-auto">
@@ -359,298 +392,322 @@
                     </div>
                 </div>
 
-                <div class="row">
-                    <div class="col-5 border-right">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-3 col-lg-3 col-md-6 col-sm-6 border-right" style="padding-top: 10px;">
 
-                        <div class="sidebar-p-a sidebar-b-y" style="background-color:#000;color:#fff;">
-                            <a href="https://m.me/softwareparagimnasios?ref=w13854309" target="_blank" style="cursor:pointer;">
-                                <div style="margin-top: 5px;padding: 5px;text-align: center;border-radius: 6px;height: 36px;background-image: linear-gradient(to right, #ff0200 80%, #ffab28 100%);" class="d-flex align-items-top mb-2">
-                                    <div class="sidebar-heading m-0 p-0 flex js-text-body" style="color:#fff;">
-                                        ¡suscribete GRATIS a las capacitaciones!
-                                    </div>
+                            <div class="sidebar-block p-0">
+
+                                <div class="sidebar-heading">Gestión del centro</div>
+
+                                <ul class="sidebar-menu mt-0">
+                                    <li class="sidebar-menu-item" data-controlmodulo="28ef2288-9633-4fb4-a560-652a843efe53" style="display:none;">
+                                        <a style="text-decoration:none;" href="@Url.Action("membresiaspagos","operacionesfit",new {id= HttpContext.Current.Request.Cookies["_SubDominio_Business"].Value})">
+                                            <div class="d-flex align-items-center borderMenuAppsfit_option">
+                                                <span class="nav-link-icon"> <span class="fas fa-circle text-white sizeMenuAppsfit_icon"></span> </span><span class="nav-link-text ps-1 text-white sizeMenuAppsfit_text">Ingreso de membresías y pagos</span>
+                                            </div>
+                                        </a>
+                                    </li>
+                                    <li class="sidebar-menu-item" data-controlmodulo="60a0e867-1cee-4288-bce2-dc91efb46637" style="display:none;">
+                                        <a style="text-decoration:none;" href="@Url.Action("planesmembresias","operacionesfit",new {id= HttpContext.Current.Request.Cookies["_SubDominio_Business"].Value})">
+                                            <div class="d-flex align-items-center borderMenuAppsfit_option">
+                                                <span class="nav-link-icon"> <span class="fas fa-circle text-white sizeMenuAppsfit_icon"></span> </span><span class="nav-link-text ps-1 text-white sizeMenuAppsfit_text">Ingreso de planes y diario</span>
+                                            </div>
+                                        </a>
+                                    </li>
+                                    <li class="sidebar-menu-item" data-controlmodulo="7c160841-831b-4f65-bd7d-9431bacbb49d" style="display:none;">
+                                        <a style="text-decoration:none;" href="@Url.Action("Index","itemsventafit",new {id= HttpContext.Current.Request.Cookies["_SubDominio_Business"].Value})">
+                                            <div class="d-flex align-items-center borderMenuAppsfit_option">
+                                                <span class="nav-link-icon"> <span class="fas fa-circle text-white sizeMenuAppsfit_icon"></span> </span><span class="nav-link-text ps-1 text-white sizeMenuAppsfit_text">Ingreso de productos</span>
+                                            </div>
+                                        </a>
+                                    </li>
+                                    <li class="sidebar-menu-item" data-controlmodulo="ee7b76c5-4cb1-43c3-9969-9147f3541259" style="display:none;">
+                                        <a style="text-decoration:none;" href="@Url.Action("Index","inventarioajustefit",new {id= HttpContext.Current.Request.Cookies["_SubDominio_Business"].Value})">
+                                            <div class="d-flex align-items-center borderMenuAppsfit_option">
+                                                <span class="nav-link-icon"> <span class="fas fa-circle text-white sizeMenuAppsfit_icon"></span> </span><span class="nav-link-text ps-1 text-white sizeMenuAppsfit_text">Actualizar inventario</span>
+                                            </div>
+                                        </a>
+                                    </li>
+                                    <li class="sidebar-menu-item" data-controlmodulo="a70bccf4-d1dc-4e07-bf64-dd058f39cf37" style="display:none;">
+                                        <a style="text-decoration:none;" href="@Url.Action("Configuracion","reservapresencial",new {id= HttpContext.Current.Request.Cookies["_SubDominio_Business"].Value})">
+                                            <div class="d-flex align-items-center borderMenuAppsfit_option">
+                                                <span class="nav-link-icon"> <span class="fas fa-circle text-white sizeMenuAppsfit_icon"></span> </span><span class="nav-link-text ps-1 text-white sizeMenuAppsfit_text">Clases grupales</span>
+                                            </div>
+                                        </a>
+                                    </li>
+                                    <li class="sidebar-menu-item" data-controlmodulo="16548d28-f301-494f-8987-6dcde894a7d6" style="display:none;">
+                                        <a style="text-decoration:none;" href="@Url.Action("personalfijo","operacionesfit",new {id= HttpContext.Current.Request.Cookies["_SubDominio_Business"].Value})">
+                                            <div class="d-flex align-items-center borderMenuAppsfit_option">
+                                                <span class="nav-link-icon"> <span class="fas fa-circle text-white sizeMenuAppsfit_icon"></span> </span><span class="nav-link-text ps-1 text-white sizeMenuAppsfit_text">Personal fijo</span>
+                                            </div>
+                                        </a>
+                                    </li>
+                                    <li class="sidebar-menu-item" data-controlmodulo="731cc564-a98b-4640-b0f5-107c714144fc" style="display:none;">
+                                        <a style="text-decoration:none;" href="@Url.Action("gastos","operacionesfit",new {id= HttpContext.Current.Request.Cookies["_SubDominio_Business"].Value})">
+                                            <div class="d-flex align-items-center borderMenuAppsfit_option">
+                                                <span class="nav-link-icon"> <span class="fas fa-circle text-white sizeMenuAppsfit_icon"></span> </span><span class="nav-link-text ps-1 text-white sizeMenuAppsfit_text">Gastos administrativos</span>
+                                            </div>
+                                        </a>
+                                    </li>
+                                    <li class="sidebar-menu-item" data-controlmodulo="384387e7-fc65-45e6-83f0-bde6a1f6900c" style="display:none;">
+                                        <a style="text-decoration:none;" href="@Url.Action("historialmetas","operacionesfit",new {id= HttpContext.Current.Request.Cookies["_SubDominio_Business"].Value})">
+                                            <div class="d-flex align-items-center borderMenuAppsfit_option">
+                                                <span class="nav-link-icon"> <span class="fas fa-circle text-white sizeMenuAppsfit_icon"></span> </span><span class="nav-link-text ps-1 text-white sizeMenuAppsfit_text">Metas de vendedores</span>
+                                            </div>
+                                        </a>
+                                    </li>
+                                    <li class="sidebar-menu-item" data-controlmodulo="16cdb705-f84a-43ff-a8c5-ce17e0e13b24" style="display:none;">
+                                        <a style="text-decoration:none;" href="@Url.Action("anularventas","operacionesfit",new {id= HttpContext.Current.Request.Cookies["_SubDominio_Business"].Value})">
+                                            <div class="d-flex align-items-center borderMenuAppsfit_option">
+                                                <span class="nav-link-icon"> <span class="fas fa-circle text-white sizeMenuAppsfit_icon"></span> </span><span class="nav-link-text ps-1 text-white sizeMenuAppsfit_text">Anular ventas</span>
+                                            </div>
+                                        </a>
+                                    </li>
+                                    <li class="sidebar-menu-item" data-controlmodulo="40c9b04c-18d1-4ffc-b88f-79aa43a8036f" style="display:none;">
+                                        <a style="text-decoration:none;" href="@Url.Action("usuarios","operacionesfit",new {id= HttpContext.Current.Request.Cookies["_SubDominio_Business"].Value})">
+                                            <div class="d-flex align-items-center borderMenuAppsfit_option">
+                                                <span class="nav-link-icon"> <span class="fas fa-circle text-white sizeMenuAppsfit_icon"></span> </span><span class="nav-link-text ps-1 text-white sizeMenuAppsfit_text">Usuarios</span>
+                                            </div>
+                                        </a>
+                                    </li>
+                                    <li class="sidebar-menu-item" data-controlmodulo="fb8a3d7d-68a8-4a9b-ab9c-9bb049c24c75" style="display:none;">
+                                        <a style="text-decoration:none;" href="@Url.Action("permisos","operacionesfit",new {id= HttpContext.Current.Request.Cookies["_SubDominio_Business"].Value})">
+                                            <div class="d-flex align-items-center borderMenuAppsfit_option">
+                                                <span class="nav-link-icon"> <span class="fas fa-circle text-white sizeMenuAppsfit_icon"></span> </span><span class="nav-link-text ps-1 text-white sizeMenuAppsfit_text">Permisos</span>
+                                            </div>
+                                        </a>
+                                    </li>
+                                    <li class="sidebar-menu-item" data-controlmodulo="ec078d2c-4af2-4d1d-94e5-bf94903db005" style="display:none;">
+                                        <a style="text-decoration:none;" href="@Url.Action("configuracion","operacionesfit",new {id= HttpContext.Current.Request.Cookies["_SubDominio_Business"].Value})">
+                                            <div class="d-flex align-items-center borderMenuAppsfit_option">
+                                                <span class="nav-link-icon"> <span class="fas fa-circle text-white sizeMenuAppsfit_icon"></span> </span><span class="nav-link-text ps-1 text-white sizeMenuAppsfit_text">Configuración</span>
+                                            </div>
+                                        </a>
+                                    </li>
+                                </ul>
+
+                                <div class="sidebar-heading" style="display:none;">Inventario</div>
+                                <div class="sidebar-block p-0" style="display:none;">
+                                    <ul class="sidebar-menu" id="components_menu">
+
+                                        <li class="sidebar-menu-item" style="display:none;">
+                                            <a class="sidebar-menu-button" href="@Url.Action("Configuracion","reservapresencial",new {id= HttpContext.Current.Request.Cookies["_SubDominio_Business"].Value})">
+
+                                                <span class="sidebar-menu-text">Categorias</span>
+                                                <span class="badge badge-primary ml-auto">nuevo</span>
+                                            </a>
+                                        </li>
+                                        <li class="sidebar-menu-item" style="display:none;">
+                                            <a class="sidebar-menu-button" href="@Url.Action("Configuracion","reservapresencial",new {id= HttpContext.Current.Request.Cookies["_SubDominio_Business"].Value})">
+
+                                                <span class="sidebar-menu-text">Clientes</span>
+                                            </a>
+                                        </li>
+                                    </ul>
                                 </div>
-                            </a>
-                        </div>
-                        <div class="sidebar-block p-0">
 
-                            <div class="sidebar-heading">Gestión del centro</div>
+                            </div>
 
-                            <ul class="sidebar-menu mt-0">
-
-                                <li class="sidebar-menu-item" data-controlmodulo="28ef2288-9633-4fb4-a560-652a843efe53" style="display:none;">
-                                    <a class="sidebar-menu-button" href="@Url.Action("membresiaspagos","operacionesfit",new {id= HttpContext.Current.Request.Cookies["_SubDominio_Business"].Value})">
-                                        <span class="sidebar-menu-text">Ingreso de membresías y pagos</span>
-                                    </a>
-                                </li>
-                                <li class="sidebar-menu-item" data-controlmodulo="60a0e867-1cee-4288-bce2-dc91efb46637" style="display:none;">
-                                    <a class="sidebar-menu-button" href="@Url.Action("planesmembresias","operacionesfit",new {id= HttpContext.Current.Request.Cookies["_SubDominio_Business"].Value})">
-                                        <span class="sidebar-menu-text">Ingreso de planes y diario</span>
-                                    </a>
-                                </li>
-                                <li class="sidebar-menu-item" data-controlmodulo="7c160841-831b-4f65-bd7d-9431bacbb49d" style="display:none;">
-                                    <a class="sidebar-menu-button" href="@Url.Action("Index","itemsventafit",new {id= HttpContext.Current.Request.Cookies["_SubDominio_Business"].Value})">
-
-                                        <span class="sidebar-menu-text">Ingreso de productos</span>
-                                    </a>
-                                </li>
-                                <li class="sidebar-menu-item" data-controlmodulo="ee7b76c5-4cb1-43c3-9969-9147f3541259" style="display:none;">
-                                    <a class="sidebar-menu-button" href="@Url.Action("Index","inventarioajustefit",new {id= HttpContext.Current.Request.Cookies["_SubDominio_Business"].Value})">
-
-                                        <span class="sidebar-menu-text">Actualizar inventario</span>
-                                    </a>
-                                </li>
-
-                                <li class="sidebar-menu-item" data-controlmodulo="a70bccf4-d1dc-4e07-bf64-dd058f39cf37" style="display:none;">
-                                    <a class="sidebar-menu-button" href="@Url.Action("Configuracion","reservapresencial",new {id= HttpContext.Current.Request.Cookies["_SubDominio_Business"].Value})">
-                                        <span class="sidebar-menu-text">Clases grupales</span>
-                                    </a>
-                                </li>
-
-                                <li class="sidebar-menu-item" data-controlmodulo="16548d28-f301-494f-8987-6dcde894a7d6" style="display:none;">
-                                    <a class="sidebar-menu-button" href="@Url.Action("personalfijo","operacionesfit",new {id= HttpContext.Current.Request.Cookies["_SubDominio_Business"].Value})">
-                                        <span class="sidebar-menu-text">Personal fijo</span>
-                                    </a>
-                                </li>
-                                <li class="sidebar-menu-item" data-controlmodulo="731cc564-a98b-4640-b0f5-107c714144fc" style="display:none;">
-                                    <a class="sidebar-menu-button" href="@Url.Action("gastos","operacionesfit",new {id= HttpContext.Current.Request.Cookies["_SubDominio_Business"].Value})">
-
-                                        <span class="sidebar-menu-text">Gastos administrativos</span>
-                                    </a>
-                                </li>
-
-                                <li class="sidebar-menu-item" data-controlmodulo="384387e7-fc65-45e6-83f0-bde6a1f6900c" style="display:none;">
-                                    <a class="sidebar-menu-button" href="@Url.Action("historialmetas","operacionesfit",new {id= HttpContext.Current.Request.Cookies["_SubDominio_Business"].Value})">
-                                        <span class="sidebar-menu-text">Metas de vendedores</span>
-                                    </a>
-                                </li>
-                                <li class="sidebar-menu-item" data-controlmodulo="16cdb705-f84a-43ff-a8c5-ce17e0e13b24" style="display:none;">
-                                    <a class="sidebar-menu-button" href="@Url.Action("anularventas","operacionesfit",new {id= HttpContext.Current.Request.Cookies["_SubDominio_Business"].Value})">
-
-                                        <span class="sidebar-menu-text">Anular ventas</span>
-                                    </a>
-                                </li>
-                                <li class="sidebar-menu-item" data-controlmodulo="40c9b04c-18d1-4ffc-b88f-79aa43a8036f" style="display:none;">
-                                    <a class="sidebar-menu-button" href="@Url.Action("usuarios","operacionesfit",new {id= HttpContext.Current.Request.Cookies["_SubDominio_Business"].Value})">
-                                        <span class="sidebar-menu-text">Usuarios</span>
-                                    </a>
-                                </li>
-                                <li class="sidebar-menu-item" data-controlmodulo="fb8a3d7d-68a8-4a9b-ab9c-9bb049c24c75" style="display:none;">
-                                    <a class="sidebar-menu-button" href="@Url.Action("permisos","operacionesfit",new {id= HttpContext.Current.Request.Cookies["_SubDominio_Business"].Value})">
-                                        <span class="sidebar-menu-text">Permisos</span>
-                                    </a>
-                                </li>
-                                <li class="sidebar-menu-item" data-controlmodulo="ec078d2c-4af2-4d1d-94e5-bf94903db005" style="display:none;">
-                                    <a class="sidebar-menu-button" href="@Url.Action("configuracion","operacionesfit",new {id= HttpContext.Current.Request.Cookies["_SubDominio_Business"].Value})">
-                                        <span class="sidebar-menu-text">Configuración</span>
-                                    </a>
-                                </li>
-                            </ul>
-
-                            <div class="sidebar-heading" style="display:none;">Inventario</div>
+                            <div class="sidebar-heading" style="display:none;">Tu tienda virtual</div>
                             <div class="sidebar-block p-0" style="display:none;">
                                 <ul class="sidebar-menu" id="components_menu">
-
                                     <li class="sidebar-menu-item" style="display:none;">
-                                        <a class="sidebar-menu-button" href="@Url.Action("Configuracion","reservapresencial",new {id= HttpContext.Current.Request.Cookies["_SubDominio_Business"].Value})">
+                                        <a class="sidebar-menu-button" href="@Url.Action("index","tienda",new {id= HttpContext.Current.Request.Cookies["_SubDominio_Business"].Value})" target="_blank">
 
-                                            <span class="sidebar-menu-text">Categorias</span>
+                                            <span class="sidebar-menu-text">Ver mi tienda virtual</span>
+                                        </a>
+                                    </li>
+                                    <li class="sidebar-menu-item" style="display:none;">
+                                        <a class="sidebar-menu-button" href="@Url.Action("confitienda","tienda",new {id= HttpContext.Current.Request.Cookies["_SubDominio_Business"].Value})">
+                                            <span class="sidebar-menu-text">Agregar fotos</span>
+                                        </a>
+                                    </li>
+                                    <li class="sidebar-menu-item" style="display:none;">
+                                        <a class="sidebar-menu-button" href="@Url.Action("Configuracion","admintiendafit",new {id= HttpContext.Current.Request.Cookies["_SubDominio_Business"].Value})">
+
+                                            <span class="sidebar-menu-text">Apariencia</span>
+                                        </a>
+                                    </li>
+                                    <li class="sidebar-menu-item" style="display:none;">
+                                        <a class="sidebar-menu-button" href="@Url.Action("formasdepago","admintiendafit",new {id= HttpContext.Current.Request.Cookies["_SubDominio_Business"].Value})">
+
+                                            <span class="sidebar-menu-text">Formas de pago</span>
                                             <span class="badge badge-primary ml-auto">nuevo</span>
                                         </a>
                                     </li>
                                     <li class="sidebar-menu-item" style="display:none;">
-                                        <a class="sidebar-menu-button" href="@Url.Action("Configuracion","reservapresencial",new {id= HttpContext.Current.Request.Cookies["_SubDominio_Business"].Value})">
+                                        <a class="sidebar-menu-button" href="@Url.Action("tarifasdeenvio","admintiendafit",new {id= HttpContext.Current.Request.Cookies["_SubDominio_Business"].Value})">
 
-                                            <span class="sidebar-menu-text">Clientes</span>
+                                            <span class="sidebar-menu-text">Tarifas de envio</span>
+                                        </a>
+                                    </li>
+                                    <li class="sidebar-menu-item" style="display:none;">
+                                        <a class="sidebar-menu-button" href="@Url.Action("cupones","admintiendafit",new {id= HttpContext.Current.Request.Cookies["_SubDominio_Business"].Value})">
+
+                                            <span class="sidebar-menu-text">Cupones</span>
+                                        </a>
+                                    </li>
+                                    <li class="sidebar-menu-item" style="display:none;">
+                                        <a class="sidebar-menu-button" href="@Url.Action("enviogratis","admintiendafit",new {id= HttpContext.Current.Request.Cookies["_SubDominio_Business"].Value})">
+
+                                            <span class="sidebar-menu-text">Envio gratis</span>
                                         </a>
                                     </li>
                                 </ul>
                             </div>
 
-                        </div>
-
-                        <div class="sidebar-heading" style="display:none;">Tu tienda virtual</div>
-                        <div class="sidebar-block p-0" style="display:none;">
-                            <ul class="sidebar-menu" id="components_menu">
-                                <li class="sidebar-menu-item" style="display:none;">
-                                    <a class="sidebar-menu-button" href="@Url.Action("index","tienda",new {id= HttpContext.Current.Request.Cookies["_SubDominio_Business"].Value})" target="_blank">
-
-                                        <span class="sidebar-menu-text">Ver mi tienda virtual</span>
-                                    </a>
-                                </li>
-                                <li class="sidebar-menu-item" style="display:none;">
-                                    <a class="sidebar-menu-button" href="@Url.Action("confitienda","tienda",new {id= HttpContext.Current.Request.Cookies["_SubDominio_Business"].Value})">
-                                        <span class="sidebar-menu-text">Agregar fotos</span>
-                                    </a>
-                                </li>
-                                <li class="sidebar-menu-item" style="display:none;">
-                                    <a class="sidebar-menu-button" href="@Url.Action("Configuracion","admintiendafit",new {id= HttpContext.Current.Request.Cookies["_SubDominio_Business"].Value})">
-
-                                        <span class="sidebar-menu-text">Apariencia</span>
-                                    </a>
-                                </li>
-                                <li class="sidebar-menu-item" style="display:none;">
-                                    <a class="sidebar-menu-button" href="@Url.Action("formasdepago","admintiendafit",new {id= HttpContext.Current.Request.Cookies["_SubDominio_Business"].Value})">
-
-                                        <span class="sidebar-menu-text">Formas de pago</span>
-                                        <span class="badge badge-primary ml-auto">nuevo</span>
-                                    </a>
-                                </li>
-                                <li class="sidebar-menu-item" style="display:none;">
-                                    <a class="sidebar-menu-button" href="@Url.Action("tarifasdeenvio","admintiendafit",new {id= HttpContext.Current.Request.Cookies["_SubDominio_Business"].Value})">
-
-                                        <span class="sidebar-menu-text">Tarifas de envio</span>
-                                    </a>
-                                </li>
-                                <li class="sidebar-menu-item" style="display:none;">
-                                    <a class="sidebar-menu-button" href="@Url.Action("cupones","admintiendafit",new {id= HttpContext.Current.Request.Cookies["_SubDominio_Business"].Value})">
-
-                                        <span class="sidebar-menu-text">Cupones</span>
-                                    </a>
-                                </li>
-                                <li class="sidebar-menu-item" style="display:none;">
-                                    <a class="sidebar-menu-button" href="@Url.Action("enviogratis","admintiendafit",new {id= HttpContext.Current.Request.Cookies["_SubDominio_Business"].Value})">
-
-                                        <span class="sidebar-menu-text">Envio gratis</span>
-                                    </a>
-                                </li>
-                            </ul>
-                        </div>
-
-
-                        <div class="sidebar-heading" data-controlmodulo="9d5455b5-4e2c-48c8-8b30-567f1fe16c94" style="display:none;">Plataforma de reservas</div>
-                        <div class="sidebar-block p-0">
-                            <ul class="sidebar-menu" id="components_menu">
-                                <li class="sidebar-menu-item" data-controlmodulo="545d311b-20dd-46fa-a240-62926d19e4a7" style="display:none;">
-                                    <a class="sidebar-menu-button" href="@Url.Action("login","pg",new {id= HttpContext.Current.Request.Cookies["_SubDominio_Business"].Value})" target="_blank">
-                                        <span class="sidebar-menu-text">Ver mi plataforma</span>
-                                    </a>
-                                </li>
-                                <li class="sidebar-menu-item" data-controlmodulo="8a6ec93f-c815-460c-a548-70ec281674f8" style="display:none;">
-                                    <a class="sidebar-menu-button" href="@Url.Action("ConfiguracionM","reservapresencial",new {id= HttpContext.Current.Request.Cookies["_SubDominio_Business"].Value})">
-                                        <span class="sidebar-menu-text">Control de aforo</span>
-                                    </a>
-                                </li>
-                            </ul>
-                        </div>
-
-                        <div class="sidebar-heading" data-controlmodulo="249a0227-a6dd-4752-b089-12925622dcbd" style="display:none;">Tu pagina web</div>
-                        <div class="sidebar-block p-0">
-                            <ul class="sidebar-menu" id="components_menu">
-                                <li class="sidebar-menu-item" data-controlmodulo="ec2ce404-82b3-47dd-a8ee-b6a52cdb5b1f" style="display:none;">
-                                    <a class="sidebar-menu-button" href="@Url.Action("inicio","pg",new {id= HttpContext.Current.Request.Cookies["_SubDominio_Business"].Value})" target="_blank">
-                                        <span class="sidebar-menu-text">Ver mi pagina web</span>
-                                    </a>
-                                </li>
-                                <li class="sidebar-menu-item" data-controlmodulo="9d5ab443-710b-47d2-956c-c6e84e13c3d1" style="display:none;">
-                                    <a class="sidebar-menu-button" href="@Url.Action("aparienciapaginaweb","operacionesfit",new {id= HttpContext.Current.Request.Cookies["_SubDominio_Business"].Value})" target="_blank">
-                                        <span class="sidebar-menu-text">Cambiar apariencia</span>
-                                    </a>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                    <div class="col-7" style="padding-top: 10px;">
-
-                        <div class="sidebar-heading">Acceso directo mobile</div>
-                        <div class="d-flex flex-column">
-                            <ul class="nav nav-pills flex-column mb-auto" style="margin-left: -10px;">
-                                <li class="nav-item" data-controlmodulo="45833cdd-55db-4a67-a879-f1ae9353f8bf">
-                                    <a href="@Url.Action("checking","gestionce",new {id= HttpContext.Current.Request.Cookies["_SubDominio_Business"].Value})" class="nav-link" aria-current="page" style="color:#fff;font-size:13px;">
-                                        <i style="font-size: 12px; color: #fff;" class="fa fa-check-circle"></i>
-                                        CLIENTES
-                                    </a>
-                                </li>
-                                <li data-controlmodulo="9e69cfd8-b063-44df-a7f2-a3a10d1eb899" style="display:none;">
-                                    <a href="@Url.Action("posfitness","pos",new {id= HttpContext.Current.Request.Cookies["_SubDominio_Business"].Value})" class="nav-link link-dark" style="color:#fff;font-size:13px;">
-                                        <i style="font-size: 12px; color: #fff;" class="fa fa-cart-plus"></i>
-                                        PUNTO DE VENTA
-                                    </a>
-                                </li>
-                                <li data-controlmodulo="7611dfbe-186f-4abe-8e2e-e64ad7281728" style="display:none;">
-                                    <a href="@Url.Action("caja","gestionce",new {id= HttpContext.Current.Request.Cookies["_SubDominio_Business"].Value})" class="nav-link link-dark" style="color:#fff;font-size:13px;">
-                                        <i style="font-size: 12px; color: #fff;" class="fa fa-th-large"></i>
-                                        CAJA
-                                    </a>
-                                </li>
-                                <li data-controlmodulo="93c0d848-83aa-45eb-a83a-ded00a6b6e23" style="display:none;">
-                                    <a href="@Url.Action("nutricion","gestionce",new {id= HttpContext.Current.Request.Cookies["_SubDominio_Business"].Value})" class="nav-link link-dark" style="color:#fff;font-size:13px;">
-                                        <i style="font-size: 12px; color: #fff;" class="fas fa-heartbeat"></i>
-                                        MEDIDAS Y NUTRICION
-                                    </a>
-                                </li>
-                                <li data-controlmodulo="947dc11f-3e14-4fe7-bedc-ae3d81219bee" style="display:none;">
-                                    <a href="@Url.Action("Index","inventariofit",new {id= HttpContext.Current.Request.Cookies["_SubDominio_Business"].Value})" class="nav-link link-dark" style="color:#fff;font-size:13px;">
-                                        <i style="font-size: 12px; color: #fff;" class="fa fa-barcode"></i>
-                                        INVENTARIO
-                                    </a>
-                                </li>
-                                <li data-controlmodulo="39497bd3-94ab-4236-a1d4-4623d854f91e" style="display:none;">
-                                    <a href="@Url.Action("agendacomercial","gestionce",new {id= HttpContext.Current.Request.Cookies["_SubDominio_Business"].Value})" class="nav-link link-dark" style="color:#fff;font-size:13px;">
-                                        <i style="font-size: 12px; color: #fff;" class="fa fa-list-alt"></i>
-                                        AGENDA COMERCIAL
-                                    </a>
-                                </li>
-                                <li data-controlmodulo="bbc035e6-68ea-4885-917f-005ad3fcfb66" style="display:none;">
-                                    <a href="@Url.Action("metascomerciales","gestionce",new {id= HttpContext.Current.Request.Cookies["_SubDominio_Business"].Value})" class="nav-link link-dark" style="color:#fff;font-size:13px;">
-                                        <i style="font-size: 12px; color: #fff;" class="fa fa-users"></i>
-                                        METAS VENDEDORES
-                                    </a>
-                                </li>
-                                <li data-controlmodulo="e1eadd0d-39b3-498d-b09b-9b3b28610b9b" style="display:none;">
-                                    <a href="@Url.Action("informesfit","gestionce",new {id= HttpContext.Current.Request.Cookies["_SubDominio_Business"].Value})" class="nav-link link-dark" style="color:#fff;font-size:13px;">
-                                        <i style="font-size: 12px; color: #fff;" class="fa fa-address-card"></i>
-                                        INFORMES
-                                    </a>
-                                </li>
-                                <li data-controlmodulo="600dabf4-7dc3-4dc0-a0ba-74b782955e52" style="display:none;">
-                                    <a href="@Url.Action("pagospersonal","gestionce",new {id= HttpContext.Current.Request.Cookies["_SubDominio_Business"].Value})" class="nav-link link-dark" style="color:#fff;font-size:13px;">
-                                        <i style="font-size: 12px; color: #fff;" class="fa fa-credit-card"></i>
-                                        PAGOS PERSONAL
-                                    </a>
-                                </li>
-
-                                <li data-controlmodulo="b1f65597-fd27-46ca-90d0-a0f2f1039ef7" style="display:none;">
-                                    <a href="@Url.Action("finanzas","gestionce",new {id= HttpContext.Current.Request.Cookies["_SubDominio_Business"].Value})" class="nav-link link-dark" style="color:#fff;font-size:13px;">
-                                        <i style="font-size: 12px; color: #fff;" class="fa fa-area-chart" aria-hidden="true"></i>
-                                        FINANZAS
-                                    </a>
-                                </li>
-                                <li data-controlmodulo="4c01e8de-9440-4927-a2f2-d6241d925c39" style="display:none;">
-                                    <a href="@Url.Action("estadisticas","gestionce",new {id= HttpContext.Current.Request.Cookies["_SubDominio_Business"].Value})" class="nav-link link-dark" style="color:#fff;font-size:13px;">
-                                        <i style="font-size: 12px; color: #fff;" class="fa fa-bar-chart-o"></i>
-                                        ESTADISTICAS
-                                    </a>
-                                </li>
-                            </ul>
-
-                        </div>
-                        <br />
-                        <div class="col-lg-12 col-md-12">
-
-                            <div class="btn btn-lg" style="color: #fff; width: 100%;height: 90px;border: 1px #128c7e solid;border-radius: 6px;">
-
-                                <a href="https://wa.me/51957592357?text=HOLA!%20CENTRO%20DE%20AYUDA,%20TENGO%20UNA%20CONSULTA%20DEL%20SISTEMA%20APPSFIT" data-number="51961446533" data-auto-text="" target="_blank">
-                                    <div class="row">
-                                        <div class="col-3">
-                                            <div style="border-radius: 46px; position: absolute;text-align: center;">
-                                                <img src="~/Content/accionfit_img/AsesoraVentas_NazarenaBaos.jpeg" style="border-radius:45px;width: 45px;height: 50px;" alt="Whatsapp">
+                            <div class="sidebar-heading" data-controlmodulo="9d5455b5-4e2c-48c8-8b30-567f1fe16c94" style="display:none;">Plataforma de reservas</div>
+                            <div class="sidebar-block p-0">
+                                <ul class="sidebar-menu" id="components_menu">
+                                    <li class="sidebar-menu-item" data-controlmodulo="545d311b-20dd-46fa-a240-62926d19e4a7" style="display:none;">
+                                        <a style="text-decoration:none;" href="@Url.Action("login","pg",new {id= HttpContext.Current.Request.Cookies["_SubDominio_Business"].Value})">
+                                            <div class="d-flex align-items-center borderMenuAppsfit_option">
+                                                <span class="nav-link-icon"> <span class="fas fa-circle text-white sizeMenuAppsfit_icon"></span> </span><span class="nav-link-text ps-1 text-white sizeMenuAppsfit_text">Ver mi plataforma</span>
                                             </div>
-                                            <img src="https://clientes.dongee.com/whatsapp.png" width="25" height="25" style="position: absolute;margin-left: -20px;margin-top: 0px;" alt="Whatsapp">
-                                        </div>
-                                        <div class="col-9">
-                                            <span style="font-size: 13px;color:#fff;white-space:normal;">
-                                                Hola soy Nazarena, si necesitas ayuda en el sistema, Has click aquí! <br />
-                                            </span>
-                                        </div>
-                                    </div>
-                                </a>
+                                        </a>
+                                    </li>
+                                    <li class="sidebar-menu-item" data-controlmodulo="8a6ec93f-c815-460c-a548-70ec281674f8" style="display:none;">
+                                        <a style="text-decoration:none;" href="@Url.Action("ConfiguracionM","reservapresencial",new {id= HttpContext.Current.Request.Cookies["_SubDominio_Business"].Value})">
+                                            <div class="d-flex align-items-center borderMenuAppsfit_option">
+                                                <span class="nav-link-icon"> <span class="fas fa-circle text-white sizeMenuAppsfit_icon"></span> </span><span class="nav-link-text ps-1 text-white sizeMenuAppsfit_text">Control de aforo</span>
+                                            </div>
+                                        </a>
+                                    </li>
+                                </ul>
                             </div>
 
+                            <div class="sidebar-heading" data-controlmodulo="249a0227-a6dd-4752-b089-12925622dcbd" style="display:none;">Tu pagina web</div>
+                            <div class="sidebar-block p-0">
+                                <ul class="sidebar-menu" id="components_menu">
+                                    <li class="sidebar-menu-item" data-controlmodulo="ec2ce404-82b3-47dd-a8ee-b6a52cdb5b1f" style="display:none;">
+                                        <a class="sidebar-menu-button" href="@Url.Action("inicio","pg",new {id= HttpContext.Current.Request.Cookies["_SubDominio_Business"].Value})" target="_blank">
+                                            <span class="sidebar-menu-text">Ver mi pagina web</span>
+                                        </a>
+                                    </li>
+                                    <li class="sidebar-menu-item" data-controlmodulo="9d5ab443-710b-47d2-956c-c6e84e13c3d1" style="display:none;">
+                                        <a class="sidebar-menu-button" href="@Url.Action("aparienciapaginaweb","operacionesfit",new {id= HttpContext.Current.Request.Cookies["_SubDominio_Business"].Value})" target="_blank">
+                                            <span class="sidebar-menu-text">Cambiar apariencia</span>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="col-3 col-lg-3 col-md-6 col-sm-6" style="padding-top: 10px;">
+                            <div class="sidebar-heading">Acceso directo mobile</div>
+                            <div class="d-flex flex-column">
+                                <ul class="nav nav-pills flex-column mb-auto" style="margin-left: -10px;">
+                                    <li class="sidebar-menu-item" data-controlmodulo="45833cdd-55db-4a67-a879-f1ae9353f8bf" style="display:none;">
+                                        <a style="text-decoration:none;" href="@Url.Action("checking","gestionce",new {id= HttpContext.Current.Request.Cookies["_SubDominio_Business"].Value})">
+                                            <div class="d-flex align-items-center borderMenuAppsfit_principal">
+                                                <span class="nav-link-icon"> <span class="fa fa-check-circle text-white sizeMenuAppsfit_icon" style="font-size: 15px;"></span> </span><span class="nav-link-text ps-1 text-white sizeMenuAppsfit_text">CLIENTES</span>
+                                            </div>
+                                        </a>
+                                    </li>
+                                    <li class="sidebar-menu-item" data-controlmodulo="9e69cfd8-b063-44df-a7f2-a3a10d1eb899" style="display:none;">
+                                        <a style="text-decoration:none;" href="@Url.Action("posfitness","pos",new {id= HttpContext.Current.Request.Cookies["_SubDominio_Business"].Value})">
+                                            <div class="d-flex align-items-center borderMenuAppsfit_principal">
+                                                <span class="nav-link-icon"> <span class="fa fa-cart-plus text-white sizeMenuAppsfit_icon" style="font-size: 15px;"></span> </span><span class="nav-link-text ps-1 text-white sizeMenuAppsfit_text">PUNTO DE VENTA</span>
+                                            </div>
+                                        </a>
+                                    </li>
+                                    <li class="sidebar-menu-item" data-controlmodulo="7611dfbe-186f-4abe-8e2e-e64ad7281728" style="display:none;">
+                                        <a style="text-decoration:none;" href="@Url.Action("caja","gestionce",new {id= HttpContext.Current.Request.Cookies["_SubDominio_Business"].Value})">
+                                            <div class="d-flex align-items-center borderMenuAppsfit_principal">
+                                                <span class="nav-link-icon"> <span class="fa fa-th-large text-white sizeMenuAppsfit_icon" style="font-size: 15px;"></span> </span><span class="nav-link-text ps-1 text-white sizeMenuAppsfit_text">CAJA</span>
+                                            </div>
+                                        </a>
+                                    </li>
+                                    <li class="sidebar-menu-item" data-controlmodulo="93c0d848-83aa-45eb-a83a-ded00a6b6e23" style="display:none;">
+                                        <a style="text-decoration:none;" href="@Url.Action("nutricion","gestionce",new {id= HttpContext.Current.Request.Cookies["_SubDominio_Business"].Value})">
+                                            <div class="d-flex align-items-center borderMenuAppsfit_principal">
+                                                <span class="nav-link-icon"> <span class="fas fa-heartbeat text-white sizeMenuAppsfit_icon" style="font-size: 15px;"></span> </span><span class="nav-link-text ps-1 text-white sizeMenuAppsfit_text">MEDIDAS Y NUTRICION</span>
+                                            </div>
+                                        </a>
+                                    </li>
+                                    <li class="sidebar-menu-item" data-controlmodulo="947dc11f-3e14-4fe7-bedc-ae3d81219bee" style="display:none;">
+                                        <a style="text-decoration:none;" href="@Url.Action("Index","inventariofit",new {id= HttpContext.Current.Request.Cookies["_SubDominio_Business"].Value})">
+                                            <div class="d-flex align-items-center borderMenuAppsfit_principal">
+                                                <span class="nav-link-icon"> <span class="fa fa-barcode text-white sizeMenuAppsfit_icon" style="font-size: 15px;"></span> </span><span class="nav-link-text ps-1 text-white sizeMenuAppsfit_text">INVENTARIO</span>
+                                            </div>
+                                        </a>
+                                    </li>
+                                    <li class="sidebar-menu-item" data-controlmodulo="39497bd3-94ab-4236-a1d4-4623d854f91e" style="display:none;">
+                                        <a style="text-decoration:none;" href="@Url.Action("agendacomercial","gestionce",new {id= HttpContext.Current.Request.Cookies["_SubDominio_Business"].Value})">
+                                            <div class="d-flex align-items-center borderMenuAppsfit_principal">
+                                                <span class="nav-link-icon"> <span class="fa fa-list-alt text-white sizeMenuAppsfit_icon" style="font-size: 15px;"></span> </span><span class="nav-link-text ps-1 text-white sizeMenuAppsfit_text">AGENDA COMERCIAL</span>
+                                            </div>
+                                        </a>
+                                    </li>
+                                    <li class="sidebar-menu-item" data-controlmodulo="bbc035e6-68ea-4885-917f-005ad3fcfb66" style="display:none;">
+                                        <a style="text-decoration:none;" href="@Url.Action("metascomerciales","gestionce",new {id= HttpContext.Current.Request.Cookies["_SubDominio_Business"].Value})">
+                                            <div class="d-flex align-items-center borderMenuAppsfit_principal">
+                                                <span class="nav-link-icon"> <span class="fa fa-users text-white sizeMenuAppsfit_icon" style="font-size: 15px;"></span> </span><span class="nav-link-text ps-1 text-white sizeMenuAppsfit_text">METAS VENDEDORES</span>
+                                            </div>
+                                        </a>
+                                    </li>
+                                    <li class="sidebar-menu-item" data-controlmodulo="e1eadd0d-39b3-498d-b09b-9b3b28610b9b" style="display:none;">
+                                        <a style="text-decoration:none;" href="@Url.Action("informesfit","gestionce",new {id= HttpContext.Current.Request.Cookies["_SubDominio_Business"].Value})">
+                                            <div class="d-flex align-items-center borderMenuAppsfit_principal">
+                                                <span class="nav-link-icon"> <span class="fa fa-address-card text-white sizeMenuAppsfit_icon" style="font-size: 15px;"></span> </span><span class="nav-link-text ps-1 text-white sizeMenuAppsfit_text">INFORMES</span>
+                                            </div>
+                                        </a>
+                                    </li>
+                                    <li class="sidebar-menu-item" data-controlmodulo="600dabf4-7dc3-4dc0-a0ba-74b782955e52" style="display:none;">
+                                        <a style="text-decoration:none;" href="@Url.Action("pagospersonal","gestionce",new {id= HttpContext.Current.Request.Cookies["_SubDominio_Business"].Value})">
+                                            <div class="d-flex align-items-center borderMenuAppsfit_principal">
+                                                <span class="nav-link-icon"> <span class="fa fa-credit-card text-white sizeMenuAppsfit_icon" style="font-size: 15px;"></span> </span><span class="nav-link-text ps-1 text-white sizeMenuAppsfit_text">PAGOS PERSONAL</span>
+                                            </div>
+                                        </a>
+                                    </li>
+                                    <li class="sidebar-menu-item" data-controlmodulo="b1f65597-fd27-46ca-90d0-a0f2f1039ef7" style="display:none;">
+                                        <a style="text-decoration:none;" href="@Url.Action("finanzas","gestionce",new {id= HttpContext.Current.Request.Cookies["_SubDominio_Business"].Value})">
+                                            <div class="d-flex align-items-center borderMenuAppsfit_principal">
+                                                <span class="nav-link-icon"> <span class="far fa-money-bill-alt text-white sizeMenuAppsfit_icon" style="font-size: 15px;"></span> </span><span class="nav-link-text ps-1 text-white sizeMenuAppsfit_text">FINANZAS</span>
+                                            </div>
+                                        </a>
+                                    </li>
+                                    <li class="sidebar-menu-item" data-controlmodulo="4c01e8de-9440-4927-a2f2-d6241d925c39" style="display:none;">
+                                        <a style="text-decoration:none;" href="@Url.Action("estadisticas","gestionce",new {id= HttpContext.Current.Request.Cookies["_SubDominio_Business"].Value})">
+                                            <div class="d-flex align-items-center borderMenuAppsfit_principal">
+                                                <span class="nav-link-icon"> <span class="far fa-chart-bar text-white sizeMenuAppsfit_icon" style="font-size: 15px;"></span> </span><span class="nav-link-text ps-1 text-white sizeMenuAppsfit_text">ESTADISTICAS</span>
+                                            </div>
+                                        </a>
+                                    </li>
+
+                                </ul>
+
+                            </div>
+                            <br />
+                            <div class="col-lg-12 col-md-12">
+
+                                <a style="text-decoration: none; --tw-gradient-from: #128c7e; font-size: 16px; position: relative; color: #fff; --tw-gradient-from: #128c7e; --tw-gradient-stops: #25d366, #128c7e; background-image: linear-gradient(to bottom right,var(--tw-gradient-stops)); display: inline-block; width: 100%; line-height: 35px; font-weight: 500; transition: all .5s ease; text-align: center; font-family: 'Poppins', sans-serif; border-radius: 50px; background-size: 300% 100%; box-shadow: 0px; border: 0px !important;" href="https://wa.me/51957592357?text=HOLA!%20CENTRO%20DE%20AYUDA,%20TENGO%20UNA%20CONSULTA%20DEL%20SISTEMA%20APPSFIT" data-number="51961446533" data-auto-text="" target="_blank">
+                                    Centro de ayuda <span style="font-size: 20px;" class="fab fa-whatsapp"></span>
+                                </a>
+                                <br /><br />
+
+                            </div>
+                        </div>
+                        <div class="col-12 col-lg-6 col-md-12 col-sm-12 " style="padding-top: 10px; padding: 10px;">
+                            <div class="sidebar-heading">Capacitaciones Appsfit</div>
+                            <br />
+                            <div class="card h-60" style="background-color: #161616;">
+                                <div class="card-body">
+                                    <h5 class="text-white">¿Como empezar a usar Appsfit? 🤩🌎🎬</h5>
+                                    <div>
+                                        <div class="player" data-plyr-provider="youtube" data-plyr-embed-id="M2vYIROs6RE"></div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <a href="@Url.Action("Index","capacitacionesappsfit")" style="text-decoration: none; --tw-gradient-from: #128c7e; font-size: 16px; position: relative; color: #fff; --tw-gradient-from: #128c7e; --tw-gradient-stops: #25d366, #128c7e; background-image: linear-gradient(to right, #ff0200 80%, #ffab28 100%); display: inline-block; width: 90%; line-height: 35px; font-weight: 500; transition: all .5s ease; text-align: center; font-family: 'Poppins', sans-serif; border-radius: 50px; background-size: 300% 100%; box-shadow: 0px; border: 0px !important;" target="_blank">
+                                Ver Capacitaciones Online <span style="font-size: 20px;" class="fas fa-video"></span>
+                            </a>
                         </div>
                     </div>
+
                 </div>
-
-
+               
             </div>
         </div>
     </div>
@@ -712,17 +769,28 @@
     @System.Web.Optimization.Scripts.Render("~/Content/appfitplataformapersonafit/assets/js/sidebar-mini.js")
     @System.Web.Optimization.Scripts.Render("~/Content/appfitplataformapersonafit/assets/js/app.js")
     @System.Web.Optimization.Scripts.Render("~/Content/appfitplataformapersonafit/assets/js/app-settings.js")
-    
+
+
+    @System.Web.Optimization.Scripts.Render("~/Content/appsfit_crm/vendors/overlayscrollbars/OverlayScrollbars.min.js")
+    @System.Web.Optimization.Scripts.Render("~/Content/appsfit_crm/vendors/fontawesome/all.min.js")
+    @System.Web.Optimization.Scripts.Render("~/Content/appsfit_crm/vendors/lodash/lodash.min.js")
+
+    @System.Web.Optimization.Scripts.Render("~/Content/appsfit_crm/vendors/plyr/plyr.polyfilled.min.js")
+
     <script src="https://kit.fontawesome.com/1e97400d15.js" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.2.3/axios.js" integrity="sha512-Do1Gpnh47tqiz6kWxcYTWTe2mjZcxA1uwuVGpyZjjzd1I0qFJ6Ai6WMUJy3F+1/8IFW6j4DULDZ6mbidXjSQ0Q==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-
-
+    
     @RenderSection("scripts", required: false)
 
     <script>
         $(document).ready(function (e) {
+            // Change "{}" to your options:
+            // https://github.com/sampotts/plyr/#options
+            const player = new Plyr('.player', {});
 
+            // Expose player so it can be used from the console
+            window.player = player;
         });
 
         function btnCerrar_modalSalirSistema() {

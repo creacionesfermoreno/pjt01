@@ -514,7 +514,6 @@
 </div>
 
 
-
 <!-- Modal template for seleted -->
 <div class="modal fade" id="modaltemplatesSelected" data-backdrop="static" data-keyboard="false" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog  modal-dialog-scrollable modal-xl" role="document">
@@ -942,7 +941,7 @@
                 <li class="nav-item" data-controlmodulo="bbc035e6-68ea-4885-917f-005ad3fcfb66" style="display:none;">
                     <a href="@Url.Action("metascomerciales","gestionce",new {id= HttpContext.Current.Request.Cookies["_SubDominio_Business"].Value})" class="nav-link">Metas</a>
                 </li>
-                <li class="nav-item active" data-controlmodulo="bd61dc23-54d9-4901-9c35-b8d228b3a924" style="display:none;">
+                <li class="nav-item active" data-controlmodulo="a0b17db7-7ce5-419e-a954-9f2ebecb8fcc" style="display:none;">
                     <a href="@Url.Action("marketing","gestionce",new {id= HttpContext.Current.Request.Cookies["_SubDominio_Business"].Value})" class="nav-link active">Marketing</a>
                 </li>
                 <li class="nav-item" data-controlmodulo="e1eadd0d-39b3-498d-b09b-9b3b28610b9b" style="display:none;">
@@ -1226,12 +1225,12 @@
         <div class="col-lg-12">
             <div class="card">
                 <div class="card-header card-header-tabs-basic nav" role="tablist" style="background-color:#fff">
-                    <a style="" href="#divContentCorreos" onclick="setEmail()" class="active" data-toggle="tab" role="tab" aria-selected="true">&nbsp;Correos</a>
-                    <a style="" href="#divWhatsapp" data-toggle="tab" role="tab" aria-selected="false">&nbsp;Whatsapp</a>
-                    <a style="" href="#divNotificationsApp" onclick="evemt_changeApp(this,1)" data-toggle="tab" role="tab" aria-selected="false">&nbsp;Notificaciones App</a>
+                    <a data-controlmodulo="c5da673a-2fb2-457e-b699-f65fce726a55" style="display:none;" href="#divContentCorreos" onclick="setEmail()" class="active" data-toggle="tab" role="tab" aria-selected="true">&nbsp;Correos</a>
+                    <a data-controlmodulo="b9e09376-eb59-4794-9fd7-eacb77325d14" style="display:none;"  href="#divWhatsapp" data-toggle="tab" role="tab" aria-selected="false">&nbsp;Whatsapp</a>
+                    <a data-controlmodulo="154aa475-9d7e-49f6-9563-c5b0b8789db5" style="display:none;" href="#divNotificationsApp" onclick="evemt_changeApp(this,1)" data-toggle="tab" role="tab" aria-selected="false">&nbsp;Notificaciones App</a>
                 </div>
                 <div class="card-body tab-content" style="background-color: #f5f5f5;">
-                    <div class="tab-pane active show fade" id="divContentCorreos">
+                    <div data-controlmodulo="c5da673a-2fb2-457e-b699-f65fce726a55" style="display:none;" class="tab-pane active show fade" id="divContentCorreos">
                         <div class="row">
                             <div class="col-lg-12">
                                 @*tab correos*@
@@ -1562,7 +1561,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="tab-pane fade" id="divNotificationsApp">
+                    <div data-controlmodulo="b9e09376-eb59-4794-9fd7-eacb77325d14" style="display:none;" class="tab-pane fade" id="divNotificationsApp">
                         <div class="row">
                             <div class="col-lg-12">
                                 @* notifications app start*@
@@ -1618,7 +1617,7 @@
                         </div>
                     </div>
 
-                    <div class="tab-pane fade" id="divWhatsapp">
+                    <div data-controlmodulo="154aa475-9d7e-49f6-9563-c5b0b8789db5" style="display:none;" class="tab-pane fade" id="divWhatsapp">
                         <div class="card">
                             <div class="card-body">
                                 <div class="row p-1">
@@ -1783,13 +1782,13 @@
                             </div>
 
                         </div>
-
                     </div>
                 </div>
             </div>
         </div>
     </div>
 
+</div>
 
     <div class="modal fade" id="loadMe" tabindex="-1" role="dialog" aria-labelledby="loadMeLabel">
         <br /><br /><br /><br />
