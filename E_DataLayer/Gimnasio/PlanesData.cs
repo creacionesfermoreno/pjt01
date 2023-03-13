@@ -441,7 +441,7 @@ namespace E_DataLayer.Gimnasio
                     cmd.Parameters.Add(new SqlParameter("@NroIngresoDia", System.Data.SqlDbType.Int)).Value = item.NroIngresoDia;
                     cmd.Parameters.Add(new SqlParameter("@CodigoInicioSesion", System.Data.SqlDbType.Int)).Value = item.CodigoInicioSesion;
                     cmd.Parameters.Add(new SqlParameter("@VisualizarTienda", System.Data.SqlDbType.Bit)).Value = item.ShowApp;
-                    cmd.Parameters.Add(new SqlParameter("@UrlImage", System.Data.SqlDbType.VarChar,100)).Value = item.UrlImage;
+                    cmd.Parameters.Add(new SqlParameter("@UrlImage", System.Data.SqlDbType.VarChar, 100)).Value = item.UrlImage;
                     cmd.Parameters.Add(new SqlParameter("@Suscripcion", System.Data.SqlDbType.Bit)).Value = item.Suscripcion;
 
                     cmd.ExecuteNonQuery();
@@ -566,6 +566,8 @@ namespace E_DataLayer.Gimnasio
                                     CodigoPaquete = Convert.ToInt32(oIDataReader[oIDataReader.GetOrdinal("CodigoPaquete")]),
                                     DesSuscripcionPlan = oIDataReader[oIDataReader.GetOrdinal("DesSuscripcionPlan")].ToString(),
                                     DesPasarelaPago = oIDataReader[oIDataReader.GetOrdinal("DesPasarelaPago")].ToString(),
+                                    UrlImage = oIDataReader[oIDataReader.GetOrdinal("UrlImagenPasarelaPago")].ToString(),
+
                                 });
                             }
                         }
@@ -608,7 +610,7 @@ namespace E_DataLayer.Gimnasio
         //destroy plan paquete
         public void DestroyPlanPaquete(PlanesDTO item)
         {
-            
+
             using (var conn = new SqlConnection(Helper.Conexion()))
             {
                 conn.Open();
@@ -624,6 +626,137 @@ namespace E_DataLayer.Gimnasio
                 }
             }
         }
+
+
+
+
+        //register table idsuscription
+        public void RegisterMembSuscription(PlanesDTO item)
+        {
+            using (var conn = new SqlConnection(Helper.Conexion()))
+            {
+                conn.Open();
+                using (var cmd = new SqlCommand("uspRegistrarMembresiasSuscripcion", conn))
+                {
+                    cmd.CommandType = System.Data.CommandType.StoredProcedure;
+                    cmd.Parameters.Add(new SqlParameter("@CodigoMembresiasSuscripcion", System.Data.SqlDbType.VarChar,100)).Value = item.CodigoMembresiasSuscripcion;
+                    cmd.Parameters.Add(new SqlParameter("@CodigoUnidadNegocio", System.Data.SqlDbType.Int)).Value = item.CodigoUnidadNegocio;
+                    cmd.Parameters.Add(new SqlParameter("@CodigoSede", System.Data.SqlDbType.Int)).Value = item.CodigoSede;
+                    cmd.Parameters.Add(new SqlParameter("@CodigoSocio", System.Data.SqlDbType.Int)).Value = item.CodigoSocio;
+                    cmd.Parameters.Add(new SqlParameter("@NroDocumento", System.Data.SqlDbType.VarChar,100)).Value = item.NroDocumento;
+                    cmd.Parameters.Add(new SqlParameter("@DefaultKeyEmpresa", System.Data.SqlDbType.VarChar,100)).Value = item.DefaultKeyEmpresa;
+                    cmd.Parameters.Add(new SqlParameter("@DefaultKeyUser", System.Data.SqlDbType.VarChar,100)).Value = item.DefaultKeyUser;
+                    cmd.Parameters.Add(new SqlParameter("@CodigoPlantilaFormaPago", System.Data.SqlDbType.VarChar,100)).Value = item.CodigoPlantillaFormaPago;
+                    cmd.Parameters.Add(new SqlParameter("@IdClientePasarela", System.Data.SqlDbType.VarChar,100)).Value = item.IdClientePasarela;
+                    cmd.Parameters.Add(new SqlParameter("@IdSuscripcionPasarela", System.Data.SqlDbType.VarChar, 100)).Value = item.IdSuscripcionPasarela;
+                    cmd.Parameters.Add(new SqlParameter("@EstadoSuscripcionPasarela", System.Data.SqlDbType.Bit)).Value = true;
+                    cmd.Parameters.Add(new SqlParameter("@DataJsonPasarela", System.Data.SqlDbType.VarChar,5000)).Value = item.DataJsonPasarela;
+                    cmd.Parameters.Add(new SqlParameter("@CodigoPaquete", System.Data.SqlDbType.Int)).Value = item.CodigoPaquete;
+
+                    
+                    if (!string.IsNullOrEmpty(item.UsuarioCreacion))
+                    {
+                        cmd.Parameters.Add(new SqlParameter("@UsuarioCreacion", System.Data.SqlDbType.VarChar, 100)).Value = item.UsuarioCreacion;
+                    }
+                    cmd.ExecuteNonQuery();
+                    conn.Close();
+                }
+            }
+        }
+
+
+        //search by IdSuscription
+        public PlanesDTO SearchMemSucriptionByIdSuscription(PlanesDTO oPaquetes)
+        {
+            PlanesDTO itemDTO = null;
+
+            using (var conn = new SqlConnection(Helper.Conexion()))
+            {
+                conn.Open();
+                using (var cmd = new SqlCommand("uspBuscarMembresiasSuscripcion_PorIdSuscripcionPasarela", conn))
+                {
+                    cmd.CommandType = System.Data.CommandType.StoredProcedure;
+                    cmd.Parameters.Add(new SqlParameter("@IdSuscripcionPasarela", System.Data.SqlDbType.VarChar,100)).Value = oPaquetes.IdSuscripcionPasarela;
+                    using (SqlDataReader reader = cmd.ExecuteReader())
+                    {
+                        if (reader.HasRows)
+                        {
+                            while (reader.Read())
+                            {
+                                itemDTO = new PlanesDTO()
+                                {
+                                    CodigoMembresiasSuscripcion = reader[reader.GetOrdinal("CodigoMembresiasSuscripcion")].ToString(),
+                                    CodigoUnidadNegocio = Convert.ToInt32(reader[reader.GetOrdinal("CodigoUnidadNegocio")]),
+                                    CodigoSede = Convert.ToInt32(reader[reader.GetOrdinal("CodigoSede")]),
+                                    DefaultKeyEmpresa = reader[reader.GetOrdinal("DefaultKeyEmpresa")].ToString(),
+                                    DefaultKeyUser = reader[reader.GetOrdinal("DefaultKeyUser")].ToString(),
+                                    CodigoPlantillaFormaPago = reader[reader.GetOrdinal("CodigoPlantilaFormaPago")].ToString(),
+                                    IdClientePasarela = reader[reader.GetOrdinal("IdClientePasarela")].ToString(),
+                                    IdSuscripcionPasarela = reader[reader.GetOrdinal("IdSuscripcionPasarela")].ToString(),
+                                    Estado = Convert.ToBoolean(reader[reader.GetOrdinal("EstadoSuscripcionPasarela")]),
+                                    DataJsonPasarela = reader[reader.GetOrdinal("DataJsonPasarela")].ToString(),
+                                    CodigoSocio = Convert.ToInt32(reader[reader.GetOrdinal("CodigoSocio")]),
+                                    //CodigoMembresia = Convert.ToInt32(reader[reader.GetOrdinal("CodigoMembresia")]),
+                                    CodigoPaquete = Convert.ToInt32(reader[reader.GetOrdinal("CodigoPaquete")]),
+                                    NroDocumento = reader[reader.GetOrdinal("NroDocumento")].ToString(),
+                                };
+                            }
+                        }
+                    }
+                }
+            }
+            return itemDTO;
+        }
+
+
+
+        //buscar suscriptions by defaultkeyuser
+        public List<PlanesDTO> ListMemSuscriptionDkeyUser(PlanesDTO oitem)
+        {
+            List<PlanesDTO> lista = new List<PlanesDTO>();
+
+            using (var conn = new SqlConnection(Helper.Conexion()))
+            {
+                conn.Open();
+                using (var cmd = new SqlCommand("uspBuscarMembresiasSuscripcion_PorDefaultKeyUser", conn))
+                {
+                    cmd.CommandType = System.Data.CommandType.StoredProcedure;
+                    cmd.Parameters.Add(new SqlParameter("@DefaultKeyUser", System.Data.SqlDbType.VarChar,100)).Value = oitem.DefaultKeyUser;
+           
+                    using (SqlDataReader reader = cmd.ExecuteReader())
+                    {
+                        if (reader.HasRows)
+                        {
+                            while (reader.Read())
+                            {
+                                lista.Add(new PlanesDTO()
+                                {
+                                    CodigoMembresiasSuscripcion = reader[reader.GetOrdinal("CodigoMembresiasSuscripcion")].ToString(),
+                                    CodigoUnidadNegocio = Convert.ToInt32(reader[reader.GetOrdinal("CodigoUnidadNegocio")]),
+                                    CodigoSede = Convert.ToInt32(reader[reader.GetOrdinal("CodigoSede")]),
+                                    DefaultKeyEmpresa = reader[reader.GetOrdinal("DefaultKeyEmpresa")].ToString(),
+                                    DefaultKeyUser = reader[reader.GetOrdinal("DefaultKeyUser")].ToString(),
+                                    CodigoPlantillaFormaPago = reader[reader.GetOrdinal("CodigoPlantilaFormaPago")].ToString(),
+                                    IdClientePasarela = reader[reader.GetOrdinal("IdClientePasarela")].ToString(),
+                                    IdSuscripcionPasarela = reader[reader.GetOrdinal("IdSuscripcionPasarela")].ToString(),
+                                    Estado = Convert.ToBoolean(reader[reader.GetOrdinal("EstadoSuscripcionPasarela")]),
+                                    DataJsonPasarela = reader[reader.GetOrdinal("DataJsonPasarela")].ToString(),
+                                    CodigoSocio = Convert.ToInt32(reader[reader.GetOrdinal("CodigoSocio")]),
+                                    //CodigoMembresia = Convert.ToInt32(reader[reader.GetOrdinal("CodigoMembresia")]),
+                                    CodigoPaquete = Convert.ToInt32(reader[reader.GetOrdinal("CodigoPaquete")]),
+                                    NroDocumento = reader[reader.GetOrdinal("NroDocumento")].ToString(),
+                                });
+                            }
+                        }
+
+                    }
+                }
+            }
+            return lista;
+        }
+
+
+
         //********************************************************** SUSCRIPCIONES ****************************************************
 
     }

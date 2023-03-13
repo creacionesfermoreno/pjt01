@@ -293,6 +293,7 @@ namespace AppsfitWebApi.Controllers
             return HttpResponseJson(responseApi);
         }
 
+
         //---Start Mercado Pago ---
         //membresia generate preferences - Mercado Pago
         [HttpPost]
@@ -448,6 +449,7 @@ namespace AppsfitWebApi.Controllers
             return HttpResponseJson(responseApi);
         }
 
+
         //product - generate preferences - mercado pago
         [HttpPost]
         [Route("mercadopago/preferences/product")]
@@ -520,7 +522,7 @@ namespace AppsfitWebApi.Controllers
         [HttpPost]
         [Route("product/buy/mercadopago")]
         public async Task<HttpResponseMessage> BuyProductMPago([FromBody] ReqProductMP req)
-    {
+        {
             ResponseApi responseApi = new ResponseApi();
             if (!ModelState.IsValid)
             {
@@ -531,7 +533,7 @@ namespace AppsfitWebApi.Controllers
                 responseApi.Errors = allErrors;
             }
             else
-            { 
+            {
                 //search acount pasarela
                 HomeRepository homeRepository = new HomeRepository();
                 var validAccount = await homeRepository.ValidPasarelaRepo(req.DefaultKeyEmpresa, req.CodigoPlantillaFormaPago);
@@ -973,6 +975,267 @@ namespace AppsfitWebApi.Controllers
         }
 
 
+
+
+        //list account payments by business
+        [HttpGet]
+        [Route("account/payments/suscription")]
+        public HttpResponseMessage AccountPaymentsSuscription([FromBody] SimplePaymentsSuscrption req)
+        {
+            ResponseApi responseApi = new ResponseApi();
+            if (req == null)
+            {
+                responseApi.Success = false;
+                responseApi.Message1 = "Los campos no pueden ser nulos";
+
+                return HttpResponseJson(responseApi);
+            }
+            if (!ModelState.IsValid)
+            {
+                //validate inputs
+                IEnumerable<ModelError> allErrors = ModelState.Values.SelectMany(v => v.Errors);
+                responseApi.Success = false;
+                responseApi.Status = 2;
+                responseApi.Errors = allErrors;
+            }
+            else
+            {
+                List<PlanesDTO> lista = new List<PlanesDTO>();
+                List<PaymentSuscriptionApi> list = new List<PaymentSuscriptionApi>();
+                PlanesDTO oDto = new PlanesDTO();
+                oDto.CodigoUnidadNegocio = req.CodigoUnidadNegocio;
+                oDto.CodigoSede = req.CodigoSede;
+                oDto.CodigoPaquete = req.CodigoPaquete;
+
+                ReqFilterPlanesDTO oReq = new ReqFilterPlanesDTO()
+
+                {
+                    FilterCase = filterCasePlanes.ListPlanPasarelaByPaquete,
+                    Item = oDto,
+                    User = "AppFit",
+                    Paging = new E_DataModel.Common.Paging()
+                    {
+                        All = true,
+                        PageNumber = 0,
+                        PageRecords = 99999
+                    }
+                };
+
+                RespListPlanesDTO oResp = null;
+                using (PlanesLogic oLogic = new PlanesLogic())
+                {
+                    oResp = oLogic.PlanesGetList(oReq);
+                }
+
+                if (oResp.Success)
+                {
+
+                    
+                    foreach (var item in oResp.List)
+                    {
+                        list.Add(new PaymentSuscriptionApi()
+                        {
+                            CodigoPlantillaFormaPago = item.CodigoPlantillaFormaPago,
+                            DesPasarelaPago = item.DesPasarelaPago,
+                            CodigoPaquete = item.CodigoPaquete,
+                            CodigoPaqueteSuscripcion = item.CodigoPaqueteSuscripcion,
+                            PlanId = item.IdSuscripcionPasarela,
+                            UrlImage = item.UrlImage,
+                        }); 
+                    }
+
+                }
+
+                responseApi.Date = list;
+            }
+
+            return HttpResponseJson(responseApi);
+        }
+
+
+
+
+
+
+        //*********************************************** PLANES **********************************************
+
+
+        //************************************ SUSCRIPCION **************************************************
+
+        [HttpPost]
+        [Route("suscription/culqi")]
+        public async Task<HttpResponseMessage> SuscriptionCulqi([FromBody] ReqSuscriptionCulqi req)
+        {
+            ResponseApi responseApi = new ResponseApi();
+
+            if (!ModelState.IsValid)
+            {
+                //validate inputs
+                IEnumerable<ModelError> allErrors = ModelState.Values.SelectMany(v => v.Errors);
+                responseApi.Success = false;
+                responseApi.Status = 2;
+                responseApi.Errors = allErrors;
+            }
+            else
+            {
+                HomeRepository hrepo = new HomeRepository();
+
+                var account = await hrepo.ValidPasarelaRepo(req.DefaultKeyEmpresa, req.CodigoPlantillaFormaPago);
+                if (account.Success)
+                {
+                    //1.- generate token
+                    CulqiService culqiService = new CulqiService();
+                    req.card.email = req.Email;
+                    var token = await culqiService.validateCardTokenService(req.card, account.Message1);
+
+                    if (token.Success)
+                    {
+                        //verifi exist register db
+                        var verifi = hrepo.ListMembSuscriptionDefaultKUserRepo(req.DefaultKeyUser);
+                        ResponseApi customer = new ResponseApi();
+                        if (verifi.Count > 0)
+                        {
+                            //existe IdClientePasarela
+
+                            customer.Success = true;
+                            customer.Message1 = verifi[0].IdClientePasarela;
+                        }
+                        else
+                        {
+                            //2.- create client
+                            req.customer.email = req.Email;
+                            customer = await culqiService.CreateCustomerServ(req.customer, account.Message2);
+                        }
+
+
+
+                        if (customer.Success)
+                        {
+                            //3.- create card
+                            CardCulqi cardCulqi = new CardCulqi();
+                            cardCulqi.customer_id = customer.Message1;
+                            cardCulqi.token_id = token.Message1;
+                            cardCulqi.validate = true;
+                            cardCulqi.metadata = new Metadatax() { marca_tarjeta = "VISA" };
+                            var card = await culqiService.CreateCardServ(cardCulqi, account.Message2);
+
+                            if (card.Success)
+                            {
+                                //4.- suscription
+                                SuscriptionCulqi suscriptionModel = new SuscriptionCulqi();
+
+                                Sale sale = new Sale();
+                                sale.RUC_DNI = req.NroDoc;
+
+                                suscriptionModel.plan_id = req.PlanId;
+                                suscriptionModel.card_id = card.Message1;
+                                //formater data metadata
+                                suscriptionModel.metadata = new MetadataSuscription()
+                                {
+                                    cliente_id = customer.Message1,
+                                    documento_identidad = req.NroDoc,
+                                };
+
+                                var suscription = await culqiService.CreateSuscriptionServ(suscriptionModel, account?.Message2);
+                                if (suscription.Success)
+                                {
+
+                                    //********************* last process charge culqi********************
+
+                                    MembresiaApiRepository repositoryMem = new MembresiaApiRepository();
+                                    AspNetHelper oHelper = new AspNetHelper();
+
+                                    //save membresia
+                                    int value = oHelper.ValidateInputMembresia(req.membresia.FechaFinMembresia);
+                                    req.membresia.TipoIngreso = value;
+                                    req.membresia.CodigoMebresiaOrigen = value;
+                                    req.membresia.DefaultKeyEmpresa = req.DefaultKeyEmpresa;
+                                    req.membresia.CodigoSocio = req.CodigoSocio;
+                                    int IdMembresia = repositoryMem.GuardarMembresiaContratoRepository(req.membresia);
+
+                                    //pay
+                                    MembresiaAPI membresiaAPI = new MembresiaAPI();
+                                    membresiaAPI.CodigoMembresia = IdMembresia;
+                                    membresiaAPI.Costo = req.membresia.Costo;
+                                    membresiaAPI.Descripcion = req.membresia.Descripcion;
+
+                                    VentasDTO oVentasDTO = new VentasDTO();
+                                    oVentasDTO.DefaultKeyEmpresa = req.DefaultKeyEmpresa;
+                                    oVentasDTO.CodigoSocio = req.CodigoSocio;
+                                    oVentasDTO.RazonSocial_Sr = req.sale.RazonSocial_Sr;
+                                    oVentasDTO.RUC_DNI = req.sale.RUC_DNI;
+                                    oVentasDTO.Direccion = req.sale.Direccion;
+                                    oVentasDTO.TotalNeto = req.membresia.Costo;
+                                    oVentasDTO.Comentario = $"suscripción culqi, IdSuscripción:{suscription.Message1}";
+                                    oVentasDTO.NroTarjeta = "";
+                                    oVentasDTO.NroBoucher = req.sale.NroBoucher;
+
+                                    var pay = repositoryMem.PayMembresiaRepository(oVentasDTO, req.CodigoSede, req.CodigoUnidadNegocio, membresiaAPI);
+                                    if (pay.Success == true)
+                                    {
+
+                                        //************************* BackgroundJob *********************
+                                        var Request = HttpContext.Current.Request;
+                                        string baseUrl = Request.Url.Scheme + "://" + Request.Url.Authority + Request.ApplicationPath.TrimEnd('/') + "/";
+                                        _ = JobApiHelper.SendReceiptJob("", req.CodigoSede, req.CodigoUnidadNegocio, int.Parse(pay.Message1), req.Email, baseUrl, 2);
+                                        //************************* BackgroundJob *********************
+                                        responseApi.Message1 = "Su compra ha sido exitosa.";
+                                        responseApi.Message2 = suscription.Message1;
+                                        responseApi.Success = true;
+                                        responseApi.Status = 0;
+                                    }
+                                    else
+                                    {
+                                        responseApi.Message1 = "Ocurrio un error en el proceso, intentelo más tarde";
+                                        responseApi.Success = false;
+                                        responseApi.Status = 1;
+                                    }
+
+
+
+                                    //************************************ register table temp ********************
+
+                                    PlanesDTO planDto = new PlanesDTO();
+                                    planDto.CodigoUnidadNegocio = req.CodigoUnidadNegocio;
+                                    planDto.CodigoSede = req.CodigoSede;
+                                    planDto.DefaultKeyEmpresa = req.DefaultKeyEmpresa;
+                                    planDto.DefaultKeyUser = req.DefaultKeyUser;
+                                    planDto.CodigoPlantillaFormaPago = req.CodigoPlantillaFormaPago;
+                                    planDto.IdClientePasarela = customer.Message1;
+                                    planDto.IdSuscripcionPasarela = suscription.Message1;
+
+                                    req.card = null;
+                                    req.customer = null;
+
+                                    planDto.DataJsonPasarela = JsonConvert.SerializeObject(req);
+                                    planDto.CodigoSocio = req.CodigoSocio;
+                                    planDto.NroDocumento = req.NroDoc;
+
+                                    planDto.CodigoPaquete = req.membresia.CodigoPaquete;
+                                    var tempRegister = hrepo.RegisterSuscriptionMembresia(planDto);
+
+                                    //************************************ register table temp ********************
+
+                                }
+                                else { responseApi = suscription; }
+                            }
+                            else { responseApi = card; }
+
+                        }
+                        else { responseApi = customer; }
+
+                    }
+                    else { responseApi = token; }
+                }
+                else { responseApi = account; }
+            }
+
+
+            return HttpResponseJson(responseApi);
+        }
+
+        //************************************ SUSCRIPCION **************************************************
+
         [HttpGet]
         [Route("dev")]
         public HttpResponseMessage dev()
@@ -983,9 +1246,6 @@ namespace AppsfitWebApi.Controllers
             return HttpResponseJson(responseApi);
         }
 
-
-
-        //*********************************************** PLANES **********************************************
 
         public HttpResponseMessage HttpResponseJson(ResponseApi responseModel)
         {

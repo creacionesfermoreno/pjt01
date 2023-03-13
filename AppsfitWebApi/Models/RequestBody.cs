@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Web;
 
 namespace AppsfitWebApi.Models
@@ -188,6 +189,60 @@ namespace AppsfitWebApi.Models
     }
 
     //************************************** MPAGO **********************************************************
+
+    public class ReqSuscriptionCulqi: RequestBody
+    {
+
+        [Required]
+        public string DefaultKeyUser { get; set; }     
+        [Required]
+        public string CodigoPlantillaFormaPago { get; set; }
+        [Required]
+        public string PlanId { get; set; }
+        [Required]
+        public int CodigoSocio { get; set; }
+        [Required]
+        public string NroDoc { get; set; }
+
+        [Required]
+        public CardAPI card { get; set; }
+
+        [Required]
+        public CustomerCulqi customer { get; set; }
+        [Required]
+        public MembresiaAPI membresia { get; set; }
+        [Required]
+        public SaleAPI sale { get; set; }
+    }
+
+    public class CustomerCulqi
+    {
+        [Required]
+        public string first_name { get; set; }
+        [Required]
+        public string last_name { get; set; }
+        [Required]
+        public string address { get; set; }
+        [Required]
+        public string address_city { get; set; }
+        [Required]
+        public string country_code { get; set; }
+        [Required]
+        public string phone_number { get; set; }
+        public string email { get; set; }
+    }
+
+
+    public class SimplePaymentsSuscrption
+    {
+        [Required]
+        public int CodigoUnidadNegocio { get; set; }
+        [Required]
+        public int CodigoSede { get; set; }
+        [Required]
+        public int CodigoPaquete { get; set; }
+       
+    }
 
 
 
