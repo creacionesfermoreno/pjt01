@@ -266,6 +266,7 @@
     <Compile Include="Models\PlanesApiModel.cs" />
     <Compile Include="Models\RequestBody.cs" />
     <Compile Include="Models\ResponseApiModel.cs" />
+    <Compile Include="Models\WebHookModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repository\AspNetUsersRepository.cs" />
     <Compile Include="Repository\CheckingRepository.cs" />

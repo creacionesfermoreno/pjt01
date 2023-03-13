@@ -103,6 +103,12 @@ namespace E_BusinessLayer.Gimnasio
                                 PlanesDTOList = oPaquetesData.ListPlanPasarelaByPaquete(oReqFilterPlanesDTO.Item);
                             }
                             break;
+                        
+                        case filterCasePlanes.ListMemSuscriptionDkUser:
+                            {
+                                PlanesDTOList = oPaquetesData.ListMemSuscriptionDkeyUser(oReqFilterPlanesDTO.Item);
+                            }
+                            break;
                       
                     }
 
@@ -170,6 +176,11 @@ namespace E_BusinessLayer.Gimnasio
                                 oPaquetesDTO = new PlanesDTO();
                                 oPaquetesDTO = oPaquetesData.uspListarPaquetesMenbresiasCursos_NumeroRegistros(oReqFilterPlanesDTO.Item);
                             }
+                            break;
+
+                        case filterCasePlanes.getItemMemSucriptionByIdSucription:
+                            oPaquetesDTO = new PlanesDTO();
+                            oPaquetesDTO = oPaquetesData.SearchMemSucriptionByIdSuscription(oReqFilterPlanesDTO.Item);
                             break;
                         default:
                             {
@@ -271,6 +282,10 @@ namespace E_BusinessLayer.Gimnasio
                                         });
                                     }
                                     
+                                    break;
+                                case Operation.RegisterMembSucription:
+                                    CodigoIngreso = 100;
+                                    oPaquetesData.RegisterMembSuscription(item);
                                     break;
                             }
                         }

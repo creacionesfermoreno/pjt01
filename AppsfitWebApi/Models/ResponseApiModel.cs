@@ -33,6 +33,7 @@ namespace AppsfitWebApi.Models
         public string id { get; set; }
         public string merchant_message { get; set; }
         public string user_message { get; set; }
+        public string email { get; set; }
     }
 
 
@@ -186,4 +187,77 @@ namespace AppsfitWebApi.Models
     {
         public string DefaultKeyEmpresa { get; set; }
     }
+
+
+
+    public class Metadatax
+    {
+        public string marca_tarjeta { get; set; }
+    }
+
+    public class CardCulqi
+    {
+        public string customer_id { get; set; }
+        public string token_id { get; set; }
+        public bool validate { get; set; }
+        public Metadatax metadata { get; set; }
+    }
+
+    public class MetadataSuscription
+    {
+        public string cliente_id { get; set; }
+        public string documento_identidad { get; set; }
+     
+    }
+
+    public class SuscriptionCulqi
+    {
+        public string card_id { get; set; }
+        public string plan_id { get; set; }
+        public MetadataSuscription metadata { get; set; }
+    }
+
+
+
+
+    //************************************* model metada suscription temp******************************
+    public class MembresiaMetadata
+    {
+        public int CodigoPaquete { get; set; }
+        public string FechaInicio { get; set; }
+        public string FechaFin { get; set; }
+        public string FechaFinMembresia { get; set; }
+        public double Costo { get; set; }
+        public int NroSessiones { get; set; }
+        public int FrezenDisponibles { get; set; }
+        public string Observacion { get; set; }
+        public string Descripcion { get; set; }
+        public string name { get; set; }
+    }
+
+   
+
+    public class Sale
+    {
+        public string RazonSocial_Sr { get; set; }
+        public string RUC_DNI { get; set; }
+        public string Direccion { get; set; }
+        public double TotalNeto { get; set; }
+        public string NroBoucher { get; set; }
+        public string Comentario { get; set; }
+    }
+
+    public class PaymentSuscriptionApi
+    {
+        public string DesPasarelaPago { get; set;}
+        public string CodigoPlantillaFormaPago { get; set;}
+        public string CodigoPaqueteSuscripcion { get; set;}
+        public int CodigoPaquete { get; set;}
+        public string PlanId { get; set;}
+        public string UrlImage { get; set;}
+    }
+
+    //************************************* model metada suscription temp******************************
+
+
 }

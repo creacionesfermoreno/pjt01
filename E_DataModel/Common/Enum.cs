@@ -313,6 +313,7 @@
         //suscripcion plan
         PlanSuscriptionRegister = 193,
         PlanSuscriptionDestroy = 194,
+        RegisterMembSucription = 195,
 
     }
 
@@ -862,6 +863,8 @@
         uspListarPaquetesMenbresiasCursos_NumeroRegistros = 18,
         listApp = 19,
         ListPlanPasarelaByPaquete = 20,
+        getItemMemSucriptionByIdSucription = 21,
+        ListMemSuscriptionDkUser = 22,
 
     }
 

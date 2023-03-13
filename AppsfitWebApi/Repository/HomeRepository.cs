@@ -16,17 +16,15 @@ namespace AppsfitWebApi.Repository
     public class HomeRepository
     {
 
-        private string  access_token = "APP_USR-103350409472305-022210-bd31fe007fac95416baa342dc4a58e40-1315218268";
-
         //validate Pasarela
-        public async Task<ResponseApi> ValidPasarelaRepo(string DefaultKeyEmpresa,string CodigoPlantillaFormaPago)
+        public async Task<ResponseApi> ValidPasarelaRepo(string DefaultKeyEmpresa, string CodigoPlantillaFormaPago)
         {
             ResponseApi responseModel = new ResponseApi();
             PaypalService paypalService = new PaypalService();
 
             //search acount pasarela
             var pasarela = GetItemAccountPaymentsRepo(DefaultKeyEmpresa, CodigoPlantillaFormaPago);
-            if (string.IsNullOrEmpty(pasarela?.CodigoPlantillaFormaPago) || pasarela?.CodigoPlantillaFormaPago == "0")
+            if (string.IsNullOrEmpty(pasarela.CodigoPlantillaFormaPago) || pasarela.CodigoPlantillaFormaPago == "0" || string.IsNullOrEmpty(pasarela.DesFormaPago))
             {
                 responseModel.Message1 = "No tiene una cuenta de pasarela registrada";
                 responseModel.Status = 1;
@@ -61,8 +59,6 @@ namespace AppsfitWebApi.Repository
             }
             return responseModel;
         }
-
-
 
 
         //list pasarela by keyempresa
@@ -106,6 +102,7 @@ namespace AppsfitWebApi.Repository
         }
 
 
+
         //get account payment by code
         public PasarelaEmpresaDTO GetItemAccountPaymentsRepo(string DefaultKeyEmpresa, string CodigoPlantillaFormaPago)
         {
@@ -131,6 +128,105 @@ namespace AppsfitWebApi.Repository
             return oEmpresaDTO;
         }
 
+
+        //register table suscription
+
+        public bool RegisterSuscriptionMembresia(PlanesDTO item)
+        {
+            bool register = false;
+            List<PlanesDTO> list = new List<PlanesDTO>();
+
+            list.Add(new PlanesDTO()
+            {
+                CodigoMembresiasSuscripcion = "0",
+                CodigoUnidadNegocio = item.CodigoUnidadNegocio,
+                CodigoSede = item.CodigoSede,
+                DefaultKeyEmpresa = item.DefaultKeyEmpresa,
+                DefaultKeyUser = item.DefaultKeyUser,
+                CodigoPlantillaFormaPago = item.CodigoPlantillaFormaPago,
+                IdClientePasarela = item.IdClientePasarela,
+                IdSuscripcionPasarela = item.IdSuscripcionPasarela,
+                DataJsonPasarela = item.DataJsonPasarela,
+                CodigoSocio = item.CodigoSocio,
+                NroDocumento = item.NroDocumento,
+                CodigoPaquete = item.CodigoPaquete,
+                UsuarioCreacion = "appsFit",
+                Operation = Operation.RegisterMembSucription,
+            });
+            ReqPlanesDTO oReq = new ReqPlanesDTO()
+            {
+                List = list,
+                User = "app",
+            };
+            RespPlanesDTO oResp = null;
+            using (PlanesLogic oLogic = new PlanesLogic())
+            {
+                oResp = oLogic.ExecuteTransac(oReq);
+            }
+            if (oResp.Success)
+            {
+                register = true;
+            }
+            return register;
+        }
+
+
+
+        //list suscription membresia by defaultkeyuser
+        public List<PlanesDTO> ListMembSuscriptionDefaultKUserRepo(string DefaultKeyUser)
+        {
+            List<PlanesDTO> lista = null;
+            PlanesDTO oPlanDto = new PlanesDTO();
+            oPlanDto.DefaultKeyUser = DefaultKeyUser;
+
+
+            ReqFilterPlanesDTO oReq = new ReqFilterPlanesDTO()
+            {
+                FilterCase = filterCasePlanes.ListMemSuscriptionDkUser,
+                Item = oPlanDto,
+                Paging = new Paging() { All = true, PageRecords = 0 },
+                User = "Admin",
+            };
+
+            RespListPlanesDTO oResp = null;
+            using (PlanesLogic oLogic = new PlanesLogic())
+            {
+                oResp = oLogic.PlanesGetList(oReq);
+            }
+            if (oResp.Success)
+            {
+                lista = new List<PlanesDTO>();
+                lista = oResp.List;
+            }
+            return lista;
+        }
+
+
+
+        //Membresia suscription by idsuscription
+
+        public PlanesDTO getMembresiaSuscriptionByIdSuscription(string idSubscription)
+        {
+            PlanesDTO oDto = new PlanesDTO();
+            oDto.IdSuscripcionPasarela = idSubscription;
+
+            ReqFilterPlanesDTO oReq = new ReqFilterPlanesDTO()
+            {
+                FilterCase = filterCasePlanes.getItemMemSucriptionByIdSucription,
+                Item = oDto,
+                User = "Admin",
+            };
+            RespItemPlanesDTO oResp = null;
+            using (PlanesLogic oLogic = new PlanesLogic())
+            {
+                oResp = oLogic.PlanesGetItem(oReq);
+            }
+            if (oResp.Success)
+            {
+                oDto = oResp.Item;
+            }
+            return oDto;
+        }
 
 
     }

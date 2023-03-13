@@ -59,7 +59,115 @@ namespace AppsfitWebApi.Repository.CulqiServices
                 } 
             }
             return responseModel;
+        } 
+        
+        
+        //create customer
+        public async Task<ResponseApi> CreateCustomerServ(object model ,string token)
+        {
+            //ServicePointManager.Expect100Continue = true;
+            //ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
+            ResponseApi responseModel = new ResponseApi();
+            var client = new HttpClient();
+            var byteData = Encoding.UTF8.GetBytes(JsonConvert.SerializeObject(model));
+
+            using (var content = new ByteArrayContent(byteData))
+            {
+                string Uri = $"{CULQIV2}/customers";
+                content.Headers.ContentType = new MediaTypeHeaderValue("application/json");
+                client.DefaultRequestHeaders.Add("Authorization", $"Bearer {token}");
+                var response = await client.PostAsync(Uri,content);
+
+                var result = await response.Content.ReadAsStringAsync();
+                var resp = JsonConvert.DeserializeObject<ResponseCulqi>(result);
+                if (response.IsSuccessStatusCode)
+                {
+                    responseModel.Success = true;
+                    responseModel.Message1 = resp.id;
+                    responseModel.Message2 = resp.email;
+                }
+                else
+                {
+                    responseModel.Message1 = resp.merchant_message;
+                    responseModel.Message2 = resp.user_message;
+                    responseModel.Success = false;
+                } 
+            }
+            return responseModel;
         }
+
+
+
+         //create card
+        public async Task<ResponseApi> CreateCardServ(object model ,string token)
+        {
+            //ServicePointManager.Expect100Continue = true;
+            //ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
+            ResponseApi responseModel = new ResponseApi();
+            var client = new HttpClient();
+            var byteData = Encoding.UTF8.GetBytes(JsonConvert.SerializeObject(model));
+
+            using (var content = new ByteArrayContent(byteData))
+            {
+                string Uri = $"{CULQIV2}/cards";
+                content.Headers.ContentType = new MediaTypeHeaderValue("application/json");
+                client.DefaultRequestHeaders.Add("Authorization", $"Bearer {token}");
+                var response = await client.PostAsync(Uri,content);
+
+                var result = await response.Content.ReadAsStringAsync();
+                var resp = JsonConvert.DeserializeObject<ResponseCulqi>(result);
+                if (response.IsSuccessStatusCode)
+                {
+                    responseModel.Success = true;
+                    responseModel.Message1 = resp.id;
+                    responseModel.Message2 = resp.email;
+                }
+                else
+                {
+                    responseModel.Message1 = resp.merchant_message;
+                    responseModel.Message2 = resp.user_message;
+                    responseModel.Success = false;
+                } 
+            }
+            return responseModel;
+        }
+
+
+           //create suscription
+        public async Task<ResponseApi> CreateSuscriptionServ(object model ,string token)
+        {
+            //ServicePointManager.Expect100Continue = true;
+            //ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
+            ResponseApi responseModel = new ResponseApi();
+            var client = new HttpClient();
+            var byteData = Encoding.UTF8.GetBytes(JsonConvert.SerializeObject(model));
+
+            using (var content = new ByteArrayContent(byteData))
+            {
+                string Uri = $"{CULQIV2}/subscriptions";
+                content.Headers.ContentType = new MediaTypeHeaderValue("application/json");
+                client.DefaultRequestHeaders.Add("Authorization", $"Bearer {token}");
+                var response = await client.PostAsync(Uri,content);
+
+                var result = await response.Content.ReadAsStringAsync();
+                var resp = JsonConvert.DeserializeObject<ResponseCulqi>(result);
+                if (response.IsSuccessStatusCode)
+                {
+                    responseModel.Success = true;
+                    responseModel.Message1 = resp.id;
+                    responseModel.Message2 = resp.email;
+                }
+                else
+                {
+                    responseModel.Message1 = resp.merchant_message;
+                    responseModel.Message2 = resp.user_message;
+                    responseModel.Success = false;
+                } 
+            }
+            return responseModel;
+        }
+
+
 
         //charge post 
         public async Task<ResponseApi> chargeService(ChargeAPI model, string token)

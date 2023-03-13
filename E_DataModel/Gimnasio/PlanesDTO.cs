@@ -151,6 +151,12 @@ namespace E_DataModel.Gimnasio
         public string DesPasarelaPago { get; set; }
         public string DesSuscripcionPlan { get; set; }
         public bool Suscripcion { get; set; }
+        public string CodigoMembresiasSuscripcion { get; set; }
+        public string IdClientePasarela { get; set; }
+        public string DataJsonPasarela { get; set; }
+        public string NroDocumento { get; set; }
+        public int CodigoMembresia { get; set; }
+        public int CodigoSocio { get; set; }
     }
 	
 	
