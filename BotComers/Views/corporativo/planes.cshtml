@@ -187,7 +187,7 @@
                         <div class="d-flex align-items-center">
                             <div class="custom-control custom-checkbox">
                                 <input type="checkbox" class="custom-control-input" id="chkMarcadorAutomatico">
-                                <label class="custom-control-label tx-18" style="user-select:none;" for="chkMarcadorAutomatico"></label>
+                                <label class="custom-control-label tx-18" style="" for="chkMarcadorAutomatico"></label>
                             </div>
                             <div class="flex">
                                 <strong style="width:100%;">Basics of Social Media xxxxxxxxxxxxxxxxxx</strong>
@@ -294,7 +294,7 @@
 
                         content_modulo.push('<div class="custom-control custom-checkbox">');
                         content_modulo.push('    <input onclick="event_triggerchecked(/' + msg[i].CodigoMenu +'/);"  ' + (msg[i].EstadoMenuPlan ? 'checked' : '') +' type="checkbox" class="custom-control-input" id="chkEstado' + msg[i].CodigoMenu + '">');
-                        content_modulo.push('    <label class="custom-control-label tx-18" style="user-select:none;" for="chkEstado' + msg[i].CodigoMenu + '"><h4 class="card-header__title" style="color:#0075ff;font-size:13px;">' + msg[i].Descripcion + '</h4></label>');
+                        content_modulo.push('    <label class="custom-control-label tx-18" style="" for="chkEstado' + msg[i].CodigoMenu + '"><h4 class="card-header__title" style="color:#0075ff;font-size:13px;">' + msg[i].Descripcion + '</h4></label>');
                         content_modulo.push('<small class="text-muted" style="font-size:11px;" >' + msg[i].CodigoMenu + '</small>');
                         content_modulo.push('</div>');
                        
@@ -308,7 +308,7 @@
                                 
                                 content_modulo.push('<div class="custom-control custom-checkbox">');
                                 content_modulo.push('    <input ' + (msg[s].EstadoMenuPlan ? 'checked' : '') +' type="checkbox" class="custom-control-input" id="chkEstado' + msg[s].CodigoMenu + '">');
-                                content_modulo.push('    <label class="custom-control-label tx-18" style="user-select:none;" for="chkEstado' + msg[s].CodigoMenu + '">');
+                                content_modulo.push('    <label class="custom-control-label tx-18" style="" for="chkEstado' + msg[s].CodigoMenu + '">');
                                 
                                 content_modulo.push('<div class="flex" >');
                                 content_modulo.push('<strong style="font-size:12px;" >' + msg[s].Descripcion + '</strong>');    

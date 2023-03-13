@@ -1340,12 +1340,7 @@ function uspListarPresencial_HorarioClasesConfiguracionChecking() {
         contentType: "application/json; charset=utf-8",
         dataType: "json",
         success: function (msg) {
-            if (msg.length == 0) {
-                document.getElementById('divClasesTiempoReal').style.display = 'none';
-            } else {
-                document.getElementById('divClasesTiempoReal').style.display = '';
-            }
-
+           
             //1. crear lista de encabezados
             var listaEncabezado = []; // new Array();
             var indexPrimeraFila = 0;
@@ -10271,6 +10266,12 @@ function uspListarPresencial_HorarioClasesConfiguracionCalendario(CodigoSala) {
 };
 
 function ListarCalendario(data) {
+    
+    if (data.length == 0) {
+        document.getElementById('divClasesTiempoReal').style.display = 'none';
+    } else {
+        document.getElementById('divClasesTiempoReal').style.display = '';
+    }
 
     var alto = $('#divCalendarioClasesHorario').height();
     alto = window.innerHeight - 120;
